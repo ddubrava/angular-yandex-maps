@@ -8,6 +8,9 @@ import { NgYandexMapComponent } from './ng-yandex-map/ng-yandex-map.component';
   ],
   imports: [
     CommonModule
+  ],
+  exports: [
+    NgYandexMapComponent
   ]
 })
 export class NgYandexMapModule { }
