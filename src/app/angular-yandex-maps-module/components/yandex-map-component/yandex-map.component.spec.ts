@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NgYandexMapComponent } from './ng-yandex-map.component';
+import { YandexMapComponent } from './yandex-map.component';
 
 describe('NgYandexMapComponent', () => {
-  let component: NgYandexMapComponent;
-  let fixture: ComponentFixture<NgYandexMapComponent>;
+  let component: YandexMapComponent;
+  let fixture: ComponentFixture<YandexMapComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NgYandexMapComponent ]
+      declarations: [ YandexMapComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NgYandexMapComponent);
+    fixture = TestBed.createComponent(YandexMapComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

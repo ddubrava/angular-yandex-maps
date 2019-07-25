@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { NgYandexMapModule } from './ng-yandex-map-module/ng-yandex-map.module';
+import { AngularYandexMapsModule } from './angular-yandex-maps-module/angular-yandex-maps.module';
 
 @NgModule({
   declarations: [
@@ -10,7 +10,7 @@ import { NgYandexMapModule } from './ng-yandex-map-module/ng-yandex-map.module';
   ],
   imports: [
     BrowserModule,
-    NgYandexMapModule
+    AngularYandexMapsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

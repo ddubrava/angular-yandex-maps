@@ -4,12 +4,11 @@ import { take } from 'rxjs/operators';
 import { YandexMapModule } from '../../services/yandex-map/yandex-map.type';
 
 @Component({
-  // tslint:disable-next-line: component-selector
-  selector: 'ng-yandex-map',
-  templateUrl: './ng-yandex-map.component.html',
-  styleUrls: ['./ng-yandex-map.component.scss']
+  selector: 'angular-yandex-map',
+  templateUrl: './yandex-map.component.html',
+  styleUrls: ['./yandex-map.component.scss']
 })
-export class NgYandexMapComponent implements OnInit {
+export class YandexMapComponent implements OnInit {
   @Input() public mapState: YandexMapModule.IYandexMapState;
   @Input() public mapOptions: YandexMapModule.IYandexMapOptions;
 
