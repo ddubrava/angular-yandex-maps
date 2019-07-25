@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { YandexMapService } from '../../services/yandex-map/yandex-map.service';
+import { take } from 'rxjs/operators';
 
 @Component({
   // tslint:disable-next-line: component-selector
@@ -7,10 +9,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./ng-yandex-map.component.scss']
 })
 export class NgYandexMapComponent implements OnInit {
+  @Input() public mapOptions: any;
 
-  constructor() { }
+  constructor(private _yandexMapService: YandexMapService) { }
 
-  ngOnInit() {
+  public ngOnInit(): void {
+    this._yandexMapService.initMap('map', this.mapOptions)
+      .pipe(take(1))
+      .subscribe();
   }
-
 }
