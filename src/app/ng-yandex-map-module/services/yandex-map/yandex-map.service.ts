@@ -8,7 +8,7 @@ declare const ymaps: any;
   providedIn: 'root'
 })
 export class YandexMapService implements YandexMapModule.IYandexMapService {
-  private _map$: Subject<any> = new Subject();
+  private _map$: Subject<YandexMapModule.IYandexMap> = new Subject();
   private _scriptYmaps: HTMLScriptElement;
 
   constructor() {}
@@ -19,21 +19,30 @@ export class YandexMapService implements YandexMapModule.IYandexMapService {
     document.body.appendChild(this._scriptYmaps);
   }
 
-  private _createMap(element: string, options: any): void {
+  private _createMap(
+    element: string,
+    state: YandexMapModule.IYandexMapState,
+    options: YandexMapModule.IYandexMapOptions
+  ): void {
     const map = new ymaps.Map(
       element,
+      state,
       options
     );
 
     this._map$.next(map);
   }
 
-  public initMap(element: string, options: any): Subject<any> {
+  public initMap(
+    element: string,
+    state: YandexMapModule.IYandexMapState,
+    options?: YandexMapModule.IYandexMapOptions
+  ): Subject<YandexMapModule.IYandexMap> {
     this._loadScript();
 
     this._scriptYmaps.onload = () => {
       ymaps.ready(() => {
-        this._createMap(element, options);
+        this._createMap(element, state, options);
       });
     };
 
