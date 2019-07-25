@@ -6,5 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'ng-yandex-map';
+  public mapOptions: any = {
+    center: [60.169931, 24.938513],
+    zoom: 13
+  };
 }
