@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+import { YandexMapModule } from './yandex-map.type';
 
 declare const ymaps: any;
 
 @Injectable({
   providedIn: 'root'
 })
-export class YandexMapService {
+export class YandexMapService implements YandexMapModule.IYandexMapService {
   private _map$: Subject<any> = new Subject();
   private _scriptYmaps: HTMLScriptElement;
 
