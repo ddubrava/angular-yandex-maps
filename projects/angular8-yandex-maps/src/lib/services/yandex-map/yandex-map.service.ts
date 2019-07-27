@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { YandexMapModule } from './yandex-map.type';
+import { YandexMapModule } from '../../types/yandex-map.type';
 
 declare const ymaps: any;
 

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { YandexMapService } from '../../services/yandex-map/yandex-map.service';
 import { take } from 'rxjs/operators';
-import { YandexMapModule } from '../../services/yandex-map/yandex-map.type';
+import { YandexMapModule } from '../../types/yandex-map.type';
 
 @Component({
   selector: 'angular-yandex-map',

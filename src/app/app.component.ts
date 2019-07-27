@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { YandexMapModule } from './angular-yandex-maps-module/services/yandex-map/yandex-map.type';
+import { YandexMapModule } from 'projects/angular8-yandex-maps/src/public-api';
 
 @Component({
   selector: 'app-root',
