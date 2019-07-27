@@ -1,8 +1,24 @@
 {
   "name": "angular8-yandex-maps",
   "version": "0.1.0",
-  "peerDependencies": {
-    "@angular/common": "^8.0.3",
-    "@angular/core": "^8.0.3"
-  }
+  "description": "Angular module for Yandex Maps",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ddubrava/angular-yandex-maps.git"
+  },
+  "keywords": [
+    "Angular",
+    "Yandex",
+    "Maps",
+    "YandexMaps",
+    "Яндекс",
+    "Карты",
+    "ЯндексКарты"
+  ],
+  "author": "ddubrava",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ddubrava/angular-yandex-maps/issues"
+  },
+  "homepage": "https://github.com/ddubrava/angular-yandex-maps#readme"
 }
