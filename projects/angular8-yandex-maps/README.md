@@ -1,24 +1,62 @@
-# Angular8YandexMaps
+# Angular8-yandex-maps
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.0.3.
+[Example](https://github.com/ddubrava/angular-yandex-maps/tree/develop/src/app)
 
-## Code scaffolding
+## Установка
 
-Run `ng generate component component-name --project angular8-yandex-maps` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project angular8-yandex-maps`.
-> Note: Don't forget to add `--project angular8-yandex-maps` or else it will be added to the default project in your `angular.json` file. 
 
-## Build
+```bash
+npm install angular8-yandex-maps
+```
 
-Run `ng build angular8-yandex-maps` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Использование
+### module.ts
+```
+import { AngularYandexMapsModule } from 'angular8-yandex-maps';
 
-## Publishing
+@NgModule({
+  imports: [
+    AngularYandexMapsModule.forRoot(API_KEY or null)
+  ]
+})
+```
 
-After building your library with `ng build angular8-yandex-maps`, go to the dist folder `cd dist/angular8-yandex-maps` and run `npm publish`.
+### component.html
+```
+<angular-yandex-map
+  class="yandex-map__map"
+  [mapState]="mapState"
+  [mapOptions]="mapOptions"
+></angular-yandex-map>
+```
 
-## Running unit tests
+### component.scss
+```
+.yandex-map {
+  &__map {
+    width: 1000px;
+    height: 500px;
+  }
+}
+```
 
-Run `ng test angular8-yandex-maps` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### component.ts
+```
+  import { YandexMapModule } from 'angular8-yandex-maps';
 
-## Further help
+  public mapState: YandexMapModule.IYandexMapState = {
+    center: [60.169931, 24.938513],
+    zoom: 13
+  };
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+  public mapOptions: YandexMapModule.IYandexMapOptions = {
+    maxZoom: 15
+  };
+```
+
+## Версия 0.1.0
+- Реализована поддержка карты
+- Реализована поддержка Map.state, Map.options ([Документация](https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Map-docpage/))
+
+## License
+[MIT](https://github.com/ddubrava/angular-yandex-maps/blob/develop/LICENSE.md)

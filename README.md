@@ -1,27 +1,62 @@
-# NgYandexMap
+# Angular8-yandex-maps
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.0.4.
+[Example](https://github.com/ddubrava/angular-yandex-maps/tree/develop/src/app)
 
-## Development server
+## Установка
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
+```bash
+npm install angular8-yandex-maps
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Использование
+### module.ts
+```
+import { AngularYandexMapsModule } from 'angular8-yandex-maps';
 
-## Build
+@NgModule({
+  imports: [
+    AngularYandexMapsModule.forRoot(API_KEY or null)
+  ]
+})
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+### component.html
+```
+<angular-yandex-map
+  class="yandex-map__map"
+  [mapState]="mapState"
+  [mapOptions]="mapOptions"
+></angular-yandex-map>
+```
 
-## Running unit tests
+### component.scss
+```
+.yandex-map {
+  &__map {
+    width: 1000px;
+    height: 500px;
+  }
+}
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### component.ts
+```
+  import { YandexMapModule } from 'angular8-yandex-maps';
 
-## Running end-to-end tests
+  public mapState: YandexMapModule.IYandexMapState = {
+    center: [60.169931, 24.938513],
+    zoom: 13
+  };
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+  public mapOptions: YandexMapModule.IYandexMapOptions = {
+    maxZoom: 15
+  };
+```
 
-## Further help
+## Версия 0.1.0
+- Реализована поддержка карты
+- Реализована поддержка Map.state, Map.options ([Документация](https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Map-docpage/))
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+## License
+[MIT](https://github.com/ddubrava/angular-yandex-maps/blob/develop/LICENSE.md)
