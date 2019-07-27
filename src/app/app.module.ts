@@ -10,7 +10,7 @@ import { AngularYandexMapsModule } from 'projects/angular8-yandex-maps/src/publi
   ],
   imports: [
     BrowserModule,
-    AngularYandexMapsModule
+    AngularYandexMapsModule.forRoot(null)
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { Subject } from 'rxjs';
 import { YandexMapModule } from '../../types/yandex-map.type';
 
@@ -10,12 +10,15 @@ declare const ymaps: any;
 export class YandexMapService implements YandexMapModule.IYandexMapService {
   private _map$: Subject<YandexMapModule.IYandexMap> = new Subject();
   private _scriptYmaps: HTMLScriptElement;
+  private _apiKey: string;
 
-  constructor() {}
+  constructor(private _injector: Injector) {
+    this._apiKey = this._injector.get('API_KEY');
+  }
 
   private _loadScript(): void {
     this._scriptYmaps = document.createElement('script');
-    this._scriptYmaps.src = 'https://api-maps.yandex.ru/2.1/?lang=ru_RU';
+    this._scriptYmaps.src = `https://api-maps.yandex.ru/2.1/?apikey=${this._apiKey}&lang=ru_RU`;
     document.body.appendChild(this._scriptYmaps);
   }
 
