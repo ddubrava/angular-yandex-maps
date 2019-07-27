@@ -119,6 +119,41 @@
           }
         }
       }
+    },
+    "angular8-yandex-maps": {
+      "projectType": "library",
+      "root": "projects/angular8-yandex-maps",
+      "sourceRoot": "projects/angular8-yandex-maps/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/angular8-yandex-maps/tsconfig.lib.json",
+            "project": "projects/angular8-yandex-maps/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/angular8-yandex-maps/src/test.ts",
+            "tsConfig": "projects/angular8-yandex-maps/tsconfig.spec.json",
+            "karmaConfig": "projects/angular8-yandex-maps/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/angular8-yandex-maps/tsconfig.lib.json",
+              "projects/angular8-yandex-maps/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }},
   "defaultProject": "angular-yandex-maps"
 }
