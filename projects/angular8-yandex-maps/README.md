@@ -54,7 +54,7 @@ import { AngularYandexMapsModule } from 'angular8-yandex-maps';
   };
 ```
 
-## Версия 0.1.0
+## Версия 0.1.1
 - Реализована поддержка карты
 - Реализована поддержка Map.state, Map.options ([Документация](https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Map-docpage/))
 
