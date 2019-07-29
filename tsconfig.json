@@ -9,8 +9,6 @@
     "module": "esnext",
     "moduleResolution": "node",
     "experimentalDecorators": true,
-    "module": "esnext",
-    "moduleResolution": "node",
     "importHelpers": true,
     "target": "es2015",
     "typeRoots": [
@@ -19,6 +17,14 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "angular8-yandex-maps": [
+        "dist/angular8-yandex-maps"
+      ],
+      "angular8-yandex-maps/*": [
+        "dist/angular8-yandex-maps/*"
+      ]
+    }
   }
 }

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { YandexMapModule } from 'projects/angular8-yandex-maps/src/public-api';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'ng-yandex-map';
+  public mapState: YandexMapModule.IYandexMapState = {
+    center: [60.169931, 24.938513],
+    zoom: 13
+  };
+
+  public mapOptions: YandexMapModule.IYandexMapOptions = {
+    maxZoom: 15
+  };
 }
