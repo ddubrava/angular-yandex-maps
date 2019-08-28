@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { YandexMapService } from '../../services/yandex-map/yandex-map.service';
 import { take } from 'rxjs/operators';
 import { YandexMapModule } from '../../types/yandex-map.type';
@@ -9,13 +9,18 @@ import { YandexMapModule } from '../../types/yandex-map.type';
   styleUrls: ['./yandex-map.component.scss']
 })
 export class YandexMapComponent implements OnInit {
+  @ViewChild('mapContainer', { static: true }) public mapContainer: ElementRef;
+
   @Input() public mapState: YandexMapModule.IYandexMapState;
   @Input() public mapOptions: YandexMapModule.IYandexMapOptions;
 
   constructor(private _yandexMapService: YandexMapService) { }
 
   public ngOnInit(): void {
-    this._yandexMapService.initMap('map', this.mapState, this.mapOptions)
+    const uniqueMapId = `f${(~~(Math.random() * 1e8)).toString(16)}`;
+
+    this.mapContainer.nativeElement.setAttribute('id', uniqueMapId);
+    this._yandexMapService.initMap(uniqueMapId, this.mapState, this.mapOptions)
       .pipe(take(1))
       .subscribe();
   }
