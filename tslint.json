@@ -7,6 +7,9 @@
       ]
     },
     "function-name": [false],
-    "trailing-comma": [false]
+    "trailing-comma": [false],
+    "prefer-array-literal": [true, { "allow-type-parameters": true }],
+    "max-line-length": [true, 140],
+    "no-increment-decrement": false
   }
 }
