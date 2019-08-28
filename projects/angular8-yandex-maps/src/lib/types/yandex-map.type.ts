@@ -2,7 +2,7 @@ import { Subject } from 'rxjs';
 
 export namespace YandexMapModule {
   export interface IYandexMapService {
-    initMap(element: string, state: IYandexMapState, options: IYandexMapOptions): Subject<any>;
+    initMap(): Subject<YandexMapModule.IYandexMap>;
   }
 
   export interface IYandexMap {

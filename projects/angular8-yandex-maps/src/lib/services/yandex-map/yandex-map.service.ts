@@ -11,21 +11,21 @@ export class YandexMapService implements YandexMapModule.IYandexMapService {
   private _map$: Subject<YandexMapModule.IYandexMap> = new Subject();
   private _scriptYmaps: HTMLScriptElement;
   private _apiKey: string;
+  private _isScriptInited: boolean;
 
   constructor(private _injector: Injector) {
     this._apiKey = this._injector.get('API_KEY');
   }
 
-  public initMap(
-    mapId: string,
-    state: YandexMapModule.IYandexMapState,
-    options?: YandexMapModule.IYandexMapOptions
-  ): Subject<YandexMapModule.IYandexMap> {
-    this._loadScript();
+  public initMap(): Subject<YandexMapModule.IYandexMap> {
+    if (!this._isScriptInited) {
+      this._isScriptInited = true;
+      this._loadScript();
+    }
 
     this._scriptYmaps.onload = () => {
       ymaps.ready(() => {
-        this._createMap(mapId, state, options);
+        this._map$.next();
       });
     };
 
@@ -38,17 +38,12 @@ export class YandexMapService implements YandexMapModule.IYandexMapService {
     document.body.appendChild(this._scriptYmaps);
   }
 
-  private _createMap(
+  public createMap(
     mapId: string,
     state: YandexMapModule.IYandexMapState,
     options: YandexMapModule.IYandexMapOptions
   ): void {
-    const map = new ymaps.Map(
-      mapId,
-      state,
-      options
-    );
-
+    const map = new ymaps.Map(mapId, state, options);
     this._map$.next(map);
   }
 }

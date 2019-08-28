@@ -20,8 +20,10 @@ export class YandexMapComponent implements OnInit {
     const uniqueMapId = `f${(~~(Math.random() * 1e8)).toString(16)}`;
 
     this.mapContainer.nativeElement.setAttribute('id', uniqueMapId);
-    this._yandexMapService.initMap(uniqueMapId, this.mapState, this.mapOptions)
+    this._yandexMapService.initMap()
       .pipe(take(1))
-      .subscribe();
+      .subscribe(() => {
+        this._yandexMapService.createMap(uniqueMapId, this.mapState, this.mapOptions)
+      });
   }
 }
