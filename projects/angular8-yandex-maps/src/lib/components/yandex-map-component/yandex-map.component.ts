@@ -13,13 +13,17 @@ export class YandexMapComponent implements OnInit {
   @ViewChild('mapContainer', { static: true }) public mapContainer: ElementRef;
   @ContentChildren(YandexPlacemarkComponent) placemarks: QueryList<YandexPlacemarkComponent>;
 
-  @Input() public mapState: YandexMapModule.IYandexMapState;
-  @Input() public mapOptions: YandexMapModule.IYandexMapOptions;
+  @Input() public center: Array<number>;
+  @Input() public zoom: number;
+  @Input() public mapState: YandexMapModule.IYandexMapState = {};
+  @Input() public mapOptions: YandexMapModule.IYandexMapOptions = {};
 
   constructor(private _yandexMapService: YandexMapService) { }
 
   public ngOnInit(): void {
     const uniqueMapId = `f${(~~(Math.random() * 1e8)).toString(16)}`;
+    this.mapState.zoom = this.zoom;
+    this.mapState.center = this.center;
 
     this.mapContainer.nativeElement.setAttribute('id', uniqueMapId);
     this._yandexMapService.initMap()
