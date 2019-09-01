@@ -7,5 +7,7 @@ import { YandexMapModule } from 'projects/angular8-yandex-maps/src/public-api';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-
+  public mapOptions: YandexMapModule.IYandexMapOptions = {
+    maxZoom: 12
+  };
 }
