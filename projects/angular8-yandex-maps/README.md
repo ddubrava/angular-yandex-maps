@@ -39,7 +39,6 @@ import { AngularYandexMapsModule } from 'angular8-yandex-maps';
   width: 1000px;
   height: 500px;
 }
-
 ```
 
 ### component.ts
@@ -65,8 +64,8 @@ Available inputs:
 
  - center: Array<number>
  - zoom: number
- - mapState: [Interface](%5BMap%5D%28https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Map-docpage/%29)
- - mapOptions: [Interface](%5BMap%5D%28https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Map-docpage/%29)
+ - mapState: [Interface](https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Map-docpage/)
+ - mapOptions: [Interface](https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Map-docpage/)
 
 ```
 <angular-yandex-map [center]="[60.169931, 24.938513]" [zoom]="12" [mapOptions]="mapOptions" [mapState]="{margin: 20}"></angular-yandex-map>
