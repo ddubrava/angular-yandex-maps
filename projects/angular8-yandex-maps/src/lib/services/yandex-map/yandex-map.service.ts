@@ -8,12 +8,29 @@ declare const ymaps: any;
   providedIn: 'root'
 })
 export class YandexMapService implements YandexMapModule.IYandexMapService {
-  private _map$: Subject<YandexMapModule.IYandexMap> = new Subject();
+  private _isMapInited$: Subject<boolean> = new Subject();
   private _scriptYmaps: HTMLScriptElement;
   private _apiKey: string;
+  private _isScriptInited: boolean;
+  private _map: YandexMapModule.IYandexMap;
 
   constructor(private _injector: Injector) {
     this._apiKey = this._injector.get('API_KEY');
+  }
+
+  public initMap(): Subject<boolean> {
+    if (!this._isScriptInited) {
+      this._isScriptInited = true;
+      this._loadScript();
+    }
+
+    this._scriptYmaps.onload = () => {
+      ymaps.ready(() => {
+        this._isMapInited$.next(true);
+      });
+    };
+
+    return this._isMapInited$;
   }
 
   private _loadScript(): void {
@@ -22,33 +39,12 @@ export class YandexMapService implements YandexMapModule.IYandexMapService {
     document.body.appendChild(this._scriptYmaps);
   }
 
-  private _createMap(
-    element: string,
-    state: YandexMapModule.IYandexMapState,
-    options: YandexMapModule.IYandexMapOptions
-  ): void {
-    const map = new ymaps.Map(
-      element,
-      state,
-      options
-    );
-
-    this._map$.next(map);
+  public createMap(mapId: string, state: YandexMapModule.IYandexMapState, options: YandexMapModule.IYandexMapOptions): void {
+    this._map = new ymaps.Map(mapId, state, options);
   }
 
-  public initMap(
-    element: string,
-    state: YandexMapModule.IYandexMapState,
-    options?: YandexMapModule.IYandexMapOptions
-  ): Subject<YandexMapModule.IYandexMap> {
-    this._loadScript();
-
-    this._scriptYmaps.onload = () => {
-      ymaps.ready(() => {
-        this._createMap(element, state, options);
-      });
-    };
-
-    return this._map$;
+  public createPlacemark(geometry: Array<number>): void {
+    this._map.geoObjects
+      .add(new ymaps.Placemark(geometry));
   }
 }

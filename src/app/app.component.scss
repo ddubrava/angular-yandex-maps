@@ -1,11 +1,4 @@
-.yandex-map {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100vh;
-  &__map {
-    width: 1000px;
-    height: 500px;
-  }
+.map {
+  width: 1000px;
+  height: 500px;
 }
