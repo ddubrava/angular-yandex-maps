@@ -1,12 +1,4 @@
-import { Subject } from 'rxjs';
-
 export namespace YandexMapModule {
-  export interface IYandexMapService {
-    initMap(): Subject<boolean>;
-    createMap(mapId: string, state: YandexMapModule.IYandexMapState, options: YandexMapModule.IYandexMapOptions): void;
-    createPlacemark(geometry: Array<number>): void;
-  }
-
   export interface IYandexMap {
     action: any;
     balloon: any;
@@ -78,5 +70,30 @@ export namespace YandexMapModule {
     suppressObsoleteBrowserNotifier?: boolean;
     yandexMapAutoSwitch?: boolean;
     yandexMapDisablePoiInteractivity?: boolean;
+  }
+
+  export interface IPlacemarkOptions {
+    cursor?: string;
+    draggable?: boolean;
+    hasBalloon?: boolean;
+    hasHint?: boolean;
+    hideIconOnBalloonOpen?: boolean;
+    iconOffset?: number[];
+    iconShape?: any;
+    interactiveZIndex?: boolean;
+    interactivityModel?: string;
+    openBalloonOnClick?: boolean;
+    openEmptyBalloon?: boolean;
+    openEmptyHint?: boolean;
+    openHintOnHover?: boolean;
+    pane?: string;
+    pointOverlay?: string;
+    syncOverlayInit?: boolean;
+    useMapMarginInDragging?: boolean;
+    visible?: boolean;
+    zIndex?: number;
+    zIndexActive?: number;
+    zIndexDrag?: number;
+    zIndexHover?: number;
   }
 }
