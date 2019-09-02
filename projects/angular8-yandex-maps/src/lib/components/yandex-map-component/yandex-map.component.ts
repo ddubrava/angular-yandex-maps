@@ -32,12 +32,12 @@ export class YandexMapComponent implements OnInit {
         this._yandexMapService.createMap(uniqueMapId, this.mapState, this.mapOptions);
 
         this.placemarks.forEach((placemark) => {
-          this._setPlacemarks(placemark.geometry);
+          this._setPlacemarks(placemark.geometry, placemark.placemarkProperties, placemark.placemarkOptions);
         });
       });
   }
 
-  private _setPlacemarks(geometry: Array<number>): void {
-    this._yandexMapService.createPlacemark(geometry);
+  private _setPlacemarks(geometry: any, properties?: any, options?: YandexMapModule.IPlacemarkOptions): void {
+    this._yandexMapService.createPlacemark(geometry, properties, options);
   }
 }
