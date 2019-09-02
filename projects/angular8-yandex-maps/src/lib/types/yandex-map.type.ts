@@ -1,12 +1,4 @@
-import { Subject } from 'rxjs';
-
 export namespace YandexMapModule {
-  export interface IYandexMapService {
-    initMap(): Subject<boolean>;
-    createMap(mapId: string, state: YandexMapModule.IYandexMapState, options: YandexMapModule.IYandexMapOptions): void;
-    createPlacemark(geometry: Array<number>): void;
-  }
-
   export interface IYandexMap {
     action: any;
     balloon: any;
