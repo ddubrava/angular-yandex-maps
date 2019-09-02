@@ -71,4 +71,29 @@ export namespace YandexMapModule {
     yandexMapAutoSwitch?: boolean;
     yandexMapDisablePoiInteractivity?: boolean;
   }
+
+  export interface IPlacemarkOptions {
+    cursor?: string;
+    draggable?: boolean;
+    hasBalloon?: boolean;
+    hasHint?: boolean;
+    hideIconOnBalloonOpen?: boolean;
+    iconOffset?: number[];
+    iconShape?: any;
+    interactiveZIndex?: boolean;
+    interactivityModel?: string;
+    openBalloonOnClick?: boolean;
+    openEmptyBalloon?: boolean;
+    openEmptyHint?: boolean;
+    openHintOnHover?: boolean;
+    pane?: string;
+    pointOverlay?: string;
+    syncOverlayInit?: boolean;
+    useMapMarginInDragging?: boolean;
+    visible?: boolean;
+    zIndex?: number;
+    zIndexActive?: number;
+    zIndexDrag?: number;
+    zIndexHover?: number;
+  }
 }
