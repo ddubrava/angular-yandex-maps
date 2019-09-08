@@ -48,4 +48,9 @@ export class YandexMapService implements IYandexMapService {
     this._map.geoObjects
       .add(new ymaps.Placemark(geometry, properties, options));
   }
+
+  public createMultiroute(model: any, options: any): void {
+    this._map.geoObjects
+      .add(new ymaps.multiRouter.MultiRoute(model, options));
+  }
 }
