@@ -55,7 +55,7 @@ export class YandexMapComponent implements OnInit {
         this._yandexMapService.createMap(this._uniqueMapId, this.mapState, this.mapOptions);
 
         this.placemarks.forEach((placemark) => {
-          this._setPlacemarks(placemark.geometry, placemark.placemarkProperties, placemark.placemarkOptions);
+          this._setPlacemarks(placemark);
         });
 
         this.multiroutes.forEach((multiroute) => {
@@ -64,8 +64,8 @@ export class YandexMapComponent implements OnInit {
       });
   }
 
-  private _setPlacemarks(geometry: any, properties?: any, options?: YandexMapModule.IPlacemarkOptions): void {
-    this._yandexMapService.createPlacemark(geometry, properties, options);
+  private _setPlacemarks(placemark: YandexPlacemarkComponent): void {
+    this._yandexMapService.createPlacemark(placemark.geometry, placemark.placemarkProperties, placemark.placemarkOptions);
   }
 
   private _createMultiroute(multiroute: YandexMultirouteComponent): void {
