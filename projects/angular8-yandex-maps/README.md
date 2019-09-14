@@ -91,7 +91,7 @@ public options: YandexMapModule.IYandexMapOptions;
 public options: YandexMapModule.IPlacemarkOptions;
 ```
 
-## Version 0.4.0
+## Version 1.0.0
 
 - Multiroute
 - New examples in README
