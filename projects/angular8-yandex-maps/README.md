@@ -2,7 +2,7 @@
 # Angular8-yandex-maps
 
 - [Map with custom placemark](https://stackblitz.com/edit/custom-placemark "Custom placemark")
-- [Custom multiroute](https://stackblitz.com/edit/multiroute "Custom multiroute")
+- [Custom multiroute (need API key)](https://stackblitz.com/edit/multiroute "Custom multiroute")
 
 ## Installation
 
