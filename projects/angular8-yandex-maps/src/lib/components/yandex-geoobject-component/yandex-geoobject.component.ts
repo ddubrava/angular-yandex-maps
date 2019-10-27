@@ -6,8 +6,8 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./yandex-geoobject.component.scss']
 })
 export class YandexGeoobjectComponent implements OnInit {
-  @Input() public geoObjectFeature: any;
-  @Input() public geoObjectOptions: any;
+  @Input() public feature: any;
+  @Input() public options: any;
 
   constructor() {}
   public ngOnInit(): void {}

@@ -93,6 +93,6 @@ export class YandexMapComponent implements OnInit {
   }
 
   private _createGeoObject(geoObject: YandexGeoobjectComponent): void {
-    this._yandexMapService.createGeoObject(geoObject.geoObjectFeature, geoObject.geoObjectOptions);
+    this._yandexMapService.createGeoObject(geoObject.feature, geoObject.options);
   }
 }
