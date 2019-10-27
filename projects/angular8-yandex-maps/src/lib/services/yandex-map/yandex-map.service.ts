@@ -1,6 +1,5 @@
 import { Injectable, Injector } from '@angular/core';
 import { Subject } from 'rxjs';
-import { YandexMapModule } from '../../types/yandex-map.type';
 import { IYandexMapService } from '../../types/yandex-service.type';
 
 declare const ymaps: any;
@@ -13,7 +12,7 @@ export class YandexMapService implements IYandexMapService {
   private _scriptYmaps: HTMLScriptElement;
   private _apiKey: string;
   private _isScriptInited: boolean;
-  private _map: YandexMapModule.IYandexMap;
+  private _map: any;
 
   constructor(private _injector: Injector) {
     this._apiKey = this._injector.get('API_KEY');
@@ -40,11 +39,11 @@ export class YandexMapService implements IYandexMapService {
     document.body.appendChild(this._scriptYmaps);
   }
 
-  public createMap(mapId: string, state: YandexMapModule.IYandexMapState, options: YandexMapModule.IYandexMapOptions): void {
+  public createMap(mapId: string, state: any, options: any): void {
     this._map = new ymaps.Map(mapId, state, options);
   }
 
-  public createPlacemark(geometry: any, properties: any = {}, options: YandexMapModule.IPlacemarkOptions = {}): void {
+  public createPlacemark(geometry: any, properties: any = {}, options: any = {}): void {
     this._map.geoObjects
       .add(new ymaps.Placemark(geometry, properties, options));
   }

@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, ContentChildren, QueryList } from '@angular/core';
 import { YandexMapService } from '../../services/yandex-map/yandex-map.service';
 import { take } from 'rxjs/operators';
-import { YandexMapModule } from '../../types/yandex-map.type';
 import { YandexPlacemarkComponent } from '../yandex-placemark-component/yandex-placemark.component';
 import { YandexMultirouteComponent } from '../yandex-multiroute-component/yandex-multiroute.component';
 import { YandexGeoobjectComponent } from '../yandex-geoobject-component/yandex-geoobject.component';
@@ -19,8 +18,8 @@ export class YandexMapComponent implements OnInit {
 
   @Input() public center: Array<number>;
   @Input() public zoom: number;
-  @Input() public mapState: YandexMapModule.IYandexMapState = {};
-  @Input() public mapOptions: YandexMapModule.IYandexMapOptions = {};
+  @Input() public mapState: any = {};
+  @Input() public mapOptions: any = {};
 
   private _uniqueMapId: string;
 
