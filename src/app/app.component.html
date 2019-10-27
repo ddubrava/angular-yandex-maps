@@ -2,6 +2,6 @@
   <angular-yandex-map [center]="[60.167987, 24.942206]" [zoom]="13">
     <angular-yandex-placemark [geometry]="[60.167987, 24.942206]"></angular-yandex-placemark>
     <angular-yandex-multiroute [referencePoints]="[[60.181711, 24.927661], [60.192038, 24.952707]]"></angular-yandex-multiroute>
-    <angular-yandex-geoobject [feature]="geoObjectFeature"></angular-yandex-geoobject>
+    <angular-yandex-geoobject [feature]="{ geometry: { type: 'Rectangle', coordinates: [[60.183155, 24.911892], [60.156454, 24.962433]] } }"></angular-yandex-geoobject>
   </angular-yandex-map>
 </div>
