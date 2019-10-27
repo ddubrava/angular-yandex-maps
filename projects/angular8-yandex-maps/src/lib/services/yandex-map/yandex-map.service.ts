@@ -57,4 +57,13 @@ export class YandexMapService implements IYandexMapService {
     this._map.geoObjects
       .add(new ymaps.GeoObject(feature, options));
   }
+
+  public addSearchControl(request: string, properties: any): void {
+    const searchControl = new ymaps.control.SearchControl(properties);
+
+    this._map.controls
+      .add(searchControl);
+
+    if (request) searchControl.search(request);
+  }
 }

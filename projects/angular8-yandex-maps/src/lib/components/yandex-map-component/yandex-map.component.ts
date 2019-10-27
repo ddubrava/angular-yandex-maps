@@ -4,6 +4,7 @@ import { take } from 'rxjs/operators';
 import { YandexPlacemarkComponent } from '../yandex-placemark-component/yandex-placemark.component';
 import { YandexMultirouteComponent } from '../yandex-multiroute-component/yandex-multiroute.component';
 import { YandexGeoobjectComponent } from '../yandex-geoobject-component/yandex-geoobject.component';
+import { YandexSearchComponent } from '../yandex-search-component/yandex-search.component';
 
 @Component({
   selector: 'angular-yandex-map',
@@ -15,6 +16,7 @@ export class YandexMapComponent implements OnInit {
   @ContentChildren(YandexPlacemarkComponent) placemarks: QueryList<YandexPlacemarkComponent>;
   @ContentChildren(YandexMultirouteComponent) multiroutes: QueryList<YandexMultirouteComponent>;
   @ContentChildren(YandexGeoobjectComponent) geoObjects: QueryList<YandexGeoobjectComponent>;
+  @ContentChildren(YandexSearchComponent) searchControl: QueryList<YandexSearchComponent>;
 
   @Input() public center: Array<number> = [];
   @Input() public zoom: number = 10;
@@ -79,10 +81,12 @@ export class YandexMapComponent implements OnInit {
     this.geoObjects.forEach((geoObject) => {
       this._createGeoObject(geoObject);
     });
+
+    if (this.searchControl.first) this._addSearchControl(this.searchControl.first);
   }
 
   /**
-   * Add objects with params in map.geoObjects
+   * Add objects, controls on map
    */
   private _setPlacemarks(placemark: YandexPlacemarkComponent): void {
     this._yandexMapService.createPlacemark(placemark.geometry, placemark.placemarkProperties, placemark.placemarkOptions);
@@ -94,5 +98,9 @@ export class YandexMapComponent implements OnInit {
 
   private _createGeoObject(geoObject: YandexGeoobjectComponent): void {
     this._yandexMapService.createGeoObject(geoObject.feature, geoObject.options);
+  }
+
+  private _addSearchControl(search: YandexSearchComponent): void {
+    this._yandexMapService.addSearchControl(search.searchRequest, search.parameters);
   }
 }

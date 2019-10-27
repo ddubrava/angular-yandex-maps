@@ -5,13 +5,15 @@ import { ModuleWithProviders } from '@angular/compiler/src/core';
 import { YandexPlacemarkComponent } from './components/yandex-placemark-component/yandex-placemark.component';
 import { YandexMultirouteComponent } from './components/yandex-multiroute-component/yandex-multiroute.component';
 import { YandexGeoobjectComponent } from './components/yandex-geoobject-component/yandex-geoobject.component';
+import { YandexSearchComponent } from './components/yandex-search-component/yandex-search.component';
 
 @NgModule({
   declarations: [
     YandexMapComponent,
     YandexPlacemarkComponent,
     YandexMultirouteComponent,
-    YandexGeoobjectComponent
+    YandexGeoobjectComponent,
+    YandexSearchComponent
   ],
   imports: [
     CommonModule
@@ -20,7 +22,8 @@ import { YandexGeoobjectComponent } from './components/yandex-geoobject-componen
     YandexMapComponent,
     YandexPlacemarkComponent,
     YandexMultirouteComponent,
-    YandexGeoobjectComponent
+    YandexGeoobjectComponent,
+    YandexSearchComponent
   ]
 })
 
