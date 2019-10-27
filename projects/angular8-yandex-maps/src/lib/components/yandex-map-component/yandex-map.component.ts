@@ -30,18 +30,6 @@ export class YandexMapComponent implements OnInit {
     this._createMapWithObjects();
   }
 
-  private _combineInputs(): void {
-    // Map
-    this.mapState.zoom = this.zoom;
-    this.mapState.center = this.center;
-
-    // Multiroute
-    this.multiroutes.forEach((multiroute) => {
-      if (!multiroute.multirouteModel) multiroute.multirouteModel = {};
-      multiroute.multirouteModel.referencePoints = multiroute.referencePoints;
-    });
-  }
-
   private _setUniqueMapIdOfMap(): void {
     this._uniqueMapId = `f${(~~(Math.random() * 1e8)).toString(16)}`;
     this.mapContainer.nativeElement.setAttribute('id', this._uniqueMapId);
@@ -54,21 +42,42 @@ export class YandexMapComponent implements OnInit {
         this._combineInputs();
 
         this._yandexMapService.createMap(this._uniqueMapId, this.mapState, this.mapOptions);
-
-        this.placemarks.forEach((placemark) => {
-          this._setPlacemarks(placemark);
-        });
-
-        this.multiroutes.forEach((multiroute) => {
-          this._createMultiroute(multiroute);
-        });
-
-        this.geoObjects.forEach((geoObject) => {
-          this._createGeoObject(geoObject);
-        });
+        this._addObjectsOnMap();
       });
   }
 
+  /**
+   * Combine separated inputs in objects required for API
+   */
+  private _combineInputs(): void {
+    // Map
+    this.mapState.zoom = this.zoom;
+    this.mapState.center = this.center;
+
+    // Multiroute
+    this.multiroutes.forEach((multiroute) => {
+      if (!multiroute.multirouteModel) multiroute.multirouteModel = {};
+      multiroute.multirouteModel.referencePoints = multiroute.referencePoints;
+    });
+  }
+
+  private _addObjectsOnMap(): void {
+    this.placemarks.forEach((placemark) => {
+      this._setPlacemarks(placemark);
+    });
+
+    this.multiroutes.forEach((multiroute) => {
+      this._createMultiroute(multiroute);
+    });
+
+    this.geoObjects.forEach((geoObject) => {
+      this._createGeoObject(geoObject);
+    });
+  }
+
+  /**
+   * Add objects with params in map.geoObjects
+   */
   private _setPlacemarks(placemark: YandexPlacemarkComponent): void {
     this._yandexMapService.createPlacemark(placemark.geometry, placemark.placemarkProperties, placemark.placemarkOptions);
   }
