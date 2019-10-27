@@ -1,6 +1,6 @@
 import { Injectable, Injector } from '@angular/core';
 import { Subject } from 'rxjs';
-import { IYandexMapService } from '../../types/yandex-service.type';
+import { IYandexMapService } from './yandex-service.type';
 
 declare const ymaps: any;
 
