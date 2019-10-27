@@ -18,10 +18,10 @@ export class YandexMapComponent implements OnInit {
   @ContentChildren(YandexGeoobjectComponent) geoObjects: QueryList<YandexGeoobjectComponent>;
   @ContentChildren(YandexSearchComponent) searchControl: QueryList<YandexSearchComponent>;
 
-  @Input() public center: Array<number> = [];
+  @Input() public center: Array<number>;
   @Input() public zoom: number = 10;
   @Input() public mapState: any = {};
-  @Input() public mapOptions: any;
+  @Input() public mapOptions: any = {};
 
   private _uniqueMapId: string;
 
@@ -35,7 +35,10 @@ export class YandexMapComponent implements OnInit {
   }
 
   private _logErrors(): void {
-    if (!this.center.length) console.error('Map: center is required');
+    if (!this.center) {
+      console.error('Map: center input is required.');
+      this.center = [];
+    }
   }
 
   private _setUniqueMapIdOfMap(): void {

@@ -10,12 +10,5 @@ export class YandexSearchComponent implements OnInit {
   @Input() public parameters: any;
 
   constructor() {}
-
-  public ngOnInit(): void {
-    this._logErrors();
-  }
-
-  private _logErrors(): void {
-    if (!this.searchRequest) console.error('Search: searchRequest is required');
-  }
+  public ngOnInit(): void {}
 }

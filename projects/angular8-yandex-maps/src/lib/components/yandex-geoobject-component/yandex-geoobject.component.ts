@@ -10,5 +10,15 @@ export class YandexGeoobjectComponent implements OnInit {
   @Input() public options: any;
 
   constructor() {}
-  public ngOnInit(): void {}
+
+  public ngOnInit(): void {
+    this._logErrors();
+  }
+
+  private _logErrors(): void {
+    if (!this.feature) {
+      console.error('GeoObjects: feature input is required.');
+      this.feature = {};
+    }
+  }
 }

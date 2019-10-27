@@ -6,7 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./yandex-placemark.component.scss']
 })
 export class YandexPlacemarkComponent implements OnInit {
-  @Input() public geometry: any = [];
+  @Input() public geometry: any;
   @Input() public placemarkProperties: any;
   @Input() public placemarkOptions: any;
 
@@ -17,6 +17,9 @@ export class YandexPlacemarkComponent implements OnInit {
   }
 
   private _logErrors(): void {
-    if (!this.geometry.length) console.error('Placemark: geometry is required');
+    if (!this.geometry) {
+      console.error('Placemark: geometry input is required.');
+      this.geometry = [];
+    }
   }
 }
