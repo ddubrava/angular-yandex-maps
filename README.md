@@ -1,12 +1,9 @@
 
 # Angular8-yandex-maps
-
-Angular 2+ module for Yandex.Maps
-
 ## Examples
 
 - [Custom placemark](https://stackblitz.com/edit/custom-placemark)
-- [Multiroute (need API key)](https://stackblitz.com/edit/multiroute)
+- [Multiroute](https://stackblitz.com/edit/multiroute)
 - [Rectangle](https://stackblitz.com/edit/rectangle)
 - [Polygon](https://stackblitz.com/edit/geoobject-polygon)
 - [Circle](https://stackblitz.com/edit/geoobject-circle)
