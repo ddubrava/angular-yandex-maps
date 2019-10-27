@@ -16,18 +16,24 @@ export class YandexMapComponent implements OnInit {
   @ContentChildren(YandexMultirouteComponent) multiroutes: QueryList<YandexMultirouteComponent>;
   @ContentChildren(YandexGeoobjectComponent) geoObjects: QueryList<YandexGeoobjectComponent>;
 
-  @Input() public center: Array<number>;
-  @Input() public zoom: number;
+  @Input() public center: Array<number> = [];
+  @Input() public zoom: number = 10;
   @Input() public mapState: any = {};
-  @Input() public mapOptions: any = {};
+  @Input() public mapOptions: any;
 
   private _uniqueMapId: string;
 
   constructor(private _yandexMapService: YandexMapService) { }
 
   public ngOnInit(): void {
+    this._logErrors();
+
     this._setUniqueMapIdOfMap();
     this._createMapWithObjects();
+  }
+
+  private _logErrors(): void {
+    if (!this.center.length) console.error('Map: center is required');
   }
 
   private _setUniqueMapIdOfMap(): void {
