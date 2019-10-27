@@ -1,8 +1,14 @@
 
 # Angular8-yandex-maps
 
-- [Map with custom placemark](https://stackblitz.com/edit/custom-placemark "Custom placemark")
-- [Custom multiroute (need API key)](https://stackblitz.com/edit/multiroute "Custom multiroute")
+Angular 2+ module for Yandex.Maps
+
+## Examples
+
+- [Map with custom placemark](https://stackblitz.com/edit/custom-placemark)
+- [Custom multiroute (need API key)](https://stackblitz.com/edit/multiroute)
+- [Rectangle](https://stackblitz.com/edit/rectangle)
+- [Polygon](https://stackblitz.com/edit/geoobject-polygon)
 
 ## Installation
 
@@ -45,9 +51,9 @@ Available inputs:
 
 Required:
  - center: Number[]
- - zoom: Number
 
 Optional:
+ - zoom: Number; default = 10
  - mapState: [Interface](https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Map-docpage/#Map__param-state)
  - mapOptions: [Interface](https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Map-docpage/#Map__param-options)
 
@@ -78,24 +84,25 @@ Optional:
 - multirouteModel: [multiRouter.MultiRouteModel](https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/multiRouter.MultiRouteModel-docpage/ "multiRouter.MultiRouteModel") | [IMultiRouteModelJson](https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/IMultiRouteModelJson-docpage/ "IMultiRouteModelJson")
 
 ```
-    <angular-yandex-multiroute [referencePoints]="[[60.181711, 24.927661], 'helsinki']" [multirouteOptions]="{routeActiveStrokeColor: 'ff0000'}"></angular-yandex-multiroute>
+<angular-yandex-multiroute [referencePoints]="[[60.181711, 24.927661], 'helsinki']" [multirouteOptions]="{routeActiveStrokeColor: 'ff0000'}"></angular-yandex-multiroute>
 ```
 
-## Types
-You can import YandexMapModule types and use interfaces for Map & Placemark.
-They are not full and may contain errors, report about them to issues, please.
+## GeoObject
+Available inputs:
+
+Required:
+- feature: [Interface](https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/GeoObject-docpage/#GeoObject__param-feature)
+
+Optional:
+- options: [Interface](https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/GeoObject-docpage/#GeoObject__param-options)
+
 ```
-import { YandexMapModule } from 'angular8-yandex-maps/public-api';
-
-public options: YandexMapModule.IYandexMapOptions;
-public options: YandexMapModule.IPlacemarkOptions;
+<angular-yandex-geoobject [feature]="{ geometry: { type: 'Rectangle', coordinates: [[60.183155, 24.911892], [60.156454, 24.962433]] } }"></angular-yandex-geoobject>
 ```
 
-## Version 1.0.0
+## Changelog
 
-- Multiroute
-- New examples in README
-
+[CHANGELOG](https://github.com/ddubrava/angular-yandex-maps/blob/develop/CHANGELOG.md)
 ## License
 
 [MIT](https://github.com/ddubrava/angular-yandex-maps/blob/develop/LICENSE.md)

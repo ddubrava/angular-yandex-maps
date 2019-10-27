@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'angular-yandex-multiroute',
@@ -6,10 +6,17 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./yandex-multiroute.component.scss']
 })
 export class YandexMultirouteComponent implements OnInit {
-  @Input() public referencePoints: Array<any>;
+  @Input() public referencePoints: Array<any> = [];
   @Input() public multirouteModel: any;
   @Input() public multirouteOptions: any;
 
-  constructor() {}
-  public ngOnInit(): void {}
+  constructor() { }
+
+  public ngOnInit(): void {
+    this._logErrors();
+  }
+
+  private _logErrors(): void {
+    if (!this.referencePoints.length) console.error('Multiroute: referencePoints is required');
+  }
 }
