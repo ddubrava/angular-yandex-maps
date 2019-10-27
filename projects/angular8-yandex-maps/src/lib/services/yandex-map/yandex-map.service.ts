@@ -18,6 +18,10 @@ export class YandexMapService implements IYandexMapService {
     this._apiKey = this._injector.get('API_KEY');
   }
 
+  /**
+   * Init ymaps script if it's not initiated
+   * Trigger map subject on script load
+   */
   public initMap(): Subject<boolean> {
     if (!this._isScriptInited) {
       this._isScriptInited = true;
@@ -39,22 +43,46 @@ export class YandexMapService implements IYandexMapService {
     document.body.appendChild(this._scriptYmaps);
   }
 
+  /**
+   * Create new Map class instance
+   * @param mapId
+   * @param state
+   * @param options
+   */
   public createMap(mapId: string, state: any, options: any): void {
     this._map = new ymaps.Map(mapId, state, options);
   }
 
-  public createPlacemark(geometry: any, properties: any, options: any): void {
+  /**
+   * Add objects, controls on map
+   */
+  public addPlacemark(geometry: any, properties: any, options: any): void {
     this._map.geoObjects
       .add(new ymaps.Placemark(geometry, properties, options));
   }
 
-  public createMultiroute(model: any, options: any): void {
+  public addMultiroute(model: any, options: any): void {
     this._map.geoObjects
       .add(new ymaps.multiRouter.MultiRoute(model, options));
   }
 
-  public createGeoObject(feature: any, options: any): void {
+  public addGeoObject(feature: any, options: any): void {
     this._map.geoObjects
       .add(new ymaps.GeoObject(feature, options));
+  }
+
+  /**
+   * Create new SearchControl class instance with properies
+   * If searchRequest is provided -> force search in the current area
+   * @param request
+   * @param properties
+   */
+  public addSearchControl(request: string, properties: any): void {
+    const searchControl = new ymaps.control.SearchControl(properties);
+
+    this._map.controls
+      .add(searchControl);
+
+    if (request) searchControl.search(request);
   }
 }

@@ -4,6 +4,7 @@ import { take } from 'rxjs/operators';
 import { YandexPlacemarkComponent } from '../yandex-placemark-component/yandex-placemark.component';
 import { YandexMultirouteComponent } from '../yandex-multiroute-component/yandex-multiroute.component';
 import { YandexGeoobjectComponent } from '../yandex-geoobject-component/yandex-geoobject.component';
+import { YandexSearchComponent } from '../yandex-search-component/yandex-search.component';
 
 @Component({
   selector: 'angular-yandex-map',
@@ -15,11 +16,12 @@ export class YandexMapComponent implements OnInit {
   @ContentChildren(YandexPlacemarkComponent) placemarks: QueryList<YandexPlacemarkComponent>;
   @ContentChildren(YandexMultirouteComponent) multiroutes: QueryList<YandexMultirouteComponent>;
   @ContentChildren(YandexGeoobjectComponent) geoObjects: QueryList<YandexGeoobjectComponent>;
+  @ContentChildren(YandexSearchComponent) searchControl: QueryList<YandexSearchComponent>;
 
-  @Input() public center: Array<number> = [];
+  @Input() public center: Array<number>;
   @Input() public zoom: number = 10;
   @Input() public mapState: any = {};
-  @Input() public mapOptions: any;
+  @Input() public mapOptions: any = {};
 
   private _uniqueMapId: string;
 
@@ -33,7 +35,10 @@ export class YandexMapComponent implements OnInit {
   }
 
   private _logErrors(): void {
-    if (!this.center.length) console.error('Map: center is required');
+    if (!this.center) {
+      console.error('Map: center input is required.');
+      this.center = [];
+    }
   }
 
   private _setUniqueMapIdOfMap(): void {
@@ -69,30 +74,36 @@ export class YandexMapComponent implements OnInit {
 
   private _addObjectsOnMap(): void {
     this.placemarks.forEach((placemark) => {
-      this._setPlacemarks(placemark);
+      this._addPlacemark(placemark);
     });
 
     this.multiroutes.forEach((multiroute) => {
-      this._createMultiroute(multiroute);
+      this._addMultiroute(multiroute);
     });
 
     this.geoObjects.forEach((geoObject) => {
-      this._createGeoObject(geoObject);
+      this._addGeoObject(geoObject);
     });
+
+    if (this.searchControl.first) this._addSearchControl(this.searchControl.first);
   }
 
   /**
-   * Add objects with params in map.geoObjects
+   * Add objects, controls on map
    */
-  private _setPlacemarks(placemark: YandexPlacemarkComponent): void {
-    this._yandexMapService.createPlacemark(placemark.geometry, placemark.placemarkProperties, placemark.placemarkOptions);
+  private _addPlacemark(placemark: YandexPlacemarkComponent): void {
+    this._yandexMapService.addPlacemark(placemark.geometry, placemark.placemarkProperties, placemark.placemarkOptions);
   }
 
-  private _createMultiroute(multiroute: YandexMultirouteComponent): void {
-    this._yandexMapService.createMultiroute(multiroute.multirouteModel, multiroute.multirouteOptions);
+  private _addMultiroute(multiroute: YandexMultirouteComponent): void {
+    this._yandexMapService.addMultiroute(multiroute.multirouteModel, multiroute.multirouteOptions);
   }
 
-  private _createGeoObject(geoObject: YandexGeoobjectComponent): void {
-    this._yandexMapService.createGeoObject(geoObject.feature, geoObject.options);
+  private _addGeoObject(geoObject: YandexGeoobjectComponent): void {
+    this._yandexMapService.addGeoObject(geoObject.feature, geoObject.options);
+  }
+
+  private _addSearchControl(search: YandexSearchComponent): void {
+    this._yandexMapService.addSearchControl(search.searchRequest, search.parameters);
   }
 }

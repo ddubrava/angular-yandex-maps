@@ -5,10 +5,13 @@ Angular 2+ module for Yandex.Maps
 
 ## Examples
 
-- [Map with custom placemark](https://stackblitz.com/edit/custom-placemark)
-- [Custom multiroute (need API key)](https://stackblitz.com/edit/multiroute)
+- [Custom placemark](https://stackblitz.com/edit/custom-placemark)
+- [Multiroute (need API key)](https://stackblitz.com/edit/multiroute)
 - [Rectangle](https://stackblitz.com/edit/rectangle)
 - [Polygon](https://stackblitz.com/edit/geoobject-polygon)
+- [Circle](https://stackblitz.com/edit/geoobject-circle)
+- [Custom search](https://stackblitz.com/edit/custom-searchcontrol)
+- [Search for organizations](https://stackblitz.com/edit/search-for-organizations)
 
 ## Installation
 
@@ -100,9 +103,19 @@ Optional:
 <angular-yandex-geoobject [feature]="{ geometry: { type: 'Rectangle', coordinates: [[60.183155, 24.911892], [60.156454, 24.962433]] } }"></angular-yandex-geoobject>
 ```
 
+## Search
+Available inputs:
+
+Optional:
+- searchRequest: string (use this for force search, [Example](https://stackblitz.com/edit/search-for-organizations))
+- parameters: [Interface](https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/control.SearchControl-docpage/#control.SearchControl__param-parameters)
+
+```
+<angular-yandex-search [parameters]="{ options: { float: 'right' } }"></angular-yandex-search>
+```
+
 ## Changelog
-
 [CHANGELOG](https://github.com/ddubrava/angular-yandex-maps/blob/develop/CHANGELOG.md)
-## License
 
+## License
 [MIT](https://github.com/ddubrava/angular-yandex-maps/blob/develop/LICENSE.md)
