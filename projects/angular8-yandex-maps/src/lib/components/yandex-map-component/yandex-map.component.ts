@@ -71,15 +71,15 @@ export class YandexMapComponent implements OnInit {
 
   private _addObjectsOnMap(): void {
     this.placemarks.forEach((placemark) => {
-      this._setPlacemarks(placemark);
+      this._addPlacemark(placemark);
     });
 
     this.multiroutes.forEach((multiroute) => {
-      this._createMultiroute(multiroute);
+      this._addMultiroute(multiroute);
     });
 
     this.geoObjects.forEach((geoObject) => {
-      this._createGeoObject(geoObject);
+      this._addGeoObject(geoObject);
     });
 
     if (this.searchControl.first) this._addSearchControl(this.searchControl.first);
@@ -88,16 +88,16 @@ export class YandexMapComponent implements OnInit {
   /**
    * Add objects, controls on map
    */
-  private _setPlacemarks(placemark: YandexPlacemarkComponent): void {
-    this._yandexMapService.createPlacemark(placemark.geometry, placemark.placemarkProperties, placemark.placemarkOptions);
+  private _addPlacemark(placemark: YandexPlacemarkComponent): void {
+    this._yandexMapService.addPlacemark(placemark.geometry, placemark.placemarkProperties, placemark.placemarkOptions);
   }
 
-  private _createMultiroute(multiroute: YandexMultirouteComponent): void {
-    this._yandexMapService.createMultiroute(multiroute.multirouteModel, multiroute.multirouteOptions);
+  private _addMultiroute(multiroute: YandexMultirouteComponent): void {
+    this._yandexMapService.addMultiroute(multiroute.multirouteModel, multiroute.multirouteOptions);
   }
 
-  private _createGeoObject(geoObject: YandexGeoobjectComponent): void {
-    this._yandexMapService.createGeoObject(geoObject.feature, geoObject.options);
+  private _addGeoObject(geoObject: YandexGeoobjectComponent): void {
+    this._yandexMapService.addGeoObject(geoObject.feature, geoObject.options);
   }
 
   private _addSearchControl(search: YandexSearchComponent): void {

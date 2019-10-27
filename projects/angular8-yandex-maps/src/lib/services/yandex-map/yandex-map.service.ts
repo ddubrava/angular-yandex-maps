@@ -43,17 +43,17 @@ export class YandexMapService implements IYandexMapService {
     this._map = new ymaps.Map(mapId, state, options);
   }
 
-  public createPlacemark(geometry: any, properties: any, options: any): void {
+  public addPlacemark(geometry: any, properties: any, options: any): void {
     this._map.geoObjects
       .add(new ymaps.Placemark(geometry, properties, options));
   }
 
-  public createMultiroute(model: any, options: any): void {
+  public addMultiroute(model: any, options: any): void {
     this._map.geoObjects
       .add(new ymaps.multiRouter.MultiRoute(model, options));
   }
 
-  public createGeoObject(feature: any, options: any): void {
+  public addGeoObject(feature: any, options: any): void {
     this._map.geoObjects
       .add(new ymaps.GeoObject(feature, options));
   }
