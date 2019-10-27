@@ -4,6 +4,7 @@ import { take } from 'rxjs/operators';
 import { YandexMapModule } from '../../types/yandex-map.type';
 import { YandexPlacemarkComponent } from '../yandex-placemark-component/yandex-placemark.component';
 import { YandexMultirouteComponent } from '../yandex-multiroute-component/yandex-multiroute.component';
+import { YandexGeoobjectComponent } from '../yandex-geoobject-component/yandex-geoobject.component';
 
 @Component({
   selector: 'angular-yandex-map',
@@ -14,6 +15,7 @@ export class YandexMapComponent implements OnInit {
   @ViewChild('mapContainer', { static: true }) public mapContainer: ElementRef;
   @ContentChildren(YandexPlacemarkComponent) placemarks: QueryList<YandexPlacemarkComponent>;
   @ContentChildren(YandexMultirouteComponent) multiroutes: QueryList<YandexMultirouteComponent>;
+  @ContentChildren(YandexGeoobjectComponent) geoObjects: QueryList<YandexGeoobjectComponent>;
 
   @Input() public center: Array<number>;
   @Input() public zoom: number;
@@ -61,6 +63,10 @@ export class YandexMapComponent implements OnInit {
         this.multiroutes.forEach((multiroute) => {
           this._createMultiroute(multiroute);
         });
+
+        this.geoObjects.forEach((geoObject) => {
+          this._createGeoObject(geoObject);
+        });
       });
   }
 
@@ -70,5 +76,9 @@ export class YandexMapComponent implements OnInit {
 
   private _createMultiroute(multiroute: YandexMultirouteComponent): void {
     this._yandexMapService.createMultiroute(multiroute.multirouteModel, multiroute.multirouteOptions);
+  }
+
+  private _createGeoObject(geoObject: YandexGeoobjectComponent): void {
+    this._yandexMapService.createGeoObject(geoObject.geoObjectFeature, geoObject.geoObjectOptions);
   }
 }

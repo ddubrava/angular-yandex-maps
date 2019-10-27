@@ -53,4 +53,9 @@ export class YandexMapService implements IYandexMapService {
     this._map.geoObjects
       .add(new ymaps.multiRouter.MultiRoute(model, options));
   }
+
+  public createGeoObject(feature: any, options: any): void {
+    this._map.geoObjects
+      .add(new ymaps.GeoObject(feature, options));
+  }
 }
