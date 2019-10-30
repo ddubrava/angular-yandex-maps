@@ -12,7 +12,7 @@ import { YandexSearchComponent } from '../yandex-search-component/yandex-search.
   styleUrls: ['./yandex-map.component.scss']
 })
 export class YandexMapComponent implements OnInit {
-  @ViewChild('mapContainer', { static: true }) public mapContainer: ElementRef;
+  @ViewChild('mapContainer') public mapContainer: ElementRef;
   @ContentChildren(YandexPlacemarkComponent) placemarks: QueryList<YandexPlacemarkComponent>;
   @ContentChildren(YandexMultirouteComponent) multiroutes: QueryList<YandexMultirouteComponent>;
   @ContentChildren(YandexGeoobjectComponent) geoObjects: QueryList<YandexGeoobjectComponent>;
