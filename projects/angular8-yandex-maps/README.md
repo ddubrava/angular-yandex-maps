@@ -1,5 +1,7 @@
 
 # Angular8-yandex-maps
+Angular 6+ module for Yandex.Maps
+
 ## Examples
 
 - [Custom placemark](https://stackblitz.com/edit/custom-placemark)
