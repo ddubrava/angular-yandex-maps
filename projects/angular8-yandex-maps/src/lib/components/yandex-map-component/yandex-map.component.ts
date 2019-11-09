@@ -67,8 +67,8 @@ export class YandexMapComponent implements OnInit {
 
     // Multiroute
     this.multiroutes.forEach((multiroute) => {
-      if (!multiroute.multirouteModel) multiroute.multirouteModel = {};
-      multiroute.multirouteModel.referencePoints = multiroute.referencePoints;
+      if (!multiroute.model) multiroute.model = {};
+      multiroute.model.referencePoints = multiroute.referencePoints;
     });
   }
 
@@ -96,7 +96,7 @@ export class YandexMapComponent implements OnInit {
   }
 
   private _addMultiroute(multiroute: YandexMultirouteComponent): void {
-    this._yandexMapService.addMultiroute(multiroute.multirouteModel, multiroute.multirouteOptions);
+    this._yandexMapService.addMultiroute(multiroute.model, multiroute.options);
   }
 
   private _addGeoObject(geoObject: YandexGeoobjectComponent): void {
