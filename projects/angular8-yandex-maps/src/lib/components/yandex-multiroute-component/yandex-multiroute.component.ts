@@ -7,8 +7,8 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class YandexMultirouteComponent implements OnInit {
   @Input() public referencePoints: Array<any>;
-  @Input() public multirouteModel: any;
-  @Input() public multirouteOptions: any;
+  @Input() public model: any;
+  @Input() public options: any;
 
   constructor() { }
 

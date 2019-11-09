@@ -20,8 +20,8 @@ export class YandexMapComponent implements OnInit {
 
   @Input() public center: Array<number>;
   @Input() public zoom: number = 10;
-  @Input() public mapState: any = {};
-  @Input() public mapOptions: any = {};
+  @Input() public state: any = {};
+  @Input() public options: any = {};
 
   private _uniqueMapId: string;
 
@@ -52,7 +52,7 @@ export class YandexMapComponent implements OnInit {
       .subscribe(() => {
         this._combineInputs();
 
-        this._yandexMapService.createMap(this._uniqueMapId, this.mapState, this.mapOptions);
+        this._yandexMapService.createMap(this._uniqueMapId, this.state, this.options);
         this._addObjectsOnMap();
       });
   }
@@ -62,13 +62,13 @@ export class YandexMapComponent implements OnInit {
    */
   private _combineInputs(): void {
     // Map
-    this.mapState.zoom = this.zoom;
-    this.mapState.center = this.center;
+    this.state.zoom = this.zoom;
+    this.state.center = this.center;
 
     // Multiroute
     this.multiroutes.forEach((multiroute) => {
-      if (!multiroute.multirouteModel) multiroute.multirouteModel = {};
-      multiroute.multirouteModel.referencePoints = multiroute.referencePoints;
+      if (!multiroute.model) multiroute.model = {};
+      multiroute.model.referencePoints = multiroute.referencePoints;
     });
   }
 
@@ -92,11 +92,11 @@ export class YandexMapComponent implements OnInit {
    * Add objects, controls on map
    */
   private _addPlacemark(placemark: YandexPlacemarkComponent): void {
-    this._yandexMapService.addPlacemark(placemark.geometry, placemark.placemarkProperties, placemark.placemarkOptions);
+    this._yandexMapService.addPlacemark(placemark.geometry, placemark.properties, placemark.options);
   }
 
   private _addMultiroute(multiroute: YandexMultirouteComponent): void {
-    this._yandexMapService.addMultiroute(multiroute.multirouteModel, multiroute.multirouteOptions);
+    this._yandexMapService.addMultiroute(multiroute.model, multiroute.options);
   }
 
   private _addGeoObject(geoObject: YandexGeoobjectComponent): void {
