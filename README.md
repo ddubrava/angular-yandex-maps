@@ -99,7 +99,7 @@ Inputs
 [MultiRouteOptions]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/multiRouter.MultiRoute-docpage/#multiRouter.MultiRoute__param-options
 
 ```
-<angular-yandex-multiroute [referencePoints]="[[60.181711, 24.927661], 'helsinki']" [multirouteOptions]="{routeActiveStrokeColor: 'ff0000'}"></angular-yandex-multiroute>
+<angular-yandex-multiroute [referencePoints]="[[60.181711, 24.927661], 'helsinki']" [options]="{routeActiveStrokeColor: 'ff0000'}"></angular-yandex-multiroute>
 ```
 
 ## GeoObject
