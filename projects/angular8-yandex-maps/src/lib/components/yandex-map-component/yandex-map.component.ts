@@ -20,8 +20,8 @@ export class YandexMapComponent implements OnInit {
 
   @Input() public center: Array<number>;
   @Input() public zoom: number = 10;
-  @Input() public mapState: any = {};
-  @Input() public mapOptions: any = {};
+  @Input() public state: any = {};
+  @Input() public options: any = {};
 
   private _uniqueMapId: string;
 
@@ -52,7 +52,7 @@ export class YandexMapComponent implements OnInit {
       .subscribe(() => {
         this._combineInputs();
 
-        this._yandexMapService.createMap(this._uniqueMapId, this.mapState, this.mapOptions);
+        this._yandexMapService.createMap(this._uniqueMapId, this.state, this.options);
         this._addObjectsOnMap();
       });
   }
@@ -62,8 +62,8 @@ export class YandexMapComponent implements OnInit {
    */
   private _combineInputs(): void {
     // Map
-    this.mapState.zoom = this.zoom;
-    this.mapState.center = this.center;
+    this.state.zoom = this.zoom;
+    this.state.center = this.center;
 
     // Multiroute
     this.multiroutes.forEach((multiroute) => {
