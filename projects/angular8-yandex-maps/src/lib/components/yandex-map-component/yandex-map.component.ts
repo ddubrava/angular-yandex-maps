@@ -92,7 +92,7 @@ export class YandexMapComponent implements OnInit {
    * Add objects, controls on map
    */
   private _addPlacemark(placemark: YandexPlacemarkComponent): void {
-    this._yandexMapService.addPlacemark(placemark.geometry, placemark.placemarkProperties, placemark.placemarkOptions);
+    this._yandexMapService.addPlacemark(placemark.geometry, placemark.properties, placemark.options);
   }
 
   private _addMultiroute(multiroute: YandexMultirouteComponent): void {

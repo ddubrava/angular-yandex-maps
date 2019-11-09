@@ -7,8 +7,8 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class YandexPlacemarkComponent implements OnInit {
   @Input() public geometry: any;
-  @Input() public placemarkProperties: any;
-  @Input() public placemarkOptions: any;
+  @Input() public properties: any;
+  @Input() public options: any;
 
   constructor() {}
 
