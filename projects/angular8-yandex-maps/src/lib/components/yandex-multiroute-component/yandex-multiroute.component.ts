@@ -22,4 +22,11 @@ export class YandexMultirouteComponent implements OnInit {
       this.referencePoints = [];
     }
   }
+
+  public initMultiroute(ymaps: any, map: any): void {
+    map.geoObjects
+      .add(new ymaps.multiRouter.MultiRoute(
+        { ...this.model, referencePoints: this.referencePoints }, this.options
+      ));
+  }
 }

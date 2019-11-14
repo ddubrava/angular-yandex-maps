@@ -5,7 +5,7 @@ import { Component, OnInit, Input } from '@angular/core';
   templateUrl: './yandex-geoobject.component.html',
   styleUrls: ['./yandex-geoobject.component.scss']
 })
-export class YandexGeoobjectComponent implements OnInit {
+export class YandexGeoObjectComponent implements OnInit {
   @Input() public feature: any;
   @Input() public options: any;
 
@@ -20,5 +20,10 @@ export class YandexGeoobjectComponent implements OnInit {
       console.error('GeoObjects: feature input is required.');
       this.feature = {};
     }
+  }
+
+  public initGeoObject(ymaps: any, map: any): void {
+    map.geoObjects
+      .add(new ymaps.GeoObject(this.feature, this.options));
   }
 }

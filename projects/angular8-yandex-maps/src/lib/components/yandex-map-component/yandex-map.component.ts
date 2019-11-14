@@ -1,10 +1,13 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, ContentChildren, QueryList } from '@angular/core';
-import { YandexMapService } from '../../services/yandex-map/yandex-map.service';
-import { take } from 'rxjs/operators';
+
 import { YandexPlacemarkComponent } from '../yandex-placemark-component/yandex-placemark.component';
 import { YandexMultirouteComponent } from '../yandex-multiroute-component/yandex-multiroute.component';
-import { YandexGeoobjectComponent } from '../yandex-geoobject-component/yandex-geoobject.component';
+import { YandexGeoObjectComponent } from '../yandex-geoobject-component/yandex-geoobject.component';
 import { YandexSearchComponent } from '../yandex-search-component/yandex-search.component';
+
+import { YandexMapService } from '../../services/yandex-map/yandex-map.service';
+
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'angular-yandex-map',
@@ -12,98 +15,93 @@ import { YandexSearchComponent } from '../yandex-search-component/yandex-search.
   styleUrls: ['./yandex-map.component.scss']
 })
 export class YandexMapComponent implements OnInit {
+  /**
+   * Get MapContainer & components inside MapContainer
+   */
   @ViewChild('mapContainer') public mapContainer: ElementRef;
   @ContentChildren(YandexPlacemarkComponent) placemarks: QueryList<YandexPlacemarkComponent>;
   @ContentChildren(YandexMultirouteComponent) multiroutes: QueryList<YandexMultirouteComponent>;
-  @ContentChildren(YandexGeoobjectComponent) geoObjects: QueryList<YandexGeoobjectComponent>;
-  @ContentChildren(YandexSearchComponent) searchControl: QueryList<YandexSearchComponent>;
+  @ContentChildren(YandexGeoObjectComponent) geoObjects: QueryList<YandexGeoObjectComponent>;
+  @ContentChildren(YandexSearchComponent) searchControls: QueryList<YandexSearchComponent>;
 
+  /**
+   * Map inputs
+   */
   @Input() public center: Array<number>;
   @Input() public zoom: number = 10;
   @Input() public state: any = {};
   @Input() public options: any = {};
+  @Input() public clusterer: any;
 
   private _uniqueMapId: string;
 
   constructor(private _yandexMapService: YandexMapService) { }
 
   public ngOnInit(): void {
-    this._logErrors();
+    this._logMapErrors();
+    this._setUniqueMapId();
 
-    this._setUniqueMapIdOfMap();
-    this._createMapWithObjects();
+    this._yandexMapService.initScript()
+      .pipe(take(1))
+      .subscribe((ymaps: any) => {
+        const map = this._createMap(ymaps);
+        this._addObjectsOnMap(ymaps, map);
+      });
   }
 
-  private _logErrors(): void {
+  private _logMapErrors(): void {
     if (!this.center) {
       console.error('Map: center input is required.');
       this.center = [];
     }
   }
 
-  private _setUniqueMapIdOfMap(): void {
+  private _setUniqueMapId(): void {
     this._uniqueMapId = `f${(~~(Math.random() * 1e8)).toString(16)}`;
     this.mapContainer.nativeElement.setAttribute('id', this._uniqueMapId);
   }
 
-  private _createMapWithObjects(): void {
-    this._yandexMapService.initMap()
-      .pipe(take(1))
-      .subscribe(() => {
-        this._combineInputs();
-
-        this._yandexMapService.createMap(this._uniqueMapId, this.state, this.options);
-        this._addObjectsOnMap();
-      });
+  private _createMap(ymaps: any): any {
+    return new ymaps.Map(
+      this._uniqueMapId, { ...this.state, zoom: this.zoom, center: this.center }, this.options
+    );
   }
 
   /**
-   * Combine separated inputs in objects required for API
+   * Add ymaps entities/objects on map
+   * @param ymaps
+   * @param map
    */
-  private _combineInputs(): void {
-    // Map
-    this.state.zoom = this.zoom;
-    this.state.center = this.center;
+  private _addObjectsOnMap(ymaps: any, map: any): void {
+    // Placemarks with clusterer
+    const placemarks = [];
 
-    // Multiroute
-    this.multiroutes.forEach((multiroute) => {
-      if (!multiroute.model) multiroute.model = {};
-      multiroute.model.referencePoints = multiroute.referencePoints;
-    });
-  }
-
-  private _addObjectsOnMap(): void {
     this.placemarks.forEach((placemark) => {
-      this._addPlacemark(placemark);
+      placemarks.push(placemark.initPlacemark(ymaps, map));
     });
 
+    if (this.clusterer) this._createClusterer(ymaps, map, placemarks);
+
+    // Multiroutes
     this.multiroutes.forEach((multiroute) => {
-      this._addMultiroute(multiroute);
+      multiroute.initMultiroute(ymaps, map);
     });
 
+    // GeoObjects
     this.geoObjects.forEach((geoObject) => {
-      this._addGeoObject(geoObject);
+      geoObject.initGeoObject(ymaps, map);
     });
 
-    if (this.searchControl.first) this._addSearchControl(this.searchControl.first);
+    // SearchControls
+    this.searchControls.forEach((searchControl) => {
+      searchControl.initSearchControl(ymaps, map);
+    });
   }
 
-  /**
-   * Add objects, controls on map
-   */
-  private _addPlacemark(placemark: YandexPlacemarkComponent): void {
-    this._yandexMapService.addPlacemark(placemark.geometry, placemark.properties, placemark.options);
-  }
+  private _createClusterer(ymaps: any, map: any, geoObjects: Array<any>) {
+    const clusterer = new ymaps.Clusterer(this.clusterer);
 
-  private _addMultiroute(multiroute: YandexMultirouteComponent): void {
-    this._yandexMapService.addMultiroute(multiroute.model, multiroute.options);
-  }
-
-  private _addGeoObject(geoObject: YandexGeoobjectComponent): void {
-    this._yandexMapService.addGeoObject(geoObject.feature, geoObject.options);
-  }
-
-  private _addSearchControl(search: YandexSearchComponent): void {
-    this._yandexMapService.addSearchControl(search.searchRequest, search.parameters);
+    clusterer.add(geoObjects);
+    map.geoObjects.add(clusterer);
   }
 }

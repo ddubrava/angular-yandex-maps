@@ -3,9 +3,11 @@
 # Angular8-yandex-maps
 Angular 6+ module for Yandex.Maps
 
+If you liked the project and want to support the development please star the package on [GitHub page](https://github.com/ddubrava/angular-yandex-maps "GitHub page"). Thanks!
 ## Examples
 
 - [Custom placemark](https://stackblitz.com/edit/custom-placemark)
+- [Placemark clusterer](https://stackblitz.com/edit/placemark-clusterer)
 - [Multiroute](https://stackblitz.com/edit/multiroute)
 - [Rectangle](https://stackblitz.com/edit/rectangle)
 - [Polygon](https://stackblitz.com/edit/geoobject-polygon)
@@ -34,8 +36,8 @@ import { AngularYandexMapsModule } from 'angular8-yandex-maps';
 
 ```
 <div class="map">
-  <angular-yandex-map [center]="[60.167987, 24.942206]" [zoom]="12">
-    <angular-yandex-placemark [geometry]="[60.167987, 24.942206]"></angular-yandex-placemark>
+  <angular-yandex-map [center]="[55.751952, 37.600739]" [zoom]="12">
+    <angular-yandex-placemark [geometry]="[55.751952, 37.600739]"></angular-yandex-placemark>
   </angular-yandex-map>
 </div>
 ```
@@ -52,18 +54,23 @@ import { AngularYandexMapsModule } from 'angular8-yandex-maps';
 ## Map
 Inputs
 
-| Name    | Type         | Default | Required | Description               |
-|---------|--------------|---------|----------|---------------------------|
-| center  | Number[]     |         | yes      | Map center geocoordinates |
-| zoom    | Number       | 10      | no       | Map zoom level            |
-| state   | [MapState]   |         | no       | States for the map       |
-| options | [MapOptions] |         | no       | Options for the map      |
+| Name      | Type         | Default | Required | Description                                                                         |
+|-----------|--------------|---------|----------|-------------------------------------------------------------------------------------|
+| center    | Number[]     |         | yes      | Map center geocoordinates                                                           |
+| zoom      | Number       | 10      | no       | Map zoom level                                                                      |
+| state     | [MapState]   |         | no       | States for the map                                                                  |
+| options   | [MapOptions] |         | no       | Options for the map                                                                 |
+| clusterer | [Clusterer]  |         | no       | Options for the Clusterer. Clusters ONLY Placemarks in the visible area of the map. |
+
 
 [MapState]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Map-docpage/#Map__param-state
 [MapOptions]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Map-docpage/#Map__param-options
+[Clusterer]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Clusterer-docpage/
+
+------------
 
 ```
-<angular-yandex-map [center]="[60.167987, 24.942206]" [zoom]="8" [state]="{type: 'yandex#satellite'}"></angular-yandex-map>
+<angular-yandex-map [center]="[55.751952, 37.600739]" [zoom]="12" [state]="{type: 'yandex#satellite'}"></angular-yandex-map>
 ```
 
 ## Placemark
@@ -79,8 +86,10 @@ Inputs
 [PlacemarkProperties]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Placemark-docpage/#Placemark__param-properties
 [PlacemarkOptions]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Placemark-docpage/#Placemark__param-options
 
+------------
+
 ```
-<angular-yandex-placemark [geometry]="[60.167987, 24.942206]" [properties]="{iconCaption: 'Stockmann'}"></angular-yandex-placemark>
+<angular-yandex-placemark [geometry]="[55.751952, 37.600739]" [properties]="{iconCaption: 'Moscow'}"></angular-yandex-placemark>
 ```
 
 ## MultiRoute
@@ -88,7 +97,7 @@ Inputs
 
 | Name            | Type                                                    | Default | Required | Description                         |
 |-----------------|---------------------------------------------------------|---------|----------|-------------------------------------|
-| referencePoints | [IMultiRouteReferencePoint][][]                         |         | yes      | Reference points of the multi-route |
+| referencePoints | [IMultiRouteReferencePoint][][]                         |         | yes      | Reference points for the multi-route |
 | model           | [multiRouter.MultiRouteModel] or  [MultiRouteModelJson] |         | no       | Properties for the multiroute       |
 | options         | [MultiRouteOptions]                                     |         | no       | Options for the multiroute          |
 
@@ -98,8 +107,10 @@ Inputs
 [multiRouter.MultiRouteModel]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/multiRouter.MultiRoute-docpage/#multiRouter.MultiRoute__param-options
 [MultiRouteOptions]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/multiRouter.MultiRoute-docpage/#multiRouter.MultiRoute__param-options
 
+------------
+
 ```
-<angular-yandex-multiroute [referencePoints]="[[60.181711, 24.927661], 'helsinki']" [options]="{routeActiveStrokeColor: 'ff0000'}"></angular-yandex-multiroute>
+<angular-yandex-multiroute [referencePoints]="[[55.751952, 37.600739], 'Красные ворота, Москва']" [options]="{routeActiveStrokeColor: 'ff0000'}"></angular-yandex-multiroute>
 ```
 
 ## GeoObject
@@ -113,8 +124,10 @@ Inputs
 [GeoObjectFeature]:https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/GeoObject-docpage/#GeoObject__param-feature
 [GeoObjectOptions]:https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/GeoObject-docpage/#GeoObject__param-options
 
+------------
+
 ```
-<angular-yandex-geoobject [feature]="{ geometry: { type: 'Rectangle', coordinates: [[60.183155, 24.911892], [60.156454, 24.962433]] } }"></angular-yandex-geoobject>
+<angular-yandex-geoobject [feature]="{ geometry: { type: 'Rectangle', coordinates: [[55.665, 37.66], [55.64,37.53]] } }"></angular-yandex-geoobject>
 ```
 
 ## Search
@@ -127,6 +140,8 @@ Inputs
 
 [SearchRequestExample]: https://stackblitz.com/edit/search-for-organizations
 [SearchControlParameters]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/control.SearchControl-docpage/#control.SearchControl__param-parameters
+
+------------
 
 ```
 <angular-yandex-search [parameters]="{ options: { float: 'right' } }"></angular-yandex-search>

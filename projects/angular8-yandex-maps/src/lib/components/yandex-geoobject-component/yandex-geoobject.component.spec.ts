@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { YandexGeoobjectComponent } from './yandex-geoobject.component';
+import { YandexGeoObjectComponent } from './yandex-geoobject.component';
 
 describe('YandexGeoobjectComponent', () => {
-  let component: YandexGeoobjectComponent;
-  let fixture: ComponentFixture<YandexGeoobjectComponent>;
+  let component: YandexGeoObjectComponent;
+  let fixture: ComponentFixture<YandexGeoObjectComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ YandexGeoobjectComponent ]
+      declarations: [ YandexGeoObjectComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(YandexGeoobjectComponent);
+    fixture = TestBed.createComponent(YandexGeoObjectComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
