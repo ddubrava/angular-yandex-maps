@@ -11,4 +11,12 @@ export class YandexSearchComponent implements OnInit {
 
   constructor() {}
   public ngOnInit(): void {}
+
+  public initSearchControl(ymaps: any, map: any): void {
+    const searchControl = new ymaps.control.SearchControl(this.parameters);
+    const request = this.searchRequest;
+
+    map.controls.add(searchControl);
+    if (request) searchControl.search(request);
+  }
 }

@@ -4,7 +4,7 @@ import { YandexMapComponent } from './components/yandex-map-component/yandex-map
 import { ModuleWithProviders } from '@angular/compiler/src/core';
 import { YandexPlacemarkComponent } from './components/yandex-placemark-component/yandex-placemark.component';
 import { YandexMultirouteComponent } from './components/yandex-multiroute-component/yandex-multiroute.component';
-import { YandexGeoobjectComponent } from './components/yandex-geoobject-component/yandex-geoobject.component';
+import { YandexGeoObjectComponent } from './components/yandex-geoobject-component/yandex-geoobject.component';
 import { YandexSearchComponent } from './components/yandex-search-component/yandex-search.component';
 
 @NgModule({
@@ -12,7 +12,7 @@ import { YandexSearchComponent } from './components/yandex-search-component/yand
     YandexMapComponent,
     YandexPlacemarkComponent,
     YandexMultirouteComponent,
-    YandexGeoobjectComponent,
+    YandexGeoObjectComponent,
     YandexSearchComponent
   ],
   imports: [
@@ -22,7 +22,7 @@ import { YandexSearchComponent } from './components/yandex-search-component/yand
     YandexMapComponent,
     YandexPlacemarkComponent,
     YandexMultirouteComponent,
-    YandexGeoobjectComponent,
+    YandexGeoObjectComponent,
     YandexSearchComponent
   ]
 })

@@ -22,4 +22,9 @@ export class YandexPlacemarkComponent implements OnInit {
       this.geometry = [];
     }
   }
+
+  public initPlacemark(ymaps: any, map: any): void {
+    map.geoObjects
+      .add(new ymaps.Placemark(this.geometry, this.properties, this.options));
+  }
 }
