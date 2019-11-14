@@ -47,7 +47,7 @@ export class YandexMapComponent implements OnInit {
   }
 
   private _createMapWithObjects(): void {
-    this._yandexMapService.initMap()
+    this._yandexMapService.initScript()
       .pipe(take(1))
       .subscribe(() => {
         this._combineInputs();

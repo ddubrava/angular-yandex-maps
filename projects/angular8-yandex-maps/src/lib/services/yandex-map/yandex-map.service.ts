@@ -8,7 +8,7 @@ declare const ymaps: any;
   providedIn: 'root'
 })
 export class YandexMapService implements IYandexMapService {
-  private _isMapInited$: Subject<boolean> = new Subject();
+  private _ymaps$ = new Subject<any>();
   private _scriptYmaps: HTMLScriptElement;
   private _apiKey: string;
   private _isScriptInited: boolean;
@@ -20,21 +20,19 @@ export class YandexMapService implements IYandexMapService {
 
   /**
    * Init ymaps script if it's not initiated
-   * Trigger map subject on script load
+   * Return ymaps subject
    */
-  public initMap(): Subject<boolean> {
+  public initScript(): Subject<any> {
     if (!this._isScriptInited) {
       this._isScriptInited = true;
       this._loadScript();
+
+      this._scriptYmaps.onload = () => {
+        ymaps.ready(() => this._ymaps$.next(ymaps));
+      };
     }
 
-    this._scriptYmaps.onload = () => {
-      ymaps.ready(() => {
-        this._isMapInited$.next(true);
-      });
-    };
-
-    return this._isMapInited$;
+    return this._ymaps$;
   }
 
   private _loadScript(): void {
