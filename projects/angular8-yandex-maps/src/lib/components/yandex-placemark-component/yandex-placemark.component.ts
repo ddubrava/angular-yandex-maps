@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-interface IPlacemark {
+export interface IPlacemark {
   [key: string]: any;
 }
 
