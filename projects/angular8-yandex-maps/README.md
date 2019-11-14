@@ -53,15 +53,18 @@ import { AngularYandexMapsModule } from 'angular8-yandex-maps';
 ## Map
 Inputs
 
-| Name    | Type         | Default | Required | Description               |
-|---------|--------------|---------|----------|---------------------------|
-| center  | Number[]     |         | yes      | Map center geocoordinates |
-| zoom    | Number       | 10      | no       | Map zoom level            |
-| state   | [MapState]   |         | no       | States for the map       |
-| options | [MapOptions] |         | no       | Options for the map      |
+| Name      | Type         | Default | Required | Description                                                                         |
+|-----------|--------------|---------|----------|-------------------------------------------------------------------------------------|
+| center    | Number[]     |         | yes      | Map center geocoordinates                                                           |
+| zoom      | Number       | 10      | no       | Map zoom level                                                                      |
+| state     | [MapState]   |         | no       | States for the map                                                                  |
+| options   | [MapOptions] |         | no       | Options for the map                                                                 |
+| clusterer | [Clusterer]  |         | no       | Options for the Clusterer. Clusters ONLY Placemarks in the visible area of the map. |
+
 
 [MapState]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Map-docpage/#Map__param-state
 [MapOptions]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Map-docpage/#Map__param-options
+[Clusterer]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Clusterer-docpage/
 
 ------------
 
