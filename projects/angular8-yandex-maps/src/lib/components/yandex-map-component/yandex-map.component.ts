@@ -31,6 +31,7 @@ export class YandexMapComponent implements OnInit {
   @Input() public zoom: number = 10;
   @Input() public state: any = {};
   @Input() public options: any = {};
+  @Input() public clusterer: any;
 
   private _uniqueMapId: string;
 
@@ -42,7 +43,10 @@ export class YandexMapComponent implements OnInit {
 
     this._yandexMapService.initScript()
       .pipe(take(1))
-      .subscribe((ymaps: any) => this._createMapWithObjects(ymaps));
+      .subscribe((ymaps: any) => {
+        const map = this._createMap(ymaps);
+        this._addObjectsOnMap(ymaps, map);
+      });
   }
 
   private _logMapErrors(): void {
@@ -57,29 +61,47 @@ export class YandexMapComponent implements OnInit {
     this.mapContainer.nativeElement.setAttribute('id', this._uniqueMapId);
   }
 
-  private _createMapWithObjects(ymaps: any): void {
-    const map = new ymaps.Map(
+  private _createMap(ymaps: any): any {
+    return new ymaps.Map(
       this._uniqueMapId, { ...this.state, zoom: this.zoom, center: this.center }, this.options
     );
-
-    this._addObjectsOnMap(ymaps, map);
   }
 
+  /**
+   * Add ymaps entities/objects on map
+   * @param ymaps
+   * @param map
+   */
   private _addObjectsOnMap(ymaps: any, map: any): void {
+    // Placemarks with clusterer
+    const placemarks = [];
+
     this.placemarks.forEach((placemark) => {
-      placemark.initPlacemark(ymaps, map);
+      placemarks.push(placemark.initPlacemark(ymaps, map));
     });
 
+    if (this.clusterer) this._createClusterer(ymaps, map, placemarks);
+
+    // Multiroutes
     this.multiroutes.forEach((multiroute) => {
       multiroute.initMultiroute(ymaps, map);
     });
 
+    // GeoObjects
     this.geoObjects.forEach((geoObject) => {
       geoObject.initGeoObject(ymaps, map);
     });
 
+    // SearchControls
     this.searchControls.forEach((searchControl) => {
       searchControl.initSearchControl(ymaps, map);
     });
+  }
+
+  private _createClusterer(ymaps: any, map: any, geoObjects: Array<any>) {
+    const clusterer = new ymaps.Clusterer(this.clusterer);
+
+    clusterer.add(geoObjects);
+    map.geoObjects.add(clusterer);
   }
 }
