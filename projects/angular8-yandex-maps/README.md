@@ -7,6 +7,7 @@ If you liked the project and want to support the development please star the pac
 ## Examples
 
 - [Custom placemark](https://stackblitz.com/edit/custom-placemark)
+- [Placemark clusterer](https://stackblitz.com/edit/placemark-clusterer)
 - [Multiroute](https://stackblitz.com/edit/multiroute)
 - [Rectangle](https://stackblitz.com/edit/rectangle)
 - [Polygon](https://stackblitz.com/edit/geoobject-polygon)
