@@ -55,10 +55,6 @@ export class YandexMapComponent implements OnInit {
     }
   }
 
-  private _getRandomId(): string {
-    return `f${(~~(Math.random() * 1e8)).toString(16)}`;
-  }
-
   /**
    * Create map with unique ID
    * @param ymaps - class from Yandex.Map API
