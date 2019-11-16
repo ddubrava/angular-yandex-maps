@@ -8,6 +8,7 @@ import { YandexSearchComponent } from '../yandex-search-component/yandex-search.
 import { YandexMapService } from '../../services/yandex-map/yandex-map.service';
 
 import { take } from 'rxjs/operators';
+import { generateRandomId } from '../../utils/utils';
 
 @Component({
   selector: 'angular-yandex-map',
@@ -42,7 +43,7 @@ export class YandexMapComponent implements OnInit {
     this._yandexMapService.initScript()
       .pipe(take(1))
       .subscribe((ymaps: any) => {
-        const map = this._createMap(ymaps, this._getRandomId())
+        const map = this._createMap(ymaps, generateRandomId());
         this._addObjectsOnMap(ymaps, map);
       });
   }
