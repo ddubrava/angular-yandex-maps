@@ -56,15 +56,15 @@ export class YandexMapComponent implements OnInit {
   }
 
   /**
-   * Create map with unique ID
+   * Create map
    * @param ymaps - class from Yandex.Map API
-   * @param mapId - unique mapId
+   * @param id - unique id
    */
-  private _createMap(ymaps: any, mapId: string): any {
-    this.mapContainer.nativeElement.setAttribute('id', mapId);
+  private _createMap(ymaps: any, id: string): any {
+    this.mapContainer.nativeElement.setAttribute('id', id);
 
     return new ymaps.Map(
-      mapId, { ...this.state, zoom: this.zoom, center: this.center }, this.options
+      id, { ...this.state, zoom: this.zoom, center: this.center }, this.options
     );
   }
 
