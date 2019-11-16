@@ -38,10 +38,11 @@ export class YandexMapComponent implements OnInit {
   public ngOnInit(): void {
     this._logErrors();
 
+    // Init script, on sub create map & add objects on map
     this._yandexMapService.initScript()
       .pipe(take(1))
       .subscribe((ymaps: any) => {
-        const map = this._createMap(ymaps, this._getRandomId());
+        const map = this._createMap(ymaps, this._getRandomId())
         this._addObjectsOnMap(ymaps, map);
       });
   }
@@ -63,7 +64,7 @@ export class YandexMapComponent implements OnInit {
    * @param mapId - unique mapId
    */
   private _createMap(ymaps: any, mapId: string): any {
-    this.mapContainer.nativeElement.setAttribute('id', this._getRandomId());
+    this.mapContainer.nativeElement.setAttribute('id', mapId);
 
     return new ymaps.Map(
       mapId, { ...this.state, zoom: this.zoom, center: this.center }, this.options
