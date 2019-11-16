@@ -1,9 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-export interface IPlacemark {
-  [key: string]: any;
-}
-
 @Component({
   selector: 'angular-yandex-placemark',
   templateUrl: './yandex-placemark.component.html',
@@ -27,7 +23,7 @@ export class YandexPlacemarkComponent implements OnInit {
     }
   }
 
-  public initPlacemark(ymaps: any, map: any): IPlacemark {
+  public initPlacemark(ymaps: any, map: any): any {
     const placemark = new ymaps.Placemark(this.geometry, this.properties, this.options);
 
     map.geoObjects.add(placemark);
