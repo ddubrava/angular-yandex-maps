@@ -59,8 +59,8 @@ export class YandexMapComponent implements OnInit {
 
   /**
    * Create map with unique ID
-   * @param ymaps
-   * @param mapId
+   * @param ymaps - class from Yandex.Map API
+   * @param mapId - unique mapId
    */
   private _createMap(ymaps: any, mapId: string): any {
     this.mapContainer.nativeElement.setAttribute('id', this._getRandomId());
@@ -72,8 +72,6 @@ export class YandexMapComponent implements OnInit {
 
   /**
    * Add ymaps entities/objects on map
-   * @param ymaps
-   * @param map
    */
   private _addObjectsOnMap(ymaps: any, map: any): void {
     // Placemarks with clusterer
@@ -101,6 +99,10 @@ export class YandexMapComponent implements OnInit {
     });
   }
 
+  /**
+   * Create clusterer for the provided GeoObjects
+   * @param geoObjects - Yandex.Map GeoObject class, can be Placemark, Polylin, Polygon, Circle etc.
+   */
   private _createClusterer(ymaps: any, map: any, geoObjects: Array<any>) {
     const clusterer = new ymaps.Clusterer(this.clusterer);
 
