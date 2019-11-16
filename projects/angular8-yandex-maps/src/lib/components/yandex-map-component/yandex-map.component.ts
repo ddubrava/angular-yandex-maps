@@ -36,7 +36,7 @@ export class YandexMapComponent implements OnInit {
   constructor(private _yandexMapService: YandexMapService) { }
 
   public ngOnInit(): void {
-    this._logMapErrors();
+    this._logErrors();
 
     this._yandexMapService.initScript()
       .pipe(take(1))
@@ -46,7 +46,7 @@ export class YandexMapComponent implements OnInit {
       });
   }
 
-  private _logMapErrors(): void {
+  private _logErrors(): void {
     if (!this.center) {
       console.error('Map: center input is required.');
       this.center = [];
