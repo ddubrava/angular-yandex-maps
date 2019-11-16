@@ -4,26 +4,25 @@
 Angular 6+ module for Yandex.Maps
 
 If you liked the project and want to support the development please star the package on [GitHub page](https://github.com/ddubrava/angular-yandex-maps "GitHub page"). Thanks!
-## Examples
 
-- [Custom placemark](https://stackblitz.com/edit/custom-placemark)
-- [Placemark clusterer](https://stackblitz.com/edit/placemark-clusterer)
-- [Multiroute](https://stackblitz.com/edit/multiroute)
+## Examples
+- [Custom Placemark](https://stackblitz.com/edit/custom-placemark)
+- [Placemark Clusterer](https://stackblitz.com/edit/placemark-clusterer)
+- [Panorama](https://stackblitz.com/edit/panorama)
 - [Rectangle](https://stackblitz.com/edit/rectangle)
 - [Polygon](https://stackblitz.com/edit/geoobject-polygon)
 - [Circle](https://stackblitz.com/edit/geoobject-circle)
-- [Custom search](https://stackblitz.com/edit/custom-searchcontrol)
-- [Search for organizations](https://stackblitz.com/edit/search-for-organizations)
+- [Multiroute](https://stackblitz.com/edit/multiroute)
+- [Custom Search Control](https://stackblitz.com/edit/custom-searchcontrol)
+- [Organizations Search](https://stackblitz.com/edit/search-for-organizations)
 
 ## Installation
-
 ```
 npm install angular8-yandex-maps
 ```
 
 ## Usage
 ### module.ts
-
 ```
 import { AngularYandexMapsModule } from 'angular8-yandex-maps';
 
@@ -33,9 +32,8 @@ import { AngularYandexMapsModule } from 'angular8-yandex-maps';
 ```
 
 ### component.html
-
 ```
-<div class="map">
+<div class="container">
   <angular-yandex-map [center]="[55.751952, 37.600739]" [zoom]="12">
     <angular-yandex-placemark [geometry]="[55.751952, 37.600739]"></angular-yandex-placemark>
   </angular-yandex-map>
@@ -43,16 +41,16 @@ import { AngularYandexMapsModule } from 'angular8-yandex-maps';
 ```
 
 ### component.css
-
 ```
-.map {
+.container {
   width: 1000px;
   height: 500px;
 }
 ```
 
-## Map
-Inputs
+## Map*
+#### Asterisk means root container, they can not be inside each other
+##### Inputs
 
 | Name      | Type         | Default | Required | Description                                                                         |
 |-----------|--------------|---------|----------|-------------------------------------------------------------------------------------|
@@ -62,10 +60,18 @@ Inputs
 | options   | [MapOptions] |         | no       | Options for the map                                                                 |
 | clusterer | [Clusterer]  |         | no       | Options for the Clusterer. Clusters ONLY Placemarks in the visible area of the map. |
 
-
 [MapState]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Map-docpage/#Map__param-state
 [MapOptions]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Map-docpage/#Map__param-options
 [Clusterer]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Clusterer-docpage/
+
+##### Children
+
+| Name                      |
+|---------------------------|
+| [Placemark](#Placemark)   |
+| [MultiRoute](#MultiRoute) |
+| [GeoObject](#GeoObject)   |
+| [Search](#Search)         |
 
 ------------
 
@@ -73,14 +79,37 @@ Inputs
 <angular-yandex-map [center]="[55.751952, 37.600739]" [zoom]="12" [state]="{type: 'yandex#satellite'}"></angular-yandex-map>
 ```
 
-## Placemark
-Inputs
+## Panorama*
+##### Inputs
 
-| Name       | Type                                   | Default | Required | Description                  |
-|------------|----------------------------------------|---------|----------|------------------------------|
-| geometry   | Number[] or Object or [IPointGeometry] |         | yes      | Placemark coordinates or...read Yandex.Maps docs    |
-| properties | [PlacemarkProperties]                  |         | no       | Properties for the placemark |
-| options    | [PlacemarkOptions]                     |         | no       | States for the placemark     |
+| Name    | Type                                       | Default           | Required | Description                                      |
+|---------|--------------------------------------------|-------------------|----------|--------------------------------------------------|
+| point   | Number[]                                   |                   | yes      | Map center geocoordinates                        |
+| layer   | 'yandex#panorama' or  'yandex#airPanorama' | 'yandex#panorama' | no       | The layer in which the panorama will be searched |
+| options | [PanoramaOptions]                          |                   | no       | Options for the panorama                         |
+
+[PanoramaOptions]:https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/panorama.Player-docpage/#panorama.Player__param-options
+
+##### Children
+
+| Name                      |
+|---------------------------|
+| None   |
+
+------------
+
+```
+<angular-yandex-panorama [point]="[59.938557, 30.316198]" [layer]="'yandex#airPanorama'"></angular-yandex-panorama>
+```
+
+## Placemark
+##### Inputs
+
+| Name       | Type                                   | Default | Required | Description                                      |
+|------------|----------------------------------------|---------|----------|--------------------------------------------------|
+| geometry   | Number[] or Object or [IPointGeometry] |         | yes      | Placemark coordinates or...read Yandex.Maps docs |
+| properties | [PlacemarkProperties]                  |         | no       | Properties for the placemark                     |
+| options    | [PlacemarkOptions]                     |         | no       | States for the placemark                         |
 
 [IPointGeometry]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/IPointGeometry-docpage
 [PlacemarkProperties]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Placemark-docpage/#Placemark__param-properties
@@ -89,32 +118,11 @@ Inputs
 ------------
 
 ```
-<angular-yandex-placemark [geometry]="[55.751952, 37.600739]" [properties]="{iconCaption: 'Moscow'}"></angular-yandex-placemark>
-```
-
-## MultiRoute
-Inputs
-
-| Name            | Type                                                    | Default | Required | Description                         |
-|-----------------|---------------------------------------------------------|---------|----------|-------------------------------------|
-| referencePoints | [IMultiRouteReferencePoint][][]                         |         | yes      | Reference points for the multi-route |
-| model           | [multiRouter.MultiRouteModel] or  [MultiRouteModelJson] |         | no       | Properties for the multiroute       |
-| options         | [MultiRouteOptions]                                     |         | no       | Options for the multiroute          |
-
-[IMultiRouteReferencePoint]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/IMultiRouteReferencePoint-docpage/
-[multiRouter.MultiRouteModel]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/multiRouter.MultiRouteModel-docpage/
-[MultiRouteModelJson]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/IMultiRouteModelJson-docpage/
-[multiRouter.MultiRouteModel]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/multiRouter.MultiRoute-docpage/#multiRouter.MultiRoute__param-options
-[MultiRouteOptions]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/multiRouter.MultiRoute-docpage/#multiRouter.MultiRoute__param-options
-
-------------
-
-```
-<angular-yandex-multiroute [referencePoints]="[[55.751952, 37.600739], 'Красные ворота, Москва']" [options]="{routeActiveStrokeColor: 'ff0000'}"></angular-yandex-multiroute>
+<angular-yandex-placemark [geometry]="[55.751952, 37.600739]" [properties]="{ iconCaption: 'Moscow' }"></angular-yandex-placemark>
 ```
 
 ## GeoObject
-Inputs
+##### Inputs
 
 | Name    | Type               | Default | Required | Description               |
 |---------|--------------------|---------|----------|---------------------------|
@@ -130,8 +138,29 @@ Inputs
 <angular-yandex-geoobject [feature]="{ geometry: { type: 'Rectangle', coordinates: [[55.665, 37.66], [55.64,37.53]] } }"></angular-yandex-geoobject>
 ```
 
+## MultiRoute
+##### Inputs
+
+| Name            | Type                                                    | Default | Required | Description                          |
+|-----------------|---------------------------------------------------------|---------|----------|--------------------------------------|
+| referencePoints | [IMultiRouteReferencePoint][][]                         |         | yes      | Reference points for the multi-route |
+| model           | [multiRouter.MultiRouteModel] or  [MultiRouteModelJson] |         | no       | Properties for the multiroute        |
+| options         | [MultiRouteOptions]                                     |         | no       | Options for the multiroute           |
+
+[IMultiRouteReferencePoint]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/IMultiRouteReferencePoint-docpage/
+[multiRouter.MultiRouteModel]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/multiRouter.MultiRouteModel-docpage/
+[MultiRouteModelJson]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/IMultiRouteModelJson-docpage/
+[multiRouter.MultiRouteModel]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/multiRouter.MultiRoute-docpage/#multiRouter.MultiRoute__param-options
+[MultiRouteOptions]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/multiRouter.MultiRoute-docpage/#multiRouter.MultiRoute__param-options
+
+------------
+
+```
+<angular-yandex-multiroute [referencePoints]="[[55.751952, 37.600739], 'Красные ворота, Москва']" [options]="{ routeActiveStrokeColor: 'ff0000' }"></angular-yandex-multiroute>
+```
+
 ## Search
-Inputs
+##### Inputs
 
 | Name          | Type                      | Default | Required | Description                                   |
 |---------------|---------------------------|---------|----------|-----------------------------------------------|
