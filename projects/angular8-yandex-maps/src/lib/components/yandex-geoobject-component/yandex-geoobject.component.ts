@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'angular-yandex-geoobject',
@@ -8,6 +8,8 @@ import { Component, OnInit, Input } from '@angular/core';
 export class YandexGeoObjectComponent implements OnInit {
   @Input() public feature: any;
   @Input() public options: any;
+
+  @Output() public onInit = new EventEmitter<any>();
 
   constructor() {}
 
@@ -23,7 +25,9 @@ export class YandexGeoObjectComponent implements OnInit {
   }
 
   public initGeoObject(ymaps: any, map: any): void {
-    map.geoObjects
-      .add(new ymaps.GeoObject(this.feature, this.options));
+    const geoObject = new ymaps.GeoObject(this.feature, this.options);
+
+    map.geoObjects.add(geoObject);
+    this.onInit.emit(geoObject);
   }
 }

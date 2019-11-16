@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, ContentChildren, QueryList } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, ContentChildren, QueryList, Output, EventEmitter } from '@angular/core';
 
 import { YandexPlacemarkComponent } from '../yandex-placemark-component/yandex-placemark.component';
 import { YandexMultirouteComponent } from '../yandex-multiroute-component/yandex-multiroute.component';
@@ -34,6 +34,11 @@ export class YandexMapComponent implements OnInit {
   @Input() public options: any = {};
   @Input() public clusterer: any;
 
+  /**
+   * Map outpus
+   */
+  @Output() public onInit = new EventEmitter<any>();
+
   constructor(private _yandexMapService: YandexMapService) { }
 
   public ngOnInit(): void {
@@ -44,6 +49,8 @@ export class YandexMapComponent implements OnInit {
       .pipe(take(1))
       .subscribe((ymaps: any) => {
         const map = this._createMap(ymaps, generateRandomId());
+
+        this.onInit.emit(map);
         this._addObjectsOnMap(ymaps, map);
       });
   }

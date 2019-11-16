@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 
 import { YandexMapService } from '../../services/yandex-map/yandex-map.service';
 
@@ -16,6 +16,8 @@ export class YandexPanoramaComponent implements OnInit {
   @Input() public point: Array<number>;
   @Input() public layer: string;
   @Input() public options: any;
+
+  @Output() public onInit = new EventEmitter<any>();
 
   constructor(private _yandexMapService: YandexMapService) { }
 
@@ -45,6 +47,9 @@ export class YandexPanoramaComponent implements OnInit {
     this.panoramaContainer.nativeElement.setAttribute('id', id);
 
     ymaps.panorama.locate(this.point, { layer: this.layer })
-      .then((panorama: any) => new ymaps.panorama.Player(id, panorama[0], this.options));
+      .then((panorama: any) => {
+        const player = new ymaps.panorama.Player(id, panorama[0], this.options);
+        this.onInit.emit(player);
+      });
   }
 }

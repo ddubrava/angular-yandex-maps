@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'angular-yandex-placemark',
@@ -9,6 +9,8 @@ export class YandexPlacemarkComponent implements OnInit {
   @Input() public geometry: any;
   @Input() public properties: any;
   @Input() public options: any;
+
+  @Output() public onInit = new EventEmitter<any>();
 
   constructor() {}
 
@@ -27,6 +29,8 @@ export class YandexPlacemarkComponent implements OnInit {
     const placemark = new ymaps.Placemark(this.geometry, this.properties, this.options);
 
     map.geoObjects.add(placemark);
+    this.onInit.emit(placemark);
+
     return placemark;
   }
 }
