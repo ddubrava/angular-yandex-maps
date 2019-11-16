@@ -1,10 +1,13 @@
 # Changelog
 All notable changes from v1.0.0 will be documented in this file.
 
+## [1.6.0] - 2019-11-16
+### Added
+- Panorama component
+
 ## [1.5.0] - 2019-11-15
 ### Added
 - Clusterer for Placemark in Map inputs
-- Examples in README
 
 ### Changed
 - Inputs of Map
@@ -14,7 +17,6 @@ All notable changes from v1.0.0 will be documented in this file.
 - Inputs of Map
 - Inputs of Placemark
 - Inputs of MultiRoute
-- Inputs in README
 
 ## [1.3.0] - 2019-10-30
 ### Added
@@ -27,8 +29,6 @@ All notable changes from v1.0.0 will be documented in this file.
 ## [1.2.0] - 2019-10-27
 ### Added
 - Search component
-- Search section in README
-- Examples in README
 
 ### Changed
 - Error logging message and logic
@@ -38,8 +38,6 @@ All notable changes from v1.0.0 will be documented in this file.
 ### Added
 - GeoObject component
 - Error logging for Map, Placemark, Multiroute components
-- Add GeoObject in README
-- Add new example in README
 
 ### Removed
 - YandexMapModule types
@@ -51,6 +49,7 @@ All notable changes from v1.0.0 will be documented in this file.
 ## [1.0.0] - 2019-09-14
 - Release without changes
 
+[1.6.0]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.5.0...v1.6.0
 [1.5.0]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.4.0...v1.5.0
 [1.4.0]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.3.0...v1.4.0
 [1.3.0]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.2.1...v1.3.0
