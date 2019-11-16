@@ -19,7 +19,7 @@ export class YandexMapComponent implements OnInit {
   /**
    * Get MapContainer & components inside MapContainer
    */
-  @ViewChild('mapContainer') public mapContainer: ElementRef;
+  @ViewChild('container') public mapContainer: ElementRef;
   @ContentChildren(YandexPlacemarkComponent) placemarks: QueryList<YandexPlacemarkComponent>;
   @ContentChildren(YandexMultirouteComponent) multiroutes: QueryList<YandexMultirouteComponent>;
   @ContentChildren(YandexGeoObjectComponent) geoObjects: QueryList<YandexGeoObjectComponent>;
