@@ -33,18 +33,15 @@ export class YandexMapComponent implements OnInit {
   @Input() public options: any = {};
   @Input() public clusterer: any;
 
-  private _uniqueMapId: string;
-
   constructor(private _yandexMapService: YandexMapService) { }
 
   public ngOnInit(): void {
     this._logMapErrors();
-    this._setUniqueMapId();
 
     this._yandexMapService.initScript()
       .pipe(take(1))
       .subscribe((ymaps: any) => {
-        const map = this._createMap(ymaps);
+        const map = this._createMap(ymaps, this._getRandomId());
         this._addObjectsOnMap(ymaps, map);
       });
   }
@@ -56,14 +53,20 @@ export class YandexMapComponent implements OnInit {
     }
   }
 
-  private _setUniqueMapId(): void {
-    this._uniqueMapId = `f${(~~(Math.random() * 1e8)).toString(16)}`;
-    this.mapContainer.nativeElement.setAttribute('id', this._uniqueMapId);
+  private _getRandomId(): string {
+    return `f${(~~(Math.random() * 1e8)).toString(16)}`;
   }
 
-  private _createMap(ymaps: any): any {
+  /**
+   * Create map with unique ID
+   * @param ymaps
+   * @param mapId
+   */
+  private _createMap(ymaps: any, mapId: string): any {
+    this.mapContainer.nativeElement.setAttribute('id', this._getRandomId());
+
     return new ymaps.Map(
-      this._uniqueMapId, { ...this.state, zoom: this.zoom, center: this.center }, this.options
+      mapId, { ...this.state, zoom: this.zoom, center: this.center }, this.options
     );
   }
 
