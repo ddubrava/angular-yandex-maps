@@ -6,12 +6,12 @@ Angular 6+ module for Yandex.Maps
 If you liked the project and want to support the development please star the package on [GitHub page](https://github.com/ddubrava/angular-yandex-maps "GitHub page"). Thanks!
 
 ## Table of Contents
-- [Map*](#Map*)
-- [Panorama*](#Panorama*)
-- [Placemark](#Placemark)
-- [GeoObject](#GeoObject)
-- [MultiRoute](#MultiRoute)
-- [Control](#Control)
+- [Map*](#map)
+- [Panorama*](#panorama)
+- [Placemark](#placemark)
+- [GeoObject](#geoObject)
+- [MultiRoute](#multiRoute)
+- [Control](#control)
 
 ## Examples
 - [Custom Placemark](https://stackblitz.com/edit/custom-placemark)
@@ -81,10 +81,10 @@ import { AngularYandexMapsModule } from 'angular8-yandex-maps';
 [Map]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Map-docpage/
 
 ##### Children
-- [Placemark](#Placemark)
-- [MultiRoute](#MultiRoute)
-- [GeoObject](#GeoObject)
-- [Control](#Control)
+- [Placemark](#placemark)
+- [MultiRoute](#multiRoute)
+- [GeoObject](#geoObject)
+- [Control](#control)
 
 ------------
 
