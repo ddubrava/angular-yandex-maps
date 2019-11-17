@@ -5,6 +5,14 @@ Angular 6+ module for Yandex.Maps
 
 If you liked the project and want to support the development please star the package on [GitHub page](https://github.com/ddubrava/angular-yandex-maps "GitHub page"). Thanks!
 
+## Table of Contents
+- [Map*](#Map*)
+- [Panorama*](#Panorama*)
+- [Placemark](#Placemark)
+- [GeoObject](#GeoObject)
+- [MultiRoute](#MultiRoute)
+- [Control](#Control)
+
 ## Examples
 - [Custom Placemark](https://stackblitz.com/edit/custom-placemark)
 - [Placemark Clusterer](https://stackblitz.com/edit/placemark-clusterer)
@@ -13,8 +21,9 @@ If you liked the project and want to support the development please star the pac
 - [Polygon](https://stackblitz.com/edit/geoobject-polygon)
 - [Circle](https://stackblitz.com/edit/geoobject-circle)
 - [Multiroute](https://stackblitz.com/edit/multiroute)
-- [Custom Search Control](https://stackblitz.com/edit/custom-searchcontrol)
+- [Search Control](https://stackblitz.com/edit/searchcontrol)
 - [Organizations Search](https://stackblitz.com/edit/search-for-organizations)
+- [RoutePanel Control](https://stackblitz.com/edit/route-panel)
 
 ## Installation
 ```
@@ -64,14 +73,18 @@ import { AngularYandexMapsModule } from 'angular8-yandex-maps';
 [MapOptions]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Map-docpage/#Map__param-options
 [Clusterer]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Clusterer-docpage/
 
-##### Children
+##### Outputs
+| Name   | Type  | Description                                              |
+|--------|-------|----------------------------------------------------------|
+| onInit | [Map] | Emit immediately after entity is added in root container |
 
-| Name                      |
-|---------------------------|
-| [Placemark](#Placemark)   |
-| [MultiRoute](#MultiRoute) |
-| [GeoObject](#GeoObject)   |
-| [Search](#Search)         |
+[Map]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Map-docpage/
+
+##### Children
+- [Placemark](#Placemark)
+- [MultiRoute](#MultiRoute)
+- [GeoObject](#GeoObject)
+- [Control](#Control)
 
 ------------
 
@@ -90,11 +103,15 @@ import { AngularYandexMapsModule } from 'angular8-yandex-maps';
 
 [PanoramaOptions]:https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/panorama.Player-docpage/#panorama.Player__param-options
 
-##### Children
+##### Outputs
+| Name   | Type     | Description                                              |
+|--------|----------|----------------------------------------------------------|
+| onInit | [Player] | Emit immediately after entity is added in root container |
 
-| Name                      |
-|---------------------------|
-| None   |
+[Player]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/panorama.Player-docpage/
+
+##### Children
+- None
 
 ------------
 
@@ -115,6 +132,13 @@ import { AngularYandexMapsModule } from 'angular8-yandex-maps';
 [PlacemarkProperties]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Placemark-docpage/#Placemark__param-properties
 [PlacemarkOptions]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Placemark-docpage/#Placemark__param-options
 
+##### Outputs
+| Name   | Type        | Description                                              |
+|--------|-------------|----------------------------------------------------------|
+| onInit | [GeoObject] | Emit immediately after entity is added in root container |
+
+[GeoObject]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/IGeoObject-docpage/
+
 ------------
 
 ```
@@ -131,6 +155,13 @@ import { AngularYandexMapsModule } from 'angular8-yandex-maps';
 
 [GeoObjectFeature]:https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/GeoObject-docpage/#GeoObject__param-feature
 [GeoObjectOptions]:https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/GeoObject-docpage/#GeoObject__param-options
+
+##### Outputs
+| Name   | Type        | Description                                              |
+|--------|-------------|----------------------------------------------------------|
+| onInit | [GeoObject] | Emit immediately after entity is added in root container |
+
+[GeoObject]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/IGeoObject-docpage/
 
 ------------
 
@@ -153,27 +184,37 @@ import { AngularYandexMapsModule } from 'angular8-yandex-maps';
 [multiRouter.MultiRouteModel]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/multiRouter.MultiRoute-docpage/#multiRouter.MultiRoute__param-options
 [MultiRouteOptions]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/multiRouter.MultiRoute-docpage/#multiRouter.MultiRoute__param-options
 
+##### Outputs
+| Name   | Type                     | Description                                              |
+|--------|--------------------------|----------------------------------------------------------|
+| onInit | [multiRouter.MultiRoute] | Emit immediately after entity is added in root container |
+
+[multiRouter.MultiRoute]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/multiRouter.MultiRoute-docpage/
+
 ------------
 
 ```
 <angular-yandex-multiroute [referencePoints]="[[55.751952, 37.600739], 'Красные ворота, Москва']" [options]="{ routeActiveStrokeColor: 'ff0000' }"></angular-yandex-multiroute>
 ```
 
-## Search
+## Control
 ##### Inputs
+| Name       | Type   | Default | Required | Description                                                                                                              |
+|------------|--------|---------|----------|--------------------------------------------------------------------------------------------------------------------------|
+| type       | String |         | yes      | Control type. List of types you can find in left list - [Controls]. E.g. Control.FullscreenControl - 'FullscreenControl' |
+| parameters | any    |         | no       | Parameters for the Control                                                                                               |
 
-| Name          | Type                      | Default | Required | Description                                   |
-|---------------|---------------------------|---------|----------|-----------------------------------------------|
-| searchRequest | String                    |         | no       | Force search. Example: [SearchRequestExample] |
-| parameters    | [SearchControlParameters] |         | no       | Parameters for the Search                     |
+[Controls]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/control.Button-docpage/
 
-[SearchRequestExample]: https://stackblitz.com/edit/search-for-organizations
-[SearchControlParameters]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/control.SearchControl-docpage/#control.SearchControl__param-parameters
+##### Outputs
+| Name   | Type    | Description                                              |
+|--------|---------|----------------------------------------------------------|
+| onInit | Control | Emit immediately after entity is added in root container |
 
 ------------
 
 ```
-<angular-yandex-search [parameters]="{ options: { float: 'right' } }"></angular-yandex-search>
+<angular-yandex-control [type]="'RoutePanel'" [parameters]="{ options: { float: 'right' } }"></angular-yandex-control>
 ```
 
 ## Changelog
