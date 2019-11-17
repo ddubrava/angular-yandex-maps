@@ -1,7 +1,7 @@
 {
   "name": "angular8-yandex-maps",
-  "version": "1.6.0",
-  "description": "Angular module for Yandex Maps",
+  "version": "1.7.0",
+  "description": "Angular module for Yandex.Maps",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ddubrava/angular-yandex-maps.git"
