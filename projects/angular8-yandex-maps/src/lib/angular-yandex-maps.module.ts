@@ -7,7 +7,7 @@ import { YandexPanoramaComponent } from './components/yandex-panorama-component/
 import { YandexPlacemarkComponent } from './components/yandex-placemark-component/yandex-placemark.component';
 import { YandexMultirouteComponent } from './components/yandex-multiroute-component/yandex-multiroute.component';
 import { YandexGeoObjectComponent } from './components/yandex-geoobject-component/yandex-geoobject.component';
-import { YandexSearchComponent } from './components/yandex-search-component/yandex-search.component';
+import { YandexControlComponent } from './components/yandex-control-component/yandex-control.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +16,7 @@ import { YandexSearchComponent } from './components/yandex-search-component/yand
     YandexPlacemarkComponent,
     YandexMultirouteComponent,
     YandexGeoObjectComponent,
-    YandexSearchComponent
+    YandexControlComponent
   ],
   imports: [
     CommonModule
@@ -27,7 +27,7 @@ import { YandexSearchComponent } from './components/yandex-search-component/yand
     YandexPlacemarkComponent,
     YandexMultirouteComponent,
     YandexGeoObjectComponent,
-    YandexSearchComponent
+    YandexControlComponent
   ]
 })
 

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { YandexSearchComponent } from './yandex-search.component';
+import { YandexControlComponent } from './yandex-control.component';
 
-describe('YandexSearchComponent', () => {
-  let component: YandexSearchComponent;
-  let fixture: ComponentFixture<YandexSearchComponent>;
+describe('YandexControlComponent', () => {
+  let component: YandexControlComponent;
+  let fixture: ComponentFixture<YandexControlComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ YandexSearchComponent ]
+      declarations: [ YandexControlComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(YandexSearchComponent);
+    fixture = TestBed.createComponent(YandexControlComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

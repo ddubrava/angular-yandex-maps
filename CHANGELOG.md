@@ -1,6 +1,13 @@
 # Changelog
 All notable changes from v1.0.0 will be documented in this file.
 
+## [1.7.0] - 2019-11-17
+### Added
+- Control component, supports all Controls of Yandex.Map API
+
+### Removed
+- Search Control component
+
 ## [1.6.0] - 2019-11-16
 ### Added
 - Panorama component
@@ -49,6 +56,7 @@ All notable changes from v1.0.0 will be documented in this file.
 ## [1.0.0] - 2019-09-14
 - Release without changes
 
+[1.7.0]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.6.0...v1.7.0
 [1.6.0]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.5.0...v1.6.0
 [1.5.0]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.4.0...v1.5.0
 [1.4.0]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.3.0...v1.4.0

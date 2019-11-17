@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'angular-yandex-multiroute',
@@ -9,6 +9,8 @@ export class YandexMultirouteComponent implements OnInit {
   @Input() public referencePoints: Array<any>;
   @Input() public model: any;
   @Input() public options: any;
+
+  @Output() public onInit = new EventEmitter<any>();
 
   constructor() { }
 
@@ -24,9 +26,11 @@ export class YandexMultirouteComponent implements OnInit {
   }
 
   public initMultiroute(ymaps: any, map: any): void {
-    map.geoObjects
-      .add(new ymaps.multiRouter.MultiRoute(
-        { ...this.model, referencePoints: this.referencePoints }, this.options
-      ));
+    const multiroute = new ymaps.multiRouter.MultiRoute(
+      { ...this.model, referencePoints: this.referencePoints }, this.options
+    );
+
+    map.geoObjects.add(multiroute);
+    this.onInit.emit(multiroute);
   }
 }

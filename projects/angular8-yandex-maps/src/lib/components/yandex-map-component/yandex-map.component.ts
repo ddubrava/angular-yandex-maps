@@ -1,14 +1,14 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, ContentChildren, QueryList } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, ContentChildren, QueryList, Output, EventEmitter } from '@angular/core';
 
 import { YandexPlacemarkComponent } from '../yandex-placemark-component/yandex-placemark.component';
 import { YandexMultirouteComponent } from '../yandex-multiroute-component/yandex-multiroute.component';
 import { YandexGeoObjectComponent } from '../yandex-geoobject-component/yandex-geoobject.component';
-import { YandexSearchComponent } from '../yandex-search-component/yandex-search.component';
 
 import { YandexMapService } from '../../services/yandex-map/yandex-map.service';
 
 import { take } from 'rxjs/operators';
 import { generateRandomId } from '../../utils/utils';
+import { YandexControlComponent } from '../yandex-control-component/yandex-control.component';
 
 @Component({
   selector: 'angular-yandex-map',
@@ -23,7 +23,7 @@ export class YandexMapComponent implements OnInit {
   @ContentChildren(YandexPlacemarkComponent) placemarks: QueryList<YandexPlacemarkComponent>;
   @ContentChildren(YandexMultirouteComponent) multiroutes: QueryList<YandexMultirouteComponent>;
   @ContentChildren(YandexGeoObjectComponent) geoObjects: QueryList<YandexGeoObjectComponent>;
-  @ContentChildren(YandexSearchComponent) searchControls: QueryList<YandexSearchComponent>;
+  @ContentChildren(YandexControlComponent) controls: QueryList<YandexControlComponent>;
 
   /**
    * Map inputs
@@ -33,6 +33,11 @@ export class YandexMapComponent implements OnInit {
   @Input() public state: any = {};
   @Input() public options: any = {};
   @Input() public clusterer: any;
+
+  /**
+   * Map outpus
+   */
+  @Output() public onInit = new EventEmitter<any>();
 
   constructor(private _yandexMapService: YandexMapService) { }
 
@@ -44,6 +49,8 @@ export class YandexMapComponent implements OnInit {
       .pipe(take(1))
       .subscribe((ymaps: any) => {
         const map = this._createMap(ymaps, generateRandomId());
+
+        this.onInit.emit(map);
         this._addObjectsOnMap(ymaps, map);
       });
   }
@@ -91,9 +98,9 @@ export class YandexMapComponent implements OnInit {
       geoObject.initGeoObject(ymaps, map);
     });
 
-    // SearchControls
-    this.searchControls.forEach((searchControl) => {
-      searchControl.initSearchControl(ymaps, map);
+    // Controls
+    this.controls.forEach((control) => {
+      control.initControl(ymaps, map);
     });
   }
 
