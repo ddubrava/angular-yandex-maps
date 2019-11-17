@@ -9,8 +9,8 @@ If you liked the project and want to support the development please star the pac
 - [Map*](#map)
 - [Panorama*](#panorama)
 - [Placemark](#placemark)
-- [GeoObject](#geoObject)
-- [MultiRoute](#multiRoute)
+- [GeoObject](#geoobject)
+- [MultiRoute](#multiroute)
 - [Control](#control)
 
 ## Examples
@@ -82,8 +82,8 @@ import { AngularYandexMapsModule } from 'angular8-yandex-maps';
 
 ##### Children
 - [Placemark](#placemark)
-- [MultiRoute](#multiRoute)
-- [GeoObject](#geoObject)
+- [MultiRoute](#multiroute)
+- [GeoObject](#geoobject)
 - [Control](#control)
 
 ------------
