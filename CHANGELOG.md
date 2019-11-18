@@ -1,6 +1,10 @@
 # Changelog
 All notable changes from v1.0.0 will be documented in this file.
 
+## [1.7.3] - 2019-11-17
+### Added
+- New examples in README
+
 ## [1.7.2] - 2019-11-17
 ### Changed
 - Fix anchors in README
@@ -64,6 +68,7 @@ All notable changes from v1.0.0 will be documented in this file.
 ## [1.0.0] - 2019-09-14
 - Release without changes
 
+[1.7.3]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.7.2...v1.7.3
 [1.7.2]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.7.1...v1.7.2
 [1.7.1]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.7.0...v1.7.1
 [1.7.0]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.6.0...v1.7.0
