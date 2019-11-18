@@ -17,7 +17,7 @@ export class YandexPanoramaComponent implements OnInit {
   @Input() public layer: string;
   @Input() public options: any;
 
-  @Output() public onInit = new EventEmitter<any>();
+  @Output() public load = new EventEmitter<any>();
 
   constructor(private _yandexMapService: YandexMapService) { }
 
@@ -49,7 +49,7 @@ export class YandexPanoramaComponent implements OnInit {
     ymaps.panorama.locate(this.point, { layer: this.layer })
       .then((panorama: any) => {
         const player = new ymaps.panorama.Player(id, panorama[0], this.options);
-        this.onInit.emit(player);
+        this.load.emit(player);
       });
   }
 }

@@ -10,7 +10,7 @@ export class YandexMultirouteComponent implements OnInit {
   @Input() public model: any;
   @Input() public options: any;
 
-  @Output() public onInit = new EventEmitter<any>();
+  @Output() public load = new EventEmitter<any>();
 
   constructor() { }
 
@@ -31,6 +31,6 @@ export class YandexMultirouteComponent implements OnInit {
     );
 
     map.geoObjects.add(multiroute);
-    this.onInit.emit(multiroute);
+    this.load.emit(multiroute);
   }
 }

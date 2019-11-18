@@ -1,4 +1,4 @@
-[![npm version](https://badge.fury.io/js/angular8-yandex-maps.svg)](https://badge.fury.io/js/angular8-yandex-maps) ![GitHub stars](https://img.shields.io/github/stars/ddubrava/angular-yandex-maps?style=social)
+[![npm version](https://badge.fury.io/js/angular8-yandex-maps.svg)](https://badge.fury.io/js/angular8-yandex-maps) ![npm bundle size](https://img.shields.io/bundlephobia/min/angular8-yandex-maps) ![GitHub stars](https://img.shields.io/github/stars/ddubrava/angular-yandex-maps?style=social) 
 
 # Angular8-yandex-maps
 Angular 6+ module for Yandex.Maps
@@ -79,7 +79,7 @@ import { AngularYandexMapsModule } from 'angular8-yandex-maps';
 ##### Outputs
 | Name   | Type  | Description                                              |
 |--------|-------|----------------------------------------------------------|
-| onInit | [Map] | Emit immediately after entity is added in root container |
+| load | [Map] | Emit immediately after entity is added in root container   |
 
 [Map]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Map-docpage/
 
@@ -109,7 +109,7 @@ import { AngularYandexMapsModule } from 'angular8-yandex-maps';
 ##### Outputs
 | Name   | Type     | Description                                              |
 |--------|----------|----------------------------------------------------------|
-| onInit | [Player] | Emit immediately after entity is added in root container |
+| load | [Player] | Emit immediately after entity is added in root container   |
 
 [Player]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/panorama.Player-docpage/
 
@@ -138,7 +138,7 @@ import { AngularYandexMapsModule } from 'angular8-yandex-maps';
 ##### Outputs
 | Name   | Type        | Description                                              |
 |--------|-------------|----------------------------------------------------------|
-| onInit | [GeoObject] | Emit immediately after entity is added in root container |
+| load | [GeoObject] | Emit immediately after entity is added in root container   |
 
 [GeoObject]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/IGeoObject-docpage/
 
@@ -162,7 +162,7 @@ import { AngularYandexMapsModule } from 'angular8-yandex-maps';
 ##### Outputs
 | Name   | Type        | Description                                              |
 |--------|-------------|----------------------------------------------------------|
-| onInit | [GeoObject] | Emit immediately after entity is added in root container |
+| load | [GeoObject] | Emit immediately after entity is added in root container   |
 
 [GeoObject]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/IGeoObject-docpage/
 
@@ -190,7 +190,7 @@ import { AngularYandexMapsModule } from 'angular8-yandex-maps';
 ##### Outputs
 | Name   | Type                     | Description                                              |
 |--------|--------------------------|----------------------------------------------------------|
-| onInit | [multiRouter.MultiRoute] | Emit immediately after entity is added in root container |
+| load | [multiRouter.MultiRoute] | Emit immediately after entity is added in root container   |
 
 [multiRouter.MultiRoute]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/multiRouter.MultiRoute-docpage/
 
@@ -212,7 +212,7 @@ import { AngularYandexMapsModule } from 'angular8-yandex-maps';
 ##### Outputs
 | Name   | Type    | Description                                              |
 |--------|---------|----------------------------------------------------------|
-| onInit | Control | Emit immediately after entity is added in root container |
+| load | Control | Emit immediately after entity is added in root container   |
 
 ------------
 
