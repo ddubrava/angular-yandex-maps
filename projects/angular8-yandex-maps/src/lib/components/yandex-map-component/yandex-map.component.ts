@@ -37,7 +37,7 @@ export class YandexMapComponent implements OnInit {
   /**
    * Map outpus
    */
-  @Output() public onInit = new EventEmitter<any>();
+  @Output() public load = new EventEmitter<any>();
 
   constructor(private _yandexMapService: YandexMapService) { }
 
@@ -50,7 +50,7 @@ export class YandexMapComponent implements OnInit {
       .subscribe((ymaps: any) => {
         const map = this._createMap(ymaps, generateRandomId());
 
-        this.onInit.emit(map);
+        this.load.emit(map);
         this._addObjectsOnMap(ymaps, map);
       });
   }

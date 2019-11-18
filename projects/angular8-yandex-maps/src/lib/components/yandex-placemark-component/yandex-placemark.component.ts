@@ -10,7 +10,7 @@ export class YandexPlacemarkComponent implements OnInit {
   @Input() public properties: any;
   @Input() public options: any;
 
-  @Output() public onInit = new EventEmitter<any>();
+  @Output() public load = new EventEmitter<any>();
 
   constructor() {}
 
@@ -29,7 +29,7 @@ export class YandexPlacemarkComponent implements OnInit {
     const placemark = new ymaps.Placemark(this.geometry, this.properties, this.options);
 
     map.geoObjects.add(placemark);
-    this.onInit.emit(placemark);
+    this.load.emit(placemark);
 
     return placemark;
   }

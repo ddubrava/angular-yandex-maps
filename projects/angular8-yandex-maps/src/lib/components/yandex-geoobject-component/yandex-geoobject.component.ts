@@ -9,7 +9,7 @@ export class YandexGeoObjectComponent implements OnInit {
   @Input() public feature: any;
   @Input() public options: any;
 
-  @Output() public onInit = new EventEmitter<any>();
+  @Output() public load = new EventEmitter<any>();
 
   constructor() {}
 
@@ -28,6 +28,6 @@ export class YandexGeoObjectComponent implements OnInit {
     const geoObject = new ymaps.GeoObject(this.feature, this.options);
 
     map.geoObjects.add(geoObject);
-    this.onInit.emit(geoObject);
+    this.load.emit(geoObject);
   }
 }

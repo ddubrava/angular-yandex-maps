@@ -9,7 +9,7 @@ export class YandexControlComponent implements OnInit {
   @Input() public type: string;
   @Input() public parameters: any;
 
-  @Output() public onInit = new EventEmitter<any>();
+  @Output() public load = new EventEmitter<any>();
 
   constructor() {}
   public ngOnInit(): void {}
@@ -18,6 +18,6 @@ export class YandexControlComponent implements OnInit {
     const control = new ymaps.control[this.type](this.parameters);
 
     map.controls.add(control);
-    this.onInit.emit(control);
+    this.load.emit(control);
   }
 }
