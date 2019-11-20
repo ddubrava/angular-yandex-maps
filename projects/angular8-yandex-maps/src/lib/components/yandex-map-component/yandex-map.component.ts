@@ -123,32 +123,44 @@ export class YandexMapComponent implements OnInit {
 
     // Action
     map.events
-      .add(['actionbegin', 'actionend'], (e: any) => this.action.emit({ instance: map, type: e.originalEvent.type }));
+      .add(
+        ['actionbegin', 'actionend'],
+        (e: any) => this.action.emit({ instance: map, type: e.originalEvent.type, event: e })
+      );
 
     // Baloon
     map.events
-      .add(['balloonopen', 'balloonclose'], (e: any) => this.baloon.emit({ instance: map, type: e.originalEvent.type }));
+      .add(
+        ['balloonopen', 'balloonclose'],
+        (e: any) => this.baloon.emit({ instance: map, type: e.originalEvent.type, event: e })
+      );
 
     // Click
     map.events
-    .add(['click', 'dblclick'], (e: any) => this.yaclick.emit({ instance: map, type: e.originalEvent.type }));
+      .add(
+        ['click', 'dblclick'],
+        (e: any) => this.yaclick.emit({ instance: map, type: e.originalEvent.type, event: e })
+      );
 
     // Hint
     map.events
-      .add(['hintopen', 'hintclose'], (e: any) => this.hint.emit({ instance: map, type: e.originalEvent.type }));
+      .add(
+        ['hintopen', 'hintclose'],
+        (e: any) => this.hint.emit({ instance: map, type: e.originalEvent.type, event: e })
+      );
 
     // Mouse
     map.events
       .add(
         ['mousedown', 'mouseenter', 'mouseleave', 'mousemove', 'mouseup'],
-        (e: any) => this.mouse.emit({ instance: map, type: e.originalEvent.type })
+        (e: any) => this.mouse.emit({ instance: map, type: e.originalEvent.type, event: e })
       );
 
     // Multitouch
     map.events
       .add(
         ['multitouchstart', 'multitouchmove', 'multitouchend'],
-        (e: any) => this.multitouch.emit({ instance: map, type: e.originalEvent.type })
+        (e: any) => this.multitouch.emit({ instance: map, type: e.originalEvent.type, event: e })
       );
   }
 }

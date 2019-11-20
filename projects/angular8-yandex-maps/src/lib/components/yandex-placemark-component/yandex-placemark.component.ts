@@ -50,32 +50,44 @@ export class YandexPlacemarkComponent implements OnInit {
 
     // Baloon
     placemark.events
-      .add(['balloonopen', 'balloonclose'], (e: any) => this.baloon.emit({ instance: placemark, type: e.originalEvent.type }));
+      .add(
+        ['balloonopen', 'balloonclose'],
+        (e: any) => this.baloon.emit({ instance: placemark, type: e.originalEvent.type, event: e })
+      );
 
     // Click
     placemark.events
-      .add(['click', 'dblclick'], (e: any) => this.yaclick.emit({ instance: placemark, type: e.originalEvent.type }));
+      .add(
+        ['click', 'dblclick'],
+        (e: any) => this.yaclick.emit({ instance: placemark, type: e.originalEvent.type, event: e })
+      );
 
     // Drag
     placemark.events
-      .add(['dragstart', 'dragend'], (e: any) => this.drag.emit({ instance: placemark, type: e.originalEvent.type }));
+      .add(
+        ['dragstart', 'dragend'],
+        (e: any) => this.drag.emit({ instance: placemark, type: e.originalEvent.type, event: e })
+      );
 
     // Hint
     placemark.events
-      .add(['hintopen', 'hintclose'], (e: any) => this.hint.emit({ instance: placemark, type: e.originalEvent.type }));
+      .add(
+        ['hintopen', 'hintclose'],
+        (e: any) => this.hint.emit({ instance: placemark, type: e.originalEvent.type, event: e })
+      );
 
     // Mouse
     placemark.events
       .add(
         ['mousedown', 'mouseenter', 'mouseleave', 'mousemove', 'mouseup'],
-        (e: any) => this.mouse.emit({ instance: placemark, type: e.originalEvent.type })
+        (e: any) => this.mouse.emit({ instance: placemark, type: e.originalEvent.type, event: e })
       );
 
     // Multitouch
     placemark.events
       .add(
         ['multitouchstart', 'multitouchmove', 'multitouchend'],
-        (e: any) => this.multitouch.emit({ instance: placemark, type: e.originalEvent.type })
+        (e: any) => this.multitouch.emit({ instance: placemark, type: e.originalEvent.type, event: e })
       );
   }
 }
