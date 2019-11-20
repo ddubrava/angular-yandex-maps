@@ -1,5 +1,5 @@
 export interface IEvent {
   instance: any;
-  type: string;
+  type: string | undefined;
   event: any;
 }
