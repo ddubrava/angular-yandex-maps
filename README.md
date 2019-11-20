@@ -16,18 +16,27 @@ Full documentation about events, options, properties etc. you can find [here](ht
 - [Control](#control)
 
 ## Examples
-- [Custom Placemark](https://stackblitz.com/edit/custom-placemark)
-- [Placemark Clusterer](https://stackblitz.com/edit/placemark-clusterer)
-- [Changing a Placemark on hover](https://stackblitz.com/edit/changing-a-placemark-on-hover)
+##### Popular
+- [Using a custom image for the placemark](https://stackblitz.com/edit/custom-placemark)
+- [Efficiently adding lots of placemarks to the map](https://stackblitz.com/edit/placemark-clusterer)
+- [Route to the point on the map](https://stackblitz.com/edit/route-to)
+- [Searching for organizations](https://stackblitz.com/edit/search-for-organizations)
+
+##### Panorama
 - [Panorama](https://stackblitz.com/edit/panorama)
+
+##### GeoObjects
+- [Changing a placemark icon when hovering over it](https://stackblitz.com/edit/changing-a-placemark-on-hover)
 - [Rectangle](https://stackblitz.com/edit/rectangle)
 - [Polygon](https://stackblitz.com/edit/geoobject-polygon)
 - [Circle](https://stackblitz.com/edit/geoobject-circle)
-- [Driving Multiroute](https://stackblitz.com/edit/multiroute)
-- [Pedestrian Multiroute](https://stackblitz.com/edit/multiroute-pedestrian)
-- [Route to the point](https://stackblitz.com/edit/route-to)
+
+##### Multiroute
+- [Building a driving multiroute](https://stackblitz.com/edit/multiroute)
+- [Building a pedestrian multiroute](https://stackblitz.com/edit/multiroute-pedestrian)
+
+##### Controls
 - [Search Control](https://stackblitz.com/edit/searchcontrol)
-- [Organizations Search](https://stackblitz.com/edit/search-for-organizations)
 - [RoutePanel Control](https://stackblitz.com/edit/route-panel)
 
 ## Installation
