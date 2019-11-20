@@ -5,6 +5,8 @@ Angular 6+ module for Yandex.Maps
 
 If you liked the project and want to support the development please star the package on [GitHub page](https://github.com/ddubrava/angular-yandex-maps "GitHub page"). Thanks!
 
+Full documentation about events, options, properties etc. you can find [here](https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/concepts/About-docpage/).
+
 ## Table of Contents
 - [Map*](#map)
 - [Panorama*](#panorama)
@@ -14,18 +16,27 @@ If you liked the project and want to support the development please star the pac
 - [Control](#control)
 
 ## Examples
-- [Custom Placemark](https://stackblitz.com/edit/custom-placemark)
-- [Placemark Clusterer](https://stackblitz.com/edit/placemark-clusterer)
-- [Changing a Placemark on hover](https://stackblitz.com/edit/changing-a-placemark-on-hover)
+##### Popular
+- [Using a custom image for the placemark](https://stackblitz.com/edit/custom-placemark)
+- [Efficiently adding lots of placemarks to the map](https://stackblitz.com/edit/placemark-clusterer)
+- [Route to the point on the map](https://stackblitz.com/edit/route-to)
+- [Searching for organizations](https://stackblitz.com/edit/search-for-organizations)
+
+##### Panorama
 - [Panorama](https://stackblitz.com/edit/panorama)
+
+##### GeoObjects
+- [Changing a placemark icon when hovering over it](https://stackblitz.com/edit/changing-a-placemark-on-hover)
 - [Rectangle](https://stackblitz.com/edit/rectangle)
 - [Polygon](https://stackblitz.com/edit/geoobject-polygon)
 - [Circle](https://stackblitz.com/edit/geoobject-circle)
-- [Driving Multiroute](https://stackblitz.com/edit/multiroute)
-- [Pedestrian Multiroute](https://stackblitz.com/edit/multiroute-pedestrian)
-- [Route to the point](https://stackblitz.com/edit/route-to)
+
+##### Multiroute
+- [Building a driving multiroute](https://stackblitz.com/edit/multiroute)
+- [Building a pedestrian multiroute](https://stackblitz.com/edit/multiroute-pedestrian)
+
+##### Controls
 - [Search Control](https://stackblitz.com/edit/searchcontrol)
-- [Organizations Search](https://stackblitz.com/edit/search-for-organizations)
 - [RoutePanel Control](https://stackblitz.com/edit/route-panel)
 
 ## Installation
@@ -61,7 +72,7 @@ import { AngularYandexMapsModule } from 'angular8-yandex-maps';
 ```
 
 ## Map*
-#### Asterisk means root container, they can not be inside each other
+#### Asterisk means root container, they can not be nested
 ##### Inputs
 
 | Name      | Type         | Default | Required | Description                                                                         |
@@ -77,9 +88,15 @@ import { AngularYandexMapsModule } from 'angular8-yandex-maps';
 [Clusterer]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Clusterer-docpage/
 
 ##### Outputs
-| Name   | Type  | Description                                              |
-|--------|-------|----------------------------------------------------------|
-| load | [Map] | Emit immediately after entity is added in root container   |
+| Name       | Type     | Description                                                                                            |
+|------------|----------|--------------------------------------------------------------------------------------------------------|
+| load       | [IEvent] | Emit immediately after entity is added in root container                                               |
+| action     | [IEvent] | Smooth map movement. Supported events: actionbegin, actionend                                          |
+| baloon     | [IEvent] | Actions with ballon. Supported events: balloonopen, balloonclose                                       |
+| yaclick    | [IEvent] | Clicks on the object. Supported events: click, dblclick                                                |
+| hint       | [IEvent] | Action with hint. Supported events: hintopen, hintclose                                                |
+| mouse      | [IEvent] | Mouse actions over the object. Supported events: mousedown, mouseenter, mouseleave, mousemove, mouseup |
+| multitouch | [IEvent] | Multitouch actions over the object. Supported events: multitouchstart, multitouchmove, multitouchend   |
 
 [Map]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Map-docpage/
 
@@ -101,15 +118,18 @@ import { AngularYandexMapsModule } from 'angular8-yandex-maps';
 | Name    | Type                                       | Default           | Required | Description                                      |
 |---------|--------------------------------------------|-------------------|----------|--------------------------------------------------|
 | point   | Number[]                                   |                   | yes      | Map center geocoordinates                        |
-| layer   | 'yandex#panorama' or  'yandex#airPanorama' | 'yandex#panorama' | no       | The layer in which the panorama will be searched |
+| layer   | yandex#panorama or  yandex#airPanorama | yandex#panorama | no       | The layer in which the panorama will be searched |
 | options | [PanoramaOptions]                          |                   | no       | Options for the panorama                         |
 
 [PanoramaOptions]:https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/panorama.Player-docpage/#panorama.Player__param-options
 
 ##### Outputs
-| Name   | Type     | Description                                              |
-|--------|----------|----------------------------------------------------------|
-| load | [Player] | Emit immediately after entity is added in root container   |
+| Name            | Type     | Description                                                                                              |
+|-----------------|----------|----------------------------------------------------------------------------------------------------------|
+| load            | [IEvent] | Emit immediately after entity is added in root container                                                 |
+| directionchange | [IEvent] | The view direction changed                                                                               |
+| fullscreen      | [IEvent] | Full-screen mode was switched. Supported events: fullscreenenter, fullscreenexit                         |
+| marker          | [IEvent] | Clicks on the marker. Supported events: markercollapse, markerexpand, markermouseenter, markermouseleave |
 
 [Player]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/panorama.Player-docpage/
 
@@ -136,9 +156,15 @@ import { AngularYandexMapsModule } from 'angular8-yandex-maps';
 [PlacemarkOptions]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Placemark-docpage/#Placemark__param-options
 
 ##### Outputs
-| Name   | Type        | Description                                              |
-|--------|-------------|----------------------------------------------------------|
-| load | [GeoObject] | Emit immediately after entity is added in root container   |
+| Name       | Type     | Description                                                                                            |
+|------------|----------|--------------------------------------------------------------------------------------------------------|
+| load       | [IEvent] | Emit immediately after entity is added in root container                                               |
+| baloon     | [IEvent] | Actions with ballon. Supported events: balloonopen, balloonclose                                       |
+| yaclick    | [IEvent] | Clicks on the object. Supported events: click, dblclick                                                |
+| drag       | [IEvent] | Placemark dragging. Supported events: dragstart, dragend                                               |
+| hint       | [IEvent] | Action with hint. Supported events: hintopen, hintclose                                                |
+| mouse      | [IEvent] | Mouse actions over the object. Supported events: mousedown, mouseenter, mouseleave, mousemove, mouseup |
+| multitouch | [IEvent] | Multitouch actions over the object. Supported events: multitouchstart, multitouchmove, multitouchend   |
 
 [GeoObject]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/IGeoObject-docpage/
 
@@ -160,9 +186,15 @@ import { AngularYandexMapsModule } from 'angular8-yandex-maps';
 [GeoObjectOptions]:https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/GeoObject-docpage/#GeoObject__param-options
 
 ##### Outputs
-| Name   | Type        | Description                                              |
-|--------|-------------|----------------------------------------------------------|
-| load | [GeoObject] | Emit immediately after entity is added in root container   |
+| Name       | Type     | Description                                                                                            |
+|------------|----------|--------------------------------------------------------------------------------------------------------|
+| load       | [IEvent] | Emit immediately after entity is added in root container                                               |
+| baloon     | [IEvent] | Actions with ballon. Supported events: balloonopen, balloonclose                                       |
+| yaclick    | [IEvent] | Clicks on the object. Supported events: click, dblclick                                                |
+| drag       | [IEvent] | GeoObject dragging. Supported events: dragstart, dragend                                               |
+| hint       | [IEvent] | Action with hint. Supported events: hintopen, hintclose                                                |
+| mouse      | [IEvent] | Mouse actions over the object. Supported events: mousedown, mouseenter, mouseleave, mousemove, mouseup |
+| multitouch | [IEvent] | Multitouch actions over the object. Supported events: multitouchstart, multitouchmove, multitouchend   |
 
 [GeoObject]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/IGeoObject-docpage/
 
@@ -188,9 +220,14 @@ import { AngularYandexMapsModule } from 'angular8-yandex-maps';
 [MultiRouteOptions]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/multiRouter.MultiRoute-docpage/#multiRouter.MultiRoute__param-options
 
 ##### Outputs
-| Name   | Type                     | Description                                              |
-|--------|--------------------------|----------------------------------------------------------|
-| load | [multiRouter.MultiRoute] | Emit immediately after entity is added in root container   |
+| Name              | Type     | Description                                                                                            |
+|-------------------|----------|--------------------------------------------------------------------------------------------------------|
+| load              | [IEvent] | Emit immediately after entity is added in root container                                               |
+| activeroutechange | [IEvent] | Change to the active route                                                                             |
+| baloon            | [IEvent] | Actions with ballon. Supported events: balloonopen, balloonclose                                       |
+| yaclick           | [IEvent] | Clicks on the object. Supported events: click, dblclick                                                |
+| mouse             | [IEvent] | Mouse actions over the object. Supported events: mousedown, mouseenter, mouseleave, mousemove, mouseup |
+| multitouch        | [IEvent] | Multitouch actions over the object. Supported events: multitouchstart, multitouchmove, multitouchend   |
 
 [multiRouter.MultiRoute]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/multiRouter.MultiRoute-docpage/
 
@@ -225,3 +262,5 @@ import { AngularYandexMapsModule } from 'angular8-yandex-maps';
 
 ## License
 [MIT](https://github.com/ddubrava/angular-yandex-maps/blob/develop/LICENSE.md)
+
+[IEvent]: https://github.com/ddubrava/angular-yandex-maps/blob/develop/projects/angular8-yandex-maps/src/lib/types/types.ts

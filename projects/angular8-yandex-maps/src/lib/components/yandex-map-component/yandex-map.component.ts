@@ -1,14 +1,12 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, ContentChildren, QueryList, Output, EventEmitter } from '@angular/core';
-
 import { YandexPlacemarkComponent } from '../yandex-placemark-component/yandex-placemark.component';
 import { YandexMultirouteComponent } from '../yandex-multiroute-component/yandex-multiroute.component';
 import { YandexGeoObjectComponent } from '../yandex-geoobject-component/yandex-geoobject.component';
-
+import { YandexControlComponent } from '../yandex-control-component/yandex-control.component';
 import { YandexMapService } from '../../services/yandex-map/yandex-map.service';
-
 import { take } from 'rxjs/operators';
 import { generateRandomId } from '../../utils/utils';
-import { YandexControlComponent } from '../yandex-control-component/yandex-control.component';
+import { IEvent } from '../../types/types';
 
 @Component({
   selector: 'angular-yandex-map',
@@ -16,28 +14,28 @@ import { YandexControlComponent } from '../yandex-control-component/yandex-contr
   styleUrls: ['./yandex-map.component.scss']
 })
 export class YandexMapComponent implements OnInit {
-  /**
-   * Get MapContainer & components inside MapContainer
-   */
+  // Get MapContainer & components inside MapContainer
   @ViewChild('container') public mapContainer: ElementRef;
   @ContentChildren(YandexPlacemarkComponent) placemarks: QueryList<YandexPlacemarkComponent>;
   @ContentChildren(YandexMultirouteComponent) multiroutes: QueryList<YandexMultirouteComponent>;
   @ContentChildren(YandexGeoObjectComponent) geoObjects: QueryList<YandexGeoObjectComponent>;
   @ContentChildren(YandexControlComponent) controls: QueryList<YandexControlComponent>;
 
-  /**
-   * Map inputs
-   */
+  // Inputs
   @Input() public center: Array<number>;
   @Input() public zoom: number = 10;
   @Input() public state: any = {};
   @Input() public options: any = {};
   @Input() public clusterer: any;
 
-  /**
-   * Map outpus
-   */
+  // Outputs
   @Output() public load = new EventEmitter<any>();
+  @Output() public action = new EventEmitter<IEvent>();
+  @Output() public baloon = new EventEmitter<IEvent>();
+  @Output() public yaclick = new EventEmitter<IEvent>();
+  @Output() public hint = new EventEmitter<IEvent>();
+  @Output() public mouse = new EventEmitter<IEvent>();
+  @Output() public multitouch = new EventEmitter<IEvent>();
 
   constructor(private _yandexMapService: YandexMapService) { }
 
@@ -50,7 +48,7 @@ export class YandexMapComponent implements OnInit {
       .subscribe((ymaps: any) => {
         const map = this._createMap(ymaps, generateRandomId());
 
-        this.load.emit(map);
+        this.emitEvents(map);
         this._addObjectsOnMap(ymaps, map);
       });
   }
@@ -77,6 +75,7 @@ export class YandexMapComponent implements OnInit {
 
   /**
    * Add ymaps entities/objects on map
+   * @param map - current map instance
    */
   private _addObjectsOnMap(ymaps: any, map: any): void {
     // Placemarks with clusterer
@@ -113,5 +112,55 @@ export class YandexMapComponent implements OnInit {
 
     clusterer.add(geoObjects);
     map.geoObjects.add(clusterer);
+  }
+
+  /**
+   * Emit events
+   * @param map - map instance
+   */
+  public emitEvents(map: any): void {
+    this.load.emit(map);
+
+    // Action
+    map.events
+      .add(
+        ['actionbegin', 'actionend'],
+        (e: any) => this.action.emit({ instance: map, type: e.originalEvent.type, event: e })
+      );
+
+    // Baloon
+    map.events
+      .add(
+        ['balloonopen', 'balloonclose'],
+        (e: any) => this.baloon.emit({ instance: map, type: e.originalEvent.type, event: e })
+      );
+
+    // Click
+    map.events
+      .add(
+        ['click', 'dblclick'],
+        (e: any) => this.yaclick.emit({ instance: map, type: e.originalEvent.type, event: e })
+      );
+
+    // Hint
+    map.events
+      .add(
+        ['hintopen', 'hintclose'],
+        (e: any) => this.hint.emit({ instance: map, type: e.originalEvent.type, event: e })
+      );
+
+    // Mouse
+    map.events
+      .add(
+        ['mousedown', 'mouseenter', 'mouseleave', 'mousemove', 'mouseup'],
+        (e: any) => this.mouse.emit({ instance: map, type: e.originalEvent.type, event: e })
+      );
+
+    // Multitouch
+    map.events
+      .add(
+        ['multitouchstart', 'multitouchmove', 'multitouchend'],
+        (e: any) => this.multitouch.emit({ instance: map, type: e.originalEvent.type, event: e })
+      );
   }
 }
