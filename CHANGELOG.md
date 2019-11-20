@@ -1,6 +1,14 @@
 # Changelog
 All notable changes from v1.0.0 will be documented in this file.
 
+## [1.9.0] - 2019-11-19
+### Added
+- Map outputs
+- Panorama outputs
+- Placemark outputs
+- MultiRoute outputs
+- GeoObject outputs
+
 ## [1.8.0] - 2019-11-19
 ### Changed
 - Output 'onInit' renamed to 'load'
@@ -72,6 +80,7 @@ All notable changes from v1.0.0 will be documented in this file.
 ## [1.0.0] - 2019-09-14
 - Release without changes
 
+[1.9.0]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.8.0...v1.9.0
 [1.8.0]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.7.3...v1.8.0
 [1.7.3]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.7.2...v1.7.3
 [1.7.2]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.7.1...v1.7.2
