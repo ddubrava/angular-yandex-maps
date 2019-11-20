@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { IEvent } from '../../types/types';
 
 @Component({
   selector: 'angular-yandex-placemark',
@@ -11,6 +12,12 @@ export class YandexPlacemarkComponent implements OnInit {
   @Input() public options: any;
 
   @Output() public load = new EventEmitter<any>();
+  @Output() public baloon = new EventEmitter<IEvent>();
+  @Output() public yaclick = new EventEmitter<IEvent>();
+  @Output() public drag = new EventEmitter<IEvent>();
+  @Output() public hint = new EventEmitter<IEvent>();
+  @Output() public mouse = new EventEmitter<IEvent>();
+  @Output() public multitouch = new EventEmitter<IEvent>();
 
   constructor() {}
 
@@ -29,8 +36,46 @@ export class YandexPlacemarkComponent implements OnInit {
     const placemark = new ymaps.Placemark(this.geometry, this.properties, this.options);
 
     map.geoObjects.add(placemark);
-    this.load.emit(placemark);
+    this.emitEvents(placemark);
 
     return placemark;
+  }
+
+  /**
+   * Emit events
+   * @param placemark - placemark instance
+   */
+  public emitEvents(placemark: any): void {
+    this.load.emit(placemark);
+
+    // Baloon
+    placemark.events
+      .add(['balloonopen', 'balloonclose'], (e: any) => this.baloon.emit({ instance: placemark, type: e.originalEvent.type }));
+
+    // Click
+    placemark.events
+      .add(['click', 'dblclick'], (e: any) => this.yaclick.emit({ instance: placemark, type: e.originalEvent.type }));
+
+    // Drag
+    placemark.events
+      .add(['dragstart', 'dragend'], (e: any) => this.drag.emit({ instance: placemark, type: e.originalEvent.type }));
+
+    // Hint
+    placemark.events
+      .add(['hintopen', 'hintclose'], (e: any) => this.hint.emit({ instance: placemark, type: e.originalEvent.type }));
+
+    // Mouse
+    placemark.events
+      .add(
+        ['mousedown', 'mouseenter', 'mouseleave', 'mousemove', 'mouseup'],
+        (e: any) => this.mouse.emit({ instance: placemark, type: e.originalEvent.type })
+      );
+
+    // Multitouch
+    placemark.events
+      .add(
+        ['multitouchstart', 'multitouchmove', 'multitouchend'],
+        (e: any) => this.multitouch.emit({ instance: placemark, type: e.originalEvent.type })
+      );
   }
 }
