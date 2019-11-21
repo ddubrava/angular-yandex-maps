@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { ILoadEvent } from '../../types/types';
 
 @Component({
   selector: 'angular-yandex-control',
@@ -9,7 +10,7 @@ export class YandexControlComponent implements OnInit {
   @Input() public type: string;
   @Input() public parameters: any;
 
-  @Output() public load = new EventEmitter<any>();
+  @Output() public load = new EventEmitter<ILoadEvent>();
 
   constructor() {}
   public ngOnInit(): void {}
@@ -23,6 +24,6 @@ export class YandexControlComponent implements OnInit {
     }
 
     map.controls.add(control);
-    this.load.emit(control);
+    this.load.emit({ ymaps, instance: control });
   }
 }
