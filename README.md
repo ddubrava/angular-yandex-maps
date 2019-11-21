@@ -7,6 +7,8 @@ If you liked the project and want to support the development please star the pac
 
 Full documentation about events, options, properties etc. you can find [here](https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/concepts/About-docpage/).
 
+All events return [IEvent] or [ILoadEvent], they contain ymaps & entity instance. **This makes possible to use full Yandex.Maps API.** The key idea of the library is to reduce ymaps usage but if the module does not provide any features then use these objects.
+
 ## Table of Contents
 - [Map*](#map)
 - [Panorama*](#panorama)
@@ -21,6 +23,7 @@ Full documentation about events, options, properties etc. you can find [here](ht
 - [Efficiently adding lots of placemarks to the map](https://stackblitz.com/edit/placemark-clusterer)
 - [Route to the point on the map](https://stackblitz.com/edit/route-to)
 - [Searching for organizations](https://stackblitz.com/edit/search-for-organizations)
+- [Calculating delivery cost](https://stackblitz.com/edit/calculating-delivery-cost)
 
 ##### Panorama
 - [Panorama](https://stackblitz.com/edit/panorama)
@@ -247,9 +250,9 @@ import { AngularYandexMapsModule } from 'angular8-yandex-maps';
 [Controls]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/control.Button-docpage/
 
 ##### Outputs
-| Name   | Type    | Description                                              |
-|--------|---------|----------------------------------------------------------|
-| load | Control | Emit immediately after entity is added in root container   |
+| Name   | Type    | Description                                                     |
+|--------|---------|-----------------------------------------------------------------|
+| load   | [ILoadEvent] | Emit immediately after entity is added in root container   |
 
 ------------
 
@@ -264,3 +267,4 @@ import { AngularYandexMapsModule } from 'angular8-yandex-maps';
 [MIT](https://github.com/ddubrava/angular-yandex-maps/blob/develop/LICENSE.md)
 
 [IEvent]: https://github.com/ddubrava/angular-yandex-maps/blob/develop/projects/angular8-yandex-maps/src/lib/types/types.ts
+[ILoadEvent]: https://github.com/ddubrava/angular-yandex-maps/blob/develop/projects/angular8-yandex-maps/src/lib/types/types.ts
