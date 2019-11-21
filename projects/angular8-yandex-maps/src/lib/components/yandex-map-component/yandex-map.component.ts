@@ -6,7 +6,7 @@ import { YandexControlComponent } from '../yandex-control-component/yandex-contr
 import { YandexMapService } from '../../services/yandex-map/yandex-map.service';
 import { take } from 'rxjs/operators';
 import { generateRandomId } from '../../utils/utils';
-import { IEvent } from '../../types/types';
+import { IEvent, ILoadEvent } from '../../types/types';
 
 @Component({
   selector: 'angular-yandex-map',
@@ -29,7 +29,7 @@ export class YandexMapComponent implements OnInit {
   @Input() public clusterer: any;
 
   // Outputs
-  @Output() public load = new EventEmitter<any>();
+  @Output() public load = new EventEmitter<ILoadEvent>();
   @Output() public action = new EventEmitter<IEvent>();
   @Output() public baloon = new EventEmitter<IEvent>();
   @Output() public yaclick = new EventEmitter<IEvent>();
@@ -48,7 +48,7 @@ export class YandexMapComponent implements OnInit {
       .subscribe((ymaps: any) => {
         const map = this._createMap(ymaps, generateRandomId());
 
-        this.emitEvents(map);
+        this.emitEvents(ymaps, map);
         this._addObjectsOnMap(ymaps, map);
       });
   }
@@ -116,51 +116,52 @@ export class YandexMapComponent implements OnInit {
 
   /**
    * Emit events
+   * @param ymaps - class from Yandex.Map API
    * @param map - map instance
    */
-  public emitEvents(map: any): void {
-    this.load.emit(map);
+  public emitEvents(ymaps: any, map: any): void {
+    this.load.emit({ ymaps, instance: map });
 
     // Action
     map.events
       .add(
         ['actionbegin', 'actionend'],
-        (e: any) => this.action.emit({ instance: map, type: e.originalEvent.type, event: e })
+        (e: any) => this.action.emit({ ymaps, instance: map, type: e.originalEvent.type, event: e })
       );
 
     // Baloon
     map.events
       .add(
         ['balloonopen', 'balloonclose'],
-        (e: any) => this.baloon.emit({ instance: map, type: e.originalEvent.type, event: e })
+        (e: any) => this.baloon.emit({ ymaps, instance: map, type: e.originalEvent.type, event: e })
       );
 
     // Click
     map.events
       .add(
         ['click', 'dblclick'],
-        (e: any) => this.yaclick.emit({ instance: map, type: e.originalEvent.type, event: e })
+        (e: any) => this.yaclick.emit({ ymaps, instance: map, type: e.originalEvent.type, event: e })
       );
 
     // Hint
     map.events
       .add(
         ['hintopen', 'hintclose'],
-        (e: any) => this.hint.emit({ instance: map, type: e.originalEvent.type, event: e })
+        (e: any) => this.hint.emit({ ymaps, instance: map, type: e.originalEvent.type, event: e })
       );
 
     // Mouse
     map.events
       .add(
         ['mousedown', 'mouseenter', 'mouseleave', 'mousemove', 'mouseup'],
-        (e: any) => this.mouse.emit({ instance: map, type: e.originalEvent.type, event: e })
+        (e: any) => this.mouse.emit({ ymaps, instance: map, type: e.originalEvent.type, event: e })
       );
 
     // Multitouch
     map.events
       .add(
         ['multitouchstart', 'multitouchmove', 'multitouchend'],
-        (e: any) => this.multitouch.emit({ instance: map, type: e.originalEvent.type, event: e })
+        (e: any) => this.multitouch.emit({ ymaps, instance: map, type: e.originalEvent.type, event: e })
       );
   }
 }
