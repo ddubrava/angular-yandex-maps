@@ -1,5 +1,5 @@
-import { Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 
 export interface IYandexMapService {
-  initScript(): Subject<any>;
+  initScript(): Observable<any>;
 }
