@@ -8,7 +8,7 @@ describe('NgYandexMapComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ YandexMapComponent ]
+      declarations: [YandexMapComponent]
     })
     .compileComponents();
   }));

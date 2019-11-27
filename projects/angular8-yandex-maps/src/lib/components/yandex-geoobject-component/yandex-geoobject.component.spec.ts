@@ -8,7 +8,7 @@ describe('YandexGeoobjectComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ YandexGeoObjectComponent ]
+      declarations: [YandexGeoObjectComponent]
     })
     .compileComponents();
   }));
