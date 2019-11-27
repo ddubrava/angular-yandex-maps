@@ -6,6 +6,7 @@ import { map, switchMap } from 'rxjs/operators';
 
 declare const ymaps: any;
 
+/** @dynamic */
 @Injectable({
   providedIn: 'root'
 })
