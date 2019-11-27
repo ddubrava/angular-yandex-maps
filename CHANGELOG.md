@@ -1,6 +1,10 @@
 # Changelog
 All notable changes from v1.0.0 will be documented in this file.
 
+## [1.10.1] - 2019-11-27
+### Fixed
+- Lazy loading of YMaps script
+
 ## [1.10.0] - 2019-11-22
 ### Changed
 - IEvent - ymaps: any is added
@@ -87,6 +91,7 @@ All notable changes from v1.0.0 will be documented in this file.
 ## [1.0.0] - 2019-09-14
 - Release without changes
 
+[1.10.1]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.10.0...v1.10.1
 [1.10.0]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.9.0...v1.10.0
 [1.9.0]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.8.0...v1.9.0
 [1.8.0]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.7.3...v1.8.0
