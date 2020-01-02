@@ -1,4 +1,4 @@
-import { Inject, Injectable, Injector } from '@angular/core';
+import { Inject, Injectable, Optional } from '@angular/core';
 import { from, fromEvent, Observable } from 'rxjs';
 import { IYandexMapService } from './yandex-service.type';
 import { DOCUMENT } from '@angular/common';
@@ -14,8 +14,11 @@ export class YandexMapService implements IYandexMapService {
   private _scriptYmaps: HTMLScriptElement;
   private _apiKey: string;
 
-  constructor(private _injector: Injector, @Inject(DOCUMENT) private document: Document) {
-    this._apiKey = this._injector.get('API_KEY');
+  constructor(
+    @Optional() @Inject('API_KEY') apiKey: string,
+    @Inject(DOCUMENT) private document: Document
+  ) {
+    this._apiKey = apiKey;
   }
 
   /**
