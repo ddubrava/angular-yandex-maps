@@ -1,4 +1,4 @@
-[![npm version](https://badge.fury.io/js/angular8-yandex-maps.svg)](https://badge.fury.io/js/angular8-yandex-maps) ![npm bundle size](https://img.shields.io/bundlephobia/min/angular8-yandex-maps) ![npm](https://img.shields.io/npm/dm/angular8-yandex-maps) ![GitHub stars](https://img.shields.io/github/stars/ddubrava/angular-yandex-maps?style=social)
+[![npm version](https://badge.fury.io/js/angular8-yandex-maps.svg)](https://badge.fury.io/js/angular8-yandex-maps) [![Build Status](https://travis-ci.org/ddubrava/angular-yandex-maps.svg?branch=develop)](https://travis-ci.org/ddubrava/angular-yandex-maps) ![npm bundle size](https://img.shields.io/bundlephobia/min/angular8-yandex-maps) ![npm](https://img.shields.io/npm/dm/angular8-yandex-maps) ![GitHub stars](https://img.shields.io/github/stars/ddubrava/angular-yandex-maps?style=social)
 
 # Angular8-yandex-maps
 Angular 6+ module for Yandex.Maps
@@ -53,7 +53,11 @@ npm install angular8-yandex-maps
 import { AngularYandexMapsModule } from 'angular8-yandex-maps';
 
 @NgModule({
-  imports: [AngularYandexMapsModule.forRoot(API_KEY or null)]
+  imports: [AngularYandexMapsModule.forRoot(API_KEY)]
+  /**
+   * forRoot & API_KEY are optional
+   * imports: [AngularYandexMapsModule]
+   */
 })
 ```
 

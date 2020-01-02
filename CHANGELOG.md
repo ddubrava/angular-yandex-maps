@@ -1,6 +1,10 @@
 # Changelog
 All notable changes from v1.0.0 will be documented in this file.
 
+## [1.10.2] - 2020-01-02
+### Changed
+- forRoot() is optional for AngularYandexMapsModule
+
 ## [1.10.1] - 2019-11-27
 ### Fixed
 - Lazy loading of YMaps script

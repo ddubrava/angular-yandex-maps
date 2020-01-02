@@ -8,7 +8,7 @@ describe('YandexMultirouteComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ YandexMultirouteComponent ]
+      declarations: [YandexMultirouteComponent]
     })
     .compileComponents();
   }));

@@ -8,7 +8,7 @@ describe('YandexPanoramaComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ YandexPanoramaComponent ]
+      declarations: [YandexPanoramaComponent]
     })
     .compileComponents();
   }));

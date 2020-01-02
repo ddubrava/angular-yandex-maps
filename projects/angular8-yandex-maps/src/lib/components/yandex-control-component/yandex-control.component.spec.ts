@@ -8,7 +8,7 @@ describe('YandexControlComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ YandexControlComponent ]
+      declarations: [YandexControlComponent]
     })
     .compileComponents();
   }));

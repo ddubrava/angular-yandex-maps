@@ -8,7 +8,7 @@ describe('YandexPlacemarkComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ YandexPlacemarkComponent ]
+      declarations: [YandexPlacemarkComponent]
     })
     .compileComponents();
   }));
