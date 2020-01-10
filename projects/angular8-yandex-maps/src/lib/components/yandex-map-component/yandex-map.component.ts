@@ -16,14 +16,14 @@ import { IEvent, ILoadEvent } from '../../types/types';
 export class YandexMapComponent implements OnInit {
   // Get MapContainer & components inside MapContainer
   @ViewChild('container') public mapContainer: ElementRef;
-  @ContentChildren(YandexPlacemarkComponent) placemarks: QueryList<YandexPlacemarkComponent>;
-  @ContentChildren(YandexMultirouteComponent) multiroutes: QueryList<YandexMultirouteComponent>;
-  @ContentChildren(YandexGeoObjectComponent) geoObjects: QueryList<YandexGeoObjectComponent>;
-  @ContentChildren(YandexControlComponent) controls: QueryList<YandexControlComponent>;
+  @ContentChildren(YandexPlacemarkComponent) public placemarks: QueryList<YandexPlacemarkComponent>;
+  @ContentChildren(YandexMultirouteComponent) public multiroutes: QueryList<YandexMultirouteComponent>;
+  @ContentChildren(YandexGeoObjectComponent) public geoObjects: QueryList<YandexGeoObjectComponent>;
+  @ContentChildren(YandexControlComponent) public controls: QueryList<YandexControlComponent>;
 
   // Inputs
   @Input() public center: Array<number>;
-  @Input() public zoom: number = 10;
+  @Input() public zoom = 10;
   @Input() public state: any = {};
   @Input() public options: any = {};
   @Input() public clusterer: any;
@@ -81,24 +81,24 @@ export class YandexMapComponent implements OnInit {
     // Placemarks with clusterer
     const placemarks = [];
 
-    this.placemarks.forEach((placemark) => {
+    this.placemarks.forEach((placemark: YandexPlacemarkComponent) => {
       placemarks.push(placemark.initPlacemark(ymaps, map));
     });
 
     if (this.clusterer) this._createClusterer(ymaps, map, placemarks);
 
     // Multiroutes
-    this.multiroutes.forEach((multiroute) => {
+    this.multiroutes.forEach((multiroute: YandexMultirouteComponent) => {
       multiroute.initMultiroute(ymaps, map);
     });
 
     // GeoObjects
-    this.geoObjects.forEach((geoObject) => {
+    this.geoObjects.forEach((geoObject: YandexGeoObjectComponent) => {
       geoObject.initGeoObject(ymaps, map);
     });
 
     // Controls
-    this.controls.forEach((control) => {
+    this.controls.forEach((control: YandexControlComponent) => {
       control.initControl(ymaps, map);
     });
   }
@@ -107,7 +107,7 @@ export class YandexMapComponent implements OnInit {
    * Create clusterer for the provided GeoObjects
    * @param geoObjects - Yandex.Map GeoObject class, can be Placemark, Polylin, Polygon, Circle etc.
    */
-  private _createClusterer(ymaps: any, map: any, geoObjects: Array<any>) {
+  private _createClusterer(ymaps: any, map: any, geoObjects: Array<any>): void {
     const clusterer = new ymaps.Clusterer(this.clusterer);
 
     clusterer.add(geoObjects);

@@ -32,7 +32,7 @@ import { YandexControlComponent } from './components/yandex-control-component/ya
 })
 
 export class AngularYandexMapsModule {
-  static forRoot(apiKey: string): ModuleWithProviders {
+  public static forRoot(apiKey: string): ModuleWithProviders {
     return {
       ngModule: AngularYandexMapsModule,
       providers: [

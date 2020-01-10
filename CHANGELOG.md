@@ -1,6 +1,10 @@
 # Changelog
 All notable changes from v1.0.0 will be documented in this file.
 
+## [1.10.3] - 2020-01-10
+### Changed
+- README. Move documentation to [Angular-Yandex-Maps-Docs](https://ddubrava.github.io/angular-yandex-maps-docs/)
+
 ## [1.10.2] - 2020-01-02
 ### Changed
 - forRoot() is optional for AngularYandexMapsModule
@@ -95,6 +99,8 @@ All notable changes from v1.0.0 will be documented in this file.
 ## [1.0.0] - 2019-09-14
 - Release without changes
 
+[1.10.3]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.10.2...v1.10.3
+[1.10.2]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.10.1...v1.10.2
 [1.10.1]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.10.0...v1.10.1
 [1.10.0]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.9.0...v1.10.0
 [1.9.0]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.8.0...v1.9.0
