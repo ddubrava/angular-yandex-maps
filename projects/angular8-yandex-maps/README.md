@@ -1,13 +1,11 @@
-[![npm version](https://badge.fury.io/js/angular8-yandex-maps.svg)](https://badge.fury.io/js/angular8-yandex-maps) [![Build Status](https://travis-ci.org/ddubrava/angular-yandex-maps.svg?branch=develop)](https://travis-ci.org/ddubrava/angular-yandex-maps) ![npm bundle size](https://img.shields.io/bundlephobia/min/angular8-yandex-maps) ![npm](https://img.shields.io/npm/dm/angular8-yandex-maps) ![GitHub stars](https://img.shields.io/github/stars/ddubrava/angular-yandex-maps?style=social)
+[![npm version](https://badge.fury.io/js/angular8-yandex-maps.svg)](https://badge.fury.io/js/angular8-yandex-maps) [![Build Status](https://travis-ci.org/ddubrava/angular-yandex-maps.svg?branch=master)](https://travis-ci.org/ddubrava/angular-yandex-maps) ![npm bundle size](https://img.shields.io/bundlephobia/min/angular8-yandex-maps) ![npm](https://img.shields.io/npm/dm/angular8-yandex-maps) ![GitHub stars](https://img.shields.io/github/stars/ddubrava/angular-yandex-maps?style=social)
 
 # Angular8-yandex-maps
-Angular-Yandex-Maps is an Angular library for simplifying work with the Yandex.Maps API. Supports Angular 6+.
+Angular-Yandex-Maps is an Angular library for simplifying work with the Yandex.Maps API. **Supports Angular 6+.**
 
-The library implements the main components: map, panorama, placemark, geoobject, multiroute and controls. You can find documentation for these components in the left menu. For a more detailed description of inputs, outputs check API Yandex.Maps documentation.
+The library implements the main components: map, panorama, placemark, geoobject, multiroute and controls. It also returns ymaps instance so you can use full API. For a more detailed description of inputs, outputs etc. check [API Yandex.Maps documentation](https://tech.yandex.ru/maps/jsapi/).
 
-Events: IEvent, ILoadEvent - return the ymaps instance and created entity. This makes possible to use full Yandex.Maps API.
-
-The key idea of the library is to reduce ymaps usage and use components from the 'box'. Leave suggestions, problems, errors, difficulties in GitHub Issues. Thanks for using the library!
+Leave suggestions, problems, errors, difficulties in GitHub Issues. Thanks for using the library!
 
 ## Documentation
 [Documentation](https://ddubrava.github.io/angular-yandex-maps-docs/)
@@ -78,6 +76,3 @@ import { AngularYandexMapsModule } from 'angular8-yandex-maps';
 
 ## License
 [MIT](https://github.com/ddubrava/angular-yandex-maps/blob/develop/LICENSE.md)
-
-[IEvent]: https://github.com/ddubrava/angular-yandex-maps/blob/develop/projects/angular8-yandex-maps/src/lib/types/types.ts
-[ILoadEvent]: https://github.com/ddubrava/angular-yandex-maps/blob/develop/projects/angular8-yandex-maps/src/lib/types/types.ts
