@@ -1,5 +1,5 @@
 export interface ILoadEvent {
-  instance: any;
+  instance?: any;
   ymaps: any;
 }
 

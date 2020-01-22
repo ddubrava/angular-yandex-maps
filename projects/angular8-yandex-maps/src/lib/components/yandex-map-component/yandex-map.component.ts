@@ -22,6 +22,7 @@ export class YandexMapComponent implements OnInit {
   @ContentChildren(YandexControlComponent) public controls: QueryList<YandexControlComponent>;
 
   // Inputs
+  @Input() public onlyInstance: boolean;
   @Input() public center: Array<number>;
   @Input() public zoom = 10;
   @Input() public state: any = {};
@@ -40,12 +41,21 @@ export class YandexMapComponent implements OnInit {
   constructor(private _yandexMapService: YandexMapService) { }
 
   public ngOnInit(): void {
-    this._logErrors();
-
-    // Init script, on sub create map & add objects on map
+    /**
+     * Init ymaps script
+     * OnSub create map & add object on the map
+     * If onlyInstance === true => only emit loadEvent
+     */
     this._yandexMapService.initScript()
       .pipe(take(1))
       .subscribe((ymaps: any) => {
+        if (this.onlyInstance) {
+          this.load.emit({ ymaps });
+          return;
+        }
+
+        this._logErrors();
+
         const map = this._createMap(ymaps, generateRandomId());
 
         this.emitEvents(ymaps, map);
