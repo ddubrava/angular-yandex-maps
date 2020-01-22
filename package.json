@@ -1,6 +1,6 @@
 {
   "name": "angular-yandex-maps",
-  "version": "1.10.3",
+  "version": "1.11.0",
   "scripts": {
     "start": "ng serve",
     "build": "ng build angular8-yandex-maps",
