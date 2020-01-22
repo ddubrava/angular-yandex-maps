@@ -17,6 +17,7 @@ Leave suggestions, problems, errors, difficulties in GitHub Issues. Thanks for u
 - [Route to the point on the map](https://stackblitz.com/edit/route-to)
 - [Searching for organizations](https://stackblitz.com/edit/search-for-organizations)
 - [Calculating delivery cost](https://stackblitz.com/edit/calculating-delivery-cost)
+- [Using geocoder without creating map](https://stackblitz.com/edit/only-ymaps-instance)
 
 ##### Panorama
 - [Panorama](https://stackblitz.com/edit/panorama)
