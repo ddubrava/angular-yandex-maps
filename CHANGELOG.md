@@ -1,6 +1,10 @@
 # Changelog
 All notable changes from v1.0.0 will be documented in this file.
 
+## [1.11.2] - 2020-03-25
+### Changed
+- README, replace examples list by link to docs
+
 ## [1.11.0] - 2020-01-22
 ### Added
 - onlyInstance input. With that option, entities aren't creating. The map only returns ILoadEvent.
@@ -103,7 +107,8 @@ All notable changes from v1.0.0 will be documented in this file.
 ## [1.0.0] - 2019-09-14
 - Release without changes
 
-[1.11.0]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.10.2...v1.10.3
+[1.11.2]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.11.0...v1.11.2
+[1.11.0]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.10.3...v1.11.0
 [1.10.3]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.10.2...v1.10.3
 [1.10.2]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.10.1...v1.10.2
 [1.10.1]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.10.0...v1.10.1
