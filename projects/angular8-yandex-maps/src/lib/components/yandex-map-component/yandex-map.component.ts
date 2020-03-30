@@ -76,7 +76,10 @@ export class YandexMapComponent implements OnInit {
    * @param id - unique id
    */
   private _createMap(ymaps: any, id: string): any {
-    this.mapContainer.nativeElement.setAttribute('id', id);
+    // Set unique map id & inline styles for container
+    const containerElem: HTMLElement = this.mapContainer.nativeElement;
+    containerElem.setAttribute('id', id);
+    containerElem.style.cssText = 'width: 100%; height: 100%;';
 
     return new ymaps.Map(
       id, { ...this.state, zoom: this.zoom, center: this.center }, this.options
