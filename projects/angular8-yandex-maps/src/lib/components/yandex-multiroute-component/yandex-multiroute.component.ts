@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { IEvent, ILoadEvent } from '../../types/types';
+import { generateRandomId } from '../../utils/utils';
 
 @Component({
   selector: 'angular-yandex-multiroute',
@@ -17,6 +18,12 @@ export class YandexMultirouteComponent implements OnInit {
   @Output() public yaclick = new EventEmitter<IEvent>();
   @Output() public mouse = new EventEmitter<IEvent>();
   @Output() public multitouch = new EventEmitter<IEvent>();
+
+  public id: string;
+
+  // Yandex.Map API
+  private _map: any;
+  private _multiroute: any;
 
   constructor() { }
 
@@ -36,16 +43,20 @@ export class YandexMultirouteComponent implements OnInit {
       { ...this.model, referencePoints: this.referencePoints }, this.options
     );
 
+    this.id = generateRandomId();
+    this._map = map;
+    this._multiroute = multiroute;
+
     map.geoObjects.add(multiroute);
-    this.emitEvents(ymaps, multiroute);
+    this._emitEvents(ymaps, multiroute);
   }
 
   /**
-   * Emit events
-   * @param ymaps - class from Yandex.Map API
-   * @param multiroute - multiroute instance
+   * Add listeners on placemark events
+   * @param ymaps
+   * @param map
    */
-  public emitEvents(ymaps: any, multiroute: any): void {
+  private _emitEvents(ymaps: any, multiroute: any): void {
     this.load.emit({ ymaps, instance: multiroute });
 
     // Activeroutechange
@@ -82,5 +93,9 @@ export class YandexMultirouteComponent implements OnInit {
         ['multitouchstart', 'multitouchmove', 'multitouchend'],
         (e: any) => this.multitouch.emit({ ymaps, instance: multiroute, type: e.originalEvent.type, event: e })
       );
+  }
+
+  public ngOnDestroy(): void {
+    this._map.geoObjects.remove(this._multiroute);
   }
 }
