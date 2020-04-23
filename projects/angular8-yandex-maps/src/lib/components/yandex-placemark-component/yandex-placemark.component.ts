@@ -1,12 +1,13 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { IEvent, ILoadEvent } from '../../types/types';
+import { generateRandomId } from '../../utils/utils';
 
 @Component({
   selector: 'angular-yandex-placemark',
   templateUrl: './yandex-placemark.component.html',
   styleUrls: ['./yandex-placemark.component.scss']
 })
-export class YandexPlacemarkComponent implements OnInit {
+export class YandexPlacemarkComponent implements OnInit, OnDestroy {
   @Input() public geometry: any;
   @Input() public properties: any;
   @Input() public options: any;
@@ -18,6 +19,12 @@ export class YandexPlacemarkComponent implements OnInit {
   @Output() public hint = new EventEmitter<IEvent>();
   @Output() public mouse = new EventEmitter<IEvent>();
   @Output() public multitouch = new EventEmitter<IEvent>();
+
+  public id: string;
+
+  // Yandex.Map API
+  private _map: any;
+  private _placemark: any;
 
   constructor() {}
 
@@ -35,18 +42,22 @@ export class YandexPlacemarkComponent implements OnInit {
   public initPlacemark(ymaps: any, map: any): any {
     const placemark = new ymaps.Placemark(this.geometry, this.properties, this.options);
 
+    this.id = generateRandomId();
+    this._map = map;
+    this._placemark = placemark;
+
     map.geoObjects.add(placemark);
-    this.emitEvents(ymaps, placemark);
+    this._emitEvents(ymaps, placemark);
 
     return placemark;
   }
 
   /**
-   * Emit events
-   * @param ymaps - class from Yandex.Map API
-   * @param placemark - placemark instance
+   * Add listeners on placemark events
+   * @param ymaps
+   * @param map
    */
-  public emitEvents(ymaps: any, placemark: any): void {
+  private _emitEvents(ymaps: any, placemark: any): void {
     this.load.emit({ ymaps, instance: placemark });
 
     // Baloon
@@ -90,5 +101,9 @@ export class YandexPlacemarkComponent implements OnInit {
         ['multitouchstart', 'multitouchmove', 'multitouchend'],
         (e: any) => this.multitouch.emit({ ymaps, instance: placemark, type: e.originalEvent.type, event: e })
       );
+  }
+
+  public ngOnDestroy(): void {
+    this._map.geoObjects.remove(this._placemark);
   }
 }
