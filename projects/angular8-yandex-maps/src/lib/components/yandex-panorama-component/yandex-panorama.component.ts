@@ -2,7 +2,7 @@ import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter }
 import { YandexMapService } from '../../services/yandex-map/yandex-map.service';
 import { take } from 'rxjs/operators';
 import { generateRandomId } from '../../utils/utils';
-import { IEvent, ILoadEvent } from '../../types/types';
+import { IEvent, ILoadEvent } from '../../models/models';
 
 @Component({
   selector: 'angular-yandex-panorama',

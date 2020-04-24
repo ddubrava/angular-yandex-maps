@@ -3,4 +3,4 @@
  */
 
 export * from './lib/angular-yandex-maps.module';
-export * from './lib/types/types';
+export * from './lib/models/models';

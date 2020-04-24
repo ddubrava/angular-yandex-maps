@@ -10,7 +10,7 @@ import {
   QueryList,
   ViewChild,
 } from '@angular/core';
-import { IEvent, ILoadEvent } from '../../types/types';
+import { IEvent, ILoadEvent } from '../../models/models';
 import { Subscription } from 'rxjs';
 import { YandexControlComponent } from '../yandex-control-component/yandex-control.component';
 import { YandexGeoObjectComponent } from '../yandex-geoobject-component/yandex-geoobject.component';

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
-import { IEvent, ILoadEvent } from '../../types/types';
+import { IEvent, ILoadEvent } from '../../models/models';
 import { generateRandomId } from '../../utils/utils';
 
 @Component({
