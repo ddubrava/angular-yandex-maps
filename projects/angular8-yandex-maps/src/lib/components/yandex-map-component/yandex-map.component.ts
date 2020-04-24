@@ -104,20 +104,24 @@ export class YandexMapComponent implements OnInit, OnDestroy {
    */
   private _initObjects(ymaps: any, map: any): void {
     // Placemarks
+    let clusterer: any;
+
+    if (this.clusterer) {
+      clusterer = this._createClusterer(ymaps, map);
+    }
+
     const placemarksSub = this.placemarks.changes
       .pipe(startWith(this.placemarks))
       .subscribe((list: QueryList<YandexPlacemarkComponent>) => {
-        const placemarks = []; // for clusterer
-
         list.forEach((placemark: YandexPlacemarkComponent) => {
           if (!placemark.id) {
-            placemarks.push(placemark.initPlacemark(ymaps, map));
+            placemark.initPlacemark(ymaps, map, clusterer);
+          }
+
+          if (clusterer) {
+            clusterer.add(placemark.placemark);
           }
         });
-
-        if (this.clusterer) {
-          this._createClusterer(ymaps, map, placemarks);
-        }
       });
 
     // Multiroutes
@@ -153,15 +157,11 @@ export class YandexMapComponent implements OnInit, OnDestroy {
       .add(geoObjectsSub);
   }
 
-  /**
-   * Create clusterer for the provided GeoObjects
-   * @param geoObjects - Yandex.Map GeoObject class, can be Placemark, Polylin, Polygon, Circle etc.
-   */
-  private _createClusterer(ymaps: any, map: any, geoObjects: Array<any>): void {
+  private _createClusterer(ymaps: any, map: any): any {
     const clusterer = new ymaps.Clusterer(this.clusterer);
-
-    clusterer.add(geoObjects);
     map.geoObjects.add(clusterer);
+
+    return clusterer;
   }
 
   /**

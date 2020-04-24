@@ -24,7 +24,8 @@ export class YandexPlacemarkComponent implements OnInit, OnDestroy {
 
   // Yandex.Map API
   private _map: any;
-  private _placemark: any;
+  public placemark: any;
+  private _clusterer: any;
 
   constructor() {}
 
@@ -39,17 +40,16 @@ export class YandexPlacemarkComponent implements OnInit, OnDestroy {
     }
   }
 
-  public initPlacemark(ymaps: any, map: any): any {
+  public initPlacemark(ymaps: any, map: any, clusterer?: any): any {
     const placemark = new ymaps.Placemark(this.geometry, this.properties, this.options);
 
     this.id = generateRandomId();
     this._map = map;
-    this._placemark = placemark;
+    this.placemark = placemark;
+    this._clusterer = clusterer;
 
     map.geoObjects.add(placemark);
     this._emitEvents(ymaps, placemark);
-
-    return placemark;
   }
 
   /**
@@ -104,6 +104,10 @@ export class YandexPlacemarkComponent implements OnInit, OnDestroy {
   }
 
   public ngOnDestroy(): void {
-    this._map.geoObjects.remove(this._placemark);
+    if (this._clusterer) {
+      this._clusterer.remove(this.placemark);
+    }
+
+    this._map.geoObjects.remove(this.placemark);
   }
 }
