@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { IEvent, ILoadEvent } from '../../types/types';
+import { generateRandomId } from '../../utils/utils';
 
 @Component({
   selector: 'angular-yandex-geoobject',
@@ -18,6 +19,12 @@ export class YandexGeoObjectComponent implements OnInit {
   @Output() public mouse = new EventEmitter<IEvent>();
   @Output() public multitouch = new EventEmitter<IEvent>();
 
+  public id: string;
+
+  // Yandex.Map API
+  private _map: any;
+  private _geoObject: any;
+
   constructor() {}
 
   public ngOnInit(): void {
@@ -34,16 +41,20 @@ export class YandexGeoObjectComponent implements OnInit {
   public initGeoObject(ymaps: any, map: any): void {
     const geoObject = new ymaps.GeoObject(this.feature, this.options);
 
+    this.id = generateRandomId();
+    this._map = map;
+    this._geoObject = geoObject;
+
     map.geoObjects.add(geoObject);
-    this.emitEvents(ymaps, geoObject);
+    this._emitEvents(ymaps, geoObject);
   }
 
   /**
-   * Emit events
-   * @param ymaps - class from Yandex.Map API
-   * @param multiroute - multiroute instance
+   * Add listeners on placemark events
+   * @param ymaps
+   * @param map
    */
-  public emitEvents(ymaps: any, geoObject: any): void {
+  private _emitEvents(ymaps: any, geoObject: any): void {
     this.load.emit({ ymaps, instance: geoObject });
 
     // Baloon
@@ -87,5 +98,9 @@ export class YandexGeoObjectComponent implements OnInit {
         ['multitouchstart', 'multitouchmove', 'multitouchend'],
         (e: any) => this.multitouch.emit({ ymaps, instance: geoObject, type: e.originalEvent.type, event: e })
       );
+  }
+
+  public ngOnDestroy(): void {
+    this._map.geoObjects.remove(this._geoObject);
   }
 }
