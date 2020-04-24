@@ -1,6 +1,10 @@
 # Changelog
 All notable changes from v1.0.0 will be documented in this file.
 
+## [1.12.0] - 2020-04-24
+### Added
+- Support for changing ContentChild after map init (E.g. Issue#11)
+
 ## [1.11.4] - 2020-04-02
 ### Added
 - Export types: ILoadEvent & IEvent
@@ -115,6 +119,7 @@ All notable changes from v1.0.0 will be documented in this file.
 ## [1.0.0] - 2019-09-14
 - Release without changes
 
+[1.12.0]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.11.4...v1.12.0
 [1.11.4]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.11.3...v1.11.4
 [1.11.3]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.11.2...v1.11.3
 [1.11.2]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.11.0...v1.11.2
