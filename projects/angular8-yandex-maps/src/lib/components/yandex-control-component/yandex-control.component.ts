@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { ILoadEvent } from '../../types/types';
+import { ILoadEvent } from '../../models/models';
 
 @Component({
   selector: 'angular-yandex-control',
