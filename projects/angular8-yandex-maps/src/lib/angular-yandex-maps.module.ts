@@ -9,6 +9,8 @@ import { YandexMultirouteComponent } from './components/yandex-multiroute-compon
 import { YandexGeoObjectComponent } from './components/yandex-geoobject-component/yandex-geoobject.component';
 import { YandexControlComponent } from './components/yandex-control-component/yandex-control.component';
 
+import { IConfig } from './models/models';
+
 @NgModule({
   declarations: [
     YandexMapComponent,
@@ -32,11 +34,11 @@ import { YandexControlComponent } from './components/yandex-control-component/ya
 })
 
 export class AngularYandexMapsModule {
-  public static forRoot(apiKey: string): ModuleWithProviders {
+  public static forRoot(config: Partial<IConfig>): ModuleWithProviders {
     return {
       ngModule: AngularYandexMapsModule,
       providers: [
-        { provide: 'API_KEY', useValue: apiKey }
+        { provide: 'CONFIG', useValue: config }
       ]
     };
   }
