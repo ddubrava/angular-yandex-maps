@@ -3,6 +3,7 @@ import { from, fromEvent, Observable } from 'rxjs';
 import { IYandexMapService } from './yandex-service.type';
 import { DOCUMENT } from '@angular/common';
 import { map, switchMap } from 'rxjs/operators';
+import { IConfig } from '../../models/models';
 
 declare const ymaps: any;
 
@@ -12,23 +13,25 @@ declare const ymaps: any;
 })
 export class YandexMapService implements IYandexMapService {
   private _scriptYmaps: HTMLScriptElement;
-  private _apiKey: string;
+  private _config: Partial<IConfig>;
 
   constructor(
-    @Optional() @Inject('API_KEY') apiKey: string,
+    @Optional() @Inject('CONFIG') config: Partial<IConfig>,
     @Inject(DOCUMENT) private document: Document
   ) {
-    this._apiKey = apiKey;
+    this._config = config ? config : {};
   }
 
   /**
    * Init ymaps script if it's not initiated
-   * Return ymaps subject
+   * Return ymaps observable
    */
   public initScript(): Observable<any> {
     if (!this._scriptYmaps) {
       const ymapScript = this.document.createElement('script');
-      ymapScript.src = `https://api-maps.yandex.ru/2.1/?apikey=${this._apiKey}&lang=ru_RU`;
+      const { apiKey = null, lang = 'ru_RU' }: Partial<IConfig> = this._config;
+
+      ymapScript.src = `https://api-maps.yandex.ru/2.1/?apikey=${apiKey}&lang=${lang}`;
       this._scriptYmaps = this.document.body.appendChild(ymapScript);
     }
 
