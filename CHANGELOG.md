@@ -1,6 +1,10 @@
 # Changelog
 All notable changes from v1.0.0 will be documented in this file.
 
+## [1.13.1] - 2020-05-21
+### Changed
+- README, update usage section
+
 ## [1.13.0] - 2020-05-21
 ### Added
 - Support map localization
