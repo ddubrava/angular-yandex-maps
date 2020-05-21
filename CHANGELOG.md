@@ -126,6 +126,7 @@ All notable changes from v1.0.0 will be documented in this file.
 ## [1.0.0] - 2019-09-14
 - Release without changes
 
+[1.13.0]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.12.0...v1.13.0
 [1.12.0]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.11.4...v1.12.0
 [1.11.4]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.11.3...v1.11.4
 [1.11.3]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.11.2...v1.11.3
