@@ -31,7 +31,7 @@ import { AngularYandexMapsModule } from 'angular8-yandex-maps';
 
 ##### Passing in your own map config options
 ```
-import { AngularYandexMapsModule } from 'angular8-yandex-maps';
+import { AngularYandexMapsModule, IConfig } from 'angular8-yandex-maps';
 
 const mapConfig: Partial<IConfig> = {
   apiKey: 'API_KEY',
