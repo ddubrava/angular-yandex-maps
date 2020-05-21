@@ -1,6 +1,13 @@
 # Changelog
 All notable changes from v1.0.0 will be documented in this file.
 
+## [1.13.0] - 2020-05-21
+### Added
+- Support map localization
+
+### Changed
+- now forRoot() accepts IConfig instead of string
+
 ## [1.12.0] - 2020-04-24
 ### Added
 - Support for changing ContentChild after map init (E.g. Issue#11)
