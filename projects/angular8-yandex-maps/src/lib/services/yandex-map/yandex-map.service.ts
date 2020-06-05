@@ -7,6 +7,11 @@ import { IConfig } from '../../models/models';
 
 declare const ymaps: any;
 
+const DEFAULT_CONFIG: IConfig = {
+  apiKey: null,
+  lang: 'en_RU',
+};
+
 /** @dynamic */
 @Injectable({
   providedIn: 'root'
@@ -19,7 +24,7 @@ export class YandexMapService implements IYandexMapService {
     @Optional() @Inject('CONFIG') config: Partial<IConfig>,
     @Inject(DOCUMENT) private document: Document
   ) {
-    this._config = config ? config : {};
+    this._config = config ? config : DEFAULT_CONFIG;
   }
 
   /**
@@ -29,9 +34,9 @@ export class YandexMapService implements IYandexMapService {
   public initScript(): Observable<any> {
     if (!this._scriptYmaps) {
       const ymapScript = this.document.createElement('script');
-      const { apiKey = null, lang = 'ru_RU' }: Partial<IConfig> = this._config;
+      const params = this._getQueryParams(this._config);
 
-      ymapScript.src = `https://api-maps.yandex.ru/2.1/?apikey=${apiKey}&lang=${lang}`;
+      ymapScript.src = `https://api-maps.yandex.ru/2.1/?${params}`;
       this._scriptYmaps = this.document.body.appendChild(ymapScript);
     }
 
@@ -42,5 +47,9 @@ export class YandexMapService implements IYandexMapService {
     return fromEvent(this._scriptYmaps, 'load').pipe(
       switchMap(() => from(ymaps.ready()).pipe(map(() => ymaps)))
     );
+  }
+
+  private _getQueryParams(params: {}): string {
+    return Object.keys(params).map((key: string) => `${key}=${params[key]}`).join('&');
   }
 }
