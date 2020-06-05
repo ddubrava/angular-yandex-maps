@@ -1,6 +1,10 @@
 # Changelog
 All notable changes from v1.0.0 will be documented in this file.
 
+## [1.14.0] - 2020-06-05
+### Changed
+- IConfig interface, add new properties from API
+
 ## [1.13.1] - 2020-05-21
 ### Changed
 - README, update usage section
