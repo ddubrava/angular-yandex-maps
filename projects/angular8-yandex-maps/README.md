@@ -33,7 +33,7 @@ import { AngularYandexMapsModule } from 'angular8-yandex-maps';
 ```
 import { AngularYandexMapsModule, IConfig } from 'angular8-yandex-maps';
 
-const mapConfig: Partial<IConfig> = {
+const mapConfig: IConfig = {
   apiKey: 'API_KEY',
   lang: 'en_US',
 };
