@@ -1,8 +1,9 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
-import { YandexMapService } from '../../services/yandex-map/yandex-map.service';
-import { take } from 'rxjs/operators';
-import { generateRandomId } from '../../utils/utils';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { IEvent, ILoadEvent } from '../../models/models';
+
+import { YandexMapService } from '../../services/yandex-map/yandex-map.service';
+import { generateRandomId } from '../../utils/utils';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'angular-yandex-panorama',
@@ -46,7 +47,9 @@ export class YandexPanoramaComponent implements OnInit {
    * @param id - unique id
    */
   private _createPanorama(ymaps: any, id: string): void {
-    this.panoramaContainer.nativeElement.setAttribute('id', id);
+    const containerElem: HTMLElement = this.panoramaContainer.nativeElement;
+    containerElem.setAttribute('id', id);
+    containerElem.style.cssText = 'width: 100%; height: 100%;';
 
     ymaps.panorama.locate(this.point, { layer: this.layer })
       .then((panorama: any) => {
