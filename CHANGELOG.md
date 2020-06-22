@@ -1,6 +1,10 @@
 # Changelog
 All notable changes from v1.0.0 will be documented in this file.
 
+## [1.14.2] - 2020-06-22
+### Fixed
+- Not applying width, height properties for Panorama container
+
 ## [1.14.1] - 2020-06-22
 ### Fixed
 - Not working API key in config. Rename apiKey to apikey in IConfig interface
@@ -139,6 +143,10 @@ All notable changes from v1.0.0 will be documented in this file.
 ## [1.0.0] - 2019-09-14
 - Release without changes
 
+[1.14.2]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.14.1...v1.14.2
+[1.14.1]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.14.0...v1.14.1
+[1.14.0]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.13.1...v1.14.0
+[1.13.1]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.13.0...v1.13.1
 [1.13.0]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.12.0...v1.13.0
 [1.12.0]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.11.4...v1.12.0
 [1.11.4]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.11.3...v1.11.4
