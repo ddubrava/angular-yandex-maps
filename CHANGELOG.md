@@ -1,6 +1,11 @@
 # Changelog
 All notable changes from v1.0.0 will be documented in this file.
 
+## [1.14.1] - 2020-06-22
+### Fixed
+- Not working API key in config. Rename apiKey to apikey in IConfig interface
+- Wrong return type of AngularYandexMapsModule.forRoot(...)
+
 ## [1.14.0] - 2020-06-05
 ### Changed
 - IConfig interface, add new properties from API
@@ -14,7 +19,7 @@ All notable changes from v1.0.0 will be documented in this file.
 - Support map localization
 
 ### Changed
-- now forRoot() accepts IConfig instead of string
+- Now forRoot() accepts IConfig instead of string
 
 ## [1.12.0] - 2020-04-24
 ### Added
