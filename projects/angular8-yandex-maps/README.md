@@ -19,7 +19,7 @@ npm install angular8-yandex-maps
 ```
 
 ## Usage
-### module.ts
+### app.module.ts
 ##### With default map config options
 ```
 import { AngularYandexMapsModule } from 'angular8-yandex-maps';
@@ -27,6 +27,7 @@ import { AngularYandexMapsModule } from 'angular8-yandex-maps';
 @NgModule({
   imports: [AngularYandexMapsModule]
 })
+export class AppModule { }
 ```
 
 ##### Passing in your own map config options
@@ -34,13 +35,14 @@ import { AngularYandexMapsModule } from 'angular8-yandex-maps';
 import { AngularYandexMapsModule, IConfig } from 'angular8-yandex-maps';
 
 const mapConfig: IConfig = {
-  apiKey: 'API_KEY',
+  apikey: 'API_KEY',
   lang: 'en_US',
 };
 
 @NgModule({
   imports: [AngularYandexMapsModule.forRoot(mapConfig)]
 })
+export class AppModule { }
 ```
 
 ### component.html
