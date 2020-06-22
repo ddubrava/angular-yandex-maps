@@ -8,8 +8,8 @@ import { IConfig } from '../../models/models';
 declare const ymaps: any;
 
 const DEFAULT_CONFIG: IConfig = {
-  apiKey: null,
-  lang: 'en_RU',
+  apikey: null,
+  lang: 'ru_RU',
 };
 
 /** @dynamic */
@@ -24,7 +24,7 @@ export class YandexMapService implements IYandexMapService {
     @Optional() @Inject('CONFIG') config: Partial<IConfig>,
     @Inject(DOCUMENT) private document: Document
   ) {
-    this._config = config ? config : DEFAULT_CONFIG;
+    this._config = config || DEFAULT_CONFIG;
   }
 
   /**
