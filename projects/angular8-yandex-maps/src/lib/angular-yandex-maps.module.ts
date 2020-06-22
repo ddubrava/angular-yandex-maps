@@ -1,40 +1,41 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ModuleWithProviders } from '@angular/compiler/src/core';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 
+import { CommonModule } from '@angular/common';
+import { IConfig } from './models/models';
+import { YandexControlComponent } from './components/yandex-control-component/yandex-control.component';
+import { YandexGeoObjectComponent } from './components/yandex-geoobject-component/yandex-geoobject.component';
 import { YandexMapComponent } from './components/yandex-map-component/yandex-map.component';
+import { YandexMultirouteComponent } from './components/yandex-multiroute-component/yandex-multiroute.component';
 import { YandexPanoramaComponent } from './components/yandex-panorama-component/yandex-panorama.component';
 import { YandexPlacemarkComponent } from './components/yandex-placemark-component/yandex-placemark.component';
-import { YandexMultirouteComponent } from './components/yandex-multiroute-component/yandex-multiroute.component';
-import { YandexGeoObjectComponent } from './components/yandex-geoobject-component/yandex-geoobject.component';
-import { YandexControlComponent } from './components/yandex-control-component/yandex-control.component';
-
-import { IConfig } from './models/models';
 
 @NgModule({
   declarations: [
+    YandexControlComponent,
+    YandexGeoObjectComponent,
     YandexMapComponent,
+    YandexMultirouteComponent,
     YandexPanoramaComponent,
     YandexPlacemarkComponent,
-    YandexMultirouteComponent,
-    YandexGeoObjectComponent,
-    YandexControlComponent
   ],
   imports: [
     CommonModule
   ],
   exports: [
+    YandexControlComponent,
+    YandexGeoObjectComponent,
     YandexMapComponent,
+    YandexMultirouteComponent,
     YandexPanoramaComponent,
     YandexPlacemarkComponent,
-    YandexMultirouteComponent,
-    YandexGeoObjectComponent,
-    YandexControlComponent
   ]
 })
 
 export class AngularYandexMapsModule {
-  public static forRoot(config: Partial<IConfig>): ModuleWithProviders {
+   /**
+   * Please use this method when you register the module at the root level.
+   */
+  public static forRoot(config: Partial<IConfig>): ModuleWithProviders<AngularYandexMapsModule> {
     return {
       ngModule: AngularYandexMapsModule,
       providers: [
