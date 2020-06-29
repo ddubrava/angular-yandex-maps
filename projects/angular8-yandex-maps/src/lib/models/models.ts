@@ -1,9 +1,9 @@
+import { InjectionToken } from '@angular/core';
+
 /**
  * Documentation for each property.
  * https://tech.yandex.ru/maps/jsapi/doc/2.1/dg/concepts/load-docpage/
  */
-import { InjectionToken } from "@angular/core";
-
 export interface IConfig {
   apikey: string;
   lang: 'ru_RU' | 'en_US' | 'en_RU' | 'ru_UA' | 'uk_UA' | 'tr_TR';
