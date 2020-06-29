@@ -1,6 +1,10 @@
 # Changelog
 All notable changes from v1.0.0 will be documented in this file.
 
+## [1.14.3] - 2020-06-29
+### Added
+- Config injection token
+
 ## [1.14.2] - 2020-06-22
 ### Fixed
 - Not applying width, height properties for Panorama container
@@ -143,6 +147,7 @@ All notable changes from v1.0.0 will be documented in this file.
 ## [1.0.0] - 2019-09-14
 - Release without changes
 
+[1.14.3]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.14.2...v1.14.3
 [1.14.2]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.14.1...v1.14.2
 [1.14.1]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.14.0...v1.14.1
 [1.14.0]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.13.1...v1.14.0
