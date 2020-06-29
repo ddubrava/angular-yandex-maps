@@ -1,7 +1,7 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
-import { IConfig } from './models/models';
+import { IConfig, YA_MAP_CONFIG } from './models/models';
 import { YandexControlComponent } from './components/yandex-control-component/yandex-control.component';
 import { YandexGeoObjectComponent } from './components/yandex-geoobject-component/yandex-geoobject.component';
 import { YandexMapComponent } from './components/yandex-map-component/yandex-map.component';
@@ -39,7 +39,7 @@ export class AngularYandexMapsModule {
     return {
       ngModule: AngularYandexMapsModule,
       providers: [
-        { provide: 'CONFIG', useValue: config }
+        { provide: YA_MAP_CONFIG, useValue: config }
       ]
     };
   }

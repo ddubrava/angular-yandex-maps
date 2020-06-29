@@ -30,6 +30,7 @@ import { AngularYandexMapsModule } from 'angular8-yandex-maps';
 export class AppModule { }
 ```
 
+### Configuration
 ##### Passing in your own map config options
 ```
 import { AngularYandexMapsModule, IConfig } from 'angular8-yandex-maps';
@@ -41,6 +42,25 @@ const mapConfig: IConfig = {
 
 @NgModule({
   imports: [AngularYandexMapsModule.forRoot(mapConfig)]
+})
+export class AppModule { }
+```
+
+##### Or use injection token
+```
+import { AngularYandexMapsModule, YA_MAP_CONFIG } from 'angular8-yandex-maps';
+
+@NgModule({
+  imports: [AngularYandexMapsModule],
+  providers: [
+  {
+      provide: YA_MAP_CONFIG,
+      useValue: {
+         apikey: 'API_KEY',
+         lang: 'en_US',
+      }
+    }
+  ]
 })
 export class AppModule { }
 ```
