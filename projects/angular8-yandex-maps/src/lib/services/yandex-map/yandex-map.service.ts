@@ -34,9 +34,8 @@ export class YandexMapService implements IYandexMapService {
   public initScript(): Observable<any> {
     if (!this._scriptYmaps) {
       const ymapScript = this.document.createElement('script');
-      const params = this._getQueryParams(this._config);
 
-      ymapScript.src = `https://api-maps.yandex.ru/2.1/?${params}`;
+      this._createSrc(ymapScript);
       this._scriptYmaps = this.document.body.appendChild(ymapScript);
     }
 
@@ -49,7 +48,15 @@ export class YandexMapService implements IYandexMapService {
     );
   }
 
+  private _createSrc(script: HTMLScriptElement): void {
+    const params = this._getQueryParams(this._config);
+    const { enterprise } = this._config;
+
+    script.src = `https://${enterprise ? 'enterprise.' : ''}api-maps.yandex.ru/2.1/?${params}`;
+  }
+
   private _getQueryParams(params: {}): string {
     return Object.keys(params).map((key: string) => `${key}=${params[key]}`).join('&');
   }
+
 }
