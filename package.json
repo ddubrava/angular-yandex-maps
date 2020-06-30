@@ -1,9 +1,9 @@
 {
   "name": "angular-yandex-maps",
-  "version": "1.14.4",
+  "version": "1.0.0",
   "scripts": {
     "start": "ng serve",
-    "build": "ng build angular8-yandex-maps",
+    "build": "npm run lint && ng build angular8-yandex-maps",
     "lint": "ng lint angular8-yandex-maps"
   },
   "private": true,

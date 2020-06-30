@@ -7,6 +7,7 @@ import { InjectionToken } from '@angular/core';
 export interface IConfig {
   apikey: string;
   lang: 'ru_RU' | 'en_US' | 'en_RU' | 'ru_UA' | 'uk_UA' | 'tr_TR';
+  enterprise?: boolean;
   coordorder?: 'latlong' | 'longlat';
   load?: string;
   mode?: 'release' | 'debug';

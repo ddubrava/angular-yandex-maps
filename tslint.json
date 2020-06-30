@@ -21,7 +21,6 @@
       "arrow-parameter",
       "property-declaration",
       "variable-declaration-ignore-function",
-      "object-destructuring",
       "array-destructuring"
     ]
   }
