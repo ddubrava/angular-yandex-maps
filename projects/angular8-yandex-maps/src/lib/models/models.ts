@@ -6,11 +6,18 @@ import { InjectionToken } from '@angular/core';
  */
 export interface IConfig {
   apikey: string;
-  lang: 'ru_RU' | 'en_US' | 'en_RU' | 'ru_UA' | 'uk_UA' | 'tr_TR';
-  enterprise?: boolean;
   coordorder?: 'latlong' | 'longlat';
+  /**
+   * Use commercial version of the API
+   */
+  enterprise?: boolean;
+  lang: 'ru_RU' | 'en_US' | 'en_RU' | 'ru_UA' | 'uk_UA' | 'tr_TR';
   load?: string;
   mode?: 'release' | 'debug';
+  /**
+   * Version number of the API
+   */
+  version?: string;
 }
 
 export interface ILoadEvent {
