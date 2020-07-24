@@ -50,9 +50,9 @@ export class YandexMapService implements IYandexMapService {
 
   private _createSrc(script: HTMLScriptElement): void {
     const params = this._getQueryParams(this._config);
-    const { enterprise } = this._config;
+    const { enterprise, version = '2.1' } = this._config;
 
-    script.src = `https://${enterprise ? 'enterprise.' : ''}api-maps.yandex.ru/2.1/?${params}`;
+    script.src = `https://${enterprise ? 'enterprise.' : ''}api-maps.yandex.ru/${version}/?${params}`;
   }
 
   private _getQueryParams(params: {}): string {

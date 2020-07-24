@@ -1,6 +1,10 @@
 # Changelog
 All notable changes from v1.0.0 will be documented in this file.
 
+## [1.15.0] - 2020-07-24
+### Added
+- Support version property in config
+
 ## [1.14.5] - 2020-06-30
 ### Added
 - Support for enterprise API
