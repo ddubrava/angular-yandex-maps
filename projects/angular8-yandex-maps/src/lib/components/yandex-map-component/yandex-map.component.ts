@@ -4,13 +4,17 @@ import {
   ElementRef,
   EventEmitter,
   Input,
+  OnChanges,
   OnDestroy,
   OnInit,
   Output,
   QueryList,
+  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import { IEvent, ILoadEvent } from '../../models/models';
+import { startWith, take } from 'rxjs/operators';
+
 import { Subscription } from 'rxjs';
 import { YandexControlComponent } from '../yandex-control-component/yandex-control.component';
 import { YandexGeoObjectComponent } from '../yandex-geoobject-component/yandex-geoobject.component';
@@ -18,14 +22,13 @@ import { YandexMapService } from '../../services/yandex-map/yandex-map.service';
 import { YandexMultirouteComponent } from '../yandex-multiroute-component/yandex-multiroute.component';
 import { YandexPlacemarkComponent } from '../yandex-placemark-component/yandex-placemark.component';
 import { generateRandomId } from '../../utils/utils';
-import { take, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'angular-yandex-map',
   templateUrl: './yandex-map.component.html',
   styleUrls: ['./yandex-map.component.scss']
 })
-export class YandexMapComponent implements OnInit, OnDestroy {
+export class YandexMapComponent implements OnInit, OnChanges, OnDestroy {
   // Map container
   @ViewChild('container') public mapContainer: ElementRef;
 
@@ -53,6 +56,7 @@ export class YandexMapComponent implements OnInit, OnDestroy {
   @Output() public multitouch = new EventEmitter<IEvent>();
 
   private _sub: Subscription;
+  private _map: any;
 
   constructor(private _yandexMapService: YandexMapService) { }
 
@@ -71,6 +75,7 @@ export class YandexMapComponent implements OnInit, OnDestroy {
 
         // Map
         const map = this._createMap(ymaps, generateRandomId());
+        this._map = map;
 
         // Events
         this._emitEvents(ymaps, map);
@@ -78,6 +83,68 @@ export class YandexMapComponent implements OnInit, OnDestroy {
         // Objects
         this._initObjects(ymaps, map);
       });
+  }
+
+  public ngOnChanges(changes: SimpleChanges): void {
+    this._configMap(changes);
+  }
+
+  /**
+   * Method for dynamic map configuration.
+   * Handles input changes and provide it to API.
+   * @param changes
+   */
+  private _configMap(changes: SimpleChanges): void {
+    const map = this._map;
+
+    if (!map) return;
+
+    const { center, zoom, state, options } = changes;
+
+    if (center) {
+      map.setCenter(center.currentValue);
+    }
+
+    if (zoom) {
+      map.setZoom(zoom.currentValue);
+    }
+
+    if (state) {
+      this._setState(state.currentValue, map);
+    }
+
+    if (options) {
+      map.options.set(options.currentValue);
+    }
+  }
+
+  /**
+   * Destructuring state and provides new values to API
+   * @param state - https://tech.yandex.ru/maps/doc/jsapi/2.1/ref/reference/Map-docpage/#Map__param-state
+   * @param map
+   */
+  private _setState(state: any, map: any): void {
+    const { behaviors, bounds, center, type, zoom } = state;
+
+    if (behaviors) {
+      map.behaviors.enable(behaviors);
+    }
+
+    if (bounds) {
+      map.setBounds(bounds);
+    }
+
+    if (center) {
+      map.setCenter(center);
+    }
+
+    if (type) {
+      map.setType(type.currentValue);
+    }
+
+    if (zoom) {
+      map.setZoom(zoom.currentValue);
+    }
   }
 
   private _logErrors(): void {
@@ -151,10 +218,9 @@ export class YandexMapComponent implements OnInit, OnDestroy {
       control.initControl(ymaps, map);
     });
 
-    this._sub
-      .add(placemarksSub)
-      .add(multiroutesSub)
-      .add(geoObjectsSub);
+    this._sub.add(placemarksSub);
+    this._sub.add(multiroutesSub);
+    this._sub.add(geoObjectsSub);
   }
 
   private _createClusterer(ymaps: any, map: any): any {
