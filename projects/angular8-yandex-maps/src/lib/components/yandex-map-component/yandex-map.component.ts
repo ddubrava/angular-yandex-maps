@@ -124,7 +124,7 @@ export class YandexMapComponent implements OnInit, OnChanges, OnDestroy {
    * @param map
    */
   private _setState(state: any, map: any): void {
-    const { behaviors, bounds, center, type, zoom } = state;
+    const { behaviors, bounds, center, controls, margin, type, zoom } = state;
 
     if (behaviors) {
       map.behaviors.enable(behaviors);
@@ -138,12 +138,22 @@ export class YandexMapComponent implements OnInit, OnChanges, OnDestroy {
       map.setCenter(center);
     }
 
+    if (controls) {
+      controls.forEach((c: string) => {
+        map.controls.add(c);
+      });
+    }
+
+    if (margin) {
+      map.margin.setDefaultMargin(margin);
+    }
+
     if (type) {
-      map.setType(type.currentValue);
+      map.setType(type);
     }
 
     if (zoom) {
-      map.setZoom(zoom.currentValue);
+      map.setZoom(zoom);
     }
   }
 
