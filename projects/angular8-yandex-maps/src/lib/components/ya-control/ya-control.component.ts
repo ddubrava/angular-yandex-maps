@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 
 import { ILoadEvent } from '../../models/models';
 import { removeLeadingSpaces } from '../../utils/removeLeadingSpaces';
@@ -29,11 +29,15 @@ export class YaControlComponent implements OnInit {
     this.load.emit({ ymaps, instance: control });
   }
 
-  public ngOnChanges(): void {
-    this._configControl();
+  public ngOnChanges(changes: SimpleChanges): void {
+    this._configControl(changes);
   }
 
-  private _configControl(): void {
+  private _configControl(changes: SimpleChanges): void {
+    for (const key in changes) {
+      if (changes[key].firstChange) return;
+    }
+
     console.error(removeLeadingSpaces(`
       Control doesn't support dynamic configuartion.
 
