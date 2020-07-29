@@ -1,6 +1,5 @@
 import { Inject, Injectable, Optional } from '@angular/core';
 import { from, fromEvent, Observable } from 'rxjs';
-import { IYandexMapService } from './yandex-service.type';
 import { DOCUMENT } from '@angular/common';
 import { map, switchMap } from 'rxjs/operators';
 import { IConfig, YA_MAP_CONFIG } from '../../models/models';
@@ -16,7 +15,7 @@ const DEFAULT_CONFIG: IConfig = {
 @Injectable({
   providedIn: 'root'
 })
-export class YandexMapService implements IYandexMapService {
+export class YandexMapService {
   private _scriptYmaps: HTMLScriptElement;
   private _config: Partial<IConfig>;
 
@@ -28,8 +27,7 @@ export class YandexMapService implements IYandexMapService {
   }
 
   /**
-   * Init ymaps script if it's not initiated
-   * Return ymaps observable
+   * Inits ymaps script, returns Observable with ymaps
    */
   public initScript(): Observable<any> {
     if (!this._scriptYmaps) {
@@ -48,6 +46,10 @@ export class YandexMapService implements IYandexMapService {
     );
   }
 
+  /**
+   * Creates script source with provided config
+   * @param script - HTMLScriptElement
+   */
   private _createSrc(script: HTMLScriptElement): void {
     const params = this._getQueryParams(this._config);
     const { enterprise, version = '2.1' } = this._config;
@@ -58,5 +60,4 @@ export class YandexMapService implements IYandexMapService {
   private _getQueryParams(params: {}): string {
     return Object.keys(params).map((key: string) => `${key}=${params[key]}`).join('&');
   }
-
 }
