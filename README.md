@@ -6,7 +6,7 @@ The library implements the base Yandex.Maps functionality. By the way you can ac
 Leave suggestions, problems, errors, difficulties in GitHub Issues. Star the repository and thanks for using the library!
 
 ## Documentation
-[Documentation](https://ddubrava.github.io/angular-yandex-maps-docs/)
+[Documentation](https://ddubrava.github.io/angular-yandex-maps/)
 
 ## Examples
 [Examples](https://ddubrava.github.io/angular-yandex-maps-docs/docs/examples)
