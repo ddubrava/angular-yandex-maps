@@ -4,36 +4,39 @@ import {
   ElementRef,
   EventEmitter,
   Input,
+  OnChanges,
   OnDestroy,
   OnInit,
   Output,
   QueryList,
+  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import { IEvent, ILoadEvent } from '../../models/models';
+import { startWith, take } from 'rxjs/operators';
+
+import { ScriptService } from '../../services/script/script.service';
 import { Subscription } from 'rxjs';
-import { YandexControlComponent } from '../yandex-control-component/yandex-control.component';
-import { YandexGeoObjectComponent } from '../yandex-geoobject-component/yandex-geoobject.component';
-import { YandexMapService } from '../../services/yandex-map/yandex-map.service';
-import { YandexMultirouteComponent } from '../yandex-multiroute-component/yandex-multiroute.component';
-import { YandexPlacemarkComponent } from '../yandex-placemark-component/yandex-placemark.component';
-import { generateRandomId } from '../../utils/utils';
-import { take, startWith } from 'rxjs/operators';
+import { YaControlComponent } from '../ya-control/ya-control.component';
+import { YaGeoObjectComponent } from '../ya-geoobject/ya-geoobject.component';
+import { YaMultirouteComponent } from '../ya-multiroute/ya-multiroute.component';
+import { YaPlacemarkComponent } from '../ya-placemark/ya-placemark.component';
+import { generateRandomId } from '../../utils/generateRandomId';
 
 @Component({
-  selector: 'angular-yandex-map',
-  templateUrl: './yandex-map.component.html',
-  styleUrls: ['./yandex-map.component.scss']
+  selector: 'ya-map',
+  templateUrl: './ya-map.component.html',
+  styleUrls: ['./ya-map.component.scss']
 })
-export class YandexMapComponent implements OnInit, OnDestroy {
+export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
   // Map container
   @ViewChild('container') public mapContainer: ElementRef;
 
-  // Components inside <angular-yandex-map>
-  @ContentChildren(YandexPlacemarkComponent) public placemarks: QueryList<YandexPlacemarkComponent>;
-  @ContentChildren(YandexMultirouteComponent) public multiroutes: QueryList<YandexMultirouteComponent>;
-  @ContentChildren(YandexGeoObjectComponent) public geoObjects: QueryList<YandexGeoObjectComponent>;
-  @ContentChildren(YandexControlComponent) public controls: QueryList<YandexControlComponent>;
+  // Components inside <ya-map>
+  @ContentChildren(YaPlacemarkComponent) public placemarks: QueryList<YaPlacemarkComponent>;
+  @ContentChildren(YaMultirouteComponent) public multiroutes: QueryList<YaMultirouteComponent>;
+  @ContentChildren(YaGeoObjectComponent) public geoObjects: QueryList<YaGeoObjectComponent>;
+  @ContentChildren(YaControlComponent) public controls: QueryList<YaControlComponent>;
 
   // Inputs
   @Input() public onlyInstance: boolean;
@@ -53,13 +56,14 @@ export class YandexMapComponent implements OnInit, OnDestroy {
   @Output() public multitouch = new EventEmitter<IEvent>();
 
   private _sub: Subscription;
+  private _map: any;
 
-  constructor(private _yandexMapService: YandexMapService) { }
+  constructor(private _scriptService: ScriptService) { }
 
   public ngOnInit(): void {
     this._sub = new Subscription();
 
-    this._yandexMapService.initScript()
+    this._scriptService.initScript()
       .pipe(take(1))
       .subscribe((ymaps: any) => {
         if (this.onlyInstance) {
@@ -71,6 +75,7 @@ export class YandexMapComponent implements OnInit, OnDestroy {
 
         // Map
         const map = this._createMap(ymaps, generateRandomId());
+        this._map = map;
 
         // Events
         this._emitEvents(ymaps, map);
@@ -78,6 +83,78 @@ export class YandexMapComponent implements OnInit, OnDestroy {
         // Objects
         this._initObjects(ymaps, map);
       });
+  }
+
+  public ngOnChanges(changes: SimpleChanges): void {
+    this._configMap(changes);
+  }
+
+  /**
+   * Method for dynamic entity configuration.
+   * Handles input changes and provides it to API.
+   * @param changes
+   */
+  private _configMap(changes: SimpleChanges): void {
+    const map = this._map;
+
+    if (!map) return;
+
+    const { center, zoom, state, options } = changes;
+
+    if (center) {
+      map.setCenter(center.currentValue);
+    }
+
+    if (zoom) {
+      map.setZoom(zoom.currentValue);
+    }
+
+    if (state) {
+      this._setState(state.currentValue, map);
+    }
+
+    if (options) {
+      map.options.set(options.currentValue);
+    }
+  }
+
+  /**
+   * Destructuring state and provides new values to API
+   * @param state - https://tech.yandex.ru/maps/doc/jsapi/2.1/ref/reference/Map-docpage/#Map__param-state
+   * @param map
+   */
+  private _setState(state: any, map: any): void {
+    const { behaviors, bounds, center, controls, margin, type, zoom } = state;
+
+    if (behaviors) {
+      map.behaviors.enable(behaviors);
+    }
+
+    if (bounds) {
+      map.setBounds(bounds);
+    }
+
+    if (center) {
+      map.setCenter(center);
+    }
+
+    if (controls) {
+      controls.forEach((c: string) => {
+        map.controls.add(c);
+      });
+    }
+
+    if (margin) {
+      map.margin.setDefaultMargin(margin);
+    }
+
+    if (type) {
+      map.setType(type);
+    }
+
+    if (zoom) {
+      map.setZoom(zoom);
+    }
   }
 
   private _logErrors(): void {
@@ -112,8 +189,8 @@ export class YandexMapComponent implements OnInit, OnDestroy {
 
     const placemarksSub = this.placemarks.changes
       .pipe(startWith(this.placemarks))
-      .subscribe((list: QueryList<YandexPlacemarkComponent>) => {
-        list.forEach((placemark: YandexPlacemarkComponent) => {
+      .subscribe((list: QueryList<YaPlacemarkComponent>) => {
+        list.forEach((placemark: YaPlacemarkComponent) => {
           if (!placemark.id) {
             placemark.initPlacemark(ymaps, map, clusterer);
           }
@@ -127,8 +204,8 @@ export class YandexMapComponent implements OnInit, OnDestroy {
     // Multiroutes
     const multiroutesSub = this.multiroutes.changes
       .pipe(startWith(this.multiroutes))
-      .subscribe((list: QueryList<YandexMultirouteComponent>) => {
-        list.forEach((multiroute: YandexMultirouteComponent) => {
+      .subscribe((list: QueryList<YaMultirouteComponent>) => {
+        list.forEach((multiroute: YaMultirouteComponent) => {
           if (!multiroute.id) {
             multiroute.initMultiroute(ymaps, map);
           }
@@ -138,8 +215,8 @@ export class YandexMapComponent implements OnInit, OnDestroy {
     // GeoObjects
     const geoObjectsSub = this.geoObjects.changes
       .pipe(startWith(this.geoObjects))
-      .subscribe((list: QueryList<YandexGeoObjectComponent>) => {
-        list.forEach((geoObject: YandexGeoObjectComponent) => {
+      .subscribe((list: QueryList<YaGeoObjectComponent>) => {
+        list.forEach((geoObject: YaGeoObjectComponent) => {
           if (!geoObject.id) {
             geoObject.initGeoObject(ymaps, map);
           }
@@ -147,14 +224,13 @@ export class YandexMapComponent implements OnInit, OnDestroy {
       });
 
     // Controls
-    this.controls.forEach((control: YandexControlComponent) => {
+    this.controls.forEach((control: YaControlComponent) => {
       control.initControl(ymaps, map);
     });
 
-    this._sub
-      .add(placemarksSub)
-      .add(multiroutesSub)
-      .add(geoObjectsSub);
+    this._sub.add(placemarksSub);
+    this._sub.add(multiroutesSub);
+    this._sub.add(geoObjectsSub);
   }
 
   private _createClusterer(ymaps: any, map: any): any {

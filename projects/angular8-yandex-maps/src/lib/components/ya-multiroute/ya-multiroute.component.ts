@@ -1,13 +1,14 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { IEvent, ILoadEvent } from '../../models/models';
-import { generateRandomId } from '../../utils/utils';
+
+import { generateRandomId } from '../../utils/generateRandomId';
 
 @Component({
-  selector: 'angular-yandex-multiroute',
-  templateUrl: './yandex-multiroute.component.html',
-  styleUrls: ['./yandex-multiroute.component.scss']
+  selector: 'ya-multiroute',
+  templateUrl: './ya-multiroute.component.html',
+  styleUrls: ['./ya-multiroute.component.scss']
 })
-export class YandexMultirouteComponent implements OnInit {
+export class YaMultirouteComponent implements OnInit, OnChanges {
   @Input() public referencePoints: Array<any>;
   @Input() public model: any;
   @Input() public options: any;
@@ -29,6 +30,52 @@ export class YandexMultirouteComponent implements OnInit {
 
   public ngOnInit(): void {
     this._logErrors();
+  }
+
+  public ngOnChanges(changes: SimpleChanges): void {
+    this._configMultiroute(changes);
+  }
+
+  /**
+   * Method for dynamic entity configuration.
+   * Handles input changes and provides it to API.
+   * @param changes
+   */
+  private _configMultiroute(changes: SimpleChanges): void {
+    const multiroute = this._multiroute;
+
+    if (!multiroute) return;
+
+    const { referencePoints, model, options } = changes;
+
+    if (referencePoints) {
+      multiroute.model.setReferencePoints(referencePoints.currentValue);
+    }
+
+    if (model) {
+      this._setModel(model.currentValue, multiroute);
+    }
+
+    if (options) {
+      multiroute.options.set(options.currentValue);
+    }
+  }
+
+  /**
+   * Destructuring model and provides new values to API
+   * @param model - https://tech.yandex.com/maps/jsapi/doc/2.1/ref/reference/multiRouter.MultiRouteModel-docpage/
+   * @param multiroute
+   */
+  private _setModel(model: any, multiroute: any): void {
+    const { referencePoints, params } = model;
+
+    if (referencePoints) {
+      multiroute.model.setReferencePoints(referencePoints);
+    }
+
+    if (params) {
+      multiroute.model.setParams(params);
+    }
   }
 
   private _logErrors(): void {

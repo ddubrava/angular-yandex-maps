@@ -1,13 +1,15 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { IEvent, ILoadEvent } from '../../models/models';
-import { generateRandomId } from '../../utils/utils';
+
+import { generateRandomId } from '../../utils/generateRandomId';
+import { removeLeadingSpaces } from '../../utils/removeLeadingSpaces';
 
 @Component({
-  selector: 'angular-yandex-geoobject',
-  templateUrl: './yandex-geoobject.component.html',
-  styleUrls: ['./yandex-geoobject.component.scss']
+  selector: 'ya-geoobject',
+  templateUrl: './ya-geoobject.component.html',
+  styleUrls: ['./ya-geoobject.component.scss']
 })
-export class YandexGeoObjectComponent implements OnInit {
+export class YaGeoObjectComponent implements OnInit, OnChanges {
   @Input() public feature: any;
   @Input() public options: any;
 
@@ -29,6 +31,54 @@ export class YandexGeoObjectComponent implements OnInit {
 
   public ngOnInit(): void {
     this._logErrors();
+  }
+
+  public ngOnChanges(changes: SimpleChanges): void {
+    this._configGeoObject(changes);
+  }
+
+  /**
+   * Method for dynamic entity configuration.
+   * Handles input changes and provides it to API.
+   * @param changes
+   */
+  private _configGeoObject(changes: SimpleChanges): void {
+    const geoObject = this._geoObject;
+
+    if (!geoObject) return;
+
+    const { feature, options } = changes;
+
+    if (feature) {
+      this._setFeature(feature.currentValue, geoObject);
+    }
+
+    if (options) {
+      geoObject.options.set(options.currentValue);
+    }
+  }
+
+  /**
+   * Destructuring feature and provides new values to API
+   * @param feature - https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/GeoObject-docpage/#GeoObject__param-feature
+   * @param geoObject
+   */
+  private _setFeature(feature: any, geoObject: any): void {
+    const { geometry, properties } = feature;
+
+    if (geometry) {
+      console.error(removeLeadingSpaces(`
+        The geometry of GeoObject cannot be changed after entity init.
+
+        Solutions:
+        1. Use ymaps from ILoadEvent
+        2. Recreate GeoObject component with new feature.geometry
+      `));
+    }
+
+    if (properties) {
+      geoObject.properties.set(properties);
+    }
   }
 
   private _logErrors(): void {
