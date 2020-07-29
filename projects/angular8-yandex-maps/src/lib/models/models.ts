@@ -21,14 +21,32 @@ export interface IConfig {
 }
 
 export interface ILoadEvent {
+  /**
+   * Instance of created entity
+   */
   instance?: any;
+  /**
+   * API global object
+   */
   ymaps: any;
 }
 
 export interface IEvent {
+  /**
+   * Instance of created entity
+   */
   instance: any;
+  /**
+   * API global object
+   */
   ymaps: any;
+  /**
+   * String event type, event.originalEvent.type
+   */
   type: string | undefined;
+  /**
+   * Event that is fired by the IEventManager event manager
+   */
   event: any;
 }
 

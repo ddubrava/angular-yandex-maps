@@ -1,13 +1,14 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { IEvent, ILoadEvent } from '../../models/models';
-import { generateRandomId } from '../../utils/utils';
+
+import { generateRandomId } from '../../utils/generateRandomId';
 
 @Component({
   selector: 'angular-yandex-placemark',
   templateUrl: './yandex-placemark.component.html',
   styleUrls: ['./yandex-placemark.component.scss']
 })
-export class YandexPlacemarkComponent implements OnInit, OnDestroy {
+export class YandexPlacemarkComponent implements OnInit, OnChanges, OnDestroy {
   @Input() public geometry: any;
   @Input() public properties: any;
   @Input() public options: any;
@@ -31,6 +32,35 @@ export class YandexPlacemarkComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this._logErrors();
+  }
+
+  public ngOnChanges(changes: SimpleChanges): void {
+    this._configPlacemark(changes);
+  }
+
+  /**
+   * Method for dynamic entity configuration.
+   * Handles input changes and provides it to API.
+   * @param changes
+   */
+  private _configPlacemark(changes: SimpleChanges): void {
+    const placemark = this.placemark;
+
+    if (!placemark) return;
+
+    const { geometry, properties, options } = changes;
+
+    if (geometry) {
+      placemark.geometry.setCoordinates(geometry.currentValue);
+    }
+
+    if (properties) {
+      placemark.properties.set(properties.currentValue);
+    }
+
+    if (options) {
+      placemark.options.set(options.currentValue);
+    }
   }
 
   private _logErrors(): void {
