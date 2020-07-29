@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "start": "ng serve",
+    "docs": "docsify serve docs",
     "build": "npm run lint && ng build angular8-yandex-maps",
     "lint": "ng lint angular8-yandex-maps"
   },
