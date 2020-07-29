@@ -2,7 +2,7 @@ import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild }
 import { IEvent, ILoadEvent } from '../../models/models';
 
 import { YandexMapService } from '../../services/yandex-map/yandex-map.service';
-import { generateRandomId } from '../../utils/utils';
+import { generateRandomId } from '../../utils/generateRandomId';
 import { take } from 'rxjs/operators';
 
 @Component({

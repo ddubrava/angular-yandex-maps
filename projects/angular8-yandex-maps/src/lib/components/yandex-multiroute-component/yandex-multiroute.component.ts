@@ -1,6 +1,7 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IEvent, ILoadEvent } from '../../models/models';
-import { generateRandomId } from '../../utils/utils';
+
+import { generateRandomId } from '../../utils/generateRandomId';
 
 @Component({
   selector: 'angular-yandex-multiroute',

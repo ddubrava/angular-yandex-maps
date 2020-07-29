@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { IEvent, ILoadEvent } from '../../models/models';
 
-import { generateRandomId } from '../../utils/utils';
+import { generateRandomId } from '../../utils/generateRandomId';
 
 @Component({
   selector: 'angular-yandex-placemark',

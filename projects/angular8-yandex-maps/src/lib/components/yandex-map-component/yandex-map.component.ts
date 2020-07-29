@@ -21,7 +21,7 @@ import { YandexGeoObjectComponent } from '../yandex-geoobject-component/yandex-g
 import { YandexMapService } from '../../services/yandex-map/yandex-map.service';
 import { YandexMultirouteComponent } from '../yandex-multiroute-component/yandex-multiroute.component';
 import { YandexPlacemarkComponent } from '../yandex-placemark-component/yandex-placemark.component';
-import { generateRandomId } from '../../utils/utils';
+import { generateRandomId } from '../../utils/generateRandomId';
 
 @Component({
   selector: 'angular-yandex-map',
