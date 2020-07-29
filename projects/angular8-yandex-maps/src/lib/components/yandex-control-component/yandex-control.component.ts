@@ -1,5 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
+
 import { ILoadEvent } from '../../models/models';
+import { removeLeadingSpaces } from '../../utils/removeLeadingSpaces';
 
 @Component({
   selector: 'angular-yandex-control',
@@ -25,5 +27,19 @@ export class YandexControlComponent implements OnInit {
 
     map.controls.add(control);
     this.load.emit({ ymaps, instance: control });
+  }
+
+  public ngOnChanges(): void {
+    this._configControl();
+  }
+
+  private _configControl(): void {
+    console.error(removeLeadingSpaces(`
+      Control doesn't support dynamic configuartion.
+
+      Solutions:
+      1. Use ymaps from ILoadEvent
+      2. Recreate component with new configuration
+    `));
   }
 }
