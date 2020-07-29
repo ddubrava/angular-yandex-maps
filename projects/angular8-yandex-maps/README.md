@@ -1,14 +1,12 @@
 [![npm version](https://badge.fury.io/js/angular8-yandex-maps.svg)](https://badge.fury.io/js/angular8-yandex-maps) [![Build Status](https://travis-ci.org/ddubrava/angular-yandex-maps.svg?branch=master)](https://travis-ci.org/ddubrava/angular-yandex-maps) ![npm bundle size](https://img.shields.io/bundlephobia/min/angular8-yandex-maps) ![npm](https://img.shields.io/npm/dm/angular8-yandex-maps) ![GitHub stars](https://img.shields.io/github/stars/ddubrava/angular-yandex-maps?style=social)
 
 # Angular8-yandex-maps
-Angular-Yandex-Maps is an Angular library for simplifying work with the Yandex.Maps API. **Supports Angular 6+.**
+The library implements the base Yandex.Maps functionality. By the way you can access to the ymaps instance so you can use full Yandex.Maps API.
 
-The library implements the main components: map, panorama, placemark, geoobject, multiroute and controls. It also returns ymaps instance so you can use full API. For a more detailed description of inputs, outputs etc. check [API Yandex.Maps documentation](https://tech.yandex.ru/maps/jsapi/).
-
-Leave suggestions, problems, errors, difficulties in GitHub Issues. Thanks for using the library!
+Leave suggestions, problems, errors, difficulties in GitHub Issues. Star the repository and thanks for using the library!
 
 ## Documentation
-[Documentation](https://ddubrava.github.io/angular-yandex-maps-docs/)
+[Documentation](https://ddubrava.github.io/angular-yandex-maps/)
 
 ## Examples
 [Examples](https://ddubrava.github.io/angular-yandex-maps-docs/docs/examples)
