@@ -1,8 +1,9 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { IEvent, ILoadEvent } from '../../models/models';
 
 import { YandexMapService } from '../../services/yandex-map/yandex-map.service';
 import { generateRandomId } from '../../utils/generateRandomId';
+import { removeLeadingSpaces } from '../../utils/removeLeadingSpaces';
 import { take } from 'rxjs/operators';
 
 @Component({
@@ -10,7 +11,7 @@ import { take } from 'rxjs/operators';
   templateUrl: './yandex-panorama.component.html',
   styleUrls: ['./yandex-panorama.component.scss']
 })
-export class YandexPanoramaComponent implements OnInit {
+export class YandexPanoramaComponent implements OnInit, OnChanges {
   @ViewChild('container') public panoramaContainer: ElementRef;
 
   @Input() public point: Array<number>;
@@ -21,6 +22,9 @@ export class YandexPanoramaComponent implements OnInit {
   @Output() public direction = new EventEmitter<IEvent>();
   @Output() public fullscreen = new EventEmitter<IEvent>();
   @Output() public marker = new EventEmitter<IEvent>();
+
+  // Yandex.Map API
+  private _player: any;
 
   constructor(private _yandexMapService: YandexMapService) { }
 
@@ -34,6 +38,41 @@ export class YandexPanoramaComponent implements OnInit {
       });
   }
 
+  public ngOnChanges(changes: SimpleChanges): void {
+    this._configPanorama(changes);
+  }
+
+  /**
+   * Method for dynamic entity configuration.
+   * Handles input changes and provides it to API.
+   * @param changes
+   */
+  private _configPanorama(changes: SimpleChanges): void {
+    const player = this._player;
+
+    if (!player) return;
+
+    const { point, layer, options } = changes;
+
+    if (point) {
+      player.moveTo(point.currentValue, layer ? { layer: layer.currentValue } : {});
+    }
+
+    if (layer && !point) {
+      console.error('Panorama: You cannot change the layer without point');
+    }
+
+    if (options) {
+      console.error(removeLeadingSpaces(`
+        The options of Panorama cannot be changed after entity init.
+
+        Solutions:
+        1. Use ymaps from ILoadEvent
+        2. Recreate Panorama component with new options
+      `));
+    }
+  }
+
   private _logErrors(): void {
     if (!this.point) {
       console.error('Panorama: point input is required.');
@@ -42,8 +81,8 @@ export class YandexPanoramaComponent implements OnInit {
   }
 
   /**
-   * Create panorama
-   * @param ymaps - class from Yandex.Map API
+   * Create panorama with player
+   * @param ymaps
    * @param id - unique id
    */
   private _createPanorama(ymaps: any, id: string): void {
@@ -54,13 +93,15 @@ export class YandexPanoramaComponent implements OnInit {
     ymaps.panorama.locate(this.point, { layer: this.layer })
       .then((panorama: any) => {
         const player = new ymaps.panorama.Player(id, panorama[0], this.options);
+        this._player = player;
+
         this.emitEvents(ymaps, player);
       });
   }
 
   /**
    * Emit events
-   * @param ymaps - class from Yandex.Map API
+   * @param ymaps
    * @param player - player instance
    */
   public emitEvents(ymaps: any, player: any): void {
