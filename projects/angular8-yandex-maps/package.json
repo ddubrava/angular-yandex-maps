@@ -1,7 +1,7 @@
 {
   "name": "angular8-yandex-maps",
-  "version": "1.15.0",
-  "description": "Angular module for Yandex.Maps",
+  "version": "2.0.0",
+  "description": "Angular components for Yandex.Maps",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ddubrava/angular-yandex-maps.git"
@@ -15,7 +15,7 @@
     "Карты",
     "ЯндексКарты"
   ],
-  "author": "ddubrava",
+  "author": "Daniil Dubrava",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/ddubrava/angular-yandex-maps/issues"
