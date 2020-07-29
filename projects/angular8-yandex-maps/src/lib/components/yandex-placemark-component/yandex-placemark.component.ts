@@ -39,8 +39,8 @@ export class YandexPlacemarkComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   /**
-   * Method for dynamic map configuration.
-   * Handles input changes and provide it to API.
+   * Method for dynamic entity configuration.
+   * Handles input changes and provides it to API.
    * @param changes
    */
   private _configPlacemark(changes: SimpleChanges): void {

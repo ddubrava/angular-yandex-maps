@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { ILoadEvent } from '../../models/models';
 import { removeLeadingSpaces } from '../../utils/removeLeadingSpaces';
@@ -20,7 +20,7 @@ export class YandexControlComponent implements OnInit {
   public initControl(ymaps: any, map: any): void {
     const control = new ymaps.control[this.type](this.parameters);
 
-    // RoutePanel ignores state in parameters. Probably API bug
+    // RoutePanel ignores state in parameters. API bug
     if (this.type === 'RoutePanel' && this.parameters && this.parameters.state) {
       control.routePanel.state.set({ ...this.parameters.state });
     }

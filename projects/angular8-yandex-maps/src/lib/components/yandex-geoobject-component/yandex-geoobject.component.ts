@@ -59,7 +59,7 @@ export class YandexGeoObjectComponent implements OnInit, OnChanges {
   }
 
   /**
-   * Destructuring state and provides new values to API
+   * Destructuring feature and provides new values to API
    * @param feature - https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/GeoObject-docpage/#GeoObject__param-feature
    * @param geoObject
    */
