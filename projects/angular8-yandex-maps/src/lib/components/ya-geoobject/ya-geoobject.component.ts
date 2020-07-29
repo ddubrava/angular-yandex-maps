@@ -5,11 +5,11 @@ import { generateRandomId } from '../../utils/generateRandomId';
 import { removeLeadingSpaces } from '../../utils/removeLeadingSpaces';
 
 @Component({
-  selector: 'angular-yandex-geoobject',
-  templateUrl: './yandex-geoobject.component.html',
-  styleUrls: ['./yandex-geoobject.component.scss']
+  selector: 'ya-geoobject',
+  templateUrl: './ya-geoobject.component.html',
+  styleUrls: ['./ya-geoobject.component.scss']
 })
-export class YandexGeoObjectComponent implements OnInit, OnChanges {
+export class YaGeoObjectComponent implements OnInit, OnChanges {
   @Input() public feature: any;
   @Input() public options: any;
 

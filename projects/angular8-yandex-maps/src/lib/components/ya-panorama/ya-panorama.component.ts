@@ -1,17 +1,17 @@
 import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { IEvent, ILoadEvent } from '../../models/models';
 
-import { YandexMapService } from '../../services/yandex-map/yandex-map.service';
+import { ScriptService } from '../../services/script/script.service';
 import { generateRandomId } from '../../utils/generateRandomId';
 import { removeLeadingSpaces } from '../../utils/removeLeadingSpaces';
 import { take } from 'rxjs/operators';
 
 @Component({
-  selector: 'angular-yandex-panorama',
-  templateUrl: './yandex-panorama.component.html',
-  styleUrls: ['./yandex-panorama.component.scss']
+  selector: 'ya-panorama',
+  templateUrl: './ya-panorama.component.html',
+  styleUrls: ['./ya-panorama.component.scss']
 })
-export class YandexPanoramaComponent implements OnInit, OnChanges {
+export class YaPanoramaComponent implements OnInit, OnChanges {
   @ViewChild('container') public panoramaContainer: ElementRef;
 
   @Input() public point: Array<number>;
@@ -26,12 +26,12 @@ export class YandexPanoramaComponent implements OnInit, OnChanges {
   // Yandex.Map API
   private _player: any;
 
-  constructor(private _yandexMapService: YandexMapService) { }
+  constructor(private _scriptService: ScriptService) { }
 
   public ngOnInit(): void {
     this._logErrors();
 
-    this._yandexMapService.initScript()
+    this._scriptService.initScript()
       .pipe(take(1))
       .subscribe((ymaps: any) => {
         this._createPanorama(ymaps, generateRandomId());

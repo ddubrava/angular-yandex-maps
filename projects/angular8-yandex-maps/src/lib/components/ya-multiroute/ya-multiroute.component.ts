@@ -4,11 +4,11 @@ import { IEvent, ILoadEvent } from '../../models/models';
 import { generateRandomId } from '../../utils/generateRandomId';
 
 @Component({
-  selector: 'angular-yandex-multiroute',
-  templateUrl: './yandex-multiroute.component.html',
-  styleUrls: ['./yandex-multiroute.component.scss']
+  selector: 'ya-multiroute',
+  templateUrl: './ya-multiroute.component.html',
+  styleUrls: ['./ya-multiroute.component.scss']
 })
-export class YandexMultirouteComponent implements OnInit, OnChanges {
+export class YaMultirouteComponent implements OnInit, OnChanges {
   @Input() public referencePoints: Array<any>;
   @Input() public model: any;
   @Input() public options: any;
@@ -57,7 +57,7 @@ export class YandexMultirouteComponent implements OnInit, OnChanges {
     }
 
     if (options) {
-      multiroute.options.set(options.currentValue)
+      multiroute.options.set(options.currentValue);
     }
   }
 

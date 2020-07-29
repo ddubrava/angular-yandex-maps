@@ -15,7 +15,7 @@ const DEFAULT_CONFIG: IConfig = {
 @Injectable({
   providedIn: 'root'
 })
-export class YandexMapService {
+export class ScriptService {
   private _scriptYmaps: HTMLScriptElement;
   private _config: Partial<IConfig>;
 

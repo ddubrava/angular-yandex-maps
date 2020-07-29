@@ -4,11 +4,11 @@ import { IEvent, ILoadEvent } from '../../models/models';
 import { generateRandomId } from '../../utils/generateRandomId';
 
 @Component({
-  selector: 'angular-yandex-placemark',
-  templateUrl: './yandex-placemark.component.html',
-  styleUrls: ['./yandex-placemark.component.scss']
+  selector: 'ya-placemark',
+  templateUrl: './ya-placemark.component.html',
+  styleUrls: ['./ya-placemark.component.scss']
 })
-export class YandexPlacemarkComponent implements OnInit, OnChanges, OnDestroy {
+export class YaPlacemarkComponent implements OnInit, OnChanges, OnDestroy {
   @Input() public geometry: any;
   @Input() public properties: any;
   @Input() public options: any;

@@ -4,11 +4,11 @@ import { ILoadEvent } from '../../models/models';
 import { removeLeadingSpaces } from '../../utils/removeLeadingSpaces';
 
 @Component({
-  selector: 'angular-yandex-control',
-  templateUrl: './yandex-control.component.html',
-  styleUrls: ['./yandex-control.component.scss']
+  selector: 'ya-control',
+  templateUrl: './ya-control.component.html',
+  styleUrls: ['./ya-control.component.scss']
 })
-export class YandexControlComponent implements OnInit {
+export class YaControlComponent implements OnInit {
   @Input() public type: string;
   @Input() public parameters: any;
 

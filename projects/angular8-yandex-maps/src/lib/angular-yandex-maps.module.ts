@@ -1,33 +1,33 @@
+import { IConfig, YA_MAP_CONFIG } from './models/models';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
-import { IConfig, YA_MAP_CONFIG } from './models/models';
-import { YandexControlComponent } from './components/yandex-control-component/yandex-control.component';
-import { YandexGeoObjectComponent } from './components/yandex-geoobject-component/yandex-geoobject.component';
-import { YandexMapComponent } from './components/yandex-map-component/yandex-map.component';
-import { YandexMultirouteComponent } from './components/yandex-multiroute-component/yandex-multiroute.component';
-import { YandexPanoramaComponent } from './components/yandex-panorama-component/yandex-panorama.component';
-import { YandexPlacemarkComponent } from './components/yandex-placemark-component/yandex-placemark.component';
+import { YaControlComponent } from './components/ya-control/ya-control.component';
+import { YaGeoObjectComponent } from './components/ya-geoobject/ya-geoobject.component';
+import { YaMapComponent } from './components/ya-map/ya-map.component';
+import { YaMultirouteComponent } from './components/ya-multiroute/ya-multiroute.component';
+import { YaPanoramaComponent } from './components/ya-panorama/ya-panorama.component';
+import { YaPlacemarkComponent } from './components/ya-placemark/ya-placemark.component';
 
 @NgModule({
   declarations: [
-    YandexControlComponent,
-    YandexGeoObjectComponent,
-    YandexMapComponent,
-    YandexMultirouteComponent,
-    YandexPanoramaComponent,
-    YandexPlacemarkComponent,
+    YaControlComponent,
+    YaGeoObjectComponent,
+    YaMapComponent,
+    YaMultirouteComponent,
+    YaPanoramaComponent,
+    YaPlacemarkComponent,
   ],
   imports: [
     CommonModule
   ],
   exports: [
-    YandexControlComponent,
-    YandexGeoObjectComponent,
-    YandexMapComponent,
-    YandexMultirouteComponent,
-    YandexPanoramaComponent,
-    YandexPlacemarkComponent,
+    YaControlComponent,
+    YaGeoObjectComponent,
+    YaMapComponent,
+    YaMultirouteComponent,
+    YaPanoramaComponent,
+    YaPlacemarkComponent,
   ]
 })
 
