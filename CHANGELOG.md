@@ -1,6 +1,11 @@
 # Changelog
 All notable changes from v1.0.0 will be documented in this file.
 
+## [2.0.1] - 2020-07-30
+### Fixed
+- Wrong tag selector in README.md & QuickStart.md
+- Wrong link to examples
+
 ## [2.0.0] - 2020-07-30
 ### Added
 - Dynamic dynamic entity configuration. Now component handles input changes and provides it to API
@@ -167,8 +172,10 @@ All notable changes from v1.0.0 will be documented in this file.
 ## [1.0.0] - 2019-09-14
 - Release without changes
 
-[2.0.0]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.14.5...v2.0.0
-[1.14.4]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.14.4...v1.14.5
+[2.0.1]: https://github.com/ddubrava/angular-yandex-maps/compare/v2.0.0...v2.0.1
+[2.0.0]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.15.0...v2.0.0
+[1.15.0]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.14.5....v1.15.0
+[1.14.5]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.14.4....v1.14.5
 [1.14.4]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.14.3...v1.14.4
 [1.14.3]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.14.2...v1.14.3
 [1.14.2]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.14.1...v1.14.2
