@@ -63,9 +63,9 @@ export class AppModule { }
 ### component.html
 ```
 <div class="container">
-  <angular-yandex-map [center]="[55.751952, 37.600739]" [zoom]="12">
-    <angular-yandex-placemark [geometry]="[55.751952, 37.600739]"></angular-yandex-placemark>
-  </angular-yandex-map>
+  <ya-map [center]="[55.751952, 37.600739]" [zoom]="12">
+    <ya-placemark [geometry]="[55.751952, 37.600739]"></ya-placemark>
+  </ya-map>
 </div>
 ```
 
