@@ -23,7 +23,7 @@ export class YaPlacemarkComponent implements OnInit, OnChanges, OnDestroy {
 
   public id: string;
 
-  // Yandex.Map API
+  // Yandex.Maps API
   private _map: any;
   public placemark: any;
 

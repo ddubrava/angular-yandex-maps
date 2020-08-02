@@ -64,6 +64,8 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
   public ngOnInit(): void {
     this._sub = new Subscription();
 
+    this._logErrors();
+
     this._scriptService.initScript()
       .pipe(take(1))
       .subscribe((ymaps: any) => {
@@ -71,8 +73,6 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
           this.load.emit({ ymaps });
           return;
         }
-
-        this._logErrors();
 
         // Map
         const map = this._createMap(ymaps, generateRandomId());

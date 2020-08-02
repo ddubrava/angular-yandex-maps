@@ -23,7 +23,7 @@ export class YaPanoramaComponent implements OnInit, OnChanges {
   @Output() public fullscreen = new EventEmitter<IEvent>();
   @Output() public marker = new EventEmitter<IEvent>();
 
-  // Yandex.Map API
+  // Yandex.Maps API
   private _player: any;
 
   constructor(private _scriptService: ScriptService) { }

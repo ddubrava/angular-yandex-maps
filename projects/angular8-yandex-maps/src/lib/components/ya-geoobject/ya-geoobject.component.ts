@@ -23,7 +23,7 @@ export class YaGeoObjectComponent implements OnInit, OnChanges {
 
   public id: string;
 
-  // Yandex.Map API
+  // Yandex.Maps API
   private _map: any;
   private _geoObject: any;
 

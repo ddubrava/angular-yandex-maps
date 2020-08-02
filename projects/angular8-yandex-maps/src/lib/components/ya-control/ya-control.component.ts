@@ -15,7 +15,15 @@ export class YaControlComponent implements OnInit {
   @Output() public load = new EventEmitter<ILoadEvent>();
 
   constructor() {}
-  public ngOnInit(): void {}
+  public ngOnInit(): void {
+    this._logErrors();
+  }
+
+  private _logErrors(): void {
+    if (!this.type) {
+      console.error('Control: type input is required.');
+    }
+  }
 
   public initControl(ymaps: any, map: any): void {
     const control = new ymaps.control[this.type](this.parameters);
