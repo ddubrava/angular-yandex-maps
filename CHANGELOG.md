@@ -1,6 +1,13 @@
 # Changelog
 All notable changes from v1.0.0 will be documented in this file.
 
+## [2.1.0] - 2020-08-02
+### Added
+- Clusterer component
+
+### Changed
+- Clusterer input from ya-map was removed
+
 ## [2.0.1] - 2020-07-30
 ### Fixed
 - Wrong tag selector in README.md & QuickStart.md
