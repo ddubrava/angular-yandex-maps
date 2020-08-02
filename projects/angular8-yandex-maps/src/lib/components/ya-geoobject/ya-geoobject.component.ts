@@ -23,7 +23,7 @@ export class YaGeoObjectComponent implements OnInit, OnChanges {
 
   public id: string;
 
-  // Yandex.Map API
+  // Yandex.Maps API
   private _map: any;
   private _geoObject: any;
 
@@ -88,7 +88,7 @@ export class YaGeoObjectComponent implements OnInit, OnChanges {
     }
   }
 
-  public initGeoObject(ymaps: any, map: any): void {
+  public initGeoObject(ymaps: any, map: any): any {
     const geoObject = new ymaps.GeoObject(this.feature, this.options);
 
     this.id = generateRandomId();
@@ -97,6 +97,8 @@ export class YaGeoObjectComponent implements OnInit, OnChanges {
 
     map.geoObjects.add(geoObject);
     this._emitEvents(ymaps, geoObject);
+
+    return geoObject;
   }
 
   /**

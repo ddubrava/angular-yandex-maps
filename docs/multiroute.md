@@ -15,7 +15,7 @@ Component for Multi-route on the map
 | Name            | Type                                                    | Default | Required | Description                          |
 |-----------------|---------------------------------------------------------|---------|----------|--------------------------------------|
 | referencePoints | [IMultiRouteReferencePoint][][]                         |         | yes      | Reference points for the multi-route |
-| model           | [multiRouter.MultiRouteModel] || [MultiRouteModelJson]  |         | no       | Properties for the multiroute        |
+| model           | [multiRouter.MultiRouteModel] or [MultiRouteModelJson]  |         | no       | Properties for the multiroute        |
 | options         | [MultiRouteOptions]                                     |         | no       | Options for the multiroute           |
 
 [IMultiRouteReferencePoint]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/IMultiRouteReferencePoint-docpage/

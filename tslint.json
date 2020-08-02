@@ -1,27 +1,25 @@
 {
   "extends": "tslint-config-airbnb",
   "rules": {
+    "align": false,
+    "function-name": false,
     "max-line-length": [true, 140],
-    "trailing-comma": false,
-    "function-name": [false],
+    "member-access": true,
+    "no-inferrable-types": false,
+    "object-shorthand-properties-first": false,
     "prefer-array-literal": [true, { "allow-type-parameters": true }],
-    "no-increment-decrement": false,
+    "trailing-comma": false,
+    "typedef": [
+      true,
+      "call-signature",
+      "property-declaration",
+      "variable-declaration-ignore-function",
+      "array-destructuring"
+    ],
     "variable-name": {
       "options": [
         "allow-leading-underscore"
       ]
-    },
-    "member-access": true,
-    "no-inferrable-types": true,
-    "typedef": [
-      true,
-      "call-signature",
-      "arrow-call-signature",
-      "parameter",
-      "arrow-parameter",
-      "property-declaration",
-      "variable-declaration-ignore-function",
-      "array-destructuring"
-    ]
+    }
   }
 }

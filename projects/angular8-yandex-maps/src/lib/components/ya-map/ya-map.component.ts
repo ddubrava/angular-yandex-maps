@@ -17,6 +17,7 @@ import { startWith, take } from 'rxjs/operators';
 
 import { ScriptService } from '../../services/script/script.service';
 import { Subscription } from 'rxjs';
+import { YaClustererComponent } from '../ya-clusterer/ya-clusterer.component';
 import { YaControlComponent } from '../ya-control/ya-control.component';
 import { YaGeoObjectComponent } from '../ya-geoobject/ya-geoobject.component';
 import { YaMultirouteComponent } from '../ya-multiroute/ya-multiroute.component';
@@ -37,6 +38,7 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
   @ContentChildren(YaMultirouteComponent) public multiroutes: QueryList<YaMultirouteComponent>;
   @ContentChildren(YaGeoObjectComponent) public geoObjects: QueryList<YaGeoObjectComponent>;
   @ContentChildren(YaControlComponent) public controls: QueryList<YaControlComponent>;
+  @ContentChildren(YaClustererComponent) public clusterers: QueryList<YaClustererComponent>;
 
   // Inputs
   @Input() public onlyInstance: boolean;
@@ -44,7 +46,6 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
   @Input() public zoom = 10;
   @Input() public state: any = {};
   @Input() public options: any = {};
-  @Input() public clusterer: any;
 
   // Outputs
   @Output() public load = new EventEmitter<ILoadEvent>();
@@ -63,6 +64,8 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
   public ngOnInit(): void {
     this._sub = new Subscription();
 
+    this._logErrors();
+
     this._scriptService.initScript()
       .pipe(take(1))
       .subscribe((ymaps: any) => {
@@ -70,8 +73,6 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
           this.load.emit({ ymaps });
           return;
         }
-
-        this._logErrors();
 
         // Map
         const map = this._createMap(ymaps, generateRandomId());
@@ -181,22 +182,12 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
    */
   private _initObjects(ymaps: any, map: any): void {
     // Placemarks
-    let clusterer: any;
-
-    if (this.clusterer) {
-      clusterer = this._createClusterer(ymaps, map);
-    }
-
     const placemarksSub = this.placemarks.changes
       .pipe(startWith(this.placemarks))
       .subscribe((list: QueryList<YaPlacemarkComponent>) => {
         list.forEach((placemark: YaPlacemarkComponent) => {
           if (!placemark.id) {
-            placemark.initPlacemark(ymaps, map, clusterer);
-          }
-
-          if (clusterer) {
-            clusterer.add(placemark.placemark);
+            placemark.initPlacemark(ymaps, map);
           }
         });
       });
@@ -228,16 +219,14 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
       control.initControl(ymaps, map);
     });
 
+    // Clusterers
+    this.clusterers.forEach((clusterer: YaClustererComponent) => {
+      clusterer.initClusterer(ymaps, map);
+    });
+
     this._sub.add(placemarksSub);
     this._sub.add(multiroutesSub);
     this._sub.add(geoObjectsSub);
-  }
-
-  private _createClusterer(ymaps: any, map: any): any {
-    const clusterer = new ymaps.Clusterer(this.clusterer);
-    map.geoObjects.add(clusterer);
-
-    return clusterer;
   }
 
   /**

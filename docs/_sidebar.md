@@ -4,6 +4,7 @@
 - Components
   - [Map](map.md 'Map | Angular Yandex Map')
   - [Panorama](panorama.md 'Panorama | Angular Yandex Map')
+  - [Clusterer](clusterer.md 'Clusterer | Angular Yandex Map')
   - [Placemark](placemark.md 'Placemark | Angular Yandex Map')
   - [GeoObject](geoobject.md 'GeoObject | Angular Yandex Map')
   - [Multiroute](multiroute.md 'Multiroute | Angular Yandex Map')

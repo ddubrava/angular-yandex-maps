@@ -15,7 +15,7 @@ Creating and managing controls on the map
 | Name       | Type   | Default | Required | Description                                                                                                              |
 |------------|--------|---------|----------|--------------------------------------------------------------------------------------------------------------------------|
 | type       | String |         | yes      | Control type. List of types you can find in left list - [Controls]. E.g. Control.FullscreenControl - 'FullscreenControl' |
-| parameters | any    |         | no       | Parameters for the Control                                                                                               |
+| parameters | Any    |         | no       | Parameters for the Control                                                                                               |
 
 [Controls]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/control.Button-docpage/
 
