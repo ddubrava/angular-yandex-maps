@@ -1,6 +1,6 @@
 # GeoObject
 
-Component that can be displayed as a placemark, polyline, polygon, etc., depending on the geometry type.
+Component, geo object. Can be displayed as a placemark, polyline, polygon, etc., depending on the geometry type. You can also use auxiliary classes for simplified creation of geo objects with a specific geometry type
 
 ## Usage
 

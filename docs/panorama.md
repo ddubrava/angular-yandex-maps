@@ -10,11 +10,11 @@ Component for creating and controlling the panorama player
 
 ## Inputs
 
-| Name    | Type            | Default | Required           | Description                                  |
-|---------|-----------------|---------|--------------------|----------------------------------------------|
-| point   | Number[]        |         | yes                | The point for searching for nearby panoramas |
-| layer   | yandex#panorama |         | yandex#airPanorama | The layer to search for panoramas            |
-| options | [PlayerOptions] |         | no                 | Options for the player                       |
+| Name    | Type                                  | Default | Required           | Description                                  |
+|---------|---------------------------------------|---------|--------------------|----------------------------------------------|
+| point   | Number[]                              |         | yes                | The point for searching for nearby panoramas |
+| layer   | yandex#panorama or yandex#airPanorama |         | yandex#airPanorama | The layer to search for panoramas            |
+| options | [PlayerOptions]                       |         | no                 | Options for the player                       |
 
 [PlayerOptions]:https://tech.yandex.com/maps/jsapi/doc/2.1/ref/reference/panorama.Player-docpage/#panorama.Player__param-options
 
