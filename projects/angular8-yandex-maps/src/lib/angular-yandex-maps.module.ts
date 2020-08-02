@@ -2,6 +2,7 @@ import { IConfig, YA_MAP_CONFIG } from './models/models';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
+import { YaClustererComponent } from './components/ya-clusterer/ya-clusterer.component';
 import { YaControlComponent } from './components/ya-control/ya-control.component';
 import { YaGeoObjectComponent } from './components/ya-geoobject/ya-geoobject.component';
 import { YaMapComponent } from './components/ya-map/ya-map.component';
@@ -11,6 +12,7 @@ import { YaPlacemarkComponent } from './components/ya-placemark/ya-placemark.com
 
 @NgModule({
   declarations: [
+    YaClustererComponent,
     YaControlComponent,
     YaGeoObjectComponent,
     YaMapComponent,
@@ -22,6 +24,7 @@ import { YaPlacemarkComponent } from './components/ya-placemark/ya-placemark.com
     CommonModule
   ],
   exports: [
+    YaClustererComponent,
     YaControlComponent,
     YaGeoObjectComponent,
     YaMapComponent,
