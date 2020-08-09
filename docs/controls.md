@@ -25,7 +25,7 @@ Creating and managing controls on the map
 |------------|--------------|-------------------------------------------------------|----------------------------------------------------------------|
 | load       | [ILoadEvent] |                                                       | Emits immediately after this entity is added in root container |
 
-[ILoadEvent]: https://github.com/ddubrava/angular-yandex-maps/blob/develop/projects/angular8-yandex-maps/src/lib/models/models.ts#L23
+[ILoadEvent]: https://github.com/ddubrava/angular8-yandex-maps/blob/develop/projects/angular8-yandex-maps/src/lib/models/models.ts#L23
 
 ## Examples
 

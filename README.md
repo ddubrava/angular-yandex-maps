@@ -1,4 +1,4 @@
-[![npm version](https://badge.fury.io/js/angular8-yandex-maps.svg)](https://badge.fury.io/js/angular8-yandex-maps) [![Build Status](https://travis-ci.org/ddubrava/angular-yandex-maps.svg?branch=master)](https://travis-ci.org/ddubrava/angular-yandex-maps) ![npm bundle size](https://img.shields.io/bundlephobia/min/angular8-yandex-maps) ![npm](https://img.shields.io/npm/dm/angular8-yandex-maps) ![GitHub stars](https://img.shields.io/github/stars/ddubrava/angular-yandex-maps?style=social)
+[![npm version](https://badge.fury.io/js/angular8-yandex-maps.svg)](https://badge.fury.io/js/angular8-yandex-maps) [![Build Status](https://travis-ci.org/ddubrava/angular8-yandex-maps.svg?branch=master)](https://travis-ci.org/ddubrava/angular8-yandex-maps) ![npm bundle size](https://img.shields.io/bundlephobia/min/angular8-yandex-maps) ![npm](https://img.shields.io/npm/dm/angular8-yandex-maps) ![GitHub stars](https://img.shields.io/github/stars/ddubrava/angular8-yandex-maps?style=social)
 
 # Angular8-yandex-maps
 The library implements the base Yandex.Maps functionality. By the way you can access to the ymaps instance so you can use full Yandex.Maps API.
@@ -6,10 +6,10 @@ The library implements the base Yandex.Maps functionality. By the way you can ac
 Leave suggestions, problems, errors, difficulties in GitHub Issues. Star the repository and thanks for using the library!
 
 ## Documentation
-[Documentation](https://ddubrava.github.io/angular-yandex-maps/)
+[Documentation](https://ddubrava.github.io/angular8-yandex-maps/)
 
 ## Examples
-[Examples](https://ddubrava.github.io/angular-yandex-maps/#/examples)
+[Examples](https://ddubrava.github.io/angular8-yandex-maps/#/examples)
 
 ## Installation
 ```
@@ -78,7 +78,7 @@ export class AppModule { }
 ```
 
 ## Changelog
-[CHANGELOG](https://github.com/ddubrava/angular-yandex-maps/blob/develop/CHANGELOG.md)
+[CHANGELOG](https://github.com/ddubrava/angular8-yandex-maps/blob/develop/CHANGELOG.md)
 
 ## License
-[MIT](https://github.com/ddubrava/angular-yandex-maps/blob/develop/LICENSE.md)
+[MIT](https://github.com/ddubrava/angular8-yandex-maps/blob/develop/LICENSE.md)

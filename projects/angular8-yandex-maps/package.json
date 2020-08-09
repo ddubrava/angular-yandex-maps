@@ -4,7 +4,7 @@
   "description": "Angular components for Yandex.Maps",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ddubrava/angular-yandex-maps.git"
+    "url": "git+https://github.com/ddubrava/angular8-yandex-maps.git"
   },
   "keywords": [
     "Angular",
@@ -18,7 +18,7 @@
   "author": "Daniil Dubrava",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ddubrava/angular-yandex-maps/issues"
+    "url": "https://github.com/ddubrava/angular8-yandex-maps/issues"
   },
-  "homepage": "https://github.com/ddubrava/angular-yandex-maps#readme"
+  "homepage": "https://github.com/ddubrava/angular8-yandex-maps#readme"
 }
