@@ -1,6 +1,10 @@
 # Changelog
 All notable changes from v1.0.0 will be documented in this file.
 
+## [2.1.1] - 2020-08-09
+### Changed
+- Links to new repo name in README, documentation, changelog
+
 ## [2.1.0] - 2020-08-02
 ### Added
 - Clusterer component
@@ -179,6 +183,8 @@ All notable changes from v1.0.0 will be documented in this file.
 ## [1.0.0] - 2019-09-14
 - Release without changes
 
+[2.1.1]: https://github.com/ddubrava/angular8-yandex-maps/compare/v2.1.0...v2.1.1
+[2.1.0]: https://github.com/ddubrava/angular8-yandex-maps/compare/v2.0.1...v2.1.0
 [2.0.1]: https://github.com/ddubrava/angular8-yandex-maps/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/ddubrava/angular8-yandex-maps/compare/v1.15.0...v2.0.0
 [1.15.0]: https://github.com/ddubrava/angular8-yandex-maps/compare/v1.14.5....v1.15.0
