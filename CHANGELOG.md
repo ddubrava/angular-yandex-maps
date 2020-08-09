@@ -1,6 +1,10 @@
 # Changelog
 All notable changes from v1.0.0 will be documented in this file.
 
+## [2.1.1] - 2020-08-09
+### Changed
+- Links to new repo name in README, documentation, changelog
+
 ## [2.1.0] - 2020-08-02
 ### Added
 - Clusterer component
@@ -83,7 +87,7 @@ All notable changes from v1.0.0 will be documented in this file.
 
 ## [1.10.3] - 2020-01-10
 ### Changed
-- README. Move documentation to [Angular-Yandex-Maps-Docs](https://ddubrava.github.io/angular-yandex-maps-docs/)
+- README. Move documentation to [angular8-yandex-maps-Docs](https://ddubrava.github.io/angular8-yandex-maps-docs/)
 
 ## [1.10.2] - 2020-01-02
 ### Changed
@@ -179,38 +183,40 @@ All notable changes from v1.0.0 will be documented in this file.
 ## [1.0.0] - 2019-09-14
 - Release without changes
 
-[2.0.1]: https://github.com/ddubrava/angular-yandex-maps/compare/v2.0.0...v2.0.1
-[2.0.0]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.15.0...v2.0.0
-[1.15.0]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.14.5....v1.15.0
-[1.14.5]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.14.4....v1.14.5
-[1.14.4]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.14.3...v1.14.4
-[1.14.3]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.14.2...v1.14.3
-[1.14.2]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.14.1...v1.14.2
-[1.14.1]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.14.0...v1.14.1
-[1.14.0]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.13.1...v1.14.0
-[1.13.1]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.13.0...v1.13.1
-[1.13.0]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.12.0...v1.13.0
-[1.12.0]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.11.4...v1.12.0
-[1.11.4]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.11.3...v1.11.4
-[1.11.3]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.11.2...v1.11.3
-[1.11.2]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.11.0...v1.11.2
-[1.11.0]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.10.3...v1.11.0
-[1.10.3]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.10.2...v1.10.3
-[1.10.2]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.10.1...v1.10.2
-[1.10.1]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.10.0...v1.10.1
-[1.10.0]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.9.0...v1.10.0
-[1.9.0]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.8.0...v1.9.0
-[1.8.0]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.7.3...v1.8.0
-[1.7.3]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.7.2...v1.7.3
-[1.7.2]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.7.1...v1.7.2
-[1.7.1]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.7.0...v1.7.1
-[1.7.0]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.6.0...v1.7.0
-[1.6.0]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.5.0...v1.6.0
-[1.5.0]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.4.0...v1.5.0
-[1.4.0]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.3.0...v1.4.0
-[1.3.0]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.2.1...v1.3.0
-[1.2.1]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.2.0...v1.2.1
-[1.2.0]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.1.0...v1.2.0
-[1.1.0]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.0.1...v1.1.0
-[1.0.1]: https://github.com/ddubrava/angular-yandex-maps/compare/v1.0.0...v1.0.1
-[1.0.0]: https://github.com/ddubrava/angular-yandex-maps/compare/v0.1.1...v1.0.0
+[2.1.1]: https://github.com/ddubrava/angular8-yandex-maps/compare/v2.1.0...v2.1.1
+[2.1.0]: https://github.com/ddubrava/angular8-yandex-maps/compare/v2.0.1...v2.1.0
+[2.0.1]: https://github.com/ddubrava/angular8-yandex-maps/compare/v2.0.0...v2.0.1
+[2.0.0]: https://github.com/ddubrava/angular8-yandex-maps/compare/v1.15.0...v2.0.0
+[1.15.0]: https://github.com/ddubrava/angular8-yandex-maps/compare/v1.14.5....v1.15.0
+[1.14.5]: https://github.com/ddubrava/angular8-yandex-maps/compare/v1.14.4....v1.14.5
+[1.14.4]: https://github.com/ddubrava/angular8-yandex-maps/compare/v1.14.3...v1.14.4
+[1.14.3]: https://github.com/ddubrava/angular8-yandex-maps/compare/v1.14.2...v1.14.3
+[1.14.2]: https://github.com/ddubrava/angular8-yandex-maps/compare/v1.14.1...v1.14.2
+[1.14.1]: https://github.com/ddubrava/angular8-yandex-maps/compare/v1.14.0...v1.14.1
+[1.14.0]: https://github.com/ddubrava/angular8-yandex-maps/compare/v1.13.1...v1.14.0
+[1.13.1]: https://github.com/ddubrava/angular8-yandex-maps/compare/v1.13.0...v1.13.1
+[1.13.0]: https://github.com/ddubrava/angular8-yandex-maps/compare/v1.12.0...v1.13.0
+[1.12.0]: https://github.com/ddubrava/angular8-yandex-maps/compare/v1.11.4...v1.12.0
+[1.11.4]: https://github.com/ddubrava/angular8-yandex-maps/compare/v1.11.3...v1.11.4
+[1.11.3]: https://github.com/ddubrava/angular8-yandex-maps/compare/v1.11.2...v1.11.3
+[1.11.2]: https://github.com/ddubrava/angular8-yandex-maps/compare/v1.11.0...v1.11.2
+[1.11.0]: https://github.com/ddubrava/angular8-yandex-maps/compare/v1.10.3...v1.11.0
+[1.10.3]: https://github.com/ddubrava/angular8-yandex-maps/compare/v1.10.2...v1.10.3
+[1.10.2]: https://github.com/ddubrava/angular8-yandex-maps/compare/v1.10.1...v1.10.2
+[1.10.1]: https://github.com/ddubrava/angular8-yandex-maps/compare/v1.10.0...v1.10.1
+[1.10.0]: https://github.com/ddubrava/angular8-yandex-maps/compare/v1.9.0...v1.10.0
+[1.9.0]: https://github.com/ddubrava/angular8-yandex-maps/compare/v1.8.0...v1.9.0
+[1.8.0]: https://github.com/ddubrava/angular8-yandex-maps/compare/v1.7.3...v1.8.0
+[1.7.3]: https://github.com/ddubrava/angular8-yandex-maps/compare/v1.7.2...v1.7.3
+[1.7.2]: https://github.com/ddubrava/angular8-yandex-maps/compare/v1.7.1...v1.7.2
+[1.7.1]: https://github.com/ddubrava/angular8-yandex-maps/compare/v1.7.0...v1.7.1
+[1.7.0]: https://github.com/ddubrava/angular8-yandex-maps/compare/v1.6.0...v1.7.0
+[1.6.0]: https://github.com/ddubrava/angular8-yandex-maps/compare/v1.5.0...v1.6.0
+[1.5.0]: https://github.com/ddubrava/angular8-yandex-maps/compare/v1.4.0...v1.5.0
+[1.4.0]: https://github.com/ddubrava/angular8-yandex-maps/compare/v1.3.0...v1.4.0
+[1.3.0]: https://github.com/ddubrava/angular8-yandex-maps/compare/v1.2.1...v1.3.0
+[1.2.1]: https://github.com/ddubrava/angular8-yandex-maps/compare/v1.2.0...v1.2.1
+[1.2.0]: https://github.com/ddubrava/angular8-yandex-maps/compare/v1.1.0...v1.2.0
+[1.1.0]: https://github.com/ddubrava/angular8-yandex-maps/compare/v1.0.1...v1.1.0
+[1.0.1]: https://github.com/ddubrava/angular8-yandex-maps/compare/v1.0.0...v1.0.1
+[1.0.0]: https://github.com/ddubrava/angular8-yandex-maps/compare/v0.1.1...v1.0.0

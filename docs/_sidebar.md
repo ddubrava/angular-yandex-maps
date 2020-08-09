@@ -11,5 +11,5 @@
   - [Controls](controls.md 'Controls | Angular Yandex Map')
 
 - [Examples](examples.md 'Examples | Angular Yandex Map')
-- [Changelog](https://github.com/ddubrava/angular-yandex-maps/blob/develop/CHANGELOG.md)
-- [Licence](https://github.com/ddubrava/angular-yandex-maps/blob/develop/LICENSE.md)
+- [Changelog](https://github.com/ddubrava/angular8-yandex-maps/blob/develop/CHANGELOG.md)
+- [Licence](https://github.com/ddubrava/angular8-yandex-maps/blob/develop/LICENSE.md)
