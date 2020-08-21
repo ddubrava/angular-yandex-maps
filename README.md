@@ -16,6 +16,13 @@ Leave suggestions, problems, errors, difficulties in GitHub Issues. Star the rep
 npm install angular8-yandex-maps
 ```
 
+Versions now follow Angular's version to easily reflect compatibility.
+Meaning, for Angular 6, use
+
+```bash
+npm install angular8-yandex-maps @ ^6.0.0
+```
+
 ## Usage
 ### app.module.ts
 ##### Default map config options
