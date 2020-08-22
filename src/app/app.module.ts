@@ -1,4 +1,4 @@
-import { AngularYandexMapsModule, IConfig } from '../../projects/angular8-yandex-maps/src/public_api';
+import { AngularYandexMapsModule, IConfig } from '../../projects/angular8-yandex-maps/src/public-api';
 
 import { AppComponent } from './app.component';
 import { BrowserModule } from '@angular/platform-browser';
