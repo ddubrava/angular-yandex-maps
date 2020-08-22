@@ -31,7 +31,7 @@ import { generateRandomId } from '../../utils/generateRandomId';
 })
 export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
   // Map container
-  @ViewChild('container', { static: false }) public mapContainer: ElementRef;
+  @ViewChild('container') public mapContainer: ElementRef;
 
   // Components inside <ya-map>
   @ContentChildren(YaPlacemarkComponent) public placemarks: QueryList<YaPlacemarkComponent>;

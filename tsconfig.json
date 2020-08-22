@@ -11,19 +11,14 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "es2015",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
     "lib": [
       "es2018",
       "dom"
     ],
     "paths": {
       "angular8-yandex-maps": [
+        "dist/angular8-yandex-maps/angular8-yandex-maps",
         "dist/angular8-yandex-maps"
-      ],
-      "angular8-yandex-maps/*": [
-        "dist/angular8-yandex-maps/*"
       ]
     }
   },

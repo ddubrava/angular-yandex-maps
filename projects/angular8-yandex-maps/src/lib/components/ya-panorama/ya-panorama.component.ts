@@ -12,7 +12,7 @@ import { take } from 'rxjs/operators';
   styleUrls: ['./ya-panorama.component.scss']
 })
 export class YaPanoramaComponent implements OnInit, OnChanges {
-  @ViewChild('container', { static: false }) public panoramaContainer: ElementRef;
+  @ViewChild('container') public panoramaContainer: ElementRef;
 
   @Input() public point: Array<number>;
   @Input() public layer: string;
