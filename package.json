@@ -4,7 +4,7 @@
   "scripts": {
     "start": "ng serve",
     "docs": "docsify serve docs",
-    "build": "npm run lint && ng build angular8-yandex-maps",
+    "build": "npm run lint && ng build angular8-yandex-maps --prod",
     "lint": "ng lint angular8-yandex-maps"
   },
   "private": true,
