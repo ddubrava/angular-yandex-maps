@@ -20,5 +20,9 @@
   "bugs": {
     "url": "https://github.com/ddubrava/angular8-yandex-maps/issues"
   },
-  "homepage": "https://github.com/ddubrava/angular8-yandex-maps#readme"
+  "homepage": "https://github.com/ddubrava/angular8-yandex-maps#readme",
+  "peerDependencies": {
+    "@angular/common": "^6.0.0-rc.0 || ^6.0.0",
+    "@angular/core": "^6.0.0-rc.0 || ^6.0.0"
+  }
 }
