@@ -1,6 +1,10 @@
 # Changelog
 All notable changes from v1.0.0 will be documented in this file.
 
+## [10.0.0] - 2020-08-22
+### Added
+- Support Angular 10
+
 ## [9.0.0] - 2020-08-22
 ### Added
 - Support Angular 9
@@ -199,6 +203,7 @@ All notable changes from v1.0.0 will be documented in this file.
 ## [1.0.0] - 2019-09-14
 - Release without changes
 
+[10.0.0]: https://github.com/ddubrava/angular8-yandex-maps/compare/v9.0.0...v10.0.0
 [9.0.0]: https://github.com/ddubrava/angular8-yandex-maps/compare/v8.0.0...v9.0.0
 [8.0.0]: https://github.com/ddubrava/angular8-yandex-maps/compare/v7.0.0...v8.0.0
 [7.0.0]: https://github.com/ddubrava/angular8-yandex-maps/compare/v6.0.0...v7.0.0

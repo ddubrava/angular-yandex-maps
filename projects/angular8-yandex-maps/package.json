@@ -1,6 +1,6 @@
 {
   "name": "angular8-yandex-maps",
-  "version": "9.0.0",
+  "version": "10.0.0",
   "description": "Angular components for Yandex.Maps",
   "repository": {
     "type": "git",
@@ -22,10 +22,10 @@
   },
   "homepage": "https://github.com/ddubrava/angular8-yandex-maps#readme",
   "peerDependencies": {
-    "@angular/common": "^9.1.12",
-    "@angular/core": "^9.1.12"
+    "@angular/common": "^10.0.11",
+    "@angular/core": "^10.0.11"
   },
   "dependencies": {
-    "tslib": "^1.10.0"
+    "tslib": "^2.0.0"
   }
 }
