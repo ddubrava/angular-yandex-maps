@@ -4,3 +4,4 @@
 
 export * from './lib/angular-yandex-maps.module';
 export * from './lib/models/models';
+export * from './lib/services/script/script.service';
