@@ -8,6 +8,9 @@ export * from './lib/angular-yandex-maps.module';
 // Models
 export * from './lib/models/models';
 
+// Services
+export * from './lib/services/script/script.service';
+
 // Components
 export * from './lib/components/ya-clusterer/ya-clusterer.component';
 export * from './lib/components/ya-control/ya-control.component';
