@@ -159,7 +159,7 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private _logErrors(): void {
-    if (!this.center) {
+    if (!this.center && !this.onlyInstance) {
       console.error('Map: center input is required.');
       this.center = [];
     }
