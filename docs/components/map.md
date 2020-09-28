@@ -10,14 +10,15 @@ Component for creating and managing a map
 
 ## Inputs
 
-| Name         | Type         | Default | Required | Description                                                                              |
-|--------------|--------------|---------|----------|------------------------------------------------------------------------------------------|
-| onlyInstance | Boolean      | false   | no       | The component returns only [ILoadEvent]. It's useful when you need only the ymaps object |
-| center       | Number[]     |         | yes      | Map center geocoordinates                                                                |
-| zoom         | Number       | 10      | no       | Map zoom level                                                                           |
-| state        | [MapState]   |         | no       | States for the map                                                                       |
-| options      | [MapOptions] |         | no       | Options for the map                                                                      |
+| Name         | Type         | Default | Required | Description                                                                            |
+|--------------|--------------|---------|----------|----------------------------------------------------------------------------------------|
+| onlyInstance | Boolean      | false   | no       | @deprecated, use [ScriptService] // Map will not be created, only returns [ILoadEvent] |
+| center       | Number[]     |         | yes      | Map center geocoordinates                                                              |
+| zoom         | Number       | 10      | no       | Map zoom level                                                                         |
+| state        | [MapState]   |         | no       | States for the map                                                                     |
+| options      | [MapOptions] |         | no       | Options for the map                                                                    |
 
+[ScriptService]: services/script.md
 [MapState]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Map-docpage/#Map__param-state
 [MapOptions]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Map-docpage/#Map__param-options
 
