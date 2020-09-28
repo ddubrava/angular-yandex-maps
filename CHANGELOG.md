@@ -1,6 +1,16 @@
 # Changelog
 All notable changes from v1.0.0 will be documented in this file.
 
+## [6.1.1] - 2020-09-28
+### Added
+- Export ScriptService for appending script in document
+
+### Changed
+- OnlyInstance is deprecated now, use ScriptService instead
+
+### Fixed
+- Remove 'center input is required' error if onlyInstance is provided
+
 ## [6.0.0] - 2020-08-22
 ### Added
 - Support Angular 6
