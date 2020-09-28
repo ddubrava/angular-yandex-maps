@@ -1,6 +1,16 @@
 # Changelog
 All notable changes from v1.0.0 will be documented in this file.
 
+## [7.1.0] - 2020-09-28
+### Added
+- Export ScriptService for appending script in document
+
+### Changed
+- OnlyInstance is deprecated now, use ScriptService instead
+
+### Fixed
+- Remove 'center input is required' error if onlyInstance is provided
+
 ## [7.0.0] - 2020-08-22
 ### Added
 - Support Angular 7
@@ -191,6 +201,7 @@ All notable changes from v1.0.0 will be documented in this file.
 ## [1.0.0] - 2019-09-14
 - Release without changes
 
+[7.1.0]: https://github.com/ddubrava/angular8-yandex-maps/compare/v7.0.0...v7.1.0
 [7.0.0]: https://github.com/ddubrava/angular8-yandex-maps/compare/v6.0.0...v7.0.0
 [6.0.0]: https://github.com/ddubrava/angular8-yandex-maps/compare/v2.1.1...v6.0.0
 [2.1.1]: https://github.com/ddubrava/angular8-yandex-maps/compare/v2.1.0...v2.1.1
