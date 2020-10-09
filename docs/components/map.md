@@ -38,7 +38,7 @@ Component for creating and managing a map
 [IEvent]: https://github.com/ddubrava/angular8-yandex-maps/blob/develop/projects/angular8-yandex-maps/src/lib/models/models.ts#L34
 
 ## ContentChildren
-- [Placemark](placemark.md)
-- [GeoObject](geoobject.md)
-- [MultiRoute](multiroute.md)
-- [Controls](controls.md)
+- [Placemark](components/placemark.md)
+- [GeoObject](components/geoobject.md)
+- [MultiRoute](components/multiroute.md)
+- [Controls](components/controls.md)

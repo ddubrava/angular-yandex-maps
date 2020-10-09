@@ -12,11 +12,11 @@ Component, geo object with the geometry geometry.Point
 
 ## Inputs
 
-| Name       | Type                                   | Default | Required | Description                                                                                                   |
-|------------|----------------------------------------|---------|----------|---------------------------------------------------------------------------------------------------------------|
-| geometry   | Number[] or Object or [IPointGeometry] |         | yes      | Coordinates of the placemark, or a hash describing the geometry, or a reference to the point geometry object. |
-| properties | [PlacemarkProperties]                  |         | no       | Properties for the placemark                                                                                  |
-| options    | [PlacemarkOptions]                     |         | no       | States for the placemark                                                                                      |
+| Name       | Type                                   | Default | Required | Description                                                                                                  |
+|------------|----------------------------------------|---------|----------|--------------------------------------------------------------------------------------------------------------|
+| geometry   | Number[] or Object or [IPointGeometry] |         | yes      | Coordinates of the placemark, or a hash describing the geometry, or a reference to the point geometry object |
+| properties | [PlacemarkProperties]                  |         | no       | Properties for the placemark                                                                                 |
+| options    | [PlacemarkOptions]                     |         | no       | Options for the placemark                                                                                    |
 
 [IPointGeometry]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/IPointGeometry-docpage
 [PlacemarkProperties]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Placemark-docpage/#Placemark__param-properties

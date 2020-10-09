@@ -1,6 +1,6 @@
 # Controls
 
-Creating and managing controls on the map
+Component for creating and managing controls on the map
 
 ## Usage
 

@@ -1,6 +1,6 @@
 # Script
 
-Service for appending script in document
+Injectable service that will handle the loading of Yandex.Maps script
 
 ## Usage
 

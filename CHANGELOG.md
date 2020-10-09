@@ -1,6 +1,10 @@
 # Changelog
 All notable changes from v1.0.0 will be documented in this file.
 
+## [10.1.1] - 2020-10-09
+### Added
+- Improve code documentation
+
 ## [10.1.0] - 2020-09-28
 ### Added
 - Export ScriptService for appending script in document
@@ -213,6 +217,7 @@ All notable changes from v1.0.0 will be documented in this file.
 ## [1.0.0] - 2019-09-14
 - Release without changes
 
+[10.1.1]: https://github.com/ddubrava/angular8-yandex-maps/compare/v10.1.0...v10.1.1
 [10.1.0]: https://github.com/ddubrava/angular8-yandex-maps/compare/v10.0.0...v10.1.0
 [10.0.0]: https://github.com/ddubrava/angular8-yandex-maps/compare/v9.0.0...v10.0.0
 [9.0.0]: https://github.com/ddubrava/angular8-yandex-maps/compare/v8.0.0...v9.0.0

@@ -1,24 +1,67 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { IEvent, ILoadEvent } from '../../models/models';
-
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges
+  } from '@angular/core';
 import { generateRandomId } from '../../utils/generateRandomId';
+import { IEvent, ILoadEvent } from '../../models/models';
 import { removeLeadingSpaces } from '../../utils/removeLeadingSpaces';
 
+/**
+ * Component, geo object. Can be displayed as a placemark, polyline, polygon, etc., depending on the geometry type.
+ * You can also use auxiliary classes for simplified creation of geo objects with a specific geometry type
+ *
+ * @example <ya-geoobject [feature]="{ geometry: { type: 'Rectangle', coordinates: [[55.665, 37.66], [55.64,37.53]] } }"></ya-geoobject>
+ * @see {@link https://ddubrava.github.io/angular8-yandex-maps/#/components/geoobject}
+ */
 @Component({
   selector: 'ya-geoobject',
   templateUrl: './ya-geoobject.component.html',
   styleUrls: ['./ya-geoobject.component.scss']
 })
 export class YaGeoObjectComponent implements OnInit, OnChanges {
+  /**
+   * Feature for the GeoObject
+   * @see {@link https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/GeoObject-docpage/#GeoObject__param-feature}
+   */
   @Input() public feature: any;
+  /**
+   * Options for the GeoObject
+   * @see {@link https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/GeoObject-docpage/#GeoObject__param-options}
+   */
   @Input() public options: any;
 
+  /**
+   * Emits immediately after this entity is added in root container
+   */
   @Output() public load = new EventEmitter<ILoadEvent>();
+  /**
+   * Actions with ballon
+   */
   @Output() public baloon = new EventEmitter<IEvent>();
+  /**
+   * Clicks on the object
+   */
   @Output() public yaclick = new EventEmitter<IEvent>();
+  /**
+   * GeoObject dragging
+   */
   @Output() public drag = new EventEmitter<IEvent>();
+  /**
+   * Action with hint
+   */
   @Output() public hint = new EventEmitter<IEvent>();
+  /**
+   * Mouse actions over the object
+   */
   @Output() public mouse = new EventEmitter<IEvent>();
+  /**
+   * Multitouch actions over the object
+   */
   @Output() public multitouch = new EventEmitter<IEvent>();
 
   public id: string;
@@ -59,8 +102,8 @@ export class YaGeoObjectComponent implements OnInit, OnChanges {
   }
 
   /**
-   * Destructuring feature and provides new values to API
-   * @param feature - https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/GeoObject-docpage/#GeoObject__param-feature
+   * Destructs state and provides new values to API
+   * @param feature https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/GeoObject-docpage/#GeoObject__param-feature
    * @param geoObject
    */
   private _setFeature(feature: any, geoObject: any): void {

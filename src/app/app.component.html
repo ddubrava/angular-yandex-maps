@@ -1,5 +1,13 @@
 <div class="container">
-  <ya-map [center]="[55.74, 37.58]" [zoom]="10">
-    <ya-placemark [geometry]="[55.74, 37.58]"></ya-placemark>
-  </ya-map>
+  <router-outlet></router-outlet>
 </div>
+
+<ul>
+  <li routerLink="map">Map</li>
+  <li routerLink="panorama">Panorama</li>
+  <li routerLink="clusterer">Clusterer</li>
+  <li routerLink="placemark">Placemark</li>
+  <li routerLink="geoobject">GeoObject</li>
+  <li routerLink="multiroute">Multiroute</li>
+  <li routerLink="controls">Controls</li>
+</ul>

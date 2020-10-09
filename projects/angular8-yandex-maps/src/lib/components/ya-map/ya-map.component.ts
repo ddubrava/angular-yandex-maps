@@ -1,3 +1,13 @@
+import { generateRandomId } from '../../utils/generateRandomId';
+import { IEvent, ILoadEvent } from '../../models/models';
+import { ScriptService } from '../../services/script/script.service';
+import { startWith, take } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { YaClustererComponent } from '../ya-clusterer/ya-clusterer.component';
+import { YaControlComponent } from '../ya-control/ya-control.component';
+import { YaGeoObjectComponent } from '../ya-geoobject/ya-geoobject.component';
+import { YaMultirouteComponent } from '../ya-multiroute/ya-multiroute.component';
+import { YaPlacemarkComponent } from '../ya-placemark/ya-placemark.component';
 import {
   Component,
   ContentChildren,
@@ -12,18 +22,12 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { IEvent, ILoadEvent } from '../../models/models';
-import { startWith, take } from 'rxjs/operators';
 
-import { ScriptService } from '../../services/script/script.service';
-import { Subscription } from 'rxjs';
-import { YaClustererComponent } from '../ya-clusterer/ya-clusterer.component';
-import { YaControlComponent } from '../ya-control/ya-control.component';
-import { YaGeoObjectComponent } from '../ya-geoobject/ya-geoobject.component';
-import { YaMultirouteComponent } from '../ya-multiroute/ya-multiroute.component';
-import { YaPlacemarkComponent } from '../ya-placemark/ya-placemark.component';
-import { generateRandomId } from '../../utils/generateRandomId';
-
+/**
+ * Component for creating and managing a map
+ * @example <ya-map [center]="[55.751952, 37.600739]" [state]="{type: 'yandex#satellite'}"></ya-map>
+ * @see {@link https://ddubrava.github.io/angular8-yandex-maps/#/components/map}
+ */
 @Component({
   selector: 'ya-map',
   templateUrl: './ya-map.component.html',
@@ -40,20 +44,57 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
   @ContentChildren(YaControlComponent) public controls: QueryList<YaControlComponent>;
   @ContentChildren(YaClustererComponent) public clusterers: QueryList<YaClustererComponent>;
 
-  // Inputs
+  /**
+   * @deprecated Use ScriptService
+   * @description Map will not be created, only returns ILoadEvent
+   */
   @Input() public onlyInstance: boolean;
+  /**
+   * Map center geocoordinates
+   */
   @Input() public center: Array<number>;
+  /**
+   * Map zoom level
+   */
   @Input() public zoom = 10;
+  /**
+   * States for the map
+   * @see {@link https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Map-docpage/#Map__param-state}
+   */
   @Input() public state: any = {};
+  /**
+   * Options for the map
+   * @see {@link https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Map-docpage/#Map__param-options}
+   */
   @Input() public options: any = {};
 
-  // Outputs
+  /**
+   * Emits immediately after this entity is added in root container
+   */
   @Output() public load = new EventEmitter<ILoadEvent>();
+  /**
+   * Smooth map movement
+   */
   @Output() public action = new EventEmitter<IEvent>();
+  /**
+   * Actions with ballon
+   */
   @Output() public baloon = new EventEmitter<IEvent>();
+  /**
+   * Clicks on the object
+   */
   @Output() public yaclick = new EventEmitter<IEvent>();
+  /**
+   * Action with hint
+   */
   @Output() public hint = new EventEmitter<IEvent>();
+  /**
+   * Mouse actions over the object
+   */
   @Output() public mouse = new EventEmitter<IEvent>();
+  /**
+   * Multitouch actions over the object
+   */
   @Output() public multitouch = new EventEmitter<IEvent>();
 
   private _sub: Subscription;
@@ -120,8 +161,8 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   /**
-   * Destructuring state and provides new values to API
-   * @param state - https://tech.yandex.ru/maps/doc/jsapi/2.1/ref/reference/Map-docpage/#Map__param-state
+   * Destructs state and provides new values to API
+   * @param state https://tech.yandex.ru/maps/doc/jsapi/2.1/ref/reference/Map-docpage/#Map__param-state
    * @param map
    */
   private _setState(state: any, map: any): void {
