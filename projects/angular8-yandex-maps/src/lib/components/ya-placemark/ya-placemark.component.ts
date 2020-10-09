@@ -1,24 +1,69 @@
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output,
+  SimpleChanges
+  } from '@angular/core';
+import { generateRandomId } from '../../utils/generateRandomId';
 import { IEvent, ILoadEvent } from '../../models/models';
 
-import { generateRandomId } from '../../utils/generateRandomId';
-
+/**
+ * Component, geo object with the geometry geometry.Point
+ * @example <ya-placemark [geometry]="[55.751952, 37.600739]"></ya-placemark>
+ * @see {@link https://ddubrava.github.io/angular8-yandex-maps/#/components/placemark}
+ */
 @Component({
   selector: 'ya-placemark',
   templateUrl: './ya-placemark.component.html',
   styleUrls: ['./ya-placemark.component.scss']
 })
 export class YaPlacemarkComponent implements OnInit, OnChanges, OnDestroy {
+  /**
+   * Coordinates of the placemark, or a hash describing the geometry, or a reference to the point geometry object
+   */
   @Input() public geometry: any;
+  /**
+   * Properties for the placemark
+   * @see {@link https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Placemark-docpage/#Placemark__param-properties}
+   */
   @Input() public properties: any;
+  /**
+   * Options for the placemark
+   * @see {@link https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Placemark-docpage/#Placemark__param-options}
+   */
   @Input() public options: any;
 
+  /**
+   * Emits immediately after this entity is added in root container
+   */
   @Output() public load = new EventEmitter<ILoadEvent>();
+  /**
+   * Actions with ballon
+   */
   @Output() public baloon = new EventEmitter<IEvent>();
+  /**
+   * Clicks on the object
+   */
   @Output() public yaclick = new EventEmitter<IEvent>();
+  /**
+   * Placemark dragging
+   */
   @Output() public drag = new EventEmitter<IEvent>();
+  /**
+   * Action with hint
+   */
   @Output() public hint = new EventEmitter<IEvent>();
+  /**
+   * Mouse actions over the object
+   */
   @Output() public mouse = new EventEmitter<IEvent>();
+  /**
+   * Multitouch actions over the object
+   */
   @Output() public multitouch = new EventEmitter<IEvent>();
 
   public id: string;

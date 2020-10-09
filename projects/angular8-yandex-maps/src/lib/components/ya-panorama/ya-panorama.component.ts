@@ -1,11 +1,25 @@
-import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
-import { IEvent, ILoadEvent } from '../../models/models';
-
-import { ScriptService } from '../../services/script/script.service';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+  ViewChild
+  } from '@angular/core';
 import { generateRandomId } from '../../utils/generateRandomId';
+import { IEvent, ILoadEvent } from '../../models/models';
 import { removeLeadingSpaces } from '../../utils/removeLeadingSpaces';
+import { ScriptService } from '../../services/script/script.service';
 import { take } from 'rxjs/operators';
 
+/**
+ * Component for creating and controlling the panorama player
+ * @example <ya-panorama [point]="[59.938557, 30.316198]" layer="yandex#airPanorama"></ya-panorama>
+ * @see {@link https://ddubrava.github.io/angular8-yandex-maps/#/components/panorama}
+ */
 @Component({
   selector: 'ya-panorama',
   templateUrl: './ya-panorama.component.html',
@@ -14,13 +28,35 @@ import { take } from 'rxjs/operators';
 export class YaPanoramaComponent implements OnInit, OnChanges {
   @ViewChild('container') public panoramaContainer: ElementRef;
 
+  /**
+   * The point for searching for nearby panoramas
+   */
   @Input() public point: Array<number>;
+  /**
+   * The layer to search for panoramas
+   */
   @Input() public layer: string;
+  /**
+   * Options for the player
+   * @see {@link https://tech.yandex.com/maps/jsapi/doc/2.1/ref/reference/panorama.Player-docpage/#panorama.Player__param-options}
+   */
   @Input() public options: any;
 
+  /**
+   * Emits immediately after this entity is added in root container
+   */
   @Output() public load = new EventEmitter<ILoadEvent>();
+  /**
+   * The view direction changed
+   */
   @Output() public direction = new EventEmitter<IEvent>();
+  /**
+   * The panorama player screen mode is switched
+   */
   @Output() public fullscreen = new EventEmitter<IEvent>();
+  /**
+   * Actions with marker
+   */
   @Output() public marker = new EventEmitter<IEvent>();
 
   // Yandex.Maps API
@@ -83,7 +119,7 @@ export class YaPanoramaComponent implements OnInit, OnChanges {
   /**
    * Create panorama with player
    * @param ymaps
-   * @param id - unique id
+   * @param id Unique id
    */
   private _createPanorama(ymaps: any, id: string): void {
     const containerElem: HTMLElement = this.panoramaContainer.nativeElement;
@@ -102,7 +138,7 @@ export class YaPanoramaComponent implements OnInit, OnChanges {
   /**
    * Emit events
    * @param ymaps
-   * @param player - player instance
+   * @param player Player instance
    */
   public emitEvents(ymaps: any, player: any): void {
     this.load.emit({ ymaps, instance: player });
