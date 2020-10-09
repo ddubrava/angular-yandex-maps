@@ -1,6 +1,6 @@
 # Multiroute
 
-Component for Multi-route on the map
+Component for creating Multi-route on the map
 
 ## Usage
 
@@ -12,11 +12,12 @@ Component for Multi-route on the map
 
 ## Inputs
 
-| Name            | Type                                                    | Default | Required | Description                          |
-|-----------------|---------------------------------------------------------|---------|----------|--------------------------------------|
-| referencePoints | [IMultiRouteReferencePoint][][]                         |         | yes      | Reference points for the multi-route |
-| model           | [multiRouter.MultiRouteModel] or [MultiRouteModelJson]  |         | no       | Properties for the multiroute        |
-| options         | [MultiRouteOptions]                                     |         | no       | Options for the multiroute           |
+| Name            | Type                                                   | Default | Required | Description                                                       |
+|-----------------|--------------------------------------------------------|---------|----------|-------------------------------------------------------------------|
+| referencePoints | [IMultiRouteReferencePoint][][]                        |         | yes      | Reference points for the multi-route                              |
+| model           | [multiRouter.MultiRouteModel] or [MultiRouteModelJson] |         | no       | The data model of a multi-route, or the model description object  |
+| options         | [MultiRouteOptions]                                    |         | no       | Options for the multiroute                                        |
+
 
 [IMultiRouteReferencePoint]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/IMultiRouteReferencePoint-docpage/
 [multiRouter.MultiRouteModel]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/multiRouter.MultiRouteModel-docpage/
