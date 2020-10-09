@@ -1,23 +1,65 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges
+  } from '@angular/core';
+import { generateRandomId } from '../../utils/generateRandomId';
 import { IEvent, ILoadEvent } from '../../models/models';
 
-import { generateRandomId } from '../../utils/generateRandomId';
-
+/**
+ * Component for creating Multi-route on the map
+ * @example <ya-multiroute [referencePoints]="[[55.751952, 37.600739], 'Красные ворота, Москва']"></ya-multiroute>
+ * @see {@link https://ddubrava.github.io/angular8-yandex-maps/#/components/multiroute}
+ */
 @Component({
   selector: 'ya-multiroute',
   templateUrl: './ya-multiroute.component.html',
   styleUrls: ['./ya-multiroute.component.scss']
 })
 export class YaMultirouteComponent implements OnInit, OnChanges {
+  /**
+   * Reference points for the multi-route
+   * @see {@link https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/IMultiRouteReferencePoint-docpage/}
+   */
   @Input() public referencePoints: Array<any>;
+  /**
+   * The data model of a multi-route, or the model description object
+   */
   @Input() public model: any;
+  /**
+   * Options for the multiroute
+   * @see
+   * {@link https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/multiRouter.MultiRoute-docpage/#multiRouter.MultiRoute__param-options}
+   */
   @Input() public options: any;
 
+  /**
+   * Emits immediately after this entity is added in root container
+   */
   @Output() public load = new EventEmitter<ILoadEvent>();
+  /**
+   * Change to the active route
+   */
   @Output() public activeroutechange = new EventEmitter<IEvent>();
+  /**
+   * Actions with ballon
+   */
   @Output() public baloon = new EventEmitter<IEvent>();
+  /**
+   * Clicks on the object
+   */
   @Output() public yaclick = new EventEmitter<IEvent>();
+  /**
+   * Mouse actions over the object
+   */
   @Output() public mouse = new EventEmitter<IEvent>();
+  /**
+   * Multitouch actions over the object
+   */
   @Output() public multitouch = new EventEmitter<IEvent>();
 
   public id: string;
@@ -62,8 +104,8 @@ export class YaMultirouteComponent implements OnInit, OnChanges {
   }
 
   /**
-   * Destructuring model and provides new values to API
-   * @param model - https://tech.yandex.com/maps/jsapi/doc/2.1/ref/reference/multiRouter.MultiRouteModel-docpage/
+   * Destructs state and provides new values to API
+   * @param model https://tech.yandex.com/maps/jsapi/doc/2.1/ref/reference/multiRouter.MultiRouteModel-docpage/
    * @param multiroute
    */
   private _setModel(model: any, multiroute: any): void {

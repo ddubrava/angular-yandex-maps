@@ -27,7 +27,7 @@ Component, geo object clusterer. Clusterizes objects in the visible area of the 
 |---------------|--------------|----------------------|----------------------------------------------------------------|
 | load          | [ILoadEvent] |                      | Emits immediately after this entity is added in root container |
 | hint          | [IEvent]     | hintopen, hintclose  | Action with hint                                               |
-| mapChange     | [IEvent]     | mapChange            | MMap reference changed                                         |
+| mapChange     | [IEvent]     | mapChange            | Map reference changed                                          |
 | optionsChange | [IEvent]     | optionsChange        | Change to the object options                                   |
 | parentChange  | [IEvent]     | parentChange         | The parent object reference changed                            |
 
@@ -35,5 +35,5 @@ Component, geo object clusterer. Clusterizes objects in the visible area of the 
 [IEvent]: https://github.com/ddubrava/angular-yandex-maps/blob/develop/projects/angular8-yandex-maps/src/lib/models/models.ts#L34
 
 ## ContentChildren
-- [Placemark](placemark.md)
-- [GeoObject](geoobject.md)
+- [Placemark](components/placemark.md)
+- [GeoObject](components/geoobject.md)
