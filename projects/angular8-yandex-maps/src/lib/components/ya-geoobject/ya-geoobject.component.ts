@@ -67,8 +67,9 @@ export class YaGeoObjectComponent implements OnInit, OnChanges {
   public id: string;
 
   // Yandex.Maps API
-  private _map: any;
+  private _clusterer: any;
   private _geoObject: any;
+  private _map: any;
 
   constructor() {}
 
@@ -131,12 +132,22 @@ export class YaGeoObjectComponent implements OnInit, OnChanges {
     }
   }
 
-  public initGeoObject(ymaps: any, map: any): any {
+  /**
+   * Inits GeoObject
+   * @param ymaps
+   * @param map
+   * @param clusterer We need this to control removing entity from Clusterer on Placemark destroy
+   * `this._clusterer.remove(this._geoObject)`;
+   *
+   * @returns GeoObject
+   */
+  public initGeoObject(ymaps: any, map: any, clusterer?: any): any {
     const geoObject = new ymaps.GeoObject(this.feature, this.options);
-
     this.id = generateRandomId();
-    this._map = map;
+
+    this._clusterer = clusterer;
     this._geoObject = geoObject;
+    this._map = map;
 
     map.geoObjects.add(geoObject);
     this._emitEvents(ymaps, geoObject);
@@ -196,6 +207,7 @@ export class YaGeoObjectComponent implements OnInit, OnChanges {
   }
 
   public ngOnDestroy(): void {
+    this._clusterer.remove(this._geoObject);
     this._map.geoObjects.remove(this._geoObject);
   }
 }
