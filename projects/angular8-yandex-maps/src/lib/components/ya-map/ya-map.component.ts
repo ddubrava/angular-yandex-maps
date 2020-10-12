@@ -120,7 +120,7 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
         this._map = map;
 
         // Events
-        this._emitEvents(ymaps, map);
+        this._addEventListeners(ymaps, map);
 
         // Objects
         this._initObjects(ymaps, map);
@@ -217,12 +217,13 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   /**
-   * Add new objects on ContentChildren changes
+   * Provides ContentChildren components to API.
+   * Subscribes on ContentChildren changes to provide them to API.
    * @param ymaps
    * @param map
    */
   private _initObjects(ymaps: any, map: any): void {
-    // Placemarks
+    // Placemarks (async)
     const placemarksSub = this.placemarks.changes
       .pipe(startWith(this.placemarks))
       .subscribe((list: QueryList<YaPlacemarkComponent>) => {
@@ -233,7 +234,9 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
         });
       });
 
-    // Multiroutes
+    this._sub.add(placemarksSub);
+
+    // Multiroutes (async)
     const multiroutesSub = this.multiroutes.changes
       .pipe(startWith(this.multiroutes))
       .subscribe((list: QueryList<YaMultirouteComponent>) => {
@@ -244,7 +247,9 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
         });
       });
 
-    // GeoObjects
+    this._sub.add(multiroutesSub);
+
+    // GeoObjects (async)
     const geoObjectsSub = this.geoObjects.changes
       .pipe(startWith(this.geoObjects))
       .subscribe((list: QueryList<YaGeoObjectComponent>) => {
@@ -255,19 +260,17 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
         });
       });
 
-    // Controls
+    this._sub.add(geoObjectsSub);
+
+    // Controls (not async)
     this.controls.forEach((control: YaControlComponent) => {
       control.initControl(ymaps, map);
     });
 
-    // Clusterers
+    // Clusterers (not async)
     this.clusterers.forEach((clusterer: YaClustererComponent) => {
       clusterer.initClusterer(ymaps, map);
     });
-
-    this._sub.add(placemarksSub);
-    this._sub.add(multiroutesSub);
-    this._sub.add(geoObjectsSub);
   }
 
   /**
@@ -275,7 +278,7 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
    * @param ymaps
    * @param map
    */
-  private _emitEvents(ymaps: any, map: any): void {
+  private _addEventListeners(ymaps: any, map: any): void {
     this.load.emit({ ymaps, instance: map });
 
     // Action

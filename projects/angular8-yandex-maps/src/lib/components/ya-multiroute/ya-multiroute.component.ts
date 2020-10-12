@@ -137,15 +137,15 @@ export class YaMultirouteComponent implements OnInit, OnChanges {
     this._multiroute = multiroute;
 
     map.geoObjects.add(multiroute);
-    this._emitEvents(ymaps, multiroute);
+    this._addEventListeners(ymaps, multiroute);
   }
 
   /**
-   * Add listeners on placemark events
+   * Add listeners on multiroute events
    * @param ymaps
    * @param map
    */
-  private _emitEvents(ymaps: any, multiroute: any): void {
+  private _addEventListeners(ymaps: any, multiroute: any): void {
     this.load.emit({ ymaps, instance: multiroute });
 
     // Activeroutechange

@@ -131,16 +131,16 @@ export class YaPanoramaComponent implements OnInit, OnChanges {
         const player = new ymaps.panorama.Player(id, panorama[0], this.options);
         this._player = player;
 
-        this.emitEvents(ymaps, player);
+        this._addEventListeners(ymaps, player);
       });
   }
 
   /**
-   * Emit events
+   * Add listeners on panorama events
    * @param ymaps
-   * @param player Player instance
+   * @param player
    */
-  public emitEvents(ymaps: any, player: any): void {
+  public _addEventListeners(ymaps: any, player: any): void {
     this.load.emit({ ymaps, instance: player });
 
     // Direction

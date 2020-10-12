@@ -4,18 +4,20 @@ import {
   EventEmitter,
   Input,
   OnChanges,
+  OnDestroy,
   Output,
   QueryList,
   SimpleChanges
   } from '@angular/core';
 import { IEvent, ILoadEvent } from '../../models/models';
+import { startWith } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 import { YaGeoObjectComponent } from '../ya-geoobject/ya-geoobject.component';
 import { YaPlacemarkComponent } from '../ya-placemark/ya-placemark.component';
 
 /**
  * Component, geo object clusterer. Clusterizes objects in the visible area of the map.
- * If the object does not fall within the visible area of the map,
- * it will not be added to the map.
+ * If the object does not fall within the visible area of the map, it will not be added to the map.
  * Note, that the clusterer does not react to changing the coordinates of objects (either programmatically,
  * or as the result of dragging). If you want to change the coordinates of some object in the clusterer,
  * you should first delete the object from the clusterer and then add it back
@@ -32,7 +34,7 @@ import { YaPlacemarkComponent } from '../ya-placemark/ya-placemark.component';
   templateUrl: './ya-clusterer.component.html',
   styleUrls: ['./ya-clusterer.component.scss']
 })
-export class YaClustererComponent implements OnChanges {
+export class YaClustererComponent implements OnDestroy, OnChanges {
   @ContentChildren(YaPlacemarkComponent) public placemarks: QueryList<YaPlacemarkComponent>;
   @ContentChildren(YaGeoObjectComponent) public geoObjects: QueryList<YaGeoObjectComponent>;
 
@@ -62,6 +64,8 @@ export class YaClustererComponent implements OnChanges {
    * The parent object reference changed
    */
   @Output() public parentChange = new EventEmitter<IEvent>();
+
+  private _sub = new Subscription();
 
   // Yandex.Maps API
   private _clusterer: any;
@@ -93,16 +97,38 @@ export class YaClustererComponent implements OnChanges {
     const clusterer = new ymaps.Clusterer(this.options);
     this._clusterer = clusterer;
 
-    this.placemarks.forEach((p) => {
-      clusterer.add(p.initPlacemark(ymaps, map));
-    });
+    /**
+     * Adds new Placemarks to clusterer on changes
+     */
+    const placemarksSub = this.placemarks.changes
+      .pipe(startWith(this.placemarks))
+      .subscribe((list: QueryList<YaPlacemarkComponent>) => {
+        list.forEach((placemark: YaPlacemarkComponent) => {
+          if (!placemark.id) {
+            clusterer.add(placemark.initPlacemark(ymaps, map, clusterer));
+          }
+        });
+      });
 
-    this.geoObjects.forEach((o) => {
-      clusterer.add(o.initGeoObject(ymaps, map));
-    });
+    this._sub.add(placemarksSub);
+
+    /**
+     * Adds new GeoObjects to clusterer on changes
+     */
+    const geoObjectsSub = this.geoObjects.changes
+      .pipe(startWith(this.geoObjects))
+      .subscribe((list: QueryList<YaGeoObjectComponent>) => {
+        list.forEach((geoObject: YaGeoObjectComponent) => {
+          if (!geoObject.id) {
+            clusterer.add(geoObject.initGeoObject(ymaps, map, clusterer));
+          }
+        });
+      });
+
+    this._sub.add(geoObjectsSub);
 
     map.geoObjects.add(clusterer);
-    this._emitEvents(ymaps, clusterer);
+    this._addEventListeners(ymaps, clusterer);
   }
 
   /**
@@ -110,7 +136,7 @@ export class YaClustererComponent implements OnChanges {
    * @param ymaps
    * @param map
    */
-  private _emitEvents(ymaps: any, clusterer: any): void {
+  private _addEventListeners(ymaps: any, clusterer: any): void {
     this.load.emit({ ymaps, instance: clusterer });
 
     // Hint
@@ -140,5 +166,9 @@ export class YaClustererComponent implements OnChanges {
         ['parentchange'],
         (e: any) => this.parentChange.emit({ ymaps, instance: clusterer, type: e.originalEvent.type, event: e })
       );
+  }
+
+  public ngOnDestroy(): void {
+    this._sub.unsubscribe();
   }
 }
