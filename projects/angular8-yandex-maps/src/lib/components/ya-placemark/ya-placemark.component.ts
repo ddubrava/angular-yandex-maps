@@ -133,7 +133,7 @@ export class YaPlacemarkComponent implements OnInit, OnChanges, OnDestroy {
     this._placemark = placemark;
 
     map.geoObjects.add(placemark);
-    this._emitEvents(ymaps, placemark);
+    this._addEventListeners(ymaps, placemark);
 
     return placemark;
   }
@@ -143,7 +143,7 @@ export class YaPlacemarkComponent implements OnInit, OnChanges, OnDestroy {
    * @param ymaps
    * @param map
    */
-  private _emitEvents(ymaps: any, placemark: any): void {
+  private _addEventListeners(ymaps: any, placemark: any): void {
     this.load.emit({ ymaps, instance: placemark });
 
     // Baloon

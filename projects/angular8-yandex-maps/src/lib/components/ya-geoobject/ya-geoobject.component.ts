@@ -150,17 +150,17 @@ export class YaGeoObjectComponent implements OnInit, OnChanges {
     this._map = map;
 
     map.geoObjects.add(geoObject);
-    this._emitEvents(ymaps, geoObject);
+    this._addEventListeners(ymaps, geoObject);
 
     return geoObject;
   }
 
   /**
-   * Add listeners on placemark events
+   * Add listeners on geoObject events
    * @param ymaps
-   * @param map
+   * @param geoObject
    */
-  private _emitEvents(ymaps: any, geoObject: any): void {
+  private _addEventListeners(ymaps: any, geoObject: any): void {
     this.load.emit({ ymaps, instance: geoObject });
 
     // Baloon

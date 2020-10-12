@@ -17,8 +17,7 @@ import { YaPlacemarkComponent } from '../ya-placemark/ya-placemark.component';
 
 /**
  * Component, geo object clusterer. Clusterizes objects in the visible area of the map.
- * If the object does not fall within the visible area of the map,
- * it will not be added to the map.
+ * If the object does not fall within the visible area of the map, it will not be added to the map.
  * Note, that the clusterer does not react to changing the coordinates of objects (either programmatically,
  * or as the result of dragging). If you want to change the coordinates of some object in the clusterer,
  * you should first delete the object from the clusterer and then add it back
@@ -129,7 +128,7 @@ export class YaClustererComponent implements OnDestroy, OnChanges {
     this._sub.add(geoObjectsSub);
 
     map.geoObjects.add(clusterer);
-    this._emitEvents(ymaps, clusterer);
+    this._addEventListeners(ymaps, clusterer);
   }
 
   /**
@@ -137,7 +136,7 @@ export class YaClustererComponent implements OnDestroy, OnChanges {
    * @param ymaps
    * @param map
    */
-  private _emitEvents(ymaps: any, clusterer: any): void {
+  private _addEventListeners(ymaps: any, clusterer: any): void {
     this.load.emit({ ymaps, instance: clusterer });
 
     // Hint
