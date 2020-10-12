@@ -1,6 +1,10 @@
 # Changelog
 All notable changes from v1.0.0 will be documented in this file.
 
+## [10.2.0] - 2020-10-12
+### Added
+- Content children changes of Clusterer
+
 ## [10.1.1] - 2020-10-09
 ### Added
 - Improve code documentation
