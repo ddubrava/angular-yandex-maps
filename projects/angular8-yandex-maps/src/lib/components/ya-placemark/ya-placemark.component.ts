@@ -190,7 +190,7 @@ export class YaPlacemarkComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   public ngOnDestroy(): void {
-    this._clusterer.remove(this._placemark);
+    this._clusterer?.remove(this._placemark);
     this._map.geoObjects.remove(this._placemark);
   }
 }

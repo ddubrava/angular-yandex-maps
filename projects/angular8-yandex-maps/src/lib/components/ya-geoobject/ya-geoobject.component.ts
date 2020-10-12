@@ -207,7 +207,7 @@ export class YaGeoObjectComponent implements OnInit, OnChanges {
   }
 
   public ngOnDestroy(): void {
-    this._clusterer.remove(this._geoObject);
+    this._clusterer?.remove(this._geoObject);
     this._map.geoObjects.remove(this._geoObject);
   }
 }
