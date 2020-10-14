@@ -1,6 +1,10 @@
 # Changelog
 All notable changes from v1.0.0 will be documented in this file.
 
+## [10.3.1] - 2020-10-14
+### Added
+- Wrap the EventEmitters in the ngZone.run() method
+
 ## [10.2.0] - 2020-10-12
 ### Added
 - Content children changes of Clusterer
@@ -221,6 +225,8 @@ All notable changes from v1.0.0 will be documented in this file.
 ## [1.0.0] - 2019-09-14
 - Release without changes
 
+[10.3.1]: https://github.com/ddubrava/angular8-yandex-maps/compare/v10.2.0...v10.3.1
+[10.1.1]: https://github.com/ddubrava/angular8-yandex-maps/compare/v10.1.1...v10.2.0
 [10.1.1]: https://github.com/ddubrava/angular8-yandex-maps/compare/v10.1.0...v10.1.1
 [10.1.0]: https://github.com/ddubrava/angular8-yandex-maps/compare/v10.0.0...v10.1.0
 [10.0.0]: https://github.com/ddubrava/angular8-yandex-maps/compare/v9.0.0...v10.0.0
