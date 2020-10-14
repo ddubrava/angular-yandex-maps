@@ -14,6 +14,7 @@ import {
   ElementRef,
   EventEmitter,
   Input,
+  NgZone,
   OnChanges,
   OnDestroy,
   OnInit,
@@ -100,7 +101,10 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
   private _sub: Subscription;
   private _map: any;
 
-  constructor(private _scriptService: ScriptService) { }
+  constructor(
+    private _ngZone: NgZone,
+    private _scriptService: ScriptService,
+  ) { }
 
   public ngOnInit(): void {
     this._sub = new Subscription();
@@ -279,49 +283,38 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
    * @param map
    */
   private _addEventListeners(ymaps: any, map: any): void {
-    this.load.emit({ ymaps, instance: map });
+    this._ngZone.run(() => this.load.emit({ ymaps, instance: map }));
 
-    // Action
-    map.events
-      .add(
-        ['actionbegin', 'actionend'],
-        (e: any) => this.action.emit({ ymaps, instance: map, type: e.originalEvent.type, event: e })
-      );
+    const handlers = [
+      {
+        name: ['actionbegin', 'actionend'],
+        fn: (e: any) => this.action.emit({ ymaps, instance: map, type: e.originalEvent.type, event: e }),
+      },
+      {
+        name: ['balloonopen', 'balloonclose'],
+        fn: (e: any) => this.baloon.emit({ ymaps, instance: map, type: e.originalEvent.type, event: e }),
+      },
+      {
+        name: ['click', 'dblclick'],
+        fn: (e: any) => this.yaclick.emit({ ymaps, instance: map, type: e.originalEvent.type, event: e }),
+      },
+      {
+        name: ['hintopen', 'hintclose'],
+        fn: (e: any) => this.hint.emit({ ymaps, instance: map, type: e.originalEvent.type, event: e }),
+      },
+      {
+        name: ['mousedown', 'mouseenter', 'mouseleave', 'mousemove', 'mouseup'],
+        fn: (e: any) => this.mouse.emit({ ymaps, instance: map, type: e.originalEvent.type, event: e }),
+      },
+      {
+        name: ['multitouchstart', 'multitouchmove', 'multitouchend'],
+        fn: (e: any) => this.multitouch.emit({ ymaps, instance: map, type: e.originalEvent.type, event: e }),
+      },
+    ];
 
-    // Baloon
-    map.events
-      .add(
-        ['balloonopen', 'balloonclose'],
-        (e: any) => this.baloon.emit({ ymaps, instance: map, type: e.originalEvent.type, event: e })
-      );
-
-    // Click
-    map.events
-      .add(
-        ['click', 'dblclick'],
-        (e: any) => this.yaclick.emit({ ymaps, instance: map, type: e.originalEvent.type, event: e })
-      );
-
-    // Hint
-    map.events
-      .add(
-        ['hintopen', 'hintclose'],
-        (e: any) => this.hint.emit({ ymaps, instance: map, type: e.originalEvent.type, event: e })
-      );
-
-    // Mouse
-    map.events
-      .add(
-        ['mousedown', 'mouseenter', 'mouseleave', 'mousemove', 'mouseup'],
-        (e: any) => this.mouse.emit({ ymaps, instance: map, type: e.originalEvent.type, event: e })
-      );
-
-    // Multitouch
-    map.events
-      .add(
-        ['multitouchstart', 'multitouchmove', 'multitouchend'],
-        (e: any) => this.multitouch.emit({ ymaps, instance: map, type: e.originalEvent.type, event: e })
-      );
+    handlers.forEach((handler) => {
+      map.events.add(handler.name, (e: any) => this._ngZone.run(() => handler.fn(e)));
+    });
   }
 
   public ngOnDestroy(): void {

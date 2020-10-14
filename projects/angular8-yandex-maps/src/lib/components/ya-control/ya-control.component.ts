@@ -2,6 +2,7 @@ import {
   Component,
   EventEmitter,
   Input,
+  NgZone,
   OnInit,
   Output,
   SimpleChanges
@@ -36,7 +37,9 @@ export class YaControlComponent implements OnInit {
    */
   @Output() public load = new EventEmitter<ILoadEvent>();
 
-  constructor() {}
+  constructor(
+    private _ngZone: NgZone,
+  ) {}
 
   public ngOnInit(): void {
     this._logErrors();
@@ -57,7 +60,8 @@ export class YaControlComponent implements OnInit {
     }
 
     map.controls.add(control);
-    this.load.emit({ ymaps, instance: control });
+
+    this._emitEvent(ymaps, control);
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
@@ -76,5 +80,9 @@ export class YaControlComponent implements OnInit {
       1. Use ymaps from ILoadEvent
       2. Recreate component with new configuration
     `));
+  }
+
+  private _emitEvent(ymaps: any, control: any): void {
+    this._ngZone.run(() => this.load.emit({ ymaps, instance: control }));
   }
 }

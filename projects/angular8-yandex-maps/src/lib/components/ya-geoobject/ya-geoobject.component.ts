@@ -2,6 +2,7 @@ import {
   Component,
   EventEmitter,
   Input,
+  NgZone,
   OnChanges,
   OnInit,
   Output,
@@ -71,7 +72,9 @@ export class YaGeoObjectComponent implements OnInit, OnChanges {
   private _geoObject: any;
   private _map: any;
 
-  constructor() {}
+  constructor(
+    private _ngZone: NgZone
+  ) {}
 
   public ngOnInit(): void {
     this._logErrors();
@@ -161,49 +164,38 @@ export class YaGeoObjectComponent implements OnInit, OnChanges {
    * @param geoObject
    */
   private _addEventListeners(ymaps: any, geoObject: any): void {
-    this.load.emit({ ymaps, instance: geoObject });
+    this._ngZone.run(() => this.load.emit({ ymaps, instance: geoObject }));
 
-    // Baloon
-    geoObject.events
-      .add(
-        ['balloonopen', 'balloonclose'],
-        (e: any) => this.baloon.emit({ ymaps, instance: geoObject, type: e.originalEvent.type, event: e })
-      );
+    const handlers = [
+      {
+        name: ['balloonopen', 'balloonclose'],
+        fn: (e: any) => this.baloon.emit({ ymaps, instance: geoObject, type: e.originalEvent.type, event: e }),
+      },
+      {
+        name: ['click', 'dblclick'],
+        fn: (e: any) => this.yaclick.emit({ ymaps, instance: geoObject, type: e.originalEvent.type, event: e }),
+      },
+      {
+        name: ['dragstart', 'dragend'],
+        fn: (e: any) => this.drag.emit({ ymaps, instance: geoObject, type: e.originalEvent.type, event: e }),
+      },
+      {
+        name: ['hintopen', 'hintclose'],
+        fn: (e: any) => this.hint.emit({ ymaps, instance: geoObject, type: e.originalEvent.type, event: e }),
+      },
+      {
+        name: ['mousedown', 'mouseenter', 'mouseleave', 'mousemove', 'mouseup'],
+        fn: (e: any) => this.mouse.emit({ ymaps, instance: geoObject, type: e.originalEvent.type, event: e }),
+      },
+      {
+        name: ['multitouchstart', 'multitouchmove', 'multitouchend'],
+        fn: (e: any) => this.multitouch.emit({ ymaps, instance: geoObject, type: e.originalEvent.type, event: e }),
+      },
+    ];
 
-    // Click
-    geoObject.events
-      .add(
-        ['click', 'dblclick'],
-        (e: any) => this.yaclick.emit({ ymaps, instance: geoObject, type: e.originalEvent.type, event: e })
-      );
-
-    // Drag
-    geoObject.events
-      .add(
-        ['dragstart', 'dragend'],
-        (e: any) => this.drag.emit({ ymaps, instance: geoObject, type: e.originalEvent.type, event: e })
-      );
-
-    // Hint
-    geoObject.events
-      .add(
-        ['hintopen', 'hintclose'],
-        (e: any) => this.hint.emit({ ymaps, instance: geoObject, type: e.originalEvent.type, event: e })
-      );
-
-    // Mouse
-    geoObject.events
-      .add(
-        ['mousedown', 'mouseenter', 'mouseleave', 'mousemove', 'mouseup'],
-        (e: any) => this.mouse.emit({ ymaps, instance: geoObject, type: e.originalEvent.type, event: e })
-      );
-
-    // Multitouch
-    geoObject.events
-      .add(
-        ['multitouchstart', 'multitouchmove', 'multitouchend'],
-        (e: any) => this.multitouch.emit({ ymaps, instance: geoObject, type: e.originalEvent.type, event: e })
-      );
+    handlers.forEach((handler) => {
+      geoObject.events.add(handler.name, (e: any) => this._ngZone.run(() => handler.fn(e)));
+    });
   }
 
   public ngOnDestroy(): void {

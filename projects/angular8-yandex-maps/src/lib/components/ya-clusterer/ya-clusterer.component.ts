@@ -3,6 +3,7 @@ import {
   ContentChildren,
   EventEmitter,
   Input,
+  NgZone,
   OnChanges,
   OnDestroy,
   Output,
@@ -70,7 +71,9 @@ export class YaClustererComponent implements OnDestroy, OnChanges {
   // Yandex.Maps API
   private _clusterer: any;
 
-  constructor() { }
+  constructor(
+    private _ngZone: NgZone,
+  ) { }
 
   public ngOnChanges(changes: SimpleChanges): void {
     this._configClusterer(changes);
@@ -137,35 +140,30 @@ export class YaClustererComponent implements OnDestroy, OnChanges {
    * @param map
    */
   private _addEventListeners(ymaps: any, clusterer: any): void {
-    this.load.emit({ ymaps, instance: clusterer });
+    this._ngZone.run(() => this.load.emit({ ymaps, instance: clusterer }));
 
-    // Hint
-    clusterer.events
-      .add(
-        ['hintclose', 'hintopen'],
-        (e: any) => this.hint.emit({ ymaps, instance: clusterer, type: e.originalEvent.type, event: e })
-      );
+    const handlers = [
+      {
+        name: ['hintclose', 'hintopen'],
+        fn: (e: any) => this.hint.emit({ ymaps, instance: clusterer, type: e.originalEvent.type, event: e }),
+      },
+      {
+        name: 'mapchange',
+        fn: (e: any) => this.mapChange.emit({ ymaps, instance: clusterer, type: e.originalEvent.type, event: e }),
+      },
+      {
+        name: 'optionschange',
+        fn: (e: any) => this.optionsChange.emit({ ymaps, instance: clusterer, type: e.originalEvent.type, event: e }),
+      },
+      {
+        name: 'parentchange',
+        fn: (e: any) => this.parentChange.emit({ ymaps, instance: clusterer, type: e.originalEvent.type, event: e }),
+      },
+    ];
 
-    // Map change
-    clusterer.events
-      .add(
-        ['mapchange'],
-        (e: any) => this.mapChange.emit({ ymaps, instance: clusterer, type: e.originalEvent.type, event: e })
-      );
-
-    // Options change
-    clusterer.events
-      .add(
-        ['optionschange'],
-        (e: any) => this.optionsChange.emit({ ymaps, instance: clusterer, type: e.originalEvent.type, event: e })
-      );
-
-    // Parent change
-    clusterer.events
-      .add(
-        ['parentchange'],
-        (e: any) => this.parentChange.emit({ ymaps, instance: clusterer, type: e.originalEvent.type, event: e })
-      );
+    handlers.forEach((handler) => {
+      clusterer.events.add(handler.name, (e: any) => this._ngZone.run(() => handler.fn(e)));
+    });
   }
 
   public ngOnDestroy(): void {
