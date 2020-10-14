@@ -2,6 +2,7 @@ import {
   Component,
   EventEmitter,
   Input,
+  NgZone,
   OnChanges,
   OnInit,
   Output,
@@ -68,7 +69,9 @@ export class YaMultirouteComponent implements OnInit, OnChanges {
   private _map: any;
   private _multiroute: any;
 
-  constructor() { }
+  constructor(
+    private _ngZone: NgZone,
+  ) { }
 
   public ngOnInit(): void {
     this._logErrors();
@@ -146,42 +149,34 @@ export class YaMultirouteComponent implements OnInit, OnChanges {
    * @param map
    */
   private _addEventListeners(ymaps: any, multiroute: any): void {
-    this.load.emit({ ymaps, instance: multiroute });
+    this._ngZone.run(() => this.load.emit({ ymaps, instance: multiroute }));
 
-    // Activeroutechange
-    multiroute.events
-      .add(
-        'activeroutechange',
-        (e: any) => this.activeroutechange.emit({ ymaps, instance: multiroute, type: e.originalEvent.type, event: e })
-      );
+    const handlers = [
+      {
+        name: 'activeroutechange',
+        fn: (e: any) => this.activeroutechange.emit({ ymaps, instance: multiroute, type: e.originalEvent.type, event: e }),
+      },
+      {
+        name: ['balloonopen', 'balloonclose'],
+        fn: (e: any) => this.baloon.emit({ ymaps, instance: multiroute, type: e.originalEvent.type, event: e }),
+      },
+      {
+        name: ['click', 'dblclick'],
+        fn: (e: any) => this.yaclick.emit({ ymaps, instance: multiroute, type: e.originalEvent.type, event: e }),
+      },
+      {
+        name: ['mousedown', 'mouseenter', 'mouseleave', 'mousemove', 'mouseup'],
+        fn: (e: any) => this.mouse.emit({ ymaps, instance: multiroute, type: e.originalEvent.type, event: e }),
+      },
+      {
+        name: ['multitouchstart', 'multitouchmove', 'multitouchend'],
+        fn: (e: any) => this.multitouch.emit({ ymaps, instance: multiroute, type: e.originalEvent.type, event: e }),
+      },
+    ];
 
-    // Baloon
-    multiroute.events
-      .add(
-        ['balloonopen', 'balloonclose'],
-        (e: any) => this.baloon.emit({ ymaps, instance: multiroute, type: e.originalEvent.type, event: e })
-      );
-
-    // Click
-    multiroute.events
-      .add(
-        ['click', 'dblclick'],
-        (e: any) => this.yaclick.emit({ ymaps, instance: multiroute, type: e.originalEvent.type, event: e })
-      );
-
-    // Mouse
-    multiroute.events
-      .add(
-        ['mousedown', 'mouseenter', 'mouseleave', 'mousemove', 'mouseup'],
-        (e: any) => this.mouse.emit({ ymaps, instance: multiroute, type: e.originalEvent.type, event: e })
-      );
-
-    // Multitouch
-    multiroute.events
-      .add(
-        ['multitouchstart', 'multitouchmove', 'multitouchend'],
-        (e: any) => this.multitouch.emit({ ymaps, instance: multiroute, type: e.originalEvent.type, event: e })
-      );
+    handlers.forEach((handler) => {
+      multiroute.events.add(handler.name, (e: any) => this._ngZone.run(() => handler.fn(e)));
+    });
   }
 
   public ngOnDestroy(): void {

@@ -3,6 +3,7 @@ import {
   ElementRef,
   EventEmitter,
   Input,
+  NgZone,
   OnChanges,
   OnInit,
   Output,
@@ -62,7 +63,10 @@ export class YaPanoramaComponent implements OnInit, OnChanges {
   // Yandex.Maps API
   private _player: any;
 
-  constructor(private _scriptService: ScriptService) { }
+  constructor(
+    private _ngZone: NgZone,
+    private _scriptService: ScriptService,
+  ) { }
 
   public ngOnInit(): void {
     this._logErrors();
@@ -141,27 +145,25 @@ export class YaPanoramaComponent implements OnInit, OnChanges {
    * @param player
    */
   public _addEventListeners(ymaps: any, player: any): void {
-    this.load.emit({ ymaps, instance: player });
+    this._ngZone.run(() => this.load.emit({ ymaps, instance: player }));
 
-    // Direction
-    player.events
-      .add(
-        'directionchange',
-        (e: any) => this.direction.emit({ ymaps, instance: player, type: e.originalEvent.type, event: e })
-      );
+    const handlers = [
+      {
+        name: 'directionchange',
+        fn: (e: any) => this.direction.emit({ ymaps, instance: player, type: e.originalEvent.type, event: e }),
+      },
+      {
+        name: ['fullscreenenter', 'fullscreenexit'],
+        fn: (e: any) => this.fullscreen.emit({ ymaps, instance: player, type: e.originalEvent.type, event: e }),
+      },
+      {
+        name: ['markercollapse', 'markerexpand', 'markermouseenter', 'markermouseleave'],
+        fn: (e: any) => this.marker.emit({ ymaps, instance: player, type: e.originalEvent.type, event: e }),
+      },
+    ];
 
-    // Fullscreen
-    player.events
-      .add(
-        ['fullscreenenter', 'fullscreenexit'],
-        (e: any) => this.fullscreen.emit({ ymaps, instance: player, type: e.originalEvent.type, event: e })
-      );
-
-    // Marker
-    player.events
-      .add(
-        ['markercollapse', 'markerexpand', 'markermouseenter', 'markermouseleave'],
-        (e: any) => this.marker.emit({ ymaps, instance: player, type: e.originalEvent.type, event: e })
-      );
+    handlers.forEach((handler) => {
+      player.events.add(handler.name, (e: any) => this._ngZone.run(() => handler.fn(e)));
+    });
   }
 }

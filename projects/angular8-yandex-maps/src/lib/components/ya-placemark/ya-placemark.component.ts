@@ -2,6 +2,7 @@ import {
   Component,
   EventEmitter,
   Input,
+  NgZone,
   OnChanges,
   OnDestroy,
   OnInit,
@@ -73,7 +74,9 @@ export class YaPlacemarkComponent implements OnInit, OnChanges, OnDestroy {
   private _map: any;
   private _placemark: any;
 
-  constructor() {}
+  constructor(
+    private _ngZone: NgZone,
+  ) {}
 
   public ngOnInit(): void {
     this._logErrors();
@@ -144,49 +147,38 @@ export class YaPlacemarkComponent implements OnInit, OnChanges, OnDestroy {
    * @param map
    */
   private _addEventListeners(ymaps: any, placemark: any): void {
-    this.load.emit({ ymaps, instance: placemark });
+    this._ngZone.run(() => this.load.emit({ ymaps, instance: placemark }));
 
-    // Baloon
-    placemark.events
-      .add(
-        ['balloonopen', 'balloonclose'],
-        (e: any) => this.baloon.emit({ ymaps, instance: placemark, type: e.originalEvent.type, event: e })
-      );
+    const handlers = [
+      {
+        name: ['balloonopen', 'balloonclose'],
+        fn: (e: any) => this.baloon.emit({ ymaps, instance: placemark, type: e.originalEvent.type, event: e }),
+      },
+      {
+        name: ['click', 'dblclick'],
+        fn: (e: any) => this.yaclick.emit({ ymaps, instance: placemark, type: e.originalEvent.type, event: e }),
+      },
+      {
+        name: ['dragstart', 'dragend'],
+        fn: (e: any) => this.drag.emit({ ymaps, instance: placemark, type: e.originalEvent.type, event: e }),
+      },
+      {
+        name: ['hintopen', 'hintclose'],
+        fn: (e: any) => this.hint.emit({ ymaps, instance: placemark, type: e.originalEvent.type, event: e }),
+      },
+      {
+        name: ['mousedown', 'mouseenter', 'mouseleave', 'mousemove', 'mouseup'],
+        fn: (e: any) => this.mouse.emit({ ymaps, instance: placemark, type: e.originalEvent.type, event: e }),
+      },
+      {
+        name: ['multitouchstart', 'multitouchmove', 'multitouchend'],
+        fn: (e: any) => this.multitouch.emit({ ymaps, instance: placemark, type: e.originalEvent.type, event: e }),
+      },
+    ];
 
-    // Click
-    placemark.events
-      .add(
-        ['click', 'dblclick'],
-        (e: any) => this.yaclick.emit({ ymaps, instance: placemark, type: e.originalEvent.type, event: e })
-      );
-
-    // Drag
-    placemark.events
-      .add(
-        ['dragstart', 'dragend'],
-        (e: any) => this.drag.emit({ ymaps, instance: placemark, type: e.originalEvent.type, event: e })
-      );
-
-    // Hint
-    placemark.events
-      .add(
-        ['hintopen', 'hintclose'],
-        (e: any) => this.hint.emit({ ymaps, instance: placemark, type: e.originalEvent.type, event: e })
-      );
-
-    // Mouse
-    placemark.events
-      .add(
-        ['mousedown', 'mouseenter', 'mouseleave', 'mousemove', 'mouseup'],
-        (e: any) => this.mouse.emit({ ymaps, instance: placemark, type: e.originalEvent.type, event: e })
-      );
-
-    // Multitouch
-    placemark.events
-      .add(
-        ['multitouchstart', 'multitouchmove', 'multitouchend'],
-        (e: any) => this.multitouch.emit({ ymaps, instance: placemark, type: e.originalEvent.type, event: e })
-      );
+    handlers.forEach((handler) => {
+      placemark.events.add(handler.name, (e: any) => this._ngZone.run(() => handler.fn(e)));
+    });
   }
 
   public ngOnDestroy(): void {
