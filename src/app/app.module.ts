@@ -12,7 +12,7 @@ import { PanoramaComponent } from './components/panorama/panorama.component';
 import { PlacemarkComponent } from './components/placemark/placemark.component';
 
 const mapConfig: IConfig = {
-  apikey: '658f67a2-fd77-42e9-b99e-2bd48c4ccad4',
+  apikey: null,
   lang: 'en_US',
 };
 
