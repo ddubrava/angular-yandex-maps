@@ -4,8 +4,6 @@ import { IConfig, YA_MAP_CONFIG } from '../../models/models';
 import { Inject, Injectable, Optional } from '@angular/core';
 import { map, switchMap } from 'rxjs/operators';
 
-declare const ymaps: any;
-
 const DEFAULT_CONFIG: IConfig = {
   apikey: null,
   lang: 'ru_RU',
@@ -21,14 +19,16 @@ const DEFAULT_CONFIG: IConfig = {
   providedIn: 'root'
 })
 export class ScriptService {
-  private _script: HTMLScriptElement;
   private _config: Partial<IConfig>;
+  private _script: HTMLScriptElement;
+  private _window: Window;
 
   constructor(
     @Optional() @Inject(YA_MAP_CONFIG) config: Partial<IConfig>,
-    @Inject(DOCUMENT) private document: Document
+    @Inject(DOCUMENT) private _document: Document,
   ) {
     this._config = config || DEFAULT_CONFIG;
+    this._window = _document.defaultView;
   }
 
   /**
@@ -36,33 +36,36 @@ export class ScriptService {
    * @returns Observable with 'ymaps' object
    */
   public initScript(): Observable<any> {
-    if (!this._script) {
-      const script = this.document.createElement('script');
+    const window = this._window as any;
 
-      this._setSource(script, this._config);
-      this._script = this.document.body.appendChild(script);
+    if ('ymaps' in this._window) {
+      return from(window.ymaps.ready()).pipe(map(() => window.ymaps));
     }
 
-    if ('ymaps' in window) {
-      return from(ymaps.ready()).pipe(map(() => ymaps));
+    if (!this._script) {
+      const script = this._document.createElement('script');
+      script.type = 'text/javascript';
+      script.src = this._getScriptSource(this._config);
+
+      this._script = this._document.body.appendChild(script);
     }
 
     return fromEvent(this._script, 'load').pipe(
-      switchMap(() => from(ymaps.ready()).pipe(map(() => ymaps)))
+      switchMap(() => from(window.ymaps.ready()).pipe(map(() => window.ymaps)))
     );
   }
 
   /**
-   * Sets source to provided HTMLScriptElement
+   * Returns script source by config
    * @param script HTMLScriptElement
    * @param config Config with parameters that will be added in source
    * @example 'https://api-maps.yandex.ru/2.1/?apikey=658f67a2-fd77-42e9-b99e-2bd48c4ccad4&lang=en_US'
    */
-  private _setSource(script: HTMLScriptElement, config: Partial<IConfig>): void {
+  private _getScriptSource(config: Partial<IConfig>): string {
     const params = this._convertIntoQueryParams(config);
     const { enterprise, version = '2.1' } = config;
 
-    script.src = `https://${enterprise ? 'enterprise.' : ''}api-maps.yandex.ru/${version}/?${params}`;
+    return `https://${enterprise ? 'enterprise.' : ''}api-maps.yandex.ru/${version}/?${params}`;
   }
 
   /**
