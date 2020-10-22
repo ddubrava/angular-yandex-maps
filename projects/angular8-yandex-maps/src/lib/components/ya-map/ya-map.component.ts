@@ -321,15 +321,26 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
       {
         name: ['mousedown', 'mouseenter', 'mouseleave', 'mousemove', 'mouseup'],
         fn: (e: any) => this.mouse.emit({ ymaps, instance: map, type: e.originalEvent.type, event: e }),
+        runOutsideAngular: true,
       },
       {
         name: ['multitouchstart', 'multitouchmove', 'multitouchend'],
         fn: (e: any) => this.multitouch.emit({ ymaps, instance: map, type: e.originalEvent.type, event: e }),
+        runOutsideAngular: true,
       },
     ];
 
+    /**
+     * Mouse and multitouch events should be run outside angular for better perfomance.
+     * @see {@link https://github.com/ddubrava/angular8-yandex-maps/issues/35}
+     */
     handlers.forEach((handler) => {
-      map.events.add(handler.name, (e: any) => this._ngZone.run(() => handler.fn(e)));
+      map.events.add(
+        handler.name,
+        (e: any) => handler.runOutsideAngular
+          ? this._ngZone.runOutsideAngular(() => handler.fn(e))
+          : this._ngZone.run(() => handler.fn(e))
+      );
     });
   }
 
