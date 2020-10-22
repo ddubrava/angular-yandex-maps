@@ -30,10 +30,10 @@ Component for creating Multi-route on the map
 |-------------------|--------------|-------------------------------------------------------|----------------------------------------------------------------|
 | load              | [ILoadEvent] |                                                       | Emits immediately after this entity is added in root container |
 | activeroutechange | [IEvent]     | activeroutechange                                     | Change to the active route                                     |
-| baloon            | [IEvent]     | balloonopen, balloonclose                             | Actions with ballon                                            |
-| yaclick           | [IEvent]     | click, dblclick                                       | Clicks on the object                                           |
-| mouse             | [IEvent]     | mousedown, mouseenter, mouseleave, mousemove, mouseup | Mouse actions over the object                                  |
-| multitouch        | [IEvent]     | multitouchstart, multitouchmove, multitouchend        | Multitouch actions over the object                             |
+| balloon           | [IEvent]     | balloonopen, balloonclose                             | Actions with the balloon                                       |
+| yaclick           | [IEvent]     | click, dblclick                                       | Left-click on the object                                       |
+| mouse             | [IEvent]     | mousedown, mouseenter, mouseleave, mousemove, mouseup | Mouse actions with the object                                  |
+| multitouch        | [IEvent]     | multitouchstart, multitouchmove, multitouchend        | Multitouch actions with the object                             |
 
 [ILoadEvent]: https://github.com/ddubrava/angular8-yandex-maps/blob/develop/projects/angular8-yandex-maps/src/lib/models/models.ts#L23
 [IEvent]: https://github.com/ddubrava/angular8-yandex-maps/blob/develop/projects/angular8-yandex-maps/src/lib/models/models.ts#L34

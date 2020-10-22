@@ -25,7 +25,7 @@ Component for creating and controlling the panorama player
 | load       | [ILoadEvent] |                                                                  | Emits immediately after this entity is added in root container |
 | direction  | [IEvent]     | directionchange                                                  | The view direction changed                                     |
 | fullscreen | [IEvent]     | fullscreenenter, fullscreenexit                                  | The panorama player screen mode is switched                    |
-| marker     | [IEvent]     | markercollapse, markerexpand, markermouseenter, markermouseleave | Actions with marker                                            |
+| marker     | [IEvent]     | markercollapse, markerexpand, markermouseenter, markermouseleave | Actions with the marker                                        |
 
 
 [ILoadEvent]: https://github.com/ddubrava/angular8-yandex-maps/blob/develop/projects/angular8-yandex-maps/src/lib/models/models.ts#L23
