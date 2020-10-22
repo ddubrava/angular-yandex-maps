@@ -11,8 +11,9 @@ import { ILoadEvent } from '../../models/models';
 import { removeLeadingSpaces } from '../../utils/removeLeadingSpaces';
 
 /**
- * Component for creating and managing controls on the map
- * @example <ya-control type="RoutePanel" [parameters]="{ options: { float: 'right' } }"></ya-control>
+ * Component for creating and managing controls on the map.
+ *
+ * @example `<ya-control type="RoutePanel" [parameters]="{ options: { float: 'right' } }"></ya-control>`.
  * @see {@link https://ddubrava.github.io/angular8-yandex-maps/#/components/controls}
  */
 @Component({
@@ -22,18 +23,18 @@ import { removeLeadingSpaces } from '../../utils/removeLeadingSpaces';
 })
 export class YaControlComponent implements OnInit {
   /**
-   * Control type
-   * @example Control.FullscreenControl - 'FullscreenControl'
+   * Control type.
+   * @example Control.FullscreenControl - 'FullscreenControl'.
    * @see {@link https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/control.Button-docpage/}
    */
   @Input() public type: string;
   /**
-   * Parameters for the Control
+   * Parameters for the Control.
    */
   @Input() public parameters: any;
 
   /**
-   * Emits immediately after this entity is added in root container
+   * Emits immediately after this entity is added in root container.
    */
   @Output() public load = new EventEmitter<ILoadEvent>();
 
@@ -51,7 +52,11 @@ export class YaControlComponent implements OnInit {
     }
   }
 
-  public initControl(ymaps: any, map: any): void {
+  /**
+   * Creates control
+   * @returns Instance of created control
+   */
+  public createControl(): any {
     const control = new ymaps.control[this.type](this.parameters);
 
     // RoutePanel ignores state in parameters. API bug
@@ -59,16 +64,16 @@ export class YaControlComponent implements OnInit {
       control.routePanel.state.set({ ...this.parameters.state });
     }
 
-    map.controls.add(control);
+    this._emitEvent(control);
 
-    this._emitEvent(ymaps, control);
+    return control;
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
-    this._configControl(changes);
+    this._updateControl(changes);
   }
 
-  private _configControl(changes: SimpleChanges): void {
+  private _updateControl(changes: SimpleChanges): void {
     for (const key in changes) {
       if (changes[key].firstChange) return;
     }
@@ -82,7 +87,7 @@ export class YaControlComponent implements OnInit {
     `));
   }
 
-  private _emitEvent(ymaps: any, control: any): void {
+  private _emitEvent(control: any): void {
     this._ngZone.run(() => this.load.emit({ ymaps, instance: control }));
   }
 }
