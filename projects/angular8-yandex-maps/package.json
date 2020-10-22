@@ -23,7 +23,8 @@
   "homepage": "https://github.com/ddubrava/angular8-yandex-maps#readme",
   "peerDependencies": {
     "@angular/common": "^10.0.11",
-    "@angular/core": "^10.0.11"
+    "@angular/core": "^10.0.11",
+    "@types/yandex-maps": "^2.1.12"
   },
   "dependencies": {
     "tslib": "^2.0.0"
