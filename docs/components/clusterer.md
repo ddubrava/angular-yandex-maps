@@ -1,6 +1,10 @@
 # Clusterer
 
-Component, geo object clusterer. Clusterizes objects in the visible area of the map. If the object does not fall within the visible area of the map, it will not be added to the map. Note, that the clusterer does not react to changing the coordinates of objects (either programmatically, or as the result of dragging). If you want to change the coordinates of some object in the clusterer, you should first delete the object from the clusterer and then add it back
+Component for creating a clusterer. Clusterizes objects in the visible area of the map.
+If the object does not fall within the visible area of the map, it will not be added to the map.
+Note, that the clusterer does not react to changing the coordinates of objects (either programmatically,
+or as the result of dragging). If you want to change the coordinates of some object in the clusterer,
+you should first delete the object from the clusterer and then add it back.
 
 ## Usage
 
@@ -26,7 +30,7 @@ Component, geo object clusterer. Clusterizes objects in the visible area of the 
 | Name          | Type         | Supported event type | Description                                                    |
 |---------------|--------------|----------------------|----------------------------------------------------------------|
 | load          | [ILoadEvent] |                      | Emits immediately after this entity is added in root container |
-| hint          | [IEvent]     | hintopen, hintclose  | Action with hint                                               |
+| hint          | [IEvent]     | hintopen, hintclose  | Actions with the hint                                          |
 | mapChange     | [IEvent]     | mapChange            | Map reference changed                                          |
 | optionsChange | [IEvent]     | optionsChange        | Change to the object options                                   |
 | parentChange  | [IEvent]     | parentChange         | The parent object reference changed                            |

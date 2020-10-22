@@ -28,11 +28,11 @@ Component for creating and managing a map
 |------------|--------------|-------------------------------------------------------|----------------------------------------------------------------|
 | load       | [ILoadEvent] |                                                       | Emits immediately after this entity is added in root container |
 | action     | [IEvent]     | actionbegin, actionend                                | Smooth map movement                                            |
-| baloon     | [IEvent]     | balloonopen, balloonclose                             | Actions with ballon                                            |
-| yaclick    | [IEvent]     | click, dblclick                                       | Clicks on the object                                           |
-| hint       | [IEvent]     | hintopen, hintclose                                   | Action with hint                                               |
-| mouse      | [IEvent]     | mousedown, mouseenter, mouseleave, mousemove, mouseup | Mouse actions over the object                                  |
-| multitouch | [IEvent]     | multitouchstart, multitouchmove, multitouchend        | Multitouch actions over the object                             |
+| balloon    | [IEvent]     | balloonopen, balloonclose                             | Actions with the balloon                                       |
+| yaclick    | [IEvent]     | click, dblclick                                       | Left-click on the object                                       |
+| hint       | [IEvent]     | hintopen, hintclose                                   | Actions with the hint                                          |
+| mouse      | [IEvent]     | mousedown, mouseenter, mouseleave, mousemove, mouseup | Mouse actions with the object                                  |
+| multitouch | [IEvent]     | multitouchstart, multitouchmove, multitouchend        | Multitouch actions with the object                             |
 
 [ILoadEvent]: https://github.com/ddubrava/angular8-yandex-maps/blob/develop/projects/angular8-yandex-maps/src/lib/models/models.ts#L23
 [IEvent]: https://github.com/ddubrava/angular8-yandex-maps/blob/develop/projects/angular8-yandex-maps/src/lib/models/models.ts#L34

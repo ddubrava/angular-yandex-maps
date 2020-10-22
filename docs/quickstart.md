@@ -1,7 +1,7 @@
 
 # Quick start
 
-## Instalation
+## Installation
 
 ```bash
 npm install angular8-yandex-maps

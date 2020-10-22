@@ -29,6 +29,7 @@
     "@types/jasmine": "^3.5.14",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.12.67",
+    "@types/yandex-maps": "^2.1.12",
     "codelyzer": "^6.0.1",
     "docsify-cli": "^4.4.1",
     "jasmine-core": "~3.5.0",

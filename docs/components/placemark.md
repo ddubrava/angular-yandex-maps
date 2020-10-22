@@ -1,6 +1,6 @@
 # Placemark
 
-Component, geo object with the geometry geometry.Point
+Component for creating a geo object with the geometry geometry.Point
 
 ## Usage
 
@@ -27,13 +27,12 @@ Component, geo object with the geometry geometry.Point
 | Name       | Type         | Supported event type                                  | Description                                                    |
 |------------|--------------|-------------------------------------------------------|----------------------------------------------------------------|
 | load       | [ILoadEvent] |                                                       | Emits immediately after this entity is added in root container |
-| baloon     | [IEvent]     | balloonopen, balloonclose                             | Actions with ballon                                            |
-| yaclick    | [IEvent]     | click, dblclick                                       | Clicks on the object                                           |
+| balloon    | [IEvent]     | balloonopen, balloonclose                             | Actions with the balloon                                       |
+| yaclick    | [IEvent]     | click, dblclick                                       | Left-click on the object                                       |
 | drag       | [IEvent]     | dragstart, dragend                                    | Placemark dragging                                             |
-| hint       | [IEvent]     | hintopen, hintclose                                   | Action with hint                                               |
-| mouse      | [IEvent]     | mousedown, mouseenter, mouseleave, mousemove, mouseup | Mouse actions over the object                                  |
-| multitouch | [IEvent]     | multitouchstart, multitouchmove, multitouchend        | Multitouch actions over the object                             |
-
+| hint       | [IEvent]     | hintopen, hintclose                                   | Actions with the hint                                          |
+| mouse      | [IEvent]     | mousedown, mouseenter, mouseleave, mousemove, mouseup | Mouse actions with the object                                  |
+| multitouch | [IEvent]     | multitouchstart, multitouchmove, multitouchend        | Multitouch actions with the object                             |
 
 [ILoadEvent]: https://github.com/ddubrava/angular8-yandex-maps/blob/develop/projects/angular8-yandex-maps/src/lib/models/models.ts#L23
 [IEvent]: https://github.com/ddubrava/angular8-yandex-maps/blob/develop/projects/angular8-yandex-maps/src/lib/models/models.ts#L34

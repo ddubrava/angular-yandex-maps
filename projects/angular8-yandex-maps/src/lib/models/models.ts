@@ -43,7 +43,7 @@ export interface ILoadEvent {
   /**
    * API global object
    */
-  ymaps: any;
+  ymaps: typeof ymaps;
 }
 
 export interface IEvent {
@@ -54,7 +54,7 @@ export interface IEvent {
   /**
    * API global object
    */
-  ymaps: any;
+  ymaps: typeof ymaps;
   /**
    * String event type, event.originalEvent.type
    */

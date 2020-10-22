@@ -33,13 +33,10 @@ export class ScriptService {
 
   /**
    * Inits Yandex.Maps script
-   * @returns Observable with 'ymaps' object
    */
-  public initScript(): Observable<any> {
-    const window = this._window as any;
-
+  public initScript(): Observable<typeof ymaps> {
     if ('ymaps' in this._window) {
-      return from(window.ymaps.ready()).pipe(map(() => window.ymaps));
+      return from(ymaps.ready()).pipe(map(() => ymaps));
     }
 
     if (!this._script) {
@@ -51,13 +48,12 @@ export class ScriptService {
     }
 
     return fromEvent(this._script, 'load').pipe(
-      switchMap(() => from(window.ymaps.ready()).pipe(map(() => window.ymaps)))
+      switchMap(() => from(ymaps.ready()).pipe(map(() => ymaps)))
     );
   }
 
   /**
    * Returns script source by config
-   * @param script HTMLScriptElement
    * @param config Config with parameters that will be added in source
    * @example 'https://api-maps.yandex.ru/2.1/?apikey=658f67a2-fd77-42e9-b99e-2bd48c4ccad4&lang=en_US'
    */
