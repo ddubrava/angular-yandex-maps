@@ -77,9 +77,9 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
    */
   @Output() public action = new EventEmitter<IEvent>();
   /**
-   * Actions with the ballon.
+   * Actions with the balloon.
    */
-  @Output() public baloon = new EventEmitter<IEvent>();
+  @Output() public balloon = new EventEmitter<IEvent>();
   /**
    * Left-click on the object.
    */
@@ -308,7 +308,7 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
       },
       {
         name: ['balloonopen', 'balloonclose'],
-        fn: (e: any) => this.baloon.emit({ ymaps, instance: map, type: e.originalEvent.type, event: e }),
+        fn: (e: any) => this.balloon.emit({ ymaps, instance: map, type: e.originalEvent.type, event: e }),
       },
       {
         name: ['click', 'dblclick'],

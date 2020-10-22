@@ -44,9 +44,9 @@ export class YaPlacemarkComponent implements OnInit, OnChanges, OnDestroy {
    */
   @Output() public load = new EventEmitter<ILoadEvent>();
   /**
-   * Actions with the ballon.
+   * Actions with the balloon.
    */
-  @Output() public baloon = new EventEmitter<IEvent>();
+  @Output() public balloon = new EventEmitter<IEvent>();
   /**
    * Left-click on the object.
    */
@@ -154,7 +154,7 @@ export class YaPlacemarkComponent implements OnInit, OnChanges, OnDestroy {
     const handlers = [
       {
         name: ['balloonopen', 'balloonclose'],
-        fn: (e: any) => this.baloon.emit({ ymaps, instance: placemark, type: e.originalEvent.type, event: e }),
+        fn: (e: any) => this.balloon.emit({ ymaps, instance: placemark, type: e.originalEvent.type, event: e }),
       },
       {
         name: ['click', 'dblclick'],

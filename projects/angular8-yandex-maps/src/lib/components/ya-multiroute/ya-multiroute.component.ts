@@ -1,22 +1,22 @@
+import { generateRandomId } from '../../utils/generateRandomId';
+import { IEvent, ILoadEvent } from '../../models/models';
 import {
   Component,
-  ElementRef,
   EventEmitter,
   Input,
   NgZone,
   OnChanges,
-  OnDestroy,
   OnInit,
   Output,
   SimpleChanges,
-  ViewChild
   } from '@angular/core';
-import { generateRandomId } from '../../utils/generateRandomId';
-import { IEvent, ILoadEvent } from '../../models/models';
-import { removeLeadingSpaces } from '../../utils/removeLeadingSpaces';
-import { ScriptService } from '../../services/script/script.service';
-import { Subscription } from 'rxjs';
-import { take } from 'rxjs/operators';
+
+/**
+ * Component for creating Multi-route on the map
+ *
+ * @example `<ya-multiroute [referencePoints]="[[55.751952, 37.600739], 'Красные ворота, Москва']"></ya-multiroute>`.
+ * @see {@link https://ddubrava.github.io/angular8-yandex-maps/#/components/multiroute}
+ */
 @Component({
   selector: 'ya-multiroute',
   templateUrl: './ya-multiroute.component.html',
@@ -48,9 +48,9 @@ export class YaMultirouteComponent implements OnInit, OnChanges {
    */
   @Output() public activeroutechange = new EventEmitter<IEvent>();
   /**
-   * Actions with the ballon.
+   * Actions with the balloon.
    */
-  @Output() public baloon = new EventEmitter<IEvent>();
+  @Output() public balloon = new EventEmitter<IEvent>();
   /**
    * Left-click on the object.
    */
@@ -169,7 +169,7 @@ export class YaMultirouteComponent implements OnInit, OnChanges {
       },
       {
         name: ['balloonopen', 'balloonclose'],
-        fn: (e: any) => this.baloon.emit({ ymaps, instance: multiroute, type: e.originalEvent.type, event: e }),
+        fn: (e: any) => this.balloon.emit({ ymaps, instance: multiroute, type: e.originalEvent.type, event: e }),
       },
       {
         name: ['click', 'dblclick'],
