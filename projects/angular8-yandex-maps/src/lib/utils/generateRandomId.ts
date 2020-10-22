@@ -1,7 +1,7 @@
 /**
- * Generates a random string in hexadecimal numeral system
- * @example f417e7be
+ * Generates a random string based on Date in hexadecimal numeral system
+ * @example f175517fa4f3
  */
 export const generateRandomId = (): string => {
-  return `f${(~~(Math.random() * 1e8)).toString(16)}`;
+  return `f${Number(new Date).toString(16)}`;
 };
