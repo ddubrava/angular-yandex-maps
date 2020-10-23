@@ -60,7 +60,8 @@ export interface IEvent {
    */
   type: string | undefined;
   /**
-   * Event that is fired by the IEventManager event manager
+   * Provides methods for accessing the originalObject object's fields and methods, with the possibility for redefining them.
+   * @see {@link https://yandex.ru/dev/maps/jsapi/doc/2.1/ref/reference/Event.html/}
    */
   event: any;
 }
