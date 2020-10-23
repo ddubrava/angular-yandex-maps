@@ -58,8 +58,8 @@ export class ScriptService {
    * @example 'https://api-maps.yandex.ru/2.1/?apikey=658f67a2-fd77-42e9-b99e-2bd48c4ccad4&lang=en_US'
    */
   private _getScriptSource(config: Partial<IConfig>): string {
-    const params = this._convertIntoQueryParams(config);
-    const { enterprise, version = '2.1' } = config;
+    const { enterprise, version = '2.1', ...rest } = config;
+    const params = this._convertIntoQueryParams(rest);
 
     return `https://${enterprise ? 'enterprise.' : ''}api-maps.yandex.ru/${version}/?${params}`;
   }
