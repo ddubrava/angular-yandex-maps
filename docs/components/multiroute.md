@@ -26,6 +26,8 @@ Component for creating Multi-route on the map
 
 ## Outputs
 
+All events execute within the Angular zone
+
 | Name              | Type         | Supported event type                                  | Description                                                    |
 |-------------------|--------------|-------------------------------------------------------|----------------------------------------------------------------|
 | load              | [ILoadEvent] |                                                       | Emits immediately after this entity is added in root container |
@@ -35,10 +37,14 @@ Component for creating Multi-route on the map
 | mouse             | [IEvent]     | mousedown, mouseenter, mouseleave, mousemove, mouseup | Mouse actions with the object                                  |
 | multitouch        | [IEvent]     | multitouchstart, multitouchmove, multitouchend        | Multitouch actions with the object                             |
 
-[ILoadEvent]: https://github.com/ddubrava/angular8-yandex-maps/blob/develop/projects/angular8-yandex-maps/src/lib/models/models.ts#L23
-[IEvent]: https://github.com/ddubrava/angular8-yandex-maps/blob/develop/projects/angular8-yandex-maps/src/lib/models/models.ts#L34
+[ILoadEvent]: interfaces/load-event.md
+[IEvent]: interfaces/event.md
 
 ## Examples
 
 - [Building a driving multiroute](https://stackblitz.com/edit/multiroute)
 - [Building a pedestrian multiroute](https://stackblitz.com/edit/multiroute-pedestrian)
+
+## Source
+
+[lib/components/ya-multiroute](https://github.com/ddubrava/angular8-yandex-maps/tree/master/projects/angular8-yandex-maps/src/lib/components/ya-multiroute)

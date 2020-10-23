@@ -12,3 +12,7 @@ constructor(private _scriptService: ScriptService) {
     .subscribe(ymaps => console.log(ymaps))
 }
 ```
+
+## Source
+
+[lib/services/script](https://github.com/ddubrava/angular8-yandex-maps/tree/master/projects/angular8-yandex-maps/src/lib/services/script)

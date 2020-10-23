@@ -24,6 +24,8 @@ Component for creating a geo object with the geometry geometry.Point
 
 ## Outputs
 
+All events execute within the Angular zone
+
 | Name       | Type         | Supported event type                                  | Description                                                    |
 |------------|--------------|-------------------------------------------------------|----------------------------------------------------------------|
 | load       | [ILoadEvent] |                                                       | Emits immediately after this entity is added in root container |
@@ -34,9 +36,13 @@ Component for creating a geo object with the geometry geometry.Point
 | mouse      | [IEvent]     | mousedown, mouseenter, mouseleave, mousemove, mouseup | Mouse actions with the object                                  |
 | multitouch | [IEvent]     | multitouchstart, multitouchmove, multitouchend        | Multitouch actions with the object                             |
 
-[ILoadEvent]: https://github.com/ddubrava/angular8-yandex-maps/blob/develop/projects/angular8-yandex-maps/src/lib/models/models.ts#L23
-[IEvent]: https://github.com/ddubrava/angular8-yandex-maps/blob/develop/projects/angular8-yandex-maps/src/lib/models/models.ts#L34
+[ILoadEvent]: interfaces/load-event.md
+[IEvent]: interfaces/event.md
 
 ## Examples
 
 - [Changing a placemark icon when hovering over it](https://stackblitz.com/edit/changing-a-placemark-on-hover)
+
+## Source
+
+[lib/components/ya-placemark](https://github.com/ddubrava/angular8-yandex-maps/tree/master/projects/angular8-yandex-maps/src/lib/components/ya-placemark)

@@ -24,6 +24,8 @@ Component for creating and managing a map
 
 ## Outputs
 
+All events except 'mouse', 'multitouch' execute within the Angular zone
+
 | Name       | Type         | Supported event type                                  | Description                                                    |
 |------------|--------------|-------------------------------------------------------|----------------------------------------------------------------|
 | load       | [ILoadEvent] |                                                       | Emits immediately after this entity is added in root container |
@@ -34,11 +36,15 @@ Component for creating and managing a map
 | mouse      | [IEvent]     | mousedown, mouseenter, mouseleave, mousemove, mouseup | Mouse actions with the object                                  |
 | multitouch | [IEvent]     | multitouchstart, multitouchmove, multitouchend        | Multitouch actions with the object                             |
 
-[ILoadEvent]: https://github.com/ddubrava/angular8-yandex-maps/blob/develop/projects/angular8-yandex-maps/src/lib/models/models.ts#L23
-[IEvent]: https://github.com/ddubrava/angular8-yandex-maps/blob/develop/projects/angular8-yandex-maps/src/lib/models/models.ts#L34
+[ILoadEvent]: interfaces/load-event.md
+[IEvent]: interfaces/event.md
 
 ## ContentChildren
 - [Placemark](components/placemark.md)
 - [GeoObject](components/geoobject.md)
 - [MultiRoute](components/multiroute.md)
 - [Controls](components/controls.md)
+
+## Source
+
+[lib/components/ya-map](https://github.com/ddubrava/angular8-yandex-maps/tree/master/projects/angular8-yandex-maps/src/lib/components/ya-map)

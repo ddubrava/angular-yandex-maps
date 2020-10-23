@@ -21,13 +21,19 @@ Component for creating and managing controls on the map
 
 ## Outputs
 
+All events execute within the Angular zone
+
 | Name       | Type         | Supported event type                                  | Description                                                    |
 |------------|--------------|-------------------------------------------------------|----------------------------------------------------------------|
 | load       | [ILoadEvent] |                                                       | Emits immediately after this entity is added in root container |
 
-[ILoadEvent]: https://github.com/ddubrava/angular8-yandex-maps/blob/develop/projects/angular8-yandex-maps/src/lib/models/models.ts#L23
+[ILoadEvent]: interfaces/load-event.md
 
 ## Examples
 
 - [Search Control](https://stackblitz.com/edit/searchcontrol)
 - [RoutePanel Control](https://stackblitz.com/edit/route-panel)
+
+## Source
+
+[lib/components/ya-control](https://github.com/ddubrava/angular8-yandex-maps/tree/master/projects/angular8-yandex-maps/src/lib/components/ya-control)

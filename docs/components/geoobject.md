@@ -22,6 +22,8 @@ Component for creating a geo object. Can be displayed as a placemark, polyline, 
 
 ## Outputs
 
+All events execute within the Angular zone
+
 | Name       | Type         | Supported event type                                  | Description                                                    |
 |------------|--------------|-------------------------------------------------------|----------------------------------------------------------------|
 | load       | [ILoadEvent] |                                                       | Emits immediately after this entity is added in root container |
@@ -32,11 +34,15 @@ Component for creating a geo object. Can be displayed as a placemark, polyline, 
 | mouse      | [IEvent]     | mousedown, mouseenter, mouseleave, mousemove, mouseup | Mouse actions with the object                                  |
 | multitouch | [IEvent]     | multitouchstart, multitouchmove, multitouchend        | Multitouch actions with the object                             |
 
-[ILoadEvent]: https://github.com/ddubrava/angular8-yandex-maps/blob/develop/projects/angular8-yandex-maps/src/lib/models/models.ts#L23
-[IEvent]: https://github.com/ddubrava/angular8-yandex-maps/blob/develop/projects/angular8-yandex-maps/src/lib/models/models.ts#L34
+[ILoadEvent]: interfaces/load-event.md
+[IEvent]: interfaces/event.md
 
 ## Examples
 
 - [Rectangle](https://stackblitz.com/edit/rectangle)
 - [Polygon](https://stackblitz.com/edit/geoobject-polygon)
 - [Circle](https://stackblitz.com/edit/geoobject-circle)
+
+## Source
+
+[lib/components/ya-geoobject](https://github.com/ddubrava/angular8-yandex-maps/tree/master/projects/angular8-yandex-maps/src/lib/components/ya-geoobject)

@@ -27,6 +27,8 @@ you should first delete the object from the clusterer and then add it back.
 
 ## Outputs
 
+All events execute within the Angular zone
+
 | Name          | Type         | Supported event type | Description                                                    |
 |---------------|--------------|----------------------|----------------------------------------------------------------|
 | load          | [ILoadEvent] |                      | Emits immediately after this entity is added in root container |
@@ -41,3 +43,7 @@ you should first delete the object from the clusterer and then add it back.
 ## ContentChildren
 - [Placemark](components/placemark.md)
 - [GeoObject](components/geoobject.md)
+
+## Source
+
+[lib/components/ya-clusterer](https://github.com/ddubrava/angular8-yandex-maps/tree/master/projects/angular8-yandex-maps/src/lib/components/ya-clusterer)

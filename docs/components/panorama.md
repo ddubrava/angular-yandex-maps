@@ -20,6 +20,8 @@ Component for creating and controlling the panorama player
 
 ## Outputs
 
+All events execute within the Angular zone
+
 | Name       | Type         | Supported event type                                             | Description                                                    |
 |------------|--------------|------------------------------------------------------------------|----------------------------------------------------------------|
 | load       | [ILoadEvent] |                                                                  | Emits immediately after this entity is added in root container |
@@ -28,9 +30,13 @@ Component for creating and controlling the panorama player
 | marker     | [IEvent]     | markercollapse, markerexpand, markermouseenter, markermouseleave | Actions with the marker                                        |
 
 
-[ILoadEvent]: https://github.com/ddubrava/angular8-yandex-maps/blob/develop/projects/angular8-yandex-maps/src/lib/models/models.ts#L23
-[IEvent]: https://github.com/ddubrava/angular8-yandex-maps/blob/develop/projects/angular8-yandex-maps/src/lib/models/models.ts#L34
+[ILoadEvent]: interfaces/load-event.md
+[IEvent]: interfaces/event.md
 
 ## Examples
 
 - [Panorama](https://stackblitz.com/edit/panorama)
+
+## Source
+
+[lib/components/ya-panorama](https://github.com/ddubrava/angular8-yandex-maps/tree/master/projects/angular8-yandex-maps/src/lib/components/ya-panorama)

@@ -13,6 +13,11 @@
 - Services
   - [Script](services/script.md 'Script | Angular Yandex Map')
 
+- Interfaces
+  - [IConfig](interfaces/config.md 'IConfig | Angular Yandex Map')
+  - [IEvent](interfaces/event.md 'IEvent | Angular Yandex Map')
+  - [ILoadEvent](interfaces/load-event.md 'ILoadEvent | Angular Yandex Map')
+
 - [Examples](examples.md 'Examples | Angular Yandex Map')
 - [Changelog](https://github.com/ddubrava/angular8-yandex-maps/blob/develop/CHANGELOG.md)
 - [Licence](https://github.com/ddubrava/angular8-yandex-maps/blob/develop/LICENSE.md)
