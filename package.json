@@ -4,9 +4,9 @@
   "scripts": {
     "start": "ng serve",
     "docs": "docsify serve docs",
-    "build": "npm run lint && npm run test:no-watch && ng build angular8-yandex-maps --prod",
+    "build": "npm run lint && npm run test:ci && ng build angular8-yandex-maps --prod",
     "test": "ng test angular8-yandex-maps --include=\"**/script.service.spec.ts\"",
-    "test:no-watch": "ng test angular8-yandex-maps --include=\"**/script.service.spec.ts\" --watch=false",
+    "test:ci": "ng test angular8-yandex-maps --include=\"**/script.service.spec.ts\" --watch=false --browsers=ChromeHeadless",
     "lint": "ng lint angular8-yandex-maps"
   },
   "private": true,
