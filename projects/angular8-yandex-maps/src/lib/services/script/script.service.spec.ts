@@ -1,8 +1,8 @@
 import { catchError } from 'rxjs/operators';
 import { DOCUMENT } from '@angular/common';
-import { IConfig, YA_MAP_CONFIG } from '../../models/models';
 import { inject, TestBed } from '@angular/core/testing';
 import { merge, of } from 'rxjs';
+import { IConfig, YA_MAP_CONFIG } from '../../models/models';
 import { ScriptService } from './script.service';
 
 describe('ScriptService', () => {
@@ -11,8 +11,7 @@ describe('ScriptService', () => {
   let window: Window;
 
   const reset = () => {
-    document.querySelectorAll(scriptId)
-      .forEach(n => n.remove());
+    document.querySelectorAll(scriptId).forEach((n) => n.remove());
 
     delete (window as any).ymaps;
   };
@@ -34,10 +33,7 @@ describe('ScriptService', () => {
 
   it('should not append a second script to body when window.ymaps is defined', (done) => {
     inject([ScriptService], (service: ScriptService) => {
-      merge([
-        service.initScript(),
-        service.initScript(),
-      ]).subscribe(() => {
+      merge([service.initScript(), service.initScript()]).subscribe(() => {
         const list = document.querySelectorAll('#yandexMapsApiScript');
         expect(list.length).toEqual(1);
 
@@ -102,18 +98,21 @@ describe('ScriptService', () => {
 
     inject([ScriptService], (service: ScriptService) => {
       // API returns 403 for enterpise + fake apikey so have to catch error
-      service.initScript().pipe(
-        catchError((e: Event) => {
-          const target = e.target as HTMLScriptElement;
-          expect(target.src).toContain('https://enterprise.api-maps.yandex.ru/');
-          expect(target.src).not.toContain('enterprise=true');
+      service
+        .initScript()
+        .pipe(
+          catchError((e: Event) => {
+            const target = e.target as HTMLScriptElement;
+            expect(target.src).toContain('https://enterprise.api-maps.yandex.ru/');
+            expect(target.src).not.toContain('enterprise=true');
 
-          done();
+            done();
 
-          // Can't throwError as it causes a mess
-          return of();
-        })
-      ).subscribe();
+            // Can't throwError as it causes a mess
+            return of();
+          }),
+        )
+        .subscribe();
     })();
   });
 
@@ -128,15 +127,18 @@ describe('ScriptService', () => {
     TestBed.overrideProvider(YA_MAP_CONFIG, { useValue: config });
 
     inject([ScriptService], (service: ScriptService) => {
-      service.initScript().pipe(
-        catchError((e) => {
-          expect(e).toBeInstanceOf(Event);
-          done();
+      service
+        .initScript()
+        .pipe(
+          catchError((e) => {
+            expect(e).toBeInstanceOf(Event);
+            done();
 
-          // Can't throwError as it causes a mess
-          return of();
-        })
-      ).subscribe();
+            // Can't throwError as it causes a mess
+            return of();
+          }),
+        )
+        .subscribe();
     })();
   });
 });
