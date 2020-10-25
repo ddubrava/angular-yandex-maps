@@ -41,7 +41,6 @@ module.exports = {
         'import/no-extraneous-dependencies': 'off',
         // Enable after #37 will be fixed
         '@angular-eslint/no-output-native': 'off',
-        '@typescript-eslint/explicit-function-return-type': ['error', { allowExpressions: true }],
         '@typescript-eslint/lines-between-class-members': 'off',
         '@typescript-eslint/explicit-member-accessibility': [
           'error',
