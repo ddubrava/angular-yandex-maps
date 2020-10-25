@@ -31,12 +31,28 @@ describe('ScriptService', () => {
     reset();
   });
 
-  it('should not append a second script to body when window.ymaps is defined', (done) => {
+  it('should not append a second script to body when initScript() called in a sequence', (done) => {
     inject([ScriptService], (service: ScriptService) => {
       merge([service.initScript(), service.initScript()]).subscribe(() => {
         const list = document.querySelectorAll('#yandexMapsApiScript');
         expect(list.length).toEqual(1);
 
+        done();
+      });
+    })();
+  });
+
+  it('should return ymaps when window.ymaps is already defined', (done) => {
+    inject([ScriptService], (service: ScriptService) => {
+      (window as any).ymaps = {
+        ready: () => Promise.resolve(),
+      };
+
+      const spy = spyOn(document.body, 'appendChild');
+
+      service.initScript().subscribe((ymaps) => {
+        expect(ymaps).toBeInstanceOf(Object);
+        expect(spy).not.toHaveBeenCalled();
         done();
       });
     })();
