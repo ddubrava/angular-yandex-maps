@@ -1,7 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import { from, fromEvent, merge, Observable, throwError } from 'rxjs';
 import { Inject, Injectable, Optional } from '@angular/core';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, take } from 'rxjs/operators';
 import { IConfig, YA_MAP_CONFIG } from '../../models/models';
 
 const DEFAULTCONFIG: IConfig = {
@@ -54,7 +54,7 @@ export class ScriptService {
 
     const error = fromEvent(this.script, 'error').pipe(switchMap((e) => throwError(e)));
 
-    return merge(load, error);
+    return merge(load, error).pipe(take(1));
   }
 
   /**
