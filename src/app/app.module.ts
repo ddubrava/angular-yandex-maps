@@ -15,7 +15,6 @@ import { PanoramaComponent } from './components/panorama/panorama.component';
 import { PlacemarkComponent } from './components/placemark/placemark.component';
 
 const mapConfig: IConfig = {
-  apikey: null,
   lang: 'en_US',
 };
 

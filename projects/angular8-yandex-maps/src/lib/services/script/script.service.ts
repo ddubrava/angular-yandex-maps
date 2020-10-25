@@ -4,8 +4,7 @@ import { Inject, Injectable, Optional } from '@angular/core';
 import { map, switchMap, take } from 'rxjs/operators';
 import { IConfig, YA_MAP_CONFIG } from '../../models/models';
 
-const DEFAULTCONFIG: IConfig = {
-  apikey: null,
+const DEFAULT_CONFIG: IConfig = {
   lang: 'ru_RU',
 };
 
@@ -27,7 +26,7 @@ export class ScriptService {
     @Optional() @Inject(YA_MAP_CONFIG) config: Partial<IConfig>,
     @Inject(DOCUMENT) private document: Document,
   ) {
-    this.config = config || DEFAULTCONFIG;
+    this.config = config || DEFAULT_CONFIG;
     this.window = document.defaultView;
   }
 
@@ -60,7 +59,7 @@ export class ScriptService {
   /**
    * Returns script source by config
    * @param config Config with parameters that will be added in source
-   * @example 'https://api-maps.yandex.ru/2.1/?apikey=658f67a2-fd77-42e9-b99e-2bd48c4ccad4&lang=enUS'
+   * @example 'https://api-maps.yandex.ru/2.1/?apikey=658f67a2-fd77-42e9-b99e-2bd48c4ccad4&lang=en_US'
    */
   private getScriptSource(config: Partial<IConfig>): string {
     const { enterprise, version = '2.1', ...rest } = config;

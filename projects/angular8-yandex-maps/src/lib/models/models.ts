@@ -8,7 +8,7 @@ export interface IConfig {
   /**
    * API key. You can get a key in the developer's dashboard
    */
-  apikey: string;
+  apikey?: string;
   /**
    * Locales
    */

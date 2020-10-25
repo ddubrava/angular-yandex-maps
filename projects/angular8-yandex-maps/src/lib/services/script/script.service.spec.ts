@@ -64,7 +64,6 @@ describe('ScriptService', () => {
         const script = document.querySelectorAll(scriptId)[0] as HTMLScriptElement;
 
         expect(script.src).toContain('https://api-maps.yandex.ru/2.1/');
-        expect(script.src).toContain('apikey=null');
         expect(script.src).toContain('lang=ru_RU');
 
         done();
