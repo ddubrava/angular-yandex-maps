@@ -1,4 +1,4 @@
-[![npm version](https://badge.fury.io/js/angular8-yandex-maps.svg)](https://badge.fury.io/js/angular8-yandex-maps) [![Build Status](https://travis-ci.org/ddubrava/angular8-yandex-maps.svg?branch=master)](https://travis-ci.org/ddubrava/angular8-yandex-maps) ![npm bundle size](https://img.shields.io/bundlephobia/min/angular8-yandex-maps) ![npm](https://img.shields.io/npm/dm/angular8-yandex-maps) ![GitHub stars](https://img.shields.io/github/stars/ddubrava/angular8-yandex-maps?style=social)
+[![npm version](https://badge.fury.io/js/angular8-yandex-maps.svg)](https://badge.fury.io/js/angular8-yandex-maps) [![Build Status](https://travis-ci.org/ddubrava/angular8-yandex-maps.svg?branch=master)](https://travis-ci.org/ddubrava/angular8-yandex-maps) ![npm bundle size](https://img.shields.io/bundlephobia/min/angular8-yandex-maps) ![npm](https://img.shields.io/npm/dm/angular8-yandex-maps) [![chat on Telegram](https://img.shields.io/badge/chat%20on-Telegram-brightgreen.svg)](https://t.me/angular_yandex_maps) ![GitHub stars](https://img.shields.io/github/stars/ddubrava/angular8-yandex-maps?style=social)
 
 # Angular8-yandex-maps
 
