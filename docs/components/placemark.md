@@ -2,6 +2,8 @@
 
 Component for creating a geo object with the geometry geometry.Point
 
+[Placemark](https://custom-placemark.stackblitz.io ':include :type=iframe height=550px')
+
 ## Usage
 
 ```html
@@ -12,15 +14,40 @@ Component for creating a geo object with the geometry geometry.Point
 
 ## Inputs
 
-| Name       | Type                                   | Default | Required | Description                                                                                                  |
-| ---------- | -------------------------------------- | ------- | -------- | ------------------------------------------------------------------------------------------------------------ |
-| geometry   | Number[] or Object or [IPointGeometry] |         | yes      | Coordinates of the placemark, or a hash describing the geometry, or a reference to the point geometry object |
-| properties | [PlacemarkProperties]                  |         | no       | Properties for the placemark                                                                                 |
-| options    | [PlacemarkOptions]                     |         | no       | Options for the placemark                                                                                    |
-
-[ipointgeometry]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/IPointGeometry-docpage
-[placemarkproperties]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Placemark-docpage/#Placemark__param-properties
-[placemarkoptions]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Placemark-docpage/#Placemark__param-options
+<table>
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Type</th>
+			<th>Default</th>
+			<th>Required</th>
+			<th>Description</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>geometry</td>
+			<td>Number[] | Object | <a href="https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/IPointGeometry-docpage" target="_blank" rel="noopener">IPointGeometry</a></td>
+			<td></td>
+			<td>yes</td>
+			<td>Coordinates of the placemark, or a hash describing the geometry, or a reference to the point geometry object</td>
+		</tr>
+		<tr>
+			<td>properties</td>
+			<td><a href="https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Placemark-docpage/#Placemark__param-properties" target="_blank" rel="noopener">PlacemarkProperties</a></td>
+			<td></td>
+			<td>no</td>
+			<td>Properties for the placemark</td>
+		</tr>
+		<tr>
+			<td>options</td>
+			<td><a href="https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Placemark-docpage/#Placemark__param-options" target="_blank" rel="noopener">PlacemarkOptions</a></td>
+			<td></td>
+			<td>no</td>
+			<td>Options for the placemark</td>
+		</tr>
+	</tbody>
+</table>
 
 ## Outputs
 
@@ -45,4 +72,5 @@ All events execute within the Angular zone
 
 ## Source
 
-[lib/components/ya-placemark](https://github.com/ddubrava/angular8-yandex-maps/tree/master/projects/angular8-yandex-maps/src/lib/components/ya-placemark)
+- [lib/components/ya-placemark](https://github.com/ddubrava/angular8-yandex-maps/tree/master/projects/angular8-yandex-maps/src/lib/components/ya-placemark)
+- [jsapi/doc/2.1/ref/reference/Placemark.html](https://yandex.ru/dev/maps/jsapi/doc/2.1/ref/reference/Placemark.html)

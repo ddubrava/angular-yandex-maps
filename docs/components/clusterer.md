@@ -4,7 +4,9 @@ Component for creating a clusterer. Clusterizes objects in the visible area of t
 If the object does not fall within the visible area of the map, it will not be added to the map.
 Note, that the clusterer does not react to changing the coordinates of objects (either programmatically,
 or as the result of dragging). If you want to change the coordinates of some object in the clusterer,
-you should first delete the object from the clusterer and then add it back.
+you should first delete the object from the clusterer and then add it back
+
+[Clusterer](https://placemark-clusterer.stackblitz.io ':include :type=iframe height=550px')
 
 ## Usage
 
@@ -39,8 +41,8 @@ All events execute within the Angular zone
 | optionsChange | [IEvent]     | optionsChange        | Change to the object options                                   |
 | parentChange  | [IEvent]     | parentChange         | The parent object reference changed                            |
 
-[iloadevent]: https://github.com/ddubrava/angular-yandex-maps/blob/develop/projects/angular8-yandex-maps/src/lib/models/models.ts#L23
-[ievent]: https://github.com/ddubrava/angular-yandex-maps/blob/develop/projects/angular8-yandex-maps/src/lib/models/models.ts#L34
+[iloadevent]: interfaces/load-event.md
+[ievent]: interfaces/event.md
 
 ## ContentChildren
 
@@ -49,4 +51,5 @@ All events execute within the Angular zone
 
 ## Source
 
-[lib/components/ya-clusterer](https://github.com/ddubrava/angular8-yandex-maps/tree/master/projects/angular8-yandex-maps/src/lib/components/ya-clusterer)
+- [lib/components/ya-clusterer](https://github.com/ddubrava/angular8-yandex-maps/tree/master/projects/angular8-yandex-maps/src/lib/components/ya-clusterer)
+- [jsapi/doc/2.1/ref/reference/Clusterer.html](https://yandex.ru/dev/maps/jsapi/doc/2.1/ref/reference/Clusterer.html)

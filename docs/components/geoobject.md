@@ -2,6 +2,8 @@
 
 Component for creating a geo object. Can be displayed as a placemark, polyline, polygon, etc., depending on the geometry type
 
+[GeoObject](https://geoobject-polygon.stackblitz.io ':include :type=iframe height=550px')
+
 ## Usage
 
 ```html
@@ -47,4 +49,5 @@ All events execute within the Angular zone
 
 ## Source
 
-[lib/components/ya-geoobject](https://github.com/ddubrava/angular8-yandex-maps/tree/master/projects/angular8-yandex-maps/src/lib/components/ya-geoobject)
+- [lib/components/ya-geoobject](https://github.com/ddubrava/angular8-yandex-maps/tree/master/projects/angular8-yandex-maps/src/lib/components/ya-geoobject)
+- [jsapi/doc/2.1/ref/reference/GeoObject.html](https://yandex.ru/dev/maps/jsapi/doc/2.1/ref/reference/GeoObject.html/)

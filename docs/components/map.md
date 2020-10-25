@@ -2,6 +2,8 @@
 
 Component for creating and managing a map
 
+[Map](https://map-onload-event.stackblitz.io ':include :type=iframe height=550px')
+
 ## Usage
 
 ```html
@@ -48,4 +50,5 @@ All events except 'mouse', 'multitouch' execute within the Angular zone
 
 ## Source
 
-[lib/components/ya-map](https://github.com/ddubrava/angular8-yandex-maps/tree/master/projects/angular8-yandex-maps/src/lib/components/ya-map)
+- [lib/components/ya-map](https://github.com/ddubrava/angular8-yandex-maps/tree/master/projects/angular8-yandex-maps/src/lib/components/ya-map)
+- [jsapi/doc/2.1/ref/reference/Map.html](https://yandex.ru/dev/maps/jsapi/doc/2.1/ref/reference/Map.html/)

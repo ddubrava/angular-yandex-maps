@@ -13,7 +13,7 @@ Component for creating and controlling the panorama player
 | Name    | Type                                  | Default         | Required | Description                                  |
 | ------- | ------------------------------------- | --------------- | -------- | -------------------------------------------- |
 | point   | Number[]                              |                 | yes      | The point for searching for nearby panoramas |
-| layer   | yandex#panorama or yandex#airPanorama | yandex#panorama | no       | The layer to search for panoramas            |
+| layer   | yandex#panorama \| yandex#airPanorama | yandex#panorama | no       | The layer to search for panoramas            |
 | options | [PlayerOptions]                       |                 | no       | Options for the player                       |
 
 [playeroptions]: https://tech.yandex.com/maps/jsapi/doc/2.1/ref/reference/panorama.Player-docpage/#panorama.Player__param-options
@@ -22,15 +22,42 @@ Component for creating and controlling the panorama player
 
 All events execute within the Angular zone
 
-| Name       | Type         | Supported event type                                             | Description                                                    |
-| ---------- | ------------ | ---------------------------------------------------------------- | -------------------------------------------------------------- |
-| load       | [ILoadEvent] |                                                                  | Emits immediately after this entity is added in root container |
-| direction  | [IEvent]     | directionchange                                                  | The view direction changed                                     |
-| fullscreen | [IEvent]     | fullscreenenter, fullscreenexit                                  | The panorama player screen mode is switched                    |
-| marker     | [IEvent]     | markercollapse, markerexpand, markermouseenter, markermouseleave | Actions with the marker                                        |
-
-[iloadevent]: interfaces/load-event.md
-[ievent]: interfaces/event.md
+<table>
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Type</th>
+			<th>Supported event type</th>
+			<th>Description</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>load</td>
+			<td><a href="#/interfaces/load-event">ILoadEvent</a></td>
+			<td></td>
+			<td>Emits immediately after this entity is added in root container</td>
+		</tr>
+		<tr>
+			<td>direction</td>
+			<td><a href="#/interfaces/event">IEvent</a></td>
+			<td>directionchange</td>
+			<td>The view direction changed</td>
+		</tr>
+		<tr>
+			<td>fullscreen</td>
+			<td><a href="#/interfaces/event">IEvent</a></td>
+			<td>fullscreenenter, fullscreenexit</td>
+			<td>The panorama player screen mode is switched</td>
+		</tr>
+		<tr>
+			<td>marker</td>
+			<td><a href="#/interfaces/event">IEvent</a></td>
+			<td>markercollapse, markerexpand, markermouseenter, markermouseleave</td>
+			<td>Actions with the marker</td>
+		</tr>
+	</tbody>
+</table>
 
 ## Examples
 
@@ -38,4 +65,5 @@ All events execute within the Angular zone
 
 ## Source
 
-[lib/components/ya-panorama](https://github.com/ddubrava/angular8-yandex-maps/tree/master/projects/angular8-yandex-maps/src/lib/components/ya-panorama)
+- [lib/components/ya-panorama](https://github.com/ddubrava/angular8-yandex-maps/tree/master/projects/angular8-yandex-maps/src/lib/components/ya-panorama)
+- [jsapi/doc/2.1/ref/reference/panorama.Player.html](https://yandex.ru/dev/maps/jsapi/doc/2.1/ref/reference/panorama.Player.html/)
