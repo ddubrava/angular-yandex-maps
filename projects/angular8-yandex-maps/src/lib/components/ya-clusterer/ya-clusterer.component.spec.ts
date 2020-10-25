@@ -8,9 +8,8 @@ describe('YaClustererComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [YaClustererComponent]
-    })
-    .compileComponents();
+      declarations: [YaClustererComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

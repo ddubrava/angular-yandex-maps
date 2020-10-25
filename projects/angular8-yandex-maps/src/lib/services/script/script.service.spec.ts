@@ -5,7 +5,7 @@ import { ScriptService } from './script.service';
 describe('ScriptService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [ScriptService]
+      providers: [ScriptService],
     });
   });
 

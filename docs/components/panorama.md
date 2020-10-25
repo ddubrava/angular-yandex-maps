@@ -11,27 +11,26 @@ Component for creating and controlling the panorama player
 ## Inputs
 
 | Name    | Type                                  | Default         | Required | Description                                  |
-|---------|---------------------------------------|-----------------|----------|----------------------------------------------|
+| ------- | ------------------------------------- | --------------- | -------- | -------------------------------------------- |
 | point   | Number[]                              |                 | yes      | The point for searching for nearby panoramas |
 | layer   | yandex#panorama or yandex#airPanorama | yandex#panorama | no       | The layer to search for panoramas            |
 | options | [PlayerOptions]                       |                 | no       | Options for the player                       |
 
-[PlayerOptions]:https://tech.yandex.com/maps/jsapi/doc/2.1/ref/reference/panorama.Player-docpage/#panorama.Player__param-options
+[playeroptions]: https://tech.yandex.com/maps/jsapi/doc/2.1/ref/reference/panorama.Player-docpage/#panorama.Player__param-options
 
 ## Outputs
 
 All events execute within the Angular zone
 
 | Name       | Type         | Supported event type                                             | Description                                                    |
-|------------|--------------|------------------------------------------------------------------|----------------------------------------------------------------|
+| ---------- | ------------ | ---------------------------------------------------------------- | -------------------------------------------------------------- |
 | load       | [ILoadEvent] |                                                                  | Emits immediately after this entity is added in root container |
 | direction  | [IEvent]     | directionchange                                                  | The view direction changed                                     |
 | fullscreen | [IEvent]     | fullscreenenter, fullscreenexit                                  | The panorama player screen mode is switched                    |
 | marker     | [IEvent]     | markercollapse, markerexpand, markermouseenter, markermouseleave | Actions with the marker                                        |
 
-
-[ILoadEvent]: interfaces/load-event.md
-[IEvent]: interfaces/event.md
+[iloadevent]: interfaces/load-event.md
+[ievent]: interfaces/event.md
 
 ## Examples
 

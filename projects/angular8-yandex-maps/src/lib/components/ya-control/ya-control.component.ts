@@ -3,10 +3,11 @@ import {
   EventEmitter,
   Input,
   NgZone,
+  OnChanges,
   OnInit,
   Output,
-  SimpleChanges
-  } from '@angular/core';
+  SimpleChanges,
+} from '@angular/core';
 import { ILoadEvent } from '../../models/models';
 import { removeLeadingSpaces } from '../../utils/removeLeadingSpaces';
 
@@ -19,9 +20,9 @@ import { removeLeadingSpaces } from '../../utils/removeLeadingSpaces';
 @Component({
   selector: 'ya-control',
   templateUrl: './ya-control.component.html',
-  styleUrls: ['./ya-control.component.scss']
+  styleUrls: ['./ya-control.component.scss'],
 })
-export class YaControlComponent implements OnInit {
+export class YaControlComponent implements OnInit, OnChanges {
   /**
    * Control type.
    * @example Control.FullscreenControl - 'FullscreenControl'.
@@ -38,15 +39,13 @@ export class YaControlComponent implements OnInit {
    */
   @Output() public load = new EventEmitter<ILoadEvent>();
 
-  constructor(
-    private _ngZone: NgZone,
-  ) {}
+  constructor(private ngZone: NgZone) {}
 
   public ngOnInit(): void {
-    this._logErrors();
+    this.logErrors();
   }
 
-  private _logErrors(): void {
+  private logErrors(): void {
     if (!this.type) {
       console.error('Control: type input is required.');
     }
@@ -64,30 +63,30 @@ export class YaControlComponent implements OnInit {
       control.routePanel.state.set({ ...this.parameters.state });
     }
 
-    this._emitEvent(control);
+    this.emitEvent(control);
 
     return control;
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
-    this._updateControl(changes);
+    this.updateControl(changes);
   }
 
-  private _updateControl(changes: SimpleChanges): void {
-    for (const key in changes) {
-      if (changes[key].firstChange) return;
-    }
+  private updateControl(changes: SimpleChanges): void {
+    if (Object.values(changes).some((v) => v.firstChange)) return;
 
-    console.error(removeLeadingSpaces(`
+    console.error(
+      removeLeadingSpaces(`
       Control doesn't support dynamic configuartion.
 
       Solutions:
       1. Use ymaps from ILoadEvent
       2. Recreate component with new configuration
-    `));
+    `),
+    );
   }
 
-  private _emitEvent(control: any): void {
-    this._ngZone.run(() => this.load.emit({ ymaps, instance: control }));
+  private emitEvent(control: any): void {
+    this.ngZone.run(() => this.load.emit({ ymaps, instance: control }));
   }
 }

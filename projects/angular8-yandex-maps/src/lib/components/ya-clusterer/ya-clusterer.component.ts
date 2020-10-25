@@ -8,11 +8,11 @@ import {
   OnDestroy,
   Output,
   QueryList,
-  SimpleChanges
-  } from '@angular/core';
-import { IEvent, ILoadEvent } from '../../models/models';
+  SimpleChanges,
+} from '@angular/core';
 import { startWith } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
+import { IEvent, ILoadEvent } from '../../models/models';
 import { YaGeoObjectComponent } from '../ya-geoobject/ya-geoobject.component';
 import { YaPlacemarkComponent } from '../ya-placemark/ya-placemark.component';
 
@@ -33,7 +33,7 @@ import { YaPlacemarkComponent } from '../ya-placemark/ya-placemark.component';
 @Component({
   selector: 'ya-clusterer',
   templateUrl: './ya-clusterer.component.html',
-  styleUrls: ['./ya-clusterer.component.scss']
+  styleUrls: ['./ya-clusterer.component.scss'],
 })
 export class YaClustererComponent implements OnDestroy, OnChanges {
   @ContentChildren(YaPlacemarkComponent) public placemarks: QueryList<YaPlacemarkComponent>;
@@ -41,7 +41,7 @@ export class YaClustererComponent implements OnDestroy, OnChanges {
 
   /**
    * Options for the clusterer.
-   * @see {@link https://tech.yandex.com/maps/jsapi/doc/2.1/ref/reference/Clusterer-docpage/#Clusterer__param-options}
+   * @see {@link https://tech.yandex.com/maps/jsapi/doc/2.1/ref/reference/Clusterer-docpage/#Clustererparam-options}
    */
   @Input() public options: any;
 
@@ -66,17 +66,15 @@ export class YaClustererComponent implements OnDestroy, OnChanges {
    */
   @Output() public parentChange = new EventEmitter<IEvent>();
 
-  private _sub = new Subscription();
+  private sub = new Subscription();
 
   // Yandex.Maps API.
-  private _clusterer: ymaps.Clusterer;
+  private clusterer: ymaps.Clusterer;
 
-  constructor(
-    private _ngZone: NgZone,
-  ) { }
+  constructor(private ngZone: NgZone) {}
 
   public ngOnChanges(changes: SimpleChanges): void {
-    this._updateClusterer(changes);
+    this.updateClusterer(changes);
   }
 
   /**
@@ -84,8 +82,8 @@ export class YaClustererComponent implements OnDestroy, OnChanges {
    * Handles input changes and provides it to API.
    * @param changes
    */
-  private _updateClusterer(changes: SimpleChanges): void {
-    const clusterer = this._clusterer;
+  private updateClusterer(changes: SimpleChanges): void {
+    const { clusterer } = this;
 
     if (!clusterer) return;
 
@@ -106,7 +104,7 @@ export class YaClustererComponent implements OnDestroy, OnChanges {
    */
   public createClusterer(map: ymaps.Map): ymaps.Clusterer {
     const clusterer = new ymaps.Clusterer(this.options);
-    this._clusterer = clusterer;
+    this.clusterer = clusterer;
 
     /**
      * Adds new Placemarks to the clusterer on changes.
@@ -124,7 +122,7 @@ export class YaClustererComponent implements OnDestroy, OnChanges {
         });
       });
 
-    this._sub.add(placemarksSub);
+    this.sub.add(placemarksSub);
 
     /**
      * Adds new GeoObjects to the clusterer on changes.
@@ -142,9 +140,9 @@ export class YaClustererComponent implements OnDestroy, OnChanges {
         });
       });
 
-    this._sub.add(geoObjectsSub);
+    this.sub.add(geoObjectsSub);
 
-    this._addEventListeners();
+    this.addEventListeners();
 
     return clusterer;
   }
@@ -152,36 +150,50 @@ export class YaClustererComponent implements OnDestroy, OnChanges {
   /**
    * Adds listeners on Clusterer events.
    */
-  private _addEventListeners(): void {
-    const clusterer = this._clusterer;
+  private addEventListeners(): void {
+    const { clusterer } = this;
 
-    this._ngZone.run(() => this.load.emit({ ymaps, instance: clusterer }));
+    this.ngZone.run(() => this.load.emit({ ymaps, instance: clusterer }));
 
     const handlers = [
       {
         name: ['hintclose', 'hintopen'],
-        fn: (e: any) => this.hint.emit({ ymaps, instance: clusterer, type: e.originalEvent.type, event: e }),
+        fn: (e: any) =>
+          this.hint.emit({ ymaps, instance: clusterer, type: e.originalEvent.type, event: e }),
       },
       {
         name: 'mapchange',
-        fn: (e: any) => this.mapChange.emit({ ymaps, instance: clusterer, type: e.originalEvent.type, event: e }),
+        fn: (e: any) =>
+          this.mapChange.emit({ ymaps, instance: clusterer, type: e.originalEvent.type, event: e }),
       },
       {
         name: 'optionschange',
-        fn: (e: any) => this.optionsChange.emit({ ymaps, instance: clusterer, type: e.originalEvent.type, event: e }),
+        fn: (e: any) =>
+          this.optionsChange.emit({
+            ymaps,
+            instance: clusterer,
+            type: e.originalEvent.type,
+            event: e,
+          }),
       },
       {
         name: 'parentchange',
-        fn: (e: any) => this.parentChange.emit({ ymaps, instance: clusterer, type: e.originalEvent.type, event: e }),
+        fn: (e: any) =>
+          this.parentChange.emit({
+            ymaps,
+            instance: clusterer,
+            type: e.originalEvent.type,
+            event: e,
+          }),
       },
     ];
 
     handlers.forEach((handler) => {
-      clusterer.events.add(handler.name, (e: any) => this._ngZone.run(() => handler.fn(e)));
+      clusterer.events.add(handler.name, (e: any) => this.ngZone.run(() => handler.fn(e)));
     });
   }
 
   public ngOnDestroy(): void {
-    this._sub.unsubscribe();
+    this.sub.unsubscribe();
   }
 }

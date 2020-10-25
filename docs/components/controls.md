@@ -13,21 +13,21 @@ Component for creating and managing controls on the map
 ## Inputs
 
 | Name       | Type   | Default | Required | Description                                                                                                              |
-|------------|--------|---------|----------|--------------------------------------------------------------------------------------------------------------------------|
+| ---------- | ------ | ------- | -------- | ------------------------------------------------------------------------------------------------------------------------ |
 | type       | String |         | yes      | Control type. List of types you can find in left list - [Controls]. E.g. Control.FullscreenControl - 'FullscreenControl' |
 | parameters | Any    |         | no       | Parameters for the Control                                                                                               |
 
-[Controls]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/control.Button-docpage/
+[controls]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/control.Button-docpage/
 
 ## Outputs
 
 All events execute within the Angular zone
 
-| Name       | Type         | Supported event type                                  | Description                                                    |
-|------------|--------------|-------------------------------------------------------|----------------------------------------------------------------|
-| load       | [ILoadEvent] |                                                       | Emits immediately after this entity is added in root container |
+| Name | Type         | Supported event type | Description                                                    |
+| ---- | ------------ | -------------------- | -------------------------------------------------------------- |
+| load | [ILoadEvent] |                      | Emits immediately after this entity is added in root container |
 
-[ILoadEvent]: interfaces/load-event.md
+[iloadevent]: interfaces/load-event.md
 
 ## Examples
 

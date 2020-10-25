@@ -8,9 +8,8 @@ describe('PlacemarkComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PlacemarkComponent ]
-    })
-    .compileComponents();
+      declarations: [PlacemarkComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

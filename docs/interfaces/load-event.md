@@ -1,9 +1,9 @@
 # ILoadEvent
 
-| Name     | Type                | Description                |
-|----------|---------------------|----------------------------|
-| instance | Any                 | Instance of created entity |
-| ymaps    | YMaps               | API global object          |
+| Name     | Type  | Description                |
+| -------- | ----- | -------------------------- |
+| instance | Any   | Instance of created entity |
+| ymaps    | YMaps | API global object          |
 
 ## Source
 

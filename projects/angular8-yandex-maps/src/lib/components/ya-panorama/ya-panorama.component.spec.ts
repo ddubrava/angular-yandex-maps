@@ -8,9 +8,8 @@ describe('YaPanoramaComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [YaPanoramaComponent]
-    })
-    .compileComponents();
+      declarations: [YaPanoramaComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

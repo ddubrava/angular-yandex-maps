@@ -1,4 +1,7 @@
-import { AngularYandexMapsModule, IConfig } from '../../projects/angular8-yandex-maps/src/public-api';
+import {
+  AngularYandexMapsModule,
+  IConfig,
+} from '../../projects/angular8-yandex-maps/src/public-api';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
@@ -27,12 +30,8 @@ const mapConfig: IConfig = {
     PanoramaComponent,
     PlacemarkComponent,
   ],
-  imports: [
-    AngularYandexMapsModule.forRoot(mapConfig),
-    AppRoutingModule,
-    BrowserModule,
-  ],
+  imports: [AngularYandexMapsModule.forRoot(mapConfig), AppRoutingModule, BrowserModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

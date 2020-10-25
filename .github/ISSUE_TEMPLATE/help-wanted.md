@@ -4,7 +4,6 @@ about: Need help for this project
 title: ''
 labels: help wanted
 assignees: ddubrava
-
 ---
 
 **Describe the problem**

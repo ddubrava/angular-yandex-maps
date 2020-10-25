@@ -1,13 +1,5 @@
-import { generateRandomId } from '../../utils/generateRandomId';
-import { IEvent, ILoadEvent } from '../../models/models';
-import { ScriptService } from '../../services/script/script.service';
 import { startWith } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
-import { YaClustererComponent } from '../ya-clusterer/ya-clusterer.component';
-import { YaControlComponent } from '../ya-control/ya-control.component';
-import { YaGeoObjectComponent } from '../ya-geoobject/ya-geoobject.component';
-import { YaMultirouteComponent } from '../ya-multiroute/ya-multiroute.component';
-import { YaPlacemarkComponent } from '../ya-placemark/ya-placemark.component';
 import {
   Component,
   ContentChildren,
@@ -23,6 +15,14 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
+import { generateRandomId } from '../../utils/generateRandomId';
+import { IEvent, ILoadEvent } from '../../models/models';
+import { ScriptService } from '../../services/script/script.service';
+import { YaClustererComponent } from '../ya-clusterer/ya-clusterer.component';
+import { YaControlComponent } from '../ya-control/ya-control.component';
+import { YaGeoObjectComponent } from '../ya-geoobject/ya-geoobject.component';
+import { YaMultirouteComponent } from '../ya-multiroute/ya-multiroute.component';
+import { YaPlacemarkComponent } from '../ya-placemark/ya-placemark.component';
 
 /**
  * Component for creating and managing a map.
@@ -33,7 +33,7 @@ import {
 @Component({
   selector: 'ya-map',
   templateUrl: './ya-map.component.html',
-  styleUrls: ['./ya-map.component.scss']
+  styleUrls: ['./ya-map.component.scss'],
 })
 export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
   @ViewChild('container') public mapContainer: ElementRef;
@@ -59,12 +59,12 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
   @Input() public zoom = 10;
   /**
    * States for the map.
-   * @see {@link https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Map-docpage/#Map__param-state}
+   * @see {@link https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Map-docpage/#Mapparam-state}
    */
   @Input() public state: ymaps.IMapState = {};
   /**
    * Options for the map.
-   * @see {@link https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Map-docpage/#Map__param-options}
+   * @see {@link https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Map-docpage/#Mapparam-options}
    */
   @Input() public options: ymaps.IMapOptions = {};
 
@@ -97,23 +97,20 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
    */
   @Output() public multitouch = new EventEmitter<IEvent>();
 
-  private _sub: Subscription;
-  private _map: ymaps.Map;
+  private sub: Subscription;
+  private map: ymaps.Map;
 
-  constructor(
-    private _ngZone: NgZone,
-    private _scriptService: ScriptService,
-  ) { }
+  constructor(private ngZone: NgZone, private scriptService: ScriptService) {}
 
   public ngOnInit(): void {
-    this._sub = new Subscription();
+    this.sub = new Subscription();
 
-    this._logErrors();
-    this._initScript();
+    this.logErrors();
+    this.initScript();
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
-    this._updateMap(changes);
+    this.updateMap(changes);
   }
 
   /**
@@ -121,8 +118,8 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
    * Handles input changes and provides it to API.
    * @param changes
    */
-  private _updateMap(changes: SimpleChanges): void {
-    const map = this._map;
+  private updateMap(changes: SimpleChanges): void {
+    const { map } = this;
 
     if (!map) return;
 
@@ -137,7 +134,7 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     if (state) {
-      this._setState(state.currentValue, map);
+      this.setState(state.currentValue, map);
     }
 
     if (options) {
@@ -150,7 +147,7 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
    * @param state
    * @param map
    */
-  private _setState(state: ymaps.IMapState, map: ymaps.Map): void {
+  private setState(state: ymaps.IMapState, map: ymaps.Map): void {
     const { behaviors, bounds, center, controls, margin, type, zoom } = state;
 
     if (behaviors) {
@@ -185,51 +182,48 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  private _logErrors(): void {
+  private logErrors(): void {
     if (!this.center && !this.onlyInstance) {
       console.error('Map: center input is required.');
       this.center = [];
     }
   }
 
-  private _initScript(): void {
-    const sub = this._scriptService.initScript()
-      .subscribe(() => {
-        if (this.onlyInstance) {
-          this.load.emit({ ymaps });
-          return;
-        }
+  private initScript(): void {
+    const sub = this.scriptService.initScript().subscribe(() => {
+      if (this.onlyInstance) {
+        this.load.emit({ ymaps });
+        return;
+      }
 
-        const id = generateRandomId();
-        this._map = this._createMap(id);
+      const id = generateRandomId();
+      this.map = this.createMap(id);
 
-        this._addGeoObjects();
-        this._addControls();
-        this._addEventListeners();
-      });
+      this.addGeoObjects();
+      this.addControls();
+      this.addEventListeners();
+    });
 
-    this._sub.add(sub);
+    this.sub.add(sub);
   }
 
   /**
    * Creates map.
    * @param id ID which will be set to the map container.
    */
-  private _createMap(id: string): ymaps.Map {
+  private createMap(id: string): ymaps.Map {
     const containerElem: HTMLElement = this.mapContainer.nativeElement;
     containerElem.setAttribute('id', id);
     containerElem.style.cssText = 'width: 100%; height: 100%;';
 
-    return new ymaps.Map(
-      id, { ...this.state, zoom: this.zoom, center: this.center }, this.options
-    );
+    return new ymaps.Map(id, { ...this.state, zoom: this.zoom, center: this.center }, this.options);
   }
 
   /**
    * Adds GeoObject to the Map on ContentChildren changes.
    */
-  private _addGeoObjects(): void {
-    const map = this._map;
+  private addGeoObjects(): void {
+    const { map } = this;
 
     // Placemarks (async)
     const placemarksSub = this.placemarks.changes
@@ -243,7 +237,7 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
         });
       });
 
-    this._sub.add(placemarksSub);
+    this.sub.add(placemarksSub);
 
     // Multiroutes (async)
     const multiroutesSub = this.multiroutes.changes
@@ -257,7 +251,7 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
         });
       });
 
-    this._sub.add(multiroutesSub);
+    this.sub.add(multiroutesSub);
 
     // GeoObjects (async)
     const geoObjectsSub = this.geoObjects.changes
@@ -271,7 +265,7 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
         });
       });
 
-    this._sub.add(geoObjectsSub);
+    this.sub.add(geoObjectsSub);
 
     // Clusterers (not async)
     this.clusterers.forEach((clusterer) => {
@@ -286,46 +280,52 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
   /**
    * Adds controls to the Map.
    */
-  private _addControls(): void {
+  private addControls(): void {
     this.controls.forEach((control) => {
       const c = control.createControl();
-      this._map.controls.add(c);
+      this.map.controls.add(c);
     });
   }
 
   /**
    * Adds listeners on the Map events.
    */
-  private _addEventListeners(): void {
-    const map = this._map;
+  private addEventListeners(): void {
+    const { map } = this;
 
-    this._ngZone.run(() => this.load.emit({ ymaps, instance: map }));
+    this.ngZone.run(() => this.load.emit({ ymaps, instance: map }));
 
     const handlers = [
       {
         name: ['actionbegin', 'actionend'],
-        fn: (e: any) => this.action.emit({ ymaps, instance: map, type: e.originalEvent.type, event: e }),
+        fn: (e: any) =>
+          this.action.emit({ ymaps, instance: map, type: e.originalEvent.type, event: e }),
       },
       {
         name: ['balloonopen', 'balloonclose'],
-        fn: (e: any) => this.balloon.emit({ ymaps, instance: map, type: e.originalEvent.type, event: e }),
+        fn: (e: any) =>
+          this.balloon.emit({ ymaps, instance: map, type: e.originalEvent.type, event: e }),
       },
       {
         name: ['click', 'dblclick'],
-        fn: (e: any) => this.yaclick.emit({ ymaps, instance: map, type: e.originalEvent.type, event: e }),
+        fn: (e: any) =>
+          this.yaclick.emit({ ymaps, instance: map, type: e.originalEvent.type, event: e }),
       },
       {
         name: ['hintopen', 'hintclose'],
-        fn: (e: any) => this.hint.emit({ ymaps, instance: map, type: e.originalEvent.type, event: e }),
+        fn: (e: any) =>
+          this.hint.emit({ ymaps, instance: map, type: e.originalEvent.type, event: e }),
       },
       {
         name: ['mousedown', 'mouseenter', 'mouseleave', 'mousemove', 'mouseup'],
-        fn: (e: any) => this.mouse.emit({ ymaps, instance: map, type: e.originalEvent.type, event: e }),
+        fn: (e: any) =>
+          this.mouse.emit({ ymaps, instance: map, type: e.originalEvent.type, event: e }),
         runOutsideAngular: true,
       },
       {
         name: ['multitouchstart', 'multitouchmove', 'multitouchend'],
-        fn: (e: any) => this.multitouch.emit({ ymaps, instance: map, type: e.originalEvent.type, event: e }),
+        fn: (e: any) =>
+          this.multitouch.emit({ ymaps, instance: map, type: e.originalEvent.type, event: e }),
         runOutsideAngular: true,
       },
     ];
@@ -335,16 +335,15 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
      * @see {@link https://github.com/ddubrava/angular8-yandex-maps/issues/35}
      */
     handlers.forEach((handler) => {
-      map.events.add(
-        handler.name,
-        (e: any) => handler.runOutsideAngular
-          ? this._ngZone.runOutsideAngular(() => handler.fn(e))
-          : this._ngZone.run(() => handler.fn(e))
+      map.events.add(handler.name, (e: any) =>
+        handler.runOutsideAngular
+          ? this.ngZone.runOutsideAngular(() => handler.fn(e))
+          : this.ngZone.run(() => handler.fn(e)),
       );
     });
   }
 
   public ngOnDestroy(): void {
-    this._sub.unsubscribe();
+    this.sub.unsubscribe();
   }
 }

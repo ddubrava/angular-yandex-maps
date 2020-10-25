@@ -3,7 +3,7 @@
 API loading parameters. See [API](https://yandex.ru/dev/maps/jsapi/doc/2.1/dg/concepts/load.html/#load__param) for further information
 
 | Name       | Type                                                           | Optional | Description                                                                                          |
-|------------|----------------------------------------------------------------|----------|------------------------------------------------------------------------------------------------------|
+| ---------- | -------------------------------------------------------------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | apikey     | String                                                         | yes      | API key. You can get a key in the developer's dashboard                                              |
 | lang       | 'ru_RU' \| 'en_US' \| 'en_RU' \| 'ru_UA' \| 'uk_UA' \| 'tr_TR' | yes      | Locales                                                                                              |
 | coordorder | 'latlong' \| 'longlat'                                         | no       | The order for setting geographical coordinates in API functions that accept longitude-latitude input |

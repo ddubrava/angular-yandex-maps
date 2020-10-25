@@ -6,30 +6,31 @@ Component for creating Multi-route on the map
 
 ```html
 <ya-map [center]="[55.761952, 37.620739]">
-  <ya-multiroute [referencePoints]="[[55.751952, 37.600739], 'Красные ворота, Москва']"></ya-multiroute>
+  <ya-multiroute
+    [referencePoints]="[[55.751952, 37.600739], 'Красные ворота, Москва']"
+  ></ya-multiroute>
 </ya-map>
 ```
 
 ## Inputs
 
-| Name            | Type                                                   | Default | Required | Description                                                       |
-|-----------------|--------------------------------------------------------|---------|----------|-------------------------------------------------------------------|
-| referencePoints | [IMultiRouteReferencePoint][][]                        |         | yes      | Reference points for the multi-route                              |
-| model           | [multiRouter.MultiRouteModel] or [MultiRouteModelJson] |         | no       | The data model of a multi-route, or the model description object  |
-| options         | [MultiRouteOptions]                                    |         | no       | Options for the multiroute                                        |
+| Name            | Type                                                   | Default | Required | Description                                                      |
+| --------------- | ------------------------------------------------------ | ------- | -------- | ---------------------------------------------------------------- |
+| referencePoints | [IMultiRouteReferencePoint][][]                        |         | yes      | Reference points for the multi-route                             |
+| model           | [multiRouter.MultiRouteModel] or [MultiRouteModelJson] |         | no       | The data model of a multi-route, or the model description object |
+| options         | [MultiRouteOptions]                                    |         | no       | Options for the multiroute                                       |
 
-
-[IMultiRouteReferencePoint]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/IMultiRouteReferencePoint-docpage/
-[multiRouter.MultiRouteModel]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/multiRouter.MultiRouteModel-docpage/
-[MultiRouteModelJson]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/IMultiRouteModelJson-docpage/
-[MultiRouteOptions]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/multiRouter.MultiRoute-docpage/#multiRouter.MultiRoute__param-options
+[imultiroutereferencepoint]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/IMultiRouteReferencePoint-docpage/
+[multirouter.multiroutemodel]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/multiRouter.MultiRouteModel-docpage/
+[multiroutemodeljson]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/IMultiRouteModelJson-docpage/
+[multirouteoptions]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/multiRouter.MultiRoute-docpage/#multiRouter.MultiRoute__param-options
 
 ## Outputs
 
 All events execute within the Angular zone
 
 | Name              | Type         | Supported event type                                  | Description                                                    |
-|-------------------|--------------|-------------------------------------------------------|----------------------------------------------------------------|
+| ----------------- | ------------ | ----------------------------------------------------- | -------------------------------------------------------------- |
 | load              | [ILoadEvent] |                                                       | Emits immediately after this entity is added in root container |
 | activeroutechange | [IEvent]     | activeroutechange                                     | Change to the active route                                     |
 | balloon           | [IEvent]     | balloonopen, balloonclose                             | Actions with the balloon                                       |
@@ -37,8 +38,8 @@ All events execute within the Angular zone
 | mouse             | [IEvent]     | mousedown, mouseenter, mouseleave, mousemove, mouseup | Mouse actions with the object                                  |
 | multitouch        | [IEvent]     | multitouchstart, multitouchmove, multitouchend        | Multitouch actions with the object                             |
 
-[ILoadEvent]: interfaces/load-event.md
-[IEvent]: interfaces/event.md
+[iloadevent]: interfaces/load-event.md
+[ievent]: interfaces/event.md
 
 ## Examples
 
