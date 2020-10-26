@@ -8,9 +8,8 @@ describe('YaControlComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [YaControlComponent]
-    })
-    .compileComponents();
+      declarations: [YaControlComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

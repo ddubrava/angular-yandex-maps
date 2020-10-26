@@ -8,7 +8,7 @@ export interface IConfig {
   /**
    * API key. You can get a key in the developer's dashboard
    */
-  apikey: string;
+  apikey?: string;
   /**
    * Locales
    */
@@ -43,7 +43,7 @@ export interface ILoadEvent {
   /**
    * API global object
    */
-  ymaps: any;
+  ymaps: typeof ymaps;
 }
 
 export interface IEvent {
@@ -54,13 +54,14 @@ export interface IEvent {
   /**
    * API global object
    */
-  ymaps: any;
+  ymaps: typeof ymaps;
   /**
    * String event type, event.originalEvent.type
    */
   type: string | undefined;
   /**
-   * Event that is fired by the IEventManager event manager
+   * Provides methods for accessing the originalObject object's fields and methods, with the possibility for redefining them.
+   * @see {@link https://yandex.ru/dev/maps/jsapi/doc/2.1/ref/reference/Event.html/}
    */
   event: any;
 }

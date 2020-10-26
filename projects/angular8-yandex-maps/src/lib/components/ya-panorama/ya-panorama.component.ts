@@ -5,90 +5,88 @@ import {
   Input,
   NgZone,
   OnChanges,
+  OnDestroy,
   OnInit,
   Output,
   SimpleChanges,
-  ViewChild
-  } from '@angular/core';
+  ViewChild,
+} from '@angular/core';
+import { Subscription } from 'rxjs';
 import { generateRandomId } from '../../utils/generateRandomId';
 import { IEvent, ILoadEvent } from '../../models/models';
 import { removeLeadingSpaces } from '../../utils/removeLeadingSpaces';
 import { ScriptService } from '../../services/script/script.service';
-import { take } from 'rxjs/operators';
 
 /**
- * Component for creating and controlling the panorama player
- * @example <ya-panorama [point]="[59.938557, 30.316198]" layer="yandex#airPanorama"></ya-panorama>
+ * Component for creating and controlling the panorama player.
+ *
+ * @example `<ya-panorama [point]="[59.938557, 30.316198]" layer="yandex#airPanorama"></ya-panorama>`.
  * @see {@link https://ddubrava.github.io/angular8-yandex-maps/#/components/panorama}
  */
 @Component({
   selector: 'ya-panorama',
   templateUrl: './ya-panorama.component.html',
-  styleUrls: ['./ya-panorama.component.scss']
+  styleUrls: ['./ya-panorama.component.scss'],
 })
-export class YaPanoramaComponent implements OnInit, OnChanges {
+export class YaPanoramaComponent implements OnInit, OnChanges, OnDestroy {
   @ViewChild('container') public panoramaContainer: ElementRef;
 
   /**
-   * The point for searching for nearby panoramas
+   * The point for searching for nearby panoramas.
    */
   @Input() public point: Array<number>;
   /**
-   * The layer to search for panoramas
+   * The layer to search for panoramas.
    */
-  @Input() public layer: string;
+  @Input() public layer: 'yandex#panorama' | 'yandex#airPanorama';
   /**
-   * Options for the player
-   * @see {@link https://tech.yandex.com/maps/jsapi/doc/2.1/ref/reference/panorama.Player-docpage/#panorama.Player__param-options}
+   * Options for the player.
+   * @see {@link https://tech.yandex.com/maps/jsapi/doc/2.1/ref/reference/panorama.Player-docpage/#panorama.Playerparam-options}
    */
   @Input() public options: any;
 
   /**
-   * Emits immediately after this entity is added in root container
+   * Emits immediately after this entity is added in root container.
    */
   @Output() public load = new EventEmitter<ILoadEvent>();
   /**
-   * The view direction changed
+   * The view direction changed.
    */
   @Output() public direction = new EventEmitter<IEvent>();
   /**
-   * The panorama player screen mode is switched
+   * The panorama player screen mode is switched.
    */
   @Output() public fullscreen = new EventEmitter<IEvent>();
   /**
-   * Actions with marker
+   * Actions with the marker.
    */
   @Output() public marker = new EventEmitter<IEvent>();
 
-  // Yandex.Maps API
-  private _player: any;
+  private sub: Subscription;
 
-  constructor(
-    private _ngZone: NgZone,
-    private _scriptService: ScriptService,
-  ) { }
+  // Yandex.Maps API.
+  private player: ymaps.panorama.Player;
+
+  constructor(private ngZone: NgZone, private scriptService: ScriptService) {}
 
   public ngOnInit(): void {
-    this._logErrors();
+    this.sub = new Subscription();
 
-    this._scriptService.initScript()
-      .pipe(take(1))
-      .subscribe((ymaps: any) => {
-        this._createPanorama(ymaps, generateRandomId());
-      });
+    this.logErrors();
+    this.initScript();
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
-    this._configPanorama(changes);
+    this.updatePanorama(changes);
   }
 
   /**
-   * Method for dynamic entity configuration.
+   * Method for dynamic Panorama configuration.
    * Handles input changes and provides it to API.
    * @param changes
    */
-  private _configPanorama(changes: SimpleChanges): void {
-    const player = this._player;
+  private updatePanorama(changes: SimpleChanges): void {
+    const { player } = this;
 
     if (!player) return;
 
@@ -103,67 +101,88 @@ export class YaPanoramaComponent implements OnInit, OnChanges {
     }
 
     if (options) {
-      console.error(removeLeadingSpaces(`
+      console.error(
+        removeLeadingSpaces(`
         The options of Panorama cannot be changed after entity init.
 
         Solutions:
         1. Use ymaps from ILoadEvent
         2. Recreate Panorama component with new options
-      `));
+      `),
+      );
     }
   }
 
-  private _logErrors(): void {
+  private logErrors(): void {
     if (!this.point) {
       console.error('Panorama: point input is required.');
       this.point = [];
     }
   }
 
+  private initScript(): void {
+    const sub = this.scriptService.initScript().subscribe(() => {
+      const id = generateRandomId();
+      this.createPanorama(id);
+    });
+
+    this.sub.add(sub);
+  }
+
   /**
-   * Create panorama with player
-   * @param ymaps
-   * @param id Unique id
+   * Creates panorama with the player.
+   * @param id ID which will be set to the panorama container.
    */
-  private _createPanorama(ymaps: any, id: string): void {
+  private createPanorama(id: string): void {
     const containerElem: HTMLElement = this.panoramaContainer.nativeElement;
     containerElem.setAttribute('id', id);
     containerElem.style.cssText = 'width: 100%; height: 100%;';
 
-    ymaps.panorama.locate(this.point, { layer: this.layer })
-      .then((panorama: any) => {
+    /**
+     * Wrong typings in DefinitelyTyped.
+     */
+    (ymaps.panorama as any)
+      .locate(this.point, { layer: this.layer })
+      .then((panorama: ymaps.IPanorama) => {
         const player = new ymaps.panorama.Player(id, panorama[0], this.options);
-        this._player = player;
+        this.player = player;
 
-        this._addEventListeners(ymaps, player);
+        this.addEventListeners();
       });
   }
 
   /**
-   * Add listeners on panorama events
-   * @param ymaps
-   * @param player
+   * Adds listeners on the Panorama events.
    */
-  public _addEventListeners(ymaps: any, player: any): void {
-    this._ngZone.run(() => this.load.emit({ ymaps, instance: player }));
+  public addEventListeners(): void {
+    const { player } = this;
+
+    this.ngZone.run(() => this.load.emit({ ymaps, instance: player }));
 
     const handlers = [
       {
         name: 'directionchange',
-        fn: (e: any) => this.direction.emit({ ymaps, instance: player, type: e.originalEvent.type, event: e }),
+        fn: (e: any) =>
+          this.direction.emit({ ymaps, instance: player, type: e.originalEvent.type, event: e }),
       },
       {
         name: ['fullscreenenter', 'fullscreenexit'],
-        fn: (e: any) => this.fullscreen.emit({ ymaps, instance: player, type: e.originalEvent.type, event: e }),
+        fn: (e: any) =>
+          this.fullscreen.emit({ ymaps, instance: player, type: e.originalEvent.type, event: e }),
       },
       {
         name: ['markercollapse', 'markerexpand', 'markermouseenter', 'markermouseleave'],
-        fn: (e: any) => this.marker.emit({ ymaps, instance: player, type: e.originalEvent.type, event: e }),
+        fn: (e: any) =>
+          this.marker.emit({ ymaps, instance: player, type: e.originalEvent.type, event: e }),
       },
     ];
 
     handlers.forEach((handler) => {
-      player.events.add(handler.name, (e: any) => this._ngZone.run(() => handler.fn(e)));
+      player.events.add(handler.name, (e: any) => this.ngZone.run(() => handler.fn(e)));
     });
+  }
+
+  public ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
 }

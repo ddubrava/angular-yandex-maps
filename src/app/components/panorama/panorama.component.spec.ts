@@ -8,9 +8,8 @@ describe('PanoramaComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PanoramaComponent ]
-    })
-    .compileComponents();
+      declarations: [PanoramaComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

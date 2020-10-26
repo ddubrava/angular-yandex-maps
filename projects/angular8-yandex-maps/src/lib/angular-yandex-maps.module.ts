@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { IConfig, YA_MAP_CONFIG } from './models/models';
 import { ModuleWithProviders, NgModule } from '@angular/core';
+import { IConfig, YA_MAP_CONFIG } from './models/models';
 import { YaClustererComponent } from './components/ya-clusterer/ya-clusterer.component';
 import { YaControlComponent } from './components/ya-control/ya-control.component';
 import { YaGeoObjectComponent } from './components/ya-geoobject/ya-geoobject.component';
@@ -19,9 +19,7 @@ import { YaPlacemarkComponent } from './components/ya-placemark/ya-placemark.com
     YaPanoramaComponent,
     YaPlacemarkComponent,
   ],
-  imports: [
-    CommonModule
-  ],
+  imports: [CommonModule],
   exports: [
     YaClustererComponent,
     YaControlComponent,
@@ -30,9 +28,8 @@ import { YaPlacemarkComponent } from './components/ya-placemark/ya-placemark.com
     YaMultirouteComponent,
     YaPanoramaComponent,
     YaPlacemarkComponent,
-  ]
+  ],
 })
-
 export class AngularYandexMapsModule {
   /**
    * Please use this method when you register the module at the root level
@@ -41,9 +38,7 @@ export class AngularYandexMapsModule {
   public static forRoot(config: Partial<IConfig>): ModuleWithProviders<AngularYandexMapsModule> {
     return {
       ngModule: AngularYandexMapsModule,
-      providers: [
-        { provide: YA_MAP_CONFIG, useValue: config }
-      ]
+      providers: [{ provide: YA_MAP_CONFIG, useValue: config }],
     };
   }
 }

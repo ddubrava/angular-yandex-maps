@@ -8,9 +8,8 @@ describe('YaGeoObjectComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [YaGeoObjectComponent]
-    })
-    .compileComponents();
+      declarations: [YaGeoObjectComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

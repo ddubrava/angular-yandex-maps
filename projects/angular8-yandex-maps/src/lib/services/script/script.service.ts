@@ -1,13 +1,10 @@
 import { DOCUMENT } from '@angular/common';
-import { from, fromEvent, Observable } from 'rxjs';
-import { IConfig, YA_MAP_CONFIG } from '../../models/models';
+import { from, fromEvent, merge, Observable, throwError } from 'rxjs';
 import { Inject, Injectable, Optional } from '@angular/core';
-import { map, switchMap } from 'rxjs/operators';
-
-declare const ymaps: any;
+import { map, switchMap, take } from 'rxjs/operators';
+import { IConfig, YA_MAP_CONFIG } from '../../models/models';
 
 const DEFAULT_CONFIG: IConfig = {
-  apikey: null,
   lang: 'ru_RU',
 };
 
@@ -18,51 +15,57 @@ const DEFAULT_CONFIG: IConfig = {
  * @see {@link https://ddubrava.github.io/angular8-yandex-maps/#/services/script}
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ScriptService {
-  private _script: HTMLScriptElement;
-  private _config: Partial<IConfig>;
+  private config: Partial<IConfig>;
+  private script: HTMLScriptElement;
+  private window: Window;
 
   constructor(
     @Optional() @Inject(YA_MAP_CONFIG) config: Partial<IConfig>,
-    @Inject(DOCUMENT) private document: Document
+    @Inject(DOCUMENT) private document: Document,
   ) {
-    this._config = config || DEFAULT_CONFIG;
+    this.config = config || DEFAULT_CONFIG;
+    this.window = document.defaultView;
   }
 
   /**
    * Inits Yandex.Maps script
-   * @returns Observable with 'ymaps' object
    */
-  public initScript(): Observable<any> {
-    if (!this._script) {
-      const script = this.document.createElement('script');
-
-      this._setSource(script, this._config);
-      this._script = this.document.body.appendChild(script);
-    }
-
-    if ('ymaps' in window) {
+  public initScript(): Observable<Event | typeof ymaps> {
+    if ('ymaps' in this.window) {
       return from(ymaps.ready()).pipe(map(() => ymaps));
     }
 
-    return fromEvent(this._script, 'load').pipe(
-      switchMap(() => from(ymaps.ready()).pipe(map(() => ymaps)))
+    if (!this.script) {
+      const script = this.document.createElement('script');
+      script.type = 'text/javascript';
+      script.src = this.getScriptSource(this.config);
+      script.id = 'yandexMapsApiScript';
+
+      this.script = this.document.body.appendChild(script);
+    }
+
+    const load = fromEvent(this.script, 'load').pipe(
+      switchMap(() => from(ymaps.ready()).pipe(map(() => ymaps))),
     );
+
+    const error = fromEvent(this.script, 'error').pipe(switchMap((e) => throwError(e)));
+
+    return merge(load, error).pipe(take(1));
   }
 
   /**
-   * Sets source to provided HTMLScriptElement
-   * @param script HTMLScriptElement
+   * Returns script source by config
    * @param config Config with parameters that will be added in source
    * @example 'https://api-maps.yandex.ru/2.1/?apikey=658f67a2-fd77-42e9-b99e-2bd48c4ccad4&lang=en_US'
    */
-  private _setSource(script: HTMLScriptElement, config: Partial<IConfig>): void {
-    const params = this._convertIntoQueryParams(config);
-    const { enterprise, version = '2.1' } = config;
+  private getScriptSource(config: Partial<IConfig>): string {
+    const { enterprise, version = '2.1', ...rest } = config;
+    const params = this.convertIntoQueryParams(rest);
 
-    script.src = `https://${enterprise ? 'enterprise.' : ''}api-maps.yandex.ru/${version}/?${params}`;
+    return `https://${enterprise ? 'enterprise.' : ''}api-maps.yandex.ru/${version}/?${params}`;
   }
 
   /**
@@ -72,7 +75,9 @@ export class ScriptService {
    * // returns "apikey=XXX"
    * convertIntoQueryParams({ apikey: 'XXX' })
    */
-  private _convertIntoQueryParams(o: Object): string {
-    return Object.keys(o).map((key: string) => `${key}=${o[key]}`).join('&');
+  private convertIntoQueryParams(o: Object): string {
+    return Object.keys(o)
+      .map((key: string) => `${key}=${o[key]}`)
+      .join('&');
   }
 }

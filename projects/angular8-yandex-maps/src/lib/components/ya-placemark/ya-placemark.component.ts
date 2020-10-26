@@ -7,92 +7,91 @@ import {
   OnDestroy,
   OnInit,
   Output,
-  SimpleChanges
-  } from '@angular/core';
+  SimpleChanges,
+} from '@angular/core';
 import { generateRandomId } from '../../utils/generateRandomId';
 import { IEvent, ILoadEvent } from '../../models/models';
 
 /**
- * Component, geo object with the geometry geometry.Point
- * @example <ya-placemark [geometry]="[55.751952, 37.600739]"></ya-placemark>
+ * Component for creating a geo object with the geometry geometry.Point.
+ *
+ * @example `<ya-placemark [geometry]="[55.751952, 37.600739]"></ya-placemark>`.
  * @see {@link https://ddubrava.github.io/angular8-yandex-maps/#/components/placemark}
  */
 @Component({
   selector: 'ya-placemark',
   templateUrl: './ya-placemark.component.html',
-  styleUrls: ['./ya-placemark.component.scss']
+  styleUrls: ['./ya-placemark.component.scss'],
 })
 export class YaPlacemarkComponent implements OnInit, OnChanges, OnDestroy {
   /**
-   * Coordinates of the placemark, or a hash describing the geometry, or a reference to the point geometry object
+   * Coordinates of the placemark, or a hash describing the geometry, or a reference to the point geometry object.
    */
-  @Input() public geometry: any;
+  @Input() public geometry: number[] | object | ymaps.IPointGeometry;
   /**
-   * Properties for the placemark
-   * @see {@link https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Placemark-docpage/#Placemark__param-properties}
+   * Properties for the placemark.
+   * @see {@link https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Placemark-docpage/#Placemarkparam-properties}
    */
-  @Input() public properties: any;
+  @Input() public properties: object | ymaps.IDataManager;
   /**
-   * Options for the placemark
-   * @see {@link https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Placemark-docpage/#Placemark__param-options}
+   * Options for the placemark.
+   * @see {@link https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Placemark-docpage/#Placemarkparam-options}
    */
-  @Input() public options: any;
+  @Input() public options: ymaps.IPlacemarkOptions;
 
   /**
-   * Emits immediately after this entity is added in root container
+   * Emits immediately after this entity is added in root container.
    */
   @Output() public load = new EventEmitter<ILoadEvent>();
   /**
-   * Actions with ballon
+   * Actions with the balloon.
    */
-  @Output() public baloon = new EventEmitter<IEvent>();
+  @Output() public balloon = new EventEmitter<IEvent>();
   /**
-   * Clicks on the object
+   * Left-click on the object.
    */
   @Output() public yaclick = new EventEmitter<IEvent>();
   /**
-   * Placemark dragging
+   * Placemark dragging.
    */
   @Output() public drag = new EventEmitter<IEvent>();
   /**
-   * Action with hint
+   * Actions with the hint.
    */
   @Output() public hint = new EventEmitter<IEvent>();
   /**
-   * Mouse actions over the object
+   * Mouse actions with the object.
    */
   @Output() public mouse = new EventEmitter<IEvent>();
   /**
-   * Multitouch actions over the object
+   * Multitouch actions with the object.
    */
   @Output() public multitouch = new EventEmitter<IEvent>();
 
   public id: string;
 
-  // Yandex.Maps API
-  private _clusterer: any;
-  private _map: any;
-  private _placemark: any;
+  // Yandex.Maps API.
+  private clusterer: ymaps.Clusterer;
+  private map: ymaps.Map;
+  private placemark: ymaps.Placemark;
 
-  constructor(
-    private _ngZone: NgZone,
-  ) {}
+  constructor(private ngZone: NgZone) {}
 
   public ngOnInit(): void {
-    this._logErrors();
+    this.logErrors();
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
-    this._configPlacemark(changes);
+    this.updatePlacemark(changes);
   }
 
   /**
-   * Method for dynamic entity configuration.
+   * Method for dynamic Placemark configuration.
    * Handles input changes and provides it to API.
    * @param changes
    */
-  private _configPlacemark(changes: SimpleChanges): void {
-    const placemark = this._placemark;
+  private updatePlacemark(changes: SimpleChanges): void {
+    const { placemark } = this;
 
     if (!placemark) return;
 
@@ -103,7 +102,10 @@ export class YaPlacemarkComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     if (properties) {
-      placemark.properties.set(properties.currentValue);
+      /**
+       * Wrong typings in DefinitelyTyped.
+       */
+      (placemark.properties as any).set(properties.currentValue);
     }
 
     if (options) {
@@ -111,7 +113,7 @@ export class YaPlacemarkComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  private _logErrors(): void {
+  private logErrors(): void {
     if (!this.geometry) {
       console.error('Placemark: geometry input is required.');
       this.geometry = [];
@@ -119,70 +121,82 @@ export class YaPlacemarkComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   /**
-   * Inits placemark
-   * @param ymaps
-   * @param map
-   * @param clusterer We need this to control removing entity from Clusterer on Placemark destroy
-   * `this._clusterer.remove(this.placemark)`;
+   * Creates placemark.
    *
-   * @returns Placemark
+   * @param map Necessary for removing entity from map.geoObjects on Placemark destroy
+   * `this.map.geoObjects.remove(this.placemark);`.
+   * @param clusterer Necessary for removing entity from Clusterer on Placemark destroy
+   * `this.clusterer.remove(this.placemark);`.
    */
-  public initPlacemark(ymaps: any, map: any, clusterer?: any): any {
+  public createPlacemark(map: ymaps.Map, clusterer?: ymaps.Clusterer): ymaps.Placemark {
     const placemark = new ymaps.Placemark(this.geometry, this.properties, this.options);
     this.id = generateRandomId();
 
-    this._clusterer = clusterer;
-    this._map = map;
-    this._placemark = placemark;
+    this.clusterer = clusterer;
+    this.map = map;
+    this.placemark = placemark;
 
-    map.geoObjects.add(placemark);
-    this._addEventListeners(ymaps, placemark);
+    this.addEventListeners();
 
     return placemark;
   }
 
   /**
-   * Add listeners on placemark events
-   * @param ymaps
-   * @param map
+   * Adds listeners on the Placemark events.
    */
-  private _addEventListeners(ymaps: any, placemark: any): void {
-    this._ngZone.run(() => this.load.emit({ ymaps, instance: placemark }));
+  private addEventListeners(): void {
+    const { placemark } = this;
+
+    this.ngZone.run(() => this.load.emit({ ymaps, instance: placemark }));
 
     const handlers = [
       {
         name: ['balloonopen', 'balloonclose'],
-        fn: (e: any) => this.baloon.emit({ ymaps, instance: placemark, type: e.originalEvent.type, event: e }),
+        fn: (e: any) =>
+          this.balloon.emit({ ymaps, instance: placemark, type: e.originalEvent.type, event: e }),
       },
       {
         name: ['click', 'dblclick'],
-        fn: (e: any) => this.yaclick.emit({ ymaps, instance: placemark, type: e.originalEvent.type, event: e }),
+        fn: (e: any) =>
+          this.yaclick.emit({ ymaps, instance: placemark, type: e.originalEvent.type, event: e }),
       },
       {
         name: ['dragstart', 'dragend'],
-        fn: (e: any) => this.drag.emit({ ymaps, instance: placemark, type: e.originalEvent.type, event: e }),
+        fn: (e: any) =>
+          this.drag.emit({ ymaps, instance: placemark, type: e.originalEvent.type, event: e }),
       },
       {
         name: ['hintopen', 'hintclose'],
-        fn: (e: any) => this.hint.emit({ ymaps, instance: placemark, type: e.originalEvent.type, event: e }),
+        fn: (e: any) =>
+          this.hint.emit({ ymaps, instance: placemark, type: e.originalEvent.type, event: e }),
       },
       {
         name: ['mousedown', 'mouseenter', 'mouseleave', 'mousemove', 'mouseup'],
-        fn: (e: any) => this.mouse.emit({ ymaps, instance: placemark, type: e.originalEvent.type, event: e }),
+        fn: (e: any) =>
+          this.mouse.emit({ ymaps, instance: placemark, type: e.originalEvent.type, event: e }),
       },
       {
         name: ['multitouchstart', 'multitouchmove', 'multitouchend'],
-        fn: (e: any) => this.multitouch.emit({ ymaps, instance: placemark, type: e.originalEvent.type, event: e }),
+        fn: (e: any) =>
+          this.multitouch.emit({
+            ymaps,
+            instance: placemark,
+            type: e.originalEvent.type,
+            event: e,
+          }),
       },
     ];
 
     handlers.forEach((handler) => {
-      placemark.events.add(handler.name, (e: any) => this._ngZone.run(() => handler.fn(e)));
+      placemark.events.add(handler.name, (e: any) => this.ngZone.run(() => handler.fn(e)));
     });
   }
 
   public ngOnDestroy(): void {
-    this._clusterer?.remove(this._placemark);
-    this._map.geoObjects.remove(this._placemark);
+    /**
+     * Wrong typings in DefinitelyTyped.
+     */
+    (this.clusterer as any)?.remove(this.placemark);
+    this.map.geoObjects.remove(this.placemark);
   }
 }

@@ -4,90 +4,90 @@ import {
   Input,
   NgZone,
   OnChanges,
+  OnDestroy,
   OnInit,
   Output,
-  SimpleChanges
-  } from '@angular/core';
+  SimpleChanges,
+} from '@angular/core';
 import { generateRandomId } from '../../utils/generateRandomId';
 import { IEvent, ILoadEvent } from '../../models/models';
 
 /**
  * Component for creating Multi-route on the map
- * @example <ya-multiroute [referencePoints]="[[55.751952, 37.600739], 'Красные ворота, Москва']"></ya-multiroute>
+ *
+ * @example `<ya-multiroute [referencePoints]="[[55.751952, 37.600739], 'Красные ворота, Москва']"></ya-multiroute>`.
  * @see {@link https://ddubrava.github.io/angular8-yandex-maps/#/components/multiroute}
  */
 @Component({
   selector: 'ya-multiroute',
   templateUrl: './ya-multiroute.component.html',
-  styleUrls: ['./ya-multiroute.component.scss']
+  styleUrls: ['./ya-multiroute.component.scss'],
 })
-export class YaMultirouteComponent implements OnInit, OnChanges {
+export class YaMultirouteComponent implements OnInit, OnChanges, OnDestroy {
   /**
-   * Reference points for the multi-route
+   * Reference points for the multi-route.
    * @see {@link https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/IMultiRouteReferencePoint-docpage/}
    */
-  @Input() public referencePoints: Array<any>;
+  @Input() public referencePoints: ymaps.IMultiRouteReferencePoint[];
   /**
-   * The data model of a multi-route, or the model description object
+   * Model description object of a multiroute.
    */
-  @Input() public model: any;
+  @Input() public model: ymaps.IMultiRouteModelJson;
   /**
-   * Options for the multiroute
+   * Options for the multiroute.
    * @see
-   * {@link https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/multiRouter.MultiRoute-docpage/#multiRouter.MultiRoute__param-options}
+   * {@link https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/multiRouter.MultiRoute-docpage/#multiRouter.MultiRouteparam-options}
    */
   @Input() public options: any;
 
   /**
-   * Emits immediately after this entity is added in root container
+   * Emits immediately after this entity is added in root container.
    */
   @Output() public load = new EventEmitter<ILoadEvent>();
   /**
-   * Change to the active route
+   * Change to the active route.
    */
   @Output() public activeroutechange = new EventEmitter<IEvent>();
   /**
-   * Actions with ballon
+   * Actions with the balloon.
    */
-  @Output() public baloon = new EventEmitter<IEvent>();
+  @Output() public balloon = new EventEmitter<IEvent>();
   /**
-   * Clicks on the object
+   * Left-click on the object.
    */
   @Output() public yaclick = new EventEmitter<IEvent>();
   /**
-   * Mouse actions over the object
+   * Mouse actions with the object.
    */
   @Output() public mouse = new EventEmitter<IEvent>();
   /**
-   * Multitouch actions over the object
+   * Multitouch actions with the object.
    */
   @Output() public multitouch = new EventEmitter<IEvent>();
 
   public id: string;
 
-  // Yandex.Maps API
-  private _map: any;
-  private _multiroute: any;
+  // Yandex.Maps API.
+  private map: ymaps.Map;
+  private multiroute: ymaps.multiRouter.MultiRoute;
 
-  constructor(
-    private _ngZone: NgZone,
-  ) { }
+  constructor(private ngZone: NgZone) {}
 
   public ngOnInit(): void {
-    this._logErrors();
+    this.logErrors();
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
-    this._configMultiroute(changes);
+    this.updateMultiroute(changes);
   }
 
   /**
-   * Method for dynamic entity configuration.
+   * Method for dynamic Miltiroute configuration.
    * Handles input changes and provides it to API.
    * @param changes
    */
-  private _configMultiroute(changes: SimpleChanges): void {
-    const multiroute = this._multiroute;
+  private updateMultiroute(changes: SimpleChanges): void {
+    const { multiroute } = this;
 
     if (!multiroute) return;
 
@@ -98,20 +98,26 @@ export class YaMultirouteComponent implements OnInit, OnChanges {
     }
 
     if (model) {
-      this._setModel(model.currentValue, multiroute);
+      this.setModel(model.currentValue, multiroute);
     }
 
     if (options) {
-      multiroute.options.set(options.currentValue);
+      /**
+       * Wrong typings in DefinitelyTyped.
+       */
+      (multiroute.options as any).set(options.currentValue);
     }
   }
 
   /**
-   * Destructs state and provides new values to API
-   * @param model https://tech.yandex.com/maps/jsapi/doc/2.1/ref/reference/multiRouter.MultiRouteModel-docpage/
+   * Destructs state and provides new values to API.
+   * @param model
    * @param multiroute
    */
-  private _setModel(model: any, multiroute: any): void {
+  private setModel(
+    model: ymaps.IMultiRouteModelJson,
+    multiroute: ymaps.multiRouter.MultiRoute,
+  ): void {
     const { referencePoints, params } = model;
 
     if (referencePoints) {
@@ -123,63 +129,86 @@ export class YaMultirouteComponent implements OnInit, OnChanges {
     }
   }
 
-  private _logErrors(): void {
+  private logErrors(): void {
     if (!this.referencePoints) {
       console.error('Multiroute: referencePoints input is required.');
       this.referencePoints = [];
     }
   }
 
-  public initMultiroute(ymaps: any, map: any): void {
+  /**
+   * Creates Multiroute.
+   *
+   * @param map Necessary for removing entity from map.geoObjects on Multiroute destroy
+   * `this.map.geoObjects.remove(this.multiroute);`.
+   */
+  public createMultiroute(map: ymaps.Map): ymaps.multiRouter.MultiRoute {
     const multiroute = new ymaps.multiRouter.MultiRoute(
-      { ...this.model, referencePoints: this.referencePoints }, this.options
+      { ...this.model, referencePoints: this.referencePoints },
+      this.options,
     );
 
     this.id = generateRandomId();
-    this._map = map;
-    this._multiroute = multiroute;
+    this.map = map;
+    this.multiroute = multiroute;
 
-    map.geoObjects.add(multiroute);
-    this._addEventListeners(ymaps, multiroute);
+    this.addEventListeners();
+
+    return multiroute;
   }
 
   /**
-   * Add listeners on multiroute events
-   * @param ymaps
-   * @param map
+   * Adds listeners on the Multiroute events.
    */
-  private _addEventListeners(ymaps: any, multiroute: any): void {
-    this._ngZone.run(() => this.load.emit({ ymaps, instance: multiroute }));
+  private addEventListeners(): void {
+    const { multiroute } = this;
+
+    this.ngZone.run(() => this.load.emit({ ymaps, instance: multiroute }));
 
     const handlers = [
       {
         name: 'activeroutechange',
-        fn: (e: any) => this.activeroutechange.emit({ ymaps, instance: multiroute, type: e.originalEvent.type, event: e }),
+        fn: (e: any) =>
+          this.activeroutechange.emit({
+            ymaps,
+            instance: multiroute,
+            type: e.originalEvent.type,
+            event: e,
+          }),
       },
       {
         name: ['balloonopen', 'balloonclose'],
-        fn: (e: any) => this.baloon.emit({ ymaps, instance: multiroute, type: e.originalEvent.type, event: e }),
+        fn: (e: any) =>
+          this.balloon.emit({ ymaps, instance: multiroute, type: e.originalEvent.type, event: e }),
       },
       {
         name: ['click', 'dblclick'],
-        fn: (e: any) => this.yaclick.emit({ ymaps, instance: multiroute, type: e.originalEvent.type, event: e }),
+        fn: (e: any) =>
+          this.yaclick.emit({ ymaps, instance: multiroute, type: e.originalEvent.type, event: e }),
       },
       {
         name: ['mousedown', 'mouseenter', 'mouseleave', 'mousemove', 'mouseup'],
-        fn: (e: any) => this.mouse.emit({ ymaps, instance: multiroute, type: e.originalEvent.type, event: e }),
+        fn: (e: any) =>
+          this.mouse.emit({ ymaps, instance: multiroute, type: e.originalEvent.type, event: e }),
       },
       {
         name: ['multitouchstart', 'multitouchmove', 'multitouchend'],
-        fn: (e: any) => this.multitouch.emit({ ymaps, instance: multiroute, type: e.originalEvent.type, event: e }),
+        fn: (e: any) =>
+          this.multitouch.emit({
+            ymaps,
+            instance: multiroute,
+            type: e.originalEvent.type,
+            event: e,
+          }),
       },
     ];
 
     handlers.forEach((handler) => {
-      multiroute.events.add(handler.name, (e: any) => this._ngZone.run(() => handler.fn(e)));
+      multiroute.events.add(handler.name, (e: any) => this.ngZone.run(() => handler.fn(e)));
     });
   }
 
   public ngOnDestroy(): void {
-    this._map.geoObjects.remove(this._multiroute);
+    this.map.geoObjects.remove(this.multiroute);
   }
 }

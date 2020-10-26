@@ -2,6 +2,8 @@
 
 Component for creating and managing controls on the map
 
+[Controls](https://searchcontrol.stackblitz.io ':include :type=iframe height=550px')
+
 ## Usage
 
 ```html
@@ -12,22 +14,49 @@ Component for creating and managing controls on the map
 
 ## Inputs
 
-| Name       | Type   | Default | Required | Description                                                                                                              |
-|------------|--------|---------|----------|--------------------------------------------------------------------------------------------------------------------------|
-| type       | String |         | yes      | Control type. List of types you can find in left list - [Controls]. E.g. Control.FullscreenControl - 'FullscreenControl' |
-| parameters | Any    |         | no       | Parameters for the Control                                                                                               |
-
-[Controls]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/control.Button-docpage/
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Required</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>type</td>
+      <td>Button | FullscreenControl | GeolocationControl | ListBox | ListBoxItem | RouteButton | RouteEditor | RoutePanel | RulerControl | SearchControl | TrafficControl | TypeSelector | ZoomControl</td>
+      <td></td>
+      <td>yes</td>
+      <td>Control type</td>
+    </tr>
+    <tr>
+      <td>parameters</td>
+      <td>any</td>
+      <td></td>
+      <td>no</td>
+      <td>Parameters for the Control</td>
+    </tr>
+  </tbody>
+</table>
 
 ## Outputs
 
-| Name       | Type         | Supported event type                                  | Description                                                    |
-|------------|--------------|-------------------------------------------------------|----------------------------------------------------------------|
-| load       | [ILoadEvent] |                                                       | Emits immediately after this entity is added in root container |
+All events execute within the Angular zone
 
-[ILoadEvent]: https://github.com/ddubrava/angular8-yandex-maps/blob/develop/projects/angular8-yandex-maps/src/lib/models/models.ts#L23
+| Name | Type         | Supported event type | Description                                                    |
+| ---- | ------------ | -------------------- | -------------------------------------------------------------- |
+| load | [ILoadEvent] |                      | Emits immediately after this entity is added in root container |
+
+[iloadevent]: interfaces/load-event.md
 
 ## Examples
 
 - [Search Control](https://stackblitz.com/edit/searchcontrol)
 - [RoutePanel Control](https://stackblitz.com/edit/route-panel)
+
+## Source
+
+[lib/components/ya-control](https://github.com/ddubrava/angular8-yandex-maps/tree/master/projects/angular8-yandex-maps/src/lib/components/ya-control)

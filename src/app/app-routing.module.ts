@@ -1,12 +1,12 @@
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 import { ClustererComponent } from './components/clusterer/clusterer.component';
 import { ControlsComponent } from './components/controls/controls.component';
 import { GeoobjectComponent } from './components/geoobject/geoobject.component';
 import { MapComponent } from './components/map/map.component';
 import { MultirouteComponent } from './components/multiroute/multiroute.component';
-import { NgModule } from '@angular/core';
 import { PanoramaComponent } from './components/panorama/panorama.component';
 import { PlacemarkComponent } from './components/placemark/placemark.component';
-import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
@@ -40,13 +40,11 @@ const routes: Routes = [
   {
     path: '**',
     redirectTo: 'map',
-  }
+  },
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forRoot(routes)
-  ],
-  exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

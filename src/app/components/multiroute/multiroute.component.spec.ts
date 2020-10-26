@@ -8,9 +8,8 @@ describe('MultirouteComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MultirouteComponent ]
-    })
-    .compileComponents();
+      declarations: [MultirouteComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

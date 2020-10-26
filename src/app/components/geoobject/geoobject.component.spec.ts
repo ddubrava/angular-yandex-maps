@@ -8,9 +8,8 @@ describe('GeoobjectComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GeoobjectComponent ]
-    })
-    .compileComponents();
+      declarations: [GeoobjectComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

@@ -8,9 +8,8 @@ describe('YaPlacemarkComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [YaPlacemarkComponent]
-    })
-    .compileComponents();
+      declarations: [YaPlacemarkComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

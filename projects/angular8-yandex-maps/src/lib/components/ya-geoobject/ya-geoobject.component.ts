@@ -4,100 +4,99 @@ import {
   Input,
   NgZone,
   OnChanges,
+  OnDestroy,
   OnInit,
   Output,
-  SimpleChanges
-  } from '@angular/core';
+  SimpleChanges,
+} from '@angular/core';
 import { generateRandomId } from '../../utils/generateRandomId';
 import { IEvent, ILoadEvent } from '../../models/models';
 import { removeLeadingSpaces } from '../../utils/removeLeadingSpaces';
 
 /**
- * Component, geo object. Can be displayed as a placemark, polyline, polygon, etc., depending on the geometry type.
- * You can also use auxiliary classes for simplified creation of geo objects with a specific geometry type
+ * Component for creating a geo object.
+ * Can be displayed as a placemark, polyline, polygon, etc., depending on the geometry type.
  *
- * @example <ya-geoobject [feature]="{ geometry: { type: 'Rectangle', coordinates: [[55.665, 37.66], [55.64,37.53]] } }"></ya-geoobject>
+ * @example `<ya-geoobject [feature]="{ geometry: { type: 'Rectangle', coordinates: [[55.665, 37.66], [55.64,37.53]] } }"></ya-geoobject>`.
  * @see {@link https://ddubrava.github.io/angular8-yandex-maps/#/components/geoobject}
  */
 @Component({
   selector: 'ya-geoobject',
   templateUrl: './ya-geoobject.component.html',
-  styleUrls: ['./ya-geoobject.component.scss']
+  styleUrls: ['./ya-geoobject.component.scss'],
 })
-export class YaGeoObjectComponent implements OnInit, OnChanges {
+export class YaGeoObjectComponent implements OnInit, OnChanges, OnDestroy {
   /**
-   * Feature for the GeoObject
-   * @see {@link https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/GeoObject-docpage/#GeoObject__param-feature}
+   * Feature for the GeoObject.
+   * @see {@link https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/GeoObject-docpage/#GeoObjectparam-feature}
    */
-  @Input() public feature: any;
+  @Input() public feature: ymaps.IGeoObjectFeature;
   /**
-   * Options for the GeoObject
-   * @see {@link https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/GeoObject-docpage/#GeoObject__param-options}
+   * Options for the GeoObject.
+   * @see {@link https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/GeoObject-docpage/#GeoObjectparam-options}
    */
-  @Input() public options: any;
+  @Input() public options: ymaps.IGeoObjectOptions;
 
   /**
-   * Emits immediately after this entity is added in root container
+   * Emits immediately after this entity is added in root container.
    */
   @Output() public load = new EventEmitter<ILoadEvent>();
   /**
-   * Actions with ballon
+   * Actions with the balloon.
    */
-  @Output() public baloon = new EventEmitter<IEvent>();
+  @Output() public balloon = new EventEmitter<IEvent>();
   /**
-   * Clicks on the object
+   * Left-click on the object.
    */
   @Output() public yaclick = new EventEmitter<IEvent>();
   /**
-   * GeoObject dragging
+   * GeoObject dragging.
    */
   @Output() public drag = new EventEmitter<IEvent>();
   /**
-   * Action with hint
+   * Actions with the hint.
    */
   @Output() public hint = new EventEmitter<IEvent>();
   /**
-   * Mouse actions over the object
+   * Mouse actions with the object.
    */
   @Output() public mouse = new EventEmitter<IEvent>();
   /**
-   * Multitouch actions over the object
+   * Multitouch actions with the object.
    */
   @Output() public multitouch = new EventEmitter<IEvent>();
 
   public id: string;
 
-  // Yandex.Maps API
-  private _clusterer: any;
-  private _geoObject: any;
-  private _map: any;
+  // Yandex.Maps API.
+  private clusterer: ymaps.Clusterer;
+  private geoObject: ymaps.GeoObject;
+  private map: ymaps.Map;
 
-  constructor(
-    private _ngZone: NgZone
-  ) {}
+  constructor(private ngZone: NgZone) {}
 
   public ngOnInit(): void {
-    this._logErrors();
+    this.logErrors();
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
-    this._configGeoObject(changes);
+    this.updateGeoObject(changes);
   }
 
   /**
-   * Method for dynamic entity configuration.
+   * Method for dynamic GeoObject configuration.
    * Handles input changes and provides it to API.
    * @param changes
    */
-  private _configGeoObject(changes: SimpleChanges): void {
-    const geoObject = this._geoObject;
+  private updateGeoObject(changes: SimpleChanges): void {
+    const { geoObject } = this;
 
     if (!geoObject) return;
 
     const { feature, options } = changes;
 
     if (feature) {
-      this._setFeature(feature.currentValue, geoObject);
+      this.setFeature(feature.currentValue, geoObject);
     }
 
     if (options) {
@@ -106,29 +105,34 @@ export class YaGeoObjectComponent implements OnInit, OnChanges {
   }
 
   /**
-   * Destructs state and provides new values to API
-   * @param feature https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/GeoObject-docpage/#GeoObject__param-feature
+   * Destructs state and provides new values to API.
+   * @param feature
    * @param geoObject
    */
-  private _setFeature(feature: any, geoObject: any): void {
+  private setFeature(feature: ymaps.IGeoObjectFeature, geoObject: ymaps.GeoObject): void {
     const { geometry, properties } = feature;
 
     if (geometry) {
-      console.error(removeLeadingSpaces(`
+      console.error(
+        removeLeadingSpaces(`
         The geometry of GeoObject cannot be changed after entity init.
 
         Solutions:
         1. Use ymaps from ILoadEvent
         2. Recreate GeoObject component with new feature.geometry
-      `));
+      `),
+      );
     }
 
     if (properties) {
-      geoObject.properties.set(properties);
+      /**
+       * Wrong typings in DefinitelyTyped.
+       */
+      (geoObject.properties as any).set(properties);
     }
   }
 
-  private _logErrors(): void {
+  private logErrors(): void {
     if (!this.feature) {
       console.error('GeoObjects: feature input is required.');
       this.feature = {};
@@ -136,70 +140,82 @@ export class YaGeoObjectComponent implements OnInit, OnChanges {
   }
 
   /**
-   * Inits GeoObject
-   * @param ymaps
-   * @param map
-   * @param clusterer We need this to control removing entity from Clusterer on Placemark destroy
-   * `this._clusterer.remove(this._geoObject)`;
+   * Creates GeoObject.
    *
-   * @returns GeoObject
+   * @param map Necessary for removing entity from map.geoObjects on GeoObject destroy
+   * `this.map.geoObjects.remove(this.geoObject);`.
+   * @param clusterer Necessary for removing entity from Clusterer on GeoObject destroy
+   * `this.clusterer.remove(this.geoObject);`.
    */
-  public initGeoObject(ymaps: any, map: any, clusterer?: any): any {
+  public createGeoObject(map: ymaps.Map, clusterer?: ymaps.Clusterer): ymaps.GeoObject {
     const geoObject = new ymaps.GeoObject(this.feature, this.options);
     this.id = generateRandomId();
 
-    this._clusterer = clusterer;
-    this._geoObject = geoObject;
-    this._map = map;
+    this.clusterer = clusterer;
+    this.geoObject = geoObject;
+    this.map = map;
 
-    map.geoObjects.add(geoObject);
-    this._addEventListeners(ymaps, geoObject);
+    this.addEventListeners();
 
     return geoObject;
   }
 
   /**
-   * Add listeners on geoObject events
-   * @param ymaps
-   * @param geoObject
+   * Adds listeners on the GeoObject events.
    */
-  private _addEventListeners(ymaps: any, geoObject: any): void {
-    this._ngZone.run(() => this.load.emit({ ymaps, instance: geoObject }));
+  private addEventListeners(): void {
+    const { geoObject } = this;
+
+    this.ngZone.run(() => this.load.emit({ ymaps, instance: geoObject }));
 
     const handlers = [
       {
         name: ['balloonopen', 'balloonclose'],
-        fn: (e: any) => this.baloon.emit({ ymaps, instance: geoObject, type: e.originalEvent.type, event: e }),
+        fn: (e: any) =>
+          this.balloon.emit({ ymaps, instance: geoObject, type: e.originalEvent.type, event: e }),
       },
       {
         name: ['click', 'dblclick'],
-        fn: (e: any) => this.yaclick.emit({ ymaps, instance: geoObject, type: e.originalEvent.type, event: e }),
+        fn: (e: any) =>
+          this.yaclick.emit({ ymaps, instance: geoObject, type: e.originalEvent.type, event: e }),
       },
       {
         name: ['dragstart', 'dragend'],
-        fn: (e: any) => this.drag.emit({ ymaps, instance: geoObject, type: e.originalEvent.type, event: e }),
+        fn: (e: any) =>
+          this.drag.emit({ ymaps, instance: geoObject, type: e.originalEvent.type, event: e }),
       },
       {
         name: ['hintopen', 'hintclose'],
-        fn: (e: any) => this.hint.emit({ ymaps, instance: geoObject, type: e.originalEvent.type, event: e }),
+        fn: (e: any) =>
+          this.hint.emit({ ymaps, instance: geoObject, type: e.originalEvent.type, event: e }),
       },
       {
         name: ['mousedown', 'mouseenter', 'mouseleave', 'mousemove', 'mouseup'],
-        fn: (e: any) => this.mouse.emit({ ymaps, instance: geoObject, type: e.originalEvent.type, event: e }),
+        fn: (e: any) =>
+          this.mouse.emit({ ymaps, instance: geoObject, type: e.originalEvent.type, event: e }),
       },
       {
         name: ['multitouchstart', 'multitouchmove', 'multitouchend'],
-        fn: (e: any) => this.multitouch.emit({ ymaps, instance: geoObject, type: e.originalEvent.type, event: e }),
+        fn: (e: any) =>
+          this.multitouch.emit({
+            ymaps,
+            instance: geoObject,
+            type: e.originalEvent.type,
+            event: e,
+          }),
       },
     ];
 
     handlers.forEach((handler) => {
-      geoObject.events.add(handler.name, (e: any) => this._ngZone.run(() => handler.fn(e)));
+      geoObject.events.add(handler.name, (e: any) => this.ngZone.run(() => handler.fn(e)));
     });
   }
 
   public ngOnDestroy(): void {
-    this._clusterer?.remove(this._geoObject);
-    this._map.geoObjects.remove(this._geoObject);
+    /**
+     * Wrong typings in DefinitelyTyped.
+     */
+    (this.clusterer as any)?.remove(this.geoObject);
+    this.map.geoObjects.remove(this.geoObject);
   }
 }

@@ -8,9 +8,8 @@ describe('YaMapComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [YaMapComponent]
-    })
-    .compileComponents();
+      declarations: [YaMapComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
