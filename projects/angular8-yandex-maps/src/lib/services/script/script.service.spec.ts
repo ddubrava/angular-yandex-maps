@@ -6,14 +6,17 @@ import { IConfig, YA_MAP_CONFIG } from '../../models/models';
 import { ScriptService } from './script.service';
 
 describe('ScriptService', () => {
-  const scriptId = '#yandexMapsApiScript';
+  const SCRIPT_ID = '#yandexMapsApiScript';
+  const BASE_API_PROTOCOL = 'https://';
+  const BASE_API_URL = 'api-maps.yandex.ru/';
+  const BASE_API_VERSION = '2.1/';
+
   let document: Document;
   let window: Window;
 
   const reset = () => {
-    document.querySelectorAll(scriptId).forEach((n) => n.remove());
-
-    delete (window as any).ymaps;
+    document.querySelectorAll(SCRIPT_ID).forEach((n) => n.remove());
+    delete window.ymaps;
   };
 
   beforeAll(() => {
@@ -34,7 +37,7 @@ describe('ScriptService', () => {
   it('should not append a second script to body when initScript() called in a sequence', (done) => {
     inject([ScriptService], (service: ScriptService) => {
       merge([service.initScript(), service.initScript()]).subscribe(() => {
-        const list = document.querySelectorAll('#yandexMapsApiScript');
+        const list = document.querySelectorAll(SCRIPT_ID);
         expect(list.length).toEqual(1);
 
         done();
@@ -44,9 +47,7 @@ describe('ScriptService', () => {
 
   it('should return ymaps when window.ymaps is already defined', (done) => {
     inject([ScriptService], (service: ScriptService) => {
-      (window as any).ymaps = {
-        ready: () => Promise.resolve(),
-      };
+      window.ymaps = { ready: () => Promise.resolve() } as any;
 
       const spy = spyOn(document.body, 'appendChild');
 
@@ -61,9 +62,9 @@ describe('ScriptService', () => {
   it('should create the default script URL without config', (done) => {
     inject([ScriptService], (service: ScriptService) => {
       service.initScript().subscribe(() => {
-        const script = document.querySelectorAll(scriptId)[0] as HTMLScriptElement;
+        const script = document.querySelector(SCRIPT_ID) as HTMLScriptElement;
 
-        expect(script.src).toContain('https://api-maps.yandex.ru/2.1/');
+        expect(script.src).toContain(BASE_API_PROTOCOL + BASE_API_URL + BASE_API_VERSION);
         expect(script.src).toContain('lang=ru_RU');
 
         done();
@@ -86,15 +87,15 @@ describe('ScriptService', () => {
 
     inject([ScriptService], (service: ScriptService) => {
       service.initScript().subscribe(() => {
-        const script = document.querySelectorAll(scriptId)[0] as HTMLScriptElement;
+        const script = document.querySelector(SCRIPT_ID) as HTMLScriptElement;
 
-        expect(script.src).toContain('https://api-maps.yandex.ru/2.1/');
+        expect(script.src).toContain(BASE_API_PROTOCOL + BASE_API_URL + BASE_API_VERSION);
         expect(script.src).toContain('apikey=X-X-X');
         expect(script.src).toContain('coordorder=latlong');
         expect(script.src).toContain('load=package.full');
         expect(script.src).toContain('mode=release');
 
-        expect(script.src).not.toContain('version=2.1');
+        expect(script.src).not.toContain(`version=${BASE_API_VERSION}`);
 
         done();
       });
@@ -118,7 +119,9 @@ describe('ScriptService', () => {
         .pipe(
           catchError((e: Event) => {
             const target = e.target as HTMLScriptElement;
-            expect(target.src).toContain('https://enterprise.api-maps.yandex.ru/');
+            expect(target.src).toContain(
+              `${BASE_API_PROTOCOL}enterprise.${BASE_API_URL}${BASE_API_VERSION}`,
+            );
             expect(target.src).not.toContain('enterprise=true');
 
             done();
