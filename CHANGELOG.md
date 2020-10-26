@@ -2,6 +2,23 @@
 
 All notable changes from v1.0.0 will be documented in this file.
 
+## [10.4.0] - 2020-10-26
+
+### Added
+
+- Typings, @types/yandex-maps, `npm install --save-dev @types/yandex-maps`
+- 'error' event handling in ScriptService
+
+### Changed
+
+- Output 'baloon' was renamed in 'balloon' (breaking changes)
+- Mouse, multitouch events are running outside angular now (#35)
+- Make apikey optional in IConfig
+
+### Fixed
+
+- Omit wrong query params when loading API
+
 ## [10.3.1] - 2020-10-14
 
 ### Added
@@ -327,8 +344,9 @@ All notable changes from v1.0.0 will be documented in this file.
 
 - Release without changes
 
+[10.4.0]: https://github.com/ddubrava/angular8-yandex-maps/compare/v10.3.1...v10.4.0
 [10.3.1]: https://github.com/ddubrava/angular8-yandex-maps/compare/v10.2.0...v10.3.1
-[10.1.1]: https://github.com/ddubrava/angular8-yandex-maps/compare/v10.1.1...v10.2.0
+[10.2.0]: https://github.com/ddubrava/angular8-yandex-maps/compare/v10.1.1...v10.2.0
 [10.1.1]: https://github.com/ddubrava/angular8-yandex-maps/compare/v10.1.0...v10.1.1
 [10.1.0]: https://github.com/ddubrava/angular8-yandex-maps/compare/v10.0.0...v10.1.0
 [10.0.0]: https://github.com/ddubrava/angular8-yandex-maps/compare/v9.0.0...v10.0.0
