@@ -33,7 +33,7 @@ export class ScriptService {
   /**
    * Inits Yandex.Maps script
    */
-  public initScript(): Observable<Event | typeof ymaps> {
+  public initScript(): Observable<typeof ymaps> {
     if ('ymaps' in this.window) {
       return from(ymaps.ready()).pipe(map(() => ymaps));
     }
