@@ -6,8 +6,6 @@
     "target": "es2015",
     "declaration": true,
     "inlineSources": true,
-    "types": ["yandex-maps"],
-    "allowUmdGlobalAccess": true,
     "lib": ["dom", "es2018"]
   },
   "angularCompilerOptions": {

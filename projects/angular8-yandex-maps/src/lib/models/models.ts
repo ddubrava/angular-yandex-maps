@@ -1,3 +1,4 @@
+import * as ymaps from 'yandex-maps';
 import { InjectionToken } from '@angular/core';
 
 /**

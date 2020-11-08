@@ -1,3 +1,4 @@
+import * as ymaps from 'yandex-maps';
 import { DOCUMENT } from '@angular/common';
 import { from, fromEvent, merge, Observable, throwError } from 'rxjs';
 import { Inject, Injectable, Optional } from '@angular/core';
