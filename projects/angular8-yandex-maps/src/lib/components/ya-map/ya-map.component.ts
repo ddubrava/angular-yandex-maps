@@ -1,4 +1,3 @@
-import * as ymaps from 'yandex-maps';
 import { startWith } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import {

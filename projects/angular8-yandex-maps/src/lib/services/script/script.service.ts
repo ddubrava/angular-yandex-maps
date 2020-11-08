@@ -1,4 +1,4 @@
-import * as ymaps from 'yandex-maps';
+import * as _ymaps from 'yandex-maps';
 import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable, Optional } from '@angular/core';
 import { from, fromEvent, merge, Observable, throwError } from 'rxjs';
@@ -8,6 +8,14 @@ import { IConfig, YA_MAP_CONFIG } from '../../models/models';
 const DEFAULT_CONFIG: IConfig = {
   lang: 'ru_RU',
 };
+
+declare global {
+  const ymaps: typeof _ymaps;
+
+  interface Window {
+    ymaps: typeof _ymaps;
+  }
+}
 
 /**
  * @dynamic
