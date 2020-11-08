@@ -234,6 +234,6 @@ export class YaMultirouteComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   public ngOnDestroy(): void {
-    this._map.geoObjects.remove(this._multiroute);
+    this._map?.geoObjects.remove(this._multiroute);
   }
 }

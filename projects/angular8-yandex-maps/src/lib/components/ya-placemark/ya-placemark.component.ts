@@ -241,6 +241,6 @@ export class YaPlacemarkComponent implements OnInit, OnChanges, OnDestroy {
      * Wrong typings in DefinitelyTyped.
      */
     (this._clusterer as any)?.remove(this._placemark);
-    this._map.geoObjects.remove(this._placemark);
+    this._map?.geoObjects.remove(this._placemark);
   }
 }

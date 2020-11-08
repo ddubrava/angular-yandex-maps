@@ -258,6 +258,6 @@ export class YaGeoObjectComponent implements OnInit, OnChanges, OnDestroy {
      * Wrong typings in DefinitelyTyped.
      */
     (this._clusterer as any)?.remove(this._geoObject);
-    this._map.geoObjects.remove(this._geoObject);
+    this._map?.geoObjects.remove(this._geoObject);
   }
 }
