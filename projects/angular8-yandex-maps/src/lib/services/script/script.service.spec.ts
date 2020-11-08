@@ -16,7 +16,7 @@ describe('ScriptService', () => {
 
   const reset = () => {
     document.querySelectorAll(SCRIPT_ID).forEach((n) => n.remove());
-    delete window.ymaps;
+    delete (window as any).ymaps;
   };
 
   beforeAll(() => {
@@ -47,7 +47,7 @@ describe('ScriptService', () => {
 
   it('should return ymaps when window.ymaps is already defined', (done) => {
     inject([ScriptService], (service: ScriptService) => {
-      window.ymaps = { ready: () => Promise.resolve() } as any;
+      (window as any).ymaps = { ready: () => Promise.resolve() } as any;
 
       const spy = spyOn(document.body, 'appendChild');
 
@@ -64,7 +64,9 @@ describe('ScriptService', () => {
       service.initScript().subscribe(() => {
         const script = document.querySelector(SCRIPT_ID) as HTMLScriptElement;
 
-        expect(script.src).toContain(BASE_API_PROTOCOL + BASE_API_URL + BASE_API_VERSION);
+        expect(script.src).toContain(
+          BASE_API_PROTOCOL + BASE_API_URL + BASE_API_VERSION,
+        );
         expect(script.src).toContain('lang=ru_RU');
 
         done();
@@ -89,7 +91,9 @@ describe('ScriptService', () => {
       service.initScript().subscribe(() => {
         const script = document.querySelector(SCRIPT_ID) as HTMLScriptElement;
 
-        expect(script.src).toContain(BASE_API_PROTOCOL + BASE_API_URL + BASE_API_VERSION);
+        expect(script.src).toContain(
+          BASE_API_PROTOCOL + BASE_API_URL + BASE_API_VERSION,
+        );
         expect(script.src).toContain('apikey=X-X-X');
         expect(script.src).toContain('coordorder=latlong');
         expect(script.src).toContain('load=package.full');
