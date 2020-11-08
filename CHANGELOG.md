@@ -2,6 +2,13 @@
 
 All notable changes from v1.0.0 will be documented in this file.
 
+## [10.4.1] - 2020-11-08
+
+### Fixed
+
+- UMD issue (#44)
+- Remove `Event` from return type of initScript()
+
 ## [10.4.0] - 2020-10-26
 
 ### Added
