@@ -3,11 +3,12 @@
   "version": "10.0.0",
   "scripts": {
     "start": "ng serve",
-    "docs": "docsify serve docs",
+    "start:lib": "ng build angular8-yandex-maps --watch",
     "build": "npm run lint && npm run test:ci && ng build angular8-yandex-maps --prod",
     "test": "ng test angular8-yandex-maps --include=\"**/script.service.spec.ts\"",
     "test:ci": "ng test angular8-yandex-maps --include=\"**/script.service.spec.ts\" --watch=false --browsers=ChromeHeadless",
-    "lint": "ng lint angular8-yandex-maps"
+    "lint": "ng lint angular8-yandex-maps",
+    "docs": "docsify serve docs"
   },
   "private": true,
   "dependencies": {
