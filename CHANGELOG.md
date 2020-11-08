@@ -2,6 +2,13 @@
 
 All notable changes from v1.0.0 will be documented in this file.
 
+## [10.4.1] - 2020-11-08
+
+### Fixed
+
+- UMD issue (#44)
+- Remove `Event` from return type of initScript()
+
 ## [10.4.0] - 2020-10-26
 
 ### Added
@@ -344,6 +351,7 @@ All notable changes from v1.0.0 will be documented in this file.
 
 - Release without changes
 
+[10.4.1]: https://github.com/ddubrava/angular8-yandex-maps/compare/v10.4.0...v10.4.1
 [10.4.0]: https://github.com/ddubrava/angular8-yandex-maps/compare/v10.3.1...v10.4.0
 [10.3.1]: https://github.com/ddubrava/angular8-yandex-maps/compare/v10.2.0...v10.3.1
 [10.2.0]: https://github.com/ddubrava/angular8-yandex-maps/compare/v10.1.1...v10.2.0

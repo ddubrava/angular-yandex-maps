@@ -29,6 +29,7 @@ export class YaControlComponent implements OnInit, OnChanges {
    * @see {@link https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/control.Button-docpage/}
    */
   @Input() public type: string;
+
   /**
    * Parameters for the Control.
    */
@@ -39,13 +40,13 @@ export class YaControlComponent implements OnInit, OnChanges {
    */
   @Output() public load = new EventEmitter<ILoadEvent>();
 
-  constructor(private ngZone: NgZone) {}
+  constructor(private _ngZone: NgZone) {}
 
   public ngOnInit(): void {
-    this.logErrors();
+    this._logErrors();
   }
 
-  private logErrors(): void {
+  private _logErrors(): void {
     if (!this.type) {
       console.error('Control: type input is required.');
     }
@@ -59,20 +60,24 @@ export class YaControlComponent implements OnInit, OnChanges {
     const control = new ymaps.control[this.type](this.parameters);
 
     // RoutePanel ignores state in parameters. API bug
-    if (this.type === 'RoutePanel' && this.parameters && this.parameters.state) {
+    if (
+      this.type === 'RoutePanel' &&
+      this.parameters &&
+      this.parameters.state
+    ) {
       control.routePanel.state.set({ ...this.parameters.state });
     }
 
-    this.emitEvent(control);
+    this._emitEvent(control);
 
     return control;
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
-    this.updateControl(changes);
+    this._updateControl(changes);
   }
 
-  private updateControl(changes: SimpleChanges): void {
+  private _updateControl(changes: SimpleChanges): void {
     if (Object.values(changes).some((v) => v.firstChange)) return;
 
     console.error(
@@ -86,7 +91,7 @@ export class YaControlComponent implements OnInit, OnChanges {
     );
   }
 
-  private emitEvent(control: any): void {
-    this.ngZone.run(() => this.load.emit({ ymaps, instance: control }));
+  private _emitEvent(control: any): void {
+    this._ngZone.run(() => this.load.emit({ ymaps, instance: control }));
   }
 }

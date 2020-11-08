@@ -35,7 +35,9 @@ export class AngularYandexMapsModule {
    * Please use this method when you register the module at the root level
    * @param config
    */
-  public static forRoot(config: Partial<IConfig>): ModuleWithProviders<AngularYandexMapsModule> {
+  public static forRoot(
+    config: Partial<IConfig>,
+  ): ModuleWithProviders<AngularYandexMapsModule> {
     return {
       ngModule: AngularYandexMapsModule,
       providers: [{ provide: YA_MAP_CONFIG, useValue: config }],

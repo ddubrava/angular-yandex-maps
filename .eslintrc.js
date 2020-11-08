@@ -38,13 +38,22 @@ module.exports = {
         'import/prefer-default-export': 'off',
         'class-methods-use-this': 'off',
         'no-console': ['error', { allow: ['warn', 'error'] }],
+        'no-underscore-dangle': 'off',
         'import/no-extraneous-dependencies': 'off',
         // Enable after #37 will be fixed
         '@angular-eslint/no-output-native': 'off',
-        '@typescript-eslint/lines-between-class-members': 'off',
         '@typescript-eslint/explicit-member-accessibility': [
           'error',
           { overrides: { constructors: 'off' } },
+        ],
+        '@typescript-eslint/naming-convention': [
+          'error',
+          {
+            selector: 'memberLike',
+            modifiers: ['private'],
+            format: ['camelCase'],
+            leadingUnderscore: 'require',
+          },
         ],
       },
     },

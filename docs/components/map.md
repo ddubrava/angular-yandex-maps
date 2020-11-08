@@ -7,7 +7,10 @@ Component for creating and managing a map
 ## Usage
 
 ```html
-<ya-map [center]="[55.751952, 37.600739]" [state]="{type: 'yandex#satellite'}"></ya-map>
+<ya-map
+  [center]="[55.751952, 37.600739]"
+  [state]="{type: 'yandex#satellite'}"
+></ya-map>
 ```
 
 ## Inputs
