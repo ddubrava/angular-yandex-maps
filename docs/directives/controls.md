@@ -1,6 +1,6 @@
 # Controls
 
-Component for creating and managing controls on the map
+Directive for creating and managing controls on the map
 
 [Controls](https://searchcontrol.stackblitz.io ':include :type=iframe height=550px')
 
@@ -62,4 +62,4 @@ All events execute within the Angular zone
 
 ## Source
 
-[lib/components/ya-control](https://github.com/ddubrava/angular8-yandex-maps/tree/master/projects/angular8-yandex-maps/src/lib/components/ya-control)
+[lib/directives/ya-control](https://github.com/ddubrava/angular8-yandex-maps/tree/master/projects/angular8-yandex-maps/src/lib/directives/ya-control)

@@ -6,11 +6,14 @@
 
   - [Map](components/map.md 'Map | Angular Yandex Map')
   - [Panorama](components/panorama.md 'Panorama | Angular Yandex Map')
-  - [Clusterer](components/clusterer.md 'Clusterer | Angular Yandex Map')
-  - [Placemark](components/placemark.md 'Placemark | Angular Yandex Map')
-  - [GeoObject](components/geoobject.md 'GeoObject | Angular Yandex Map')
-  - [Multiroute](components/multiroute.md 'Multiroute | Angular Yandex Map')
-  - [Controls](components/controls.md 'Controls | Angular Yandex Map')
+
+- Directives
+
+  - [Clusterer](directives/clusterer.md 'Clusterer | Angular Yandex Map')
+  - [Placemark](directives/placemark.md 'Placemark | Angular Yandex Map')
+  - [GeoObject](directives/geoobject.md 'GeoObject | Angular Yandex Map')
+  - [Multiroute](directives/multiroute.md 'Multiroute | Angular Yandex Map')
+  - [Controls](directives/controls.md 'Controls | Angular Yandex Map')
 
 - Services
 

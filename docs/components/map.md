@@ -46,10 +46,10 @@ All events except 'mouse', 'multitouch' execute within the Angular zone
 
 ## ContentChildren
 
-- [Placemark](components/placemark.md)
-- [GeoObject](components/geoobject.md)
-- [MultiRoute](components/multiroute.md)
-- [Controls](components/controls.md)
+- [Placemark](directives/placemark.md)
+- [GeoObject](directives/geoobject.md)
+- [MultiRoute](directives/multiroute.md)
+- [Controls](directives/controls.md)
 
 ## Source
 

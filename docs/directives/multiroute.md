@@ -1,6 +1,6 @@
 # Multiroute
 
-Component for creating Multi-route on the map
+Directive for creating Multi-route on the map
 
 ## Usage
 
@@ -72,5 +72,5 @@ All events execute within the Angular zone
 
 ## Source
 
-- [lib/components/ya-multiroute](https://github.com/ddubrava/angular8-yandex-maps/tree/master/projects/angular8-yandex-maps/src/lib/components/ya-multiroute)
+- [lib/directives/ya-multiroute](https://github.com/ddubrava/angular8-yandex-maps/tree/master/projects/angular8-yandex-maps/src/lib/directives/ya-multiroute)
 - [jsapi/doc/2.1/ref/reference/multiRouter.MultiRoute.html](https://yandex.ru/dev/maps/jsapi/doc/2.1/ref/reference/multiRouter.MultiRoute.html)

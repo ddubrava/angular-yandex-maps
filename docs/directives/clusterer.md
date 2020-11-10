@@ -1,6 +1,6 @@
 # Clusterer
 
-Component for creating a clusterer. Clusterizes objects in the visible area of the map.
+Directive for creating a clusterer. Clusterizes objects in the visible area of the map.
 If the object does not fall within the visible area of the map, it will not be added to the map.
 Note, that the clusterer does not react to changing the coordinates of objects (either programmatically,
 or as the result of dragging). If you want to change the coordinates of some object in the clusterer,
@@ -46,10 +46,10 @@ All events execute within the Angular zone
 
 ## ContentChildren
 
-- [Placemark](components/placemark.md)
-- [GeoObject](components/geoobject.md)
+- [Placemark](directives/placemark.md)
+- [GeoObject](directives/geoobject.md)
 
 ## Source
 
-- [lib/components/ya-clusterer](https://github.com/ddubrava/angular8-yandex-maps/tree/master/projects/angular8-yandex-maps/src/lib/components/ya-clusterer)
+- [lib/directives/ya-clusterer](https://github.com/ddubrava/angular8-yandex-maps/tree/master/projects/angular8-yandex-maps/src/lib/directives/ya-clusterer)
 - [jsapi/doc/2.1/ref/reference/Clusterer.html](https://yandex.ru/dev/maps/jsapi/doc/2.1/ref/reference/Clusterer.html)
