@@ -1,6 +1,7 @@
+import { AngularYandexMapsModule, IConfig } from 'angular8-yandex-maps';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { AngularYandexMapsModule, IConfig } from 'angular8-yandex-maps';
+
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ClustererComponent } from './components/clusterer/clusterer.component';
@@ -10,9 +11,11 @@ import { MapComponent } from './components/map/map.component';
 import { MultirouteComponent } from './components/multiroute/multiroute.component';
 import { PanoramaComponent } from './components/panorama/panorama.component';
 import { PlacemarkComponent } from './components/placemark/placemark.component';
+import { environment } from '../environments/environment';
 
 const mapConfig: IConfig = {
   lang: 'en_US',
+  apikey: environment.apikey,
 };
 
 @NgModule({
