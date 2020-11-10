@@ -18,11 +18,11 @@ import {
 import { generateRandomId } from '../../utils/generateRandomId';
 import { IEvent, ILoadEvent } from '../../models/models';
 import { ScriptService } from '../../services/script/script.service';
-import { YaClustererComponent } from '../ya-clusterer/ya-clusterer.component';
-import { YaControlComponent } from '../ya-control/ya-control.component';
-import { YaGeoObjectComponent } from '../ya-geoobject/ya-geoobject.component';
-import { YaMultirouteComponent } from '../ya-multiroute/ya-multiroute.component';
-import { YaPlacemarkComponent } from '../ya-placemark/ya-placemark.component';
+import { YaPlacemarkDirective } from '../../directives/ya-placemark/ya-placemark.directive';
+import { YaMultirouteDirective } from '../../directives/ya-multiroute/ya-multiroute.directive';
+import { YaGeoobjectDirective } from '../../directives/ya-geoobject/ya-geoobject.directive';
+import { YaControlDirective } from '../../directives/ya-control/ya-control.directive';
+import { YaClustererDirective } from '../../directives/ya-clusterer/ya-clusterer.directive';
 
 /**
  * Component for creating and managing a map.
@@ -38,24 +38,24 @@ import { YaPlacemarkComponent } from '../ya-placemark/ya-placemark.component';
 export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
   @ViewChild('container') public mapContainer: ElementRef;
 
-  @ContentChildren(YaPlacemarkComponent) public placemarks: QueryList<
-    YaPlacemarkComponent
+  @ContentChildren(YaPlacemarkDirective) public placemarks: QueryList<
+    YaPlacemarkDirective
   >;
 
-  @ContentChildren(YaMultirouteComponent) public multiroutes: QueryList<
-    YaMultirouteComponent
+  @ContentChildren(YaMultirouteDirective) public multiroutes: QueryList<
+    YaMultirouteDirective
   >;
 
-  @ContentChildren(YaGeoObjectComponent) public geoObjects: QueryList<
-    YaGeoObjectComponent
+  @ContentChildren(YaGeoobjectDirective) public geoObjects: QueryList<
+    YaGeoobjectDirective
   >;
 
-  @ContentChildren(YaControlComponent) public controls: QueryList<
-    YaControlComponent
+  @ContentChildren(YaControlDirective) public controls: QueryList<
+    YaControlDirective
   >;
 
-  @ContentChildren(YaClustererComponent) public clusterers: QueryList<
-    YaClustererComponent
+  @ContentChildren(YaClustererDirective) public clusterers: QueryList<
+    YaClustererDirective
   >;
 
   /**
@@ -257,7 +257,7 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
     // Placemarks (async)
     const placemarksSub = this.placemarks.changes
       .pipe(startWith(this.placemarks))
-      .subscribe((list: QueryList<YaPlacemarkComponent>) => {
+      .subscribe((list: QueryList<YaPlacemarkDirective>) => {
         list.forEach((placemark) => {
           if (!placemark.id) {
             const p = placemark.createPlacemark(map);
@@ -271,7 +271,7 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
     // Multiroutes (async)
     const multiroutesSub = this.multiroutes.changes
       .pipe(startWith(this.multiroutes))
-      .subscribe((list: QueryList<YaMultirouteComponent>) => {
+      .subscribe((list: QueryList<YaMultirouteDirective>) => {
         list.forEach((multiroute) => {
           if (!multiroute.id) {
             const m = multiroute.createMultiroute(map);
@@ -285,7 +285,7 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
     // GeoObjects (async)
     const geoObjectsSub = this.geoObjects.changes
       .pipe(startWith(this.geoObjects))
-      .subscribe((list: QueryList<YaGeoObjectComponent>) => {
+      .subscribe((list: QueryList<YaGeoobjectDirective>) => {
         list.forEach((geoObject) => {
           if (!geoObject.id) {
             const g = geoObject.createGeoObject(map);

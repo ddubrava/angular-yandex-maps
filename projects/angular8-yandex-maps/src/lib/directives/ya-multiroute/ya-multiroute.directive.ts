@@ -1,5 +1,5 @@
 import {
-  Component,
+  Directive,
   EventEmitter,
   Input,
   NgZone,
@@ -13,17 +13,15 @@ import { generateRandomId } from '../../utils/generateRandomId';
 import { IEvent, ILoadEvent } from '../../models/models';
 
 /**
- * Component for creating Multi-route on the map
+ * Directive for creating Multi-route on the map
  *
  * @example `<ya-multiroute [referencePoints]="[[55.751952, 37.600739], 'Красные ворота, Москва']"></ya-multiroute>`.
  * @see {@link https://ddubrava.github.io/angular8-yandex-maps/#/components/multiroute}
  */
-@Component({
+@Directive({
   selector: 'ya-multiroute',
-  templateUrl: './ya-multiroute.component.html',
-  styleUrls: ['./ya-multiroute.component.scss'],
 })
-export class YaMultirouteComponent implements OnInit, OnChanges, OnDestroy {
+export class YaMultirouteDirective implements OnInit, OnChanges, OnDestroy {
   /**
    * Reference points for the multi-route.
    * @see {@link https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/IMultiRouteReferencePoint-docpage/}

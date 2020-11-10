@@ -1,5 +1,5 @@
 import {
-  Component,
+  Directive,
   EventEmitter,
   Input,
   NgZone,
@@ -11,32 +11,33 @@ import {
 } from '@angular/core';
 import { generateRandomId } from '../../utils/generateRandomId';
 import { IEvent, ILoadEvent } from '../../models/models';
-import { removeLeadingSpaces } from '../../utils/removeLeadingSpaces';
 
 /**
- * Component for creating a geo object.
- * Can be displayed as a placemark, polyline, polygon, etc., depending on the geometry type.
+ * Directive for creating a geo object with the geometry geometry.Point.
  *
- * @example `<ya-geoobject [feature]="{ geometry: { type: 'Rectangle', coordinates: [[55.665, 37.66], [55.64,37.53]] } }"></ya-geoobject>`.
- * @see {@link https://ddubrava.github.io/angular8-yandex-maps/#/components/geoobject}
+ * @example `<ya-placemark [geometry]="[55.751952, 37.600739]"></ya-placemark>`.
+ * @see {@link https://ddubrava.github.io/angular8-yandex-maps/#/components/placemark}
  */
-@Component({
-  selector: 'ya-geoobject',
-  templateUrl: './ya-geoobject.component.html',
-  styleUrls: ['./ya-geoobject.component.scss'],
+@Directive({
+  selector: 'ya-placemark',
 })
-export class YaGeoObjectComponent implements OnInit, OnChanges, OnDestroy {
+export class YaPlacemarkDirective implements OnInit, OnChanges, OnDestroy {
   /**
-   * Feature for the GeoObject.
-   * @see {@link https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/GeoObject-docpage/#GeoObjectparam-feature}
+   * Coordinates of the placemark, or a hash describing the geometry, or a reference to the point geometry object.
    */
-  @Input() public feature: ymaps.IGeoObjectFeature;
+  @Input() public geometry: number[] | object | ymaps.IPointGeometry;
 
   /**
-   * Options for the GeoObject.
-   * @see {@link https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/GeoObject-docpage/#GeoObjectparam-options}
+   * Properties for the placemark.
+   * @see {@link https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Placemark-docpage/#Placemarkparam-properties}
    */
-  @Input() public options: ymaps.IGeoObjectOptions;
+  @Input() public properties: object | ymaps.IDataManager;
+
+  /**
+   * Options for the placemark.
+   * @see {@link https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Placemark-docpage/#Placemarkparam-options}
+   */
+  @Input() public options: ymaps.IPlacemarkOptions;
 
   /**
    * Emits immediately after this entity is added in root container.
@@ -54,7 +55,7 @@ export class YaGeoObjectComponent implements OnInit, OnChanges, OnDestroy {
   @Output() public yaclick = new EventEmitter<IEvent>();
 
   /**
-   * GeoObject dragging.
+   * Placemark dragging.
    */
   @Output() public drag = new EventEmitter<IEvent>();
 
@@ -78,9 +79,9 @@ export class YaGeoObjectComponent implements OnInit, OnChanges, OnDestroy {
   // Yandex.Maps API.
   private _clusterer: ymaps.Clusterer;
 
-  private _geoObject: ymaps.GeoObject;
-
   private _map: ymaps.Map;
+
+  private _placemark: ymaps.Placemark;
 
   constructor(private _ngZone: NgZone) {}
 
@@ -89,99 +90,80 @@ export class YaGeoObjectComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
-    this._updateGeoObject(changes);
+    this._updatePlacemark(changes);
   }
 
   /**
-   * Method for dynamic GeoObject configuration.
+   * Method for dynamic Placemark configuration.
    * Handles input changes and provides it to API.
    * @param changes
    */
-  private _updateGeoObject(changes: SimpleChanges): void {
-    const geoObject = this._geoObject;
+  private _updatePlacemark(changes: SimpleChanges): void {
+    const placemark = this._placemark;
 
-    if (!geoObject) return;
+    if (!placemark) return;
 
-    const { feature, options } = changes;
-
-    if (feature) {
-      this._setFeature(feature.currentValue, geoObject);
-    }
-
-    if (options) {
-      geoObject.options.set(options.currentValue);
-    }
-  }
-
-  /**
-   * Destructs state and provides new values to API.
-   * @param feature
-   * @param geoObject
-   */
-  private _setFeature(
-    feature: ymaps.IGeoObjectFeature,
-    geoObject: ymaps.GeoObject,
-  ): void {
-    const { geometry, properties } = feature;
+    const { geometry, properties, options } = changes;
 
     if (geometry) {
-      console.error(
-        removeLeadingSpaces(`
-        The geometry of GeoObject cannot be changed after entity init.
-
-        Solutions:
-        1. Use ymaps from ILoadEvent
-        2. Recreate GeoObject component with new feature.geometry
-      `),
-      );
+      placemark.geometry.setCoordinates(geometry.currentValue);
     }
 
     if (properties) {
       /**
        * Wrong typings in DefinitelyTyped.
        */
-      (geoObject.properties as any).set(properties);
+      (placemark.properties as any).set(properties.currentValue);
+    }
+
+    if (options) {
+      placemark.options.set(options.currentValue);
     }
   }
 
   private _logErrors(): void {
-    if (!this.feature) {
-      console.error('GeoObjects: feature input is required.');
-      this.feature = {};
+    if (!this.geometry) {
+      console.error('Placemark: geometry input is required.');
+      this.geometry = [];
     }
   }
 
   /**
-   * Creates GeoObject.
+   * Creates placemark.
    *
-   * @param map Necessary for removing entity from map.geoObjects on GeoObject destroy
-   * `this.map.geoObjects.remove(this.geoObject);`.
-   * @param clusterer Necessary for removing entity from Clusterer on GeoObject destroy
-   * `this.clusterer.remove(this.geoObject);`.
+   * @param map Necessary for removing entity from map.geoObjects on Placemark destroy
+   * `this.map.geoObjects.remove(this.placemark);`.
+   * @param clusterer Necessary for removing entity from Clusterer on Placemark destroy
+   * `this.clusterer.remove(this.placemark);`.
    */
-  public createGeoObject(
+  public createPlacemark(
     map: ymaps.Map,
     clusterer?: ymaps.Clusterer,
-  ): ymaps.GeoObject {
-    const geoObject = new ymaps.GeoObject(this.feature, this.options);
+  ): ymaps.Placemark {
+    const placemark = new ymaps.Placemark(
+      this.geometry,
+      this.properties,
+      this.options,
+    );
+
     this.id = generateRandomId();
 
     this._clusterer = clusterer;
-    this._geoObject = geoObject;
     this._map = map;
+    this._placemark = placemark;
 
     this._addEventListeners();
 
-    return geoObject;
+    return placemark;
   }
 
   /**
-   * Adds listeners on the GeoObject events.
+   * Adds listeners on the Placemark events.
    */
   private _addEventListeners(): void {
-    const geoObject = this._geoObject;
+    const placemark = this._placemark;
 
-    this._ngZone.run(() => this.load.emit({ ymaps, instance: geoObject }));
+    this._ngZone.run(() => this.load.emit({ ymaps, instance: placemark }));
 
     const handlers = [
       {
@@ -189,7 +171,7 @@ export class YaGeoObjectComponent implements OnInit, OnChanges, OnDestroy {
         fn: (e: any) =>
           this.balloon.emit({
             ymaps,
-            instance: geoObject,
+            instance: placemark,
             type: e.originalEvent.type,
             event: e,
           }),
@@ -199,7 +181,7 @@ export class YaGeoObjectComponent implements OnInit, OnChanges, OnDestroy {
         fn: (e: any) =>
           this.yaclick.emit({
             ymaps,
-            instance: geoObject,
+            instance: placemark,
             type: e.originalEvent.type,
             event: e,
           }),
@@ -209,7 +191,7 @@ export class YaGeoObjectComponent implements OnInit, OnChanges, OnDestroy {
         fn: (e: any) =>
           this.drag.emit({
             ymaps,
-            instance: geoObject,
+            instance: placemark,
             type: e.originalEvent.type,
             event: e,
           }),
@@ -219,7 +201,7 @@ export class YaGeoObjectComponent implements OnInit, OnChanges, OnDestroy {
         fn: (e: any) =>
           this.hint.emit({
             ymaps,
-            instance: geoObject,
+            instance: placemark,
             type: e.originalEvent.type,
             event: e,
           }),
@@ -229,7 +211,7 @@ export class YaGeoObjectComponent implements OnInit, OnChanges, OnDestroy {
         fn: (e: any) =>
           this.mouse.emit({
             ymaps,
-            instance: geoObject,
+            instance: placemark,
             type: e.originalEvent.type,
             event: e,
           }),
@@ -239,7 +221,7 @@ export class YaGeoObjectComponent implements OnInit, OnChanges, OnDestroy {
         fn: (e: any) =>
           this.multitouch.emit({
             ymaps,
-            instance: geoObject,
+            instance: placemark,
             type: e.originalEvent.type,
             event: e,
           }),
@@ -247,7 +229,7 @@ export class YaGeoObjectComponent implements OnInit, OnChanges, OnDestroy {
     ];
 
     handlers.forEach((handler) => {
-      geoObject.events.add(handler.name, (e: any) =>
+      placemark.events.add(handler.name, (e: any) =>
         this._ngZone.run(() => handler.fn(e)),
       );
     });
@@ -257,7 +239,7 @@ export class YaGeoObjectComponent implements OnInit, OnChanges, OnDestroy {
     /**
      * Wrong typings in DefinitelyTyped.
      */
-    (this._clusterer as any)?.remove(this._geoObject);
-    this._map?.geoObjects.remove(this._geoObject);
+    (this._clusterer as any)?.remove(this._placemark);
+    this._map?.geoObjects.remove(this._placemark);
   }
 }

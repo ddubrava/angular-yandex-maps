@@ -1,6 +1,6 @@
 import {
-  Component,
   ContentChildren,
+  Directive,
   EventEmitter,
   Input,
   NgZone,
@@ -13,11 +13,11 @@ import {
 import { startWith } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { IEvent, ILoadEvent } from '../../models/models';
-import { YaGeoObjectComponent } from '../ya-geoobject/ya-geoobject.component';
-import { YaPlacemarkComponent } from '../ya-placemark/ya-placemark.component';
+import { YaPlacemarkDirective } from '../ya-placemark/ya-placemark.directive';
+import { YaGeoobjectDirective } from '../ya-geoobject/ya-geoobject.directive';
 
 /**
- * Component for creating a clusterer. Clusterizes objects in the visible area of the map.
+ * Directive for creating a clusterer. Clusterizes objects in the visible area of the map.
  * If the object does not fall within the visible area of the map, it will not be added to the map.
  * Note, that the clusterer does not react to changing the coordinates of objects (either programmatically,
  * or as the result of dragging). If you want to change the coordinates of some object in the clusterer,
@@ -25,23 +25,21 @@ import { YaPlacemarkComponent } from '../ya-placemark/ya-placemark.component';
  *
  * @example
  * `<ya-clusterer>
- *  <ya-placemark [geometry]="[55.74, 37.50]"></ya-placemark>
- *   <ya-geoobject [feature]="{ geometry: { type: 'Point', coordinates: [55.73, 37.52] } }"></ya-geoobject>
+ *    <ya-placemark [geometry]="[55.74, 37.50]"></ya-placemark>
+ *    <ya-geoobject [feature]="{ geometry: { type: 'Point', coordinates: [55.73, 37.52] } }"></ya-geoobject>
  * </ya-clusterer>`.
  * @see {@link https://ddubrava.github.io/angular8-yandex-maps/#/components/clusterer}
  */
-@Component({
+@Directive({
   selector: 'ya-clusterer',
-  templateUrl: './ya-clusterer.component.html',
-  styleUrls: ['./ya-clusterer.component.scss'],
 })
-export class YaClustererComponent implements OnDestroy, OnChanges {
-  @ContentChildren(YaPlacemarkComponent) public placemarks: QueryList<
-    YaPlacemarkComponent
+export class YaClustererDirective implements OnChanges, OnDestroy {
+  @ContentChildren(YaPlacemarkDirective) public placemarks: QueryList<
+    YaPlacemarkDirective
   >;
 
-  @ContentChildren(YaGeoObjectComponent) public geoObjects: QueryList<
-    YaGeoObjectComponent
+  @ContentChildren(YaGeoobjectDirective) public geoObjects: QueryList<
+    YaGeoobjectDirective
   >;
 
   /**
@@ -120,8 +118,8 @@ export class YaClustererComponent implements OnDestroy, OnChanges {
      */
     const placemarksSub = this.placemarks.changes
       .pipe(startWith(this.placemarks))
-      .subscribe((list: QueryList<YaPlacemarkComponent>) => {
-        list.forEach((placemark: YaPlacemarkComponent) => {
+      .subscribe((list: QueryList<YaPlacemarkDirective>) => {
+        list.forEach((placemark) => {
           if (!placemark.id) {
             /**
              * Wrong typings in DefinitelyTyped.
@@ -138,8 +136,8 @@ export class YaClustererComponent implements OnDestroy, OnChanges {
      */
     const geoObjectsSub = this.geoObjects.changes
       .pipe(startWith(this.geoObjects))
-      .subscribe((list: QueryList<YaGeoObjectComponent>) => {
-        list.forEach((geoObject: YaGeoObjectComponent) => {
+      .subscribe((list: QueryList<YaGeoobjectDirective>) => {
+        list.forEach((geoObject) => {
           if (!geoObject.id) {
             /**
              * Wrong typings in DefinitelyTyped.

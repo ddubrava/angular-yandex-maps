@@ -1,5 +1,5 @@
 import {
-  Component,
+  Directive,
   EventEmitter,
   Input,
   NgZone,
@@ -12,17 +12,15 @@ import { ILoadEvent } from '../../models/models';
 import { removeLeadingSpaces } from '../../utils/removeLeadingSpaces';
 
 /**
- * Component for creating and managing controls on the map.
+ * Directive for creating and managing controls on the map.
  *
  * @example `<ya-control type="RoutePanel" [parameters]="{ options: { float: 'right' } }"></ya-control>`.
  * @see {@link https://ddubrava.github.io/angular8-yandex-maps/#/components/controls}
  */
-@Component({
+@Directive({
   selector: 'ya-control',
-  templateUrl: './ya-control.component.html',
-  styleUrls: ['./ya-control.component.scss'],
 })
-export class YaControlComponent implements OnInit, OnChanges {
+export class YaControlDirective implements OnInit, OnChanges {
   /**
    * Control type.
    * @example Control.FullscreenControl - 'FullscreenControl'.
