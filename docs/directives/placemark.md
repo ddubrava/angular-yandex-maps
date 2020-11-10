@@ -1,6 +1,6 @@
 # Placemark
 
-Component for creating a geo object with the geometry geometry.Point
+Directive for creating a geo object with the geometry geometry.Point
 
 [Placemark](https://custom-placemark.stackblitz.io ':include :type=iframe height=550px')
 
@@ -72,5 +72,5 @@ All events execute within the Angular zone
 
 ## Source
 
-- [lib/components/ya-placemark](https://github.com/ddubrava/angular8-yandex-maps/tree/master/projects/angular8-yandex-maps/src/lib/components/ya-placemark)
+- [lib/directives/ya-placemark](https://github.com/ddubrava/angular8-yandex-maps/tree/master/projects/angular8-yandex-maps/src/lib/directives/ya-placemark)
 - [jsapi/doc/2.1/ref/reference/Placemark.html](https://yandex.ru/dev/maps/jsapi/doc/2.1/ref/reference/Placemark.html)

@@ -1,33 +1,33 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { IConfig, YA_MAP_CONFIG } from './models/models';
-import { YaClustererComponent } from './components/ya-clusterer/ya-clusterer.component';
-import { YaControlComponent } from './components/ya-control/ya-control.component';
-import { YaGeoObjectComponent } from './components/ya-geoobject/ya-geoobject.component';
+import { YaClustererDirective } from './directives/ya-clusterer/ya-clusterer.directive';
+import { YaControlDirective } from './directives/ya-control/ya-control.directive';
+import { YaGeoobjectDirective } from './directives/ya-geoobject/ya-geoobject.directive';
 import { YaMapComponent } from './components/ya-map/ya-map.component';
-import { YaMultirouteComponent } from './components/ya-multiroute/ya-multiroute.component';
+import { YaMultirouteDirective } from './directives/ya-multiroute/ya-multiroute.directive';
 import { YaPanoramaComponent } from './components/ya-panorama/ya-panorama.component';
-import { YaPlacemarkComponent } from './components/ya-placemark/ya-placemark.component';
+import { YaPlacemarkDirective } from './directives/ya-placemark/ya-placemark.directive';
 
 @NgModule({
   declarations: [
-    YaClustererComponent,
-    YaControlComponent,
-    YaGeoObjectComponent,
+    YaClustererDirective,
+    YaControlDirective,
+    YaGeoobjectDirective,
     YaMapComponent,
-    YaMultirouteComponent,
+    YaMultirouteDirective,
     YaPanoramaComponent,
-    YaPlacemarkComponent,
+    YaPlacemarkDirective,
   ],
   imports: [CommonModule],
   exports: [
-    YaClustererComponent,
-    YaControlComponent,
-    YaGeoObjectComponent,
+    YaClustererDirective,
+    YaControlDirective,
+    YaGeoobjectDirective,
     YaMapComponent,
-    YaMultirouteComponent,
+    YaMultirouteDirective,
     YaPanoramaComponent,
-    YaPlacemarkComponent,
+    YaPlacemarkDirective,
   ],
 })
 export class AngularYandexMapsModule {
