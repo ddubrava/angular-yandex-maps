@@ -66,6 +66,4 @@ export interface IEvent {
   event: any;
 }
 
-export const YA_MAP_CONFIG = new InjectionToken<Partial<IConfig>>(
-  'YA_MAP_CONFIG',
-);
+export const YA_MAP_CONFIG = new InjectionToken<IConfig>('YA_MAP_CONFIG');

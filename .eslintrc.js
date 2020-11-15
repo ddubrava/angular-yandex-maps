@@ -22,10 +22,6 @@ module.exports = {
      */
     {
       files: ['*.ts'],
-      parserOptions: {
-        project: ['tsconfig.*?.json', 'e2e/tsconfig.json'],
-        createDefaultProgram: true,
-      },
       extends: [
         'plugin:@angular-eslint/recommended',
         // AirBnb

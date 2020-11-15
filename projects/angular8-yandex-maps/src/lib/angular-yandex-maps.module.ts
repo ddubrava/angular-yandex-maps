@@ -36,7 +36,7 @@ export class AngularYandexMapsModule {
    * @param config
    */
   public static forRoot(
-    config: Partial<IConfig>,
+    config: IConfig,
   ): ModuleWithProviders<AngularYandexMapsModule> {
     return {
       ngModule: AngularYandexMapsModule,
