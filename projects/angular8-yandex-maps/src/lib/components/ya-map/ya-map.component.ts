@@ -59,12 +59,6 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
   >;
 
   /**
-   * @deprecated Use `ScriptService`.
-   * @description Map will not be created, only returns ILoadEvent.
-   */
-  @Input() public onlyInstance: boolean;
-
-  /**
    * Map center geocoordinates.
    */
   @Input() public center: Array<number>;
@@ -208,7 +202,7 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private _logErrors(): void {
-    if (!this.center && !this.onlyInstance) {
+    if (!this.center) {
       console.error('Map: center input is required.');
       this.center = [];
     }
@@ -216,11 +210,6 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
 
   private _initScript(): void {
     const sub = this._scriptService.initScript().subscribe(() => {
-      if (this.onlyInstance) {
-        this.load.emit({ ymaps });
-        return;
-      }
-
       const id = generateRandomId();
       this._map = this._createMap(id);
 

@@ -15,13 +15,12 @@ Component for creating and managing a map
 
 ## Inputs
 
-| Name         | Type         | Default | Required | Description                                                                            |
-| ------------ | ------------ | ------- | -------- | -------------------------------------------------------------------------------------- |
-| onlyInstance | Boolean      | false   | no       | @deprecated, use [ScriptService] // Map will not be created, only returns [ILoadEvent] |
-| center       | Number[]     |         | yes      | Map center geocoordinates                                                              |
-| zoom         | Number       | 10      | no       | Map zoom level                                                                         |
-| state        | [MapState]   |         | no       | States for the map                                                                     |
-| options      | [MapOptions] |         | no       | Options for the map                                                                    |
+| Name    | Type         | Default | Required | Description               |
+| ------- | ------------ | ------- | -------- | ------------------------- |
+| center  | Number[]     |         | yes      | Map center geocoordinates |
+| zoom    | Number       | 10      | no       | Map zoom level            |
+| state   | [MapState]   |         | no       | States for the map        |
+| options | [MapOptions] |         | no       | Options for the map       |
 
 [scriptservice]: services/script.md
 [mapstate]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Map-docpage/#Map__param-state
