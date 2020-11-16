@@ -50,7 +50,7 @@ export class YaPanoramaComponent implements OnInit, OnChanges, OnDestroy {
   /**
    * Emits immediately after this entity is added in root container.
    */
-  @Output() public load = new EventEmitter<ILoadEvent>();
+  @Output() public ready = new EventEmitter<ILoadEvent>();
 
   /**
    * The view direction changed.
@@ -165,7 +165,7 @@ export class YaPanoramaComponent implements OnInit, OnChanges, OnDestroy {
   public addEventListeners(): void {
     const player = this._player;
 
-    this._ngZone.run(() => this.load.emit({ ymaps, instance: player }));
+    this._ngZone.run(() => this.ready.emit({ ymaps, instance: player }));
 
     const handlers = [
       {

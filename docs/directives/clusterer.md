@@ -35,7 +35,7 @@ All events execute within the Angular zone
 
 | Name          | Type         | Supported event type | Description                                                    |
 | ------------- | ------------ | -------------------- | -------------------------------------------------------------- |
-| load          | [ILoadEvent] |                      | Emits immediately after this entity is added in root container |
+| ready         | [ILoadEvent] |                      | Emits immediately after this entity is added in root container |
 | hint          | [IEvent]     | hintopen, hintclose  | Actions with the hint                                          |
 | mapChange     | [IEvent]     | mapChange            | Map reference changed                                          |
 | optionsChange | [IEvent]     | optionsChange        | Change to the object options                                   |

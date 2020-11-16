@@ -39,7 +39,7 @@ export class YaGeoobjectDirective implements OnInit, OnChanges, OnDestroy {
   /**
    * Emits immediately after this entity is added in root container.
    */
-  @Output() public load = new EventEmitter<ILoadEvent>();
+  @Output() public ready = new EventEmitter<ILoadEvent>();
 
   /**
    * Actions with the balloon.
@@ -179,7 +179,7 @@ export class YaGeoobjectDirective implements OnInit, OnChanges, OnDestroy {
   private _addEventListeners(): void {
     const geoObject = this._geoObject;
 
-    this._ngZone.run(() => this.load.emit({ ymaps, instance: geoObject }));
+    this._ngZone.run(() => this.ready.emit({ ymaps, instance: geoObject }));
 
     const handlers = [
       {

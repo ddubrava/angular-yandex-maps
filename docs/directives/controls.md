@@ -49,9 +49,9 @@ Directive for creating and managing controls on the map
 
 All events execute within the Angular zone
 
-| Name | Type         | Supported event type | Description                                                    |
-| ---- | ------------ | -------------------- | -------------------------------------------------------------- |
-| load | [ILoadEvent] |                      | Emits immediately after this entity is added in root container |
+| Name  | Type         | Supported event type | Description                                                    |
+| ----- | ------------ | -------------------- | -------------------------------------------------------------- |
+| ready | [ILoadEvent] |                      | Emits immediately after this entity is added in root container |
 
 [iloadevent]: interfaces/load-event.md
 

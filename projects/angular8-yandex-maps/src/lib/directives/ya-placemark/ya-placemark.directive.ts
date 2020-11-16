@@ -42,7 +42,7 @@ export class YaPlacemarkDirective implements OnInit, OnChanges, OnDestroy {
   /**
    * Emits immediately after this entity is added in root container.
    */
-  @Output() public load = new EventEmitter<ILoadEvent>();
+  @Output() public ready = new EventEmitter<ILoadEvent>();
 
   /**
    * Actions with the balloon.
@@ -163,7 +163,7 @@ export class YaPlacemarkDirective implements OnInit, OnChanges, OnDestroy {
   private _addEventListeners(): void {
     const placemark = this._placemark;
 
-    this._ngZone.run(() => this.load.emit({ ymaps, instance: placemark }));
+    this._ngZone.run(() => this.ready.emit({ ymaps, instance: placemark }));
 
     const handlers = [
       {

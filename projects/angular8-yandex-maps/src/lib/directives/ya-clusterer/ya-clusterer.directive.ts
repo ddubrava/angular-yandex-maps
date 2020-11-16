@@ -51,7 +51,7 @@ export class YaClustererDirective implements OnChanges, OnDestroy {
   /**
    * Emits immediately after this entity is added in root container.
    */
-  @Output() public load = new EventEmitter<ILoadEvent>();
+  @Output() public ready = new EventEmitter<ILoadEvent>();
 
   /**
    * Actions with the hint.
@@ -160,7 +160,7 @@ export class YaClustererDirective implements OnChanges, OnDestroy {
   private _addEventListeners(): void {
     const clusterer = this._clusterer;
 
-    this._ngZone.run(() => this.load.emit({ ymaps, instance: clusterer }));
+    this._ngZone.run(() => this.ready.emit({ ymaps, instance: clusterer }));
 
     const handlers = [
       {

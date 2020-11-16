@@ -55,7 +55,7 @@ All events execute within the Angular zone
 
 | Name              | Type         | Supported event type                                  | Description                                                    |
 | ----------------- | ------------ | ----------------------------------------------------- | -------------------------------------------------------------- |
-| load              | [ILoadEvent] |                                                       | Emits immediately after this entity is added in root container |
+| ready             | [ILoadEvent] |                                                       | Emits immediately after this entity is added in root container |
 | activeroutechange | [IEvent]     | activeroutechange                                     | Change to the active route                                     |
 | balloon           | [IEvent]     | balloonopen, balloonclose                             | Actions with the balloon                                       |
 | yaclick           | [IEvent]     | click, dblclick                                       | Left-click on the object                                       |

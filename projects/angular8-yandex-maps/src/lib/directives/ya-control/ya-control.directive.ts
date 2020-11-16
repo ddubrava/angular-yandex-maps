@@ -49,7 +49,7 @@ export class YaControlDirective implements OnInit, OnChanges {
   /**
    * Emits immediately after this entity is added in root container.
    */
-  @Output() public load = new EventEmitter<ILoadEvent>();
+  @Output() public ready = new EventEmitter<ILoadEvent>();
 
   constructor(private _ngZone: NgZone) {}
 
@@ -106,6 +106,6 @@ export class YaControlDirective implements OnInit, OnChanges {
   }
 
   private _emitEvent(control: any): void {
-    this._ngZone.run(() => this.load.emit({ ymaps, instance: control }));
+    this._ngZone.run(() => this.ready.emit({ ymaps, instance: control }));
   }
 }

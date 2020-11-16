@@ -43,7 +43,7 @@ export class YaMultirouteDirective implements OnInit, OnChanges, OnDestroy {
   /**
    * Emits immediately after this entity is added in root container.
    */
-  @Output() public load = new EventEmitter<ILoadEvent>();
+  @Output() public ready = new EventEmitter<ILoadEvent>();
 
   /**
    * Change to the active route.
@@ -169,7 +169,7 @@ export class YaMultirouteDirective implements OnInit, OnChanges, OnDestroy {
   private _addEventListeners(): void {
     const multiroute = this._multiroute;
 
-    this._ngZone.run(() => this.load.emit({ ymaps, instance: multiroute }));
+    this._ngZone.run(() => this.ready.emit({ ymaps, instance: multiroute }));
 
     const handlers = [
       {

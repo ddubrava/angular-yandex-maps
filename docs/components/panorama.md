@@ -36,7 +36,7 @@ All events execute within the Angular zone
 	</thead>
 	<tbody>
 		<tr>
-			<td>load</td>
+			<td>ready</td>
 			<td><a href="#/interfaces/load-event">ILoadEvent</a></td>
 			<td></td>
 			<td>Emits immediately after this entity is added in root container</td>

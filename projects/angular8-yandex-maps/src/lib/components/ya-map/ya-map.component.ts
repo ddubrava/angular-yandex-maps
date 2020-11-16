@@ -83,7 +83,7 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
   /**
    * Emits immediately after this entity is added in root container.
    */
-  @Output() public load = new EventEmitter<ILoadEvent>();
+  @Output() public ready = new EventEmitter<ILoadEvent>();
 
   /**
    * Smooth map movement.
@@ -311,7 +311,7 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
   private _addEventListeners(): void {
     const map = this._map;
 
-    this._ngZone.run(() => this.load.emit({ ymaps, instance: map }));
+    this._ngZone.run(() => this.ready.emit({ ymaps, instance: map }));
 
     const handlers = [
       {
