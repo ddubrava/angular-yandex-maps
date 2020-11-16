@@ -36,8 +36,6 @@ module.exports = {
         'no-console': ['error', { allow: ['warn', 'error'] }],
         'no-underscore-dangle': 'off',
         'import/no-extraneous-dependencies': 'off',
-        // Enable after #37 will be fixed
-        '@angular-eslint/no-output-native': 'off',
         '@typescript-eslint/explicit-member-accessibility': [
           'error',
           { overrides: { constructors: 'off' } },

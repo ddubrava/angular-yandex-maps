@@ -57,6 +57,7 @@ export class YaPlacemarkDirective implements OnInit, OnChanges, OnDestroy {
   /**
    * Placemark dragging.
    */
+  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output() public drag = new EventEmitter<IEvent>();
 
   /**

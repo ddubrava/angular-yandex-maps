@@ -54,6 +54,7 @@ export class YaGeoobjectDirective implements OnInit, OnChanges, OnDestroy {
   /**
    * GeoObject dragging.
    */
+  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output() public drag = new EventEmitter<IEvent>();
 
   /**
