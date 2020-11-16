@@ -1,4 +1,4 @@
-import { AngularYandexMapsModule, IConfig } from 'angular8-yandex-maps';
+import { AngularYandexMapsModule, YaConfig } from 'angular8-yandex-maps';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -13,7 +13,7 @@ import { PanoramaComponent } from './components/panorama/panorama.component';
 import { PlacemarkComponent } from './components/placemark/placemark.component';
 import { environment } from '../environments/environment';
 
-const mapConfig: IConfig = {
+const mapConfig: YaConfig = {
   lang: 'en_US',
   apikey: environment.apikey,
 };

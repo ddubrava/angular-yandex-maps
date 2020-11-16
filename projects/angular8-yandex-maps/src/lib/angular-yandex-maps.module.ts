@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { IConfig, YA_MAP_CONFIG } from './models/models';
+import { YaConfig, YA_MAP_CONFIG } from './models/models';
 import { YaClustererDirective } from './directives/ya-clusterer/ya-clusterer.directive';
 import { YaControlDirective } from './directives/ya-control/ya-control.directive';
 import { YaGeoobjectDirective } from './directives/ya-geoobject/ya-geoobject.directive';
@@ -36,7 +36,7 @@ export class AngularYandexMapsModule {
    * @param config
    */
   public static forRoot(
-    config: IConfig,
+    config: YaConfig,
   ): ModuleWithProviders<AngularYandexMapsModule> {
     return {
       ngModule: AngularYandexMapsModule,

@@ -1,4 +1,4 @@
-# IConfig
+# YaConfig
 
 API loading parameters. See [API](https://yandex.ru/dev/maps/jsapi/doc/2.1/dg/concepts/load.html/#load__param) for further information
 

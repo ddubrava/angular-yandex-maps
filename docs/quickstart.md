@@ -31,9 +31,9 @@ export class AppModule {}
 Custom map config options
 
 ```ts
-import { AngularYandexMapsModule, IConfig } from 'angular8-yandex-maps';
+import { AngularYandexMapsModule, YaConfig } from 'angular8-yandex-maps';
 
-const mapConfig: IConfig = {
+const mapConfig: YaConfig = {
   apikey: 'API_KEY',
   lang: 'en_US',
 };

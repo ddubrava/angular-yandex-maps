@@ -21,7 +21,7 @@
 
 - Interfaces
 
-  - [IConfig](interfaces/config.md 'IConfig | Angular Yandex Map')
+  - [YaConfig](interfaces/ya-config.md 'YaConfig | Angular Yandex Map')
   - [IEvent](interfaces/event.md 'IEvent | Angular Yandex Map')
   - [ILoadEvent](interfaces/load-event.md 'ILoadEvent | Angular Yandex Map')
 

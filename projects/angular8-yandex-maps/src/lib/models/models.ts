@@ -4,7 +4,7 @@ import { InjectionToken } from '@angular/core';
  * API loading parameters
  * @see {@link https://yandex.ru/dev/maps/jsapi/doc/2.1/dg/concepts/load.html/#load__param} for further information
  */
-export interface IConfig {
+export interface YaConfig {
   /**
    * API key. You can get a key in the developer's dashboard
    */
@@ -66,4 +66,4 @@ export interface IEvent {
   event: any;
 }
 
-export const YA_MAP_CONFIG = new InjectionToken<IConfig>('YA_MAP_CONFIG');
+export const YA_MAP_CONFIG = new InjectionToken<YaConfig>('YA_MAP_CONFIG');

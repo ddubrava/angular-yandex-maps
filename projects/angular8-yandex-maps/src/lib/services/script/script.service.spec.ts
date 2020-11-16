@@ -2,7 +2,7 @@ import { catchError } from 'rxjs/operators';
 import { DOCUMENT } from '@angular/common';
 import { inject, TestBed } from '@angular/core/testing';
 import { merge, of } from 'rxjs';
-import { IConfig, YA_MAP_CONFIG } from '../../models/models';
+import { YaConfig, YA_MAP_CONFIG } from '../../models/models';
 import { ScriptService } from './script.service';
 
 describe('ScriptService', () => {
@@ -76,7 +76,7 @@ describe('ScriptService', () => {
   });
 
   it('should create script URL based on config', (done) => {
-    const config: IConfig = {
+    const config: YaConfig = {
       apikey: 'X-X-X',
       lang: 'en_US',
       coordorder: 'latlong',
@@ -108,7 +108,7 @@ describe('ScriptService', () => {
   });
 
   it('should create enterprise API based on config', (done) => {
-    const config: IConfig = {
+    const config: YaConfig = {
       apikey: 'X-X-X',
       lang: 'en_US',
       enterprise: true,
@@ -140,7 +140,7 @@ describe('ScriptService', () => {
   });
 
   it('should return error on API loading error', (done) => {
-    const config: IConfig = {
+    const config: YaConfig = {
       apikey: 'X-X-X',
       lang: 'en_US',
       version: 'invalid',
