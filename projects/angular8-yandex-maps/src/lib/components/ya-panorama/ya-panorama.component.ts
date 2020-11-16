@@ -151,7 +151,7 @@ export class YaPanoramaComponent implements OnInit, OnChanges, OnDestroy {
      */
     (ymaps.panorama as any)
       .locate(this.point, { layer: this.layer })
-      .then((panorama: ymaps.IPanorama) => {
+      .then((panorama: ymaps.IPanorama[]) => {
         const player = new ymaps.panorama.Player(id, panorama[0], this.options);
         this._player = player;
 

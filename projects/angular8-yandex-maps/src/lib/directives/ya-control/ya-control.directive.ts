@@ -11,6 +11,21 @@ import {
 import { ILoadEvent } from '../../models/models';
 import { removeLeadingSpaces } from '../../utils/removeLeadingSpaces';
 
+export type ControlType =
+  | 'Button'
+  | 'FullscreenControl'
+  | 'GeolocationControl'
+  | 'ListBox'
+  | 'ListBoxItem'
+  | 'RouteButton'
+  | 'RouteEditor'
+  | 'RoutePanel'
+  | 'RulerControl'
+  | 'SearchControl'
+  | 'TrafficControl'
+  | 'TypeSelector'
+  | 'ZoomControl';
+
 /**
  * Directive for creating and managing controls on the map.
  *
@@ -23,10 +38,8 @@ import { removeLeadingSpaces } from '../../utils/removeLeadingSpaces';
 export class YaControlDirective implements OnInit, OnChanges {
   /**
    * Control type.
-   * @example Control.FullscreenControl - 'FullscreenControl'.
-   * @see {@link https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/control.Button-docpage/}
    */
-  @Input() public type: string;
+  @Input() public type: ControlType;
 
   /**
    * Parameters for the Control.
@@ -55,7 +68,10 @@ export class YaControlDirective implements OnInit, OnChanges {
    * @returns Instance of created control
    */
   public createControl(): any {
-    const control = new ymaps.control[this.type](this.parameters);
+    /**
+     * Wrong typings in DefinitelyTyped.
+     */
+    const control = new (ymaps.control as any)[this.type](this.parameters);
 
     // RoutePanel ignores state in parameters. API bug
     if (

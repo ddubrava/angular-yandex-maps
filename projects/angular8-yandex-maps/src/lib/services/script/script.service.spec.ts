@@ -21,7 +21,8 @@ describe('ScriptService', () => {
 
   beforeAll(() => {
     document = TestBed.inject(DOCUMENT);
-    window = document.defaultView;
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    window = document.defaultView!;
   });
 
   beforeEach(() => {

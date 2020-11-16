@@ -77,7 +77,7 @@ export class YaPlacemarkDirective implements OnInit, OnChanges, OnDestroy {
   public id: string;
 
   // Yandex.Maps API.
-  private _clusterer: ymaps.Clusterer;
+  private _clusterer: ymaps.Clusterer | undefined;
 
   private _map: ymaps.Map;
 
@@ -106,7 +106,7 @@ export class YaPlacemarkDirective implements OnInit, OnChanges, OnDestroy {
     const { geometry, properties, options } = changes;
 
     if (geometry) {
-      placemark.geometry.setCoordinates(geometry.currentValue);
+      placemark.geometry?.setCoordinates(geometry.currentValue);
     }
 
     if (properties) {

@@ -28,7 +28,7 @@ export class YaGeoobjectDirective implements OnInit, OnChanges, OnDestroy {
    * Feature for the GeoObject.
    * @see {@link https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/GeoObject-docpage/#GeoObjectparam-feature}
    */
-  @Input() public feature: ymaps.IGeoObjectFeature;
+  @Input() public feature: any;
 
   /**
    * Options for the GeoObject.
@@ -74,7 +74,7 @@ export class YaGeoobjectDirective implements OnInit, OnChanges, OnDestroy {
   public id: string;
 
   // Yandex.Maps API.
-  private _clusterer: ymaps.Clusterer;
+  private _clusterer: ymaps.Clusterer | undefined;
 
   private _geoObject: ymaps.GeoObject;
 
