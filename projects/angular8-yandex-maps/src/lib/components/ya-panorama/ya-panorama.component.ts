@@ -13,7 +13,7 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { generateRandomId } from '../../utils/generateRandomId';
-import { IEvent, ILoadEvent } from '../../interfaces/event';
+import { YaEvent, YaReadyEvent } from '../../interfaces/event';
 import { removeLeadingSpaces } from '../../utils/removeLeadingSpaces';
 import { ScriptService } from '../../services/script/script.service';
 
@@ -50,22 +50,22 @@ export class YaPanoramaComponent implements OnInit, OnChanges, OnDestroy {
   /**
    * Emits immediately after this entity is added in root container.
    */
-  @Output() public ready = new EventEmitter<ILoadEvent>();
+  @Output() public ready = new EventEmitter<YaReadyEvent>();
 
   /**
    * The view direction changed.
    */
-  @Output() public direction = new EventEmitter<IEvent>();
+  @Output() public direction = new EventEmitter<YaEvent>();
 
   /**
    * The panorama player screen mode is switched.
    */
-  @Output() public fullscreen = new EventEmitter<IEvent>();
+  @Output() public fullscreen = new EventEmitter<YaEvent>();
 
   /**
    * Actions with the marker.
    */
-  @Output() public marker = new EventEmitter<IEvent>();
+  @Output() public marker = new EventEmitter<YaEvent>();
 
   private _sub: Subscription;
 
@@ -114,7 +114,7 @@ export class YaPanoramaComponent implements OnInit, OnChanges, OnDestroy {
         The options of Panorama cannot be changed after entity init.
 
         Solutions:
-        1. Use ymaps from ILoadEvent
+        1. Use ymaps from YaReadyEvent
         2. Recreate Panorama component with new options
       `),
       );

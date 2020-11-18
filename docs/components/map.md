@@ -30,18 +30,18 @@ Component for creating and managing a map
 
 All events except 'mouse', 'multitouch' execute within the Angular zone
 
-| Name       | Type         | Supported event type                                  | Description                                                    |
-| ---------- | ------------ | ----------------------------------------------------- | -------------------------------------------------------------- |
-| ready      | [ILoadEvent] |                                                       | Emits immediately after this entity is added in root container |
-| action     | [IEvent]     | actionbegin, actionend                                | Smooth map movement                                            |
-| balloon    | [IEvent]     | balloonopen, balloonclose                             | Actions with the balloon                                       |
-| yaclick    | [IEvent]     | click, dblclick                                       | Left-click on the object                                       |
-| hint       | [IEvent]     | hintopen, hintclose                                   | Actions with the hint                                          |
-| mouse      | [IEvent]     | mousedown, mouseenter, mouseleave, mousemove, mouseup | Mouse actions with the object                                  |
-| multitouch | [IEvent]     | multitouchstart, multitouchmove, multitouchend        | Multitouch actions with the object                             |
+| Name       | Type           | Supported event type                                  | Description                                                    |
+| ---------- | -------------- | ----------------------------------------------------- | -------------------------------------------------------------- |
+| ready      | [YaReadyEvent] |                                                       | Emits immediately after this entity is added in root container |
+| action     | [YaEvent]      | actionbegin, actionend                                | Smooth map movement                                            |
+| balloon    | [YaEvent]      | balloonopen, balloonclose                             | Actions with the balloon                                       |
+| yaclick    | [YaEvent]      | click, dblclick                                       | Left-click on the object                                       |
+| hint       | [YaEvent]      | hintopen, hintclose                                   | Actions with the hint                                          |
+| mouse      | [YaEvent]      | mousedown, mouseenter, mouseleave, mousemove, mouseup | Mouse actions with the object                                  |
+| multitouch | [YaEvent]      | multitouchstart, multitouchmove, multitouchend        | Multitouch actions with the object                             |
 
-[iloadevent]: interfaces/load-event.md
-[ievent]: interfaces/event.md
+[yareadyevent]: interfaces/ya-ready-event.md
+[yaevent]: interfaces/event.md
 
 ## ContentChildren
 

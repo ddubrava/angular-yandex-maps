@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import { startWith } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
-import { IEvent, ILoadEvent } from '../../interfaces/event';
+import { YaEvent, YaReadyEvent } from '../../interfaces/event';
 import { YaPlacemarkDirective } from '../ya-placemark/ya-placemark.directive';
 import { YaGeoobjectDirective } from '../ya-geoobject/ya-geoobject.directive';
 
@@ -51,27 +51,27 @@ export class YaClustererDirective implements OnChanges, OnDestroy {
   /**
    * Emits immediately after this entity is added in root container.
    */
-  @Output() public ready = new EventEmitter<ILoadEvent>();
+  @Output() public ready = new EventEmitter<YaReadyEvent>();
 
   /**
    * Actions with the hint.
    */
-  @Output() public hint = new EventEmitter<IEvent>();
+  @Output() public hint = new EventEmitter<YaEvent>();
 
   /**
    * Map reference changed.
    */
-  @Output() public mapChange = new EventEmitter<IEvent>();
+  @Output() public mapChange = new EventEmitter<YaEvent>();
 
   /**
    * Change to the object options.
    */
-  @Output() public optionsChange = new EventEmitter<IEvent>();
+  @Output() public optionsChange = new EventEmitter<YaEvent>();
 
   /**
    * The parent object reference changed.
    */
-  @Output() public parentChange = new EventEmitter<IEvent>();
+  @Output() public parentChange = new EventEmitter<YaEvent>();
 
   private _sub = new Subscription();
 

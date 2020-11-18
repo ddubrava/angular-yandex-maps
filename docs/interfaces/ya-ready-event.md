@@ -1,4 +1,4 @@
-# ILoadEvent
+# YaReadyEvent
 
 | Name     | Type  | Description                |
 | -------- | ----- | -------------------------- |

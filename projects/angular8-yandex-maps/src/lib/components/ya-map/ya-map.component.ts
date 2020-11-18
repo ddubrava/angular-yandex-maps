@@ -16,7 +16,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { generateRandomId } from '../../utils/generateRandomId';
-import { IEvent, ILoadEvent } from '../../interfaces/event';
+import { YaEvent, YaReadyEvent } from '../../interfaces/event';
 import { ScriptService } from '../../services/script/script.service';
 import { YaPlacemarkDirective } from '../../directives/ya-placemark/ya-placemark.directive';
 import { YaMultirouteDirective } from '../../directives/ya-multiroute/ya-multiroute.directive';
@@ -83,37 +83,37 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
   /**
    * Emits immediately after this entity is added in root container.
    */
-  @Output() public ready = new EventEmitter<ILoadEvent>();
+  @Output() public ready = new EventEmitter<YaReadyEvent>();
 
   /**
    * Smooth map movement.
    */
-  @Output() public action = new EventEmitter<IEvent>();
+  @Output() public action = new EventEmitter<YaEvent>();
 
   /**
    * Actions with the balloon.
    */
-  @Output() public balloon = new EventEmitter<IEvent>();
+  @Output() public balloon = new EventEmitter<YaEvent>();
 
   /**
    * Left-click on the object.
    */
-  @Output() public yaclick = new EventEmitter<IEvent>();
+  @Output() public yaclick = new EventEmitter<YaEvent>();
 
   /**
    * Actions with the hint.
    */
-  @Output() public hint = new EventEmitter<IEvent>();
+  @Output() public hint = new EventEmitter<YaEvent>();
 
   /**
    * Mouse actions with the object.
    */
-  @Output() public mouse = new EventEmitter<IEvent>();
+  @Output() public mouse = new EventEmitter<YaEvent>();
 
   /**
    * Multitouch actions with the object.
    */
-  @Output() public multitouch = new EventEmitter<IEvent>();
+  @Output() public multitouch = new EventEmitter<YaEvent>();
 
   private _sub: Subscription;
 

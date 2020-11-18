@@ -33,16 +33,16 @@ you should first delete the object from the clusterer and then add it back
 
 All events execute within the Angular zone
 
-| Name          | Type         | Supported event type | Description                                                    |
-| ------------- | ------------ | -------------------- | -------------------------------------------------------------- |
-| ready         | [ILoadEvent] |                      | Emits immediately after this entity is added in root container |
-| hint          | [IEvent]     | hintopen, hintclose  | Actions with the hint                                          |
-| mapChange     | [IEvent]     | mapChange            | Map reference changed                                          |
-| optionsChange | [IEvent]     | optionsChange        | Change to the object options                                   |
-| parentChange  | [IEvent]     | parentChange         | The parent object reference changed                            |
+| Name          | Type           | Supported event type | Description                                                    |
+| ------------- | -------------- | -------------------- | -------------------------------------------------------------- |
+| ready         | [YaReadyEvent] |                      | Emits immediately after this entity is added in root container |
+| hint          | [YaEvent]      | hintopen, hintclose  | Actions with the hint                                          |
+| mapChange     | [YaEvent]      | mapChange            | Map reference changed                                          |
+| optionsChange | [YaEvent]      | optionsChange        | Change to the object options                                   |
+| parentChange  | [YaEvent]      | parentChange         | The parent object reference changed                            |
 
-[iloadevent]: interfaces/load-event.md
-[ievent]: interfaces/event.md
+[yareadyevent]: interfaces/ya-ready-event.md
+[yaevent]: interfaces/event.md
 
 ## ContentChildren
 

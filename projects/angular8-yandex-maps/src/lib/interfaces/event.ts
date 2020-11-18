@@ -1,15 +1,6 @@
-export interface ILoadEvent {
-  /**
-   * Instance of created entity
-   */
-  instance?: any;
-  /**
-   * API global object
-   */
-  ymaps: typeof ymaps;
-}
+export type YaReadyEvent = Omit<YaEvent, 'type' | 'event'>;
 
-export interface IEvent {
+export interface YaEvent {
   /**
    * Instance of created entity
    */
