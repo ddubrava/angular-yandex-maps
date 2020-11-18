@@ -10,7 +10,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { generateRandomId } from '../../utils/generateRandomId';
-import { IEvent, ILoadEvent } from '../../models/models';
+import { YaEvent, YaReadyEvent } from '../../interfaces/event';
 
 /**
  * Directive for creating a geo object with the geometry geometry.Point.
@@ -42,38 +42,38 @@ export class YaPlacemarkDirective implements OnInit, OnChanges, OnDestroy {
   /**
    * Emits immediately after this entity is added in root container.
    */
-  @Output() public ready = new EventEmitter<ILoadEvent>();
+  @Output() public ready = new EventEmitter<YaReadyEvent>();
 
   /**
    * Actions with the balloon.
    */
-  @Output() public balloon = new EventEmitter<IEvent>();
+  @Output() public balloon = new EventEmitter<YaEvent>();
 
   /**
    * Left-click on the object.
    */
-  @Output() public yaclick = new EventEmitter<IEvent>();
+  @Output() public yaclick = new EventEmitter<YaEvent>();
 
   /**
    * Placemark dragging.
    */
   // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output() public drag = new EventEmitter<IEvent>();
+  @Output() public drag = new EventEmitter<YaEvent>();
 
   /**
    * Actions with the hint.
    */
-  @Output() public hint = new EventEmitter<IEvent>();
+  @Output() public hint = new EventEmitter<YaEvent>();
 
   /**
    * Mouse actions with the object.
    */
-  @Output() public mouse = new EventEmitter<IEvent>();
+  @Output() public mouse = new EventEmitter<YaEvent>();
 
   /**
    * Multitouch actions with the object.
    */
-  @Output() public multitouch = new EventEmitter<IEvent>();
+  @Output() public multitouch = new EventEmitter<YaEvent>();
 
   public id: string;
 

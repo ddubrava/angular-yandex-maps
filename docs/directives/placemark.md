@@ -53,18 +53,18 @@ Directive for creating a geo object with the geometry geometry.Point
 
 All events execute within the Angular zone
 
-| Name       | Type         | Supported event type                                  | Description                                                    |
-| ---------- | ------------ | ----------------------------------------------------- | -------------------------------------------------------------- |
-| ready      | [ILoadEvent] |                                                       | Emits immediately after this entity is added in root container |
-| balloon    | [IEvent]     | balloonopen, balloonclose                             | Actions with the balloon                                       |
-| yaclick    | [IEvent]     | click, dblclick                                       | Left-click on the object                                       |
-| drag       | [IEvent]     | dragstart, dragend                                    | Placemark dragging                                             |
-| hint       | [IEvent]     | hintopen, hintclose                                   | Actions with the hint                                          |
-| mouse      | [IEvent]     | mousedown, mouseenter, mouseleave, mousemove, mouseup | Mouse actions with the object                                  |
-| multitouch | [IEvent]     | multitouchstart, multitouchmove, multitouchend        | Multitouch actions with the object                             |
+| Name       | Type           | Supported event type                                  | Description                                                    |
+| ---------- | -------------- | ----------------------------------------------------- | -------------------------------------------------------------- |
+| ready      | [YaReadyEvent] |                                                       | Emits immediately after this entity is added in root container |
+| balloon    | [YaEvent]      | balloonopen, balloonclose                             | Actions with the balloon                                       |
+| yaclick    | [YaEvent]      | click, dblclick                                       | Left-click on the object                                       |
+| drag       | [YaEvent]      | dragstart, dragend                                    | Placemark dragging                                             |
+| hint       | [YaEvent]      | hintopen, hintclose                                   | Actions with the hint                                          |
+| mouse      | [YaEvent]      | mousedown, mouseenter, mouseleave, mousemove, mouseup | Mouse actions with the object                                  |
+| multitouch | [YaEvent]      | multitouchstart, multitouchmove, multitouchend        | Multitouch actions with the object                             |
 
-[iloadevent]: interfaces/load-event.md
-[ievent]: interfaces/event.md
+[yareadyevent]: interfaces/ya-ready-event.md
+[yaevent]: interfaces/event.md
 
 ## Examples
 

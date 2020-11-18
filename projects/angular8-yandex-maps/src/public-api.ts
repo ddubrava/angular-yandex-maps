@@ -5,8 +5,12 @@
 // Module
 export * from './lib/angular-yandex-maps.module';
 
-// Models
-export * from './lib/models/models';
+// Interfaces
+export * from './lib/interfaces/event';
+export * from './lib/interfaces/config';
+
+// Constants
+export * from './lib/constants/constant';
 
 // Services
 export * from './lib/services/script/script.service';

@@ -10,7 +10,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { generateRandomId } from '../../utils/generateRandomId';
-import { IEvent, ILoadEvent } from '../../models/models';
+import { YaEvent, YaReadyEvent } from '../../interfaces/event';
 
 /**
  * Directive for creating Multi-route on the map
@@ -43,32 +43,32 @@ export class YaMultirouteDirective implements OnInit, OnChanges, OnDestroy {
   /**
    * Emits immediately after this entity is added in root container.
    */
-  @Output() public ready = new EventEmitter<ILoadEvent>();
+  @Output() public ready = new EventEmitter<YaReadyEvent>();
 
   /**
    * Change to the active route.
    */
-  @Output() public activeroutechange = new EventEmitter<IEvent>();
+  @Output() public activeroutechange = new EventEmitter<YaEvent>();
 
   /**
    * Actions with the balloon.
    */
-  @Output() public balloon = new EventEmitter<IEvent>();
+  @Output() public balloon = new EventEmitter<YaEvent>();
 
   /**
    * Left-click on the object.
    */
-  @Output() public yaclick = new EventEmitter<IEvent>();
+  @Output() public yaclick = new EventEmitter<YaEvent>();
 
   /**
    * Mouse actions with the object.
    */
-  @Output() public mouse = new EventEmitter<IEvent>();
+  @Output() public mouse = new EventEmitter<YaEvent>();
 
   /**
    * Multitouch actions with the object.
    */
-  @Output() public multitouch = new EventEmitter<IEvent>();
+  @Output() public multitouch = new EventEmitter<YaEvent>();
 
   public id: string;
 

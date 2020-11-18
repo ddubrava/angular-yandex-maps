@@ -37,25 +37,25 @@ All events execute within the Angular zone
 	<tbody>
 		<tr>
 			<td>ready</td>
-			<td><a href="#/interfaces/load-event">ILoadEvent</a></td>
+			<td><a href="#/interfaces/ready-event">YaReadyEvent</a></td>
 			<td></td>
 			<td>Emits immediately after this entity is added in root container</td>
 		</tr>
 		<tr>
 			<td>direction</td>
-			<td><a href="#/interfaces/event">IEvent</a></td>
+			<td><a href="#/interfaces/event">YaEvent</a></td>
 			<td>directionchange</td>
 			<td>The view direction changed</td>
 		</tr>
 		<tr>
 			<td>fullscreen</td>
-			<td><a href="#/interfaces/event">IEvent</a></td>
+			<td><a href="#/interfaces/event">YaEvent</a></td>
 			<td>fullscreenenter, fullscreenexit</td>
 			<td>The panorama player screen mode is switched</td>
 		</tr>
 		<tr>
 			<td>marker</td>
-			<td><a href="#/interfaces/event">IEvent</a></td>
+			<td><a href="#/interfaces/event">YaEvent</a></td>
 			<td>markercollapse, markerexpand, markermouseenter, markermouseleave</td>
 			<td>Actions with the marker</td>
 		</tr>

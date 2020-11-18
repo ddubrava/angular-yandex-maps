@@ -53,17 +53,17 @@ Directive for creating Multi-route on the map
 
 All events execute within the Angular zone
 
-| Name              | Type         | Supported event type                                  | Description                                                    |
-| ----------------- | ------------ | ----------------------------------------------------- | -------------------------------------------------------------- |
-| ready             | [ILoadEvent] |                                                       | Emits immediately after this entity is added in root container |
-| activeroutechange | [IEvent]     | activeroutechange                                     | Change to the active route                                     |
-| balloon           | [IEvent]     | balloonopen, balloonclose                             | Actions with the balloon                                       |
-| yaclick           | [IEvent]     | click, dblclick                                       | Left-click on the object                                       |
-| mouse             | [IEvent]     | mousedown, mouseenter, mouseleave, mousemove, mouseup | Mouse actions with the object                                  |
-| multitouch        | [IEvent]     | multitouchstart, multitouchmove, multitouchend        | Multitouch actions with the object                             |
+| Name              | Type           | Supported event type                                  | Description                                                    |
+| ----------------- | -------------- | ----------------------------------------------------- | -------------------------------------------------------------- |
+| ready             | [YaReadyEvent] |                                                       | Emits immediately after this entity is added in root container |
+| activeroutechange | [YaEvent]      | activeroutechange                                     | Change to the active route                                     |
+| balloon           | [YaEvent]      | balloonopen, balloonclose                             | Actions with the balloon                                       |
+| yaclick           | [YaEvent]      | click, dblclick                                       | Left-click on the object                                       |
+| mouse             | [YaEvent]      | mousedown, mouseenter, mouseleave, mousemove, mouseup | Mouse actions with the object                                  |
+| multitouch        | [YaEvent]      | multitouchstart, multitouchmove, multitouchend        | Multitouch actions with the object                             |
 
-[iloadevent]: interfaces/load-event.md
-[ievent]: interfaces/event.md
+[yareadyevent]: interfaces/ya-ready-event.md
+[yaevent]: interfaces/event.md
 
 ## Examples
 

@@ -3,9 +3,10 @@ import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable, Optional } from '@angular/core';
 import { from, fromEvent, merge, Observable, throwError } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
-import { IConfig, YA_MAP_CONFIG } from '../../models/models';
+import { YA_CONFIG } from '../../constants/constant';
+import { YaConfig } from '../../interfaces/config';
 
-const DEFAULT_CONFIG: IConfig = {
+const DEFAULT_CONFIG: YaConfig = {
   lang: 'ru_RU',
 };
 
@@ -27,14 +28,14 @@ declare global {
   providedIn: 'root',
 })
 export class ScriptService {
-  private _config: IConfig;
+  private _config: YaConfig;
 
   private _script: HTMLScriptElement;
 
   private _window: Window;
 
   constructor(
-    @Optional() @Inject(YA_MAP_CONFIG) config: IConfig | null,
+    @Optional() @Inject(YA_CONFIG) config: YaConfig | null,
     @Inject(DOCUMENT) private _document: Document,
   ) {
     this._config = config || DEFAULT_CONFIG;
@@ -79,7 +80,7 @@ export class ScriptService {
    * @param config Config with parameters that will be added in source
    * @example 'https://api-maps.yandex.ru/2.1/?apikey=658f67a2-fd77-42e9-b99e-2bd48c4ccad4&lang=en_US'
    */
-  private _getScriptSource(config: IConfig): string {
+  private _getScriptSource(config: YaConfig): string {
     const { enterprise, version = '2.1', ...rest } = config;
     const params = this._convertConfigIntoQueryParams(rest);
 
@@ -95,7 +96,7 @@ export class ScriptService {
    * // returns "lang=ru_RU&apikey=XXX"
    * convertIntoQueryParams({ lang: 'ru_RU', apikey: 'XXX' })
    */
-  private _convertConfigIntoQueryParams(config: IConfig): string {
+  private _convertConfigIntoQueryParams(config: YaConfig): string {
     return Object.entries(config)
       .map(([key, value]) => `${key}=${value}`)
       .join('&');

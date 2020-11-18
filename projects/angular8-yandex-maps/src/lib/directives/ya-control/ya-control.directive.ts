@@ -8,7 +8,7 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { ILoadEvent } from '../../models/models';
+import { YaReadyEvent } from '../../interfaces/event';
 import { removeLeadingSpaces } from '../../utils/removeLeadingSpaces';
 
 export type ControlType =
@@ -49,7 +49,7 @@ export class YaControlDirective implements OnInit, OnChanges {
   /**
    * Emits immediately after this entity is added in root container.
    */
-  @Output() public ready = new EventEmitter<ILoadEvent>();
+  @Output() public ready = new EventEmitter<YaReadyEvent>();
 
   constructor(private _ngZone: NgZone) {}
 
@@ -99,7 +99,7 @@ export class YaControlDirective implements OnInit, OnChanges {
       Control doesn't support dynamic configuartion.
 
       Solutions:
-      1. Use ymaps from ILoadEvent
+      1. Use ymaps from YaReadyEvent
       2. Recreate component with new configuration
     `),
     );
