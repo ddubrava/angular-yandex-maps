@@ -16,7 +16,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { generateRandomId } from '../../utils/generateRandomId';
-import { IEvent, ILoadEvent } from '../../models/models';
+import { IEvent, ILoadEvent } from '../../interfaces/event';
 import { ScriptService } from '../../services/script/script.service';
 import { YaPlacemarkDirective } from '../../directives/ya-placemark/ya-placemark.directive';
 import { YaMultirouteDirective } from '../../directives/ya-multiroute/ya-multiroute.directive';

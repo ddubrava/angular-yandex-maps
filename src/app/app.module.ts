@@ -1,6 +1,8 @@
-import { AngularYandexMapsModule, YaConfig } from 'angular8-yandex-maps';
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+
+import { AngularYandexMapsModule, YaConfig } from 'angular8-yandex-maps';
+import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -11,7 +13,6 @@ import { MapComponent } from './components/map/map.component';
 import { MultirouteComponent } from './components/multiroute/multiroute.component';
 import { PanoramaComponent } from './components/panorama/panorama.component';
 import { PlacemarkComponent } from './components/placemark/placemark.component';
-import { environment } from '../environments/environment';
 
 const mapConfig: YaConfig = {
   lang: 'en_US',

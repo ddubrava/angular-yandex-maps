@@ -25,6 +25,10 @@
   - [IEvent](interfaces/event.md 'IEvent | Angular Yandex Map')
   - [ILoadEvent](interfaces/load-event.md 'ILoadEvent | Angular Yandex Map')
 
+- Constants
+
+  - [YA_CONFIG](constants/ya-config.md 'YA_CONFIG | Angular Yandex Map')
+
 - [Examples](examples.md 'Examples | Angular Yandex Map')
 - [Changelog](https://github.com/ddubrava/angular8-yandex-maps/blob/develop/CHANGELOG.md)
 - [Licence](https://github.com/ddubrava/angular8-yandex-maps/blob/develop/LICENSE.md)

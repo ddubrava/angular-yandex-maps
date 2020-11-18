@@ -1,9 +1,10 @@
-import { catchError } from 'rxjs/operators';
 import { DOCUMENT } from '@angular/common';
+import { catchError } from 'rxjs/operators';
 import { inject, TestBed } from '@angular/core/testing';
 import { merge, of } from 'rxjs';
-import { YaConfig, YA_MAP_CONFIG } from '../../models/models';
 import { ScriptService } from './script.service';
+import { YA_CONFIG } from '../../constants/constant';
+import { YaConfig } from '../../interfaces/config';
 
 describe('ScriptService', () => {
   const SCRIPT_ID = '#yandexMapsApiScript';
@@ -86,7 +87,7 @@ describe('ScriptService', () => {
     };
 
     TestBed.resetTestingModule();
-    TestBed.overrideProvider(YA_MAP_CONFIG, { useValue: config });
+    TestBed.overrideProvider(YA_CONFIG, { useValue: config });
 
     inject([ScriptService], (service: ScriptService) => {
       service.initScript().subscribe(() => {
@@ -115,7 +116,7 @@ describe('ScriptService', () => {
     };
 
     TestBed.resetTestingModule();
-    TestBed.overrideProvider(YA_MAP_CONFIG, { useValue: config });
+    TestBed.overrideProvider(YA_CONFIG, { useValue: config });
 
     inject([ScriptService], (service: ScriptService) => {
       // API returns 403 for enterpise + fake apikey so have to catch error
@@ -147,7 +148,7 @@ describe('ScriptService', () => {
     };
 
     TestBed.resetTestingModule();
-    TestBed.overrideProvider(YA_MAP_CONFIG, { useValue: config });
+    TestBed.overrideProvider(YA_CONFIG, { useValue: config });
 
     inject([ScriptService], (service: ScriptService) => {
       service

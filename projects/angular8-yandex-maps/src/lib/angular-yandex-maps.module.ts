@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { YaConfig, YA_MAP_CONFIG } from './models/models';
+import { YA_CONFIG } from './constants/constant';
 import { YaClustererDirective } from './directives/ya-clusterer/ya-clusterer.directive';
+import { YaConfig } from './interfaces/config';
 import { YaControlDirective } from './directives/ya-control/ya-control.directive';
 import { YaGeoobjectDirective } from './directives/ya-geoobject/ya-geoobject.directive';
 import { YaMapComponent } from './components/ya-map/ya-map.component';
@@ -40,7 +41,7 @@ export class AngularYandexMapsModule {
   ): ModuleWithProviders<AngularYandexMapsModule> {
     return {
       ngModule: AngularYandexMapsModule,
-      providers: [{ provide: YA_MAP_CONFIG, useValue: config }],
+      providers: [{ provide: YA_CONFIG, useValue: config }],
     };
   }
 }

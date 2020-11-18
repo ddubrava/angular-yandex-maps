@@ -3,7 +3,8 @@ import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable, Optional } from '@angular/core';
 import { from, fromEvent, merge, Observable, throwError } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
-import { YaConfig, YA_MAP_CONFIG } from '../../models/models';
+import { YA_CONFIG } from '../../constants/constant';
+import { YaConfig } from '../../interfaces/config';
 
 const DEFAULT_CONFIG: YaConfig = {
   lang: 'ru_RU',
@@ -34,7 +35,7 @@ export class ScriptService {
   private _window: Window;
 
   constructor(
-    @Optional() @Inject(YA_MAP_CONFIG) config: YaConfig | null,
+    @Optional() @Inject(YA_CONFIG) config: YaConfig | null,
     @Inject(DOCUMENT) private _document: Document,
   ) {
     this._config = config || DEFAULT_CONFIG;

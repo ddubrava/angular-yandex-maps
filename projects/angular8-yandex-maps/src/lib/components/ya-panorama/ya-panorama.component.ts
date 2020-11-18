@@ -13,7 +13,7 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { generateRandomId } from '../../utils/generateRandomId';
-import { IEvent, ILoadEvent } from '../../models/models';
+import { IEvent, ILoadEvent } from '../../interfaces/event';
 import { removeLeadingSpaces } from '../../utils/removeLeadingSpaces';
 import { ScriptService } from '../../services/script/script.service';
 

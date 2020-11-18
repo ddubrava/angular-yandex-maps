@@ -61,12 +61,12 @@ export class AppModule { }
 ##### Injection token
 
 ```
-import { AngularYandexMapsModule, YA_MAP_CONFIG } from 'angular8-yandex-maps';
+import { AngularYandexMapsModule, YA_CONFIG } from 'angular8-yandex-maps';
 
 @NgModule({
   imports: [AngularYandexMapsModule],
   providers: [{
-    provide: YA_MAP_CONFIG,
+    provide: YA_CONFIG,
     useValue: {
       apikey: 'API_KEY',
       lang: 'en_US',

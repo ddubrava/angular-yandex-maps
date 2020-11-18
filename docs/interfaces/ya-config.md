@@ -59,4 +59,4 @@ API loading parameters. See [API](https://yandex.ru/dev/maps/jsapi/doc/2.1/dg/co
 
 ## Source
 
-[lib/models/models.ts](https://github.com/ddubrava/angular8-yandex-maps/blob/master/projects/angular8-yandex-maps/src/lib/models/models.ts)
+[lib/interfaces/config.ts](https://github.com/ddubrava/angular8-yandex-maps/blob/master/projects/angular8-yandex-maps/src/lib/interfaces/config.ts)

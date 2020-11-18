@@ -8,7 +8,7 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { ILoadEvent } from '../../models/models';
+import { ILoadEvent } from '../../interfaces/event';
 import { removeLeadingSpaces } from '../../utils/removeLeadingSpaces';
 
 export type ControlType =

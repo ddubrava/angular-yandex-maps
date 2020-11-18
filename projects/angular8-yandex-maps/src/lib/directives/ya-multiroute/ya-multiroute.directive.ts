@@ -10,7 +10,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { generateRandomId } from '../../utils/generateRandomId';
-import { IEvent, ILoadEvent } from '../../models/models';
+import { IEvent, ILoadEvent } from '../../interfaces/event';
 
 /**
  * Directive for creating Multi-route on the map

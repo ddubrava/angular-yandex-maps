@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import { startWith } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
-import { IEvent, ILoadEvent } from '../../models/models';
+import { IEvent, ILoadEvent } from '../../interfaces/event';
 import { YaPlacemarkDirective } from '../ya-placemark/ya-placemark.directive';
 import { YaGeoobjectDirective } from '../ya-geoobject/ya-geoobject.directive';
 
