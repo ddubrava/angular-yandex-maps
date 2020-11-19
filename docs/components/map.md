@@ -28,17 +28,36 @@ Component for creating and managing a map
 
 ## Outputs
 
-All events except 'mouse', 'multitouch' execute within the Angular zone
-
-| Name       | Type           | Supported event type                                  | Description                                                    |
-| ---------- | -------------- | ----------------------------------------------------- | -------------------------------------------------------------- |
-| ready      | [YaReadyEvent] |                                                       | Emits immediately after this entity is added in root container |
-| action     | [YaEvent]      | actionbegin, actionend                                | Smooth map movement                                            |
-| balloon    | [YaEvent]      | balloonopen, balloonclose                             | Actions with the balloon                                       |
-| yaclick    | [YaEvent]      | click, dblclick                                       | Left-click on the object                                       |
-| hint       | [YaEvent]      | hintopen, hintclose                                   | Actions with the hint                                          |
-| mouse      | [YaEvent]      | mousedown, mouseenter, mouseleave, mousemove, mouseup | Mouse actions with the object                                  |
-| multitouch | [YaEvent]      | multitouchstart, multitouchmove, multitouchend        | Multitouch actions with the object                             |
+| Name               | Type           | Inside the angular zone | Description                                                   |
+| ------------------ | -------------- | ----------------------- | ------------------------------------------------------------- |
+| ready              | [YaReadyEvent] | yes                     | Entity is added in root container                             |
+| actionbegin        | [YaEvent]      | no                      | The start of a new smooth map movement                        |
+| actionbreak        | [YaEvent]      | no                      | Event that occurs when an action step was prematurely stopped |
+| actionend          | [YaEvent]      | no                      | The end of smooth map movement                                |
+| actiontick         | [YaEvent]      | no                      | The start of a new step of smooth movement                    |
+| actiontickcomplete | [YaEvent]      | no                      | The end of performing a step of smooth movement               |
+| balloonclose       | [YaEvent]      | yes                     | Closing the balloon                                           |
+| balloonopen        | [YaEvent]      | yes                     | Opening a balloon on a map                                    |
+| boundschange       | [YaEvent]      | yes                     | Event for a change to the map viewport                        |
+| yaclick            | [YaEvent]      | yes                     | Single left-click on the object                               |
+| yacontextmenu      | [YaEvent]      | yes                     | Calls the element's context menu                              |
+| yadblclick         | [YaEvent]      | yes                     | Double left-click on the object                               |
+| destroy            | [YaEvent]      | yes                     | The map was destroyed                                         |
+| hintclose          | [YaEvent]      | yes                     | Closing the hint                                              |
+| hintopen           | [YaEvent]      | yes                     | Opening a hint on a map                                       |
+| marginchange       | [YaEvent]      | yes                     | Map margins changed                                           |
+| yamousedown        | [YaEvent]      | yes                     | Pressing the mouse button over the object                     |
+| yamouseenter       | [YaEvent]      | no                      | Pointing the cursor at the object                             |
+| yamouseleave       | [YaEvent]      | no                      | Moving the cursor off of the object                           |
+| yamousemove        | [YaEvent]      | no                      | Moving the cursor over the object                             |
+| yamouseup          | [YaEvent]      | no                      | Letting go of the mouse button over an object                 |
+| multitouchend      | [YaEvent]      | no                      | End of multitouch                                             |
+| multitouchmove     | [YaEvent]      | no                      | Repeating event during multitouch                             |
+| multitouchstart    | [YaEvent]      | no                      | Start of multitouch                                           |
+| optionschange      | [YaEvent]      | yes                     | Map options changed                                           |
+| sizechange         | [YaEvent]      | yes                     | Map size changed                                              |
+| typechange         | [YaEvent]      | yes                     | The map type changed                                          |
+| yawheel            | [YaEvent]      | yes                     | Mouse wheel scrollin                                          |
 
 [yareadyevent]: interfaces/ya-ready-event.md
 [yaevent]: interfaces/event.md
