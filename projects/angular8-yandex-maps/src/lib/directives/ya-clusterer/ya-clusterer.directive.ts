@@ -50,7 +50,7 @@ export class YaClustererDirective implements OnChanges, OnDestroy {
   @Input() public options: any;
 
   /**
-   * Emits immediately after this entity is added in root container.
+   * Clusterer instance is created.
    */
   @Output() public ready = new EventEmitter<YaReadyEvent>();
 
@@ -118,6 +118,8 @@ export class YaClustererDirective implements OnChanges, OnDestroy {
   public createClusterer(map: ymaps.Map): ymaps.Clusterer {
     const clusterer = new ymaps.Clusterer(this.options);
     this._clusterer = clusterer;
+
+    this._ngZone.run(() => this.ready.emit({ ymaps, instance: clusterer }));
 
     /**
      * Adds new Placemarks to the clusterer on changes.
@@ -187,8 +189,6 @@ export class YaClustererDirective implements OnChanges, OnDestroy {
           : this._ngZone.run(() => listener.emitter.emit(fn(e))),
       );
     });
-
-    this._ngZone.run(() => this.ready.emit({ ymaps, instance: clusterer }));
   }
 
   public ngOnDestroy(): void {
