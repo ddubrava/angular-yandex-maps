@@ -12,11 +12,10 @@ import {
   ViewChild,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { generateRandomId } from '../../utils/generateRandomId';
-import { YaEvent, YaReadyEvent } from '../../interfaces/event';
-import { removeLeadingSpaces } from '../../utils/removeLeadingSpaces';
-import { ScriptService } from '../../services/script/script.service';
 import { Listener } from '../../interfaces/listener';
+import { ScriptService } from '../../services/script/script.service';
+import { YaEvent, YaReadyEvent } from '../../interfaces/event';
+import { generateRandomId } from '../../utils/generateRandomId';
 
 /**
  * Component for creating and controlling the panorama player.
@@ -35,7 +34,7 @@ export class YaPanoramaComponent implements OnInit, OnChanges, OnDestroy {
   /**
    * The point for searching for nearby panoramas.
    */
-  @Input() public point: Array<number>;
+  @Input() public point: number[];
 
   /**
    * The layer to search for panoramas.
@@ -49,7 +48,7 @@ export class YaPanoramaComponent implements OnInit, OnChanges, OnDestroy {
   @Input() public options: any;
 
   /**
-   * Emits immediately after this entity is added in root container.
+   * Panorama instance is created.
    */
   @Output() public ready = new EventEmitter<YaReadyEvent>();
 
@@ -118,7 +117,7 @@ export class YaPanoramaComponent implements OnInit, OnChanges, OnDestroy {
   public ngOnInit(): void {
     this._sub = new Subscription();
 
-    this._logErrors();
+    this._checkRequiredInputs();
     this._initScript();
   }
 
@@ -139,33 +138,23 @@ export class YaPanoramaComponent implements OnInit, OnChanges, OnDestroy {
     const { point, layer, options } = changes;
 
     if (point) {
-      player.moveTo(
-        point.currentValue,
-        layer ? { layer: layer.currentValue } : {},
-      );
+      player.moveTo(point.currentValue);
     }
 
-    if (layer && !point) {
-      console.error('Panorama: You cannot change the layer without point');
+    if (layer && point === undefined) {
+      throw new Error("The layer can't be changed without a point");
     }
 
     if (options) {
-      console.error(
-        removeLeadingSpaces(`
-        The options of Panorama cannot be changed after entity init.
-
-        Solutions:
-        1. Use ymaps from YaReadyEvent
-        2. Recreate Panorama component with new options
-      `),
+      throw new Error(
+        "The options can't be changed after entity init. You can set them manually using ymaps or recreate the Panorama with new options",
       );
     }
   }
 
-  private _logErrors(): void {
-    if (!this.point) {
-      console.error('Panorama: point input is required.');
-      this.point = [];
+  private _checkRequiredInputs(): void {
+    if (this.point === undefined || this.point === null) {
+      throw new Error('Point is required');
     }
   }
 
@@ -195,6 +184,8 @@ export class YaPanoramaComponent implements OnInit, OnChanges, OnDestroy {
       .then((panorama: ymaps.IPanorama[]) => {
         const player = new ymaps.panorama.Player(id, panorama[0], this.options);
         this._player = player;
+
+        this._ngZone.run(() => this.ready.emit({ ymaps, instance: player }));
 
         this.addEventListeners();
       });
@@ -233,8 +224,6 @@ export class YaPanoramaComponent implements OnInit, OnChanges, OnDestroy {
           : this._ngZone.run(() => listener.emitter.emit(fn(e))),
       );
     });
-
-    this._ngZone.run(() => this.ready.emit({ ymaps, instance: player }));
   }
 
   public ngOnDestroy(): void {

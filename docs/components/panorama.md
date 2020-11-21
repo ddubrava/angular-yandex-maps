@@ -25,7 +25,7 @@ Component for creating and controlling the panorama player
 
 | Name             | Type           | Inside the angular zone | Description                                                                             |
 | ---------------- | -------------- | ----------------------- | --------------------------------------------------------------------------------------- |
-| ready            | [YaReadyEvent] | yes                     | Entity is added in root container                                                       |
+| ready            | [YaReadyEvent] | yes                     | Panorama instance is created                                                            |
 | destroy          | [YaEvent]      | yes                     | The player was closed by the user or destroyed using the panorama.Player.destroy method |
 | directionchange  | [YaEvent]      | yes                     | The view direction changed                                                              |
 | yaerror          | [YaEvent]      | yes                     | An error occurred during operation of the player                                        |
@@ -40,10 +40,6 @@ Component for creating and controlling the panorama player
 
 [yareadyevent]: interfaces/ya-ready-event.md
 [yaevent]: interfaces/event.md
-
-## Examples
-
-- [Panorama](https://stackblitz.com/edit/panorama)
 
 ## Source
 
