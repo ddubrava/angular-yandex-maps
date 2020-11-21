@@ -61,7 +61,7 @@ Directive for creating Multi-route on the map
 | boundschange      | [YaEvent]      | yes                     | Changing coordinates of the geographical area covering the multi-route. |
 | yaclick           | [YaEvent]      | yes                     | Single left-click on the object                                         |
 | yacontextmenu     | [YaEvent]      | yes                     | Calls the element's context menu                                        |
-| yadblclick        | [YaEvent]      | yes                     | Double left-click on the object                                         |
+| yadbclick         | [YaEvent]      | yes                     | Double left-click on the object                                         |
 | geometrychange    | [YaEvent]      | yes                     | Change to the geo object geometry                                       |
 | mapchange         | [YaEvent]      | yes                     | Map reference changed                                                   |
 | yamousedown       | [YaEvent]      | yes                     | Pressing the mouse button over the object                               |
@@ -82,11 +82,6 @@ Directive for creating Multi-route on the map
 
 [yareadyevent]: interfaces/ya-ready-event.md
 [yaevent]: interfaces/event.md
-
-## Examples
-
-- [Building a driving multiroute](https://stackblitz.com/edit/multiroute)
-- [Building a pedestrian multiroute](https://stackblitz.com/edit/multiroute-pedestrian)
 
 ## Source
 

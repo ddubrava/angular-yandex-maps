@@ -5,7 +5,6 @@ import {
   NgZone,
   OnChanges,
   OnDestroy,
-  OnInit,
   Output,
   SimpleChanges,
 } from '@angular/core';
@@ -14,15 +13,15 @@ import { YaEvent, YaReadyEvent } from '../../interfaces/event';
 import { generateRandomId } from '../../utils/generateRandomId';
 
 /**
- * Directive for creating Multi-route on the map
+ * Directive for creating Multi-route on the map.
  *
  * @example `<ya-multiroute [referencePoints]="[[55.751952, 37.600739], 'Красные ворота, Москва']"></ya-multiroute>`.
- * @see {@link https://ddubrava.github.io/angular8-yandex-maps/#/components/multiroute}
+ * @see {@link https://ddubrava.github.io/angular8-yandex-maps/#/directives/multiroute}
  */
 @Directive({
   selector: 'ya-multiroute',
 })
-export class YaMultirouteDirective implements OnInit, OnChanges, OnDestroy {
+export class YaMultirouteDirective implements OnChanges, OnDestroy {
   /**
    * Reference points for the multi-route.
    * @see {@link https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/IMultiRouteReferencePoint-docpage/}
@@ -84,7 +83,7 @@ export class YaMultirouteDirective implements OnInit, OnChanges, OnDestroy {
   /**
    * Double left-click on the object.
    */
-  @Output() public yadblclick = new EventEmitter<YaEvent>();
+  @Output() public yadbclick = new EventEmitter<YaEvent>();
 
   /**
    * Change to the geo object geometry.
@@ -180,10 +179,6 @@ export class YaMultirouteDirective implements OnInit, OnChanges, OnDestroy {
 
   constructor(private _ngZone: NgZone) {}
 
-  public ngOnInit(): void {
-    this._logErrors();
-  }
-
   public ngOnChanges(changes: SimpleChanges): void {
     this._updateMultiroute(changes);
   }
@@ -236,13 +231,6 @@ export class YaMultirouteDirective implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  private _logErrors(): void {
-    if (!this.referencePoints) {
-      console.error('Multiroute: referencePoints input is required.');
-      this.referencePoints = [];
-    }
-  }
-
   /**
    * Creates Multiroute.
    *
@@ -250,10 +238,14 @@ export class YaMultirouteDirective implements OnInit, OnChanges, OnDestroy {
    * `this.map.geoObjects.remove(this.multiroute);`.
    */
   public createMultiroute(map: ymaps.Map): ymaps.multiRouter.MultiRoute {
+    this._checkRequiredInputs();
+
     const multiroute = new ymaps.multiRouter.MultiRoute(
       { ...this.model, referencePoints: this.referencePoints },
       this.options,
     );
+
+    this._ngZone.run(() => this.ready.emit({ ymaps, instance: multiroute }));
 
     this.id = generateRandomId();
     this._map = map;
@@ -262,6 +254,12 @@ export class YaMultirouteDirective implements OnInit, OnChanges, OnDestroy {
     this._addEventListeners();
 
     return multiroute;
+  }
+
+  private _checkRequiredInputs(): void {
+    if (this.referencePoints === undefined || this.referencePoints === null) {
+      throw new Error('ReferencePoints is required');
+    }
   }
 
   /**
@@ -281,7 +279,7 @@ export class YaMultirouteDirective implements OnInit, OnChanges, OnDestroy {
       { name: 'boundschange', emitter: this.boundschange },
       { name: 'click', emitter: this.yaclick },
       { name: 'contextmenu', emitter: this.yacontextmenu },
-      { name: 'dbclick', emitter: this.yadblclick },
+      { name: 'dbclick', emitter: this.yadbclick },
 
       { name: 'geometrychange', emitter: this.geometrychange },
       { name: 'mapchange', emitter: this.mapchange },
@@ -335,8 +333,6 @@ export class YaMultirouteDirective implements OnInit, OnChanges, OnDestroy {
           : this._ngZone.run(() => listener.emitter.emit(fn(e))),
       );
     });
-
-    this._ngZone.run(() => this.ready.emit({ ymaps, instance: multiroute }));
   }
 
   public ngOnDestroy(): void {
