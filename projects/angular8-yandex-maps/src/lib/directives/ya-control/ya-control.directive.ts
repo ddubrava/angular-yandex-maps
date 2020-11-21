@@ -35,6 +35,8 @@ export class YaControlDirective implements OnChanges {
    */
   @Output() public ready = new EventEmitter<YaReadyEvent>();
 
+  private _control: any;
+
   constructor(private _ngZone: NgZone) {}
 
   /**
@@ -48,6 +50,7 @@ export class YaControlDirective implements OnChanges {
      * Wrong typings in DefinitelyTyped.
      */
     const control = new (ymaps.control as any)[this.type](this.parameters);
+    this._control = control;
 
     // RoutePanel ignores state in parameters. API bug
     if (
@@ -63,12 +66,8 @@ export class YaControlDirective implements OnChanges {
     return control;
   }
 
-  public ngOnChanges(changes: SimpleChanges): void {
-    this._updateControl(changes);
-  }
-
-  private _updateControl(changes: SimpleChanges): void {
-    if (Object.values(changes).some((v) => v.firstChange)) return;
+  public ngOnChanges(): void {
+    if (!this._control) return;
 
     throw new Error(
       "Control doesn't support dynamic configuartion. You can config it manually using ymaps or recreate the component with new configuration",
