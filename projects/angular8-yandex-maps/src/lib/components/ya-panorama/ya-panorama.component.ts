@@ -12,10 +12,10 @@ import {
   ViewChild,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { generateRandomId } from '../../utils/generateRandomId';
-import { YaEvent, YaReadyEvent } from '../../interfaces/event';
-import { removeLeadingSpaces } from '../../utils/removeLeadingSpaces';
+import { Listener } from '../../interfaces/listener';
 import { ScriptService } from '../../services/script/script.service';
+import { YaEvent, YaReadyEvent } from '../../interfaces/event';
+import { generateRandomId } from '../../utils/generateRandomId';
 
 /**
  * Component for creating and controlling the panorama player.
@@ -34,7 +34,7 @@ export class YaPanoramaComponent implements OnInit, OnChanges, OnDestroy {
   /**
    * The point for searching for nearby panoramas.
    */
-  @Input() public point: Array<number>;
+  @Input() public point: number[];
 
   /**
    * The layer to search for panoramas.
@@ -48,24 +48,64 @@ export class YaPanoramaComponent implements OnInit, OnChanges, OnDestroy {
   @Input() public options: any;
 
   /**
-   * Emits immediately after this entity is added in root container.
+   * Panorama instance is created.
    */
   @Output() public ready = new EventEmitter<YaReadyEvent>();
 
   /**
+   * The player was closed by the user or destroyed using the panorama.Player.destroy method.
+   */
+  @Output() public destroy = new EventEmitter<YaEvent>();
+
+  /**
    * The view direction changed.
    */
-  @Output() public direction = new EventEmitter<YaEvent>();
+  @Output() public directionchange = new EventEmitter<YaEvent>();
 
   /**
-   * The panorama player screen mode is switched.
+   * An error occurred during operation of the player. The user will be shown the appropriate screen.
    */
-  @Output() public fullscreen = new EventEmitter<YaEvent>();
+  @Output() public yaerror = new EventEmitter<YaEvent>();
 
   /**
-   * Actions with the marker.
+   * The panorama player switched to full-screen mode.
    */
-  @Output() public marker = new EventEmitter<YaEvent>();
+  @Output() public fullscreenenter = new EventEmitter<YaEvent>();
+
+  /**
+   * The panorama player exited full-screen mode.
+   */
+  @Output() public fullscreenexit = new EventEmitter<YaEvent>();
+
+  /**
+   * The user clicked on an expanded marker.
+   */
+  @Output() public markercollapse = new EventEmitter<YaEvent>();
+
+  /**
+   * The user clicked on a collapsed marker.
+   */
+  @Output() public markerexpand = new EventEmitter<YaEvent>();
+
+  /**
+   * The user's cursor hovered over a marker.
+   */
+  @Output() public markermouseenter = new EventEmitter<YaEvent>();
+
+  /**
+   * The user's cursor left a marker.
+   */
+  @Output() public markermouseleave = new EventEmitter<YaEvent>();
+
+  /**
+   * The open panorama changed.
+   */
+  @Output() public panoramachange = new EventEmitter<YaEvent>();
+
+  /**
+   * The size of the viewport has been changed.
+   */
+  @Output() public spanchange = new EventEmitter<YaEvent>();
 
   private _sub: Subscription;
 
@@ -77,7 +117,7 @@ export class YaPanoramaComponent implements OnInit, OnChanges, OnDestroy {
   public ngOnInit(): void {
     this._sub = new Subscription();
 
-    this._logErrors();
+    this._checkRequiredInputs();
     this._initScript();
   }
 
@@ -98,33 +138,23 @@ export class YaPanoramaComponent implements OnInit, OnChanges, OnDestroy {
     const { point, layer, options } = changes;
 
     if (point) {
-      player.moveTo(
-        point.currentValue,
-        layer ? { layer: layer.currentValue } : {},
-      );
+      player.moveTo(point.currentValue);
     }
 
-    if (layer && !point) {
-      console.error('Panorama: You cannot change the layer without point');
+    if (layer && point === undefined) {
+      throw new Error("The layer can't be changed without a point");
     }
 
     if (options) {
-      console.error(
-        removeLeadingSpaces(`
-        The options of Panorama cannot be changed after entity init.
-
-        Solutions:
-        1. Use ymaps from YaReadyEvent
-        2. Recreate Panorama component with new options
-      `),
+      throw new Error(
+        "The options can't be changed after entity init. You can set them manually using ymaps or recreate the Panorama with new options",
       );
     }
   }
 
-  private _logErrors(): void {
-    if (!this.point) {
-      console.error('Panorama: point input is required.');
-      this.point = [];
+  private _checkRequiredInputs(): void {
+    if (this.point === undefined || this.point === null) {
+      throw new Error('Point is required');
     }
   }
 
@@ -155,6 +185,8 @@ export class YaPanoramaComponent implements OnInit, OnChanges, OnDestroy {
         const player = new ymaps.panorama.Player(id, panorama[0], this.options);
         this._player = player;
 
+        this._ngZone.run(() => this.ready.emit({ ymaps, instance: player }));
+
         this.addEventListeners();
       });
   }
@@ -165,49 +197,31 @@ export class YaPanoramaComponent implements OnInit, OnChanges, OnDestroy {
   public addEventListeners(): void {
     const player = this._player;
 
-    this._ngZone.run(() => this.ready.emit({ ymaps, instance: player }));
-
-    const handlers = [
-      {
-        name: 'directionchange',
-        fn: (e: any) =>
-          this.direction.emit({
-            ymaps,
-            instance: player,
-            type: e.originalEvent.type,
-            event: e,
-          }),
-      },
-      {
-        name: ['fullscreenenter', 'fullscreenexit'],
-        fn: (e: any) =>
-          this.fullscreen.emit({
-            ymaps,
-            instance: player,
-            type: e.originalEvent.type,
-            event: e,
-          }),
-      },
-      {
-        name: [
-          'markercollapse',
-          'markerexpand',
-          'markermouseenter',
-          'markermouseleave',
-        ],
-        fn: (e: any) =>
-          this.marker.emit({
-            ymaps,
-            instance: player,
-            type: e.originalEvent.type,
-            event: e,
-          }),
-      },
+    const listeners: Listener[] = [
+      { name: 'destroy', emitter: this.destroy },
+      { name: 'directionchange', emitter: this.directionchange },
+      { name: 'error', emitter: this.yaerror },
+      { name: 'fullscreenenter', emitter: this.fullscreenenter },
+      { name: 'fullscreenexit', emitter: this.fullscreenexit },
+      { name: 'markercollapse', emitter: this.markercollapse },
+      { name: 'markerexpand', emitter: this.markerexpand },
+      { name: 'markermouseenter', emitter: this.markermouseenter },
+      { name: 'markermouseleave', emitter: this.markermouseleave },
+      { name: 'panoramachange', emitter: this.panoramachange },
+      { name: 'spanchange', emitter: this.spanchange },
     ];
 
-    handlers.forEach((handler) => {
-      player.events.add(handler.name, (e: any) =>
-        this._ngZone.run(() => handler.fn(e)),
+    const fn = (event: ymaps.Event): YaEvent => ({
+      event,
+      instance: player,
+      ymaps,
+    });
+
+    listeners.forEach((listener) => {
+      player.events.add(listener.name, (e: ymaps.Event) =>
+        listener.runOutsideAngular
+          ? this._ngZone.runOutsideAngular(() => listener.emitter.emit(fn(e)))
+          : this._ngZone.run(() => listener.emitter.emit(fn(e))),
       );
     });
   }

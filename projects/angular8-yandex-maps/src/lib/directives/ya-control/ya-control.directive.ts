@@ -4,42 +4,25 @@ import {
   Input,
   NgZone,
   OnChanges,
-  OnInit,
   Output,
-  SimpleChanges,
 } from '@angular/core';
+import { YaControlType } from '../../interfaces/control-type';
 import { YaReadyEvent } from '../../interfaces/event';
-import { removeLeadingSpaces } from '../../utils/removeLeadingSpaces';
-
-export type ControlType =
-  | 'Button'
-  | 'FullscreenControl'
-  | 'GeolocationControl'
-  | 'ListBox'
-  | 'ListBoxItem'
-  | 'RouteButton'
-  | 'RouteEditor'
-  | 'RoutePanel'
-  | 'RulerControl'
-  | 'SearchControl'
-  | 'TrafficControl'
-  | 'TypeSelector'
-  | 'ZoomControl';
 
 /**
  * Directive for creating and managing controls on the map.
  *
  * @example `<ya-control type="RoutePanel" [parameters]="{ options: { float: 'right' } }"></ya-control>`.
- * @see {@link https://ddubrava.github.io/angular8-yandex-maps/#/components/controls}
+ * @see {@link https://ddubrava.github.io/angular8-yandex-maps/#/directives/control}
  */
 @Directive({
   selector: 'ya-control',
 })
-export class YaControlDirective implements OnInit, OnChanges {
+export class YaControlDirective implements OnChanges {
   /**
    * Control type.
    */
-  @Input() public type: ControlType;
+  @Input() public type: YaControlType;
 
   /**
    * Parameters for the Control.
@@ -51,27 +34,22 @@ export class YaControlDirective implements OnInit, OnChanges {
    */
   @Output() public ready = new EventEmitter<YaReadyEvent>();
 
+  private _control: any;
+
   constructor(private _ngZone: NgZone) {}
-
-  public ngOnInit(): void {
-    this._logErrors();
-  }
-
-  private _logErrors(): void {
-    if (!this.type) {
-      console.error('Control: type input is required.');
-    }
-  }
 
   /**
    * Creates control
    * @returns Instance of created control
    */
   public createControl(): any {
+    this._checkRequiredInputs();
+
     /**
      * Wrong typings in DefinitelyTyped.
      */
     const control = new (ymaps.control as any)[this.type](this.parameters);
+    this._control = control;
 
     // RoutePanel ignores state in parameters. API bug
     if (
@@ -82,30 +60,22 @@ export class YaControlDirective implements OnInit, OnChanges {
       control.routePanel.state.set({ ...this.parameters.state });
     }
 
-    this._emitEvent(control);
+    this._ngZone.run(() => this.ready.emit({ ymaps, instance: control }));
 
     return control;
   }
 
-  public ngOnChanges(changes: SimpleChanges): void {
-    this._updateControl(changes);
-  }
+  public ngOnChanges(): void {
+    if (!this._control) return;
 
-  private _updateControl(changes: SimpleChanges): void {
-    if (Object.values(changes).some((v) => v.firstChange)) return;
-
-    console.error(
-      removeLeadingSpaces(`
-      Control doesn't support dynamic configuartion.
-
-      Solutions:
-      1. Use ymaps from YaReadyEvent
-      2. Recreate component with new configuration
-    `),
+    throw new Error(
+      "Control doesn't support dynamic configuartion. You can config it manually using ymaps or recreate the component with new configuration",
     );
   }
 
-  private _emitEvent(control: any): void {
-    this._ngZone.run(() => this.ready.emit({ ymaps, instance: control }));
+  private _checkRequiredInputs(): void {
+    if (this.type === undefined || this.type === null) {
+      throw new Error('Type is required');
+    }
   }
 }

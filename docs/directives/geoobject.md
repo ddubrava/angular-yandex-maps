@@ -26,26 +26,40 @@ Directive for creating a geo object. Can be displayed as a placemark, polyline, 
 
 ## Outputs
 
-All events execute within the Angular zone
-
-| Name       | Type           | Supported event type                                  | Description                                                    |
-| ---------- | -------------- | ----------------------------------------------------- | -------------------------------------------------------------- |
-| ready      | [YaReadyEvent] |                                                       | Emits immediately after this entity is added in root container |
-| balloon    | [YaEvent]      | balloonopen, balloonclose                             | Actions with the balloon                                       |
-| yaclick    | [YaEvent]      | click, dblclick                                       | Left-click on the object                                       |
-| drag       | [YaEvent]      | dragstart, dragend                                    | GeoObject dragging                                             |
-| hint       | [YaEvent]      | hintopen, hintclose                                   | Actions with the hint                                          |
-| mouse      | [YaEvent]      | mousedown, mouseenter, mouseleave, mousemove, mouseup | Mouse actions with the object                                  |
-| multitouch | [YaEvent]      | multitouchstart, multitouchmove, multitouchend        | Multitouch actions with the object                             |
+| Name              | Type           | Inside the angular zone | Description                                                     |
+| ----------------- | -------------- | ----------------------- | --------------------------------------------------------------- |
+| ready             | [YaReadyEvent] | yes                     | Entity is added in root container                               |
+| balloonclose      | [YaEvent]      | yes                     | Closing the balloon                                             |
+| balloonopen       | [YaEvent]      | yes                     | Opening a balloon on a map                                      |
+| beforedrag        | [YaEvent]      | yes                     | Event preceding the "drag" event                                |
+| beforedragstart   | [YaEvent]      | yes                     | Event preceding the "dragstart" event                           |
+| yaclick           | [YaEvent]      | yes                     | Single left-click on the object                                 |
+| yacontextmenu     | [YaEvent]      | yes                     | Calls the element's context menu                                |
+| yadbclick         | [YaEvent]      | yes                     | Double left-click on the object                                 |
+| drag              | [YaEvent]      | yes                     | Dragging a geo object                                           |
+| dragend           | [YaEvent]      | yes                     | End of geo object dragging                                      |
+| dragstart         | [YaEvent]      | yes                     | Start of geo object dragging                                    |
+| editorstatechange | [YaEvent]      | yes                     | Change in the state of the editor for the geo object's geometry |
+| geometrychange    | [YaEvent]      | yes                     | Change to the geo object geometry                               |
+| hintclose         | [YaEvent]      | yes                     | Closing the hint                                                |
+| hintopen          | [YaEvent]      | yes                     | Opening a hint on a map                                         |
+| mapchange         | [YaEvent]      | yes                     | Map reference changed                                           |
+| yamousedown       | [YaEvent]      | yes                     | Pressing the mouse button over the object                       |
+| yamouseenter      | [YaEvent]      | no                      | Pointing the cursor at the object                               |
+| yamouseleave      | [YaEvent]      | no                      | Moving the cursor off of the object                             |
+| yamousemove       | [YaEvent]      | no                      | Moving the cursor over the object                               |
+| yamouseup         | [YaEvent]      | no                      | Letting go of the mouse button over an object                   |
+| multitouchend     | [YaEvent]      | no                      | End of multitouch                                               |
+| multitouchmove    | [YaEvent]      | no                      | Repeating event during multitouch                               |
+| multitouchstart   | [YaEvent]      | no                      | Start of multitouch                                             |
+| optionschange     | [YaEvent]      | yes                     | Change to the object options                                    |
+| overlaychange     | [YaEvent]      | yes                     | Change to the geo object overlay                                |
+| parentchange      | [YaEvent]      | yes                     | The parent object reference changed                             |
+| propertieschange  | [YaEvent]      | yes                     | Change to the geo object data                                   |
+| yawheel           | [YaEvent]      | yes                     | Mouse wheel scrolling                                           |
 
 [yareadyevent]: interfaces/ya-ready-event.md
 [yaevent]: interfaces/event.md
-
-## Examples
-
-- [Rectangle](https://stackblitz.com/edit/rectangle)
-- [Polygon](https://stackblitz.com/edit/geoobject-polygon)
-- [Circle](https://stackblitz.com/edit/geoobject-circle)
 
 ## Source
 

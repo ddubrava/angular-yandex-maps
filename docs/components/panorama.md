@@ -23,48 +23,23 @@ Component for creating and controlling the panorama player
 
 ## Outputs
 
-All events execute within the Angular zone
+| Name             | Type           | Inside the angular zone | Description                                                                             |
+| ---------------- | -------------- | ----------------------- | --------------------------------------------------------------------------------------- |
+| ready            | [YaReadyEvent] | yes                     | Panorama instance is created                                                            |
+| destroy          | [YaEvent]      | yes                     | The player was closed by the user or destroyed using the panorama.Player.destroy method |
+| directionchange  | [YaEvent]      | yes                     | The view direction changed                                                              |
+| yaerror          | [YaEvent]      | yes                     | An error occurred during operation of the player                                        |
+| fullscreenenter  | [YaEvent]      | yes                     | The panorama player switched to full-screen mode                                        |
+| fullscreenexit   | [YaEvent]      | yes                     | The panorama player exited full-screen mode                                             |
+| markercollapse   | [YaEvent]      | yes                     | The user clicked on an expanded marker                                                  |
+| markerexpand     | [YaEvent]      | yes                     | The user clicked on a collapsed marker                                                  |
+| markermouseenter | [YaEvent]      | yes                     | The user's cursor hovered over a marker                                                 |
+| markermouseleave | [YaEvent]      | yes                     | The user's cursor left a marker                                                         |
+| panoramachange   | [YaEvent]      | yes                     | The open panorama changed                                                               |
+| spanchange       | [YaEvent]      | yes                     | The size of the viewport has been changed                                               |
 
-<table>
-	<thead>
-		<tr>
-			<th>Name</th>
-			<th>Type</th>
-			<th>Supported event type</th>
-			<th>Description</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td>ready</td>
-			<td><a href="#/interfaces/ready-event">YaReadyEvent</a></td>
-			<td></td>
-			<td>Emits immediately after this entity is added in root container</td>
-		</tr>
-		<tr>
-			<td>direction</td>
-			<td><a href="#/interfaces/event">YaEvent</a></td>
-			<td>directionchange</td>
-			<td>The view direction changed</td>
-		</tr>
-		<tr>
-			<td>fullscreen</td>
-			<td><a href="#/interfaces/event">YaEvent</a></td>
-			<td>fullscreenenter, fullscreenexit</td>
-			<td>The panorama player screen mode is switched</td>
-		</tr>
-		<tr>
-			<td>marker</td>
-			<td><a href="#/interfaces/event">YaEvent</a></td>
-			<td>markercollapse, markerexpand, markermouseenter, markermouseleave</td>
-			<td>Actions with the marker</td>
-		</tr>
-	</tbody>
-</table>
-
-## Examples
-
-- [Panorama](https://stackblitz.com/edit/panorama)
+[yareadyevent]: interfaces/ya-ready-event.md
+[yaevent]: interfaces/event.md
 
 ## Source
 

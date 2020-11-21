@@ -15,6 +15,7 @@ import { Subscription } from 'rxjs';
 import { YaEvent, YaReadyEvent } from '../../interfaces/event';
 import { YaPlacemarkDirective } from '../ya-placemark/ya-placemark.directive';
 import { YaGeoobjectDirective } from '../ya-geoobject/ya-geoobject.directive';
+import { Listener } from '../../interfaces/listener';
 
 /**
  * Directive for creating a clusterer. Clusterizes objects in the visible area of the map.
@@ -28,7 +29,7 @@ import { YaGeoobjectDirective } from '../ya-geoobject/ya-geoobject.directive';
  *    <ya-placemark [geometry]="[55.74, 37.50]"></ya-placemark>
  *    <ya-geoobject [feature]="{ geometry: { type: 'Point', coordinates: [55.73, 37.52] } }"></ya-geoobject>
  * </ya-clusterer>`.
- * @see {@link https://ddubrava.github.io/angular8-yandex-maps/#/components/clusterer}
+ * @see {@link https://ddubrava.github.io/angular8-yandex-maps/#/directives/clusterer}
  */
 @Directive({
   selector: 'ya-clusterer',
@@ -49,29 +50,34 @@ export class YaClustererDirective implements OnChanges, OnDestroy {
   @Input() public options: any;
 
   /**
-   * Emits immediately after this entity is added in root container.
+   * Clusterer instance is created.
    */
   @Output() public ready = new EventEmitter<YaReadyEvent>();
 
   /**
-   * Actions with the hint.
+   * Closing the hint.
    */
-  @Output() public hint = new EventEmitter<YaEvent>();
+  @Output() public hintclose = new EventEmitter<YaEvent>();
+
+  /**
+   * Opening a hint on a map.
+   */
+  @Output() public hintopen = new EventEmitter<YaEvent>();
 
   /**
    * Map reference changed.
    */
-  @Output() public mapChange = new EventEmitter<YaEvent>();
+  @Output() public mapchange = new EventEmitter<YaEvent>();
 
   /**
    * Change to the object options.
    */
-  @Output() public optionsChange = new EventEmitter<YaEvent>();
+  @Output() public optionschange = new EventEmitter<YaEvent>();
 
   /**
    * The parent object reference changed.
    */
-  @Output() public parentChange = new EventEmitter<YaEvent>();
+  @Output() public parentchange = new EventEmitter<YaEvent>();
 
   private _sub = new Subscription();
 
@@ -112,6 +118,8 @@ export class YaClustererDirective implements OnChanges, OnDestroy {
   public createClusterer(map: ymaps.Map): ymaps.Clusterer {
     const clusterer = new ymaps.Clusterer(this.options);
     this._clusterer = clusterer;
+
+    this._ngZone.run(() => this.ready.emit({ ymaps, instance: clusterer }));
 
     /**
      * Adds new Placemarks to the clusterer on changes.
@@ -160,54 +168,25 @@ export class YaClustererDirective implements OnChanges, OnDestroy {
   private _addEventListeners(): void {
     const clusterer = this._clusterer;
 
-    this._ngZone.run(() => this.ready.emit({ ymaps, instance: clusterer }));
-
-    const handlers = [
-      {
-        name: ['hintclose', 'hintopen'],
-        fn: (e: any) =>
-          this.hint.emit({
-            ymaps,
-            instance: clusterer,
-            type: e.originalEvent.type,
-            event: e,
-          }),
-      },
-      {
-        name: 'mapchange',
-        fn: (e: any) =>
-          this.mapChange.emit({
-            ymaps,
-            instance: clusterer,
-            type: e.originalEvent.type,
-            event: e,
-          }),
-      },
-      {
-        name: 'optionschange',
-        fn: (e: any) =>
-          this.optionsChange.emit({
-            ymaps,
-            instance: clusterer,
-            type: e.originalEvent.type,
-            event: e,
-          }),
-      },
-      {
-        name: 'parentchange',
-        fn: (e: any) =>
-          this.parentChange.emit({
-            ymaps,
-            instance: clusterer,
-            type: e.originalEvent.type,
-            event: e,
-          }),
-      },
+    const listeners: Listener[] = [
+      { name: 'hintclose', emitter: this.hintclose },
+      { name: 'hintopen', emitter: this.hintopen },
+      { name: 'mapchange', emitter: this.mapchange },
+      { name: 'optionschange', emitter: this.optionschange },
+      { name: 'parentchange', emitter: this.parentchange },
     ];
 
-    handlers.forEach((handler) => {
-      clusterer.events.add(handler.name, (e: any) =>
-        this._ngZone.run(() => handler.fn(e)),
+    const fn = (event: ymaps.Event): YaEvent => ({
+      event,
+      instance: clusterer,
+      ymaps,
+    });
+
+    listeners.forEach((listener) => {
+      clusterer.events.add(listener.name, (e: ymaps.Event) =>
+        listener.runOutsideAngular
+          ? this._ngZone.runOutsideAngular(() => listener.emitter.emit(fn(e)))
+          : this._ngZone.run(() => listener.emitter.emit(fn(e))),
       );
     });
   }

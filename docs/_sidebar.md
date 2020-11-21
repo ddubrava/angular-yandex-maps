@@ -13,7 +13,7 @@
   - [Placemark](directives/placemark.md 'Placemark | Angular Yandex Map')
   - [GeoObject](directives/geoobject.md 'GeoObject | Angular Yandex Map')
   - [Multiroute](directives/multiroute.md 'Multiroute | Angular Yandex Map')
-  - [Controls](directives/controls.md 'Controls | Angular Yandex Map')
+  - [Control](directives/control.md 'Control | Angular Yandex Map')
 
 - Services
 
@@ -24,6 +24,7 @@
   - [YaConfig](interfaces/ya-config.md 'YaConfig | Angular Yandex Map')
   - [YaEvent](interfaces/event.md 'YaEvent | Angular Yandex Map')
   - [YaReadyEvent](interfaces/ya-ready-event.md 'YaReadyEvent | Angular Yandex Map')
+  - [YaControlType](interfaces/ya-control-type.md 'YaControlType | Angular Yandex Map')
 
 - Constants
 
