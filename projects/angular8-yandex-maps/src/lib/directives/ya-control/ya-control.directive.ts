@@ -5,7 +5,6 @@ import {
   NgZone,
   OnChanges,
   Output,
-  SimpleChanges,
 } from '@angular/core';
 import { YaControlType } from '../../interfaces/control-type';
 import { YaReadyEvent } from '../../interfaces/event';
