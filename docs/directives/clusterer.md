@@ -33,13 +33,14 @@ you should first delete the object from the clusterer and then add it back
 
 All events execute within the Angular zone
 
-| Name          | Type           | Supported event type | Description                                                    |
-| ------------- | -------------- | -------------------- | -------------------------------------------------------------- |
-| ready         | [YaReadyEvent] |                      | Emits immediately after this entity is added in root container |
-| hint          | [YaEvent]      | hintopen, hintclose  | Actions with the hint                                          |
-| mapChange     | [YaEvent]      | mapChange            | Map reference changed                                          |
-| optionsChange | [YaEvent]      | optionsChange        | Change to the object options                                   |
-| parentChange  | [YaEvent]      | parentChange         | The parent object reference changed                            |
+| Name          | Type           | Inside the angular zone | Description                         |
+| ------------- | -------------- | ----------------------- | ----------------------------------- |
+| ready         | [YaReadyEvent] | yes                     | Entity is added in root container   |
+| hintclose     | [YaEvent]      | hintopen, hintclose     | Closing the hint                    |
+| hintopen      | [YaEvent]      | mapChange               | Opening a hint on a cluster         |
+| mapchange     | [YaEvent]      | optionsChange           | Map reference changed               |
+| optionschange | [YaEvent]      | parentChange            | Change to the object options        |
+| parentchange  | [YaEvent]      | parentChange            | The parent object reference changed |
 
 [yareadyevent]: interfaces/ya-ready-event.md
 [yaevent]: interfaces/event.md
