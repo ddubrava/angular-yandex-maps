@@ -30,18 +30,18 @@ Component for creating and managing a map
 
 | Name               | Type           | Inside the angular zone | Description                                                   |
 | ------------------ | -------------- | ----------------------- | ------------------------------------------------------------- |
-| ready              | [YaReadyEvent] | yes                     | Entity is added in root container                             |
-| actionbegin        | [YaEvent]      | no                      | The start of a new smooth map movement                        |
-| actionbreak        | [YaEvent]      | no                      | Event that occurs when an action step was prematurely stopped |
-| actionend          | [YaEvent]      | no                      | The end of smooth map movement                                |
-| actiontick         | [YaEvent]      | no                      | The start of a new step of smooth movement                    |
-| actiontickcomplete | [YaEvent]      | no                      | The end of performing a step of smooth movement               |
+| ready              | [YaReadyEvent] | yes                     | Map instance is created                                       |
+| actionbegin        | [YaEvent]      | yes                     | The start of a new smooth map movement                        |
+| actionbreak        | [YaEvent]      | yes                     | Event that occurs when an action step was prematurely stopped |
+| actionend          | [YaEvent]      | yes                     | The end of smooth map movement                                |
+| actiontick         | [YaEvent]      | yes                     | The start of a new step of smooth movement                    |
+| actiontickcomplete | [YaEvent]      | yes                     | The end of performing a step of smooth movement               |
 | balloonclose       | [YaEvent]      | yes                     | Closing the balloon                                           |
 | balloonopen        | [YaEvent]      | yes                     | Opening a balloon on a map                                    |
 | boundschange       | [YaEvent]      | yes                     | Event for a change to the map viewport                        |
 | yaclick            | [YaEvent]      | yes                     | Single left-click on the object                               |
 | yacontextmenu      | [YaEvent]      | yes                     | Calls the element's context menu                              |
-| yadblclick         | [YaEvent]      | yes                     | Double left-click on the object                               |
+| yadbclick          | [YaEvent]      | yes                     | Double left-click on the object                               |
 | destroy            | [YaEvent]      | yes                     | The map was destroyed                                         |
 | hintclose          | [YaEvent]      | yes                     | Closing the hint                                              |
 | hintopen           | [YaEvent]      | yes                     | Opening a hint on a map                                       |
@@ -57,7 +57,7 @@ Component for creating and managing a map
 | optionschange      | [YaEvent]      | yes                     | Map options changed                                           |
 | sizechange         | [YaEvent]      | yes                     | Map size changed                                              |
 | typechange         | [YaEvent]      | yes                     | The map type changed                                          |
-| yawheel            | [YaEvent]      | yes                     | Mouse wheel scrollin                                          |
+| yawheel            | [YaEvent]      | yes                     | Mouse wheel scrolling                                         |
 
 [yareadyevent]: interfaces/ya-ready-event.md
 [yaevent]: interfaces/event.md
@@ -67,6 +67,7 @@ Component for creating and managing a map
 - [Placemark](directives/placemark.md)
 - [GeoObject](directives/geoobject.md)
 - [MultiRoute](directives/multiroute.md)
+- [Clusterer](directives/clusterer.md)
 - [Control](directives/control.md)
 
 ## Source

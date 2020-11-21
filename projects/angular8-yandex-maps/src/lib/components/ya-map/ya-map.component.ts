@@ -62,7 +62,7 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
   /**
    * Map center geocoordinates.
    */
-  @Input() public center: Array<number>;
+  @Input() public center: number[];
 
   /**
    * Map zoom level.
@@ -82,7 +82,7 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
   @Input() public options: ymaps.IMapOptions = {};
 
   /**
-   * Emits immediately after this entity is added in root container.
+   * Map instance is created.
    */
   @Output() public ready = new EventEmitter<YaReadyEvent>();
 
@@ -139,7 +139,7 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
   /**
    * Double left-click on the object.
    */
-  @Output() public yadblclick = new EventEmitter<YaEvent>();
+  @Output() public yadbclick = new EventEmitter<YaEvent>();
 
   /**
    * The map was destroyed.
@@ -230,7 +230,7 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
   public ngOnInit(): void {
     this._sub = new Subscription();
 
-    this._logErrors();
+    this._checkRequiredInputs();
     this._initScript();
   }
 
@@ -307,10 +307,9 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  private _logErrors(): void {
-    if (!this.center) {
-      console.error('Map: center input is required.');
-      this.center = [];
+  private _checkRequiredInputs(): void {
+    if (this.center === undefined || this.center === null) {
+      throw new Error('Center is required');
     }
   }
 
@@ -318,6 +317,8 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
     const sub = this._scriptService.initScript().subscribe(() => {
       const id = generateRandomId();
       this._map = this._createMap(id);
+
+      this._ngZone.run(() => this.ready.emit({ ymaps, instance: this._map }));
 
       this._addGeoObjects();
       this._addControls();
@@ -421,26 +422,23 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
       {
         name: 'actionbegin',
         emitter: this.actionbegin,
-        runOutsideAngular: true,
       },
       {
         name: 'actionbreak',
         emitter: this.actionbreak,
-        runOutsideAngular: true,
       },
-      { name: 'actionend', emitter: this.actionend, runOutsideAngular: true },
-      { name: 'actiontick', emitter: this.actiontick, runOutsideAngular: true },
+      { name: 'actionend', emitter: this.actionend },
+      { name: 'actiontick', emitter: this.actiontick },
       {
         name: 'actiontickcomplete',
         emitter: this.actiontickcomplete,
-        runOutsideAngular: true,
       },
       { name: 'balloonclose', emitter: this.balloonclose },
       { name: 'balloonopen', emitter: this.balloonopen },
       { name: 'boundschange', emitter: this.boundschange },
       { name: 'click', emitter: this.yaclick },
       { name: 'contextmenu', emitter: this.yacontextmenu },
-      { name: 'dbclick', emitter: this.yadblclick },
+      { name: 'dbclick', emitter: this.yadbclick },
       { name: 'destroy', emitter: this.destroy },
       { name: 'hintclose', emitter: this.hintclose },
       { name: 'hintopen', emitter: this.hintopen },
@@ -492,8 +490,6 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
           : this._ngZone.run(() => listener.emitter.emit(fn(e))),
       );
     });
-
-    this._ngZone.run(() => this.ready.emit({ ymaps, instance: map }));
   }
 
   public ngOnDestroy(): void {
