@@ -1,8 +1,8 @@
-# Controls
+# Control
 
 Directive for creating and managing controls on the map
 
-[Controls](https://searchcontrol.stackblitz.io ':include :type=iframe height=550px')
+[Control](https://searchcontrol.stackblitz.io ':include :type=iframe height=550px')
 
 ## Usage
 

@@ -24,7 +24,7 @@
 - [Building a driving multiroute](https://stackblitz.com/edit/multiroute)
 - [Building a pedestrian multiroute](https://stackblitz.com/edit/multiroute-pedestrian)
 
-##### Controls
+##### Control
 
 - [Search Control](https://stackblitz.com/edit/searchcontrol)
 - [RoutePanel Control](https://stackblitz.com/edit/route-panel)

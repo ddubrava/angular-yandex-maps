@@ -67,7 +67,7 @@ Component for creating and managing a map
 - [Placemark](directives/placemark.md)
 - [GeoObject](directives/geoobject.md)
 - [MultiRoute](directives/multiroute.md)
-- [Controls](directives/controls.md)
+- [Control](directives/control.md)
 
 ## Source
 

@@ -13,7 +13,7 @@
   - [Placemark](directives/placemark.md 'Placemark | Angular Yandex Map')
   - [GeoObject](directives/geoobject.md 'GeoObject | Angular Yandex Map')
   - [Multiroute](directives/multiroute.md 'Multiroute | Angular Yandex Map')
-  - [Controls](directives/controls.md 'Controls | Angular Yandex Map')
+  - [Control](directives/control.md 'Control | Angular Yandex Map')
 
 - Services
 
