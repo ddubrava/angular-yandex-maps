@@ -53,7 +53,7 @@ Directive for creating Multi-route on the map
 
 | Name              | Type           | Inside the angular zone | Description                                                             |
 | ----------------- | -------------- | ----------------------- | ----------------------------------------------------------------------- |
-| ready             | [YaReadyEvent] | yes                     | Entity is added in root container                                       |
+| ready             | [YaReadyEvent] | yes                     | Multiroute instance is created                                          |
 | activeroutechange | [YaEvent]      | yes                     | Change to the active route.                                             |
 | balloonclose      | [YaEvent]      | yes                     | Closing the balloon                                                     |
 | balloonopen       | [YaEvent]      | yes                     | Opening a balloon on a map                                              |

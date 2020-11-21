@@ -30,7 +30,7 @@ export class YaControlDirective implements OnChanges {
   @Input() public parameters: any;
 
   /**
-   * Emits immediately after this entity is added in root container.
+   * Control instance is created.
    */
   @Output() public ready = new EventEmitter<YaReadyEvent>();
 

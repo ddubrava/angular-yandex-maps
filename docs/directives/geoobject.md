@@ -28,7 +28,7 @@ Directive for creating a geo object. Can be displayed as a placemark, polyline, 
 
 | Name              | Type           | Inside the angular zone | Description                                                     |
 | ----------------- | -------------- | ----------------------- | --------------------------------------------------------------- |
-| ready             | [YaReadyEvent] | yes                     | Entity is added in root container                               |
+| ready             | [YaReadyEvent] | yes                     | GeoObject instance is created                                   |
 | balloonclose      | [YaEvent]      | yes                     | Closing the balloon                                             |
 | balloonopen       | [YaEvent]      | yes                     | Opening a balloon on a map                                      |
 | beforedrag        | [YaEvent]      | yes                     | Event preceding the "drag" event                                |

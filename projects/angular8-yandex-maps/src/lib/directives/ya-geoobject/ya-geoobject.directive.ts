@@ -36,7 +36,7 @@ export class YaGeoobjectDirective implements OnChanges, OnDestroy {
   @Input() public options: ymaps.IGeoObjectOptions;
 
   /**
-   * Emits immediately after this entity is added in root container.
+   * GeoObject instance is created.
    */
   @Output() public ready = new EventEmitter<YaReadyEvent>();
 

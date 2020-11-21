@@ -41,7 +41,7 @@ export class YaMultirouteDirective implements OnChanges, OnDestroy {
   @Input() public options: any;
 
   /**
-   * Emits immediately after this entity is added in root container.
+   * Multiroute instance is created.
    */
   @Output() public ready = new EventEmitter<YaReadyEvent>();
 
