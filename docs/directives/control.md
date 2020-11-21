@@ -47,11 +47,9 @@ Directive for creating and managing controls on the map
 
 ## Outputs
 
-All events execute within the Angular zone
-
-| Name  | Type           | Supported event type | Description                                                    |
-| ----- | -------------- | -------------------- | -------------------------------------------------------------- |
-| ready | [YaReadyEvent] |                      | Emits immediately after this entity is added in root container |
+| Name  | Type           | Inside the angular zone | Description                       |
+| ----- | -------------- | ----------------------- | --------------------------------- |
+| ready | [YaReadyEvent] | yes                     | Entity is added in root container |
 
 [yareadyevent]: interfaces/ya-ready-event.md
 
