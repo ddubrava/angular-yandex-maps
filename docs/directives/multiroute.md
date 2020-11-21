@@ -51,16 +51,34 @@ Directive for creating Multi-route on the map
 
 ## Outputs
 
-All events execute within the Angular zone
-
-| Name              | Type           | Supported event type                                  | Description                                                    |
-| ----------------- | -------------- | ----------------------------------------------------- | -------------------------------------------------------------- |
-| ready             | [YaReadyEvent] |                                                       | Emits immediately after this entity is added in root container |
-| activeroutechange | [YaEvent]      | activeroutechange                                     | Change to the active route                                     |
-| balloon           | [YaEvent]      | balloonopen, balloonclose                             | Actions with the balloon                                       |
-| yaclick           | [YaEvent]      | click, dblclick                                       | Left-click on the object                                       |
-| mouse             | [YaEvent]      | mousedown, mouseenter, mouseleave, mousemove, mouseup | Mouse actions with the object                                  |
-| multitouch        | [YaEvent]      | multitouchstart, multitouchmove, multitouchend        | Multitouch actions with the object                             |
+| Name              | Type           | Inside the angular zone | Description                                                             |
+| ----------------- | -------------- | ----------------------- | ----------------------------------------------------------------------- |
+| ready             | [YaReadyEvent] | yes                     | Entity is added in root container                                       |
+| activeroutechange | [YaEvent]      | yes                     | Change to the active route.                                             |
+| balloonclose      | [YaEvent]      | yes                     | Closing the balloon                                                     |
+| balloonopen       | [YaEvent]      | yes                     | Opening a balloon on a map                                              |
+| boundsautoapply   | [YaEvent]      | yes                     | The event occurs at the time of setting the map center...               |
+| boundschange      | [YaEvent]      | yes                     | Changing coordinates of the geographical area covering the multi-route. |
+| yaclick           | [YaEvent]      | yes                     | Single left-click on the object                                         |
+| yacontextmenu     | [YaEvent]      | yes                     | Calls the element's context menu                                        |
+| yadblclick        | [YaEvent]      | yes                     | Double left-click on the object                                         |
+| geometrychange    | [YaEvent]      | yes                     | Change to the geo object geometry                                       |
+| mapchange         | [YaEvent]      | yes                     | Map reference changed                                                   |
+| yamousedown       | [YaEvent]      | yes                     | Pressing the mouse button over the object                               |
+| yamouseenter      | [YaEvent]      | no                      | Pointing the cursor at the object                                       |
+| yamouseleave      | [YaEvent]      | no                      | Moving the cursor off of the object                                     |
+| yamousemove       | [YaEvent]      | no                      | Moving the cursor over the object                                       |
+| yamouseup         | [YaEvent]      | no                      | Letting go of the mouse button over an object                           |
+| multitouchend     | [YaEvent]      | no                      | End of multitouch                                                       |
+| multitouchmove    | [YaEvent]      | no                      | Repeating event during multitouch                                       |
+| multitouchstart   | [YaEvent]      | no                      | Start of multitouch                                                     |
+| optionschange     | [YaEvent]      | yes                     | Change to the object options                                            |
+| overlaychange     | [YaEvent]      | yes                     | Change to the geo object overlay                                        |
+| parentchange      | [YaEvent]      | yes                     | The parent object reference changed                                     |
+| pixelboundschange | [YaEvent]      | yes                     | Changing pixel coordinates of the area covering the multi-route         |
+| propertieschange  | [YaEvent]      | yes                     | Change to the geo object data                                           |
+| update            | [YaEvent]      | yes                     | Updating the multi-route                                                |
+| yawheel           | [YaEvent]      | yes                     | Mouse wheel scrolling                                                   |
 
 [yareadyevent]: interfaces/ya-ready-event.md
 [yaevent]: interfaces/event.md

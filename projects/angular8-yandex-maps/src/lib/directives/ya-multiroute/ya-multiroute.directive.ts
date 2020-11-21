@@ -9,8 +9,9 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { generateRandomId } from '../../utils/generateRandomId';
+import { Listener } from '../../interfaces/listener';
 import { YaEvent, YaReadyEvent } from '../../interfaces/event';
+import { generateRandomId } from '../../utils/generateRandomId';
 
 /**
  * Directive for creating Multi-route on the map
@@ -51,24 +52,124 @@ export class YaMultirouteDirective implements OnInit, OnChanges, OnDestroy {
   @Output() public activeroutechange = new EventEmitter<YaEvent>();
 
   /**
-   * Actions with the balloon.
+   * Closing the balloon.
    */
-  @Output() public balloon = new EventEmitter<YaEvent>();
+  @Output() public balloonclose = new EventEmitter<YaEvent>();
 
   /**
-   * Left-click on the object.
+   * Opening a balloon on a map.
+   */
+  @Output() public balloonopen = new EventEmitter<YaEvent>();
+
+  /**
+   * The event occurs at the time of setting the map center and its zoom level for optimal display of the multi-route.
+   */
+  @Output() public boundsautoapply = new EventEmitter<YaEvent>();
+
+  /**
+   * Changing coordinates of the geographical area covering the multi-route.
+   */
+  @Output() public boundschange = new EventEmitter<YaEvent>();
+
+  /**
+   * Single left-click on the object.
    */
   @Output() public yaclick = new EventEmitter<YaEvent>();
 
   /**
-   * Mouse actions with the object.
+   * Calls the element's context menu.
    */
-  @Output() public mouse = new EventEmitter<YaEvent>();
+  @Output() public yacontextmenu = new EventEmitter<YaEvent>();
 
   /**
-   * Multitouch actions with the object.
+   * Double left-click on the object.
    */
-  @Output() public multitouch = new EventEmitter<YaEvent>();
+  @Output() public yadblclick = new EventEmitter<YaEvent>();
+
+  /**
+   * Change to the geo object geometry.
+   */
+  @Output() public geometrychange = new EventEmitter<YaEvent>();
+
+  /**
+   * Map reference changed.
+   */
+  @Output() public mapchange = new EventEmitter<YaEvent>();
+
+  /**
+   * Pressing the mouse button over the object.
+   */
+  @Output() public yamousedown = new EventEmitter<YaEvent>();
+
+  /**
+   * Pointing the cursor at the object.
+   */
+  @Output() public yamouseenter = new EventEmitter<YaEvent>();
+
+  /**
+   * Moving the cursor off of the object.
+   */
+  @Output() public yamouseleave = new EventEmitter<YaEvent>();
+
+  /**
+   * Moving the cursor over the object.
+   */
+  @Output() public yamousemove = new EventEmitter<YaEvent>();
+
+  /**
+   * Letting go of the mouse button over an object.
+   */
+  @Output() public yamouseup = new EventEmitter<YaEvent>();
+
+  /**
+   * End of multitouch.
+   */
+  @Output() public multitouchend = new EventEmitter<YaEvent>();
+
+  /**
+   * Repeating event during multitouch.
+   */
+  @Output() public multitouchmove = new EventEmitter<YaEvent>();
+
+  /**
+   * Start of multitouch.
+   */
+  @Output() public multitouchstart = new EventEmitter<YaEvent>();
+
+  /**
+   * Change to the object options.
+   */
+  @Output() public optionschange = new EventEmitter<YaEvent>();
+
+  /**
+   * Change to the geo object overlay.
+   */
+  @Output() public overlaychange = new EventEmitter<YaEvent>();
+
+  /**
+   * The parent object reference changed.
+   */
+  @Output() public parentchange = new EventEmitter<YaEvent>();
+
+  /**
+   * Changing pixel coordinates of the area covering the multi-route.
+   */
+  @Output() public pixelboundschange = new EventEmitter<YaEvent>();
+
+  /**
+   * Change to the geo object data.
+   */
+  @Output() public propertieschange = new EventEmitter<YaEvent>();
+
+  /**
+   * Updating the multi-route.
+   */
+  @Output() public update = new EventEmitter<YaEvent>();
+
+  /**
+   * Mouse wheel scrolling.
+   */
+  @Output() public yawheel = new EventEmitter<YaEvent>();
 
   public id: string;
 
@@ -169,66 +270,73 @@ export class YaMultirouteDirective implements OnInit, OnChanges, OnDestroy {
   private _addEventListeners(): void {
     const multiroute = this._multiroute;
 
-    this._ngZone.run(() => this.ready.emit({ ymaps, instance: multiroute }));
-
-    const handlers = [
+    const listeners: Listener[] = [
       {
         name: 'activeroutechange',
-        fn: (e: any) =>
-          this.activeroutechange.emit({
-            ymaps,
-            instance: multiroute,
-            type: e.originalEvent.type,
-            event: e,
-          }),
+        emitter: this.activeroutechange,
+      },
+      { name: 'balloonclose', emitter: this.balloonclose },
+      { name: 'balloonopen', emitter: this.balloonopen },
+      { name: 'boundsautoapply', emitter: this.boundsautoapply },
+      { name: 'boundschange', emitter: this.boundschange },
+      { name: 'click', emitter: this.yaclick },
+      { name: 'contextmenu', emitter: this.yacontextmenu },
+      { name: 'dbclick', emitter: this.yadblclick },
+
+      { name: 'geometrychange', emitter: this.geometrychange },
+      { name: 'mapchange', emitter: this.mapchange },
+      { name: 'mousedown', emitter: this.yamousedown },
+      {
+        name: 'mouseenter',
+        emitter: this.yamouseenter,
+        runOutsideAngular: true,
       },
       {
-        name: ['balloonopen', 'balloonclose'],
-        fn: (e: any) =>
-          this.balloon.emit({
-            ymaps,
-            instance: multiroute,
-            type: e.originalEvent.type,
-            event: e,
-          }),
+        name: 'mouseleave',
+        emitter: this.yamouseleave,
+        runOutsideAngular: true,
+      },
+      { name: 'mousemove', emitter: this.yamousemove, runOutsideAngular: true },
+      { name: 'mouseup', emitter: this.yamouseup, runOutsideAngular: true },
+      {
+        name: 'multitouchend',
+        emitter: this.multitouchend,
+        runOutsideAngular: true,
       },
       {
-        name: ['click', 'dblclick'],
-        fn: (e: any) =>
-          this.yaclick.emit({
-            ymaps,
-            instance: multiroute,
-            type: e.originalEvent.type,
-            event: e,
-          }),
+        name: 'multitouchmove',
+        emitter: this.multitouchmove,
+        runOutsideAngular: true,
       },
       {
-        name: ['mousedown', 'mouseenter', 'mouseleave', 'mousemove', 'mouseup'],
-        fn: (e: any) =>
-          this.mouse.emit({
-            ymaps,
-            instance: multiroute,
-            type: e.originalEvent.type,
-            event: e,
-          }),
+        name: 'multitouchstart',
+        emitter: this.multitouchstart,
+        runOutsideAngular: true,
       },
-      {
-        name: ['multitouchstart', 'multitouchmove', 'multitouchend'],
-        fn: (e: any) =>
-          this.multitouch.emit({
-            ymaps,
-            instance: multiroute,
-            type: e.originalEvent.type,
-            event: e,
-          }),
-      },
+      { name: 'optionschange', emitter: this.optionschange },
+      { name: 'overlaychange', emitter: this.overlaychange },
+      { name: 'parentchange', emitter: this.parentchange },
+      { name: 'pixelboundschange', emitter: this.pixelboundschange },
+      { name: 'propertieschange', emitter: this.propertieschange },
+      { name: 'update', emitter: this.update },
+      { name: 'wheel', emitter: this.yawheel },
     ];
 
-    handlers.forEach((handler) => {
-      multiroute.events.add(handler.name, (e: any) =>
-        this._ngZone.run(() => handler.fn(e)),
+    const fn = (event: ymaps.Event): YaEvent => ({
+      event,
+      instance: multiroute,
+      ymaps,
+    });
+
+    listeners.forEach((listener) => {
+      multiroute.events.add(listener.name, (e: ymaps.Event) =>
+        listener.runOutsideAngular
+          ? this._ngZone.runOutsideAngular(() => listener.emitter.emit(fn(e)))
+          : this._ngZone.run(() => listener.emitter.emit(fn(e))),
       );
     });
+
+    this._ngZone.run(() => this.ready.emit({ ymaps, instance: multiroute }));
   }
 
   public ngOnDestroy(): void {
