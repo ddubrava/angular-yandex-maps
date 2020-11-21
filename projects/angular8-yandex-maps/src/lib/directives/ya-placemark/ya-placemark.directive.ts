@@ -5,7 +5,6 @@ import {
   NgZone,
   OnChanges,
   OnDestroy,
-  OnInit,
   Output,
   SimpleChanges,
 } from '@angular/core';
@@ -17,12 +16,12 @@ import { Listener } from '../../interfaces/listener';
  * Directive for creating a geo object with the geometry geometry.Point.
  *
  * @example `<ya-placemark [geometry]="[55.751952, 37.600739]"></ya-placemark>`.
- * @see {@link https://ddubrava.github.io/angular8-yandex-maps/#/components/placemark}
+ * @see {@link https://ddubrava.github.io/angular8-yandex-maps/#/directives/placemark}
  */
 @Directive({
   selector: 'ya-placemark',
 })
-export class YaPlacemarkDirective implements OnInit, OnChanges, OnDestroy {
+export class YaPlacemarkDirective implements OnChanges, OnDestroy {
   /**
    * Coordinates of the placemark, or a hash describing the geometry, or a reference to the point geometry object.
    */
@@ -41,14 +40,9 @@ export class YaPlacemarkDirective implements OnInit, OnChanges, OnDestroy {
   @Input() public options: ymaps.IPlacemarkOptions;
 
   /**
-   * Emits immediately after this entity is added in root container.
+   * Placemark instance is created.
    */
   @Output() public ready = new EventEmitter<YaReadyEvent>();
-
-  /**
-   * Change to the active route.
-   */
-  @Output() public activeroutechange = new EventEmitter<YaEvent>();
 
   /**
    * Closing the balloon.
@@ -61,14 +55,14 @@ export class YaPlacemarkDirective implements OnInit, OnChanges, OnDestroy {
   @Output() public balloonopen = new EventEmitter<YaEvent>();
 
   /**
-   * The event occurs at the time of setting the map center and its zoom level for optimal display of the multi-route.
+   * Event preceding the "drag" event.
    */
-  @Output() public boundsautoapply = new EventEmitter<YaEvent>();
+  @Output() public beforedrag = new EventEmitter<YaEvent>();
 
   /**
-   * Changing coordinates of the geographical area covering the multi-route.
+   * Event preceding the "dragstart" event.
    */
-  @Output() public boundschange = new EventEmitter<YaEvent>();
+  @Output() public beforedragstart = new EventEmitter<YaEvent>();
 
   /**
    * Single left-click on the object.
@@ -83,12 +77,42 @@ export class YaPlacemarkDirective implements OnInit, OnChanges, OnDestroy {
   /**
    * Double left-click on the object.
    */
-  @Output() public yadblclick = new EventEmitter<YaEvent>();
+  @Output() public yadbclick = new EventEmitter<YaEvent>();
 
   /**
-   * Change to the geo object geometry.
+   * Dragging a geo object.
+   */
+  @Output() public yadrag = new EventEmitter<YaEvent>();
+
+  /**
+   * End of geo object dragging.
+   */
+  @Output() public yadragend = new EventEmitter<YaEvent>();
+
+  /**
+   * Start of geo object dragging.
+   */
+  @Output() public yadragstart = new EventEmitter<YaEvent>();
+
+  /**
+   * Change in the state of the editor for the geo object's geometry.
+   */
+  @Output() public editorstatechange = new EventEmitter<YaEvent>();
+
+  /**
+   * Change to the geo object geometry
    */
   @Output() public geometrychange = new EventEmitter<YaEvent>();
+
+  /**
+   * Closing the hint.
+   */
+  @Output() public hintclose = new EventEmitter<YaEvent>();
+
+  /**
+   * Opening a hint on a map.
+   */
+  @Output() public hintopen = new EventEmitter<YaEvent>();
 
   /**
    * Map reference changed.
@@ -151,19 +175,9 @@ export class YaPlacemarkDirective implements OnInit, OnChanges, OnDestroy {
   @Output() public parentchange = new EventEmitter<YaEvent>();
 
   /**
-   * Changing pixel coordinates of the area covering the multi-route.
-   */
-  @Output() public pixelboundschange = new EventEmitter<YaEvent>();
-
-  /**
    * Change to the geo object data.
    */
   @Output() public propertieschange = new EventEmitter<YaEvent>();
-
-  /**
-   * Updating the multi-route.
-   */
-  @Output() public update = new EventEmitter<YaEvent>();
 
   /**
    * Mouse wheel scrolling.
@@ -180,10 +194,6 @@ export class YaPlacemarkDirective implements OnInit, OnChanges, OnDestroy {
   private _placemark: ymaps.Placemark;
 
   constructor(private _ngZone: NgZone) {}
-
-  public ngOnInit(): void {
-    this._logErrors();
-  }
 
   public ngOnChanges(changes: SimpleChanges): void {
     this._updatePlacemark(changes);
@@ -217,10 +227,9 @@ export class YaPlacemarkDirective implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  private _logErrors(): void {
-    if (!this.geometry) {
-      console.error('Placemark: geometry input is required.');
-      this.geometry = [];
+  private _checkRequiredInputs(): void {
+    if (this.geometry === undefined || this.geometry === null) {
+      throw new Error('Geometry is required');
     }
   }
 
@@ -236,11 +245,15 @@ export class YaPlacemarkDirective implements OnInit, OnChanges, OnDestroy {
     map: ymaps.Map,
     clusterer?: ymaps.Clusterer,
   ): ymaps.Placemark {
+    this._checkRequiredInputs();
+
     const placemark = new ymaps.Placemark(
       this.geometry,
       this.properties,
       this.options,
     );
+
+    this._ngZone.run(() => this.ready.emit({ ymaps, instance: placemark }));
 
     this.id = generateRandomId();
 
@@ -260,19 +273,20 @@ export class YaPlacemarkDirective implements OnInit, OnChanges, OnDestroy {
     const placemark = this._placemark;
 
     const listeners: Listener[] = [
-      {
-        name: 'activeroutechange',
-        emitter: this.activeroutechange,
-      },
       { name: 'balloonclose', emitter: this.balloonclose },
       { name: 'balloonopen', emitter: this.balloonopen },
-      { name: 'boundsautoapply', emitter: this.boundsautoapply },
-      { name: 'boundschange', emitter: this.boundschange },
+      { name: 'beforedrag', emitter: this.beforedrag },
+      { name: 'beforedragstart', emitter: this.beforedragstart },
       { name: 'click', emitter: this.yaclick },
       { name: 'contextmenu', emitter: this.yacontextmenu },
-      { name: 'dbclick', emitter: this.yadblclick },
-
+      { name: 'dbclick', emitter: this.yadbclick },
+      { name: 'drag', emitter: this.yadrag },
+      { name: 'dragend', emitter: this.yadragend },
+      { name: 'dragstart', emitter: this.yadragstart },
+      { name: 'editorstatechange', emitter: this.editorstatechange },
       { name: 'geometrychange', emitter: this.geometrychange },
+      { name: 'hintclose', emitter: this.hintclose },
+      { name: 'hintopen', emitter: this.hintopen },
       { name: 'mapchange', emitter: this.mapchange },
       { name: 'mousedown', emitter: this.yamousedown },
       {
@@ -305,9 +319,7 @@ export class YaPlacemarkDirective implements OnInit, OnChanges, OnDestroy {
       { name: 'optionschange', emitter: this.optionschange },
       { name: 'overlaychange', emitter: this.overlaychange },
       { name: 'parentchange', emitter: this.parentchange },
-      { name: 'pixelboundschange', emitter: this.pixelboundschange },
       { name: 'propertieschange', emitter: this.propertieschange },
-      { name: 'update', emitter: this.update },
       { name: 'wheel', emitter: this.yawheel },
     ];
 
@@ -324,8 +336,6 @@ export class YaPlacemarkDirective implements OnInit, OnChanges, OnDestroy {
           : this._ngZone.run(() => listener.emitter.emit(fn(e))),
       );
     });
-
-    this._ngZone.run(() => this.ready.emit({ ymaps, instance: placemark }));
   }
 
   public ngOnDestroy(): void {

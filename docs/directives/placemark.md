@@ -51,18 +51,16 @@ Directive for creating a geo object with the geometry geometry.Point
 
 ## Outputs
 
-All events execute within the Angular zone
-
 | Name              | Type           | Inside the angular zone | Description                                                     |
 | ----------------- | -------------- | ----------------------- | --------------------------------------------------------------- |
-| ready             | [YaReadyEvent] | yes                     | Entity is added in root container                               |
+| ready             | [YaReadyEvent] | yes                     | Placemark instance is created                                   |
 | balloonclose      | [YaEvent]      | yes                     | Closing the balloon                                             |
 | balloonopen       | [YaEvent]      | yes                     | Opening a balloon on a map                                      |
 | beforedrag        | [YaEvent]      | yes                     | Event preceding the "drag" event                                |
 | beforedragstart   | [YaEvent]      | yes                     | Event preceding the "dragstart" event                           |
 | yaclick           | [YaEvent]      | yes                     | Single left-click on the object                                 |
 | yacontextmenu     | [YaEvent]      | yes                     | Calls the element's context menu                                |
-| yadblclick        | [YaEvent]      | yes                     | Double left-click on the object                                 |
+| yadbclick         | [YaEvent]      | yes                     | Double left-click on the object                                 |
 | drag              | [YaEvent]      | yes                     | Dragging a geo object                                           |
 | dragend           | [YaEvent]      | yes                     | End of geo object dragging                                      |
 | dragstart         | [YaEvent]      | yes                     | Start of geo object dragging                                    |
@@ -87,10 +85,6 @@ All events execute within the Angular zone
 
 [yareadyevent]: interfaces/ya-ready-event.md
 [yaevent]: interfaces/event.md
-
-## Examples
-
-- [Changing a placemark icon when hovering over it](https://stackblitz.com/edit/changing-a-placemark-on-hover)
 
 ## Source
 
