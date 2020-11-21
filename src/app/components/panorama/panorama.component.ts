@@ -5,12 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './panorama.component.html',
   styleUrls: ['./panorama.component.css'],
 })
-export class PanoramaComponent {
-  public onEvent(event): void {
-    console.log(event);
-  }
-
-  ngDoCheck(): void {
-    console.log(true);
-  }
-}
+export class PanoramaComponent {}
