@@ -31,11 +31,9 @@ you should first delete the object from the clusterer and then add it back
 
 ## Outputs
 
-All events execute within the Angular zone
-
 | Name          | Type           | Inside the angular zone | Description                         |
 | ------------- | -------------- | ----------------------- | ----------------------------------- |
-| ready         | [YaReadyEvent] | yes                     | Entity is added in root container   |
+| ready         | [YaReadyEvent] | yes                     | Clusterer instance is created       |
 | hintclose     | [YaEvent]      | hintopen, hintclose     | Closing the hint                    |
 | hintopen      | [YaEvent]      | mapChange               | Opening a hint on a cluster         |
 | mapchange     | [YaEvent]      | optionsChange           | Map reference changed               |

@@ -32,11 +32,6 @@ Directive for creating and managing controls on the map
 
 [yareadyevent]: interfaces/ya-ready-event.md
 
-## Examples
-
-- [Search Control](https://stackblitz.com/edit/searchcontrol)
-- [RoutePanel Control](https://stackblitz.com/edit/route-panel)
-
 ## Source
 
 [lib/directives/ya-control](https://github.com/ddubrava/angular8-yandex-maps/tree/master/projects/angular8-yandex-maps/src/lib/directives/ya-control)
