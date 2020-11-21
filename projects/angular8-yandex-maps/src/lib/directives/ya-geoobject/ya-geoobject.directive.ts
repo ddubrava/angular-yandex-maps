@@ -5,26 +5,24 @@ import {
   NgZone,
   OnChanges,
   OnDestroy,
-  OnInit,
   Output,
   SimpleChanges,
 } from '@angular/core';
 import { Listener } from '../../interfaces/listener';
 import { YaEvent, YaReadyEvent } from '../../interfaces/event';
 import { generateRandomId } from '../../utils/generateRandomId';
-import { removeLeadingSpaces } from '../../utils/removeLeadingSpaces';
 
 /**
  * Directive for creating a geo object.
  * Can be displayed as a placemark, polyline, polygon, etc., depending on the geometry type.
  *
  * @example `<ya-geoobject [feature]="{ geometry: { type: 'Rectangle', coordinates: [[55.665, 37.66], [55.64,37.53]] } }"></ya-geoobject>`.
- * @see {@link https://ddubrava.github.io/angular8-yandex-maps/#/components/geoobject}
+ * @see {@link https://ddubrava.github.io/angular8-yandex-maps/#/directives/geoobject}
  */
 @Directive({
   selector: 'ya-geoobject',
 })
-export class YaGeoobjectDirective implements OnInit, OnChanges, OnDestroy {
+export class YaGeoobjectDirective implements OnChanges, OnDestroy {
   /**
    * Feature for the GeoObject.
    * @see {@link https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/GeoObject-docpage/#GeoObjectparam-feature}
@@ -75,7 +73,7 @@ export class YaGeoobjectDirective implements OnInit, OnChanges, OnDestroy {
   /**
    * Double left-click on the object.
    */
-  @Output() public yadblclick = new EventEmitter<YaEvent>();
+  @Output() public yadbclick = new EventEmitter<YaEvent>();
 
   /**
    * Dragging a geo object.
@@ -193,10 +191,6 @@ export class YaGeoobjectDirective implements OnInit, OnChanges, OnDestroy {
 
   constructor(private _ngZone: NgZone) {}
 
-  public ngOnInit(): void {
-    this._logErrors();
-  }
-
   public ngOnChanges(changes: SimpleChanges): void {
     this._updateGeoObject(changes);
   }
@@ -234,14 +228,8 @@ export class YaGeoobjectDirective implements OnInit, OnChanges, OnDestroy {
     const { geometry, properties } = feature;
 
     if (geometry) {
-      console.error(
-        removeLeadingSpaces(`
-        The geometry of GeoObject cannot be changed after entity init.
-
-        Solutions:
-        1. Use ymaps from YaReadyEvent
-        2. Recreate GeoObject component with new feature.geometry
-      `),
+      throw new Error(
+        "The geometry can't be changed after entity init. You can set them manually using ymaps or recreate the GeoObject new feature.geometry",
       );
     }
 
@@ -250,13 +238,6 @@ export class YaGeoobjectDirective implements OnInit, OnChanges, OnDestroy {
        * Wrong typings in DefinitelyTyped.
        */
       (geoObject.properties as any).set(properties);
-    }
-  }
-
-  private _logErrors(): void {
-    if (!this.feature) {
-      console.error('GeoObjects: feature input is required.');
-      this.feature = {};
     }
   }
 
@@ -272,8 +253,12 @@ export class YaGeoobjectDirective implements OnInit, OnChanges, OnDestroy {
     map: ymaps.Map,
     clusterer?: ymaps.Clusterer,
   ): ymaps.GeoObject {
+    this._checkRequiredInputs();
+
     const geoObject = new ymaps.GeoObject(this.feature, this.options);
     this.id = generateRandomId();
+
+    this._ngZone.run(() => this.ready.emit({ ymaps, instance: geoObject }));
 
     this._clusterer = clusterer;
     this._geoObject = geoObject;
@@ -282,6 +267,12 @@ export class YaGeoobjectDirective implements OnInit, OnChanges, OnDestroy {
     this._addEventListeners();
 
     return geoObject;
+  }
+
+  private _checkRequiredInputs(): void {
+    if (this.feature === undefined || this.feature === null) {
+      throw new Error('Feature is required');
+    }
   }
 
   /**
@@ -297,7 +288,7 @@ export class YaGeoobjectDirective implements OnInit, OnChanges, OnDestroy {
       { name: 'beforedragstart', emitter: this.beforedragstart },
       { name: 'click', emitter: this.yaclick },
       { name: 'contextmenu', emitter: this.yacontextmenu },
-      { name: 'dbclick', emitter: this.yadblclick },
+      { name: 'dbclick', emitter: this.yadbclick },
       { name: 'drag', emitter: this.yadrag },
       { name: 'dragend', emitter: this.yadragend },
       { name: 'dragstart', emitter: this.yadragstart },
@@ -354,8 +345,6 @@ export class YaGeoobjectDirective implements OnInit, OnChanges, OnDestroy {
           : this._ngZone.run(() => listener.emitter.emit(fn(e))),
       );
     });
-
-    this._ngZone.run(() => this.ready.emit({ ymaps, instance: geoObject }));
   }
 
   public ngOnDestroy(): void {

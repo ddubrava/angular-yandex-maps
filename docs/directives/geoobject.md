@@ -26,8 +26,6 @@ Directive for creating a geo object. Can be displayed as a placemark, polyline, 
 
 ## Outputs
 
-All events execute within the Angular zone
-
 | Name              | Type           | Inside the angular zone | Description                                                     |
 | ----------------- | -------------- | ----------------------- | --------------------------------------------------------------- |
 | ready             | [YaReadyEvent] | yes                     | Entity is added in root container                               |
@@ -37,7 +35,7 @@ All events execute within the Angular zone
 | beforedragstart   | [YaEvent]      | yes                     | Event preceding the "dragstart" event                           |
 | yaclick           | [YaEvent]      | yes                     | Single left-click on the object                                 |
 | yacontextmenu     | [YaEvent]      | yes                     | Calls the element's context menu                                |
-| yadblclick        | [YaEvent]      | yes                     | Double left-click on the object                                 |
+| yadbclick         | [YaEvent]      | yes                     | Double left-click on the object                                 |
 | drag              | [YaEvent]      | yes                     | Dragging a geo object                                           |
 | dragend           | [YaEvent]      | yes                     | End of geo object dragging                                      |
 | dragstart         | [YaEvent]      | yes                     | Start of geo object dragging                                    |
@@ -62,12 +60,6 @@ All events execute within the Angular zone
 
 [yareadyevent]: interfaces/ya-ready-event.md
 [yaevent]: interfaces/event.md
-
-## Examples
-
-- [Rectangle](https://stackblitz.com/edit/rectangle)
-- [Polygon](https://stackblitz.com/edit/geoobject-polygon)
-- [Circle](https://stackblitz.com/edit/geoobject-circle)
 
 ## Source
 
