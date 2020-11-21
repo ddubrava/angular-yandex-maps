@@ -17,33 +17,12 @@ Directive for creating and managing controls on the map
 
 ## Inputs
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Default</th>
-      <th>Required</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>type</td>
-      <td>Button | FullscreenControl | GeolocationControl | ListBox | ListBoxItem | RouteButton | RouteEditor | RoutePanel | RulerControl | SearchControl | TrafficControl | TypeSelector | ZoomControl</td>
-      <td></td>
-      <td>yes</td>
-      <td>Control type</td>
-    </tr>
-    <tr>
-      <td>parameters</td>
-      <td>any</td>
-      <td></td>
-      <td>no</td>
-      <td>Parameters for the Control</td>
-    </tr>
-  </tbody>
-</table>
+| Name       | Type            | Default | Required | Description                |
+| ---------- | --------------- | ------- | -------- | -------------------------- |
+| type       | [YaControlType] |         | yes      | Control type               |
+| parameters | any             |         | no       | Parameters for the control |
+
+[yacontroltype]: interfaces/ya-control-type.md
 
 ## Outputs
 

@@ -24,6 +24,7 @@
   - [YaConfig](interfaces/ya-config.md 'YaConfig | Angular Yandex Map')
   - [YaEvent](interfaces/event.md 'YaEvent | Angular Yandex Map')
   - [YaReadyEvent](interfaces/ya-ready-event.md 'YaReadyEvent | Angular Yandex Map')
+  - [YaControlType](interfaces/ya-control-type.md 'YaControlType | Angular Yandex Map')
 
 - Constants
 

@@ -8,6 +8,7 @@ export * from './lib/angular-yandex-maps.module';
 // Interfaces
 export * from './lib/interfaces/event';
 export * from './lib/interfaces/config';
+export * from './lib/interfaces/control-type';
 
 // Constants
 export * from './lib/constants/constant';
