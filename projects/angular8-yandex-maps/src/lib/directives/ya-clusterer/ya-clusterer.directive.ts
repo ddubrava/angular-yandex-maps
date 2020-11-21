@@ -29,7 +29,7 @@ import { Listener } from '../../interfaces/listener';
  *    <ya-placemark [geometry]="[55.74, 37.50]"></ya-placemark>
  *    <ya-geoobject [feature]="{ geometry: { type: 'Point', coordinates: [55.73, 37.52] } }"></ya-geoobject>
  * </ya-clusterer>`.
- * @see {@link https://ddubrava.github.io/angular8-yandex-maps/#/components/clusterer}
+ * @see {@link https://ddubrava.github.io/angular8-yandex-maps/#/directives/clusterer}
  */
 @Directive({
   selector: 'ya-clusterer',
