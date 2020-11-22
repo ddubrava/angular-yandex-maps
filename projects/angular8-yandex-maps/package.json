@@ -26,7 +26,6 @@
     "@angular/core": "^11.0.0"
   },
   "dependencies": {
-    "@types/yandex-maps": "^2.1.13",
     "tslib": "^2.0.0"
   }
 }
