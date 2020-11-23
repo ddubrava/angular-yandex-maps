@@ -7,8 +7,7 @@
     "declaration": true,
     "declarationMap": true,
     "inlineSources": true,
-    "types": ["yandex-maps"],
-    "typeRoots": ["../../node_modules/@types", "src/lib/typings"],
+    "types": [],
     "lib": ["dom", "es2018"]
   },
   "angularCompilerOptions": {
