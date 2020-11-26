@@ -2649,6 +2649,72 @@ declare namespace ymaps {
   }
 
   namespace panorama {
+    type Layer = 'yandex#panorama' | 'yandex#airPanorama';
+
+    class Base implements IPanorama {
+      static createPanorama(params: {
+        angularBBox: number[];
+        coordSystem?: ICoordSystem;
+        name?: string;
+        position: number[];
+        tilesLevels: IPanoramaTileLevel[];
+        tileSize: number[];
+      }): IPanorama;
+
+      static getMarkerPositionFromDirection(
+        panorama: IPanorama,
+        direction: number[],
+        distance: number,
+      ): number[];
+
+      getAngularBBox(): number[];
+
+      getConnectionArrows(): IPanoramaConnectionArrow[];
+
+      getConnectionMarkers(): IPanoramaConnectionMarker[];
+
+      getConnections(): IPanoramaConnectionMarker[];
+
+      getCoordSystem(): ICoordSystem;
+
+      getDefaultDirection(): number[];
+
+      getDefaultSpan(): number[];
+
+      getGraph(): IPanoramaGraph | null;
+
+      getMarkers(): IPanoramaMarker[];
+
+      getName(): string;
+
+      getPosition(): number[];
+
+      getThoroughfares(): IPanoramaConnectionArrow[];
+
+      getTileLevels(): IPanoramaTileLevel[];
+
+      getTileSize(): number[];
+
+      validate(): void;
+    }
+
+    function createPlayer(
+      element: HTMLElement | string,
+      point: number[],
+      options?: {
+        direction?: number[] | string;
+        layer?: Layer;
+        span?: number[] | string;
+      },
+    ): Promise<Player>;
+
+    function isSupported(): boolean;
+
+    function locate(
+      point: number[],
+      options?: { layer?: Layer },
+    ): Promise<IPanorama[]>;
+
     class Manager implements IEventEmitter {
       events: IEventManager;
 
@@ -2698,7 +2764,7 @@ declare namespace ymaps {
         point: number[],
         options?: {
           direction?: number[] | string;
-          layer?: 'yandex#panorama' | 'yandex#airPanorama';
+          layer?: Layer;
           span?: number[] | string;
         },
       ): Promise<void>;

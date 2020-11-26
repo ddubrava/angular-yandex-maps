@@ -176,10 +176,7 @@ export class YaPanoramaComponent implements OnInit, OnChanges, OnDestroy {
     containerElem.setAttribute('id', id);
     containerElem.style.cssText = 'width: 100%; height: 100%;';
 
-    /**
-     * Wrong typings in DefinitelyTyped.
-     */
-    (ymaps.panorama as any)
+    ymaps.panorama
       .locate(this.point, { layer: this.layer })
       .then((panorama: ymaps.IPanorama[]) => {
         const player = new ymaps.panorama.Player(id, panorama[0], this.options);
