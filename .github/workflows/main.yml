@@ -104,4 +104,4 @@ jobs:
 
       - name: Build library
         run: |
-          npm run test:ci
+          npm run test:headless
