@@ -1,5 +1,5 @@
 ---
-name: Help wanted
+name: ❓ Help wanted
 about: Need help
 labels: ❓ help wanted
 assignees: ddubrava
