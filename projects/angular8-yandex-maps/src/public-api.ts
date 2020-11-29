@@ -1,3 +1,5 @@
+/// <reference path="./lib/typings/yandex-maps/index.ts" />
+
 /*
  * Public API Surface of angular8-yandex-maps
  */
@@ -5,17 +7,24 @@
 // Module
 export * from './lib/angular-yandex-maps.module';
 
-// Models
-export * from './lib/models/models';
+// Interfaces
+export * from './lib/interfaces/event';
+export * from './lib/interfaces/config';
+export * from './lib/interfaces/control-type';
+
+// Constants
+export * from './lib/constants/constant';
 
 // Services
 export * from './lib/services/script/script.service';
 
 // Components
-export * from './lib/components/ya-clusterer/ya-clusterer.component';
-export * from './lib/components/ya-control/ya-control.component';
-export * from './lib/components/ya-geoobject/ya-geoobject.component';
 export * from './lib/components/ya-map/ya-map.component';
-export * from './lib/components/ya-multiroute/ya-multiroute.component';
 export * from './lib/components/ya-panorama/ya-panorama.component';
-export * from './lib/components/ya-placemark/ya-placemark.component';
+
+// Directives
+export * from './lib/directives/ya-clusterer/ya-clusterer.directive';
+export * from './lib/directives/ya-control/ya-control.directive';
+export * from './lib/directives/ya-geoobject/ya-geoobject.directive';
+export * from './lib/directives/ya-multiroute/ya-multiroute.directive';
+export * from './lib/directives/ya-placemark/ya-placemark.directive';

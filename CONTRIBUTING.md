@@ -1,13 +1,24 @@
 # Contributing
 
-When contributing to this repository, please first discuss the change you wish to make via issue,
-email, or any other method with the owners of this repository before making a change.
+## Pull Requests
 
-Please note we have a code of conduct, please follow it in all your interactions with the project.
+### Develop
 
-## Pull Request Process
+- Fork the repo, clone it
+- Create a new branch
+- Run `npm install`
+- `npm start` starting the app, `npm start:lib` starting the lib
 
-1. Update the CHANGELOG.md with details of changes.
-2. Update the README.md and documentation if any of your changes change the public API.
-3. Increase the project's version numbers in `projects/angular8-yandex-maps/package.json`. The versioning scheme we use is [SemVer](http://semver.org/).
-4. After you submit your pull request, verify that all status checks are passing.
+### Raising a PR
+
+`<tag>(<scope>): <short description>`
+
+Where `<tag>` is one of:
+
+- feat: (new feature for the user, not a new feature for build script)
+- fix: (bug fix for the user, not a fix to a build script)
+- docs: (changes to the documentation)
+- style: (formatting, missing semi colons, etc; no production code change)
+- refactor: (refactoring production code, eg. renaming a variable)
+- test: (adding missing tests, refactoring tests; no production code change)
+- chore: (anything else)

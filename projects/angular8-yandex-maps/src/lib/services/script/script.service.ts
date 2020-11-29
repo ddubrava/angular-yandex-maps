@@ -1,21 +1,13 @@
-import * as _ymaps from 'yandex-maps';
 import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable, Optional } from '@angular/core';
 import { from, fromEvent, merge, Observable, throwError } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
-import { IConfig, YA_MAP_CONFIG } from '../../models/models';
+import { YA_CONFIG } from '../../constants/constant';
+import { YaConfig } from '../../interfaces/config';
 
-const DEFAULT_CONFIG: IConfig = {
+const DEFAULT_CONFIG: YaConfig = {
   lang: 'ru_RU',
 };
-
-declare global {
-  const ymaps: typeof _ymaps;
-
-  interface Window {
-    ymaps: typeof _ymaps;
-  }
-}
 
 /**
  * @dynamic
@@ -27,18 +19,23 @@ declare global {
   providedIn: 'root',
 })
 export class ScriptService {
-  private _config: Partial<IConfig>;
+  private _config: YaConfig;
 
   private _script: HTMLScriptElement;
 
   private _window: Window;
 
   constructor(
-    @Optional() @Inject(YA_MAP_CONFIG) config: Partial<IConfig>,
+    @Optional() @Inject(YA_CONFIG) config: YaConfig | null,
     @Inject(DOCUMENT) private _document: Document,
   ) {
     this._config = config || DEFAULT_CONFIG;
-    this._window = document.defaultView;
+
+    if (document.defaultView) {
+      this._window = document.defaultView;
+    } else {
+      throw new Error('document.defaultView is null');
+    }
   }
 
   /**
@@ -74,9 +71,9 @@ export class ScriptService {
    * @param config Config with parameters that will be added in source
    * @example 'https://api-maps.yandex.ru/2.1/?apikey=658f67a2-fd77-42e9-b99e-2bd48c4ccad4&lang=en_US'
    */
-  private _getScriptSource(config: Partial<IConfig>): string {
+  private _getScriptSource(config: YaConfig): string {
     const { enterprise, version = '2.1', ...rest } = config;
-    const params = this._convertIntoQueryParams(rest);
+    const params = this._convertConfigIntoQueryParams(rest);
 
     return `https://${
       enterprise ? 'enterprise.' : ''
@@ -84,15 +81,15 @@ export class ScriptService {
   }
 
   /**
-   * Converts an object into a query string parameters
-   * @param o Object for converting
+   * Converts a config into a query string parameters
+   * @param config object for converting
    * @example
-   * // returns "apikey=XXX"
-   * convertIntoQueryParams({ apikey: 'XXX' })
+   * // returns "lang=ru_RU&apikey=XXX"
+   * convertIntoQueryParams({ lang: 'ru_RU', apikey: 'XXX' })
    */
-  private _convertIntoQueryParams(o: Object): string {
-    return Object.keys(o)
-      .map((key: string) => `${key}=${o[key]}`)
+  private _convertConfigIntoQueryParams(config: YaConfig): string {
+    return Object.entries(config)
+      .map(([key, value]) => `${key}=${value}`)
       .join('&');
   }
 }

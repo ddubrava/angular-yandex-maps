@@ -6,11 +6,14 @@
 
   - [Map](components/map.md 'Map | Angular Yandex Map')
   - [Panorama](components/panorama.md 'Panorama | Angular Yandex Map')
-  - [Clusterer](components/clusterer.md 'Clusterer | Angular Yandex Map')
-  - [Placemark](components/placemark.md 'Placemark | Angular Yandex Map')
-  - [GeoObject](components/geoobject.md 'GeoObject | Angular Yandex Map')
-  - [Multiroute](components/multiroute.md 'Multiroute | Angular Yandex Map')
-  - [Controls](components/controls.md 'Controls | Angular Yandex Map')
+
+- Directives
+
+  - [Clusterer](directives/clusterer.md 'Clusterer | Angular Yandex Map')
+  - [Placemark](directives/placemark.md 'Placemark | Angular Yandex Map')
+  - [GeoObject](directives/geoobject.md 'GeoObject | Angular Yandex Map')
+  - [Multiroute](directives/multiroute.md 'Multiroute | Angular Yandex Map')
+  - [Control](directives/control.md 'Control | Angular Yandex Map')
 
 - Services
 
@@ -18,9 +21,14 @@
 
 - Interfaces
 
-  - [IConfig](interfaces/config.md 'IConfig | Angular Yandex Map')
-  - [IEvent](interfaces/event.md 'IEvent | Angular Yandex Map')
-  - [ILoadEvent](interfaces/load-event.md 'ILoadEvent | Angular Yandex Map')
+  - [YaConfig](interfaces/ya-config.md 'YaConfig | Angular Yandex Map')
+  - [YaEvent](interfaces/event.md 'YaEvent | Angular Yandex Map')
+  - [YaReadyEvent](interfaces/ya-ready-event.md 'YaReadyEvent | Angular Yandex Map')
+  - [YaControlType](interfaces/ya-control-type.md 'YaControlType | Angular Yandex Map')
+
+- Constants
+
+  - [YA_CONFIG](constants/ya-config.md 'YA_CONFIG | Angular Yandex Map')
 
 - [Examples](examples.md 'Examples | Angular Yandex Map')
 - [Changelog](https://github.com/ddubrava/angular8-yandex-maps/blob/develop/CHANGELOG.md)

@@ -22,10 +22,6 @@ module.exports = {
      */
     {
       files: ['*.ts'],
-      parserOptions: {
-        project: ['tsconfig.*?.json', 'e2e/tsconfig.json'],
-        createDefaultProgram: true,
-      },
       extends: [
         'plugin:@angular-eslint/recommended',
         // AirBnb
@@ -40,8 +36,6 @@ module.exports = {
         'no-console': ['error', { allow: ['warn', 'error'] }],
         'no-underscore-dangle': 'off',
         'import/no-extraneous-dependencies': 'off',
-        // Enable after #37 will be fixed
-        '@angular-eslint/no-output-native': 'off',
         '@typescript-eslint/explicit-member-accessibility': [
           'error',
           { overrides: { constructors: 'off' } },

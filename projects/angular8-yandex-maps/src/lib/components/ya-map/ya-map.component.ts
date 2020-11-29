@@ -15,14 +15,15 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { generateRandomId } from '../../utils/generateRandomId';
-import { IEvent, ILoadEvent } from '../../models/models';
+import { Listener } from '../../interfaces/listener';
 import { ScriptService } from '../../services/script/script.service';
-import { YaClustererComponent } from '../ya-clusterer/ya-clusterer.component';
-import { YaControlComponent } from '../ya-control/ya-control.component';
-import { YaGeoObjectComponent } from '../ya-geoobject/ya-geoobject.component';
-import { YaMultirouteComponent } from '../ya-multiroute/ya-multiroute.component';
-import { YaPlacemarkComponent } from '../ya-placemark/ya-placemark.component';
+import { YaClustererDirective } from '../../directives/ya-clusterer/ya-clusterer.directive';
+import { YaControlDirective } from '../../directives/ya-control/ya-control.directive';
+import { YaEvent, YaReadyEvent } from '../../interfaces/event';
+import { YaGeoobjectDirective } from '../../directives/ya-geoobject/ya-geoobject.directive';
+import { YaMultirouteDirective } from '../../directives/ya-multiroute/ya-multiroute.directive';
+import { YaPlacemarkDirective } from '../../directives/ya-placemark/ya-placemark.directive';
+import { generateRandomId } from '../../utils/generateRandomId';
 
 /**
  * Component for creating and managing a map.
@@ -38,36 +39,30 @@ import { YaPlacemarkComponent } from '../ya-placemark/ya-placemark.component';
 export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
   @ViewChild('container') public mapContainer: ElementRef;
 
-  @ContentChildren(YaPlacemarkComponent) public placemarks: QueryList<
-    YaPlacemarkComponent
+  @ContentChildren(YaPlacemarkDirective) public placemarks: QueryList<
+    YaPlacemarkDirective
   >;
 
-  @ContentChildren(YaMultirouteComponent) public multiroutes: QueryList<
-    YaMultirouteComponent
+  @ContentChildren(YaMultirouteDirective) public multiroutes: QueryList<
+    YaMultirouteDirective
   >;
 
-  @ContentChildren(YaGeoObjectComponent) public geoObjects: QueryList<
-    YaGeoObjectComponent
+  @ContentChildren(YaGeoobjectDirective) public geoObjects: QueryList<
+    YaGeoobjectDirective
   >;
 
-  @ContentChildren(YaControlComponent) public controls: QueryList<
-    YaControlComponent
+  @ContentChildren(YaControlDirective) public controls: QueryList<
+    YaControlDirective
   >;
 
-  @ContentChildren(YaClustererComponent) public clusterers: QueryList<
-    YaClustererComponent
+  @ContentChildren(YaClustererDirective) public clusterers: QueryList<
+    YaClustererDirective
   >;
-
-  /**
-   * @deprecated Use `ScriptService`.
-   * @description Map will not be created, only returns ILoadEvent.
-   */
-  @Input() public onlyInstance: boolean;
 
   /**
    * Map center geocoordinates.
    */
-  @Input() public center: Array<number>;
+  @Input() public center: number[];
 
   /**
    * Map zoom level.
@@ -87,39 +82,144 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
   @Input() public options: ymaps.IMapOptions = {};
 
   /**
-   * Emits immediately after this entity is added in root container.
+   * Map instance is created.
    */
-  @Output() public load = new EventEmitter<ILoadEvent>();
+  @Output() public ready = new EventEmitter<YaReadyEvent>();
 
   /**
-   * Smooth map movement.
+   * The start of a new smooth map movement.
    */
-  @Output() public action = new EventEmitter<IEvent>();
+  @Output() public actionbegin = new EventEmitter<YaEvent>();
 
   /**
-   * Actions with the balloon.
+   * Event that occurs when an action step was prematurely stopped.
    */
-  @Output() public balloon = new EventEmitter<IEvent>();
+  @Output() public actionbreak = new EventEmitter<YaEvent>();
 
   /**
-   * Left-click on the object.
+   * The end of smooth map movement.
    */
-  @Output() public yaclick = new EventEmitter<IEvent>();
+  @Output() public actionend = new EventEmitter<YaEvent>();
 
   /**
-   * Actions with the hint.
+   * The start of a new step of smooth movement.
    */
-  @Output() public hint = new EventEmitter<IEvent>();
+  @Output() public actiontick = new EventEmitter<YaEvent>();
 
   /**
-   * Mouse actions with the object.
+   * The end of performing a step of smooth movement.
    */
-  @Output() public mouse = new EventEmitter<IEvent>();
+  @Output() public actiontickcomplete = new EventEmitter<YaEvent>();
 
   /**
-   * Multitouch actions with the object.
+   * Closing the balloon.
    */
-  @Output() public multitouch = new EventEmitter<IEvent>();
+  @Output() public balloonclose = new EventEmitter<YaEvent>();
+
+  /**
+   * Opening a balloon on a map.
+   */
+  @Output() public balloonopen = new EventEmitter<YaEvent>();
+
+  /**
+   * Event for a change to the map viewport.
+   */
+  @Output() public boundschange = new EventEmitter<YaEvent>();
+
+  /**
+   * Single left-click on the object.
+   */
+  @Output() public yaclick = new EventEmitter<YaEvent>();
+
+  /**
+   * Calls the element's context menu.
+   */
+  @Output() public yacontextmenu = new EventEmitter<YaEvent>();
+
+  /**
+   * Double left-click on the object.
+   */
+  @Output() public yadbclick = new EventEmitter<YaEvent>();
+
+  /**
+   * The map was destroyed.
+   */
+  @Output() public destroy = new EventEmitter<YaEvent>();
+
+  /**
+   * Closing the hint.
+   */
+  @Output() public hintclose = new EventEmitter<YaEvent>();
+
+  /**
+   * Opening a hint on a map.
+   */
+  @Output() public hintopen = new EventEmitter<YaEvent>();
+
+  /**
+   * Map margins changed.
+   */
+  @Output() public marginchange = new EventEmitter<YaEvent>();
+
+  /**
+   * Pressing the mouse button over the object.
+   */
+  @Output() public yamousedown = new EventEmitter<YaEvent>();
+
+  /**
+   * Pointing the cursor at the object.
+   */
+  @Output() public yamouseenter = new EventEmitter<YaEvent>();
+
+  /**
+   * Moving the cursor off of the object.
+   */
+  @Output() public yamouseleave = new EventEmitter<YaEvent>();
+
+  /**
+   * Moving the cursor over the object.
+   */
+  @Output() public yamousemove = new EventEmitter<YaEvent>();
+
+  /**
+   * Letting go of the mouse button over an object.
+   */
+  @Output() public yamouseup = new EventEmitter<YaEvent>();
+
+  /**
+   * End of multitouch.
+   */
+  @Output() public multitouchend = new EventEmitter<YaEvent>();
+
+  /**
+   * Repeating event during multitouch.
+   */
+  @Output() public multitouchmove = new EventEmitter<YaEvent>();
+
+  /**
+   * Start of multitouch.
+   */
+  @Output() public multitouchstart = new EventEmitter<YaEvent>();
+
+  /**
+   * Map options changed.
+   */
+  @Output() public optionschange = new EventEmitter<YaEvent>();
+
+  /**
+   * Map size changed.
+   */
+  @Output() public sizechange = new EventEmitter<YaEvent>();
+
+  /**
+   * The map type changed.
+   */
+  @Output() public typechange = new EventEmitter<YaEvent>();
+
+  /**
+   * Mouse wheel scrolling.
+   */
+  @Output() public yawheel = new EventEmitter<YaEvent>();
 
   private _sub: Subscription;
 
@@ -130,7 +230,7 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
   public ngOnInit(): void {
     this._sub = new Subscription();
 
-    this._logErrors();
+    this._checkRequiredInputs();
     this._initScript();
   }
 
@@ -207,22 +307,18 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  private _logErrors(): void {
-    if (!this.center && !this.onlyInstance) {
-      console.error('Map: center input is required.');
-      this.center = [];
+  private _checkRequiredInputs(): void {
+    if (this.center === undefined || this.center === null) {
+      throw new Error('Center is required');
     }
   }
 
   private _initScript(): void {
     const sub = this._scriptService.initScript().subscribe(() => {
-      if (this.onlyInstance) {
-        this.load.emit({ ymaps });
-        return;
-      }
-
       const id = generateRandomId();
       this._map = this._createMap(id);
+
+      this._ngZone.run(() => this.ready.emit({ ymaps, target: this._map }));
 
       this._addGeoObjects();
       this._addControls();
@@ -257,7 +353,7 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
     // Placemarks (async)
     const placemarksSub = this.placemarks.changes
       .pipe(startWith(this.placemarks))
-      .subscribe((list: QueryList<YaPlacemarkComponent>) => {
+      .subscribe((list: QueryList<YaPlacemarkDirective>) => {
         list.forEach((placemark) => {
           if (!placemark.id) {
             const p = placemark.createPlacemark(map);
@@ -271,7 +367,7 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
     // Multiroutes (async)
     const multiroutesSub = this.multiroutes.changes
       .pipe(startWith(this.multiroutes))
-      .subscribe((list: QueryList<YaMultirouteComponent>) => {
+      .subscribe((list: QueryList<YaMultirouteDirective>) => {
         list.forEach((multiroute) => {
           if (!multiroute.id) {
             const m = multiroute.createMultiroute(map);
@@ -285,7 +381,7 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
     // GeoObjects (async)
     const geoObjectsSub = this.geoObjects.changes
       .pipe(startWith(this.geoObjects))
-      .subscribe((list: QueryList<YaGeoObjectComponent>) => {
+      .subscribe((list: QueryList<YaGeoobjectDirective>) => {
         list.forEach((geoObject) => {
           if (!geoObject.id) {
             const g = geoObject.createGeoObject(map);
@@ -322,82 +418,76 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
   private _addEventListeners(): void {
     const map = this._map;
 
-    this._ngZone.run(() => this.load.emit({ ymaps, instance: map }));
-
-    const handlers = [
+    const listeners: Listener[] = [
       {
-        name: ['actionbegin', 'actionend'],
-        fn: (e: any) =>
-          this.action.emit({
-            ymaps,
-            instance: map,
-            type: e.originalEvent.type,
-            event: e,
-          }),
+        name: 'actionbegin',
+        emitter: this.actionbegin,
       },
       {
-        name: ['balloonopen', 'balloonclose'],
-        fn: (e: any) =>
-          this.balloon.emit({
-            ymaps,
-            instance: map,
-            type: e.originalEvent.type,
-            event: e,
-          }),
+        name: 'actionbreak',
+        emitter: this.actionbreak,
       },
+      { name: 'actionend', emitter: this.actionend },
+      { name: 'actiontick', emitter: this.actiontick },
       {
-        name: ['click', 'dblclick'],
-        fn: (e: any) =>
-          this.yaclick.emit({
-            ymaps,
-            instance: map,
-            type: e.originalEvent.type,
-            event: e,
-          }),
+        name: 'actiontickcomplete',
+        emitter: this.actiontickcomplete,
       },
+      { name: 'balloonclose', emitter: this.balloonclose },
+      { name: 'balloonopen', emitter: this.balloonopen },
+      { name: 'boundschange', emitter: this.boundschange },
+      { name: 'click', emitter: this.yaclick },
+      { name: 'contextmenu', emitter: this.yacontextmenu },
+      { name: 'dbclick', emitter: this.yadbclick },
+      { name: 'destroy', emitter: this.destroy },
+      { name: 'hintclose', emitter: this.hintclose },
+      { name: 'hintopen', emitter: this.hintopen },
+      { name: 'marginchange', emitter: this.marginchange },
+      { name: 'mousedown', emitter: this.yamousedown },
       {
-        name: ['hintopen', 'hintclose'],
-        fn: (e: any) =>
-          this.hint.emit({
-            ymaps,
-            instance: map,
-            type: e.originalEvent.type,
-            event: e,
-          }),
-      },
-      {
-        name: ['mousedown', 'mouseenter', 'mouseleave', 'mousemove', 'mouseup'],
-        fn: (e: any) =>
-          this.mouse.emit({
-            ymaps,
-            instance: map,
-            type: e.originalEvent.type,
-            event: e,
-          }),
+        name: 'mouseenter',
+        emitter: this.yamouseenter,
         runOutsideAngular: true,
       },
       {
-        name: ['multitouchstart', 'multitouchmove', 'multitouchend'],
-        fn: (e: any) =>
-          this.multitouch.emit({
-            ymaps,
-            instance: map,
-            type: e.originalEvent.type,
-            event: e,
-          }),
+        name: 'mouseleave',
+        emitter: this.yamouseleave,
         runOutsideAngular: true,
       },
+      { name: 'mousemove', emitter: this.yamousemove, runOutsideAngular: true },
+      { name: 'mouseup', emitter: this.yamouseup, runOutsideAngular: true },
+      {
+        name: 'multitouchend',
+        emitter: this.multitouchend,
+        runOutsideAngular: true,
+      },
+      {
+        name: 'multitouchmove',
+        emitter: this.multitouchmove,
+        runOutsideAngular: true,
+      },
+      {
+        name: 'multitouchstart',
+        emitter: this.multitouchstart,
+        runOutsideAngular: true,
+      },
+      { name: 'optionschange', emitter: this.optionschange },
+      { name: 'sizechange', emitter: this.sizechange },
+      { name: 'typechange', emitter: this.typechange },
+      { name: 'wheel', emitter: this.yawheel },
     ];
 
-    /**
-     * Mouse and multitouch events should be run outside angular for better perfomance.
-     * @see {@link https://github.com/ddubrava/angular8-yandex-maps/issues/35}
-     */
-    handlers.forEach((handler) => {
-      map.events.add(handler.name, (e: any) =>
-        handler.runOutsideAngular
-          ? this._ngZone.runOutsideAngular(() => handler.fn(e))
-          : this._ngZone.run(() => handler.fn(e)),
+    const fn = (event: ymaps.Event): YaEvent => ({
+      event,
+      target: map,
+      ymaps,
+    });
+
+    listeners.forEach((listener) => {
+      map.events.add(listener.name, (e: ymaps.Event) =>
+        listener.runOutsideAngular
+          ? this._ngZone.runOutsideAngular(() => listener.emitter.emit(fn(e)))
+          : this._ngZone.run(() => listener.emitter.emit(fn(e))),
       );
     });
   }

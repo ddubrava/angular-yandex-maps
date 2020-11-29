@@ -31,9 +31,9 @@ export class AppModule {}
 Custom map config options
 
 ```ts
-import { AngularYandexMapsModule, IConfig } from 'angular8-yandex-maps';
+import { AngularYandexMapsModule, YaConfig } from 'angular8-yandex-maps';
 
-const mapConfig: IConfig = {
+const mapConfig: YaConfig = {
   apikey: 'API_KEY',
   lang: 'en_US',
 };
@@ -47,13 +47,13 @@ export class AppModule {}
 Injection token
 
 ```ts
-import { AngularYandexMapsModule, YA_MAP_CONFIG } from 'angular8-yandex-maps';
+import { AngularYandexMapsModule, YA_CONFIG } from 'angular8-yandex-maps';
 
 @NgModule({
   imports: [AngularYandexMapsModule],
   providers: [
     {
-      provide: YA_MAP_CONFIG,
+      provide: YA_CONFIG,
       useValue: {
         apikey: 'API_KEY',
         lang: 'en_US',

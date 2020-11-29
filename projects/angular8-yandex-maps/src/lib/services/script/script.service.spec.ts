@@ -1,9 +1,10 @@
-import { catchError } from 'rxjs/operators';
 import { DOCUMENT } from '@angular/common';
+import { catchError } from 'rxjs/operators';
 import { inject, TestBed } from '@angular/core/testing';
 import { merge, of } from 'rxjs';
-import { IConfig, YA_MAP_CONFIG } from '../../models/models';
 import { ScriptService } from './script.service';
+import { YA_CONFIG } from '../../constants/constant';
+import { YaConfig } from '../../interfaces/config';
 
 describe('ScriptService', () => {
   const SCRIPT_ID = '#yandexMapsApiScript';
@@ -21,7 +22,8 @@ describe('ScriptService', () => {
 
   beforeAll(() => {
     document = TestBed.inject(DOCUMENT);
-    window = document.defaultView;
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    window = document.defaultView!;
   });
 
   beforeEach(() => {
@@ -75,7 +77,7 @@ describe('ScriptService', () => {
   });
 
   it('should create script URL based on config', (done) => {
-    const config: IConfig = {
+    const config: YaConfig = {
       apikey: 'X-X-X',
       lang: 'en_US',
       coordorder: 'latlong',
@@ -85,7 +87,7 @@ describe('ScriptService', () => {
     };
 
     TestBed.resetTestingModule();
-    TestBed.overrideProvider(YA_MAP_CONFIG, { useValue: config });
+    TestBed.overrideProvider(YA_CONFIG, { useValue: config });
 
     inject([ScriptService], (service: ScriptService) => {
       service.initScript().subscribe(() => {
@@ -107,14 +109,14 @@ describe('ScriptService', () => {
   });
 
   it('should create enterprise API based on config', (done) => {
-    const config: IConfig = {
+    const config: YaConfig = {
       apikey: 'X-X-X',
       lang: 'en_US',
       enterprise: true,
     };
 
     TestBed.resetTestingModule();
-    TestBed.overrideProvider(YA_MAP_CONFIG, { useValue: config });
+    TestBed.overrideProvider(YA_CONFIG, { useValue: config });
 
     inject([ScriptService], (service: ScriptService) => {
       // API returns 403 for enterpise + fake apikey so have to catch error
@@ -139,14 +141,14 @@ describe('ScriptService', () => {
   });
 
   it('should return error on API loading error', (done) => {
-    const config: IConfig = {
+    const config: YaConfig = {
       apikey: 'X-X-X',
       lang: 'en_US',
       version: 'invalid',
     };
 
     TestBed.resetTestingModule();
-    TestBed.overrideProvider(YA_MAP_CONFIG, { useValue: config });
+    TestBed.overrideProvider(YA_CONFIG, { useValue: config });
 
     inject([ScriptService], (service: ScriptService) => {
       service

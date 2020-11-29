@@ -2,9 +2,7 @@
 
 # Angular8-yandex-maps
 
-The library implements the base Yandex.Maps functionality. By the way you can access to the ymaps instance so you can use full Yandex.Maps API.
-
-Leave suggestions, problems, errors, difficulties in GitHub Issues. Star the repository and thanks for using the library!
+Angular components for Yandex.Maps.
 
 ## Documentation
 
@@ -45,9 +43,9 @@ export class AppModule { }
 ##### Own map config options
 
 ```
-import { AngularYandexMapsModule, IConfig } from 'angular8-yandex-maps';
+import { AngularYandexMapsModule, YaConfig } from 'angular8-yandex-maps';
 
-const mapConfig: IConfig = {
+const mapConfig: YaConfig = {
   apikey: 'API_KEY',
   lang: 'en_US',
 };
@@ -61,12 +59,12 @@ export class AppModule { }
 ##### Injection token
 
 ```
-import { AngularYandexMapsModule, YA_MAP_CONFIG } from 'angular8-yandex-maps';
+import { AngularYandexMapsModule, YA_CONFIG } from 'angular8-yandex-maps';
 
 @NgModule({
   imports: [AngularYandexMapsModule],
   providers: [{
-    provide: YA_MAP_CONFIG,
+    provide: YA_CONFIG,
     useValue: {
       apikey: 'API_KEY',
       lang: 'en_US',
