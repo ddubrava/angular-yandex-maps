@@ -318,7 +318,7 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
       const id = generateRandomId();
       this._map = this._createMap(id);
 
-      this._ngZone.run(() => this.ready.emit({ ymaps, instance: this._map }));
+      this._ngZone.run(() => this.ready.emit({ ymaps, target: this._map }));
 
       this._addGeoObjects();
       this._addControls();
@@ -479,7 +479,7 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
 
     const fn = (event: ymaps.Event): YaEvent => ({
       event,
-      instance: map,
+      target: map,
       ymaps,
     });
 

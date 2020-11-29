@@ -253,7 +253,7 @@ export class YaPlacemarkDirective implements OnChanges, OnDestroy {
       this.options,
     );
 
-    this._ngZone.run(() => this.ready.emit({ ymaps, instance: placemark }));
+    this._ngZone.run(() => this.ready.emit({ ymaps, target: placemark }));
 
     this.id = generateRandomId();
 
@@ -325,7 +325,7 @@ export class YaPlacemarkDirective implements OnChanges, OnDestroy {
 
     const fn = (event: ymaps.Event): YaEvent => ({
       event,
-      instance: placemark,
+      target: placemark,
       ymaps,
     });
 

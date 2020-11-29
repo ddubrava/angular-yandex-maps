@@ -245,7 +245,7 @@ export class YaMultirouteDirective implements OnChanges, OnDestroy {
       this.options,
     );
 
-    this._ngZone.run(() => this.ready.emit({ ymaps, instance: multiroute }));
+    this._ngZone.run(() => this.ready.emit({ ymaps, target: multiroute }));
 
     this.id = generateRandomId();
     this._map = map;
@@ -322,7 +322,7 @@ export class YaMultirouteDirective implements OnChanges, OnDestroy {
 
     const fn = (event: ymaps.Event): YaEvent => ({
       event,
-      instance: multiroute,
+      target: multiroute,
       ymaps,
     });
 

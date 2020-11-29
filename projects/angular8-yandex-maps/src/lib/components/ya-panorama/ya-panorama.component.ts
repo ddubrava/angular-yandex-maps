@@ -176,16 +176,13 @@ export class YaPanoramaComponent implements OnInit, OnChanges, OnDestroy {
     containerElem.setAttribute('id', id);
     containerElem.style.cssText = 'width: 100%; height: 100%;';
 
-    /**
-     * Wrong typings in DefinitelyTyped.
-     */
-    (ymaps.panorama as any)
+    ymaps.panorama
       .locate(this.point, { layer: this.layer })
       .then((panorama: ymaps.IPanorama[]) => {
         const player = new ymaps.panorama.Player(id, panorama[0], this.options);
         this._player = player;
 
-        this._ngZone.run(() => this.ready.emit({ ymaps, instance: player }));
+        this._ngZone.run(() => this.ready.emit({ ymaps, target: player }));
 
         this.addEventListeners();
       });
@@ -213,7 +210,7 @@ export class YaPanoramaComponent implements OnInit, OnChanges, OnDestroy {
 
     const fn = (event: ymaps.Event): YaEvent => ({
       event,
-      instance: player,
+      target: player,
       ymaps,
     });
 
