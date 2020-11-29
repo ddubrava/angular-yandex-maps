@@ -1,16 +1,25 @@
 {
   "name": "angular-yandex-maps",
   "version": "10.0.0",
+  "private": true,
   "scripts": {
     "start": "ng serve --configuration=local",
     "start:lib": "ng build angular8-yandex-maps --watch",
+    "start:docs": "docsify serve docs",
     "build": "npm run lint && npm run test:headless && ng build angular8-yandex-maps --prod",
     "test": "ng test angular8-yandex-maps --include=\"**/script.service.spec.ts\"",
     "test:headless": "ng test angular8-yandex-maps --include=\"**/script.service.spec.ts\" --watch=false --browsers=ChromeHeadless",
-    "lint": "ng lint angular8-yandex-maps",
-    "docs": "docsify serve docs"
+    "lint": "ng lint angular8-yandex-maps"
   },
-  "private": true,
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,ts,json,md,html,css}": "prettier --write",
+    "*.{js,ts}": "eslint --fix"
+  },
   "dependencies": {
     "@angular/animations": "^11.0.2",
     "@angular/common": "^11.0.2",
@@ -44,6 +53,7 @@
     "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-prettier": "^3.1.4",
+    "husky": "^4.3.0",
     "jasmine-core": "~3.6.0",
     "jasmine-spec-reporter": "~5.0.0",
     "karma": "~5.1.0",
@@ -51,6 +61,7 @@
     "karma-coverage": "~2.0.3",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
+    "lint-staged": "^10.5.2",
     "ng-packagr": "^11.0.3",
     "prettier": "^2.2.1",
     "protractor": "~7.0.0",
