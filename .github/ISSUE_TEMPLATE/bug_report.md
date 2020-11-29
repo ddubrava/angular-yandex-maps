@@ -1,30 +1,21 @@
 ---
-name: Bug report
-about: Create a report to help us improve
-title: ''
-labels: bug
+name: 🐞 Bug report
+about: Report a bug
+labels: 🐞 bug
 assignees: ddubrava
 ---
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+# 🐞 Bug Report
 
-**To Reproduce**
-Steps to reproduce the behavior:
+## ✍️ Description
 
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
+<!-- A clear and concise description of the problem -->
 
-**Expected behavior**
-A clear and concise description of what you expected to happen.
+## 🔬 Reproduction
 
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
+<!-- Create and share minimal reproduction of the issue startinf with this template: https://stackblitz.com/fork/reproduction-template   -->
 
-**Package version**
-Add version of the package.
+## 🌎 Environment
 
-**Additional context**
-Add any other context about the problem here.
+<!-- run `ng version` and paste output below -->
+<!-- paste `angular8-yandex-maps` version -->
