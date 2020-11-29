@@ -119,7 +119,7 @@ export class YaClustererDirective implements OnChanges, OnDestroy {
     const clusterer = new ymaps.Clusterer(this.options);
     this._clusterer = clusterer;
 
-    this._ngZone.run(() => this.ready.emit({ ymaps, instance: clusterer }));
+    this._ngZone.run(() => this.ready.emit({ ymaps, target: clusterer }));
 
     /**
      * Adds new Placemarks to the clusterer on changes.
@@ -178,7 +178,7 @@ export class YaClustererDirective implements OnChanges, OnDestroy {
 
     const fn = (event: ymaps.Event): YaEvent => ({
       event,
-      instance: clusterer,
+      target: clusterer,
       ymaps,
     });
 

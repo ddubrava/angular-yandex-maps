@@ -60,7 +60,7 @@ export class YaControlDirective implements OnChanges {
       control.routePanel.state.set({ ...this.parameters.state });
     }
 
-    this._ngZone.run(() => this.ready.emit({ ymaps, instance: control }));
+    this._ngZone.run(() => this.ready.emit({ ymaps, target: control }));
 
     return control;
   }

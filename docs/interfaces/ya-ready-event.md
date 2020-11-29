@@ -1,9 +1,16 @@
 # YaReadyEvent
 
-| Name     | Type  | Description                |
-| -------- | ----- | -------------------------- |
-| instance | any   | Instance of created entity |
-| ymaps    | YMaps | API global object          |
+```ts
+export type YaReadyEvent<T = any> = Omit<YaEvent<T>, 'event'>;
+```
+
+## Example
+
+```ts
+public onReady(e: YaReadyEvent<ymaps.Map>): void {
+  const { options } = e.target;
+}
+```
 
 ## Source
 

@@ -830,8 +830,7 @@ declare namespace ymaps {
   }
 
   namespace event {
-    class Manager<TargetGeometry = {}>
-      implements IEventManager<TargetGeometry> {
+    class Manager<Target = {}> implements IEventManager<Target> {
       constructor(params?: {
         context?: object;
         controllers?: IEventWorkflowController[];
@@ -839,14 +838,8 @@ declare namespace ymaps {
       });
 
       add(
-        types: 'mousedown',
-        callback: (event: IEvent<MouseEvent, TargetGeometry>) => void,
-        context?: object,
-        priority?: number,
-      ): this;
-      add(
         types: string[][] | string[] | string,
-        callback: (event: IEvent<{}, TargetGeometry>) => void,
+        callback: (event: IEvent<{}, Target>) => void,
         context?: object,
         priority?: number,
       ): this;
@@ -3258,17 +3251,13 @@ declare namespace ymaps {
     removeAll(): this;
   }
 
-  class Event<OriginalEvent = {}, TargetGeometry = {}>
-    implements IEvent<OriginalEvent, TargetGeometry> {
+  class Event<OriginalEvent = {}, Target = {}>
+    implements IEvent<OriginalEvent, Target> {
     constructor(originalEvent: object, sourceEvent: IEvent);
 
     originalEvent: {
-      domEvent: {
-        originalEvent: OriginalEvent;
-      };
-      target: {
-        geometry?: TargetGeometry;
-      };
+      target: Target;
+      [key: string]: any;
     };
 
     allowMapEvent(): void;
@@ -3295,7 +3284,7 @@ declare namespace ymaps {
     stopPropagation(): boolean;
   }
 
-  class GeoObject<T = IGeometry, TargetGeometry = {}> implements IGeoObject<T> {
+  class GeoObject<T = IGeometry, Target = {}> implements IGeoObject<T> {
     constructor(feature?: IGeoObjectFeature, options?: IGeoObjectOptions);
 
     geometry: T | null;
@@ -3306,7 +3295,7 @@ declare namespace ymaps {
 
     hint: geoObject.Hint;
 
-    events: event.Manager<TargetGeometry>;
+    events: event.Manager<Target>;
 
     options: option.Manager;
 
@@ -3934,7 +3923,12 @@ declare namespace ymaps {
 
   interface IDomEventEmitter extends IEventEmitter {}
 
-  interface IEvent<OriginalEvent = {}, TargetGeometry = {}> {
+  interface IEvent<OriginalEvent = {}, Target = {}> {
+    originalEvent: {
+      target: Target;
+      [key: string]: any;
+    };
+
     allowMapEvent(): void;
 
     callMethod(name: string): void;
@@ -3962,15 +3956,6 @@ declare namespace ymaps {
     stopImmediatePropagation(): boolean;
 
     stopPropagation(): boolean;
-
-    originalEvent: {
-      domEvent: {
-        originalEvent: OriginalEvent;
-      };
-      target: {
-        geometry?: TargetGeometry;
-      };
-    };
   }
 
   interface IEventController {
@@ -4001,10 +3986,10 @@ declare namespace ymaps {
     removeAll(): this;
   }
 
-  interface IEventManager<TargetGeometry = {}> extends IEventTrigger {
+  interface IEventManager<Target = {}> extends IEventTrigger {
     add(
       types: 'mousedown',
-      callback: (event: IEvent<MouseEvent, TargetGeometry>) => void,
+      callback: (event: IEvent<MouseEvent, Target>) => void,
       context?: object,
       priority?: number,
     ): this;

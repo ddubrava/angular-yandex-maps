@@ -182,7 +182,7 @@ export class YaPanoramaComponent implements OnInit, OnChanges, OnDestroy {
         const player = new ymaps.panorama.Player(id, panorama[0], this.options);
         this._player = player;
 
-        this._ngZone.run(() => this.ready.emit({ ymaps, instance: player }));
+        this._ngZone.run(() => this.ready.emit({ ymaps, target: player }));
 
         this.addEventListeners();
       });
@@ -210,7 +210,7 @@ export class YaPanoramaComponent implements OnInit, OnChanges, OnDestroy {
 
     const fn = (event: ymaps.Event): YaEvent => ({
       event,
-      instance: player,
+      target: player,
       ymaps,
     });
 

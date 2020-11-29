@@ -1,10 +1,10 @@
-export type YaReadyEvent = Omit<YaEvent, 'event'>;
+export type YaReadyEvent<T = any> = Omit<YaEvent<T>, 'event'>;
 
-export interface YaEvent {
+export interface YaEvent<T = any> {
   /**
-   * Instance of created entity
+   * Instance of target
    */
-  instance: any;
+  target: T;
   /**
    * API global object
    */
@@ -13,5 +13,5 @@ export interface YaEvent {
    * Provides methods for accessing the originalObject object's fields and methods, with the possibility for redefining them.
    * @see {@link https://yandex.ru/dev/maps/jsapi/doc/2.1/ref/reference/Event.html/}
    */
-  event: ymaps.Event;
+  event: ymaps.Event<any, T>;
 }
