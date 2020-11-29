@@ -35,13 +35,11 @@ import { Listener } from '../../interfaces/listener';
   selector: 'ya-clusterer',
 })
 export class YaClustererDirective implements OnChanges, OnDestroy {
-  @ContentChildren(YaPlacemarkDirective) public placemarks: QueryList<
-    YaPlacemarkDirective
-  >;
+  @ContentChildren(YaPlacemarkDirective)
+  public placemarks: QueryList<YaPlacemarkDirective>;
 
-  @ContentChildren(YaGeoobjectDirective) public geoObjects: QueryList<
-    YaGeoobjectDirective
-  >;
+  @ContentChildren(YaGeoobjectDirective)
+  public geoObjects: QueryList<YaGeoobjectDirective>;
 
   /**
    * Options for the clusterer.

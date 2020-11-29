@@ -39,25 +39,20 @@ import { generateRandomId } from '../../utils/generateRandomId';
 export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
   @ViewChild('container') public mapContainer: ElementRef;
 
-  @ContentChildren(YaPlacemarkDirective) public placemarks: QueryList<
-    YaPlacemarkDirective
-  >;
+  @ContentChildren(YaPlacemarkDirective)
+  public placemarks: QueryList<YaPlacemarkDirective>;
 
-  @ContentChildren(YaMultirouteDirective) public multiroutes: QueryList<
-    YaMultirouteDirective
-  >;
+  @ContentChildren(YaMultirouteDirective)
+  public multiroutes: QueryList<YaMultirouteDirective>;
 
-  @ContentChildren(YaGeoobjectDirective) public geoObjects: QueryList<
-    YaGeoobjectDirective
-  >;
+  @ContentChildren(YaGeoobjectDirective)
+  public geoObjects: QueryList<YaGeoobjectDirective>;
 
-  @ContentChildren(YaControlDirective) public controls: QueryList<
-    YaControlDirective
-  >;
+  @ContentChildren(YaControlDirective)
+  public controls: QueryList<YaControlDirective>;
 
-  @ContentChildren(YaClustererDirective) public clusterers: QueryList<
-    YaClustererDirective
-  >;
+  @ContentChildren(YaClustererDirective)
+  public clusterers: QueryList<YaClustererDirective>;
 
   /**
    * Map center geocoordinates.
