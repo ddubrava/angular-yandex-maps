@@ -2,6 +2,21 @@
 
 All notable changes from v1.0.0 will be documented in this file.
 
+## [11.0.0] - 2020-11-20
+
+### Added
+
+- Support Angular 11
+
+### Breaking
+
+- Remove deprecated `onlyInstance` input
+- Rename `IConfig` event -> `YaConfig`
+- Rename `YA_MAP_CONFIG` injection token -> `YA_CONFIG`
+- Rename `Event` event -> `YaEvent`
+- Rename `LoadEvent` event -> `YaLoadEvent`
+- Split combined events into multiple events (#51)
+
 ## [10.4.1] - 2020-11-08
 
 ### Fixed
@@ -351,6 +366,7 @@ All notable changes from v1.0.0 will be documented in this file.
 
 - Release without changes
 
+[11.0.0]: https://github.com/ddubrava/angular8-yandex-maps/compare/v10.4.1...11.0.0
 [10.4.1]: https://github.com/ddubrava/angular8-yandex-maps/compare/v10.4.0...v10.4.1
 [10.4.0]: https://github.com/ddubrava/angular8-yandex-maps/compare/v10.3.1...v10.4.0
 [10.3.1]: https://github.com/ddubrava/angular8-yandex-maps/compare/v10.2.0...v10.3.1
