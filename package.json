@@ -1,6 +1,6 @@
 {
   "name": "angular-yandex-maps",
-  "version": "10.0.0",
+  "version": "11.0.0",
   "scripts": {
     "start": "ng serve --configuration=local",
     "start:lib": "ng build angular8-yandex-maps --watch",
