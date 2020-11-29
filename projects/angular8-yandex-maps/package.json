@@ -15,7 +15,10 @@
     "Карты",
     "ЯндексКарты"
   ],
-  "author": "Daniil Dubrava",
+  "author": {
+    "name": "Daniil Dubrava",
+    "email": "daniil.dubrava@yandex.ru"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/ddubrava/angular8-yandex-maps/issues"
