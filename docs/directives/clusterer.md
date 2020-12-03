@@ -34,11 +34,11 @@ you should first delete the object from the clusterer and then add it back
 | Name          | Type           | Inside the angular zone | Description                         |
 | ------------- | -------------- | ----------------------- | ----------------------------------- |
 | ready         | [YaReadyEvent] | yes                     | Clusterer instance is created       |
-| hintclose     | [YaEvent]      | hintopen, hintclose     | Closing the hint                    |
-| hintopen      | [YaEvent]      | mapChange               | Opening a hint on a cluster         |
-| mapchange     | [YaEvent]      | optionsChange           | Map reference changed               |
-| optionschange | [YaEvent]      | parentChange            | Change to the object options        |
-| parentchange  | [YaEvent]      | parentChange            | The parent object reference changed |
+| hintclose     | [YaEvent]      | yes                     | Closing the hint                    |
+| hintopen      | [YaEvent]      | yes                     | Opening a hint on a cluster         |
+| mapchange     | [YaEvent]      | yes                     | Map reference changed               |
+| optionschange | [YaEvent]      | yes                     | Change to the object options        |
+| parentchange  | [YaEvent]      | yes                     | The parent object reference changed |
 
 [yareadyevent]: interfaces/ya-ready-event.md
 [yaevent]: interfaces/event.md
