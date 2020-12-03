@@ -21,11 +21,11 @@ Error
 import { ScriptService } from 'angular8-yandex-maps';
 
 constructor(private scriptService: ScriptService) {
-    scriptService
-      .initScript()
-      .pipe(catchError((e) => throwError(e)))
-      .subscribe();
-  }
+  scriptService
+    .initScript()
+    .pipe(catchError((e) => throwError(e)))
+    .subscribe();
+}
 ```
 
 ## Source
