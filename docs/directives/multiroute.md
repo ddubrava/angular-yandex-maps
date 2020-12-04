@@ -15,14 +15,15 @@ Directive for creating Multi-route on the map
 
 ## Inputs
 
-| Name            | Type                            | Default | Required | Description                          |
-| --------------- | ------------------------------- | ------- | -------- | ------------------------------------ |
-| referencePoints | [IMultiRouteReferencePoint]\[]  |         | yes      | Reference points for the multi-route |
-| model           | { params: [IMultiRouteParams] } |         | no       | Params for the multiroute            |
-| options         | [MultiRouteOptions]             |         | no       | Options for the multiroute           |
+| Name            | Type                                       | Default | Required | Description                          |
+| --------------- | ------------------------------------------ | ------- | -------- | ------------------------------------ |
+| referencePoints | [IMultiRouteReferencePoint]\[]             |         | yes      | Reference points for the multi-route |
+| model           | [MultiRouteModel] \| [MultiRouteModelJson] |         | no       | Model for the multiroute             |
+| options         | [MultiRouteOptions]                        |         | no       | Options for the multiroute           |
 
 [imultiroutereferencepoint]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/IMultiRouteReferencePoint-docpage/
-[imultirouteparams]: https://yandex.ru/dev/maps/jsapi/doc/2.1/ref/reference/IMultiRouteParams.html/
+[multiroutemodel]: https://yandex.ru/dev/maps/jsapi/doc/2.1/ref/reference/multiRouter.MultiRouteModel.html/
+[multiroutemodeljson]: https://yandex.ru/dev/maps/jsapi/doc/2.1/ref/reference/IMultiRouteModelJson.html/
 [multirouteoptions]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/multiRouter.MultiRoute-docpage/#multiRouter.MultiRoute__param-options
 
 ## Outputs
