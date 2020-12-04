@@ -24,6 +24,7 @@ import { generateRandomId } from '../../utils/generateRandomId';
 export class YaMultirouteDirective implements OnChanges, OnDestroy {
   /**
    * Reference points for the multi-route.
+   * Shorthand for [model]="{ referencePoints: [0, 0] }"
    * @see {@link https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/IMultiRouteReferencePoint-docpage/}
    */
   @Input() public referencePoints: ymaps.IMultiRouteReferencePoint[];
@@ -31,7 +32,7 @@ export class YaMultirouteDirective implements OnChanges, OnDestroy {
   /**
    * Model description object of a multiroute.
    */
-  @Input() public model: ymaps.IMultiRouteModelJson;
+  @Input() public model: { params: ymaps.IMultiRouteParams };
 
   /**
    * Options for the multiroute.
