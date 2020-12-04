@@ -11,6 +11,7 @@ import {
 import { Listener } from '../../interfaces/listener';
 import { YaEvent, YaReadyEvent } from '../../interfaces/event';
 import { generateRandomId } from '../../utils/generateRandomId';
+import { Optional } from '../../utils/optional';
 
 /**
  * Directive for creating Multi-route on the map.
@@ -31,8 +32,12 @@ export class YaMultirouteDirective implements OnChanges, OnDestroy {
 
   /**
    * Model description object of a multiroute.
+   * referencePoints input is required so prop can be ignored
    */
-  @Input() public model: { params: ymaps.IMultiRouteParams };
+  @Input() public model: Optional<
+    ymaps.IMultiRouteModelJson,
+    'referencePoints'
+  >;
 
   /**
    * Options for the multiroute.
