@@ -8,46 +8,23 @@ Directive for creating Multi-route on the map
 <ya-map [center]="[55.761952, 37.620739]">
   <ya-multiroute
     [referencePoints]="[[55.751952, 37.600739], 'Красные ворота, Москва']"
+    [model]="{ params: { routingMode: 'pedestrian' } }"
   ></ya-multiroute>
 </ya-map>
 ```
 
 ## Inputs
 
-<table>
-	<thead>
-		<tr>
-			<th>Name</th>
-			<th>Type</th>
-			<th>Default</th>
-			<th>Required</th>
-			<th>Description</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td>referencePoints</td>
-			<td><a href="https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/IMultiRouteReferencePoint-docpage/" target="_blank" rel="noopener">IMultiRouteReferencePoint</a>[]</td>
-			<td></td>
-			<td>yes</td>
-			<td>Reference points for the multi-route</td>
-		</tr>
-		<tr>
-			<td>model</td>
-			<td><a href="https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/multiRouter.MultiRouteModel-docpage/" target="_blank" rel="noopener">multiRouter.MultiRouteModel</a> | <a href="https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/IMultiRouteModelJson-docpage/" target="_blank" rel="noopener">MultiRouteModelJson</a></td>
-			<td></td>
-			<td>no</td>
-			<td>The data model of a multi-route, or the model description object</td>
-		</tr>
-		<tr>
-			<td>options</td>
-			<td><a href="https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/multiRouter.MultiRoute-docpage/#multiRouter.MultiRoute__param-options" target="_blank" rel="noopener">MultiRouteOptions</a></td>
-			<td></td>
-			<td>no</td>
-			<td>Options for the multiroute</td>
-		</tr>
-	</tbody>
-</table>
+| Name            | Type                                       | Default | Required | Description                          |
+| --------------- | ------------------------------------------ | ------- | -------- | ------------------------------------ |
+| referencePoints | [IMultiRouteReferencePoint]\[]             |         | yes      | Reference points for the multi-route |
+| model           | [MultiRouteModel] \| [MultiRouteModelJson] |         | no       | Model for the multiroute             |
+| options         | [MultiRouteOptions]                        |         | no       | Options for the multiroute           |
+
+[imultiroutereferencepoint]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/IMultiRouteReferencePoint-docpage/
+[multiroutemodel]: https://yandex.ru/dev/maps/jsapi/doc/2.1/ref/reference/multiRouter.MultiRouteModel.html/
+[multiroutemodeljson]: https://yandex.ru/dev/maps/jsapi/doc/2.1/ref/reference/IMultiRouteModelJson.html/
+[multirouteoptions]: https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/multiRouter.MultiRoute-docpage/#multiRouter.MultiRoute__param-options
 
 ## Outputs
 
