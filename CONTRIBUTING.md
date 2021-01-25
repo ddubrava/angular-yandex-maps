@@ -7,7 +7,9 @@
 - Fork the repo, clone it
 - Create a new branch
 - Run `npm install`
-- `npm start` starting the app, `npm start:lib` starting the lib
+- Create `environment.local.ts` in `environments` directory
+  -- Add `export const environment = { production: false, apikey: UNDEFINED_OR_YOUR_API_KEY }`
+- `npm start` starting the app, `npm run start:lib` starting the lib
 
 ### Raising a PR
 
