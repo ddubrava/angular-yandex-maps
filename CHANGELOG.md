@@ -2,6 +2,12 @@
 
 All notable changes from v1.0.0 will be documented in this file.
 
+## [11.0.1] - 2021-01-25
+
+### Changed
+
+- Make `referencePoints` in `model` input in YaMultirouteDirective optional
+
 ## [11.0.0] - 2020-11-20
 
 ### Added
@@ -366,6 +372,7 @@ All notable changes from v1.0.0 will be documented in this file.
 
 - Release without changes
 
+[11.0.1]: https://github.com/ddubrava/angular8-yandex-maps/compare/v11.0.0...11.0.1
 [11.0.0]: https://github.com/ddubrava/angular8-yandex-maps/compare/v10.4.1...11.0.0
 [10.4.1]: https://github.com/ddubrava/angular8-yandex-maps/compare/v10.4.0...v10.4.1
 [10.4.0]: https://github.com/ddubrava/angular8-yandex-maps/compare/v10.3.1...v10.4.0
