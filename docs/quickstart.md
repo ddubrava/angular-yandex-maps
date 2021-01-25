@@ -6,8 +6,14 @@
 npm install angular8-yandex-maps
 ```
 
-Versions now follow Angular's version to easily reflect compatibility.
-Meaning, for Angular 6, use
+#### Version compatibility
+
+| Angular version | Library Version | Documentation                                                                     |
+| --------------- | --------------- | --------------------------------------------------------------------------------- |
+| v9, v10, v11    | v11.x           | [DOCUMENTATION](https://ddubrava.github.io/angular8-yandex-maps/#/)               |
+| v8              | v8.x            | [DOCUMENTATION](https://github.com/ddubrava/angular8-yandex-maps/tree/8.0.0/docs) |
+| v7              | v7.x            | [DOCUMENTATION](https://github.com/ddubrava/angular8-yandex-maps/tree/7.0.0/docs) |
+| v6              | v6.x            | [DOCUMENTATION](https://github.com/ddubrava/angular8-yandex-maps/tree/6.0.0/docs) |
 
 ```bash
 npm install angular8-yandex-maps@^6.0.0
