@@ -31,5 +31,5 @@
   - [YA_CONFIG](constants/ya-config.md 'YA_CONFIG | Angular Yandex Map')
 
 - [Examples](examples.md 'Examples | Angular Yandex Map')
-- [Changelog](https://github.com/ddubrava/angular8-yandex-maps/blob/develop/CHANGELOG.md)
-- [Licence](https://github.com/ddubrava/angular8-yandex-maps/blob/develop/LICENSE.md)
+- [Changelog](https://github.com/ddubrava/angular8-yandex-maps/blob/master/CHANGELOG.md)
+- [Licence](https://github.com/ddubrava/angular8-yandex-maps/blob/master/LICENSE.md)

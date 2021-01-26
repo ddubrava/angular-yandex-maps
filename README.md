@@ -101,8 +101,8 @@ export class AppModule { }
 
 ## Changelog
 
-[CHANGELOG](https://github.com/ddubrava/angular8-yandex-maps/blob/develop/CHANGELOG.md)
+[CHANGELOG](https://github.com/ddubrava/angular8-yandex-maps/blob/master/CHANGELOG.md)
 
 ## License
 
-[MIT](https://github.com/ddubrava/angular8-yandex-maps/blob/develop/LICENSE.md)
+[MIT](https://github.com/ddubrava/angular8-yandex-maps/blob/master/LICENSE.md)
