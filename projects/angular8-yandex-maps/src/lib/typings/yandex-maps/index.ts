@@ -3121,11 +3121,27 @@ declare namespace ymaps {
 
     hint: clusterer.Hint;
 
-    getParent(): null | IControlParent;
+    add(objects: IGeoObject | IGeoObject[]): Clusterer;
 
-    setParent(parent: IControlParent): this;
+    createCluster(center: number[], geoObjects: IGeoObject[]): IGeoObject;
+
+    getBounds(): number[][] | null;
+
+    getClusters(): IGeoObject[];
+
+    getGeoObjects(): IGeoObject[];
 
     getMap(): Map;
+
+    getObjectState(geoObject: IGeoObject): Object;
+
+    getParent(): IParentOnMap | null;
+
+    remove(objects: IGeoObject | IGeoObject[]): Clusterer;
+
+    removeAll(): Clusterer;
+
+    setParent(parent: IControlParent): this;
   }
 
   interface IClustererOptions {
@@ -4064,6 +4080,20 @@ declare namespace ymaps {
       },
     ): Promise<object>;
   }
+
+  function geocode(
+    request: string | number[],
+    options?: {
+      boundedBy?: number[][];
+      json?: boolean;
+      kind?: string;
+      provider?: IGeocodeProvider | string;
+      results?: number;
+      searchCoordOrder?: string;
+      skip?: number;
+      strictBounds?: boolean;
+    },
+  ): Promise<object>;
 
   interface IGeometry extends IBaseGeometry, ICustomizable {
     getMap(): Map | null;

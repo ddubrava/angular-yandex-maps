@@ -126,10 +126,7 @@ export class YaClustererDirective implements OnChanges, OnDestroy {
         list.forEach((placemark) => {
           if (!placemark.id) {
             const p = placemark.createPlacemark(map, clusterer);
-            /**
-             * Wrong typings in DefinitelyTyped.
-             */
-            (clusterer as any).add(p);
+            clusterer.add(p);
 
             this._ngZone.run(() => placemark.ready.emit({ ymaps, target: p }));
           }
@@ -147,10 +144,7 @@ export class YaClustererDirective implements OnChanges, OnDestroy {
         list.forEach((geoObject) => {
           if (!geoObject.id) {
             const g = geoObject.createGeoObject(map, clusterer);
-            /**
-             * Wrong typings in DefinitelyTyped.
-             */
-            (clusterer as any).add(g);
+            clusterer.add(g);
 
             this._ngZone.run(() => geoObject.ready.emit({ ymaps, target: g }));
           }
