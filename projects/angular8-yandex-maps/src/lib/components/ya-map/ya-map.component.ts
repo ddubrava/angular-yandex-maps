@@ -353,6 +353,8 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
           if (!placemark.id) {
             const p = placemark.createPlacemark(map);
             map.geoObjects.add(p);
+
+            this._ngZone.run(() => placemark.ready.emit({ ymaps, target: p }));
           }
         });
       });
@@ -367,6 +369,8 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
           if (!multiroute.id) {
             const m = multiroute.createMultiroute(map);
             map.geoObjects.add(m);
+
+            this._ngZone.run(() => multiroute.ready.emit({ ymaps, target: m }));
           }
         });
       });
@@ -381,6 +385,8 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
           if (!geoObject.id) {
             const g = geoObject.createGeoObject(map);
             map.geoObjects.add(g);
+
+            this._ngZone.run(() => geoObject.ready.emit({ ymaps, target: g }));
           }
         });
       });
@@ -394,6 +400,8 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
        * Wrong typings in DefinitelyTyped.
        */
       map.geoObjects.add(c as any);
+
+      this._ngZone.run(() => clusterer.ready.emit({ ymaps, target: c }));
     });
   }
 
@@ -404,6 +412,8 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
     this.controls.forEach((control) => {
       const c = control.createControl();
       this._map.controls.add(c);
+
+      this._ngZone.run(() => control.ready.emit({ ymaps, target: c }));
     });
   }
 

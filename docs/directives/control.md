@@ -26,9 +26,9 @@ Directive for creating and managing controls on the map
 
 ## Outputs
 
-| Name  | Type           | Inside the angular zone | Description                 |
-| ----- | -------------- | ----------------------- | --------------------------- |
-| ready | [YaReadyEvent] | yes                     | Control instance is created |
+| Name  | Type           | Inside the angular zone | Description                        |
+| ----- | -------------- | ----------------------- | ---------------------------------- |
+| ready | [YaReadyEvent] | yes                     | Control instance is added in a Map |
 
 [yareadyevent]: interfaces/ya-ready-event.md
 

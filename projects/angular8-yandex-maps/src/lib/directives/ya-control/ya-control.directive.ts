@@ -2,7 +2,6 @@ import {
   Directive,
   EventEmitter,
   Input,
-  NgZone,
   OnChanges,
   Output,
 } from '@angular/core';
@@ -30,13 +29,11 @@ export class YaControlDirective implements OnChanges {
   @Input() public parameters: any;
 
   /**
-   * Control instance is created.
+   * Control instance is added in a Map.
    */
   @Output() public ready = new EventEmitter<YaReadyEvent>();
 
   private _control: any;
-
-  constructor(private _ngZone: NgZone) {}
 
   /**
    * Creates control
@@ -59,8 +56,6 @@ export class YaControlDirective implements OnChanges {
     ) {
       control.routePanel.state.set({ ...this.parameters.state });
     }
-
-    this._ngZone.run(() => this.ready.emit({ ymaps, target: control }));
 
     return control;
   }

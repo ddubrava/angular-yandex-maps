@@ -30,7 +30,7 @@ Directive for creating Multi-route on the map
 
 | Name              | Type           | Inside the angular zone | Description                                                             |
 | ----------------- | -------------- | ----------------------- | ----------------------------------------------------------------------- |
-| ready             | [YaReadyEvent] | yes                     | Multiroute instance is created                                          |
+| ready             | [YaReadyEvent] | yes                     | Multiroute instance is added in a Map                                   |
 | activeroutechange | [YaEvent]      | yes                     | Change to the active route.                                             |
 | balloonclose      | [YaEvent]      | yes                     | Closing the balloon                                                     |
 | balloonopen       | [YaEvent]      | yes                     | Opening a balloon on a map                                              |

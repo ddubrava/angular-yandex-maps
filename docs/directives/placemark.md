@@ -53,7 +53,7 @@ Directive for creating a geo object with the geometry geometry.Point
 
 | Name              | Type           | Inside the angular zone | Description                                                     |
 | ----------------- | -------------- | ----------------------- | --------------------------------------------------------------- |
-| ready             | [YaReadyEvent] | yes                     | Placemark instance is created                                   |
+| ready             | [YaReadyEvent] | yes                     | Placemark instance is added in a Map/Clusterer                  |
 | balloonclose      | [YaEvent]      | yes                     | Closing the balloon                                             |
 | balloonopen       | [YaEvent]      | yes                     | Opening a balloon on a map                                      |
 | beforedrag        | [YaEvent]      | yes                     | Event preceding the "drag" event                                |
