@@ -337,10 +337,7 @@ export class YaPlacemarkDirective implements OnChanges, OnDestroy {
   }
 
   public ngOnDestroy(): void {
-    /**
-     * Wrong typings in DefinitelyTyped.
-     */
-    (this._clusterer as any)?.remove(this._placemark);
+    this._clusterer?.remove(this._placemark);
     this._map?.geoObjects.remove(this._placemark);
   }
 }

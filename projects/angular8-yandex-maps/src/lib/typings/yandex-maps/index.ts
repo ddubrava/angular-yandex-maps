@@ -3121,11 +3121,27 @@ declare namespace ymaps {
 
     hint: clusterer.Hint;
 
-    getParent(): null | IControlParent;
+    add(objects: IGeoObject | IGeoObject[]): Clusterer;
 
-    setParent(parent: IControlParent): this;
+    createCluster(center: number[], geoObjects: IGeoObject[]): IGeoObject;
+
+    getBounds(): number[][] | null;
+
+    getClusters(): IGeoObject[];
+
+    getGeoObjects(): IGeoObject[];
 
     getMap(): Map;
+
+    getObjectState(geoObject: IGeoObject): Object;
+
+    getParent(): IParentOnMap | null;
+
+    remove(objects: IGeoObject | IGeoObject[]): Clusterer;
+
+    removeAll(): Clusterer;
+
+    setParent(parent: IControlParent): this;
   }
 
   interface IClustererOptions {
