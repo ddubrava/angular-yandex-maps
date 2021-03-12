@@ -40,9 +40,9 @@ export class YaPlacemarkDirective implements OnChanges, OnDestroy {
   @Input() public options: ymaps.IPlacemarkOptions;
 
   /**
-   * Placemark instance is created.
+   * Placemark instance is added in a Map.
    */
-  @Output() public ready = new EventEmitter<YaReadyEvent>();
+  @Output() public ready = new EventEmitter<YaReadyEvent<ymaps.Placemark>>();
 
   /**
    * Closing the balloon.
@@ -252,8 +252,6 @@ export class YaPlacemarkDirective implements OnChanges, OnDestroy {
       this.properties,
       this.options,
     );
-
-    this._ngZone.run(() => this.ready.emit({ ymaps, target: placemark }));
 
     this.id = generateRandomId();
 

@@ -36,9 +36,9 @@ export class YaGeoobjectDirective implements OnChanges, OnDestroy {
   @Input() public options: ymaps.IGeoObjectOptions;
 
   /**
-   * GeoObject instance is created.
+   * GeoObject instance is added in a Map.
    */
-  @Output() public ready = new EventEmitter<YaReadyEvent>();
+  @Output() public ready = new EventEmitter<YaReadyEvent<ymaps.GeoObject>>();
 
   /**
    * Closing the balloon.
@@ -257,8 +257,6 @@ export class YaGeoobjectDirective implements OnChanges, OnDestroy {
 
     const geoObject = new ymaps.GeoObject(this.feature, this.options);
     this.id = generateRandomId();
-
-    this._ngZone.run(() => this.ready.emit({ ymaps, target: geoObject }));
 
     this._clusterer = clusterer;
     this._geoObject = geoObject;

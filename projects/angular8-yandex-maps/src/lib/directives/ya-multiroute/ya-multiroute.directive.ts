@@ -47,9 +47,11 @@ export class YaMultirouteDirective implements OnChanges, OnDestroy {
   @Input() public options: any;
 
   /**
-   * Multiroute instance is created.
+   * Multiroute instance is added in a Map.
    */
-  @Output() public ready = new EventEmitter<YaReadyEvent>();
+  @Output() public ready = new EventEmitter<
+    YaReadyEvent<ymaps.multiRouter.MultiRoute>
+  >();
 
   /**
    * Change to the active route.
@@ -250,8 +252,6 @@ export class YaMultirouteDirective implements OnChanges, OnDestroy {
       { ...this.model, referencePoints: this.referencePoints },
       this.options,
     );
-
-    this._ngZone.run(() => this.ready.emit({ ymaps, target: multiroute }));
 
     this.id = generateRandomId();
     this._map = map;

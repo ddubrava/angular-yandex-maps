@@ -48,9 +48,9 @@ export class YaClustererDirective implements OnChanges, OnDestroy {
   @Input() public options: any;
 
   /**
-   * Clusterer instance is created.
+   * Clusterer instance is added in a Map.
    */
-  @Output() public ready = new EventEmitter<YaReadyEvent>();
+  @Output() public ready = new EventEmitter<YaReadyEvent<ymaps.Clusterer>>();
 
   /**
    * Closing the hint.
@@ -117,8 +117,6 @@ export class YaClustererDirective implements OnChanges, OnDestroy {
     const clusterer = new ymaps.Clusterer(this.options);
     this._clusterer = clusterer;
 
-    this._ngZone.run(() => this.ready.emit({ ymaps, target: clusterer }));
-
     /**
      * Adds new Placemarks to the clusterer on changes.
      */
@@ -127,10 +125,13 @@ export class YaClustererDirective implements OnChanges, OnDestroy {
       .subscribe((list: QueryList<YaPlacemarkDirective>) => {
         list.forEach((placemark) => {
           if (!placemark.id) {
+            const p = placemark.createPlacemark(map, clusterer);
             /**
              * Wrong typings in DefinitelyTyped.
              */
-            (clusterer as any).add(placemark.createPlacemark(map, clusterer));
+            (clusterer as any).add(p);
+
+            this._ngZone.run(() => placemark.ready.emit({ ymaps, target: p }));
           }
         });
       });
@@ -145,10 +146,13 @@ export class YaClustererDirective implements OnChanges, OnDestroy {
       .subscribe((list: QueryList<YaGeoobjectDirective>) => {
         list.forEach((geoObject) => {
           if (!geoObject.id) {
+            const g = geoObject.createGeoObject(map, clusterer);
             /**
              * Wrong typings in DefinitelyTyped.
              */
-            (clusterer as any).add(geoObject.createGeoObject(map, clusterer));
+            (clusterer as any).add(g);
+
+            this._ngZone.run(() => geoObject.ready.emit({ ymaps, target: g }));
           }
         });
       });
