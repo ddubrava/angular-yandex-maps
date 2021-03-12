@@ -2,6 +2,17 @@
 
 All notable changes from v1.0.0 will be documented in this file.
 
+## [11.0.2] - 2021-03-12
+
+### Added
+
+- Add `geocode` function in typings
+- Add missing properties in `Clusterer` class
+
+### Changed
+
+- Make `YaReadyEvent` emit after instance is added in a map/clusterer component
+
 ## [11.0.1] - 2021-01-25
 
 ### Changed
@@ -372,8 +383,9 @@ All notable changes from v1.0.0 will be documented in this file.
 
 - Release without changes
 
-[11.0.1]: https://github.com/ddubrava/angular8-yandex-maps/compare/v11.0.0...11.0.1
-[11.0.0]: https://github.com/ddubrava/angular8-yandex-maps/compare/v10.4.1...11.0.0
+[11.0.2]: https://github.com/ddubrava/angular8-yandex-maps/compare/v11.0.1...v11.0.2
+[11.0.1]: https://github.com/ddubrava/angular8-yandex-maps/compare/v11.0.0...v11.0.1
+[11.0.0]: https://github.com/ddubrava/angular8-yandex-maps/compare/v10.4.1...v11.0.0
 [10.4.1]: https://github.com/ddubrava/angular8-yandex-maps/compare/v10.4.0...v10.4.1
 [10.4.0]: https://github.com/ddubrava/angular8-yandex-maps/compare/v10.3.1...v10.4.0
 [10.3.1]: https://github.com/ddubrava/angular8-yandex-maps/compare/v10.2.0...v10.3.1
