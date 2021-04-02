@@ -1,11 +1,14 @@
 import { DOCUMENT } from '@angular/common';
-import { catchError } from 'rxjs/operators';
 import { inject, TestBed } from '@angular/core/testing';
-import { merge, of } from 'rxjs';
+import { merge } from 'rxjs';
 import { ScriptService } from './script.service';
 import { YA_CONFIG } from '../../constants/constant';
 import { YaConfig } from '../../interfaces/config';
 
+/**
+ * @todo Get rid of using a real API, mock all data
+ * @see {@link https://github.com/angular/components/blob/master/src/google-maps/testing/fake-google-map-utils.ts}
+ */
 describe('ScriptService', () => {
   const SCRIPT_ID = '#yandexMapsApiScript';
   const BASE_API_PROTOCOL = 'https://';
@@ -105,64 +108,6 @@ describe('ScriptService', () => {
 
         done();
       });
-    })();
-  });
-
-  it('should create enterprise API based on config', (done) => {
-    const config: YaConfig = {
-      apikey: 'X-X-X',
-      lang: 'en_US',
-      enterprise: true,
-    };
-
-    TestBed.resetTestingModule();
-    TestBed.overrideProvider(YA_CONFIG, { useValue: config });
-
-    inject([ScriptService], (service: ScriptService) => {
-      // API returns 403 for enterpise + fake apikey so have to catch error
-      service
-        .initScript()
-        .pipe(
-          catchError((e: Event) => {
-            const target = e.target as HTMLScriptElement;
-            expect(target.src).toContain(
-              `${BASE_API_PROTOCOL}enterprise.${BASE_API_URL}${BASE_API_VERSION}`,
-            );
-            expect(target.src).not.toContain('enterprise=true');
-
-            done();
-
-            // Can't throwError as it causes a mess
-            return of();
-          }),
-        )
-        .subscribe();
-    })();
-  });
-
-  it('should return error on API loading error', (done) => {
-    const config: YaConfig = {
-      apikey: 'X-X-X',
-      lang: 'en_US',
-      version: 'invalid',
-    };
-
-    TestBed.resetTestingModule();
-    TestBed.overrideProvider(YA_CONFIG, { useValue: config });
-
-    inject([ScriptService], (service: ScriptService) => {
-      service
-        .initScript()
-        .pipe(
-          catchError((e) => {
-            expect(e).toBeInstanceOf(Event);
-            done();
-
-            // Can't throwError as it causes a mess
-            return of();
-          }),
-        )
-        .subscribe();
     })();
   });
 });
