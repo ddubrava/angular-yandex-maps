@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   EventEmitter,
@@ -27,6 +28,7 @@ import { generateRandomId } from '../../utils/generateRandomId';
   selector: 'ya-panorama',
   templateUrl: './ya-panorama.component.html',
   styleUrls: ['./ya-panorama.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class YaPanoramaComponent implements OnInit, OnChanges, OnDestroy {
   @ViewChild('container') public panoramaContainer: ElementRef;

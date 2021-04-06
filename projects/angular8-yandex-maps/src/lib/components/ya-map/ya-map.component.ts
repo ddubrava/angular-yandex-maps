@@ -1,6 +1,7 @@
 import { startWith } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import {
+  ChangeDetectionStrategy,
   Component,
   ContentChildren,
   ElementRef,
@@ -35,6 +36,7 @@ import { generateRandomId } from '../../utils/generateRandomId';
   selector: 'ya-map',
   templateUrl: './ya-map.component.html',
   styleUrls: ['./ya-map.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
   @ViewChild('container') public mapContainer: ElementRef;
