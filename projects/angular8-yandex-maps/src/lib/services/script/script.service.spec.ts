@@ -101,4 +101,67 @@ describe('ScriptService', () => {
     expect(mockDocument.createElement.calls.count()).toBe(1);
     expect(mockDocument.body.appendChild.calls.count()).toBe(1);
   });
+
+  it('should return observable with ymaps on script load', (done) => {
+    service = new ScriptService(null, mockDocument);
+
+    const onHandlers: { [key: string]: any } = {};
+
+    const script = {
+      addEventListener(type: string, listener: any) {
+        onHandlers[type] = listener;
+      },
+      removeEventListener() {},
+    };
+
+    mockDocument.createElement.and.returnValue(script);
+    mockDocument.body.appendChild.and.returnValue(script);
+
+    service.initScript().subscribe((api) => {
+      expect(api.ready).toBeTruthy();
+      done();
+    });
+
+    setTimeout(() => {
+      mockDocument.defaultView.ymaps = {
+        ready: () => new Promise((resolve) => resolve({})),
+      };
+
+      onHandlers.load();
+    });
+  });
+
+  it('should throw error on script loading error', (done) => {
+    service = new ScriptService(null, mockDocument);
+
+    const onHandlers: { [key: string]: any } = {};
+
+    const script = {
+      addEventListener(type: string, listener: any) {
+        onHandlers[type] = listener;
+      },
+      removeEventListener() {},
+    };
+
+    const event = new Event('load');
+
+    mockDocument.createElement.and.returnValue(script);
+    mockDocument.body.appendChild.and.returnValue(script);
+
+    service.initScript().subscribe(
+      () => {},
+      (e) => {
+        expect(e).toEqual(event);
+        done();
+      },
+    );
+
+    setTimeout(() => {
+      mockDocument.defaultView.ymaps = {
+        ready: () => new Promise((resolve) => resolve({})),
+      };
+
+      onHandlers.error(event);
+    });
+  });
 });
