@@ -2,6 +2,7 @@ import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable, Optional } from '@angular/core';
 import { from, fromEvent, merge, Observable, throwError } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
+
 import { YA_CONFIG } from '../../constants/constant';
 import { YaConfig } from '../../interfaces/config';
 
@@ -19,11 +20,11 @@ const DEFAULT_CONFIG: YaConfig = {
   providedIn: 'root',
 })
 export class ScriptService {
-  private _config: YaConfig;
+  private readonly _config: YaConfig;
+
+  private readonly _window: Window & { ymaps: typeof ymaps };
 
   private _script: HTMLScriptElement;
-
-  private _window: Window;
 
   constructor(
     @Optional() @Inject(YA_CONFIG) config: YaConfig | null,
@@ -31,8 +32,8 @@ export class ScriptService {
   ) {
     this._config = config || DEFAULT_CONFIG;
 
-    if (document.defaultView) {
-      this._window = document.defaultView;
+    if (this._document.defaultView) {
+      this._window = this._document.defaultView;
     } else {
       throw new Error('document.defaultView is null');
     }
@@ -42,21 +43,26 @@ export class ScriptService {
    * Inits Yandex.Maps script
    */
   public initScript(): Observable<typeof ymaps> {
+    const window = this._window;
+
     if ('ymaps' in this._window) {
-      return from(ymaps.ready()).pipe(map(() => ymaps));
+      return from(window.ymaps.ready()).pipe(map(() => window.ymaps));
     }
 
     if (!this._script) {
       const script = this._document.createElement('script');
+
       script.type = 'text/javascript';
       script.src = this._getScriptSource(this._config);
       script.id = 'yandexMapsApiScript';
+      script.async = true;
+      script.defer = true;
 
       this._script = this._document.body.appendChild(script);
     }
 
     const load = fromEvent(this._script, 'load').pipe(
-      switchMap(() => from(ymaps.ready()).pipe(map(() => ymaps))),
+      switchMap(() => from(window.ymaps.ready()).pipe(map(() => window.ymaps))),
     );
 
     const error = fromEvent(this._script, 'error').pipe(

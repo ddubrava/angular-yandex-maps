@@ -1,85 +1,43 @@
-import { DOCUMENT } from '@angular/common';
-import { inject, TestBed } from '@angular/core/testing';
-import { merge } from 'rxjs';
 import { ScriptService } from './script.service';
-import { YA_CONFIG } from '../../constants/constant';
 import { YaConfig } from '../../interfaces/config';
+import createSpy = jasmine.createSpy;
+import createSpyObj = jasmine.createSpyObj;
 
-/**
- * @todo Get rid of using a real API, mock all data
- * @see {@link https://github.com/angular/components/blob/master/src/google-maps/testing/fake-google-map-utils.ts}
- */
 describe('ScriptService', () => {
-  const SCRIPT_ID = '#yandexMapsApiScript';
-  const BASE_API_PROTOCOL = 'https://';
-  const BASE_API_URL = 'api-maps.yandex.ru/';
-  const BASE_API_VERSION = '2.1/';
-
-  let document: Document;
-  let window: Window;
-
-  const reset = () => {
-    document.querySelectorAll(SCRIPT_ID).forEach((n) => n.remove());
-    delete (window as any).ymaps;
-  };
-
-  beforeAll(() => {
-    document = TestBed.inject(DOCUMENT);
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    window = document.defaultView!;
-  });
+  let service: ScriptService;
+  let mockDocument: any;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [ScriptService],
-    });
+    mockDocument = {
+      defaultView: {},
+      createElement: createSpy('createElement'),
+      body: createSpyObj('body', ['appendChild']),
+    };
   });
 
-  afterEach(() => {
-    reset();
+  it('should throw error if defaultView is null', () => {
+    mockDocument.defaultView = null;
+    expect(() => new ScriptService(null, mockDocument)).toThrowError();
   });
 
-  it('should not append a second script to body when initScript() called in a sequence', (done) => {
-    inject([ScriptService], (service: ScriptService) => {
-      merge([service.initScript(), service.initScript()]).subscribe(() => {
-        const list = document.querySelectorAll(SCRIPT_ID);
-        expect(list.length).toEqual(1);
+  it("should create script with default options if config isn't passed", () => {
+    service = new ScriptService(null, mockDocument);
 
-        done();
-      });
-    })();
+    const script = {} as HTMLScriptElement;
+    mockDocument.createElement.and.returnValue(script);
+
+    service.initScript();
+
+    expect(mockDocument.createElement).toHaveBeenCalled();
+    expect(script.type).toBe('text/javascript');
+    expect(script.async).toEqual(true);
+    expect(script.defer).toEqual(true);
+    expect(script.src).toBe('https://api-maps.yandex.ru/2.1/?lang=ru_RU');
+    expect(script.id).toBe('yandexMapsApiScript');
+    expect(mockDocument.body.appendChild).toHaveBeenCalled();
   });
 
-  it('should return ymaps when window.ymaps is already defined', (done) => {
-    inject([ScriptService], (service: ScriptService) => {
-      (window as any).ymaps = { ready: () => Promise.resolve() } as any;
-
-      const spy = spyOn(document.body, 'appendChild');
-
-      service.initScript().subscribe((ymaps) => {
-        expect(ymaps).toBeInstanceOf(Object);
-        expect(spy).not.toHaveBeenCalled();
-        done();
-      });
-    })();
-  });
-
-  it('should create the default script URL without config', (done) => {
-    inject([ScriptService], (service: ScriptService) => {
-      service.initScript().subscribe(() => {
-        const script = document.querySelector(SCRIPT_ID) as HTMLScriptElement;
-
-        expect(script.src).toContain(
-          BASE_API_PROTOCOL + BASE_API_URL + BASE_API_VERSION,
-        );
-        expect(script.src).toContain('lang=ru_RU');
-
-        done();
-      });
-    })();
-  });
-
-  it('should create script URL based on config', (done) => {
+  it('should create script with provided options if config is passed', () => {
     const config: YaConfig = {
       apikey: 'X-X-X',
       lang: 'en_US',
@@ -89,25 +47,58 @@ describe('ScriptService', () => {
       version: '2.1',
     };
 
-    TestBed.resetTestingModule();
-    TestBed.overrideProvider(YA_CONFIG, { useValue: config });
+    service = new ScriptService(config, mockDocument);
 
-    inject([ScriptService], (service: ScriptService) => {
-      service.initScript().subscribe(() => {
-        const script = document.querySelector(SCRIPT_ID) as HTMLScriptElement;
+    const script = {} as HTMLScriptElement;
+    mockDocument.createElement.and.returnValue(script);
 
-        expect(script.src).toContain(
-          BASE_API_PROTOCOL + BASE_API_URL + BASE_API_VERSION,
-        );
-        expect(script.src).toContain('apikey=X-X-X');
-        expect(script.src).toContain('coordorder=latlong');
-        expect(script.src).toContain('load=package.full');
-        expect(script.src).toContain('mode=release');
+    service.initScript();
 
-        expect(script.src).not.toContain(`version=${BASE_API_VERSION}`);
+    expect(script.src).toBe(
+      'https://api-maps.yandex.ru/2.1/?apikey=X-X-X&lang=en_US&coordorder=latlong&load=package.full&mode=release',
+    );
+  });
 
-        done();
-      });
-    })();
+  it('should create enterprise script if enterprise flag is passed', () => {
+    const config: YaConfig = {
+      lang: 'ru_RU',
+      enterprise: true,
+    };
+
+    service = new ScriptService(config, mockDocument);
+
+    const script = {} as HTMLScriptElement;
+    mockDocument.createElement.and.returnValue(script);
+
+    service.initScript();
+
+    expect(script.src).toBe(
+      'https://enterprise.api-maps.yandex.ru/2.1/?lang=ru_RU',
+    );
+  });
+
+  it('should not append second script if window.ymaps is defined', () => {
+    mockDocument.defaultView.ymaps = {
+      ready: () => new Promise((resolve) => resolve({})),
+    };
+
+    service = new ScriptService(null, mockDocument);
+    service.initScript();
+
+    expect(mockDocument.createElement).not.toHaveBeenCalled();
+    expect(mockDocument.body.appendChild).not.toHaveBeenCalled();
+  });
+
+  it('should not append second script if initScript called in a sequence', () => {
+    service = new ScriptService(null, mockDocument);
+
+    mockDocument.createElement.and.returnValue({});
+    mockDocument.body.appendChild.and.returnValue({});
+
+    service.initScript();
+    service.initScript();
+
+    expect(mockDocument.createElement.calls.count()).toBe(1);
+    expect(mockDocument.body.appendChild.calls.count()).toBe(1);
   });
 });
