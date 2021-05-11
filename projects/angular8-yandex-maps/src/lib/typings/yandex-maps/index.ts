@@ -4,13 +4,12 @@
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
 /* eslint-disable max-classes-per-file */
 
-// Type definitions for non-npm package yandex-maps 2.1
-// Project: https://github.com/Delagen/typings-yandex-maps
-// Definitions by: Delagen <https://github.com/Delagen>
-//                 gastwork13 <https://github.com/gastwork13>
-//
-// Due to inactivity the project was copied and improved.
-
+/**
+ * Type definitions for non-npm package yandex-maps 2.1.
+ * Definitions by: Delagen <https://github.com/Delagen> / gastwork13 <https://github.com/gastwork13>.
+ * Due to inactivity typings were copied and improved.
+ * @see {@link https://yandex.ru/dev/maps/jsapi/doc/2.1/ref/concepts/About.html}
+ */
 declare namespace ymaps {
   interface IClassConstructor<T> {
     new (): T;
@@ -24,13 +23,16 @@ declare namespace ymaps {
     | 'searchControl'
     | 'trafficControl'
     | 'typeSelector'
-    | 'zoomControl';
+    | 'zoomControl'
+    | 'routeButtonControl'
+    | 'routePanelControl';
 
   type ControlSetKey =
     | 'smallMapDefaultSet'
     | 'mediumMapDefaultSet'
     | 'largeMapDefaultSet'
     | 'default';
+
   type ControlKey = ControlSingleKey | ControlSetKey;
 
   type OverlayKey =
@@ -3565,11 +3567,9 @@ declare namespace ymaps {
     behaviors?: string[];
     bounds?: number[][];
     center?: number[];
-    controls?: Array<
-      string | control.ZoomControl | control.RulerControl | control.TypeSelector
-    >;
-    margin?: number[][] | number[];
-    type?: 'yandex#map' | 'yandex#satellite' | 'yandex#hybrid';
+    controls?: ControlKey[];
+    margin?: number | number[];
+    type?: 'yandex#map' | 'yandex#satellite' | 'yandex#hybrid' | MapType;
     zoom?: number;
   }
 
@@ -3584,7 +3584,7 @@ declare namespace ymaps {
     minZoom?: number;
     nativeFullscreen?: boolean;
     projection?: IProjection;
-    restrictMapArea?: boolean;
+    restrictMapArea?: boolean | number[][];
     suppressMapOpenBlock?: boolean;
     suppressObsoleteBrowserNotifier?: boolean;
     yandexMapAutoSwitch?: boolean;
