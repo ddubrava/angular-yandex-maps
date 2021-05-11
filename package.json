@@ -7,8 +7,8 @@
     "start:lib": "ng build angular8-yandex-maps --watch",
     "start:docs": "docsify serve docs",
     "build": "ng build angular8-yandex-maps --prod",
-    "test": "ng test angular8-yandex-maps --include=\"**/script.service.spec.ts\"",
-    "test:headless": "ng test angular8-yandex-maps --include=\"**/script.service.spec.ts\" --watch=false --browsers=ChromeHeadless",
+    "test": "ng test angular8-yandex-maps",
+    "test:headless": "ng test angular8-yandex-maps --watch=false --browsers=ChromeHeadless",
     "lint": "ng lint angular8-yandex-maps"
   },
   "husky": {

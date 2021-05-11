@@ -1,21 +1,26 @@
 import { startWith } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
+
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   ContentChildren,
   ElementRef,
   EventEmitter,
+  Inject,
   Input,
   NgZone,
   OnChanges,
   OnDestroy,
-  OnInit,
   Output,
+  PLATFORM_ID,
   QueryList,
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
+
+import { isPlatformBrowser } from '@angular/common';
 import { Listener } from '../../interfaces/listener';
 import { ScriptService } from '../../services/script/script.service';
 import { YaClustererDirective } from '../../directives/ya-clusterer/ya-clusterer.directive';
@@ -34,11 +39,10 @@ import { generateRandomId } from '../../utils/generateRandomId';
  */
 @Component({
   selector: 'ya-map',
-  templateUrl: './ya-map.component.html',
-  styleUrls: ['./ya-map.component.scss'],
+  template: ` <div #container></div>`,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
+export class YaMapComponent implements AfterViewInit, OnChanges, OnDestroy {
   @ViewChild('container') public mapContainer: ElementRef;
 
   @ContentChildren(YaPlacemarkDirective)
@@ -64,19 +68,19 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
   /**
    * Map zoom level.
    */
-  @Input() public zoom = 10;
+  @Input() public zoom: number;
 
   /**
    * States for the map.
    * @see {@link https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Map-docpage/#Mapparam-state}
    */
-  @Input() public state: ymaps.IMapState = {};
+  @Input() public state: ymaps.IMapState;
 
   /**
    * Options for the map.
    * @see {@link https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Map-docpage/#Mapparam-options}
    */
-  @Input() public options: ymaps.IMapOptions = {};
+  @Input() public options: ymaps.IMapOptions;
 
   /**
    * Map instance is created.
@@ -218,54 +222,57 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
    */
   @Output() public yawheel = new EventEmitter<YaEvent>();
 
-  private _sub: Subscription;
+  private _isBrowser: boolean;
+
+  private _sub = new Subscription();
 
   private _map: ymaps.Map;
 
-  constructor(private _ngZone: NgZone, private _scriptService: ScriptService) {}
-
-  public ngOnInit(): void {
-    this._sub = new Subscription();
-
-    this._checkRequiredInputs();
-    this._initScript();
-  }
-
-  public ngOnChanges(changes: SimpleChanges): void {
-    this._updateMap(changes);
+  constructor(
+    private _ngZone: NgZone,
+    private _scriptService: ScriptService,
+    @Inject(PLATFORM_ID) platformId: Object,
+  ) {
+    this._isBrowser = isPlatformBrowser(platformId);
   }
 
   /**
-   * Method for dynamic Map configuration.
-   * Handles input changes and provides it to API.
+   * Handles input changes and passes them in API.
    * @param changes
    */
-  private _updateMap(changes: SimpleChanges): void {
+  public ngOnChanges(changes: SimpleChanges): void {
     const map = this._map;
 
-    if (!map) return;
+    if (map) {
+      const { center, zoom, state, options } = changes;
 
-    const { center, zoom, state, options } = changes;
+      if (center) {
+        map.setCenter(center.currentValue);
+      }
 
-    if (center) {
-      map.setCenter(center.currentValue);
+      if (zoom) {
+        map.setZoom(zoom.currentValue);
+      }
+
+      if (state) {
+        this._setState(this._combineState(), map);
+      }
+
+      if (options) {
+        map.options.set(options.currentValue);
+      }
     }
+  }
 
-    if (zoom) {
-      map.setZoom(zoom.currentValue);
-    }
-
-    if (state) {
-      this._setState(state.currentValue, map);
-    }
-
-    if (options) {
-      map.options.set(options.currentValue);
+  public ngAfterViewInit(): void {
+    // It should be a noop during server-side rendering.
+    if (this._isBrowser) {
+      this._loadScript();
     }
   }
 
   /**
-   * Destructs state and provides new values to API.
+   * Destructs state and passes new values in API.
    * @param state
    * @param map
    */
@@ -285,10 +292,7 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     if (controls) {
-      /**
-       * Wrong typings in DefinitelyTyped.
-       */
-      controls.forEach((c: any) => map.controls.add(c));
+      controls.forEach((control) => map.controls.add(control));
     }
 
     if (margin) {
@@ -304,13 +308,7 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  private _checkRequiredInputs(): void {
-    if (this.center === undefined || this.center === null) {
-      throw new Error('Center is required');
-    }
-  }
-
-  private _initScript(): void {
+  private _loadScript(): void {
     const sub = this._scriptService.initScript().subscribe(() => {
       const id = generateRandomId();
       this._map = this._createMap(id);
@@ -334,11 +332,20 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
     containerElem.setAttribute('id', id);
     containerElem.style.cssText = 'width: 100%; height: 100%;';
 
-    return new ymaps.Map(
-      id,
-      { ...this.state, zoom: this.zoom, center: this.center },
-      this.options,
-    );
+    return new ymaps.Map(id, this._combineState(), this.options || {});
+  }
+
+  /**
+   * Combines the center and zoom into single object
+   */
+  private _combineState(): ymaps.IMapState {
+    const state = this.state || {};
+
+    return {
+      ...state,
+      center: this.center || state.center || [],
+      zoom: this.zoom ?? state.zoom ?? 10,
+    };
   }
 
   /**

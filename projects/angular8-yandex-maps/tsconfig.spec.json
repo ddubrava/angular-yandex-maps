@@ -3,7 +3,8 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "outDir": "../../out-tsc/spec",
-    "types": ["jasmine"]
+    "types": ["jasmine"],
+    "module": "CommonJS"
   },
   "files": ["src/test.ts", "src/lib/typings/yandex-maps/index.ts"],
   "include": ["**/*.spec.ts", "**/*.d.ts"]

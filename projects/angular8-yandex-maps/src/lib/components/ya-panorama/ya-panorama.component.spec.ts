@@ -1,16 +1,23 @@
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Observable } from 'rxjs';
 
 import { YaPanoramaComponent } from './ya-panorama.component';
+import { ScriptService } from '../../services/script/script.service';
 
 describe('YaPanoramaComponent', () => {
   let component: YaPanoramaComponent;
   let fixture: ComponentFixture<YaPanoramaComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    const scriptServiceStub = {
+      initScript: () => new Observable((s) => s.next()),
+    };
+
+    await TestBed.configureTestingModule({
       declarations: [YaPanoramaComponent],
+      providers: [{ provide: ScriptService, useValue: scriptServiceStub }],
     }).compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(YaPanoramaComponent);

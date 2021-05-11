@@ -118,8 +118,6 @@ export class YaPanoramaComponent implements OnInit, OnChanges, OnDestroy {
 
   public ngOnInit(): void {
     this._sub = new Subscription();
-
-    this._checkRequiredInputs();
     this._initScript();
   }
 
@@ -151,12 +149,6 @@ export class YaPanoramaComponent implements OnInit, OnChanges, OnDestroy {
       throw new Error(
         "The options can't be changed after entity init. You can set them manually using ymaps or recreate the Panorama with new options",
       );
-    }
-  }
-
-  private _checkRequiredInputs(): void {
-    if (this.point === undefined || this.point === null) {
-      throw new Error('Point is required');
     }
   }
 
