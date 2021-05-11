@@ -73,6 +73,13 @@ export class ScriptService {
   }
 
   /**
+   * @alias initScript
+   */
+  public load(): Observable<typeof ymaps> {
+    return this.initScript();
+  }
+
+  /**
    * Returns script source by config
    * @param config Config with parameters that will be added in source
    * @example 'https://api-maps.yandex.ru/2.1/?apikey=658f67a2-fd77-42e9-b99e-2bd48c4ccad4&lang=en_US'

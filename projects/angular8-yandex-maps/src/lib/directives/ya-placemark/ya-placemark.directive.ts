@@ -5,23 +5,31 @@ import {
   NgZone,
   OnChanges,
   OnDestroy,
+  OnInit,
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { generateRandomId } from '../../utils/generateRandomId';
-import { YaEvent, YaReadyEvent } from '../../interfaces/event';
-import { Listener } from '../../interfaces/listener';
+import { Subscription } from 'rxjs';
+
+import { YaReadyEvent } from '../../interfaces/event';
+import { YaMapComponent } from '../../components/ya-map/ya-map.component';
+import { EventManager } from '../../utils/event-manager';
 
 /**
  * Directive for creating a geo object with the geometry geometry.Point.
  *
- * @example `<ya-placemark [geometry]="[55.751952, 37.600739]"></ya-placemark>`.
+ * @example
+ * `<ya-map [center]="[55.751952, 37.600739]">
+ *    <ya-placemark [geometry]="[55.751952, 37.600739]"></ya-placemark>
+ *  </ya-map>`
  * @see {@link https://ddubrava.github.io/angular8-yandex-maps/#/directives/placemark}
  */
 @Directive({
   selector: 'ya-placemark',
 })
-export class YaPlacemarkDirective implements OnChanges, OnDestroy {
+export class YaPlacemarkDirective implements OnInit, OnChanges, OnDestroy {
+  public placemark?: ymaps.Placemark;
+
   /**
    * Coordinates of the placemark, or a hash describing the geometry, or a reference to the point geometry object.
    */
@@ -44,300 +52,240 @@ export class YaPlacemarkDirective implements OnChanges, OnDestroy {
    */
   @Output() public ready = new EventEmitter<YaReadyEvent<ymaps.Placemark>>();
 
+  private _eventManager = new EventManager(this._ngZone);
+
   /**
    * Closing the balloon.
    */
-  @Output() public balloonclose = new EventEmitter<YaEvent>();
+  @Output() public balloonclose = this._eventManager.getLazyEmitter(
+    'balloonclose',
+  );
 
   /**
    * Opening a balloon on a map.
    */
-  @Output() public balloonopen = new EventEmitter<YaEvent>();
+  @Output() public balloonopen = this._eventManager.getLazyEmitter(
+    'balloonopen',
+  );
 
   /**
    * Event preceding the "drag" event.
    */
-  @Output() public beforedrag = new EventEmitter<YaEvent>();
+  @Output() public beforedrag = this._eventManager.getLazyEmitter('beforedrag');
 
   /**
    * Event preceding the "dragstart" event.
    */
-  @Output() public beforedragstart = new EventEmitter<YaEvent>();
+  @Output() public beforedragstart = this._eventManager.getLazyEmitter(
+    'beforedragstart',
+  );
 
   /**
    * Single left-click on the object.
    */
-  @Output() public yaclick = new EventEmitter<YaEvent>();
+  @Output() public yaclick = this._eventManager.getLazyEmitter('click');
 
   /**
    * Calls the element's context menu.
    */
-  @Output() public yacontextmenu = new EventEmitter<YaEvent>();
+  @Output() public yacontextmenu = this._eventManager.getLazyEmitter(
+    'contextmenu',
+  );
 
   /**
    * Double left-click on the object.
    */
-  @Output() public yadbclick = new EventEmitter<YaEvent>();
+  @Output() public yadbclick = this._eventManager.getLazyEmitter('dbclick');
 
   /**
    * Dragging a geo object.
    */
-  @Output() public yadrag = new EventEmitter<YaEvent>();
+  @Output() public yadrag = this._eventManager.getLazyEmitter('drag');
 
   /**
    * End of geo object dragging.
    */
-  @Output() public yadragend = new EventEmitter<YaEvent>();
+  @Output() public yadragend = this._eventManager.getLazyEmitter('dragend');
 
   /**
    * Start of geo object dragging.
    */
-  @Output() public yadragstart = new EventEmitter<YaEvent>();
+  @Output() public yadragstart = this._eventManager.getLazyEmitter('dragstart');
 
   /**
    * Change in the state of the editor for the geo object's geometry.
    */
-  @Output() public editorstatechange = new EventEmitter<YaEvent>();
+  @Output() public editorstatechange = this._eventManager.getLazyEmitter(
+    'editorstatechange',
+  );
 
   /**
    * Change to the geo object geometry
    */
-  @Output() public geometrychange = new EventEmitter<YaEvent>();
+  @Output() public geometrychange = this._eventManager.getLazyEmitter(
+    'geometrychange',
+  );
 
   /**
    * Closing the hint.
    */
-  @Output() public hintclose = new EventEmitter<YaEvent>();
+  @Output() public hintclose = this._eventManager.getLazyEmitter('hintclose');
 
   /**
    * Opening a hint on a map.
    */
-  @Output() public hintopen = new EventEmitter<YaEvent>();
+  @Output() public hintopen = this._eventManager.getLazyEmitter('hintopen');
 
   /**
    * Map reference changed.
    */
-  @Output() public mapchange = new EventEmitter<YaEvent>();
+  @Output() public mapchange = this._eventManager.getLazyEmitter('mapchange');
 
   /**
    * Pressing the mouse button over the object.
    */
-  @Output() public yamousedown = new EventEmitter<YaEvent>();
+  @Output() public yamousedown = this._eventManager.getLazyEmitter('mousedown');
 
   /**
    * Pointing the cursor at the object.
    */
-  @Output() public yamouseenter = new EventEmitter<YaEvent>();
+  @Output() public yamouseenter = this._eventManager.getLazyEmitter(
+    'mouseenter',
+  );
 
   /**
    * Moving the cursor off of the object.
    */
-  @Output() public yamouseleave = new EventEmitter<YaEvent>();
+  @Output() public yamouseleave = this._eventManager.getLazyEmitter(
+    'mouseleave',
+  );
 
   /**
    * Moving the cursor over the object.
    */
-  @Output() public yamousemove = new EventEmitter<YaEvent>();
+  @Output() public yamousemove = this._eventManager.getLazyEmitter('mousemove');
 
   /**
    * Letting go of the mouse button over an object.
    */
-  @Output() public yamouseup = new EventEmitter<YaEvent>();
+  @Output() public yamouseup = this._eventManager.getLazyEmitter('mouseup');
 
   /**
    * End of multitouch.
    */
-  @Output() public multitouchend = new EventEmitter<YaEvent>();
+  @Output() public multitouchend = this._eventManager.getLazyEmitter(
+    'multitouchend',
+  );
 
   /**
    * Repeating event during multitouch.
    */
-  @Output() public multitouchmove = new EventEmitter<YaEvent>();
+  @Output() public multitouchmove = this._eventManager.getLazyEmitter(
+    'multitouchmove',
+  );
 
   /**
    * Start of multitouch.
    */
-  @Output() public multitouchstart = new EventEmitter<YaEvent>();
+  @Output() public multitouchstart = this._eventManager.getLazyEmitter(
+    'multitouchstart',
+  );
 
   /**
    * Change to the object options.
    */
-  @Output() public optionschange = new EventEmitter<YaEvent>();
+  @Output() public optionschange = this._eventManager.getLazyEmitter(
+    'optionschange',
+  );
 
   /**
    * Change to the geo object overlay.
    */
-  @Output() public overlaychange = new EventEmitter<YaEvent>();
+  @Output() public overlaychange = this._eventManager.getLazyEmitter(
+    'overlaychange',
+  );
 
   /**
    * The parent object reference changed.
    */
-  @Output() public parentchange = new EventEmitter<YaEvent>();
+  @Output() public parentchange = this._eventManager.getLazyEmitter(
+    'parentchange',
+  );
 
   /**
    * Change to the geo object data.
    */
-  @Output() public propertieschange = new EventEmitter<YaEvent>();
+  @Output() public propertieschange = this._eventManager.getLazyEmitter(
+    'propertieschange',
+  );
 
   /**
    * Mouse wheel scrolling.
    */
-  @Output() public yawheel = new EventEmitter<YaEvent>();
+  @Output() public yawheel = this._eventManager.getLazyEmitter('wheel');
 
-  public id: string;
+  private _sub = new Subscription();
 
-  // Yandex.Maps API.
-  private _clusterer: ymaps.Clusterer | undefined;
-
-  private _map: ymaps.Map;
-
-  private _placemark: ymaps.Placemark;
-
-  constructor(private _ngZone: NgZone) {}
-
-  public ngOnChanges(changes: SimpleChanges): void {
-    this._updatePlacemark(changes);
-  }
+  constructor(
+    private _ngZone: NgZone,
+    private _yaMapComponent: YaMapComponent,
+  ) {}
 
   /**
-   * Method for dynamic Placemark configuration.
-   * Handles input changes and provides it to API.
+   * Handles input changes and passes them in API.
    * @param changes
    */
-  private _updatePlacemark(changes: SimpleChanges): void {
-    const placemark = this._placemark;
+  public ngOnChanges(changes: SimpleChanges): void {
+    const { placemark } = this;
 
-    if (!placemark) return;
+    if (placemark) {
+      const { geometry, properties, options } = changes;
 
-    const { geometry, properties, options } = changes;
+      if (geometry) {
+        placemark.geometry?.setCoordinates(geometry.currentValue);
+      }
 
-    if (geometry) {
-      placemark.geometry?.setCoordinates(geometry.currentValue);
-    }
+      if (properties) {
+        /**
+         * Wrong typings in DefinitelyTyped.
+         */
+        (placemark.properties as any).set(properties.currentValue);
+      }
 
-    if (properties) {
-      /**
-       * Wrong typings in DefinitelyTyped.
-       */
-      (placemark.properties as any).set(properties.currentValue);
-    }
-
-    if (options) {
-      placemark.options.set(options.currentValue);
+      if (options) {
+        placemark.options.set(options.currentValue);
+      }
     }
   }
 
-  private _checkRequiredInputs(): void {
-    if (this.geometry === undefined || this.geometry === null) {
-      throw new Error('Geometry is required');
+  public ngOnInit(): void {
+    const sub = this._yaMapComponent.map$.subscribe((map) => {
+      if (map) {
+        const placemark = this._createPlacemark();
+        this.placemark = placemark;
+
+        map.geoObjects.add(placemark);
+        this._eventManager.setTarget(placemark);
+        this.ready.emit({ ymaps, target: placemark });
+      }
+    });
+
+    this._sub.add(sub);
+  }
+
+  public ngOnDestroy(): void {
+    if (this.placemark) {
+      this._yaMapComponent?.map$.value?.geoObjects.remove(this.placemark);
+      this._eventManager.destroy();
     }
+
+    this._sub.unsubscribe();
   }
 
   /**
    * Creates placemark.
-   *
-   * @param map Necessary for removing entity from map.geoObjects on Placemark destroy
-   * `this.map.geoObjects.remove(this.placemark);`.
-   * @param clusterer Necessary for removing entity from Clusterer on Placemark destroy
-   * `this.clusterer.remove(this.placemark);`.
    */
-  public createPlacemark(
-    map: ymaps.Map,
-    clusterer?: ymaps.Clusterer,
-  ): ymaps.Placemark {
-    this._checkRequiredInputs();
-
-    const placemark = new ymaps.Placemark(
-      this.geometry,
-      this.properties,
-      this.options,
-    );
-
-    this.id = generateRandomId();
-
-    this._clusterer = clusterer;
-    this._map = map;
-    this._placemark = placemark;
-
-    this._addEventListeners();
-
-    return placemark;
-  }
-
-  /**
-   * Adds listeners on the Placemark events.
-   */
-  private _addEventListeners(): void {
-    const placemark = this._placemark;
-
-    const listeners: Listener[] = [
-      { name: 'balloonclose', emitter: this.balloonclose },
-      { name: 'balloonopen', emitter: this.balloonopen },
-      { name: 'beforedrag', emitter: this.beforedrag },
-      { name: 'beforedragstart', emitter: this.beforedragstart },
-      { name: 'click', emitter: this.yaclick },
-      { name: 'contextmenu', emitter: this.yacontextmenu },
-      { name: 'dbclick', emitter: this.yadbclick },
-      { name: 'drag', emitter: this.yadrag },
-      { name: 'dragend', emitter: this.yadragend },
-      { name: 'dragstart', emitter: this.yadragstart },
-      { name: 'editorstatechange', emitter: this.editorstatechange },
-      { name: 'geometrychange', emitter: this.geometrychange },
-      { name: 'hintclose', emitter: this.hintclose },
-      { name: 'hintopen', emitter: this.hintopen },
-      { name: 'mapchange', emitter: this.mapchange },
-      { name: 'mousedown', emitter: this.yamousedown },
-      {
-        name: 'mouseenter',
-        emitter: this.yamouseenter,
-        runOutsideAngular: true,
-      },
-      {
-        name: 'mouseleave',
-        emitter: this.yamouseleave,
-        runOutsideAngular: true,
-      },
-      { name: 'mousemove', emitter: this.yamousemove, runOutsideAngular: true },
-      { name: 'mouseup', emitter: this.yamouseup, runOutsideAngular: true },
-      {
-        name: 'multitouchend',
-        emitter: this.multitouchend,
-        runOutsideAngular: true,
-      },
-      {
-        name: 'multitouchmove',
-        emitter: this.multitouchmove,
-        runOutsideAngular: true,
-      },
-      {
-        name: 'multitouchstart',
-        emitter: this.multitouchstart,
-        runOutsideAngular: true,
-      },
-      { name: 'optionschange', emitter: this.optionschange },
-      { name: 'overlaychange', emitter: this.overlaychange },
-      { name: 'parentchange', emitter: this.parentchange },
-      { name: 'propertieschange', emitter: this.propertieschange },
-      { name: 'wheel', emitter: this.yawheel },
-    ];
-
-    const fn = (event: ymaps.Event): YaEvent => ({
-      event,
-      target: placemark,
-      ymaps,
-    });
-
-    listeners.forEach((listener) => {
-      placemark.events.add(listener.name, (e: ymaps.Event) =>
-        listener.runOutsideAngular
-          ? this._ngZone.runOutsideAngular(() => listener.emitter.emit(fn(e)))
-          : this._ngZone.run(() => listener.emitter.emit(fn(e))),
-      );
-    });
-  }
-
-  public ngOnDestroy(): void {
-    this._clusterer?.remove(this._placemark);
-    this._map?.geoObjects.remove(this._placemark);
+  private _createPlacemark(): ymaps.Placemark {
+    return new ymaps.Placemark(this.geometry, this.properties, this.options);
   }
 }

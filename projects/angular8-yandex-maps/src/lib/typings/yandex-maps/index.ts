@@ -3117,7 +3117,7 @@ declare namespace ymaps {
 
     events: IEventManager;
 
-    options: IOptionManager;
+    options: option.Manager;
 
     balloon: clusterer.Balloon;
 

@@ -19,11 +19,11 @@ export * from './lib/constants/constant';
 export * from './lib/services/script/script.service';
 
 // Components
+export * from './lib/components/ya-clusterer/ya-clusterer.component';
 export * from './lib/components/ya-map/ya-map.component';
 export * from './lib/components/ya-panorama/ya-panorama.component';
 
 // Directives
-export * from './lib/directives/ya-clusterer/ya-clusterer.directive';
 export * from './lib/directives/ya-control/ya-control.directive';
 export * from './lib/directives/ya-geoobject/ya-geoobject.directive';
 export * from './lib/directives/ya-multiroute/ya-multiroute.directive';

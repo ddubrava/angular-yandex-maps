@@ -49,6 +49,7 @@ module.exports = {
             leadingUnderscore: 'require',
           },
         ],
+        '@typescript-eslint/no-non-null-assertion': 'off',
       },
     },
 

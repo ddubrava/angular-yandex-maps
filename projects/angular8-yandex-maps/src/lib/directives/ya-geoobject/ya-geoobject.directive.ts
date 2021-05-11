@@ -5,24 +5,29 @@ import {
   NgZone,
   OnChanges,
   OnDestroy,
+  OnInit,
   Output,
   SimpleChanges,
 } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Listener } from '../../interfaces/listener';
 import { YaEvent, YaReadyEvent } from '../../interfaces/event';
-import { generateRandomId } from '../../utils/generateRandomId';
+import { YaMapComponent } from '../../components/ya-map/ya-map.component';
 
 /**
  * Directive for creating a geo object.
  * Can be displayed as a placemark, polyline, polygon, etc., depending on the geometry type.
  *
- * @example `<ya-geoobject [feature]="{ geometry: { type: 'Rectangle', coordinates: [[55.665, 37.66], [55.64,37.53]] } }"></ya-geoobject>`.
+ * @example
+ * `<ya-map [center]="[55.751952, 37.600739]">
+ *   <ya-geoobject [feature]="{ geometry: { type: 'Rectangle', coordinates: [[55.665, 37.66], [55.64,37.53]] } }"></ya-geoobject>
+ * </ya-map>`
  * @see {@link https://ddubrava.github.io/angular8-yandex-maps/#/directives/geoobject}
  */
 @Directive({
   selector: 'ya-geoobject',
 })
-export class YaGeoobjectDirective implements OnChanges, OnDestroy {
+export class YaGeoObjectDirective implements OnInit, OnChanges, OnDestroy {
   /**
    * Feature for the GeoObject.
    * @see {@link https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/GeoObject-docpage/#GeoObjectparam-feature}
@@ -180,44 +185,56 @@ export class YaGeoobjectDirective implements OnChanges, OnDestroy {
    */
   @Output() public yawheel = new EventEmitter<YaEvent>();
 
-  public id: string;
+  public geoObject?: ymaps.GeoObject;
 
-  // Yandex.Maps API.
-  private _clusterer: ymaps.Clusterer | undefined;
+  private _sub = new Subscription();
 
-  private _geoObject: ymaps.GeoObject;
-
-  private _map: ymaps.Map;
-
-  constructor(private _ngZone: NgZone) {}
+  constructor(
+    private _ngZone: NgZone,
+    private _yaMapComponent: YaMapComponent,
+  ) {}
 
   public ngOnChanges(changes: SimpleChanges): void {
-    this._updateGeoObject(changes);
-  }
+    const { geoObject } = this;
 
-  /**
-   * Method for dynamic GeoObject configuration.
-   * Handles input changes and provides it to API.
-   * @param changes
-   */
-  private _updateGeoObject(changes: SimpleChanges): void {
-    const geoObject = this._geoObject;
+    if (geoObject) {
+      const { feature, options } = changes;
 
-    if (!geoObject) return;
+      if (feature) {
+        this._setFeature(feature.currentValue, geoObject);
+      }
 
-    const { feature, options } = changes;
-
-    if (feature) {
-      this._setFeature(feature.currentValue, geoObject);
-    }
-
-    if (options) {
-      geoObject.options.set(options.currentValue);
+      if (options) {
+        geoObject.options.set(options.currentValue);
+      }
     }
   }
 
+  public ngOnInit(): void {
+    const sub = this._yaMapComponent.map$.subscribe((map) => {
+      if (map) {
+        const geoObject = this._createGeoObject();
+        this.geoObject = geoObject;
+
+        map.geoObjects.add(geoObject);
+        this._addEventListeners(geoObject);
+        this.ready.emit({ ymaps, target: geoObject });
+      }
+    });
+
+    this._sub.add(sub);
+  }
+
+  public ngOnDestroy(): void {
+    if (this.geoObject) {
+      this._yaMapComponent?.map$.value?.geoObjects.remove(this.geoObject);
+    }
+
+    this._sub.unsubscribe();
+  }
+
   /**
-   * Destructs state and provides new values to API.
+   * Destructs feature and passes new values in API.
    * @param feature
    * @param geoObject
    */
@@ -228,8 +245,8 @@ export class YaGeoobjectDirective implements OnChanges, OnDestroy {
     const { geometry, properties } = feature;
 
     if (geometry) {
-      throw new Error(
-        "The geometry can't be changed after entity init. You can set them manually using ymaps or recreate the GeoObject new feature.geometry",
+      console.warn(
+        'The geometry can not be changed after entity init. You can set them manually using ymaps or recreate the GeoObject new feature.geometry',
       );
     }
 
@@ -243,42 +260,15 @@ export class YaGeoobjectDirective implements OnChanges, OnDestroy {
 
   /**
    * Creates GeoObject.
-   *
-   * @param map Necessary for removing entity from map.geoObjects on GeoObject destroy
-   * `this.map.geoObjects.remove(this.geoObject);`.
-   * @param clusterer Necessary for removing entity from Clusterer on GeoObject destroy
-   * `this.clusterer.remove(this.geoObject);`.
    */
-  public createGeoObject(
-    map: ymaps.Map,
-    clusterer?: ymaps.Clusterer,
-  ): ymaps.GeoObject {
-    this._checkRequiredInputs();
-
-    const geoObject = new ymaps.GeoObject(this.feature, this.options);
-    this.id = generateRandomId();
-
-    this._clusterer = clusterer;
-    this._geoObject = geoObject;
-    this._map = map;
-
-    this._addEventListeners();
-
-    return geoObject;
-  }
-
-  private _checkRequiredInputs(): void {
-    if (this.feature === undefined || this.feature === null) {
-      throw new Error('Feature is required');
-    }
+  private _createGeoObject(): ymaps.GeoObject {
+    return new ymaps.GeoObject(this.feature, this.options);
   }
 
   /**
    * Adds listeners on the GeoObject events.
    */
-  private _addEventListeners(): void {
-    const geoObject = this._geoObject;
-
+  private _addEventListeners(geoObject: ymaps.GeoObject): void {
     const listeners: Listener[] = [
       { name: 'balloonclose', emitter: this.balloonclose },
       { name: 'balloonopen', emitter: this.balloonopen },
@@ -343,10 +333,5 @@ export class YaGeoobjectDirective implements OnChanges, OnDestroy {
           : this._ngZone.run(() => listener.emitter.emit(fn(e))),
       );
     });
-  }
-
-  public ngOnDestroy(): void {
-    this._clusterer?.remove(this._geoObject);
-    this._map?.geoObjects.remove(this._geoObject);
   }
 }
