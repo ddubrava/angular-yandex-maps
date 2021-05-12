@@ -7,15 +7,26 @@ import { NgZone } from '@angular/core';
 import { BehaviorSubject, Observable, Subscriber } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { YaEvent } from '../interfaces/event';
+export interface YaEvent<T = any> {
+  /**
+   * Instance of target
+   */
+  target: T;
+  /**
+   * API global object
+   */
+  ymaps: typeof ymaps;
+  /**
+   * Provides methods for accessing the originalObject object's fields and methods, with the possibility for redefining them.
+   * @see {@link https://yandex.ru/dev/maps/jsapi/doc/2.1/ref/reference/Event.html/}
+   */
+  event: ymaps.Event<any, T>;
+}
+
+export type YaReadyEvent<T = any> = Omit<YaEvent<T>, 'event'>;
 
 type EventManagerTarget = {
-  events: {
-    add: (
-      name: string,
-      callback: (...args: any[]) => void,
-    ) => ymaps.event.Manager;
-  };
+  events: ymaps.IEventManager;
 };
 
 /**
@@ -33,14 +44,12 @@ export class EventManager {
   private _listeners: {
     name: string;
     callback: (e: ymaps.Event) => void;
-    manager: ymaps.event.Manager;
+    manager: ymaps.IEventManager;
   }[] = [];
 
-  private _targetStream = new BehaviorSubject<EventManagerTarget | undefined>(
-    undefined,
-  );
+  private readonly _targetStream = new BehaviorSubject<EventManagerTarget | undefined>(undefined);
 
-  constructor(private _ngZone: NgZone) {}
+  constructor(private readonly _ngZone: NgZone) {}
 
   /**
    * Gets an observable that adds an event listener to the map when a consumer subscribes to it.
@@ -98,9 +107,7 @@ export class EventManager {
     this._targetStream.next(target);
 
     // Add the listeners that were bound before the map was initialized.
-    this._pending.forEach((subscriber) =>
-      subscriber.observable.subscribe(subscriber.observer),
-    );
+    this._pending.forEach((subscriber) => subscriber.observable.subscribe(subscriber.observer));
 
     this._pending = [];
   }

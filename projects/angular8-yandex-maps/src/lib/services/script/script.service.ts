@@ -1,10 +1,40 @@
 import { DOCUMENT } from '@angular/common';
-import { Inject, Injectable, Optional } from '@angular/core';
+import { Inject, Injectable, InjectionToken, Optional } from '@angular/core';
 import { from, fromEvent, merge, Observable, throwError } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
 
-import { YA_CONFIG } from '../../constants/constant';
-import { YaConfig } from '../../interfaces/config';
+export const YA_CONFIG = new InjectionToken<YaConfig>('YA_CONFIG');
+
+export interface YaConfig {
+  /**
+   * API key. You can get a key in the developer's dashboard
+   */
+  apikey?: string;
+  /**
+   * Locales
+   */
+  lang: 'ru_RU' | 'en_US' | 'en_RU' | 'ru_UA' | 'uk_UA' | 'tr_TR';
+  /**
+   * The order for setting geographical coordinates in API functions that accept longitude-latitude input
+   */
+  coordorder?: 'latlong' | 'longlat';
+  /**
+   * List of modules to load
+   */
+  load?: string;
+  /**
+   * API loading mode
+   */
+  mode?: 'release' | 'debug';
+  /**
+   * Use commercial version of the API
+   */
+  enterprise?: boolean;
+  /**
+   * Version number of the API
+   */
+  version?: string;
+}
 
 const DEFAULT_CONFIG: YaConfig = {
   lang: 'ru_RU',
@@ -28,7 +58,7 @@ export class ScriptService {
 
   constructor(
     @Optional() @Inject(YA_CONFIG) config: YaConfig | null,
-    @Inject(DOCUMENT) private _document: Document,
+    @Inject(DOCUMENT) private readonly _document: Document,
   ) {
     this._config = config || DEFAULT_CONFIG;
 
@@ -65,9 +95,7 @@ export class ScriptService {
       switchMap(() => from(window.ymaps.ready()).pipe(map(() => window.ymaps))),
     );
 
-    const error = fromEvent(this._script, 'error').pipe(
-      switchMap((e) => throwError(e)),
-    );
+    const error = fromEvent(this._script, 'error').pipe(switchMap((e) => throwError(e)));
 
     return merge(load, error).pipe(take(1));
   }
@@ -88,9 +116,7 @@ export class ScriptService {
     const { enterprise, version = '2.1', ...rest } = config;
     const params = this._convertConfigIntoQueryParams(rest);
 
-    return `https://${
-      enterprise ? 'enterprise.' : ''
-    }api-maps.yandex.ru/${version}/?${params}`;
+    return `https://${enterprise ? 'enterprise.' : ''}api-maps.yandex.ru/${version}/?${params}`;
   }
 
   /**

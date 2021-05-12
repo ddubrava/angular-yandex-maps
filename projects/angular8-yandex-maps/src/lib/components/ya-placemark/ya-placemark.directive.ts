@@ -10,24 +10,21 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
-
-import { YaReadyEvent } from '../../interfaces/event';
-import { YaMapComponent } from '../../components/ya-map/ya-map.component';
-import { EventManager } from '../../utils/event-manager';
+import { YaMapComponent } from '../ya-map/ya-map.component';
+import { EventManager, YaReadyEvent } from '../../utils/event-manager';
 
 /**
- * Directive for creating a geo object with the geometry geometry.Point.
- *
- * @example
- * `<ya-map [center]="[55.751952, 37.600739]">
- *    <ya-placemark [geometry]="[55.751952, 37.600739]"></ya-placemark>
- *  </ya-map>`
+ * Directive that renders a geo object with the geometry geometry.Point.
  * @see {@link https://ddubrava.github.io/angular8-yandex-maps/#/directives/placemark}
  */
 @Directive({
   selector: 'ya-placemark',
 })
 export class YaPlacemarkDirective implements OnInit, OnChanges, OnDestroy {
+  private readonly _sub = new Subscription();
+
+  private readonly _eventManager = new EventManager(this._ngZone);
+
   public placemark?: ymaps.Placemark;
 
   /**
@@ -52,21 +49,15 @@ export class YaPlacemarkDirective implements OnInit, OnChanges, OnDestroy {
    */
   @Output() public ready = new EventEmitter<YaReadyEvent<ymaps.Placemark>>();
 
-  private _eventManager = new EventManager(this._ngZone);
-
   /**
    * Closing the balloon.
    */
-  @Output() public balloonclose = this._eventManager.getLazyEmitter(
-    'balloonclose',
-  );
+  @Output() public balloonclose = this._eventManager.getLazyEmitter('balloonclose');
 
   /**
    * Opening a balloon on a map.
    */
-  @Output() public balloonopen = this._eventManager.getLazyEmitter(
-    'balloonopen',
-  );
+  @Output() public balloonopen = this._eventManager.getLazyEmitter('balloonopen');
 
   /**
    * Event preceding the "drag" event.
@@ -76,9 +67,7 @@ export class YaPlacemarkDirective implements OnInit, OnChanges, OnDestroy {
   /**
    * Event preceding the "dragstart" event.
    */
-  @Output() public beforedragstart = this._eventManager.getLazyEmitter(
-    'beforedragstart',
-  );
+  @Output() public beforedragstart = this._eventManager.getLazyEmitter('beforedragstart');
 
   /**
    * Single left-click on the object.
@@ -88,9 +77,7 @@ export class YaPlacemarkDirective implements OnInit, OnChanges, OnDestroy {
   /**
    * Calls the element's context menu.
    */
-  @Output() public yacontextmenu = this._eventManager.getLazyEmitter(
-    'contextmenu',
-  );
+  @Output() public yacontextmenu = this._eventManager.getLazyEmitter('contextmenu');
 
   /**
    * Double left-click on the object.
@@ -115,16 +102,12 @@ export class YaPlacemarkDirective implements OnInit, OnChanges, OnDestroy {
   /**
    * Change in the state of the editor for the geo object's geometry.
    */
-  @Output() public editorstatechange = this._eventManager.getLazyEmitter(
-    'editorstatechange',
-  );
+  @Output() public editorstatechange = this._eventManager.getLazyEmitter('editorstatechange');
 
   /**
    * Change to the geo object geometry
    */
-  @Output() public geometrychange = this._eventManager.getLazyEmitter(
-    'geometrychange',
-  );
+  @Output() public geometrychange = this._eventManager.getLazyEmitter('geometrychange');
 
   /**
    * Closing the hint.
@@ -149,16 +132,12 @@ export class YaPlacemarkDirective implements OnInit, OnChanges, OnDestroy {
   /**
    * Pointing the cursor at the object.
    */
-  @Output() public yamouseenter = this._eventManager.getLazyEmitter(
-    'mouseenter',
-  );
+  @Output() public yamouseenter = this._eventManager.getLazyEmitter('mouseenter');
 
   /**
    * Moving the cursor off of the object.
    */
-  @Output() public yamouseleave = this._eventManager.getLazyEmitter(
-    'mouseleave',
-  );
+  @Output() public yamouseleave = this._eventManager.getLazyEmitter('mouseleave');
 
   /**
    * Moving the cursor over the object.
@@ -173,69 +152,50 @@ export class YaPlacemarkDirective implements OnInit, OnChanges, OnDestroy {
   /**
    * End of multitouch.
    */
-  @Output() public multitouchend = this._eventManager.getLazyEmitter(
-    'multitouchend',
-  );
+  @Output() public multitouchend = this._eventManager.getLazyEmitter('multitouchend');
 
   /**
    * Repeating event during multitouch.
    */
-  @Output() public multitouchmove = this._eventManager.getLazyEmitter(
-    'multitouchmove',
-  );
+  @Output() public multitouchmove = this._eventManager.getLazyEmitter('multitouchmove');
 
   /**
    * Start of multitouch.
    */
-  @Output() public multitouchstart = this._eventManager.getLazyEmitter(
-    'multitouchstart',
-  );
+  @Output() public multitouchstart = this._eventManager.getLazyEmitter('multitouchstart');
 
   /**
    * Change to the object options.
    */
-  @Output() public optionschange = this._eventManager.getLazyEmitter(
-    'optionschange',
-  );
+  @Output() public optionschange = this._eventManager.getLazyEmitter('optionschange');
 
   /**
    * Change to the geo object overlay.
    */
-  @Output() public overlaychange = this._eventManager.getLazyEmitter(
-    'overlaychange',
-  );
+  @Output() public overlaychange = this._eventManager.getLazyEmitter('overlaychange');
 
   /**
    * The parent object reference changed.
    */
-  @Output() public parentchange = this._eventManager.getLazyEmitter(
-    'parentchange',
-  );
+  @Output() public parentchange = this._eventManager.getLazyEmitter('parentchange');
 
   /**
    * Change to the geo object data.
    */
-  @Output() public propertieschange = this._eventManager.getLazyEmitter(
-    'propertieschange',
-  );
+  @Output() public propertieschange = this._eventManager.getLazyEmitter('propertieschange');
 
   /**
    * Mouse wheel scrolling.
    */
   @Output() public yawheel = this._eventManager.getLazyEmitter('wheel');
 
-  private _sub = new Subscription();
-
-  constructor(
-    private _ngZone: NgZone,
-    private _yaMapComponent: YaMapComponent,
-  ) {}
+  constructor(private readonly _ngZone: NgZone, private readonly _yaMapComponent: YaMapComponent) {}
 
   /**
    * Handles input changes and passes them in API.
    * @param changes
    */
-  public ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(changes: SimpleChanges): void {
     const { placemark } = this;
 
     if (placemark) {
@@ -258,22 +218,24 @@ export class YaPlacemarkDirective implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  public ngOnInit(): void {
-    const sub = this._yaMapComponent.map$.subscribe((map) => {
-      if (map) {
-        const placemark = this._createPlacemark();
-        this.placemark = placemark;
+  ngOnInit(): void {
+    if (this._yaMapComponent.isBrowser) {
+      const sub = this._yaMapComponent.map$.subscribe((map) => {
+        if (map) {
+          const placemark = this._createPlacemark();
+          this.placemark = placemark;
 
-        map.geoObjects.add(placemark);
-        this._eventManager.setTarget(placemark);
-        this.ready.emit({ ymaps, target: placemark });
-      }
-    });
+          map.geoObjects.add(placemark);
+          this._eventManager.setTarget(placemark);
+          this.ready.emit({ ymaps, target: placemark });
+        }
+      });
 
-    this._sub.add(sub);
+      this._sub.add(sub);
+    }
   }
 
-  public ngOnDestroy(): void {
+  ngOnDestroy(): void {
     if (this.placemark) {
       this._yaMapComponent?.map$.value?.geoObjects.remove(this.placemark);
       this._eventManager.destroy();

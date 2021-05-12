@@ -1,14 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { YA_CONFIG } from './constants/constant';
-import { YaConfig } from './interfaces/config';
-import { YaControlDirective } from './directives/ya-control/ya-control.directive';
-import { YaGeoObjectDirective } from './directives/ya-geoobject/ya-geoobject.directive';
-import { YaMapComponent } from './components/ya-map/ya-map.component';
-import { YaMultirouteDirective } from './directives/ya-multiroute/ya-multiroute.directive';
-import { YaPanoramaComponent } from './components/ya-panorama/ya-panorama.component';
-import { YaPlacemarkDirective } from './directives/ya-placemark/ya-placemark.directive';
+
+import { YA_CONFIG, YaConfig } from './services/script/script.service';
+
 import { YaClustererComponent } from './components/ya-clusterer/ya-clusterer.component';
+import { YaControlDirective } from './components/ya-control/ya-control.directive';
+import { YaGeoObjectDirective } from './components/ya-geoobject/ya-geoobject.directive';
+import { YaMapComponent } from './components/ya-map/ya-map.component';
+import { YaMultirouteDirective } from './components/ya-multiroute/ya-multiroute.directive';
+import { YaPanoramaDirective } from './components/ya-panorama/ya-panorama.directive';
+import { YaPlacemarkDirective } from './components/ya-placemark/ya-placemark.directive';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,7 @@ import { YaClustererComponent } from './components/ya-clusterer/ya-clusterer.com
     YaGeoObjectDirective,
     YaMapComponent,
     YaMultirouteDirective,
-    YaPanoramaComponent,
+    YaPanoramaDirective,
     YaPlacemarkDirective,
   ],
   imports: [CommonModule],
@@ -27,7 +28,7 @@ import { YaClustererComponent } from './components/ya-clusterer/ya-clusterer.com
     YaGeoObjectDirective,
     YaMapComponent,
     YaMultirouteDirective,
-    YaPanoramaComponent,
+    YaPanoramaDirective,
     YaPlacemarkDirective,
   ],
 })
@@ -36,9 +37,7 @@ export class AngularYandexMapsModule {
    * Please use this method when you register the module at the root level
    * @param config
    */
-  public static forRoot(
-    config: YaConfig,
-  ): ModuleWithProviders<AngularYandexMapsModule> {
+  public static forRoot(config: YaConfig): ModuleWithProviders<AngularYandexMapsModule> {
     return {
       ngModule: AngularYandexMapsModule,
       providers: [{ provide: YA_CONFIG, useValue: config }],

@@ -337,8 +337,7 @@ declare namespace ymaps {
   }
 
   namespace collection {
-    class Item
-      implements IChildOnMap, ICustomizable, IEventEmitter, IParentOnMap {
+    class Item implements IChildOnMap, ICustomizable, IEventEmitter, IParentOnMap {
       constructor(options?: object);
 
       events: IEventManager;
@@ -527,11 +526,7 @@ declare namespace ymaps {
     }
 
     class Manager {
-      constructor(
-        map: Map,
-        controls?: Array<string | IControl>,
-        options?: IManagerOptions,
-      );
+      constructor(map: Map, controls?: Array<string | IControl>, options?: IManagerOptions);
 
       events: event.Manager;
 
@@ -539,10 +534,7 @@ declare namespace ymaps {
 
       state: data.Manager;
 
-      add(
-        control: IControl | ControlKey,
-        options?: IManagerControlOptions,
-      ): this;
+      add(control: IControl | ControlKey, options?: IManagerControlOptions): this;
 
       each(callback: (control: IControl) => void, context?: object): this;
 
@@ -626,6 +618,39 @@ declare namespace ymaps {
       };
       options?: IBaseButtonParametersOptions;
       state?: {};
+    }
+
+    class RoutePanel implements IControl, ICustomizable {
+      constructor(parameters?: IRoutePanelParameters);
+
+      events: IEventManager;
+
+      options: IOptionManager;
+
+      routePanel: IRoutePanel;
+
+      getParent(): null | IControlParent;
+
+      setParent(parent: IControlParent): this;
+    }
+
+    interface IRoutePanelParameters {
+      options?: {
+        autofocus?: boolean;
+        float?: 'none' | 'left' | 'right';
+        floatIndex?: number;
+        maxWidth?: string;
+        position?: {
+          bottom?: number | string;
+          left?: number | string;
+          right?: number | string;
+          top?: number | string;
+        };
+        showHeader?: boolean;
+        title?: string;
+        visible?: boolean;
+        state?: {};
+      };
     }
 
     class RulerControl extends Button {
@@ -722,6 +747,81 @@ declare namespace ymaps {
       state?: {};
     }
 
+    const storage: util.Storage;
+
+    class TrafficControl implements IControl, ICustomizable {
+      constructor(parameters?: ITrafficControlParameters);
+
+      data: data.Manager;
+
+      events: IEventManager;
+
+      options: IOptionManager;
+
+      state: data.Manager;
+
+      collapse(): void;
+
+      expand(): void;
+
+      getMap(): Map;
+
+      getParent(): null | IControlParent;
+
+      getProvider(key: TrafficControlProviderKey): ITrafficProvider;
+
+      hideTraffic(): void;
+
+      isExpanded(): boolean;
+
+      isTrafficShown(): boolean;
+
+      setParent(parent: IControlParent): this;
+
+      showTraffic(): void;
+    }
+
+    type TrafficControlProviderKey = 'traffic#actual' | 'traffic#archive';
+
+    interface ITrafficProvider extends ICustomizable, IEventEmitter {
+      getMap(): Map | null;
+
+      setMap(map: Map): void;
+    }
+
+    interface ITrafficControlParameters {
+      options: {
+        adjustMapMargin?: boolean;
+        collapseOnBlur?: boolean;
+        float?: 'none' | 'left' | 'right';
+        floatIndex: number;
+        layout?: string | IClassConstructor<ISelectableControlLayout>;
+        maxWidth?: number | number[];
+        position?: {
+          bottom?: number | string;
+          left?: number | string;
+          right?: number | string;
+          top?: number | string;
+        };
+        size?: string;
+        visible?: boolean;
+        state?: {
+          providerKey?: TrafficControlProviderKey;
+          trafficShown?: boolean;
+        };
+      };
+    }
+
+    class TypeSelector extends ListBox {
+      constructor(parameters?: ITypeSelectorParameters);
+    }
+
+    interface ITypeSelectorParameters {
+      options?: {
+        panoramasItemMode: 'on' | 'off' | 'ifMercator';
+      };
+    }
+
     class ZoomControl implements IControl, ICustomizable {
       constructor(parameters?: IZoomControlParameters);
 
@@ -768,16 +868,6 @@ declare namespace ymaps {
         };
       };
     }
-
-    class TypeSelector extends ListBox {
-      constructor(parameters?: ITypeSelectorParameters);
-    }
-
-    interface ITypeSelectorParameters {
-      options?: {
-        panoramasItemMode: 'on' | 'off' | 'ifMercator';
-      };
-    }
   }
 
   namespace data {
@@ -790,10 +880,7 @@ declare namespace ymaps {
 
       getAll(): object;
 
-      set(
-        path: object | string,
-        value: object | number | string | null | undefined,
-      ): this;
+      set(path: object | string, value: object | number | string | null | undefined): this;
 
       setAll(): this;
 
@@ -877,9 +964,7 @@ declare namespace ymaps {
       class LineString implements IBaseLineStringGeometry {
         events: IEventManager;
 
-        static fromEncodedCoordinates(
-          encodedCoordinates: string,
-        ): geometry.LineString;
+        static fromEncodedCoordinates(encodedCoordinates: string): geometry.LineString;
 
         static toEncodedCoordinates(geometry: geometry.LineString): string;
 
@@ -897,10 +982,7 @@ declare namespace ymaps {
 
         getLength(): number;
 
-        insert(
-          index: number,
-          coordinates: number[][],
-        ): ILineStringGeometryAccess;
+        insert(index: number, coordinates: number[][]): ILineStringGeometryAccess;
 
         remove(index: number): number[];
 
@@ -952,14 +1034,12 @@ declare namespace ymaps {
       }
 
       class Polygon implements IBasePointGeometry {
-        constructor(
-          coordinates?: number[][][],
-          fillRule?: 'evenOdd' | 'nonZero',
-        );
+        constructor(coordinates?: number[][][], fillRule?: 'evenOdd' | 'nonZero');
 
         events: IEventManager;
 
         static fromEncodedCoordinates(encodedCoordinates: string): Polygon;
+
         static toEncodedCoordinates(geometry: Polygon): string;
 
         contains(position: number[]): boolean;
@@ -1017,6 +1097,7 @@ declare namespace ymaps {
       options: IOptionManager;
 
       static fromEncodedCoordinates(encodedCoordinates: string): LineString;
+
       static toEncodedCoordinates(geometry: LineString): string;
 
       getMap(): Map | null;
@@ -1101,17 +1182,14 @@ declare namespace ymaps {
     }
 
     class Polygon implements IPolygonGeometry {
-      constructor(
-        coordinates?: number[][][],
-        fillRule?: 'evenOdd' | 'nonZero',
-        options?: object,
-      );
+      constructor(coordinates?: number[][][], fillRule?: 'evenOdd' | 'nonZero', options?: object);
 
       events: IEventManager;
 
       options: IOptionManager;
 
       static fromEncodedCoordinates(encodedCoordinates: string): Polygon;
+
       static toEncodedCoordinates(geometry: Polygon): string;
 
       add(
@@ -1174,11 +1252,7 @@ declare namespace ymaps {
 
     namespace pixel {
       class Circle implements IPixelCircleGeometry {
-        constructor(
-          coordinates: number[] | null,
-          radius: number,
-          metaData?: object,
-        );
+        constructor(coordinates: number[] | null, radius: number, metaData?: object);
 
         events: IEventManager;
 
@@ -1300,11 +1374,7 @@ declare namespace ymaps {
       }
 
       class Polygon implements IPixelPolygonGeometry {
-        constructor(
-          coordinates: number[][][],
-          fillRule: 'evenOdd' | 'nonZero',
-          metaData?: object,
-        );
+        constructor(coordinates: number[][][], fillRule: 'evenOdd' | 'nonZero', metaData?: object);
 
         events: IEventManager;
 
@@ -1746,10 +1816,7 @@ declare namespace ymaps {
 
         clear(): void;
 
-        onSublayoutSizeChange(
-          sublayoutInfo: object,
-          nodeSizeByContent: object,
-        ): void;
+        onSublayoutSizeChange(sublayoutInfo: object, nodeSizeByContent: object): void;
 
         rebuild(): void;
       }
@@ -1781,11 +1848,7 @@ declare namespace ymaps {
 
     namespace behavior {
       class Manager implements ICustomizable, IEventEmitter, IParentOnMap {
-        constructor(
-          map: Map,
-          behaviors?: string[][] | string[],
-          options?: object,
-        );
+        constructor(map: Map, behaviors?: string[][] | string[], options?: object);
 
         options: IOptionManager;
 
@@ -1882,8 +1945,7 @@ declare namespace ymaps {
       }
     }
 
-    class Balloon
-      implements IBalloonManager<Balloon> /* , IBalloonSharingManager */ {
+    class Balloon implements IBalloonManager<Balloon> /* , IBalloonSharingManager */ {
       constructor(map: Map);
 
       events: IEventManager;
@@ -1958,10 +2020,7 @@ declare namespace ymaps {
 
       addProvider(provider: ICopyrightsProvider): this;
 
-      get(
-        point?: number[],
-        zoom?: number,
-      ): Promise<Array<string | HTMLElement>>;
+      get(point?: number[], zoom?: number): Promise<Array<string | HTMLElement>>;
 
       getPromoLink(): string;
 
@@ -2208,9 +2267,7 @@ declare namespace ymaps {
 
         destroy(): void;
 
-        getSegments(): Array<
-          TransferSegmentModel | TransportSegmentModel | WalkSegmentModel
-        >;
+        getSegments(): Array<TransferSegmentModel | TransportSegmentModel | WalkSegmentModel>;
 
         getType(): string;
 
@@ -2458,10 +2515,7 @@ declare namespace ymaps {
     }
 
     class MultiRouteModel implements IEventEmitter {
-      constructor(
-        referencePoints: IMultiRouteReferencePoint[],
-        params?: IMultiRouteParams,
-      );
+      constructor(referencePoints: IMultiRouteReferencePoint[], params?: IMultiRouteParams);
 
       events: IEventManager;
 
@@ -2487,11 +2541,7 @@ declare namespace ymaps {
 
       getWayPoints(): WayPointModel[];
 
-      setParams(
-        params: IMultiRouteParams,
-        extend?: boolean,
-        clearRequests?: boolean,
-      ): void;
+      setParams(params: IMultiRouteParams, extend?: boolean, clearRequests?: boolean): void;
 
       setReferencePoints(
         referencePoints: IMultiRouteReferencePoint[],
@@ -2705,10 +2755,7 @@ declare namespace ymaps {
 
     function isSupported(): boolean;
 
-    function locate(
-      point: number[],
-      options?: { layer?: Layer },
-    ): Promise<IPanorama[]>;
+    function locate(point: number[], options?: { layer?: Layer }): Promise<IPanorama[]>;
 
     class Manager implements IEventEmitter {
       events: IEventManager;
@@ -2958,9 +3005,7 @@ declare namespace ymaps {
     }
   }
 
-  class Balloon
-    extends Popup<Balloon>
-    implements IBaloon<Balloon>, IBalloonManager<Balloon> {
+  class Balloon extends Popup<Balloon> implements IBaloon<Balloon>, IBalloonManager<Balloon> {
     constructor(map: Map, options?: IBalloonOptions);
 
     getData(): object;
@@ -3068,11 +3113,7 @@ declare namespace ymaps {
   interface ICircleOptions {
     circleOverlay?:
       | string
-      | ((
-          geometry: IPixelCircleGeometry,
-          data: object,
-          options: object,
-        ) => Promise<IOverlay>);
+      | ((geometry: IPixelCircleGeometry, data: object, options: object) => Promise<IOverlay>);
     cursor?: string;
     draggable?: boolean;
     fill?: boolean;
@@ -3094,13 +3135,7 @@ declare namespace ymaps {
     pane?: string;
     strokeColor?: string[][] | string[] | string;
     strokeOpacity?: number[][] | number[] | number;
-    strokeStyle?:
-      | string[][][]
-      | object[][]
-      | string[]
-      | object[]
-      | string
-      | object;
+    strokeStyle?: string[][][] | object[][] | string[] | object[] | string | object;
     strokeWidth?: number[][] | number[] | number;
     syncOverlayInit?: boolean;
     useMapMarginInDragging?: boolean;
@@ -3111,8 +3146,7 @@ declare namespace ymaps {
     zIndexHover?: number;
   }
 
-  class Clusterer
-    implements IChildOnMap, ICustomizable, IEventEmitter, IParentOnMap {
+  class Clusterer implements IChildOnMap, ICustomizable, IEventEmitter, IParentOnMap {
     constructor(options?: IClustererOptions);
 
     events: IEventManager;
@@ -3269,8 +3303,7 @@ declare namespace ymaps {
     removeAll(): this;
   }
 
-  class Event<OriginalEvent = {}, Target = {}>
-    implements IEvent<OriginalEvent, Target> {
+  class Event<OriginalEvent = {}, Target = {}> implements IEvent<OriginalEvent, Target> {
     constructor(originalEvent: object, sourceEvent: IEvent);
 
     originalEvent: {
@@ -3426,11 +3459,7 @@ declare namespace ymaps {
   }
 
   class Layer implements ILayer, IParentOnMap, IPositioningContext {
-    constructor(
-      tileUrlTemplate:
-        | string
-        | ((tileNumber: number[], tileZoom: number) => string),
-    );
+    constructor(tileUrlTemplate: string | ((tileNumber: number[], tileZoom: number) => string));
 
     events: IEventManager;
 
@@ -3454,11 +3483,7 @@ declare namespace ymaps {
   }
 
   class Map implements IDomEventEmitter {
-    constructor(
-      parentElement: HTMLElement | string,
-      state: IMapState,
-      options?: IMapOptions,
-    );
+    constructor(parentElement: HTMLElement | string, state: IMapState, options?: IMapOptions);
 
     action: map.action.Manager;
 
@@ -3510,11 +3535,7 @@ declare namespace ymaps {
 
     setBounds(bounds: number[][], options?: IMapBoundsOptions): Promise<void>;
 
-    setCenter(
-      center: number[],
-      zoom?: number,
-      options?: IMapPositionOptions,
-    ): Promise<void>;
+    setCenter(center: number[], zoom?: number, options?: IMapPositionOptions): Promise<void>;
 
     setGlobalPixelCenter(
       globalPixelCenter: number[],
@@ -3522,10 +3543,7 @@ declare namespace ymaps {
       options?: IMapPositionOptions,
     ): Promise<void>;
 
-    setType(
-      type: string | MapType,
-      options?: IMapCheckZoomRangeOptions,
-    ): Promise<void>;
+    setType(type: string | MapType, options?: IMapCheckZoomRangeOptions): Promise<void>;
 
     setZoom(zoom: number, options?: IMapZoomOptions): Promise<void>;
   }
@@ -3538,9 +3556,7 @@ declare namespace ymaps {
     checkZoomRange?: boolean;
   }
 
-  interface IMapZoomOptions
-    extends IMapMarginOptions,
-      IMapCheckZoomRangeOptions {
+  interface IMapZoomOptions extends IMapMarginOptions, IMapCheckZoomRangeOptions {
     duration?: number;
   }
 
@@ -3809,11 +3825,7 @@ declare namespace ymaps {
         ctx?: object,
       ): void;
 
-      spread(
-        onFulfilled?: () => void,
-        onRejected?: () => void,
-        ctx?: object,
-      ): Promise;
+      spread(onFulfilled?: () => void, onRejected?: () => void, ctx?: object): Promise;
 
       then(
         onFulfilled?: () => void,
@@ -3842,15 +3854,11 @@ declare namespace ymaps {
     getType(): string;
   }
 
-  interface IBaseLineStringGeometry
-    extends IBaseGeometry,
-      ILineStringGeometryAccess {}
+  interface IBaseLineStringGeometry extends IBaseGeometry, ILineStringGeometryAccess {}
 
   interface IBasePointGeometry extends IBaseGeometry, IPointGeometryAccess {}
 
-  interface IBasePolygonGeometry
-    extends IBaseGeometry,
-      IPolygonGeometryAccess {}
+  interface IBasePolygonGeometry extends IBaseGeometry, IPolygonGeometryAccess {}
 
   interface IBehavior extends IChildOnMap, ICustomizable {
     disable(): void;
@@ -3901,11 +3909,7 @@ declare namespace ymaps {
   interface ICoordSystem {
     getDistance(point1: number[], point2: number[]): number;
 
-    solveDirectProblem(
-      startPoint: number[],
-      direction: number[],
-      distance: number,
-    ): object;
+    solveDirectProblem(startPoint: number[], direction: number[], distance: number): object;
 
     solveInverseProblem(
       startPoint: number[],
@@ -3917,16 +3921,11 @@ declare namespace ymaps {
   interface ICopyrightsAccessor extends ICopyrightsProvider {}
 
   interface ICopyrightsProvider extends IEventEmitter {
-    getCopyrights(
-      coords: number[],
-      zoom: number,
-    ): Promise<Array<string | HTMLElement>>;
+    getCopyrights(coords: number[], zoom: number): Promise<Array<string | HTMLElement>>;
 
     remove(): void;
 
-    setCopyrights(
-      copyrights: string | HTMLElement | Array<string | HTMLElement>,
-    ): void;
+    setCopyrights(copyrights: string | HTMLElement | Array<string | HTMLElement>): void;
   }
 
   interface ICustomizable extends IEventEmitter {
@@ -3952,7 +3951,9 @@ declare namespace ymaps {
     get<T extends {}, K extends keyof T = keyof T>(name: K): T[K];
 
     get(name: 'type'): string;
+
     get(name: 'objectId'): string | undefined;
+
     get(name: 'newZoom' | 'oldZoom'): number | undefined;
 
     get(name: string): object;
@@ -4004,12 +4005,6 @@ declare namespace ymaps {
 
   interface IEventManager<Target = {}> extends IEventTrigger {
     add(
-      types: 'mousedown',
-      callback: (event: IEvent<MouseEvent, Target>) => void,
-      context?: object,
-      priority?: number,
-    ): this;
-    add(
       types: string[][] | string[] | string,
       callback: (event: IEvent) => void,
       context?: object,
@@ -4035,17 +4030,9 @@ declare namespace ymaps {
   }
 
   interface IEventWorkflowController extends IEventController {
-    onAfterEventFiring?(
-      events: IEventManager,
-      type: string,
-      event?: IEvent,
-    ): void;
+    onAfterEventFiring?(events: IEventManager, type: string, event?: IEvent): void;
 
-    onBeforeEventFiring?(
-      events: IEventManager,
-      type: string,
-      event?: IEvent,
-    ): void;
+    onBeforeEventFiring?(events: IEventManager, type: string, event?: IEvent): void;
   }
 
   interface IExpandableControlLayout extends ILayout {}
@@ -4147,10 +4134,7 @@ declare namespace ymaps {
     getOverlaySync(): IOverlay | null;
   }
 
-  interface IGeoObjectCollection
-    extends ICustomizable,
-      IEventEmitter,
-      IParentOnMap {
+  interface IGeoObjectCollection extends ICustomizable, IEventEmitter, IParentOnMap {
     add(child: IGeoObject, index?: number): this;
 
     each(callback: (object: IGeoObject) => void, context?: object): void;
@@ -4176,10 +4160,7 @@ declare namespace ymaps {
     splice(index: number, length: number): this;
   }
 
-  interface IGeoObjectSequence
-    extends ICustomizable,
-      IEventEmitter,
-      IParentOnMap {
+  interface IGeoObjectSequence extends ICustomizable, IEventEmitter, IParentOnMap {
     each(callback: (geoObject: IGeoObject) => void, context?: object): void;
 
     get(index: number): IGeoObject;
@@ -4204,10 +4185,7 @@ declare namespace ymaps {
   interface ILayer extends IChildOnMap, ICustomizable, IEventEmitter {
     getBrightness?(): number;
 
-    getCopyrights?(
-      coords: number[],
-      zoom: number,
-    ): Promise<Array<string | HTMLElement>>;
+    getCopyrights?(coords: number[], zoom: number): Promise<Array<string | HTMLElement>>;
 
     getZoomRange?(point: number[]): Promise<number[]>;
   }
@@ -4292,10 +4270,7 @@ declare namespace ymaps {
     end(): void;
   }
 
-  interface IMapObjectCollection
-    extends ICollection,
-      ICustomizable,
-      IParentOnMap {}
+  interface IMapObjectCollection extends ICollection, ICustomizable, IParentOnMap {}
 
   interface IMultiRouteModelJson {
     params: IMultiRouteParams;
@@ -4316,10 +4291,7 @@ declare namespace ymaps {
 
   type IMultiRouteReferencePoint = string | number[] | geometry.Point;
 
-  interface IOptionManager
-    extends IChild<IOptionManager>,
-      IEventEmitter,
-      IFreezable {
+  interface IOptionManager extends IChild<IOptionManager>, IEventEmitter, IFreezable {
     get(key: string, defaultValue: object): object;
 
     getAll(): object;
@@ -4401,9 +4373,7 @@ declare namespace ymaps {
     getPanorama(): IPanorama;
   }
 
-  interface IPanoramaConnectionMarker
-    extends IPanoramaConnection,
-      IPanoramaMarker {}
+  interface IPanoramaConnectionMarker extends IPanoramaConnection, IPanoramaMarker {}
 
   interface IPanoramaGraph {
     getEdges(): IPanoramaGraphEdge[];
@@ -4594,11 +4564,7 @@ declare namespace ymaps {
 
     isOpen(): boolean;
 
-    open(
-      position?: number[],
-      data?: object | string | HTMLElement,
-      options?: object,
-    ): Promise<T>;
+    open(position?: number[], data?: object | string | HTMLElement, options?: object): Promise<T>;
 
     setData(data: object | string | HTMLElement): Promise<T>;
 
@@ -4667,17 +4633,23 @@ declare namespace ymaps {
 
     shift(offset: number[]): IShape;
   }
+
   class Monitor {
     constructor(dataManager: IDataManager | IOptionManager);
+
     add(
       name: string[] | string,
       changeCallback: (event: object | IEvent) => void,
       context?: any,
       params?: any,
     ): Monitor;
+
     forceChange(): Monitor;
+
     get(name: string): any;
+
     remove(name: string): Monitor;
+
     removeAll(): Monitor;
   }
 

@@ -1,13 +1,70 @@
+<h1>Map</h1>
+
 <div class="container">
-  <router-outlet></router-outlet>
+  <ya-map [center]="[55.751952, 37.600739]" [state]="{ type: 'yandex#satellite' }"></ya-map>
 </div>
 
-<ul>
-  <li routerLink="map">Map</li>
-  <li routerLink="panorama">Panorama</li>
-  <li routerLink="clusterer">Clusterer</li>
-  <li routerLink="placemark">Placemark</li>
-  <li routerLink="geoobject">GeoObject</li>
-  <li routerLink="multiroute">Multiroute</li>
-  <li routerLink="controls">Controls</li>
-</ul>
+<h1>Panorama</h1>
+
+<div class="container">
+  <ya-map>
+    <ya-panorama [point]="[59.938557, 30.316198]" layer="yandex#airPanorama"></ya-panorama>
+  </ya-map>
+</div>
+
+<h1>Placemark</h1>
+
+<div class="container">
+  <ya-map [center]="[55.74, 37.58]" [zoom]="5">
+    <ya-placemark [geometry]="[55.74, 37.58]"></ya-placemark>
+  </ya-map>
+</div>
+
+<h1>Clusterer</h1>
+
+<div class="container">
+  <ya-map [center]="[55.74, 37.58]">
+    <ya-clusterer>
+      <ya-placemark [geometry]="[55.74, 37.5]"></ya-placemark>
+      <ya-geoobject
+        [feature]="{ geometry: { type: 'Point', coordinates: [55.73, 37.52] } }"
+      ></ya-geoobject>
+    </ya-clusterer>
+  </ya-map>
+</div>
+
+<h1>GeoObject</h1>
+
+<div class="container">
+  <ya-map [center]="[55.751952, 37.600739]">
+    <ya-geoobject
+      [feature]="{
+        geometry: {
+          type: 'Rectangle',
+          coordinates: [
+            [55.665, 37.66],
+            [55.64, 37.53]
+          ]
+        }
+      }"
+    ></ya-geoobject>
+  </ya-map>
+</div>
+
+<h1>Multiroute</h1>
+
+<div class="container">
+  <ya-map [center]="[55.761952, 37.620739]">
+    <ya-multiroute
+      [referencePoints]="[[55.751952, 37.600739], 'Красные ворота, Москва']"
+    ></ya-multiroute>
+  </ya-map>
+</div>
+
+<h1>Controls</h1>
+
+<div class="container">
+  <ya-map [center]="[55.751952, 37.600739]" [state]="{ controls: [] }">
+    <ya-control type="SearchControl"></ya-control>
+  </ya-map>
+</div>

@@ -2,33 +2,25 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import * as GenerateRandomIdModule from '../../utils/generateRandomId';
+import * as GenerateRandomIdModule from '../../utils/generate-random-id';
 import { YaMapComponent } from './ya-map.component';
 import { ScriptService } from '../../services/script/script.service';
-import { YaReadyEvent } from '../../interfaces/event';
+import { YaReadyEvent } from '../../utils/event-manager';
 
 /** Creates a jasmine.SpyObj for a ymaps.Map. */
 function createMapSpy(): jasmine.SpyObj<ymaps.Map> {
-  return jasmine.createSpyObj(
-    'ymaps.Map',
-    ['setCenter', 'setZoom', 'setBounds', 'setType'],
-    {
-      events: jasmine.createSpyObj('events', ['add']),
-      behaviors: jasmine.createSpyObj('behaviors', ['enable']),
-      margin: jasmine.createSpyObj('margin', ['setDefaultMargin']),
-      controls: jasmine.createSpyObj('controls', ['add']),
-      options: jasmine.createSpyObj('controls', ['set']),
-    },
-  );
+  return jasmine.createSpyObj('ymaps.Map', ['setCenter', 'setZoom', 'setBounds', 'setType'], {
+    events: jasmine.createSpyObj('events', ['add']),
+    behaviors: jasmine.createSpyObj('behaviors', ['enable']),
+    margin: jasmine.createSpyObj('margin', ['setDefaultMargin']),
+    controls: jasmine.createSpyObj('controls', ['add']),
+    options: jasmine.createSpyObj('controls', ['set']),
+  });
 }
 
 /** Creates a jasmine.Spy to watch for the constructor of a ymaps.Map. */
-function createMapConstructorSpy(
-  mapSpy: jasmine.SpyObj<ymaps.Map>,
-): jasmine.Spy {
-  const mapConstructorSpy = jasmine
-    .createSpy('Map constructor')
-    .and.returnValue(mapSpy);
+function createMapConstructorSpy(mapSpy: jasmine.SpyObj<ymaps.Map>): jasmine.Spy {
+  const mapConstructorSpy = jasmine.createSpy('Map constructor').and.returnValue(mapSpy);
 
   window.ymaps = {
     Map: mapConstructorSpy,
@@ -39,13 +31,7 @@ function createMapConstructorSpy(
 
 @Component({
   template: `
-    <ya-map
-      #map
-      [center]="center"
-      [zoom]="zoom"
-      [state]="state"
-      [options]="options"
-    >
+    <ya-map #map [center]="center" [zoom]="zoom" [state]="state" [options]="options">
       <ya-placemark [geometry]="[55.751952, 37.600739]"></ya-placemark>
     </ya-map>
   `,
@@ -97,15 +83,11 @@ describe('YaMapComponent', () => {
 
     fixture.detectChanges();
 
-    expect(component.mapContainer.nativeElement.style.width).toBe('100%');
-    expect(component.mapContainer.nativeElement.style.height).toBe('100%');
-    expect(component.mapContainer.nativeElement.id).toBe(random);
+    expect(component.container.nativeElement.style.width).toBe('100%');
+    expect(component.container.nativeElement.style.height).toBe('100%');
+    expect(component.container.nativeElement.id).toBe(random);
 
-    expect(mapConstructorSpy).toHaveBeenCalledWith(
-      random,
-      { zoom: 10, center: [] },
-      {},
-    );
+    expect(mapConstructorSpy).toHaveBeenCalledWith(random, { zoom: 10, center: [] }, {});
   });
 
   it('should emit ready on map load', () => {
@@ -244,11 +226,7 @@ describe('YaMapComponent', () => {
       behaviors: ['default'],
       bounds: [[0, 0]],
       center: [10, 10],
-      controls: [
-        'searchControl',
-        'trafficControl',
-        'zoomControl',
-      ] as ymaps.ControlKey[],
+      controls: ['searchControl', 'trafficControl', 'zoomControl'] as ymaps.ControlKey[],
       margin: 50,
       type: 'yandex#satellite' as const,
       zoom: 8,

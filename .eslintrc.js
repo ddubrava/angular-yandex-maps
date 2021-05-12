@@ -15,31 +15,26 @@
 module.exports = {
   root: true,
   overrides: [
-    /**
-     * -----------------------------------------------------
-     * TYPESCRIPT FILES (COMPONENTS, SERVICES ETC) (.ts)
-     * -----------------------------------------------------
-     */
     {
       files: ['*.ts'],
+      parserOptions: {
+        project: ['tsconfig.json', 'e2e/tsconfig.json'],
+        createDefaultProgram: true,
+      },
       extends: [
         'plugin:@angular-eslint/recommended',
-        // AirBnb
         'airbnb-typescript/base',
-        // Prettier
-        'prettier/@typescript-eslint',
         'plugin:prettier/recommended',
       ],
       rules: {
         'import/prefer-default-export': 'off',
-        'class-methods-use-this': 'off',
-        'no-console': ['error', { allow: ['warn', 'error'] }],
-        'no-underscore-dangle': 'off',
         'import/no-extraneous-dependencies': 'off',
-        '@typescript-eslint/explicit-member-accessibility': [
-          'error',
-          { overrides: { constructors: 'off' } },
-        ],
+        'class-methods-use-this': 'off',
+        'no-underscore-dangle': 'off',
+        'no-console': ['error', { allow: ['warn', 'error'] }],
+        '@typescript-eslint/prefer-readonly': ['error'],
+        '@typescript-eslint/indent': 'off',
+        '@typescript-eslint/no-non-null-assertion': 'off',
         '@typescript-eslint/naming-convention': [
           'error',
           {
@@ -49,51 +44,23 @@ module.exports = {
             leadingUnderscore: 'require',
           },
         ],
-        '@typescript-eslint/no-non-null-assertion': 'off',
       },
     },
-
-    /**
-     * -----------------------------------------------------
-     * COMPONENT TEMPLATES
-     * -----------------------------------------------------
-     *
-     * If you use inline templates, make sure you read the notes on the configuration
-     * object after this one to understand how they relate to this configuration directly
-     * below.
-     */
+    // NOTE: WE ARE NOT APPLYING PRETTIER IN THIS OVERRIDE, ONLY @ANGULAR-ESLINT/TEMPLATE
     {
-      files: ['*.component.html'],
+      files: ['*.html'],
       extends: ['plugin:@angular-eslint/template/recommended'],
+      rules: {},
     },
-
-    /**
-     * -----------------------------------------------------
-     * EXTRACT INLINE TEMPLATES (from within .component.ts)
-     * -----------------------------------------------------
-     *
-     * This extra piece of configuration is necessary to extract inline
-     * templates from within Component metadata, e.g.:
-     *
-     * @Component({
-     *  template: `<h1>Hello, World!</h1>`
-     * })
-     * ...
-     *
-     * It works by extracting the template part of the file and treating it as
-     * if it were a full .html file, and it will therefore match the configuration
-     * specific for *.component.html above when it comes to actual rules etc.
-     *
-     * NOTE: This processor will skip a lot of work when it runs if you don't use
-     * inline templates in your projects currently, so there is no great benefit
-     * in removing it, but you can if you want to.
-     *
-     * You won't specify any rules here. As noted above, the rules that are relevant
-     * to inline templates are the same as the ones defined for *.component.html.
-     */
+    // NOTE: WE ARE NOT APPLYING @ANGULAR-ESLINT/TEMPLATE IN THIS OVERRIDE, ONLY PRETTIER
     {
-      files: ['*.component.ts'],
-      extends: ['plugin:@angular-eslint/template/process-inline-templates'],
+      files: ['*.html'],
+      excludedFiles: ['*inline-template-*.component.html'],
+      extends: ['plugin:prettier/recommended'],
+      rules: {
+        // NOTE: WE ARE OVERRIDING THE DEFAULT CONFIG TO ALWAYS SET THE PARSER TO ANGULAR (SEE BELOW)
+        'prettier/prettier': ['error', { parser: 'angular' }],
+      },
     },
   ],
 };

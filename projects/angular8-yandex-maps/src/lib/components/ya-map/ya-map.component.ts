@@ -16,237 +16,205 @@ import {
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { BehaviorSubject, Subscription } from 'rxjs';
-
 import { ScriptService } from '../../services/script/script.service';
-import { YaReadyEvent } from '../../interfaces/event';
-import { generateRandomId } from '../../utils/generateRandomId';
-import { EventManager } from '../../utils/event-manager';
+import { EventManager, YaReadyEvent } from '../../utils/event-manager';
+import { generateRandomId } from '../../utils/generate-random-id';
 
 /**
- * Component for creating and managing a map.
- *
- * @example `<ya-map [center]="[55.751952, 37.600739]" [state]="{type: 'yandex#satellite'}"></ya-map>`.
+ * Component that renders a map.
  * @see {@link https://ddubrava.github.io/angular8-yandex-maps/#/components/map}
  */
 @Component({
   selector: 'ya-map',
-  template: ` <div #container></div>`,
+  template: '<div #container></div>',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class YaMapComponent implements AfterViewInit, OnChanges, OnDestroy {
-  @ViewChild('container') public mapContainer: ElementRef;
+  @ViewChild('container') container: ElementRef;
 
-  public map$ = new BehaviorSubject<ymaps.Map | null>(null);
+  private readonly _sub = new Subscription();
+
+  private readonly _eventManager = new EventManager(this._ngZone);
+
+  map$ = new BehaviorSubject<ymaps.Map | undefined>(undefined);
+
+  isBrowser: boolean;
 
   /**
    * Map center geocoordinates.
    */
-  @Input() public center: number[];
+  @Input() center: number[];
 
   /**
    * Map zoom level.
    */
-  @Input() public zoom: number;
+  @Input() zoom: number;
 
   /**
    * States for the map.
    * @see {@link https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Map-docpage/#Mapparam-state}
    */
-  @Input() public state: ymaps.IMapState;
+  @Input() state: ymaps.IMapState;
 
   /**
    * Options for the map.
    * @see {@link https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Map-docpage/#Mapparam-options}
    */
-  @Input() public options: ymaps.IMapOptions;
+  @Input() options: ymaps.IMapOptions;
 
   /**
    * Map instance is created.
    */
-  @Output() public ready = new EventEmitter<YaReadyEvent>();
-
-  private _eventManager = new EventManager(this._ngZone);
+  @Output() ready = new EventEmitter<YaReadyEvent<ymaps.Map>>();
 
   /**
    * The start of a new smooth map movement.
    */
-  @Output() public actionbegin = this._eventManager.getLazyEmitter(
-    'actionbegin',
-  );
+  @Output() actionbegin = this._eventManager.getLazyEmitter('actionbegin');
 
   /**
    * Event that occurs when an action step was prematurely stopped.
    */
-  @Output() public actionbreak = this._eventManager.getLazyEmitter(
-    'actionbreak',
-  );
+  @Output() actionbreak = this._eventManager.getLazyEmitter('actionbreak');
 
   /**
    * The end of smooth map movement.
    */
-  @Output() public actionend = this._eventManager.getLazyEmitter('actionend');
+  @Output() actionend = this._eventManager.getLazyEmitter('actionend');
 
   /**
    * The start of a new step of smooth movement.
    */
-  @Output() public actiontick = this._eventManager.getLazyEmitter('actiontick');
+  @Output() actiontick = this._eventManager.getLazyEmitter('actiontick');
 
   /**
    * The end of performing a step of smooth movement.
    */
-  @Output() public actiontickcomplete = this._eventManager.getLazyEmitter(
-    'actiontickcomplete',
-  );
+  @Output() actiontickcomplete = this._eventManager.getLazyEmitter('actiontickcomplete');
 
   /**
    * Closing the balloon.
    */
-  @Output() public balloonclose = this._eventManager.getLazyEmitter(
-    'balloonclose',
-  );
+  @Output() balloonclose = this._eventManager.getLazyEmitter('balloonclose');
 
   /**
    * Opening a balloon on a map.
    */
-  @Output() public balloonopen = this._eventManager.getLazyEmitter(
-    'balloonopen',
-  );
+  @Output() balloonopen = this._eventManager.getLazyEmitter('balloonopen');
 
   /**
    * Event for a change to the map viewport.
    */
-  @Output() public boundschange = this._eventManager.getLazyEmitter(
-    'boundschange',
-  );
+  @Output() boundschange = this._eventManager.getLazyEmitter('boundschange');
 
   /**
    * Single left-click on the object.
    */
-  @Output() public yaclick = this._eventManager.getLazyEmitter('click');
+  @Output() yaclick = this._eventManager.getLazyEmitter('click');
 
   /**
    * Calls the element's context menu.
    */
-  @Output() public yacontextmenu = this._eventManager.getLazyEmitter(
-    'contextmenu',
-  );
+  @Output() yacontextmenu = this._eventManager.getLazyEmitter('contextmenu');
 
   /**
    * Double left-click on the object.
    */
-  @Output() public yadbclick = this._eventManager.getLazyEmitter('dbclick');
+  @Output() yadbclick = this._eventManager.getLazyEmitter('dbclick');
 
   /**
    * The map was destroyed.
    */
-  @Output() public destroy = this._eventManager.getLazyEmitter('destroy');
+  @Output() destroy = this._eventManager.getLazyEmitter('destroy');
 
   /**
    * Closing the hint.
    */
-  @Output() public hintclose = this._eventManager.getLazyEmitter('hintclose');
+  @Output() hintclose = this._eventManager.getLazyEmitter('hintclose');
 
   /**
    * Opening a hint on a map.
    */
-  @Output() public hintopen = this._eventManager.getLazyEmitter('hintopen');
+  @Output() hintopen = this._eventManager.getLazyEmitter('hintopen');
 
   /**
    * Map margins changed.
    */
-  @Output() public marginchange = this._eventManager.getLazyEmitter(
-    'marginchange',
-  );
+  @Output() marginchange = this._eventManager.getLazyEmitter('marginchange');
 
   /**
    * Pressing the mouse button over the object.
    */
-  @Output() public yamousedown = this._eventManager.getLazyEmitter('mousedown');
+  @Output() yamousedown = this._eventManager.getLazyEmitter('mousedown');
 
   /**
    * Pointing the cursor at the object.
    */
-  @Output() public yamouseenter = this._eventManager.getLazyEmitter(
-    'mouseenter',
-  );
+  @Output() yamouseenter = this._eventManager.getLazyEmitter('mouseenter');
 
   /**
    * Moving the cursor off of the object.
    */
-  @Output() public yamouseleave = this._eventManager.getLazyEmitter(
-    'mouseleave',
-  );
+  @Output() yamouseleave = this._eventManager.getLazyEmitter('mouseleave');
 
   /**
    * Moving the cursor over the object.
    */
-  @Output() public yamousemove = this._eventManager.getLazyEmitter('mousemove');
+  @Output() yamousemove = this._eventManager.getLazyEmitter('mousemove');
 
   /**
    * Letting go of the mouse button over an object.
    */
-  @Output() public yamouseup = this._eventManager.getLazyEmitter('mouseup');
+  @Output() yamouseup = this._eventManager.getLazyEmitter('mouseup');
 
   /**
    * End of multitouch.
    */
-  @Output() public multitouchend = this._eventManager.getLazyEmitter(
-    'multitouchend',
-  );
+  @Output() multitouchend = this._eventManager.getLazyEmitter('multitouchend');
 
   /**
    * Repeating event during multitouch.
    */
-  @Output() public multitouchmove = this._eventManager.getLazyEmitter(
-    'multitouchmove',
-  );
+  @Output() multitouchmove = this._eventManager.getLazyEmitter('multitouchmove');
 
   /**
    * Start of multitouch.
    */
-  @Output() public multitouchstart = this._eventManager.getLazyEmitter(
-    'multitouchstart',
-  );
+  @Output() multitouchstart = this._eventManager.getLazyEmitter('multitouchstart');
 
   /**
    * Map options changed.
    */
-  @Output() public optionschange = this._eventManager.getLazyEmitter(
-    'optionschange',
-  );
+  @Output() optionschange = this._eventManager.getLazyEmitter('optionschange');
 
   /**
    * Map size changed.
    */
-  @Output() public sizechange = this._eventManager.getLazyEmitter('sizechange');
+  @Output() sizechange = this._eventManager.getLazyEmitter('sizechange');
 
   /**
    * The map type changed.
    */
-  @Output() public typechange = this._eventManager.getLazyEmitter('typechange');
+  @Output() typechange = this._eventManager.getLazyEmitter('typechange');
 
   /**
    * Mouse wheel scrolling.
    */
-  @Output() public yawheel = this._eventManager.getLazyEmitter('wheel');
-
-  private _sub = new Subscription();
-
-  private readonly _isBrowser: boolean;
+  @Output() yawheel = this._eventManager.getLazyEmitter('wheel');
 
   constructor(
-    private _ngZone: NgZone,
-    private _scriptService: ScriptService,
+    private readonly _ngZone: NgZone,
+    private readonly _scriptService: ScriptService,
     @Inject(PLATFORM_ID) platformId: Object,
   ) {
-    this._isBrowser = isPlatformBrowser(platformId);
+    this.isBrowser = isPlatformBrowser(platformId);
   }
 
   /**
    * Handles input changes and passes them in API.
    * @param changes
    */
-  public ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(changes: SimpleChanges): void {
     const map = this.map$.value;
 
     if (map) {
@@ -270,20 +238,20 @@ export class YaMapComponent implements AfterViewInit, OnChanges, OnDestroy {
     }
   }
 
-  public ngAfterViewInit(): void {
+  ngAfterViewInit(): void {
     // It should be a noop during server-side rendering.
-    if (this._isBrowser) {
+    if (this.isBrowser) {
       this._loadScript();
     }
   }
 
-  public ngOnDestroy(): void {
+  ngOnDestroy(): void {
     this._eventManager.destroy();
     this._sub.unsubscribe();
   }
 
   /**
-   * Destructs state and passes new values in API.
+   * Destructs state and passes them in API.
    * @param state
    * @param map
    */
@@ -337,7 +305,7 @@ export class YaMapComponent implements AfterViewInit, OnChanges, OnDestroy {
    * @param id ID which will be set to the map container.
    */
   private _createMap(id: string): ymaps.Map {
-    const containerElem: HTMLElement = this.mapContainer.nativeElement;
+    const containerElem: HTMLElement = this.container.nativeElement;
     containerElem.setAttribute('id', id);
     containerElem.style.cssText = 'width: 100%; height: 100%;';
 
@@ -352,7 +320,7 @@ export class YaMapComponent implements AfterViewInit, OnChanges, OnDestroy {
 
     return {
       ...state,
-      center: this.center || state.center || [],
+      center: this.center || state.center || [0, 0],
       zoom: this.zoom ?? state.zoom ?? 10,
     };
   }
