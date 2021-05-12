@@ -5,10 +5,7 @@ Component for creating and controlling the panorama player
 ## Usage
 
 ```html
-<ya-panorama
-  [point]="[59.938557, 30.316198]"
-  layer="yandex#airPanorama"
-></ya-panorama>
+<ya-panorama [point]="[59.938557, 30.316198]" layer="yandex#airPanorama"></ya-panorama>
 ```
 
 ## Inputs

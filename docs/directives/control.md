@@ -8,10 +8,7 @@ Directive for creating and managing controls on the map
 
 ```html
 <ya-map [center]="[55.751952, 37.600739]">
-  <ya-control
-    type="RoutePanel"
-    [parameters]="{ options: { float: 'right' } }"
-  ></ya-control>
+  <ya-control type="RoutePanel" [parameters]="{ options: { float: 'right' } }"></ya-control>
 </ya-map>
 ```
 

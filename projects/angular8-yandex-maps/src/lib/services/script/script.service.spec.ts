@@ -1,5 +1,5 @@
 import { ScriptService } from './script.service';
-import { YaConfig } from '../../interfaces/config';
+
 import createSpy = jasmine.createSpy;
 import createSpyObj = jasmine.createSpyObj;
 
@@ -72,9 +72,7 @@ describe('ScriptService', () => {
 
     service.initScript();
 
-    expect(script.src).toBe(
-      'https://enterprise.api-maps.yandex.ru/2.1/?lang=ru_RU',
-    );
+    expect(script.src).toBe('https://enterprise.api-maps.yandex.ru/2.1/?lang=ru_RU');
   });
 
   it('should not append second script if window.ymaps is defined', () => {
