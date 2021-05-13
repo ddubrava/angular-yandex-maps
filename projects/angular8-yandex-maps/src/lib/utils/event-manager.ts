@@ -25,12 +25,16 @@ export interface YaEvent<T = any> {
 
 export type YaReadyEvent<T = any> = Omit<YaEvent<T>, 'event'>;
 
+/**
+ * @internal
+ */
 type EventManagerTarget = {
   events: ymaps.IEventManager;
 };
 
 /**
  * Manages event on a Yandex Maps object, ensuring that events are added only when necessary.
+ * @internal
  */
 export class EventManager {
   /**

@@ -1,0 +1,4 @@
+{
+  "include": ["projects/angular8-yandex-maps/src/lib/**/*.ts"],
+  "exclude": ["projects/angular8-yandex-maps/src/lib/typings/yandex-maps/index.ts"]
+}

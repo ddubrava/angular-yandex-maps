@@ -11,12 +11,18 @@ import {
 } from '@angular/core';
 import { from, Observable, Subscription } from 'rxjs';
 import { filter, map, switchMap } from 'rxjs/operators';
-import { EventManager, YaReadyEvent } from '../../utils/event-manager';
+import { EventManager, YaEvent, YaReadyEvent } from '../../utils/event-manager';
 import { YaMapComponent } from '../ya-map/ya-map.component';
 
 /**
- * Component that creates a panorama player.
- * @see {@link https://ddubrava.github.io/angular8-yandex-maps/#/components/panorama}
+ * The `ya-panorama` component wraps `ymaps.panorama.Player` class from the Yandex Maps API.
+ * You can configure the map via the component's inputs.
+ * Events can be bound using the outputs of the component.
+ *
+ * @example
+ * <ya-map>
+ *              <ya-panorama [point]="[59.938557, 30.316198]" layer="yandex#airPanorama"></ya-panorama>
+ * </ya-map>
  */
 @Directive({
   selector: 'ya-panorama',
@@ -30,79 +36,105 @@ export class YaPanoramaDirective implements OnInit, OnChanges, OnDestroy {
 
   /**
    * The point for searching for nearby panoramas.
+   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/panorama.locate.html#panorama.locate__param-point}
    */
   @Input() point: number[];
 
   /**
    * The layer to search for panoramas.
+   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/panorama.locate.html#panorama.locate__param-options.layer}
    */
   @Input() layer: ymaps.panorama.Layer;
 
   /**
    * Options for the player.
-   * @see {@link https://tech.yandex.com/maps/jsapi/doc/2.1/ref/reference/panorama.Player-docpage/#panorama.Playerparam-options}
+   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/panorama.Player.html#panorama.Player__param-options}
    */
-  @Input() options: any;
+  @Input() options: ymaps.panorama.IPlayerOptions;
 
   /**
    * Panorama instance is created.
    */
-  @Output() ready = new EventEmitter<YaReadyEvent<ymaps.panorama.Player>>();
+  @Output() ready: EventEmitter<YaReadyEvent<ymaps.panorama.Player>> = new EventEmitter<
+    YaReadyEvent<ymaps.panorama.Player>
+  >();
 
   /**
    * The player was closed by the user or destroyed using the panorama.Player.destroy method.
    */
-  @Output() destroy = this._eventManager.getLazyEmitter('destroy');
+  @Output() destroy: Observable<YaEvent<ymaps.panorama.Player>> = this._eventManager.getLazyEmitter(
+    'destroy',
+  );
 
   /**
    * The view direction changed.
    */
-  @Output() directionchange = this._eventManager.getLazyEmitter('directionchange');
+  @Output() directionchange: Observable<
+    YaEvent<ymaps.panorama.Player>
+  > = this._eventManager.getLazyEmitter('directionchange');
 
   /**
    * An error occurred during operation of the player. The user will be shown the appropriate screen.
    */
-  @Output() yaerror = this._eventManager.getLazyEmitter('error');
+  @Output() yaerror: Observable<YaEvent<ymaps.panorama.Player>> = this._eventManager.getLazyEmitter(
+    'error',
+  );
 
   /**
    * The panorama player switched to full-screen mode.
    */
-  @Output() fullscreenenter = this._eventManager.getLazyEmitter('fullscreenenter');
+  @Output() fullscreenenter: Observable<
+    YaEvent<ymaps.panorama.Player>
+  > = this._eventManager.getLazyEmitter('fullscreenenter');
 
   /**
    * The panorama player exited full-screen mode.
    */
-  @Output() fullscreenexit = this._eventManager.getLazyEmitter('fullscreenexit');
+  @Output() fullscreenexit: Observable<
+    YaEvent<ymaps.panorama.Player>
+  > = this._eventManager.getLazyEmitter('fullscreenexit');
 
   /**
    * The user clicked on an expanded marker.
    */
-  @Output() markercollapse = this._eventManager.getLazyEmitter('markercollapse');
+  @Output() markercollapse: Observable<
+    YaEvent<ymaps.panorama.Player>
+  > = this._eventManager.getLazyEmitter('markercollapse');
 
   /**
    * The user clicked on a collapsed marker.
    */
-  @Output() markerexpand = this._eventManager.getLazyEmitter('markerexpand');
+  @Output() markerexpand: Observable<
+    YaEvent<ymaps.panorama.Player>
+  > = this._eventManager.getLazyEmitter('markerexpand');
 
   /**
    * The user's cursor hovered over a marker.
    */
-  @Output() markermouseenter = this._eventManager.getLazyEmitter('markermouseenter');
+  @Output() markermouseenter: Observable<
+    YaEvent<ymaps.panorama.Player>
+  > = this._eventManager.getLazyEmitter('markermouseenter');
 
   /**
    * The user's cursor left a marker.
    */
-  @Output() markermouseleave = this._eventManager.getLazyEmitter('markermouseleave');
+  @Output() markermouseleave: Observable<
+    YaEvent<ymaps.panorama.Player>
+  > = this._eventManager.getLazyEmitter('markermouseleave');
 
   /**
    * The open panorama changed.
    */
-  @Output() panoramachange = this._eventManager.getLazyEmitter('panoramachange');
+  @Output() panoramachange: Observable<
+    YaEvent<ymaps.panorama.Player>
+  > = this._eventManager.getLazyEmitter('panoramachange');
 
   /**
    * The size of the viewport has been changed.
    */
-  @Output() spanchange = this._eventManager.getLazyEmitter('spanchange');
+  @Output() spanchange: Observable<
+    YaEvent<ymaps.panorama.Player>
+  > = this._eventManager.getLazyEmitter('spanchange');
 
   constructor(private readonly _ngZone: NgZone, private readonly _yaMapComponent: YaMapComponent) {}
 

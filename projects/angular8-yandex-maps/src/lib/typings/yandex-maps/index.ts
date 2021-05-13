@@ -2773,20 +2773,18 @@ declare namespace ymaps {
       openPlayer(panorama: IPanorama[] | number): Promise<void>;
     }
 
+    interface IPlayerOptions {
+      autoFitToViewport?: 'none' | 'ifNull' | 'always';
+      controls?: string[];
+      direction?: number[] | string;
+      hotkeysEnabled?: boolean;
+      scrollZoomBehavior?: boolean;
+      span?: number[] | string;
+      suppressMapOpenBlock?: boolean;
+    }
+
     class Player implements IEventEmitter {
-      constructor(
-        element: HTMLElement | string,
-        panorama: IPanorama,
-        options?: {
-          autoFitToViewport?: 'none' | 'ifNull' | 'always';
-          controls?: string[];
-          direction?: number[] | string;
-          hotkeysEnabled?: boolean;
-          scrollZoomBehavior?: boolean;
-          span?: number[] | string;
-          suppressMapOpenBlock?: boolean;
-        },
-      );
+      constructor(element: HTMLElement | string, panorama: IPanorama, options?: IPlayerOptions);
 
       events: IEventManager;
 

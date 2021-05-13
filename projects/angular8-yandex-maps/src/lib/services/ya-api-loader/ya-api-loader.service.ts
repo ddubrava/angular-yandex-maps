@@ -36,10 +36,6 @@ export interface YaConfig {
   version?: string;
 }
 
-const DEFAULT_CONFIG: YaConfig = {
-  lang: 'ru_RU',
-};
-
 /**
  * @description Injectable service that handles loading of Yandex.Maps API
  * @see {@link https://ddubrava.github.io/angular8-yandex-maps/#/services/script}
@@ -52,13 +48,15 @@ export class YaApiLoaderService {
 
   private readonly _window: Window & { ymaps: typeof ymaps };
 
+  private readonly _defaultConfig: YaConfig = { lang: 'ru_RU' };
+
   private _script: HTMLScriptElement;
 
   constructor(
     @Optional() @Inject(YA_CONFIG) config: YaConfig | null,
     @Inject(DOCUMENT) private readonly _document: Document,
   ) {
-    this._config = config || DEFAULT_CONFIG;
+    this._config = config || this._defaultConfig;
 
     if (this._document.defaultView) {
       this._window = this._document.defaultView;
