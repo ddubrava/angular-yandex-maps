@@ -55,7 +55,7 @@ export class EventManager {
    * Gets an observable that adds an event listener to the map when a consumer subscribes to it.
    * @param name
    */
-  public getLazyEmitter(name: string): Observable<YaEvent> {
+  getLazyEmitter(name: string): Observable<YaEvent> {
     return this._targetStream.pipe(
       switchMap((target) => {
         const observable = new Observable<YaEvent>((observer) => {
@@ -90,8 +90,8 @@ export class EventManager {
   /**
    * Sets the current target that the manager should bind events to.
    * @param target
-   * */
-  public setTarget(target: EventManagerTarget): void {
+   */
+  setTarget(target: EventManagerTarget): void {
     const currentTarget = this._targetStream.value;
 
     if (target === currentTarget) {
@@ -115,7 +115,7 @@ export class EventManager {
   /**
    * Destroys the manager and clears the event listeners.
    */
-  public destroy(): void {
+  destroy(): void {
     this._clearListeners();
     this._pending = [];
     this._targetStream.complete();

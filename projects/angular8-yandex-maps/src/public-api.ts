@@ -8,7 +8,7 @@
 export * from './lib/angular-yandex-maps.module';
 
 // Services
-export * from './lib/services/script/script.service';
+export * from './lib/services/ya-api-loader/ya-api-loader.service';
 
 // Components
 export * from './lib/components/ya-clusterer/ya-clusterer.component';

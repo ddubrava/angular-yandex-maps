@@ -25,169 +25,169 @@ export class YaPlacemarkDirective implements OnInit, OnChanges, OnDestroy {
 
   private readonly _eventManager = new EventManager(this._ngZone);
 
-  public placemark?: ymaps.Placemark;
+  placemark?: ymaps.Placemark;
 
   /**
    * Coordinates of the placemark, or a hash describing the geometry, or a reference to the point geometry object.
    */
-  @Input() public geometry: number[] | object | ymaps.IPointGeometry;
+  @Input() geometry: number[] | object | ymaps.IPointGeometry;
 
   /**
    * Properties for the placemark.
    * @see {@link https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Placemark-docpage/#Placemarkparam-properties}
    */
-  @Input() public properties: object | ymaps.IDataManager;
+  @Input() properties: object | ymaps.IDataManager;
 
   /**
    * Options for the placemark.
    * @see {@link https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Placemark-docpage/#Placemarkparam-options}
    */
-  @Input() public options: ymaps.IPlacemarkOptions;
+  @Input() options: ymaps.IPlacemarkOptions;
 
   /**
    * Placemark instance is added in a Map.
    */
-  @Output() public ready = new EventEmitter<YaReadyEvent<ymaps.Placemark>>();
+  @Output() ready = new EventEmitter<YaReadyEvent<ymaps.Placemark>>();
 
   /**
    * Closing the balloon.
    */
-  @Output() public balloonclose = this._eventManager.getLazyEmitter('balloonclose');
+  @Output() balloonclose = this._eventManager.getLazyEmitter('balloonclose');
 
   /**
    * Opening a balloon on a map.
    */
-  @Output() public balloonopen = this._eventManager.getLazyEmitter('balloonopen');
+  @Output() balloonopen = this._eventManager.getLazyEmitter('balloonopen');
 
   /**
    * Event preceding the "drag" event.
    */
-  @Output() public beforedrag = this._eventManager.getLazyEmitter('beforedrag');
+  @Output() beforedrag = this._eventManager.getLazyEmitter('beforedrag');
 
   /**
    * Event preceding the "dragstart" event.
    */
-  @Output() public beforedragstart = this._eventManager.getLazyEmitter('beforedragstart');
+  @Output() beforedragstart = this._eventManager.getLazyEmitter('beforedragstart');
 
   /**
    * Single left-click on the object.
    */
-  @Output() public yaclick = this._eventManager.getLazyEmitter('click');
+  @Output() yaclick = this._eventManager.getLazyEmitter('click');
 
   /**
    * Calls the element's context menu.
    */
-  @Output() public yacontextmenu = this._eventManager.getLazyEmitter('contextmenu');
+  @Output() yacontextmenu = this._eventManager.getLazyEmitter('contextmenu');
 
   /**
    * Double left-click on the object.
    */
-  @Output() public yadbclick = this._eventManager.getLazyEmitter('dbclick');
+  @Output() yadbclick = this._eventManager.getLazyEmitter('dbclick');
 
   /**
    * Dragging a geo object.
    */
-  @Output() public yadrag = this._eventManager.getLazyEmitter('drag');
+  @Output() yadrag = this._eventManager.getLazyEmitter('drag');
 
   /**
    * End of geo object dragging.
    */
-  @Output() public yadragend = this._eventManager.getLazyEmitter('dragend');
+  @Output() yadragend = this._eventManager.getLazyEmitter('dragend');
 
   /**
    * Start of geo object dragging.
    */
-  @Output() public yadragstart = this._eventManager.getLazyEmitter('dragstart');
+  @Output() yadragstart = this._eventManager.getLazyEmitter('dragstart');
 
   /**
    * Change in the state of the editor for the geo object's geometry.
    */
-  @Output() public editorstatechange = this._eventManager.getLazyEmitter('editorstatechange');
+  @Output() editorstatechange = this._eventManager.getLazyEmitter('editorstatechange');
 
   /**
    * Change to the geo object geometry
    */
-  @Output() public geometrychange = this._eventManager.getLazyEmitter('geometrychange');
+  @Output() geometrychange = this._eventManager.getLazyEmitter('geometrychange');
 
   /**
    * Closing the hint.
    */
-  @Output() public hintclose = this._eventManager.getLazyEmitter('hintclose');
+  @Output() hintclose = this._eventManager.getLazyEmitter('hintclose');
 
   /**
    * Opening a hint on a map.
    */
-  @Output() public hintopen = this._eventManager.getLazyEmitter('hintopen');
+  @Output() hintopen = this._eventManager.getLazyEmitter('hintopen');
 
   /**
    * Map reference changed.
    */
-  @Output() public mapchange = this._eventManager.getLazyEmitter('mapchange');
+  @Output() mapchange = this._eventManager.getLazyEmitter('mapchange');
 
   /**
    * Pressing the mouse button over the object.
    */
-  @Output() public yamousedown = this._eventManager.getLazyEmitter('mousedown');
+  @Output() yamousedown = this._eventManager.getLazyEmitter('mousedown');
 
   /**
    * Pointing the cursor at the object.
    */
-  @Output() public yamouseenter = this._eventManager.getLazyEmitter('mouseenter');
+  @Output() yamouseenter = this._eventManager.getLazyEmitter('mouseenter');
 
   /**
    * Moving the cursor off of the object.
    */
-  @Output() public yamouseleave = this._eventManager.getLazyEmitter('mouseleave');
+  @Output() yamouseleave = this._eventManager.getLazyEmitter('mouseleave');
 
   /**
    * Moving the cursor over the object.
    */
-  @Output() public yamousemove = this._eventManager.getLazyEmitter('mousemove');
+  @Output() yamousemove = this._eventManager.getLazyEmitter('mousemove');
 
   /**
    * Letting go of the mouse button over an object.
    */
-  @Output() public yamouseup = this._eventManager.getLazyEmitter('mouseup');
+  @Output() yamouseup = this._eventManager.getLazyEmitter('mouseup');
 
   /**
    * End of multitouch.
    */
-  @Output() public multitouchend = this._eventManager.getLazyEmitter('multitouchend');
+  @Output() multitouchend = this._eventManager.getLazyEmitter('multitouchend');
 
   /**
    * Repeating event during multitouch.
    */
-  @Output() public multitouchmove = this._eventManager.getLazyEmitter('multitouchmove');
+  @Output() multitouchmove = this._eventManager.getLazyEmitter('multitouchmove');
 
   /**
    * Start of multitouch.
    */
-  @Output() public multitouchstart = this._eventManager.getLazyEmitter('multitouchstart');
+  @Output() multitouchstart = this._eventManager.getLazyEmitter('multitouchstart');
 
   /**
    * Change to the object options.
    */
-  @Output() public optionschange = this._eventManager.getLazyEmitter('optionschange');
+  @Output() optionschange = this._eventManager.getLazyEmitter('optionschange');
 
   /**
    * Change to the geo object overlay.
    */
-  @Output() public overlaychange = this._eventManager.getLazyEmitter('overlaychange');
+  @Output() overlaychange = this._eventManager.getLazyEmitter('overlaychange');
 
   /**
    * The parent object reference changed.
    */
-  @Output() public parentchange = this._eventManager.getLazyEmitter('parentchange');
+  @Output() parentchange = this._eventManager.getLazyEmitter('parentchange');
 
   /**
    * Change to the geo object data.
    */
-  @Output() public propertieschange = this._eventManager.getLazyEmitter('propertieschange');
+  @Output() propertieschange = this._eventManager.getLazyEmitter('propertieschange');
 
   /**
    * Mouse wheel scrolling.
    */
-  @Output() public yawheel = this._eventManager.getLazyEmitter('wheel');
+  @Output() yawheel = this._eventManager.getLazyEmitter('wheel');
 
   constructor(private readonly _ngZone: NgZone, private readonly _yaMapComponent: YaMapComponent) {}
 

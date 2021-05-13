@@ -16,9 +16,9 @@ import {
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { BehaviorSubject, Subscription } from 'rxjs';
-import { ScriptService } from '../../services/script/script.service';
 import { EventManager, YaReadyEvent } from '../../utils/event-manager';
 import { generateRandomId } from '../../utils/generate-random-id';
+import { YaApiLoaderService } from '../../services/ya-api-loader/ya-api-loader.service';
 
 /**
  * Component that renders a map.
@@ -204,7 +204,7 @@ export class YaMapComponent implements AfterViewInit, OnChanges, OnDestroy {
 
   constructor(
     private readonly _ngZone: NgZone,
-    private readonly _scriptService: ScriptService,
+    private readonly _yaApiLoaderService: YaApiLoaderService,
     @Inject(PLATFORM_ID) platformId: Object,
   ) {
     this.isBrowser = isPlatformBrowser(platformId);
@@ -288,7 +288,7 @@ export class YaMapComponent implements AfterViewInit, OnChanges, OnDestroy {
   }
 
   private _loadScript(): void {
-    const sub = this._scriptService.load().subscribe(() => {
+    const sub = this._yaApiLoaderService.load().subscribe(() => {
       const id = generateRandomId();
       const map = this._createMap(id);
 

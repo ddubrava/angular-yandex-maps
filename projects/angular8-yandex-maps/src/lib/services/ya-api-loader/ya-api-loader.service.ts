@@ -41,15 +41,13 @@ const DEFAULT_CONFIG: YaConfig = {
 };
 
 /**
- * @dynamic
- *
- * @description Injectable service that will handle the loading of Yandex.Maps script
+ * @description Injectable service that handles loading of Yandex.Maps API
  * @see {@link https://ddubrava.github.io/angular8-yandex-maps/#/services/script}
  */
 @Injectable({
   providedIn: 'root',
 })
-export class ScriptService {
+export class YaApiLoaderService {
   private readonly _config: YaConfig;
 
   private readonly _window: Window & { ymaps: typeof ymaps };
@@ -72,7 +70,7 @@ export class ScriptService {
   /**
    * Inits Yandex.Maps script
    */
-  public initScript(): Observable<typeof ymaps> {
+  load(): Observable<typeof ymaps> {
     const window = this._window;
 
     if ('ymaps' in this._window) {
@@ -98,13 +96,6 @@ export class ScriptService {
     const error = fromEvent(this._script, 'error').pipe(switchMap((e) => throwError(e)));
 
     return merge(load, error).pipe(take(1));
-  }
-
-  /**
-   * @alias initScript
-   */
-  public load(): Observable<typeof ymaps> {
-    return this.initScript();
   }
 
   /**

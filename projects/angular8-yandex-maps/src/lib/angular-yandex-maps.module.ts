@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 
-import { YA_CONFIG, YaConfig } from './services/script/script.service';
+import { YA_CONFIG, YaConfig } from './services/ya-api-loader/ya-api-loader.service';
 
 import { YaClustererComponent } from './components/ya-clusterer/ya-clusterer.component';
 import { YaControlDirective } from './components/ya-control/ya-control.directive';
@@ -37,7 +37,7 @@ export class AngularYandexMapsModule {
    * Please use this method when you register the module at the root level
    * @param config
    */
-  public static forRoot(config: YaConfig): ModuleWithProviders<AngularYandexMapsModule> {
+  static forRoot(config: YaConfig): ModuleWithProviders<AngularYandexMapsModule> {
     return {
       ngModule: AngularYandexMapsModule,
       providers: [{ provide: YA_CONFIG, useValue: config }],

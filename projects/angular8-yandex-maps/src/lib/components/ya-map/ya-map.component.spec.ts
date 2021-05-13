@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 
 import * as GenerateRandomIdModule from '../../utils/generate-random-id';
 import { YaMapComponent } from './ya-map.component';
-import { ScriptService } from '../../services/script/script.service';
 import { YaReadyEvent } from '../../utils/event-manager';
+import { YaApiLoaderService } from '../../services/ya-api-loader/ya-api-loader.service';
 
 /** Creates a jasmine.SpyObj for a ymaps.Map. */
 function createMapSpy(): jasmine.SpyObj<ymaps.Map> {
@@ -37,15 +37,15 @@ function createMapConstructorSpy(mapSpy: jasmine.SpyObj<ymaps.Map>): jasmine.Spy
   `,
 })
 class MockHostComponent {
-  @ViewChild('map', { static: true }) public map: YaMapComponent;
+  @ViewChild('map', { static: true }) map: YaMapComponent;
 
-  public center: number[];
+  center: number[];
 
-  public zoom: number;
+  zoom: number;
 
-  public state: ymaps.IMapState;
+  state: ymaps.IMapState;
 
-  public options: ymaps.IMapOptions;
+  options: ymaps.IMapOptions;
 }
 
 describe('YaMapComponent', () => {
@@ -56,13 +56,13 @@ describe('YaMapComponent', () => {
   let mapConstructorSpy: jasmine.Spy;
 
   beforeEach(async () => {
-    const scriptServiceStub = {
+    const yaApiLoaderServiceStub = {
       initScript: () => new Observable((s) => s.next()),
     };
 
     await TestBed.configureTestingModule({
       declarations: [MockHostComponent, YaMapComponent],
-      providers: [{ provide: ScriptService, useValue: scriptServiceStub }],
+      providers: [{ provide: YaApiLoaderService, useValue: yaApiLoaderServiceStub }],
     }).compileComponents();
   });
 

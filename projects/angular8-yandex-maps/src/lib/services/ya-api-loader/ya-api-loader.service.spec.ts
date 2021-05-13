@@ -1,32 +1,29 @@
-import { ScriptService } from './script.service';
+import { YaApiLoaderService, YaConfig } from './ya-api-loader.service';
 
-import createSpy = jasmine.createSpy;
-import createSpyObj = jasmine.createSpyObj;
-
-describe('ScriptService', () => {
-  let service: ScriptService;
+describe('YaApiLoaderService', () => {
+  let service: YaApiLoaderService;
   let mockDocument: any;
 
   beforeEach(() => {
     mockDocument = {
       defaultView: {},
-      createElement: createSpy('createElement'),
-      body: createSpyObj('body', ['appendChild']),
+      createElement: jasmine.createSpy('createElement'),
+      body: jasmine.createSpyObj('body', ['appendChild']),
     };
   });
 
   it('should throw error if defaultView is null', () => {
     mockDocument.defaultView = null;
-    expect(() => new ScriptService(null, mockDocument)).toThrowError();
+    expect(() => new YaApiLoaderService(null, mockDocument)).toThrowError();
   });
 
   it("should create script with default options if config isn't passed", () => {
-    service = new ScriptService(null, mockDocument);
+    service = new YaApiLoaderService(null, mockDocument);
 
     const script = {} as HTMLScriptElement;
     mockDocument.createElement.and.returnValue(script);
 
-    service.initScript();
+    service.load();
 
     expect(mockDocument.createElement).toHaveBeenCalled();
     expect(script.type).toBe('text/javascript');
@@ -47,12 +44,12 @@ describe('ScriptService', () => {
       version: '2.1',
     };
 
-    service = new ScriptService(config, mockDocument);
+    service = new YaApiLoaderService(config, mockDocument);
 
     const script = {} as HTMLScriptElement;
     mockDocument.createElement.and.returnValue(script);
 
-    service.initScript();
+    service.load();
 
     expect(script.src).toBe(
       'https://api-maps.yandex.ru/2.1/?apikey=X-X-X&lang=en_US&coordorder=latlong&load=package.full&mode=release',
@@ -65,12 +62,12 @@ describe('ScriptService', () => {
       enterprise: true,
     };
 
-    service = new ScriptService(config, mockDocument);
+    service = new YaApiLoaderService(config, mockDocument);
 
     const script = {} as HTMLScriptElement;
     mockDocument.createElement.and.returnValue(script);
 
-    service.initScript();
+    service.load();
 
     expect(script.src).toBe('https://enterprise.api-maps.yandex.ru/2.1/?lang=ru_RU');
   });
@@ -80,28 +77,28 @@ describe('ScriptService', () => {
       ready: () => new Promise((resolve) => resolve({})),
     };
 
-    service = new ScriptService(null, mockDocument);
-    service.initScript();
+    service = new YaApiLoaderService(null, mockDocument);
+    service.load();
 
     expect(mockDocument.createElement).not.toHaveBeenCalled();
     expect(mockDocument.body.appendChild).not.toHaveBeenCalled();
   });
 
   it('should not append second script if initScript called in a sequence', () => {
-    service = new ScriptService(null, mockDocument);
+    service = new YaApiLoaderService(null, mockDocument);
 
     mockDocument.createElement.and.returnValue({});
     mockDocument.body.appendChild.and.returnValue({});
 
-    service.initScript();
-    service.initScript();
+    service.load();
+    service.load();
 
     expect(mockDocument.createElement.calls.count()).toBe(1);
     expect(mockDocument.body.appendChild.calls.count()).toBe(1);
   });
 
   it('should return observable with ymaps on script load', (done) => {
-    service = new ScriptService(null, mockDocument);
+    service = new YaApiLoaderService(null, mockDocument);
 
     const onHandlers: { [key: string]: any } = {};
 
@@ -115,7 +112,7 @@ describe('ScriptService', () => {
     mockDocument.createElement.and.returnValue(script);
     mockDocument.body.appendChild.and.returnValue(script);
 
-    service.initScript().subscribe((api) => {
+    service.load().subscribe((api) => {
       expect(api.ready).toBeTruthy();
       done();
     });
@@ -130,7 +127,7 @@ describe('ScriptService', () => {
   });
 
   it('should throw error on script loading error', (done) => {
-    service = new ScriptService(null, mockDocument);
+    service = new YaApiLoaderService(null, mockDocument);
 
     const onHandlers: { [key: string]: any } = {};
 
@@ -146,7 +143,7 @@ describe('ScriptService', () => {
     mockDocument.createElement.and.returnValue(script);
     mockDocument.body.appendChild.and.returnValue(script);
 
-    service.initScript().subscribe(
+    service.load().subscribe(
       () => {},
       (e) => {
         expect(e).toEqual(event);
