@@ -51,12 +51,14 @@ export class YaMapComponent implements AfterViewInit, OnChanges, OnDestroy {
 
   /**
    * Map center geocoordinates.
+   * Shorthand for [state]="{ center: [0,0] }"
    * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/Map.html#Map__param-state.center}
    */
   @Input() center: number[];
 
   /**
    * Map zoom level.
+   * Shorthand for [state]="{ zoom: 10 }"
    * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/Map.html#Map__param-state.zoom}
    */
   @Input() zoom: number;
