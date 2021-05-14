@@ -14,8 +14,22 @@ import { EventManager, YaReadyEvent } from '../../utils/event-manager';
 import { YaMapComponent } from '../ya-map/ya-map.component';
 
 /**
- * Directive that render a Multi-route.
- * @see {@link https://ddubrava.github.io/angular8-yandex-maps/#/directives/multiroute}
+ * @internal
+ */
+type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
+
+/**
+ * The `ya-multiroute` component wraps `ymaps.multiRouter.MultiRoute` class from the Yandex Maps API.
+ * You can configure the map via the component's inputs.
+ * Events can be bound using the outputs of the component.
+ *
+ * @example
+ * <ya-map [center]="[55.761952, 37.620739]">
+ *              <ya-multiroute
+ *                [referencePoints]="[[55.751952, 37.600739], 'Красные ворота, Москва']"
+ *                [model]="{ params: { routingMode: 'pedestrian' } }"
+ *              ></ya-multiroute>
+ * ></ya-map>
  */
 @Directive({
   selector: 'ya-multiroute',
@@ -28,25 +42,25 @@ export class YaMultirouteDirective implements OnInit, OnChanges, OnDestroy {
   private _multiroute?: ymaps.multiRouter.MultiRoute;
 
   /**
-   * Reference points for the multi-route.
+   * Reference points for the multiroute.
    * Shorthand for [model]="{ referencePoints: [0, 0] }"
-   * @see {@link https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/IMultiRouteReferencePoint-docpage/}
+   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/IMultiRouteReferencePoint.html}
    */
   @Input() referencePoints: ymaps.IMultiRouteReferencePoint[];
 
   /**
    * Model description object of a multiroute.
-   * referencePoints input is required so prop can be ignored
+   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/IMultiRouteModelJson.html}
    */
-  @Input() model: Omit<ymaps.IMultiRouteModelJson, 'referencePoints'> &
-    Partial<ymaps.IMultiRouteModelJson>;
+  @Input() model:
+    | ymaps.multiRouter.MultiRouteModel
+    | Optional<ymaps.IMultiRouteModelJson, 'referencePoints'>;
 
   /**
    * Options for the multiroute.
-   * @see {@link https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/multiRouter.MultiRoute-docpage/#multiRouter.MultiRouteparam-options}
-   * @todo fix typings
+   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/multiRouter.MultiRoute.html#multiRouter.MultiRoute__param-options}
    */
-  @Input() options: any;
+  @Input() options: ymaps.multiRouter.IMultiRouteOptions;
 
   /**
    * Multiroute instance is added in a Map.
@@ -257,17 +271,14 @@ export class YaMultirouteDirective implements OnInit, OnChanges, OnDestroy {
    * Creates Multiroute.
    */
   private _createMultiroute(): ymaps.multiRouter.MultiRoute {
-    return new ymaps.multiRouter.MultiRoute(
-      { ...this._combineModel(), referencePoints: this.referencePoints },
-      this.options,
-    );
+    return new ymaps.multiRouter.MultiRoute(this._combineModel(), this.options);
   }
 
   /**
-   * Combines the model and referene points into single object
+   * Combines the model and reference points into single object
    */
   private _combineModel(): ymaps.IMultiRouteModelJson {
-    const model = this.model || {};
+    const model = (this.model || {}) as ymaps.IMultiRouteModelJson;
 
     return {
       ...model,
