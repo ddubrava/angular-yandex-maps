@@ -2462,18 +2462,7 @@ declare namespace ymaps {
     }
 
     class MultiRoute implements IGeoObject {
-      constructor(
-        model: MultiRouteModel | IMultiRouteModelJson,
-        options?: {
-          activeRouteAutoSelection?: boolean;
-          boundsAutoApply?: boolean;
-          dragUpdateInterval?: string | number;
-          preventDragUpdate?: boolean;
-          useMapMargin?: boolean;
-          zoomMargin?: number[][] | number[] | number;
-          [index: string]: any;
-        },
-      );
+      constructor(model: MultiRouteModel | IMultiRouteModelJson, options?: IMultiRouteOptions);
 
       editor: EditorAddon;
 
@@ -2512,6 +2501,17 @@ declare namespace ymaps {
       getWayPoints(): GeoObjectCollection;
 
       setActiveRoute(route: driving.Route | masstransit.Route | null): void;
+    }
+
+    interface IMultiRouteOptions {
+      activeRouteAutoSelection?: boolean;
+      boundsAutoApply?: boolean;
+      dragUpdateInterval?: string | number;
+      preventDragUpdate?: boolean;
+      useMapMargin?: boolean;
+      zoomMargin?: number[][] | number[] | number;
+
+      [index: string]: any;
     }
 
     class MultiRouteModel implements IEventEmitter {
