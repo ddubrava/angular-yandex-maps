@@ -7,38 +7,47 @@ export const YA_CONFIG = new InjectionToken<YaConfig>('YA_CONFIG');
 
 export interface YaConfig {
   /**
-   * API key. You can get a key in the developer's dashboard
+   * API key. You can get a key in the developer's dashboard.
    */
   apikey?: string;
   /**
-   * Locales
+   * Locale.
    */
   lang: 'ru_RU' | 'en_US' | 'en_RU' | 'ru_UA' | 'uk_UA' | 'tr_TR';
   /**
-   * The order for setting geographical coordinates in API functions that accept longitude-latitude input
+   * The order for setting geographical coordinates in API functions that accept longitude-latitude input.
    */
   coordorder?: 'latlong' | 'longlat';
   /**
-   * List of modules to load
+   * List of modules to load.
    */
   load?: string;
   /**
-   * API loading mode
+   * API loading mode.
    */
   mode?: 'release' | 'debug';
   /**
-   * Use commercial version of the API
+   * Use commercial version of the API.
    */
   enterprise?: boolean;
   /**
-   * Version number of the API
+   * Version number of the API.
    */
   version?: string;
 }
 
 /**
- * @description Injectable service that handles loading of Yandex.Maps API
- * @see {@link https://ddubrava.github.io/angular8-yandex-maps/#/services/script}
+ * Injectable service that handles loading of Yandex.Maps API.
+ *
+ * @example
+ * import { YaApiLoaderService } from 'angular8-yandex-maps';
+ *
+ * export class AppComponent {
+ *              constructor(private aaApiLoaderService: YaApiLoaderService) {
+ *                this.scriptService.load()
+ *                  .subscribe(ymaps => console.log(ymaps))
+ *              }
+ * }
  */
 @Injectable({
   providedIn: 'root',
@@ -98,8 +107,10 @@ export class YaApiLoaderService {
 
   /**
    * Returns script source by config
-   * @param config Config with parameters that will be added in source
-   * @example 'https://api-maps.yandex.ru/2.1/?apikey=658f67a2-fd77-42e9-b99e-2bd48c4ccad4&lang=en_US'
+   * @param config config with parameters that will be added in source
+   * @example
+   * // returns 'https://api-maps.yandex.ru/2.1/?apikey=658f67a2-fd77-42e9-b99e-2bd48c4ccad4&lang=en_US'
+   * getScriptSource({ apikey: '658f67a2-fd77-42e9-b99e-2bd48c4ccad4', lang: 'en_US' })
    */
   private _getScriptSource(config: YaConfig): string {
     const { enterprise, version = '2.1', ...rest } = config;

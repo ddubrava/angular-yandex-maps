@@ -1,6 +1,6 @@
 /**
  * Copied from angular/components/google-maps and edited for Yandex Maps API.
- * @see @{link https://github.com/angular/components/blob/master/src/google-maps/map-event-manager.ts}
+ * {@link https://github.com/angular/components/blob/master/src/google-maps/map-event-manager.ts}
  */
 
 import { NgZone } from '@angular/core';
@@ -18,7 +18,7 @@ export interface YaEvent<T = any> {
   ymaps: typeof ymaps;
   /**
    * Provides methods for accessing the originalObject object's fields and methods, with the possibility for redefining them.
-   * @see {@link https://yandex.ru/dev/maps/jsapi/doc/2.1/ref/reference/Event.html/}
+   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/Event.html/}
    */
   event: ymaps.Event<any, T>;
 }

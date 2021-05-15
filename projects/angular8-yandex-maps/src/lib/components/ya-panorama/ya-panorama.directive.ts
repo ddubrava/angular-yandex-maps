@@ -16,7 +16,7 @@ import { YaMapComponent } from '../ya-map/ya-map.component';
 
 /**
  * The `ya-panorama` component wraps `ymaps.panorama.Player` class from the Yandex Maps API.
- * You can configure the map via the component's inputs.
+ * You can configure it via the component's inputs.
  * Events can be bound using the outputs of the component.
  *
  * @example

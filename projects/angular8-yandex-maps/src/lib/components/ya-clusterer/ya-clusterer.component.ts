@@ -12,15 +12,33 @@ import {
   QueryList,
   SimpleChanges,
 } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { YaGeoObjectDirective } from '../ya-geoobject/ya-geoobject.directive';
 import { YaMapComponent } from '../ya-map/ya-map.component';
 import { YaPlacemarkDirective } from '../ya-placemark/ya-placemark.directive';
-import { EventManager, YaReadyEvent } from '../../utils/event-manager';
+import { EventManager, YaEvent, YaReadyEvent } from '../../utils/event-manager';
 
 /**
- * Directive that renders a clusterer.
- * @see {@link https://ddubrava.github.io/angular8-yandex-maps/#/directives/clusterer}
+ * The `ya-clusterer` component wraps `ymaps.Clusterer` class from the Yandex Maps API.
+ * You can configure it via the component's inputs.
+ * Events can be bound using the outputs of the component.
+ *
+ * <example-url>https://placemark-clusterer.stackblitz.io/</example-url>
+ *
+ * @example
+ * <ya-map [center]="[55.761952, 37.620739]">
+ *              <ya-clusterer [options]="{ minClusterSize: 5 }">
+ *                <ya-placemark [geometry]="[55.74, 37.5]"></ya-placemark>
+ *                <ya-placemark [geometry]="[55.64, 37.46]"></ya-placemark>
+ *                <ya-placemark [geometry]="[55.75, 37.38]"></ya-placemark>
+ *                <ya-geoobject
+ *                  [feature]="{ geometry: { type: 'Point', coordinates: [55.81, 37.4] } }"
+ *                 ></ya-geoobject>
+ *                <ya-geoobject
+ *                  [feature]="{ geometry: { type: 'Point', coordinates: [55.7, 37.39] } }"
+ *                 ></ya-geoobject>
+ *              </ya-clusterer>
+ * </ya-map>
  */
 @Component({
   selector: 'ya-clusterer',
@@ -42,39 +60,51 @@ export class YaClustererComponent implements AfterContentInit, OnChanges, OnDest
 
   /**
    * Options for the clusterer.
-   * @see {@link https://tech.yandex.com/maps/jsapi/doc/2.1/ref/reference/Clusterer-docpage/#Clustererparam-options}
+   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/Clusterer.html#Clusterer__param-options}
    */
-  @Input() options: any;
+  @Input() options: ymaps.IClustererOptions;
 
   /**
    * Clusterer instance is added in a Map.
    */
-  @Output() ready = new EventEmitter<YaReadyEvent<ymaps.Clusterer>>();
+  @Output() ready: EventEmitter<YaReadyEvent<ymaps.Clusterer>> = new EventEmitter<
+    YaReadyEvent<ymaps.Clusterer>
+  >();
 
   /**
    * Closing the hint.
    */
-  @Output() hintclose = this._eventManager.getLazyEmitter('hintclose');
+  @Output() hintclose: Observable<YaEvent<ymaps.Clusterer>> = this._eventManager.getLazyEmitter(
+    'hintclose',
+  );
 
   /**
    * Opening a hint on a map.
    */
-  @Output() hintopen = this._eventManager.getLazyEmitter('hintopen');
+  @Output() hintopen: Observable<YaEvent<ymaps.Clusterer>> = this._eventManager.getLazyEmitter(
+    'hintopen',
+  );
 
   /**
    * Map reference changed.
    */
-  @Output() mapchange = this._eventManager.getLazyEmitter('mapchange');
+  @Output() mapchange: Observable<YaEvent<ymaps.Clusterer>> = this._eventManager.getLazyEmitter(
+    'mapchange',
+  );
 
   /**
    * Change to the object options.
    */
-  @Output() optionschange = this._eventManager.getLazyEmitter('optionschange');
+  @Output() optionschange: Observable<YaEvent<ymaps.Clusterer>> = this._eventManager.getLazyEmitter(
+    'optionschange',
+  );
 
   /**
    * The parent object reference changed.
    */
-  @Output() parentchange = this._eventManager.getLazyEmitter('parentchange');
+  @Output() parentchange: Observable<YaEvent<ymaps.Clusterer>> = this._eventManager.getLazyEmitter(
+    'parentchange',
+  );
 
   constructor(private readonly _ngZone: NgZone, private readonly _yaMapComponent: YaMapComponent) {}
 

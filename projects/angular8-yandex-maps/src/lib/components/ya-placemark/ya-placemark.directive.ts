@@ -15,7 +15,7 @@ import { EventManager, YaEvent, YaReadyEvent } from '../../utils/event-manager';
 
 /**
  * The `ya-placemark` directive wraps `ymaps.Placemark` class from the Yandex Maps API.
- * You can configure the placemark via the directive's inputs.
+ * You can configure it via the directive's inputs.
  * Events can be bound using the outputs of the directive.
  *
  * <example-url>https://custom-placemark.stackblitz.io/</example-url>

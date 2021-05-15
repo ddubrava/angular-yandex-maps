@@ -84,7 +84,7 @@ describe('YaApiLoaderService', () => {
     expect(mockDocument.body.appendChild).not.toHaveBeenCalled();
   });
 
-  it('should not append second script if initScript called in a sequence', () => {
+  it('should not append second script if load called in a sequence', () => {
     service = new YaApiLoaderService(null, mockDocument);
 
     mockDocument.createElement.and.returnValue({});

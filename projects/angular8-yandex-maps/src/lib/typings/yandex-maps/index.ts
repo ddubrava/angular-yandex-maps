@@ -8,7 +8,7 @@
  * Type definitions for non-npm package yandex-maps 2.1.
  * Definitions by: Delagen <https://github.com/Delagen> / gastwork13 <https://github.com/gastwork13>.
  * Due to inactivity typings were copied and improved.
- * @see {@link https://yandex.ru/dev/maps/jsapi/doc/2.1/ref/concepts/About.html}
+ * @see {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/concepts/About.html}
  */
 declare namespace ymaps {
   interface IClassConstructor<T> {
@@ -4116,6 +4116,11 @@ declare namespace ymaps {
 
   interface IGeometryJson {
     type: string;
+    /**
+     * The field doesn't documented in API, but it uses in examples.
+     * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/GeoObject.html}
+     */
+    coordinates: number[] | number[][];
   }
 
   interface IGeoObject<T = IGeometry>

@@ -24,10 +24,15 @@
 
 <div class="container">
   <ya-map [center]="[55.74, 37.58]">
-    <ya-clusterer>
+    <ya-clusterer [options]="{ minClusterSize: 5 }">
       <ya-placemark [geometry]="[55.74, 37.5]"></ya-placemark>
+      <ya-placemark [geometry]="[55.64, 37.46]"></ya-placemark>
+      <ya-placemark [geometry]="[55.75, 37.38]"></ya-placemark>
       <ya-geoobject
-        [feature]="{ geometry: { type: 'Point', coordinates: [55.73, 37.52] } }"
+        [feature]="{ geometry: { type: 'Point', coordinates: [55.81, 37.4] } }"
+      ></ya-geoobject>
+      <ya-geoobject
+        [feature]="{ geometry: { type: 'Point', coordinates: [55.7, 37.39] } }"
       ></ya-geoobject>
     </ya-clusterer>
   </ya-map>

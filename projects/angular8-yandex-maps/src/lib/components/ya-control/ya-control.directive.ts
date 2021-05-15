@@ -19,8 +19,19 @@ export type YaControlType =
   | 'ZoomControl';
 
 /**
- * Directive that renders a control.
- * @see {@link https://ddubrava.github.io/angular8-yandex-maps/#/directives/control}
+ * The `ya-control` component wraps `ymaps.control[YaControlType]` classes from the Yandex Maps API.
+ * You can configure `ymaps.control[YaControlType]` via the component's inputs.
+ * API Events can be bound only manually. You can use `ready` event to get an instance.
+ *
+ * <example-url>https://searchcontrol.stackblitz.io/</example-url>
+ *
+ * @example
+ * <ya-map [center]="[55.761952, 37.620739]">
+ *              <ya-control
+ *                type="RoutePanel"
+ *                [parameters]="{ options: { float: 'right' } }"
+ *              ></ya-control>
+ * </ya-map>
  */
 @Directive({
   selector: 'ya-control',
@@ -43,7 +54,7 @@ export class YaControlDirective implements OnInit, OnChanges {
   /**
    * Control instance is added in a Map.
    */
-  @Output() ready = new EventEmitter<YaReadyEvent<any>>();
+  @Output() ready: EventEmitter<YaReadyEvent<any>> = new EventEmitter<YaReadyEvent<any>>();
 
   constructor(private readonly _ngZone: NgZone, private readonly _yaMapComponent: YaMapComponent) {}
 
