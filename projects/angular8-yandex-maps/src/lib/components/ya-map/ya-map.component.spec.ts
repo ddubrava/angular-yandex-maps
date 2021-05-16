@@ -6,6 +6,7 @@ import * as GenerateRandomIdModule from '../../utils/generate-random-id';
 import { YaMapComponent } from './ya-map.component';
 import { YaReadyEvent } from '../../utils/event-manager';
 import { YaApiLoaderService } from '../../services/ya-api-loader/ya-api-loader.service';
+import { AngularYandexMapsModule } from '../../angular-yandex-maps.module';
 
 /** Creates a jasmine.SpyObj for a ymaps.Map. */
 function createMapSpy(): jasmine.SpyObj<ymaps.Map> {
@@ -31,9 +32,7 @@ function createMapConstructorSpy(mapSpy: jasmine.SpyObj<ymaps.Map>): jasmine.Spy
 
 @Component({
   template: `
-    <ya-map #map [center]="center" [zoom]="zoom" [state]="state" [options]="options">
-      <ya-placemark [geometry]="[55.751952, 37.600739]"></ya-placemark>
-    </ya-map>
+    <ya-map #map [center]="center" [zoom]="zoom" [state]="state" [options]="options"></ya-map>
   `,
 })
 class MockHostComponent {
@@ -57,11 +56,12 @@ describe('YaMapComponent', () => {
 
   beforeEach(async () => {
     const yaApiLoaderServiceStub = {
-      initScript: () => new Observable((s) => s.next()),
+      load: () => new Observable((s) => s.next()),
     };
 
     await TestBed.configureTestingModule({
-      declarations: [MockHostComponent, YaMapComponent],
+      imports: [AngularYandexMapsModule],
+      declarations: [MockHostComponent],
       providers: [{ provide: YaApiLoaderService, useValue: yaApiLoaderServiceStub }],
     }).compileComponents();
   });
@@ -87,7 +87,7 @@ describe('YaMapComponent', () => {
     expect(component.container.nativeElement.style.height).toBe('100%');
     expect(component.container.nativeElement.id).toBe(random);
 
-    expect(mapConstructorSpy).toHaveBeenCalledWith(random, { zoom: 10, center: [] }, {});
+    expect(mapConstructorSpy).toHaveBeenCalledWith(random, { zoom: 10, center: [0, 0] }, {});
   });
 
   it('should emit ready on map load', () => {
@@ -102,15 +102,10 @@ describe('YaMapComponent', () => {
     expect(component.ready.emit).toHaveBeenCalledWith(readyEvent);
   });
 
-  it('should setup map listeners', () => {
-    fixture.detectChanges();
-    expect(mapSpy.events.add).toHaveBeenCalled();
-  });
-
   it('should set default center and zoom if not passed', () => {
     fixture.detectChanges();
     expect(mapConstructorSpy.calls.mostRecent()?.args[1]).toEqual({
-      center: [],
+      center: [0, 0],
       zoom: 10,
     });
   });
