@@ -43,13 +43,13 @@ export class YaPlacemarkDirective implements OnInit, OnChanges, OnDestroy {
 
   /**
    * Properties for the placemark.
-   * {@link https://tech.yandex.com/maps/jsapi/doc/2.1/ref/reference/Placemark-docpage/#Placemarkparam-properties}
+   * {@link https://yandex.com/maps/jsapi/doc/2.1/ref/reference/Placemark-docpage/#Placemarkparam-properties}
    */
   @Input() properties: object | ymaps.IDataManager;
 
   /**
    * Options for the placemark.
-   * {@link https://tech.yandex.com/maps/jsapi/doc/2.1/ref/reference/Placemark-docpage/#Placemarkparam-options}
+   * {@link https://yandex.com/maps/jsapi/doc/2.1/ref/reference/Placemark-docpage/#Placemarkparam-options}
    */
   @Input() options: ymaps.IPlacemarkOptions;
 

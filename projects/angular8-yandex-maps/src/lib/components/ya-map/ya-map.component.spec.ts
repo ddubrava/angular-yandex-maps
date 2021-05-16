@@ -6,37 +6,22 @@ import * as GenerateRandomIdModule from '../../utils/generate-random-id';
 import { YaMapComponent } from './ya-map.component';
 import { YaReadyEvent } from '../../utils/event-manager';
 import { YaApiLoaderService } from '../../services/ya-api-loader/ya-api-loader.service';
-import { AngularYandexMapsModule } from '../../angular-yandex-maps.module';
-
-/** Creates a jasmine.SpyObj for a ymaps.Map. */
-function createMapSpy(): jasmine.SpyObj<ymaps.Map> {
-  return jasmine.createSpyObj('ymaps.Map', ['setCenter', 'setZoom', 'setBounds', 'setType'], {
-    events: jasmine.createSpyObj('events', ['add']),
-    behaviors: jasmine.createSpyObj('behaviors', ['enable']),
-    margin: jasmine.createSpyObj('margin', ['setDefaultMargin']),
-    controls: jasmine.createSpyObj('controls', ['add']),
-    options: jasmine.createSpyObj('controls', ['set']),
-  });
-}
-
-/** Creates a jasmine.Spy to watch for the constructor of a ymaps.Map. */
-function createMapConstructorSpy(mapSpy: jasmine.SpyObj<ymaps.Map>): jasmine.Spy {
-  const mapConstructorSpy = jasmine.createSpy('Map constructor').and.returnValue(mapSpy);
-
-  window.ymaps = {
-    Map: mapConstructorSpy,
-  } as any;
-
-  return mapConstructorSpy;
-}
+import { createMapConstructorSpy, createMapSpy } from '../../testing/fake-ymaps-utils';
 
 @Component({
   template: `
-    <ya-map #map [center]="center" [zoom]="zoom" [state]="state" [options]="options"></ya-map>
+    <ya-map
+      [center]="center"
+      [zoom]="zoom"
+      [state]="state"
+      [options]="options"
+      (yaclick)="handleClick()"
+      (hintopen)="handleHintOpen()"
+    ></ya-map>
   `,
 })
 class MockHostComponent {
-  @ViewChild('map', { static: true }) map: YaMapComponent;
+  @ViewChild(YaMapComponent, { static: true }) map: YaMapComponent;
 
   center: number[];
 
@@ -45,6 +30,10 @@ class MockHostComponent {
   state: ymaps.IMapState;
 
   options: ymaps.IMapOptions;
+
+  handleClick(): void {}
+
+  handleHintOpen(): void {}
 }
 
 describe('YaMapComponent', () => {
@@ -60,8 +49,7 @@ describe('YaMapComponent', () => {
     };
 
     await TestBed.configureTestingModule({
-      imports: [AngularYandexMapsModule],
-      declarations: [MockHostComponent],
+      declarations: [MockHostComponent, YaMapComponent],
       providers: [{ provide: YaApiLoaderService, useValue: yaApiLoaderServiceStub }],
     }).compileComponents();
   });
@@ -256,5 +244,52 @@ describe('YaMapComponent', () => {
     fixture.detectChanges();
 
     expect(mapSpy.options.set).toHaveBeenCalledWith(options);
+  });
+
+  it('should init event handlers that are set on the map', () => {
+    const addSpy = mapSpy.events.add;
+    fixture.detectChanges();
+
+    expect(addSpy).toHaveBeenCalledWith('click', jasmine.any(Function));
+    expect(addSpy).toHaveBeenCalledWith('hintopen', jasmine.any(Function));
+    expect(addSpy).not.toHaveBeenCalledWith('actionbegin', jasmine.any(Function));
+    expect(addSpy).not.toHaveBeenCalledWith('actionbreak', jasmine.any(Function));
+    expect(addSpy).not.toHaveBeenCalledWith('actionend', jasmine.any(Function));
+    expect(addSpy).not.toHaveBeenCalledWith('actiontick', jasmine.any(Function));
+    expect(addSpy).not.toHaveBeenCalledWith('actiontickcomplete', jasmine.any(Function));
+    expect(addSpy).not.toHaveBeenCalledWith('balloonclose', jasmine.any(Function));
+    expect(addSpy).not.toHaveBeenCalledWith('balloonopen', jasmine.any(Function));
+    expect(addSpy).not.toHaveBeenCalledWith('boundschange', jasmine.any(Function));
+    expect(addSpy).not.toHaveBeenCalledWith('contextmenu', jasmine.any(Function));
+    expect(addSpy).not.toHaveBeenCalledWith('dbclick', jasmine.any(Function));
+    expect(addSpy).not.toHaveBeenCalledWith('destroy', jasmine.any(Function));
+    expect(addSpy).not.toHaveBeenCalledWith('hintclose', jasmine.any(Function));
+    expect(addSpy).not.toHaveBeenCalledWith('marginchange', jasmine.any(Function));
+    expect(addSpy).not.toHaveBeenCalledWith('mousedown', jasmine.any(Function));
+    expect(addSpy).not.toHaveBeenCalledWith('mouseenter', jasmine.any(Function));
+    expect(addSpy).not.toHaveBeenCalledWith('mouseleave', jasmine.any(Function));
+    expect(addSpy).not.toHaveBeenCalledWith('mousemove', jasmine.any(Function));
+    expect(addSpy).not.toHaveBeenCalledWith('mouseup', jasmine.any(Function));
+    expect(addSpy).not.toHaveBeenCalledWith('multitouchend', jasmine.any(Function));
+    expect(addSpy).not.toHaveBeenCalledWith('multitouchmove', jasmine.any(Function));
+    expect(addSpy).not.toHaveBeenCalledWith('multitouchstart', jasmine.any(Function));
+    expect(addSpy).not.toHaveBeenCalledWith('optionschange', jasmine.any(Function));
+    expect(addSpy).not.toHaveBeenCalledWith('sizechange', jasmine.any(Function));
+    expect(addSpy).not.toHaveBeenCalledWith('typechange', jasmine.any(Function));
+    expect(addSpy).not.toHaveBeenCalledWith('wheel', jasmine.any(Function));
+  });
+
+  it('should be able to add an event listener after init', () => {
+    const addSpy = mapSpy.events.add;
+    fixture.detectChanges();
+
+    expect(addSpy).not.toHaveBeenCalledWith('multitouchend', jasmine.any(Function));
+
+    // Pick an event that isn't bound in the template.
+    const subscription = fixture.componentInstance.map.multitouchend.subscribe();
+    fixture.detectChanges();
+
+    expect(addSpy).toHaveBeenCalledWith('multitouchend', jasmine.any(Function));
+    subscription.unsubscribe();
   });
 });
