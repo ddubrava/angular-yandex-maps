@@ -98,7 +98,7 @@ describe('Directive: YaControl', () => {
     expect(routePanelConstructorSpy.calls.mostRecent()?.args[0]).toEqual(parameters);
   });
 
-  it('should console warn if feature.geometry is passed after init', () => {
+  it('should console warn if parameters is passed after init', () => {
     fixture.detectChanges();
 
     console.warn = jasmine.createSpy('warn');

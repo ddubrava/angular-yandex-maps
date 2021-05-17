@@ -1,3 +1,27 @@
+// The global `window` variable is typed as an intersection of `Window` and `globalThis`.
+// We re-declare `window` here and omit `globalThis` as it is typed with the actual Yandex Maps
+// types which we intend to override with jasmine spies for testing. Keeping `globalThis`
+// would mean that `window` is not assignable to our testing window.
+declare let window: Window;
+
+interface TestingWindow extends Window {
+  ymaps?: {
+    Map?: jasmine.Spy;
+    Placemark?: jasmine.Spy;
+    GeoObject?: jasmine.Spy;
+    Clusterer?: jasmine.Spy;
+    panorama?: {
+      Player?: jasmine.Spy;
+    };
+    multiRouter?: {
+      MultiRoute?: jasmine.Spy;
+    };
+    control?: {
+      RoutePanel?: jasmine.Spy;
+    };
+  };
+}
+
 /** Creates a jasmine.SpyObj for a ymaps.Map. */
 export function createMapSpy(): jasmine.SpyObj<ymaps.Map> {
   const spy = jasmine.createSpyObj(
@@ -24,9 +48,15 @@ export function createMapSpy(): jasmine.SpyObj<ymaps.Map> {
 export function createMapConstructorSpy(mapSpy: jasmine.SpyObj<ymaps.Map>): jasmine.Spy {
   const mapConstructorSpy = jasmine.createSpy('Map constructor').and.returnValue(mapSpy);
 
-  window.ymaps = {
-    Map: mapConstructorSpy,
-  } as any;
+  const testingWindow: TestingWindow = window;
+
+  if (testingWindow.ymaps) {
+    testingWindow.ymaps.Map = mapConstructorSpy;
+  } else {
+    testingWindow.ymaps = {
+      Map: mapConstructorSpy,
+    };
+  }
 
   return mapConstructorSpy;
 }
@@ -55,9 +85,15 @@ export function createPlacemarkConstructorSpy(
     .createSpy('Placemark constructor')
     .and.returnValue(placemarkSpy);
 
-  window.ymaps = {
-    Placemark: placemarkConstructorSpy,
-  } as any;
+  const testingWindow: TestingWindow = window;
+
+  if (testingWindow.ymaps) {
+    testingWindow.ymaps.Placemark = placemarkConstructorSpy;
+  } else {
+    testingWindow.ymaps = {
+      Placemark: placemarkConstructorSpy,
+    };
+  }
 
   return placemarkConstructorSpy;
 }
@@ -81,11 +117,19 @@ export function createPlayerConstructorSpy(
 ): jasmine.Spy {
   const playerConstructorSpy = jasmine.createSpy('Player constructor').and.returnValue(playerSpy);
 
-  window.ymaps = {
-    panorama: {
+  const testingWindow: TestingWindow = window;
+
+  if (testingWindow.ymaps) {
+    testingWindow.ymaps.panorama = {
       Player: playerConstructorSpy,
-    },
-  } as any;
+    };
+  } else {
+    testingWindow.ymaps = {
+      panorama: {
+        Player: playerConstructorSpy,
+      },
+    };
+  }
 
   return playerConstructorSpy;
 }
@@ -117,11 +161,19 @@ export function createMultirouteConstructorSpy(
     .createSpy('Multiroute constructor')
     .and.returnValue(multirouteSpy);
 
-  window.ymaps = {
-    multiRouter: {
+  const testingWindow: TestingWindow = window;
+
+  if (testingWindow.ymaps) {
+    testingWindow.ymaps.multiRouter = {
       MultiRoute: multirouteConstructorSpy,
-    },
-  } as any;
+    };
+  } else {
+    testingWindow.ymaps = {
+      multiRouter: {
+        MultiRoute: multirouteConstructorSpy,
+      },
+    };
+  }
 
   return multirouteConstructorSpy;
 }
@@ -149,9 +201,15 @@ export function createGeoObjectConstructorSpy(
     .createSpy('GeoObject constructor')
     .and.returnValue(geoObjectSpy);
 
-  window.ymaps = {
-    GeoObject: geoObjectConstructorSpy,
-  } as any;
+  const testingWindow: TestingWindow = window;
+
+  if (testingWindow.ymaps) {
+    testingWindow.ymaps.GeoObject = geoObjectConstructorSpy;
+  } else {
+    testingWindow.ymaps = {
+      GeoObject: geoObjectConstructorSpy,
+    };
+  }
 
   return geoObjectConstructorSpy;
 }
@@ -173,11 +231,54 @@ export function createRoutePanelConstructorSpy(
     .createSpy('GeoObject constructor')
     .and.returnValue(routePanelSpy);
 
-  window.ymaps = {
-    control: {
+  const testingWindow: TestingWindow = window;
+
+  if (testingWindow.ymaps) {
+    testingWindow.ymaps.control = {
       RoutePanel: routerPanelConstructorSpy,
-    },
-  } as any;
+    };
+  } else {
+    testingWindow.ymaps = {
+      control: {
+        RoutePanel: routerPanelConstructorSpy,
+      },
+    };
+  }
 
   return routerPanelConstructorSpy;
+}
+
+/** Creates a jasmine.SpyObj for a ymaps.Clusterer. */
+export function createClustererSpy(): jasmine.SpyObj<ymaps.Clusterer> {
+  const spy = jasmine.createSpyObj('ymaps.Clusterer', ['add', 'remove'], {
+    events: jasmine.createSpyObj('events', ['add']),
+    options: jasmine.createSpyObj('options', ['set']),
+  });
+
+  spy.events.add.and.returnValue({
+    remove: () => {},
+  });
+
+  return spy;
+}
+
+/** Creates a jasmine.Spy to watch for the constructor of a ymaps.Clusterer. */
+export function createClustererConstructorSpy(
+  clustererSpy: jasmine.SpyObj<ymaps.Clusterer>,
+): jasmine.Spy {
+  const clustererConstructorSpy = jasmine
+    .createSpy('Clusterer constructor')
+    .and.returnValue(clustererSpy);
+
+  const testingWindow: TestingWindow = window;
+
+  if (testingWindow.ymaps) {
+    testingWindow.ymaps.Clusterer = clustererConstructorSpy;
+  } else {
+    testingWindow.ymaps = {
+      Clusterer: clustererConstructorSpy,
+    };
+  }
+
+  return clustererConstructorSpy;
 }
