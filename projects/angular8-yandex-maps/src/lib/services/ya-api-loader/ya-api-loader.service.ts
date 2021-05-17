@@ -37,6 +37,7 @@ export interface YaConfig {
 }
 
 /**
+ * @dynamic
  * Injectable service that handles loading of Yandex.Maps API.
  *
  * @example
