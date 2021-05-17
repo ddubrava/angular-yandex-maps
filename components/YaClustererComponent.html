@@ -214,7 +214,7 @@ Events can be bound using the outputs of the component.</p>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="107" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-clusterer/ya-clusterer.component.ts:107</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="102" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-clusterer/ya-clusterer.component.ts:102</a></div>
                             </td>
                         </tr>
 
@@ -340,7 +340,7 @@ Events can be bound using the outputs of the component.</p>
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="84" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-clusterer/ya-clusterer.component.ts:84</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="83" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-clusterer/ya-clusterer.component.ts:83</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -367,7 +367,7 @@ Events can be bound using the outputs of the component.</p>
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="91" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-clusterer/ya-clusterer.component.ts:91</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="89" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-clusterer/ya-clusterer.component.ts:89</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -394,7 +394,7 @@ Events can be bound using the outputs of the component.</p>
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="98" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-clusterer/ya-clusterer.component.ts:98</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="95" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-clusterer/ya-clusterer.component.ts:95</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -421,7 +421,7 @@ Events can be bound using the outputs of the component.</p>
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="105" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-clusterer/ya-clusterer.component.ts:105</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="101" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-clusterer/ya-clusterer.component.ts:101</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -544,37 +544,32 @@ export class YaClustererComponent implements AfterContentInit, OnChanges, OnDest
   /**
    * Closing the hint.
    */
-  @Output() hintclose: Observable&lt;YaEvent&lt;ymaps.Clusterer&gt;&gt; &#x3D; this._eventManager.getLazyEmitter(
-    &#x27;hintclose&#x27;,
-  );
+  @Output() hintclose: Observable&lt;YaEvent&lt;ymaps.Clusterer&gt;&gt; &#x3D;
+    this._eventManager.getLazyEmitter(&#x27;hintclose&#x27;);
 
   /**
    * Opening a hint on a map.
    */
-  @Output() hintopen: Observable&lt;YaEvent&lt;ymaps.Clusterer&gt;&gt; &#x3D; this._eventManager.getLazyEmitter(
-    &#x27;hintopen&#x27;,
-  );
+  @Output() hintopen: Observable&lt;YaEvent&lt;ymaps.Clusterer&gt;&gt; &#x3D;
+    this._eventManager.getLazyEmitter(&#x27;hintopen&#x27;);
 
   /**
    * Map reference changed.
    */
-  @Output() mapchange: Observable&lt;YaEvent&lt;ymaps.Clusterer&gt;&gt; &#x3D; this._eventManager.getLazyEmitter(
-    &#x27;mapchange&#x27;,
-  );
+  @Output() mapchange: Observable&lt;YaEvent&lt;ymaps.Clusterer&gt;&gt; &#x3D;
+    this._eventManager.getLazyEmitter(&#x27;mapchange&#x27;);
 
   /**
    * Change to the object options.
    */
-  @Output() optionschange: Observable&lt;YaEvent&lt;ymaps.Clusterer&gt;&gt; &#x3D; this._eventManager.getLazyEmitter(
-    &#x27;optionschange&#x27;,
-  );
+  @Output() optionschange: Observable&lt;YaEvent&lt;ymaps.Clusterer&gt;&gt; &#x3D;
+    this._eventManager.getLazyEmitter(&#x27;optionschange&#x27;);
 
   /**
    * The parent object reference changed.
    */
-  @Output() parentchange: Observable&lt;YaEvent&lt;ymaps.Clusterer&gt;&gt; &#x3D; this._eventManager.getLazyEmitter(
-    &#x27;parentchange&#x27;,
-  );
+  @Output() parentchange: Observable&lt;YaEvent&lt;ymaps.Clusterer&gt;&gt; &#x3D;
+    this._eventManager.getLazyEmitter(&#x27;parentchange&#x27;);
 
   constructor(private readonly _ngZone: NgZone, private readonly _yaMapComponent: YaMapComponent) {}
 
