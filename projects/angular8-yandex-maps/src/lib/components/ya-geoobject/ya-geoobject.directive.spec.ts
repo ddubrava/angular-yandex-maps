@@ -2,7 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Observable } from 'rxjs';
 import { YaGeoObjectDirective } from './ya-geoobject.directive';
-import { AngularYandexMapsModule } from '../../angular-yandex-maps.module';
 import { YaMapComponent } from '../ya-map/ya-map.component';
 import {
   createGeoObjectConstructorSpy,
@@ -48,8 +47,7 @@ describe('Directive: YaGeoObject', () => {
     mapSpy = createMapSpy();
 
     await TestBed.configureTestingModule({
-      imports: [AngularYandexMapsModule],
-      declarations: [MockHostComponent],
+      declarations: [MockHostComponent, YaGeoObjectDirective],
       providers: [
         {
           provide: YaMapComponent,

@@ -2,7 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Observable } from 'rxjs';
 import { YaMultirouteDirective } from './ya-multiroute.directive';
-import { AngularYandexMapsModule } from '../../angular-yandex-maps.module';
 import { YaMapComponent } from '../ya-map/ya-map.component';
 import {
   createMapSpy,
@@ -51,8 +50,7 @@ describe('Directive: YaMultiroute', () => {
     mapSpy = createMapSpy();
 
     await TestBed.configureTestingModule({
-      imports: [AngularYandexMapsModule],
-      declarations: [MockHostComponent],
+      declarations: [MockHostComponent, YaMultirouteDirective],
       providers: [
         {
           provide: YaMapComponent,

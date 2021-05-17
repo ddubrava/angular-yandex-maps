@@ -155,3 +155,29 @@ export function createGeoObjectConstructorSpy(
 
   return geoObjectConstructorSpy;
 }
+
+/** Creates a jasmine.SpyObj for a ymaps.control.RoutePanel. */
+export function createRoutePanelSpy(): jasmine.SpyObj<ymaps.control.RoutePanel> {
+  return jasmine.createSpyObj('ymaps.GeoObject', [], {
+    routePanel: jasmine.createSpyObj('routePanel', [], {
+      state: jasmine.createSpyObj('state', ['set']),
+    }),
+  });
+}
+
+/** Creates a jasmine.Spy to watch for the constructor of a ymaps.control.RoutePanel. */
+export function createRoutePanelConstructorSpy(
+  routePanelSpy: jasmine.SpyObj<ymaps.control.RoutePanel>,
+): jasmine.Spy {
+  const routerPanelConstructorSpy = jasmine
+    .createSpy('GeoObject constructor')
+    .and.returnValue(routePanelSpy);
+
+  window.ymaps = {
+    control: {
+      RoutePanel: routerPanelConstructorSpy,
+    },
+  } as any;
+
+  return routerPanelConstructorSpy;
+}
