@@ -5,9 +5,9 @@
   "scripts": {
     "start": "ng serve --configuration=local",
     "start:lib": "ng build angular8-yandex-maps --watch",
-    "start:docs": "compodoc -s -p tsconfig.doc.json --minimal --output dist/docs --name \"Angular Yandex Maps\" --hideGenerator --disableDomTree --disableInternal --includes documentation",
+    "start:docs": "npm run build:docs -- -s",
     "build": "ng build angular8-yandex-maps --prod",
-    "build:docs": "compodoc -p tsconfig.doc.json --minimal --output dist/docs --name \"Angular Yandex Maps\" --hideGenerator --disableDomTree --disableInternal --includes documentation",
+    "build:docs": "compodoc -p tsconfig.doc.json --minimal --output dist/docs --name \"Angular Yandex Maps\" --hideGenerator --disableLifeCycleHooks --disableInternal --disablePrivate --includes documentation",
     "test": "ng test angular8-yandex-maps",
     "test:headless": "ng test angular8-yandex-maps --watch=false --browsers=ChromeHeadless",
     "lint": "ng lint angular8-yandex-maps"

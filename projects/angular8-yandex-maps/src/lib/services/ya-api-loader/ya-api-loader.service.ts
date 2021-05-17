@@ -43,10 +43,10 @@ export interface YaConfig {
  * import { YaApiLoaderService } from 'angular8-yandex-maps';
  *
  * export class AppComponent {
- *              constructor(private aaApiLoaderService: YaApiLoaderService) {
- *                this.scriptService.load()
- *                  .subscribe(ymaps => console.log(ymaps))
- *              }
+ *               constructor(private yaApiLoaderService: YaApiLoaderService) {
+ *                 this.scriptService.load()
+ *                   .subscribe(ymaps => console.log(ymaps))
+ *               }
  * }
  */
 @Injectable({

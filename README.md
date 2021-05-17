@@ -1,4 +1,8 @@
-![npm version](https://badgen.net/npm/v/angular8-yandex-maps?color=green) ![github status](https://badgen.net/github/status/ddubrava/angular8-yandex-maps) ![npm downloads](https://badgen.net/npm/dm/angular8-yandex-maps) ![package size](https://badgen.net/bundlephobia/min/angular8-yandex-maps?color=green) ![github stars](https://badgen.net/github/stars/ddubrava/angular8-yandex-maps?color=green)
+![npm](https://img.shields.io/npm/v/angular8-yandex-maps)
+![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/ddubrava/angular8-yandex-maps/CI/master)
+![npm](https://img.shields.io/npm/dm/angular8-yandex-maps?color=blue)
+![npm bundle size](https://img.shields.io/bundlephobia/min/angular8-yandex-maps)
+![GitHub Repo stars](https://img.shields.io/github/stars/ddubrava/angular8-yandex-maps)
 
 # Angular8-yandex-maps
 
@@ -10,11 +14,11 @@ Angular components for Yandex.Maps.
 
 ## Examples
 
-[Examples](https://ddubrava.github.io/angular8-yandex-maps/#/examples)
+[Examples](https://ddubrava.github.io/angular8-yandex-maps/additional-documentation/examples.html)
 
 ## Installation
 
-```
+```bash
 npm install angular8-yandex-maps
 ```
 
@@ -37,18 +41,18 @@ npm install angular8-yandex-maps@^6.0.0
 
 ##### Default map config options
 
-```
+```typescript
 import { AngularYandexMapsModule } from 'angular8-yandex-maps';
 
 @NgModule({
-  imports: [AngularYandexMapsModule]
+  imports: [AngularYandexMapsModule],
 })
-export class AppModule { }
+export class AppModule {}
 ```
 
 ##### Own map config options
 
-```
+```typescript
 import { AngularYandexMapsModule, YaConfig } from 'angular8-yandex-maps';
 
 const mapConfig: YaConfig = {
@@ -57,32 +61,34 @@ const mapConfig: YaConfig = {
 };
 
 @NgModule({
-  imports: [AngularYandexMapsModule.forRoot(mapConfig)]
+  imports: [AngularYandexMapsModule.forRoot(mapConfig)],
 })
-export class AppModule { }
+export class AppModule {}
 ```
 
 ##### Injection token
 
-```
+```typescript
 import { AngularYandexMapsModule, YA_CONFIG } from 'angular8-yandex-maps';
 
 @NgModule({
   imports: [AngularYandexMapsModule],
-  providers: [{
-    provide: YA_CONFIG,
-    useValue: {
-      apikey: 'API_KEY',
-      lang: 'en_US',
-    }
-  }],
+  providers: [
+    {
+      provide: YA_CONFIG,
+      useValue: {
+        apikey: 'API_KEY',
+        lang: 'en_US',
+      },
+    },
+  ],
 })
-export class AppModule { }
+export class AppModule {}
 ```
 
 ### component.html
 
-```
+```html
 <div class="container">
   <ya-map [center]="[55.751952, 37.600739]" [zoom]="12">
     <ya-placemark [geometry]="[55.751952, 37.600739]"></ya-placemark>
@@ -92,7 +98,7 @@ export class AppModule { }
 
 ### component.css
 
-```
+```css
 .container {
   width: 1000px;
   height: 500px;
