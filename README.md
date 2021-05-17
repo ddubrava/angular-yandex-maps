@@ -13,6 +13,8 @@ Angular components for Yandex.Maps.
 
 [Documentation](https://ddubrava.github.io/angular8-yandex-maps/)
 
+See repository branches for older versions.
+
 ## Examples
 
 [Examples](https://ddubrava.github.io/angular8-yandex-maps/additional-documentation/examples.html)
@@ -25,12 +27,12 @@ npm install angular8-yandex-maps
 
 #### Version compatibility
 
-| Angular version | Library Version | Documentation                                                                     |
-| --------------- | --------------- | --------------------------------------------------------------------------------- |
-| v9, v10, v11    | v11.x           | [DOCUMENTATION](https://ddubrava.github.io/angular8-yandex-maps/#/)               |
-| v8              | v8.x            | [DOCUMENTATION](https://github.com/ddubrava/angular8-yandex-maps/tree/8.0.0/docs) |
-| v7              | v7.x            | [DOCUMENTATION](https://github.com/ddubrava/angular8-yandex-maps/tree/7.0.0/docs) |
-| v6              | v6.x            | [DOCUMENTATION](https://github.com/ddubrava/angular8-yandex-maps/tree/6.0.0/docs) |
+| Angular version   | Library Version |
+| ----------------- | --------------- |
+| v9, v10, v11, v12 | v12.x           |
+| v8                | v8.x            |
+| v7                | v7.x            |
+| v6                | v6.x            |
 
 ```bash
 npm install angular8-yandex-maps@^6.0.0
