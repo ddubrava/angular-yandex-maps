@@ -16,12 +16,9 @@ module.exports = function (config) {
       clearContext: false, // leave Jasmine Spec Runner output visible in browser
     },
     coverageReporter: {
-      dir: require('path').join(
-        __dirname,
-        '../../coverage/angular8-yandex-maps',
-      ),
+      dir: require('path').join(__dirname, '../../coverage/angular8-yandex-maps'),
       subdir: '.',
-      reporters: [{ type: 'html' }, { type: 'text-summary' }],
+      reporters: [{ type: 'json' }, { type: 'text-summary' }],
     },
     reporters: ['progress', 'kjhtml'],
     port: 9876,

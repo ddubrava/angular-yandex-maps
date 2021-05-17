@@ -1,271 +1,331 @@
-import { startWith } from 'rxjs/operators';
-import { Subscription } from 'rxjs';
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
-  ContentChildren,
   ElementRef,
   EventEmitter,
+  Inject,
   Input,
   NgZone,
   OnChanges,
   OnDestroy,
-  OnInit,
   Output,
-  QueryList,
+  PLATFORM_ID,
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { Listener } from '../../interfaces/listener';
-import { ScriptService } from '../../services/script/script.service';
-import { YaClustererDirective } from '../../directives/ya-clusterer/ya-clusterer.directive';
-import { YaControlDirective } from '../../directives/ya-control/ya-control.directive';
-import { YaEvent, YaReadyEvent } from '../../interfaces/event';
-import { YaGeoobjectDirective } from '../../directives/ya-geoobject/ya-geoobject.directive';
-import { YaMultirouteDirective } from '../../directives/ya-multiroute/ya-multiroute.directive';
-import { YaPlacemarkDirective } from '../../directives/ya-placemark/ya-placemark.directive';
-import { generateRandomId } from '../../utils/generateRandomId';
+import { isPlatformBrowser } from '@angular/common';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { EventManager, YaEvent, YaReadyEvent } from '../../utils/event-manager';
+import { generateRandomId } from '../../utils/generate-random-id';
+import { YaApiLoaderService } from '../../services/ya-api-loader/ya-api-loader.service';
 
 /**
- * Component for creating and managing a map.
+ * The `ya-map` component wraps `ymaps.Map` class from the Yandex Maps API.
+ * You can configure the map via the component's inputs.
+ * Events can be bound using the outputs of the component.
  *
- * @example `<ya-map [center]="[55.751952, 37.600739]" [state]="{type: 'yandex#satellite'}"></ya-map>`.
- * @see {@link https://ddubrava.github.io/angular8-yandex-maps/#/components/map}
+ * <example-url>https://map-onload-event.stackblitz.io</example-url>
+ *
+ * @example
+ * <ya-map
+ *              [center]="[55.751952, 37.600739]"
+ *              [state]="{type: 'yandex#satellite'}"
+ * ></ya-map>
  */
 @Component({
   selector: 'ya-map',
-  templateUrl: './ya-map.component.html',
-  styleUrls: ['./ya-map.component.scss'],
+  template: '<div #container></div>',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
-  @ViewChild('container') public mapContainer: ElementRef;
+export class YaMapComponent implements AfterViewInit, OnChanges, OnDestroy {
+  @ViewChild('container') container: ElementRef;
 
-  @ContentChildren(YaPlacemarkDirective)
-  public placemarks: QueryList<YaPlacemarkDirective>;
+  private readonly _sub = new Subscription();
 
-  @ContentChildren(YaMultirouteDirective)
-  public multiroutes: QueryList<YaMultirouteDirective>;
+  private readonly _eventManager = new EventManager(this._ngZone);
 
-  @ContentChildren(YaGeoobjectDirective)
-  public geoObjects: QueryList<YaGeoobjectDirective>;
+  map$ = new BehaviorSubject<ymaps.Map | undefined>(undefined);
 
-  @ContentChildren(YaControlDirective)
-  public controls: QueryList<YaControlDirective>;
-
-  @ContentChildren(YaClustererDirective)
-  public clusterers: QueryList<YaClustererDirective>;
+  isBrowser: boolean;
 
   /**
-   * Map center geocoordinates.
+   * Map center geocoordinates. Default is [0, 0].
+   * Shorthand for [state]="{ center: [0, 0] }".
+   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/Map.html#Map__param-state.center}
    */
-  @Input() public center: number[];
+  @Input() center: number[];
 
   /**
-   * Map zoom level.
+   * Map zoom level. Default level is 10.
+   * Shorthand for [state]="{ zoom: 10 }".
+   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/Map.html#Map__param-state.zoom}
    */
-  @Input() public zoom = 10;
+  @Input() zoom: number;
 
   /**
    * States for the map.
-   * @see {@link https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Map-docpage/#Mapparam-state}
+   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/Map.html#Mapparam-state}
    */
-  @Input() public state: ymaps.IMapState = {};
+  @Input() state: ymaps.IMapState;
 
   /**
    * Options for the map.
-   * @see {@link https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/Map-docpage/#Mapparam-options}
+   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/Map.html#Mapparam-options}
    */
-  @Input() public options: ymaps.IMapOptions = {};
+  @Input() options: ymaps.IMapOptions;
 
   /**
    * Map instance is created.
    */
-  @Output() public ready = new EventEmitter<YaReadyEvent>();
+  @Output() ready: EventEmitter<YaReadyEvent<ymaps.Map>> = new EventEmitter<
+    YaReadyEvent<ymaps.Map>
+  >();
 
   /**
    * The start of a new smooth map movement.
    */
-  @Output() public actionbegin = new EventEmitter<YaEvent>();
+  @Output() actionbegin: Observable<YaEvent<ymaps.Map>> = this._eventManager.getLazyEmitter(
+    'actionbegin',
+  );
 
   /**
    * Event that occurs when an action step was prematurely stopped.
    */
-  @Output() public actionbreak = new EventEmitter<YaEvent>();
+  @Output() actionbreak: Observable<YaEvent<ymaps.Map>> = this._eventManager.getLazyEmitter(
+    'actionbreak',
+  );
 
   /**
    * The end of smooth map movement.
    */
-  @Output() public actionend = new EventEmitter<YaEvent>();
+  @Output() actionend: Observable<YaEvent<ymaps.Map>> = this._eventManager.getLazyEmitter(
+    'actionend',
+  );
 
   /**
    * The start of a new step of smooth movement.
    */
-  @Output() public actiontick = new EventEmitter<YaEvent>();
+  @Output() actiontick: Observable<YaEvent<ymaps.Map>> = this._eventManager.getLazyEmitter(
+    'actiontick',
+  );
 
   /**
    * The end of performing a step of smooth movement.
    */
-  @Output() public actiontickcomplete = new EventEmitter<YaEvent>();
+  @Output() actiontickcomplete: Observable<YaEvent<ymaps.Map>> = this._eventManager.getLazyEmitter(
+    'actiontickcomplete',
+  );
 
   /**
    * Closing the balloon.
    */
-  @Output() public balloonclose = new EventEmitter<YaEvent>();
+  @Output() balloonclose: Observable<YaEvent<ymaps.Map>> = this._eventManager.getLazyEmitter(
+    'balloonclose',
+  );
 
   /**
    * Opening a balloon on a map.
    */
-  @Output() public balloonopen = new EventEmitter<YaEvent>();
+  @Output() balloonopen: Observable<YaEvent<ymaps.Map>> = this._eventManager.getLazyEmitter(
+    'balloonopen',
+  );
 
   /**
    * Event for a change to the map viewport.
    */
-  @Output() public boundschange = new EventEmitter<YaEvent>();
+  @Output() boundschange: Observable<YaEvent<ymaps.Map>> = this._eventManager.getLazyEmitter(
+    'boundschange',
+  );
 
   /**
    * Single left-click on the object.
    */
-  @Output() public yaclick = new EventEmitter<YaEvent>();
+  @Output() yaclick: Observable<YaEvent<ymaps.Map>> = this._eventManager.getLazyEmitter('click');
 
   /**
    * Calls the element's context menu.
    */
-  @Output() public yacontextmenu = new EventEmitter<YaEvent>();
+  @Output() yacontextmenu: Observable<YaEvent<ymaps.Map>> = this._eventManager.getLazyEmitter(
+    'contextmenu',
+  );
 
   /**
    * Double left-click on the object.
    */
-  @Output() public yadbclick = new EventEmitter<YaEvent>();
+  @Output() yadbclick: Observable<YaEvent<ymaps.Map>> = this._eventManager.getLazyEmitter(
+    'dbclick',
+  );
 
   /**
    * The map was destroyed.
    */
-  @Output() public destroy = new EventEmitter<YaEvent>();
+  @Output() destroy: Observable<YaEvent<ymaps.Map>> = this._eventManager.getLazyEmitter('destroy');
 
   /**
    * Closing the hint.
    */
-  @Output() public hintclose = new EventEmitter<YaEvent>();
+  @Output() hintclose: Observable<YaEvent<ymaps.Map>> = this._eventManager.getLazyEmitter(
+    'hintclose',
+  );
 
   /**
    * Opening a hint on a map.
    */
-  @Output() public hintopen = new EventEmitter<YaEvent>();
+  @Output() hintopen: Observable<YaEvent<ymaps.Map>> = this._eventManager.getLazyEmitter(
+    'hintopen',
+  );
 
   /**
    * Map margins changed.
    */
-  @Output() public marginchange = new EventEmitter<YaEvent>();
+  @Output() marginchange: Observable<YaEvent<ymaps.Map>> = this._eventManager.getLazyEmitter(
+    'marginchange',
+  );
 
   /**
    * Pressing the mouse button over the object.
    */
-  @Output() public yamousedown = new EventEmitter<YaEvent>();
+  @Output() yamousedown: Observable<YaEvent<ymaps.Map>> = this._eventManager.getLazyEmitter(
+    'mousedown',
+  );
 
   /**
    * Pointing the cursor at the object.
    */
-  @Output() public yamouseenter = new EventEmitter<YaEvent>();
+  @Output() yamouseenter: Observable<YaEvent<ymaps.Map>> = this._eventManager.getLazyEmitter(
+    'mouseenter',
+  );
 
   /**
    * Moving the cursor off of the object.
    */
-  @Output() public yamouseleave = new EventEmitter<YaEvent>();
+  @Output() yamouseleave: Observable<YaEvent<ymaps.Map>> = this._eventManager.getLazyEmitter(
+    'mouseleave',
+  );
 
   /**
    * Moving the cursor over the object.
    */
-  @Output() public yamousemove = new EventEmitter<YaEvent>();
+  @Output() yamousemove: Observable<YaEvent<ymaps.Map>> = this._eventManager.getLazyEmitter(
+    'mousemove',
+  );
 
   /**
    * Letting go of the mouse button over an object.
    */
-  @Output() public yamouseup = new EventEmitter<YaEvent>();
+  @Output() yamouseup: Observable<YaEvent<ymaps.Map>> = this._eventManager.getLazyEmitter(
+    'mouseup',
+  );
 
   /**
    * End of multitouch.
    */
-  @Output() public multitouchend = new EventEmitter<YaEvent>();
+  @Output() multitouchend: Observable<YaEvent<ymaps.Map>> = this._eventManager.getLazyEmitter(
+    'multitouchend',
+  );
 
   /**
    * Repeating event during multitouch.
    */
-  @Output() public multitouchmove = new EventEmitter<YaEvent>();
+  @Output() multitouchmove: Observable<YaEvent<ymaps.Map>> = this._eventManager.getLazyEmitter(
+    'multitouchmove',
+  );
 
   /**
    * Start of multitouch.
    */
-  @Output() public multitouchstart = new EventEmitter<YaEvent>();
+  @Output() multitouchstart: Observable<YaEvent<ymaps.Map>> = this._eventManager.getLazyEmitter(
+    'multitouchstart',
+  );
 
   /**
    * Map options changed.
    */
-  @Output() public optionschange = new EventEmitter<YaEvent>();
+  @Output() optionschange: Observable<YaEvent<ymaps.Map>> = this._eventManager.getLazyEmitter(
+    'optionschange',
+  );
 
   /**
    * Map size changed.
    */
-  @Output() public sizechange = new EventEmitter<YaEvent>();
+  @Output() sizechange: Observable<YaEvent<ymaps.Map>> = this._eventManager.getLazyEmitter(
+    'sizechange',
+  );
 
   /**
    * The map type changed.
    */
-  @Output() public typechange = new EventEmitter<YaEvent>();
+  @Output() typechange: Observable<YaEvent<ymaps.Map>> = this._eventManager.getLazyEmitter(
+    'typechange',
+  );
 
   /**
    * Mouse wheel scrolling.
    */
-  @Output() public yawheel = new EventEmitter<YaEvent>();
+  @Output() yawheel: Observable<YaEvent<ymaps.Map>> = this._eventManager.getLazyEmitter('wheel');
 
-  private _sub: Subscription;
-
-  private _map: ymaps.Map;
-
-  constructor(private _ngZone: NgZone, private _scriptService: ScriptService) {}
-
-  public ngOnInit(): void {
-    this._sub = new Subscription();
-
-    this._checkRequiredInputs();
-    this._initScript();
-  }
-
-  public ngOnChanges(changes: SimpleChanges): void {
-    this._updateMap(changes);
+  constructor(
+    private readonly _ngZone: NgZone,
+    private readonly _yaApiLoaderService: YaApiLoaderService,
+    @Inject(PLATFORM_ID) platformId: Object,
+  ) {
+    this.isBrowser = isPlatformBrowser(platformId);
   }
 
   /**
-   * Method for dynamic Map configuration.
-   * Handles input changes and provides it to API.
+   * Handles input changes and passes them in API.
    * @param changes
    */
-  private _updateMap(changes: SimpleChanges): void {
-    const map = this._map;
+  ngOnChanges(changes: SimpleChanges): void {
+    const map = this.map$.value;
 
-    if (!map) return;
+    if (map) {
+      const { center, zoom, state, options } = changes;
 
-    const { center, zoom, state, options } = changes;
+      if (state) {
+        this._setState(this._combineState(), map);
+      }
 
-    if (center) {
-      map.setCenter(center.currentValue);
-    }
+      if (center) {
+        map.setCenter(center.currentValue);
+      }
 
-    if (zoom) {
-      map.setZoom(zoom.currentValue);
-    }
+      if (zoom) {
+        map.setZoom(zoom.currentValue);
+      }
 
-    if (state) {
-      this._setState(state.currentValue, map);
-    }
-
-    if (options) {
-      map.options.set(options.currentValue);
+      if (options) {
+        map.options.set(options.currentValue);
+      }
     }
   }
 
+  ngAfterViewInit(): void {
+    /**
+     * It should be a noop during server-side rendering.
+     */
+    if (this.isBrowser) {
+      const sub = this._yaApiLoaderService.load().subscribe(() => {
+        const id = generateRandomId();
+        const map = this._createMap(id);
+
+        this.map$.next(map);
+        this._eventManager.setTarget(map);
+        this._ngZone.run(() => this.ready.emit({ ymaps, target: map }));
+      });
+
+      this._sub.add(sub);
+    }
+  }
+
+  ngOnDestroy(): void {
+    this._eventManager.destroy();
+    this._sub.unsubscribe();
+  }
+
   /**
-   * Destructs state and provides new values to API.
+   * Destructs state and passes it in API.
    * @param state
    * @param map
    */
@@ -285,10 +345,7 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     if (controls) {
-      /**
-       * Wrong typings in DefinitelyTyped.
-       */
-      controls.forEach((c: any) => map.controls.add(c));
+      controls.forEach((control) => map.controls.add(control));
     }
 
     if (margin) {
@@ -304,202 +361,28 @@ export class YaMapComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  private _checkRequiredInputs(): void {
-    if (this.center === undefined || this.center === null) {
-      throw new Error('Center is required');
-    }
-  }
-
-  private _initScript(): void {
-    const sub = this._scriptService.initScript().subscribe(() => {
-      const id = generateRandomId();
-      this._map = this._createMap(id);
-
-      this._ngZone.run(() => this.ready.emit({ ymaps, target: this._map }));
-
-      this._addGeoObjects();
-      this._addControls();
-      this._addEventListeners();
-    });
-
-    this._sub.add(sub);
-  }
-
   /**
-   * Creates map.
+   * Creates a map.
    * @param id ID which will be set to the map container.
    */
   private _createMap(id: string): ymaps.Map {
-    const containerElem: HTMLElement = this.mapContainer.nativeElement;
+    const containerElem: HTMLElement = this.container.nativeElement;
     containerElem.setAttribute('id', id);
     containerElem.style.cssText = 'width: 100%; height: 100%;';
 
-    return new ymaps.Map(
-      id,
-      { ...this.state, zoom: this.zoom, center: this.center },
-      this.options,
-    );
+    return new ymaps.Map(id, this._combineState(), this.options || {});
   }
 
   /**
-   * Adds GeoObject to the Map on ContentChildren changes.
+   * Combines the center and zoom into single object.
    */
-  private _addGeoObjects(): void {
-    const map = this._map;
+  private _combineState(): ymaps.IMapState {
+    const state = this.state || {};
 
-    // Placemarks (async)
-    const placemarksSub = this.placemarks.changes
-      .pipe(startWith(this.placemarks))
-      .subscribe((list: QueryList<YaPlacemarkDirective>) => {
-        list.forEach((placemark) => {
-          if (!placemark.id) {
-            const p = placemark.createPlacemark(map);
-            map.geoObjects.add(p);
-
-            this._ngZone.run(() => placemark.ready.emit({ ymaps, target: p }));
-          }
-        });
-      });
-
-    this._sub.add(placemarksSub);
-
-    // Multiroutes (async)
-    const multiroutesSub = this.multiroutes.changes
-      .pipe(startWith(this.multiroutes))
-      .subscribe((list: QueryList<YaMultirouteDirective>) => {
-        list.forEach((multiroute) => {
-          if (!multiroute.id) {
-            const m = multiroute.createMultiroute(map);
-            map.geoObjects.add(m);
-
-            this._ngZone.run(() => multiroute.ready.emit({ ymaps, target: m }));
-          }
-        });
-      });
-
-    this._sub.add(multiroutesSub);
-
-    // GeoObjects (async)
-    const geoObjectsSub = this.geoObjects.changes
-      .pipe(startWith(this.geoObjects))
-      .subscribe((list: QueryList<YaGeoobjectDirective>) => {
-        list.forEach((geoObject) => {
-          if (!geoObject.id) {
-            const g = geoObject.createGeoObject(map);
-            map.geoObjects.add(g);
-
-            this._ngZone.run(() => geoObject.ready.emit({ ymaps, target: g }));
-          }
-        });
-      });
-
-    this._sub.add(geoObjectsSub);
-
-    // Clusterers (not async)
-    this.clusterers.forEach((clusterer) => {
-      const c = clusterer.createClusterer(map);
-      /**
-       * Wrong typings in DefinitelyTyped.
-       */
-      map.geoObjects.add(c as any);
-
-      this._ngZone.run(() => clusterer.ready.emit({ ymaps, target: c }));
-    });
-  }
-
-  /**
-   * Adds controls to the Map.
-   */
-  private _addControls(): void {
-    this.controls.forEach((control) => {
-      const c = control.createControl();
-      this._map.controls.add(c);
-
-      this._ngZone.run(() => control.ready.emit({ ymaps, target: c }));
-    });
-  }
-
-  /**
-   * Adds listeners on the Map events.
-   */
-  private _addEventListeners(): void {
-    const map = this._map;
-
-    const listeners: Listener[] = [
-      {
-        name: 'actionbegin',
-        emitter: this.actionbegin,
-      },
-      {
-        name: 'actionbreak',
-        emitter: this.actionbreak,
-      },
-      { name: 'actionend', emitter: this.actionend },
-      { name: 'actiontick', emitter: this.actiontick },
-      {
-        name: 'actiontickcomplete',
-        emitter: this.actiontickcomplete,
-      },
-      { name: 'balloonclose', emitter: this.balloonclose },
-      { name: 'balloonopen', emitter: this.balloonopen },
-      { name: 'boundschange', emitter: this.boundschange },
-      { name: 'click', emitter: this.yaclick },
-      { name: 'contextmenu', emitter: this.yacontextmenu },
-      { name: 'dbclick', emitter: this.yadbclick },
-      { name: 'destroy', emitter: this.destroy },
-      { name: 'hintclose', emitter: this.hintclose },
-      { name: 'hintopen', emitter: this.hintopen },
-      { name: 'marginchange', emitter: this.marginchange },
-      { name: 'mousedown', emitter: this.yamousedown },
-      {
-        name: 'mouseenter',
-        emitter: this.yamouseenter,
-        runOutsideAngular: true,
-      },
-      {
-        name: 'mouseleave',
-        emitter: this.yamouseleave,
-        runOutsideAngular: true,
-      },
-      { name: 'mousemove', emitter: this.yamousemove, runOutsideAngular: true },
-      { name: 'mouseup', emitter: this.yamouseup, runOutsideAngular: true },
-      {
-        name: 'multitouchend',
-        emitter: this.multitouchend,
-        runOutsideAngular: true,
-      },
-      {
-        name: 'multitouchmove',
-        emitter: this.multitouchmove,
-        runOutsideAngular: true,
-      },
-      {
-        name: 'multitouchstart',
-        emitter: this.multitouchstart,
-        runOutsideAngular: true,
-      },
-      { name: 'optionschange', emitter: this.optionschange },
-      { name: 'sizechange', emitter: this.sizechange },
-      { name: 'typechange', emitter: this.typechange },
-      { name: 'wheel', emitter: this.yawheel },
-    ];
-
-    const fn = (event: ymaps.Event): YaEvent => ({
-      event,
-      target: map,
-      ymaps,
-    });
-
-    listeners.forEach((listener) => {
-      map.events.add(listener.name, (e: ymaps.Event) =>
-        listener.runOutsideAngular
-          ? this._ngZone.runOutsideAngular(() => listener.emitter.emit(fn(e)))
-          : this._ngZone.run(() => listener.emitter.emit(fn(e))),
-      );
-    });
-  }
-
-  public ngOnDestroy(): void {
-    this._sub.unsubscribe();
+    return {
+      ...state,
+      center: this.center || state.center || [0, 0],
+      zoom: this.zoom ?? state.zoom ?? 10,
+    };
   }
 }

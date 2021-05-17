@@ -1,13 +1,75 @@
+<h1>Map</h1>
+
 <div class="container">
-  <router-outlet></router-outlet>
+  <ya-map [center]="[55.751952, 37.600739]" [state]="{ type: 'yandex#satellite' }"></ya-map>
 </div>
 
-<ul>
-  <li routerLink="map">Map</li>
-  <li routerLink="panorama">Panorama</li>
-  <li routerLink="clusterer">Clusterer</li>
-  <li routerLink="placemark">Placemark</li>
-  <li routerLink="geoobject">GeoObject</li>
-  <li routerLink="multiroute">Multiroute</li>
-  <li routerLink="controls">Controls</li>
-</ul>
+<h1>Panorama</h1>
+
+<div class="container">
+  <ya-map>
+    <ya-panorama [point]="[59.938557, 30.316198]" layer="yandex#airPanorama"></ya-panorama>
+  </ya-map>
+</div>
+
+<h1>Placemark</h1>
+
+<div class="container">
+  <ya-map [center]="[55.74, 37.58]" [zoom]="5">
+    <ya-placemark [geometry]="[55.74, 37.58]"></ya-placemark>
+  </ya-map>
+</div>
+
+<h1>Clusterer</h1>
+
+<div class="container">
+  <ya-map [center]="[55.74, 37.58]">
+    <ya-clusterer [options]="{ minClusterSize: 5 }">
+      <ya-placemark [geometry]="[55.74, 37.5]"></ya-placemark>
+      <ya-placemark [geometry]="[55.64, 37.46]"></ya-placemark>
+      <ya-placemark [geometry]="[55.75, 37.38]"></ya-placemark>
+      <ya-geoobject
+        [feature]="{ geometry: { type: 'Point', coordinates: [55.81, 37.4] } }"
+      ></ya-geoobject>
+      <ya-geoobject
+        [feature]="{ geometry: { type: 'Point', coordinates: [55.7, 37.39] } }"
+      ></ya-geoobject>
+    </ya-clusterer>
+  </ya-map>
+</div>
+
+<h1>GeoObject</h1>
+
+<div class="container">
+  <ya-map [center]="[55.751952, 37.600739]">
+    <ya-geoobject
+      [feature]="{
+        geometry: {
+          type: 'Rectangle',
+          coordinates: [
+            [55.665, 37.66],
+            [55.64, 37.53]
+          ]
+        }
+      }"
+    ></ya-geoobject>
+  </ya-map>
+</div>
+
+<h1>Multiroute</h1>
+
+<div class="container">
+  <ya-map [center]="[55.761952, 37.620739]">
+    <ya-multiroute
+      [referencePoints]="[[55.751952, 37.600739], 'Красные ворота, Москва']"
+    ></ya-multiroute>
+  </ya-map>
+</div>
+
+<h1>Controls</h1>
+
+<div class="container">
+  <ya-map [center]="[55.751952, 37.600739]" [state]="{ controls: [] }">
+    <ya-control type="SearchControl"></ya-control>
+  </ya-map>
+</div>
