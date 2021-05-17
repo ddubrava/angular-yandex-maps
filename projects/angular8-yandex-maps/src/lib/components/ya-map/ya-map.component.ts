@@ -85,58 +85,50 @@ export class YaMapComponent implements AfterViewInit, OnChanges, OnDestroy {
   /**
    * The start of a new smooth map movement.
    */
-  @Output() actionbegin: Observable<YaEvent<ymaps.Map>> = this._eventManager.getLazyEmitter(
-    'actionbegin',
-  );
+  @Output() actionbegin: Observable<YaEvent<ymaps.Map>> =
+    this._eventManager.getLazyEmitter('actionbegin');
 
   /**
    * Event that occurs when an action step was prematurely stopped.
    */
-  @Output() actionbreak: Observable<YaEvent<ymaps.Map>> = this._eventManager.getLazyEmitter(
-    'actionbreak',
-  );
+  @Output() actionbreak: Observable<YaEvent<ymaps.Map>> =
+    this._eventManager.getLazyEmitter('actionbreak');
 
   /**
    * The end of smooth map movement.
    */
-  @Output() actionend: Observable<YaEvent<ymaps.Map>> = this._eventManager.getLazyEmitter(
-    'actionend',
-  );
+  @Output() actionend: Observable<YaEvent<ymaps.Map>> =
+    this._eventManager.getLazyEmitter('actionend');
 
   /**
    * The start of a new step of smooth movement.
    */
-  @Output() actiontick: Observable<YaEvent<ymaps.Map>> = this._eventManager.getLazyEmitter(
-    'actiontick',
-  );
+  @Output() actiontick: Observable<YaEvent<ymaps.Map>> =
+    this._eventManager.getLazyEmitter('actiontick');
 
   /**
    * The end of performing a step of smooth movement.
    */
-  @Output() actiontickcomplete: Observable<YaEvent<ymaps.Map>> = this._eventManager.getLazyEmitter(
-    'actiontickcomplete',
-  );
+  @Output() actiontickcomplete: Observable<YaEvent<ymaps.Map>> =
+    this._eventManager.getLazyEmitter('actiontickcomplete');
 
   /**
    * Closing the balloon.
    */
-  @Output() balloonclose: Observable<YaEvent<ymaps.Map>> = this._eventManager.getLazyEmitter(
-    'balloonclose',
-  );
+  @Output() balloonclose: Observable<YaEvent<ymaps.Map>> =
+    this._eventManager.getLazyEmitter('balloonclose');
 
   /**
    * Opening a balloon on a map.
    */
-  @Output() balloonopen: Observable<YaEvent<ymaps.Map>> = this._eventManager.getLazyEmitter(
-    'balloonopen',
-  );
+  @Output() balloonopen: Observable<YaEvent<ymaps.Map>> =
+    this._eventManager.getLazyEmitter('balloonopen');
 
   /**
    * Event for a change to the map viewport.
    */
-  @Output() boundschange: Observable<YaEvent<ymaps.Map>> = this._eventManager.getLazyEmitter(
-    'boundschange',
-  );
+  @Output() boundschange: Observable<YaEvent<ymaps.Map>> =
+    this._eventManager.getLazyEmitter('boundschange');
 
   /**
    * Single left-click on the object.
@@ -146,16 +138,14 @@ export class YaMapComponent implements AfterViewInit, OnChanges, OnDestroy {
   /**
    * Calls the element's context menu.
    */
-  @Output() yacontextmenu: Observable<YaEvent<ymaps.Map>> = this._eventManager.getLazyEmitter(
-    'contextmenu',
-  );
+  @Output() yacontextmenu: Observable<YaEvent<ymaps.Map>> =
+    this._eventManager.getLazyEmitter('contextmenu');
 
   /**
    * Double left-click on the object.
    */
-  @Output() yadbclick: Observable<YaEvent<ymaps.Map>> = this._eventManager.getLazyEmitter(
-    'dbclick',
-  );
+  @Output() yadbclick: Observable<YaEvent<ymaps.Map>> =
+    this._eventManager.getLazyEmitter('dbclick');
 
   /**
    * The map was destroyed.
@@ -165,100 +155,86 @@ export class YaMapComponent implements AfterViewInit, OnChanges, OnDestroy {
   /**
    * Closing the hint.
    */
-  @Output() hintclose: Observable<YaEvent<ymaps.Map>> = this._eventManager.getLazyEmitter(
-    'hintclose',
-  );
+  @Output() hintclose: Observable<YaEvent<ymaps.Map>> =
+    this._eventManager.getLazyEmitter('hintclose');
 
   /**
    * Opening a hint on a map.
    */
-  @Output() hintopen: Observable<YaEvent<ymaps.Map>> = this._eventManager.getLazyEmitter(
-    'hintopen',
-  );
+  @Output() hintopen: Observable<YaEvent<ymaps.Map>> =
+    this._eventManager.getLazyEmitter('hintopen');
 
   /**
    * Map margins changed.
    */
-  @Output() marginchange: Observable<YaEvent<ymaps.Map>> = this._eventManager.getLazyEmitter(
-    'marginchange',
-  );
+  @Output() marginchange: Observable<YaEvent<ymaps.Map>> =
+    this._eventManager.getLazyEmitter('marginchange');
 
   /**
    * Pressing the mouse button over the object.
    */
-  @Output() yamousedown: Observable<YaEvent<ymaps.Map>> = this._eventManager.getLazyEmitter(
-    'mousedown',
-  );
+  @Output() yamousedown: Observable<YaEvent<ymaps.Map>> =
+    this._eventManager.getLazyEmitter('mousedown');
 
   /**
    * Pointing the cursor at the object.
    */
-  @Output() yamouseenter: Observable<YaEvent<ymaps.Map>> = this._eventManager.getLazyEmitter(
-    'mouseenter',
-  );
+  @Output() yamouseenter: Observable<YaEvent<ymaps.Map>> =
+    this._eventManager.getLazyEmitter('mouseenter');
 
   /**
    * Moving the cursor off of the object.
    */
-  @Output() yamouseleave: Observable<YaEvent<ymaps.Map>> = this._eventManager.getLazyEmitter(
-    'mouseleave',
-  );
+  @Output() yamouseleave: Observable<YaEvent<ymaps.Map>> =
+    this._eventManager.getLazyEmitter('mouseleave');
 
   /**
    * Moving the cursor over the object.
    */
-  @Output() yamousemove: Observable<YaEvent<ymaps.Map>> = this._eventManager.getLazyEmitter(
-    'mousemove',
-  );
+  @Output() yamousemove: Observable<YaEvent<ymaps.Map>> =
+    this._eventManager.getLazyEmitter('mousemove');
 
   /**
    * Letting go of the mouse button over an object.
    */
-  @Output() yamouseup: Observable<YaEvent<ymaps.Map>> = this._eventManager.getLazyEmitter(
-    'mouseup',
-  );
+  @Output() yamouseup: Observable<YaEvent<ymaps.Map>> =
+    this._eventManager.getLazyEmitter('mouseup');
 
   /**
    * End of multitouch.
    */
-  @Output() multitouchend: Observable<YaEvent<ymaps.Map>> = this._eventManager.getLazyEmitter(
-    'multitouchend',
-  );
+  @Output() multitouchend: Observable<YaEvent<ymaps.Map>> =
+    this._eventManager.getLazyEmitter('multitouchend');
 
   /**
    * Repeating event during multitouch.
    */
-  @Output() multitouchmove: Observable<YaEvent<ymaps.Map>> = this._eventManager.getLazyEmitter(
-    'multitouchmove',
-  );
+  @Output() multitouchmove: Observable<YaEvent<ymaps.Map>> =
+    this._eventManager.getLazyEmitter('multitouchmove');
 
   /**
    * Start of multitouch.
    */
-  @Output() multitouchstart: Observable<YaEvent<ymaps.Map>> = this._eventManager.getLazyEmitter(
-    'multitouchstart',
-  );
+  @Output() multitouchstart: Observable<YaEvent<ymaps.Map>> =
+    this._eventManager.getLazyEmitter('multitouchstart');
 
   /**
    * Map options changed.
    */
-  @Output() optionschange: Observable<YaEvent<ymaps.Map>> = this._eventManager.getLazyEmitter(
-    'optionschange',
-  );
+  @Output() optionschange: Observable<YaEvent<ymaps.Map>> =
+    this._eventManager.getLazyEmitter('optionschange');
 
   /**
    * Map size changed.
    */
-  @Output() sizechange: Observable<YaEvent<ymaps.Map>> = this._eventManager.getLazyEmitter(
-    'sizechange',
-  );
+  @Output() sizechange: Observable<YaEvent<ymaps.Map>> =
+    this._eventManager.getLazyEmitter('sizechange');
 
   /**
    * The map type changed.
    */
-  @Output() typechange: Observable<YaEvent<ymaps.Map>> = this._eventManager.getLazyEmitter(
-    'typechange',
-  );
+  @Output() typechange: Observable<YaEvent<ymaps.Map>> =
+    this._eventManager.getLazyEmitter('typechange');
 
   /**
    * Mouse wheel scrolling.

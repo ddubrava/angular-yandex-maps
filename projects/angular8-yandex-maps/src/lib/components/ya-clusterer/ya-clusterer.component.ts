@@ -74,37 +74,32 @@ export class YaClustererComponent implements AfterContentInit, OnChanges, OnDest
   /**
    * Closing the hint.
    */
-  @Output() hintclose: Observable<YaEvent<ymaps.Clusterer>> = this._eventManager.getLazyEmitter(
-    'hintclose',
-  );
+  @Output() hintclose: Observable<YaEvent<ymaps.Clusterer>> =
+    this._eventManager.getLazyEmitter('hintclose');
 
   /**
    * Opening a hint on a map.
    */
-  @Output() hintopen: Observable<YaEvent<ymaps.Clusterer>> = this._eventManager.getLazyEmitter(
-    'hintopen',
-  );
+  @Output() hintopen: Observable<YaEvent<ymaps.Clusterer>> =
+    this._eventManager.getLazyEmitter('hintopen');
 
   /**
    * Map reference changed.
    */
-  @Output() mapchange: Observable<YaEvent<ymaps.Clusterer>> = this._eventManager.getLazyEmitter(
-    'mapchange',
-  );
+  @Output() mapchange: Observable<YaEvent<ymaps.Clusterer>> =
+    this._eventManager.getLazyEmitter('mapchange');
 
   /**
    * Change to the object options.
    */
-  @Output() optionschange: Observable<YaEvent<ymaps.Clusterer>> = this._eventManager.getLazyEmitter(
-    'optionschange',
-  );
+  @Output() optionschange: Observable<YaEvent<ymaps.Clusterer>> =
+    this._eventManager.getLazyEmitter('optionschange');
 
   /**
    * The parent object reference changed.
    */
-  @Output() parentchange: Observable<YaEvent<ymaps.Clusterer>> = this._eventManager.getLazyEmitter(
-    'parentchange',
-  );
+  @Output() parentchange: Observable<YaEvent<ymaps.Clusterer>> =
+    this._eventManager.getLazyEmitter('parentchange');
 
   constructor(private readonly _ngZone: NgZone, private readonly _yaMapComponent: YaMapComponent) {}
 

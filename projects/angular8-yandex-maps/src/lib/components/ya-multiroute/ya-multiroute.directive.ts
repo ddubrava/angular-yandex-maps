@@ -72,177 +72,152 @@ export class YaMultirouteDirective implements OnInit, OnChanges, OnDestroy {
   /**
    * Change to the active route.
    */
-  @Output() activeroutechange: Observable<
-    YaEvent<ymaps.multiRouter.MultiRoute>
-  > = this._eventManager.getLazyEmitter('activeroutechange');
+  @Output() activeroutechange: Observable<YaEvent<ymaps.multiRouter.MultiRoute>> =
+    this._eventManager.getLazyEmitter('activeroutechange');
 
   /**
    * Closing the balloon.
    */
-  @Output() balloonclose: Observable<
-    YaEvent<ymaps.multiRouter.MultiRoute>
-  > = this._eventManager.getLazyEmitter('balloonclose');
+  @Output() balloonclose: Observable<YaEvent<ymaps.multiRouter.MultiRoute>> =
+    this._eventManager.getLazyEmitter('balloonclose');
 
   /**
    * Opening a balloon on a map.
    */
-  @Output() balloonopen: Observable<
-    YaEvent<ymaps.multiRouter.MultiRoute>
-  > = this._eventManager.getLazyEmitter('balloonopen');
+  @Output() balloonopen: Observable<YaEvent<ymaps.multiRouter.MultiRoute>> =
+    this._eventManager.getLazyEmitter('balloonopen');
 
   /**
    * The event occurs at the time of setting the map center and its zoom level for optimal display of the multi-route.
    */
-  @Output() boundsautoapply: Observable<
-    YaEvent<ymaps.multiRouter.MultiRoute>
-  > = this._eventManager.getLazyEmitter('boundsautoapply');
+  @Output() boundsautoapply: Observable<YaEvent<ymaps.multiRouter.MultiRoute>> =
+    this._eventManager.getLazyEmitter('boundsautoapply');
 
   /**
    * Changing coordinates of the geographical area covering the multi-route.
    */
-  @Output() boundschange: Observable<
-    YaEvent<ymaps.multiRouter.MultiRoute>
-  > = this._eventManager.getLazyEmitter('boundschange');
+  @Output() boundschange: Observable<YaEvent<ymaps.multiRouter.MultiRoute>> =
+    this._eventManager.getLazyEmitter('boundschange');
 
   /**
    * Single left-click on the object.
    */
-  @Output() yaclick: Observable<
-    YaEvent<ymaps.multiRouter.MultiRoute>
-  > = this._eventManager.getLazyEmitter('click');
+  @Output() yaclick: Observable<YaEvent<ymaps.multiRouter.MultiRoute>> =
+    this._eventManager.getLazyEmitter('click');
 
   /**
    * Calls the element's context menu.
    */
-  @Output() yacontextmenu: Observable<
-    YaEvent<ymaps.multiRouter.MultiRoute>
-  > = this._eventManager.getLazyEmitter('contextmenu');
+  @Output() yacontextmenu: Observable<YaEvent<ymaps.multiRouter.MultiRoute>> =
+    this._eventManager.getLazyEmitter('contextmenu');
 
   /**
    * Double left-click on the object.
    */
-  @Output() yadbclick: Observable<
-    YaEvent<ymaps.multiRouter.MultiRoute>
-  > = this._eventManager.getLazyEmitter('dbclick');
+  @Output() yadbclick: Observable<YaEvent<ymaps.multiRouter.MultiRoute>> =
+    this._eventManager.getLazyEmitter('dbclick');
 
   /**
    * Change to the geo object geometry.
    */
-  @Output() geometrychange: Observable<
-    YaEvent<ymaps.multiRouter.MultiRoute>
-  > = this._eventManager.getLazyEmitter('geometrychange');
+  @Output() geometrychange: Observable<YaEvent<ymaps.multiRouter.MultiRoute>> =
+    this._eventManager.getLazyEmitter('geometrychange');
 
   /**
    * Map reference changed.
    */
-  @Output() mapchange: Observable<
-    YaEvent<ymaps.multiRouter.MultiRoute>
-  > = this._eventManager.getLazyEmitter('mapchange');
+  @Output() mapchange: Observable<YaEvent<ymaps.multiRouter.MultiRoute>> =
+    this._eventManager.getLazyEmitter('mapchange');
 
   /**
    * Pressing the mouse button over the object.
    */
-  @Output() yamousedown: Observable<
-    YaEvent<ymaps.multiRouter.MultiRoute>
-  > = this._eventManager.getLazyEmitter('mousedown');
+  @Output() yamousedown: Observable<YaEvent<ymaps.multiRouter.MultiRoute>> =
+    this._eventManager.getLazyEmitter('mousedown');
 
   /**
    * Pointing the cursor at the object.
    */
-  @Output() yamouseenter: Observable<
-    YaEvent<ymaps.multiRouter.MultiRoute>
-  > = this._eventManager.getLazyEmitter('mouseenter');
+  @Output() yamouseenter: Observable<YaEvent<ymaps.multiRouter.MultiRoute>> =
+    this._eventManager.getLazyEmitter('mouseenter');
 
   /**
    * Moving the cursor off of the object.
    */
-  @Output() yamouseleave: Observable<
-    YaEvent<ymaps.multiRouter.MultiRoute>
-  > = this._eventManager.getLazyEmitter('mouseleave');
+  @Output() yamouseleave: Observable<YaEvent<ymaps.multiRouter.MultiRoute>> =
+    this._eventManager.getLazyEmitter('mouseleave');
 
   /**
    * Moving the cursor over the object.
    */
-  @Output() yamousemove: Observable<
-    YaEvent<ymaps.multiRouter.MultiRoute>
-  > = this._eventManager.getLazyEmitter('mousemove');
+  @Output() yamousemove: Observable<YaEvent<ymaps.multiRouter.MultiRoute>> =
+    this._eventManager.getLazyEmitter('mousemove');
 
   /**
    * Letting go of the mouse button over an object.
    */
-  @Output() yamouseup: Observable<
-    YaEvent<ymaps.multiRouter.MultiRoute>
-  > = this._eventManager.getLazyEmitter('mouseup');
+  @Output() yamouseup: Observable<YaEvent<ymaps.multiRouter.MultiRoute>> =
+    this._eventManager.getLazyEmitter('mouseup');
 
   /**
    * End of multitouch.
    */
-  @Output() multitouchend: Observable<
-    YaEvent<ymaps.multiRouter.MultiRoute>
-  > = this._eventManager.getLazyEmitter('multitouchend');
+  @Output() multitouchend: Observable<YaEvent<ymaps.multiRouter.MultiRoute>> =
+    this._eventManager.getLazyEmitter('multitouchend');
 
   /**
    * Repeating event during multitouch.
    */
-  @Output() multitouchmove: Observable<
-    YaEvent<ymaps.multiRouter.MultiRoute>
-  > = this._eventManager.getLazyEmitter('multitouchmove');
+  @Output() multitouchmove: Observable<YaEvent<ymaps.multiRouter.MultiRoute>> =
+    this._eventManager.getLazyEmitter('multitouchmove');
 
   /**
    * Start of multitouch.
    */
-  @Output() multitouchstart: Observable<
-    YaEvent<ymaps.multiRouter.MultiRoute>
-  > = this._eventManager.getLazyEmitter('multitouchstart');
+  @Output() multitouchstart: Observable<YaEvent<ymaps.multiRouter.MultiRoute>> =
+    this._eventManager.getLazyEmitter('multitouchstart');
 
   /**
    * Change to the object options.
    */
-  @Output() optionschange: Observable<
-    YaEvent<ymaps.multiRouter.MultiRoute>
-  > = this._eventManager.getLazyEmitter('optionschange');
+  @Output() optionschange: Observable<YaEvent<ymaps.multiRouter.MultiRoute>> =
+    this._eventManager.getLazyEmitter('optionschange');
 
   /**
    * Change to the geo object overlay.
    */
-  @Output() overlaychange: Observable<
-    YaEvent<ymaps.multiRouter.MultiRoute>
-  > = this._eventManager.getLazyEmitter('overlaychange');
+  @Output() overlaychange: Observable<YaEvent<ymaps.multiRouter.MultiRoute>> =
+    this._eventManager.getLazyEmitter('overlaychange');
 
   /**
    * The parent object reference changed.
    */
-  @Output() parentchange: Observable<
-    YaEvent<ymaps.multiRouter.MultiRoute>
-  > = this._eventManager.getLazyEmitter('parentchange');
+  @Output() parentchange: Observable<YaEvent<ymaps.multiRouter.MultiRoute>> =
+    this._eventManager.getLazyEmitter('parentchange');
 
   /**
    * Changing pixel coordinates of the area covering the multi-route.
    */
-  @Output() pixelboundschange: Observable<
-    YaEvent<ymaps.multiRouter.MultiRoute>
-  > = this._eventManager.getLazyEmitter('pixelboundschange');
+  @Output() pixelboundschange: Observable<YaEvent<ymaps.multiRouter.MultiRoute>> =
+    this._eventManager.getLazyEmitter('pixelboundschange');
 
   /**
    * Change to the geo object data.
    */
-  @Output() propertieschange: Observable<
-    YaEvent<ymaps.multiRouter.MultiRoute>
-  > = this._eventManager.getLazyEmitter('propertieschange');
+  @Output() propertieschange: Observable<YaEvent<ymaps.multiRouter.MultiRoute>> =
+    this._eventManager.getLazyEmitter('propertieschange');
 
   /**
    * Updating the multi-route.
    */
-  @Output() update: Observable<
-    YaEvent<ymaps.multiRouter.MultiRoute>
-  > = this._eventManager.getLazyEmitter('update');
+  @Output() update: Observable<YaEvent<ymaps.multiRouter.MultiRoute>> =
+    this._eventManager.getLazyEmitter('update');
 
   /**
    * Mouse wheel scrolling.
    */
-  @Output() yawheel: Observable<
-    YaEvent<ymaps.multiRouter.MultiRoute>
-  > = this._eventManager.getLazyEmitter('wheel');
+  @Output() yawheel: Observable<YaEvent<ymaps.multiRouter.MultiRoute>> =
+    this._eventManager.getLazyEmitter('wheel');
 
   constructor(private readonly _ngZone: NgZone, private readonly _yaMapComponent: YaMapComponent) {}
 
