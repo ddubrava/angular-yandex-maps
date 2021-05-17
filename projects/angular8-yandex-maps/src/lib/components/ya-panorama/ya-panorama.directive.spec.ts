@@ -198,7 +198,7 @@ describe('YaPanoramaDirective', () => {
     expect(playerSpy.setSpan).toHaveBeenCalledWith(span);
   });
 
-  it('should console warn if unsupported options are passed', () => {
+  it('should console warn if unsupported options are passed after init', () => {
     fixture.detectChanges();
 
     const options = {

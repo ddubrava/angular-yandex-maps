@@ -310,7 +310,7 @@ export class YaGeoObjectDirective implements OnInit, OnChanges, OnDestroy {
 
     if (geometry) {
       console.warn(
-        'The geometry can not be changed after entity init. You can set them manually using ymaps or recreate the GeoObject new feature.geometry',
+        'The geometry can not be changed after entity init. To set it, you should recreate a GeoObject with new feature.geometry',
       );
     }
 

@@ -125,3 +125,33 @@ export function createMultirouteConstructorSpy(
 
   return multirouteConstructorSpy;
 }
+
+/** Creates a jasmine.SpyObj for a ymaps.GeoObject. */
+export function createGeoObjectSpy(): jasmine.SpyObj<ymaps.GeoObject> {
+  const spy = jasmine.createSpyObj('ymaps.GeoObject', [], {
+    events: jasmine.createSpyObj('events', ['add']),
+    properties: jasmine.createSpyObj('properties', ['set']),
+    options: jasmine.createSpyObj('options', ['set']),
+  });
+
+  spy.events.add.and.returnValue({
+    remove: () => {},
+  });
+
+  return spy;
+}
+
+/** Creates a jasmine.Spy to watch for the constructor of a ymaps.GeoObject. */
+export function createGeoObjectConstructorSpy(
+  geoObjectSpy: jasmine.SpyObj<ymaps.GeoObject>,
+): jasmine.Spy {
+  const geoObjectConstructorSpy = jasmine
+    .createSpy('GeoObject constructor')
+    .and.returnValue(geoObjectSpy);
+
+  window.ymaps = {
+    GeoObject: geoObjectConstructorSpy,
+  } as any;
+
+  return geoObjectConstructorSpy;
+}
