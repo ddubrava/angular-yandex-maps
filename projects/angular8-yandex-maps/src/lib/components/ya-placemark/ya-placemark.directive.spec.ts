@@ -127,7 +127,7 @@ describe('Directive: YaPlacemark', () => {
     expect(placemarkConstructorSpy.calls.mostRecent()?.args[2]).toEqual(options);
   });
 
-  it('should set geometry on change', () => {
+  it('should set geometry after init', () => {
     fixture.detectChanges();
 
     const geometry = [50, 50];
@@ -138,7 +138,7 @@ describe('Directive: YaPlacemark', () => {
     expect(placemarkSpy.geometry!.setCoordinates).toHaveBeenCalledWith(geometry);
   });
 
-  it('should set properties on change', () => {
+  it('should set properties after init', () => {
     fixture.detectChanges();
 
     const properties = {
@@ -157,7 +157,7 @@ describe('Directive: YaPlacemark', () => {
     expect((placemarkSpy.properties as any).set).toHaveBeenCalledWith(properties);
   });
 
-  it('should set options on change', () => {
+  it('should set options after init', () => {
     fixture.detectChanges();
 
     const options = {

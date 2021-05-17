@@ -66,7 +66,7 @@ describe('YaMapComponent', () => {
   });
 
   it('should create map', () => {
-    const random = 'random_test_value';
+    const random = 'random_test_id';
     spyOn(GenerateRandomIdModule, 'generateRandomId').and.returnValue(random);
 
     fixture.detectChanges();
@@ -163,7 +163,7 @@ describe('YaMapComponent', () => {
     expect(mapConstructorSpy.calls.mostRecent()?.args[1]).toEqual(correctState);
   });
 
-  it('should set center and zoom on change', () => {
+  it('should set center and zoom after init', () => {
     fixture.detectChanges();
 
     const state = {
@@ -180,7 +180,7 @@ describe('YaMapComponent', () => {
     expect(mapSpy.setZoom).toHaveBeenCalledWith(state.zoom);
   });
 
-  it('should give precedence to center and zoom over state on change', () => {
+  it('should give precedence to center and zoom over state after init', () => {
     const correctState = {
       center: [40, 40],
       zoom: 8,
@@ -202,7 +202,7 @@ describe('YaMapComponent', () => {
     expect(mapSpy.setZoom).toHaveBeenCalledWith(correctState.zoom);
   });
 
-  it('should set state on change', () => {
+  it('should set state after init', () => {
     fixture.detectChanges();
 
     const state = {
@@ -230,7 +230,7 @@ describe('YaMapComponent', () => {
     expect(mapSpy.setZoom).toHaveBeenCalledWith(state.zoom);
   });
 
-  it('should set options on change', () => {
+  it('should set options after init', () => {
     fixture.detectChanges();
 
     const options: ymaps.IMapOptions = {

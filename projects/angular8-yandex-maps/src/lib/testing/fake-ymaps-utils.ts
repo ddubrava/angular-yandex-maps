@@ -1,17 +1,22 @@
 /** Creates a jasmine.SpyObj for a ymaps.Map. */
 export function createMapSpy(): jasmine.SpyObj<ymaps.Map> {
-  const spy = jasmine.createSpyObj('ymaps.Map', ['setCenter', 'setZoom', 'setBounds', 'setType'], {
-    events: jasmine.createSpyObj('events', ['add']),
-    behaviors: jasmine.createSpyObj('behaviors', ['enable']),
-    margin: jasmine.createSpyObj('margin', ['setDefaultMargin']),
-    controls: jasmine.createSpyObj('controls', ['add']),
-    options: jasmine.createSpyObj('controls', ['set']),
-    geoObjects: jasmine.createSpyObj('geoObjects', ['add']),
-  });
+  const spy = jasmine.createSpyObj(
+    'ymaps.Map',
+    ['setCenter', 'setZoom', 'setBounds', 'setType', 'destroy'],
+    {
+      events: jasmine.createSpyObj('events', ['add']),
+      behaviors: jasmine.createSpyObj('behaviors', ['enable']),
+      margin: jasmine.createSpyObj('margin', ['setDefaultMargin']),
+      controls: jasmine.createSpyObj('controls', ['add']),
+      options: jasmine.createSpyObj('controls', ['set']),
+      geoObjects: jasmine.createSpyObj('geoObjects', ['add']),
+    },
+  );
 
   spy.events.add.and.returnValue({
     remove: () => {},
   });
+
   return spy;
 }
 
@@ -28,7 +33,7 @@ export function createMapConstructorSpy(mapSpy: jasmine.SpyObj<ymaps.Map>): jasm
 
 /** Creates a jasmine.SpyObj for a ymaps.Placemark. */
 export function createPlacemarkSpy(): jasmine.SpyObj<ymaps.Placemark> {
-  const spy = jasmine.createSpyObj('ymaps.Map', [], {
+  const spy = jasmine.createSpyObj('ymaps.Placemark', [], {
     events: jasmine.createSpyObj('events', ['add']),
     geometry: jasmine.createSpyObj('geometry', ['setCoordinates']),
     properties: jasmine.createSpyObj('properties', ['set']),
@@ -38,20 +43,49 @@ export function createPlacemarkSpy(): jasmine.SpyObj<ymaps.Placemark> {
   spy.events.add.and.returnValue({
     remove: () => {},
   });
+
   return spy;
 }
 
 /** Creates a jasmine.Spy to watch for the constructor of a ymaps.Placemark. */
 export function createPlacemarkConstructorSpy(
-  mapSpy: jasmine.SpyObj<ymaps.Placemark>,
+  placemarkSpy: jasmine.SpyObj<ymaps.Placemark>,
 ): jasmine.Spy {
   const placemarkConstructorSpy = jasmine
     .createSpy('Placemark constructor')
-    .and.returnValue(mapSpy);
+    .and.returnValue(placemarkSpy);
 
   window.ymaps = {
     Placemark: placemarkConstructorSpy,
   } as any;
 
   return placemarkConstructorSpy;
+}
+
+/** Creates a jasmine.SpyObj for a ymaps.panorama.Player. */
+export function createPlayerSpy(): jasmine.SpyObj<ymaps.panorama.Player> {
+  const spy = jasmine.createSpyObj('ymaps.panorama.Player', ['moveTo', 'setDirection', 'setSpan'], {
+    events: jasmine.createSpyObj('events', ['add']),
+  });
+
+  spy.events.add.and.returnValue({
+    remove: () => {},
+  });
+
+  return spy;
+}
+
+/** Creates a jasmine.Spy to watch for the constructor of a ymaps.panorama.Player. */
+export function createPlayerConstructorSpy(
+  playerSpy: jasmine.SpyObj<ymaps.panorama.Player>,
+): jasmine.Spy {
+  const playerConstructorSpy = jasmine.createSpy('Player constructor').and.returnValue(playerSpy);
+
+  window.ymaps = {
+    panorama: {
+      Player: playerConstructorSpy,
+    },
+  } as any;
+
+  return playerConstructorSpy;
 }
