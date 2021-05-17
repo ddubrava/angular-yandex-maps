@@ -170,9 +170,21 @@ jobs:
         run: |
           npm run build:docs
 
-      - name: Deploy documentation
-        uses: peaceiris/actions-gh-pages@v3
-        if: github.ref == 'refs/heads/main'
+      - name: Archive www Artifact
+        uses: actions/upload-artifact@master
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist/docs
+          name: documentation
+          path: dist/docs
+
+      - name: Download Artifact
+        uses: actions/download-artifact@master
+        with:
+          name: documentation
+          path: dist/docs
+
+      - name: Deploy to github pages
+        uses: JamesIves/github-pages-deploy-action@3.6.2
+        with:
+          branch: gh-pages
+          folder: dist/docs
+          clean: true
