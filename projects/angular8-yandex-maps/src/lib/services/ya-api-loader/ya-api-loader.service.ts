@@ -45,7 +45,7 @@ export interface YaConfig {
  *
  * export class AppComponent {
  *               constructor(private yaApiLoaderService: YaApiLoaderService) {
- *                 this.scriptService.load()
+ *                 this.yaApiLoaderService.load()
  *                   .subscribe(ymaps => console.log(ymaps))
  *               }
  * }

@@ -1,6 +1,15 @@
 # Changelog
 
-All notable changes from v1.0.0 will be documented in this file.
+## [12.0.0] - 2021-05-18
+
+### Added
+
+- Support Angular 12
+
+### Breaking
+
+- Rename `ScriptService` -> `YaApiLoaderService`
+- Change `YaPanorama` API
 
 ## [11.0.2] - 2021-03-12
 
@@ -383,6 +392,7 @@ All notable changes from v1.0.0 will be documented in this file.
 
 - Release without changes
 
+[12.0.0]: https://github.com/ddubrava/angular8-yandex-maps/compare/v11.0.2...v12.0.0
 [11.0.2]: https://github.com/ddubrava/angular8-yandex-maps/compare/v11.0.1...v11.0.2
 [11.0.1]: https://github.com/ddubrava/angular8-yandex-maps/compare/v11.0.0...v11.0.1
 [11.0.0]: https://github.com/ddubrava/angular8-yandex-maps/compare/v10.4.1...v11.0.0
