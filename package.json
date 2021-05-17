@@ -9,7 +9,8 @@
     "build": "ng build angular8-yandex-maps --prod",
     "build:docs": "compodoc -p tsconfig.doc.json --minimal --output dist/docs --name \"Angular Yandex Maps\" --hideGenerator --disableLifeCycleHooks --disableInternal --disablePrivate --includes documentation",
     "test": "ng test angular8-yandex-maps",
-    "test:headless": "ng test angular8-yandex-maps --watch=false --browsers=ChromeHeadless",
+    "test:headless": "npm run test -- --watch=false --browsers=ChromeHeadless",
+    "test:coverage": "npm run test:headless -- --code-coverage",
     "lint": "ng lint angular8-yandex-maps"
   },
   "husky": {
