@@ -2,7 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Observable } from 'rxjs';
 import { YaPanoramaDirective } from './ya-panorama.directive';
-import { AngularYandexMapsModule } from '../../angular-yandex-maps.module';
 import {
   createMapSpy,
   createPlayerConstructorSpy,
@@ -10,7 +9,6 @@ import {
 } from '../../testing/fake-ymaps-utils';
 import { YaMapComponent } from '../ya-map/ya-map.component';
 import { YaReadyEvent } from '../../utils/event-manager';
-import createSpy = jasmine.createSpy;
 
 @Component({
   template: `
@@ -50,8 +48,7 @@ describe('YaPanoramaDirective', () => {
     mapSpy = createMapSpy();
 
     await TestBed.configureTestingModule({
-      imports: [AngularYandexMapsModule],
-      declarations: [MockHostComponent],
+      declarations: [MockHostComponent, YaPanoramaDirective],
       providers: [
         {
           provide: YaMapComponent,
@@ -73,7 +70,7 @@ describe('YaPanoramaDirective', () => {
     playerSpy = createPlayerSpy();
     playerConstructorSpy = createPlayerConstructorSpy(playerSpy);
 
-    window.ymaps.panorama.locate = createSpy('locate').and.returnValue(
+    window.ymaps.panorama.locate = jasmine.createSpy('locate').and.returnValue(
       new Observable((observer) => {
         observer.next([{}]);
       }),

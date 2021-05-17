@@ -89,3 +89,39 @@ export function createPlayerConstructorSpy(
 
   return playerConstructorSpy;
 }
+
+/** Creates a jasmine.SpyObj for a ymaps.multiRouter.MultiRoute. */
+export function createMultirouteSpy(): jasmine.SpyObj<ymaps.multiRouter.MultiRoute> {
+  const spy = jasmine.createSpyObj(
+    'ymaps.multiRouter.MultiRoute',
+    ['moveTo', 'setDirection', 'setSpan'],
+    {
+      model: jasmine.createSpyObj('events', ['setReferencePoints', 'setParams']),
+      events: jasmine.createSpyObj('events', ['add']),
+      options: jasmine.createSpyObj('options', ['set']),
+    },
+  );
+
+  spy.events.add.and.returnValue({
+    remove: () => {},
+  });
+
+  return spy;
+}
+
+/** Creates a jasmine.Spy to watch for the constructor of a ymaps.multiRouter.MultiRoute. */
+export function createMultirouteConstructorSpy(
+  multirouteSpy: jasmine.SpyObj<ymaps.multiRouter.MultiRoute>,
+): jasmine.Spy {
+  const multirouteConstructorSpy = jasmine
+    .createSpy('Multiroute constructor')
+    .and.returnValue(multirouteSpy);
+
+  window.ymaps = {
+    multiRouter: {
+      MultiRoute: multirouteConstructorSpy,
+    },
+  } as any;
+
+  return multirouteConstructorSpy;
+}

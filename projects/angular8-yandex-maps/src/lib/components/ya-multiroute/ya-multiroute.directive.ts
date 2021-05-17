@@ -88,14 +88,14 @@ export class YaMultirouteDirective implements OnInit, OnChanges, OnDestroy {
    */
   @Output() balloonopen: Observable<
     YaEvent<ymaps.multiRouter.MultiRoute>
-  > = this._eventManager.getLazyEmitter('balloonclose');
+  > = this._eventManager.getLazyEmitter('balloonopen');
 
   /**
    * The event occurs at the time of setting the map center and its zoom level for optimal display of the multi-route.
    */
   @Output() boundsautoapply: Observable<
     YaEvent<ymaps.multiRouter.MultiRoute>
-  > = this._eventManager.getLazyEmitter('balloonclose');
+  > = this._eventManager.getLazyEmitter('boundsautoapply');
 
   /**
    * Changing coordinates of the geographical area covering the multi-route.
@@ -256,12 +256,12 @@ export class YaMultirouteDirective implements OnInit, OnChanges, OnDestroy {
     if (multiroute) {
       const { referencePoints, model, options } = changes;
 
-      if (referencePoints) {
-        multiroute.model.setReferencePoints(referencePoints.currentValue);
-      }
-
       if (model) {
         this._setModel(model.currentValue, multiroute);
+      }
+
+      if (referencePoints) {
+        multiroute.model.setReferencePoints(referencePoints.currentValue);
       }
 
       if (options) {

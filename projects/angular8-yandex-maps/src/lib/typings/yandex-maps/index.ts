@@ -4276,7 +4276,7 @@ declare namespace ymaps {
   interface IMapObjectCollection extends ICollection, ICustomizable, IParentOnMap {}
 
   interface IMultiRouteModelJson {
-    params: IMultiRouteParams;
+    params?: IMultiRouteParams;
     referencePoints: IMultiRouteReferencePoint[];
   }
 

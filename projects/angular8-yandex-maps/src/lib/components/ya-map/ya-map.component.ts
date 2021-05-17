@@ -283,16 +283,16 @@ export class YaMapComponent implements AfterViewInit, OnChanges, OnDestroy {
     if (map) {
       const { center, zoom, state, options } = changes;
 
+      if (state) {
+        this._setState(this._combineState(), map);
+      }
+
       if (center) {
         map.setCenter(center.currentValue);
       }
 
       if (zoom) {
         map.setZoom(zoom.currentValue);
-      }
-
-      if (state) {
-        this._setState(this._combineState(), map);
       }
 
       if (options) {
