@@ -1,0 +1,588 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Angular Yandex Maps</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">Angular Yandex Maps</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Interfaces</li>
+  <li>YaConfig</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>projects/angular8-yandex-maps/src/lib/services/ya-api-loader/ya-api-loader.service.ts</code>
+        </p>
+
+
+
+        <section>
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#apikey">apikey</a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#coordorder">coordorder</a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#enterprise">enterprise</a>
+                                </li>
+                                <li>
+                                        <a href="#lang">lang</a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#load">load</a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#mode">mode</a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#version">version</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section>
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="apikey"></a>
+                                        <span class="name"><b>apikey</b><a href="#apikey"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>apikey:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>API key. You can get a key in the developer&#39;s dashboard.</p>
+</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="coordorder"></a>
+                                        <span class="name"><b>coordorder</b><a href="#coordorder"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>coordorder:     <code>&quot;latlong&quot; | &quot;longlat&quot;</code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>    <code>&quot;latlong&quot; | &quot;longlat&quot;</code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The order for setting geographical coordinates in API functions that accept longitude-latitude input.</p>
+</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="enterprise"></a>
+                                        <span class="name"><b>enterprise</b><a href="#enterprise"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>enterprise:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Use commercial version of the API.</p>
+</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="lang"></a>
+                                        <span class="name"><b>lang</b><a href="#lang"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>lang:     <code>&quot;ru_RU&quot; | &quot;en_US&quot; | &quot;en_RU&quot; | &quot;ru_UA&quot; | &quot;uk_UA&quot; | &quot;tr_TR&quot;</code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>    <code>&quot;ru_RU&quot; | &quot;en_US&quot; | &quot;en_RU&quot; | &quot;ru_UA&quot; | &quot;uk_UA&quot; | &quot;tr_TR&quot;</code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Locale.</p>
+</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="load"></a>
+                                        <span class="name"><b>load</b><a href="#load"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>load:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>List of modules to load.</p>
+</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="mode"></a>
+                                        <span class="name"><b>mode</b><a href="#mode"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>mode:     <code>&quot;release&quot; | &quot;debug&quot;</code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>    <code>&quot;release&quot; | &quot;debug&quot;</code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>API loading mode.</p>
+</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="version"></a>
+                                        <span class="name"><b>version</b><a href="#version"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>version:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Version number of the API.</p>
+</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { DOCUMENT } from &#x27;@angular/common&#x27;;
+import { Inject, Injectable, InjectionToken, Optional } from &#x27;@angular/core&#x27;;
+import { from, fromEvent, merge, Observable, throwError } from &#x27;rxjs&#x27;;
+import { map, switchMap, take } from &#x27;rxjs/operators&#x27;;
+
+export const YA_CONFIG &#x3D; new InjectionToken&lt;YaConfig&gt;(&#x27;YA_CONFIG&#x27;);
+
+export interface YaConfig {
+  /**
+   * API key. You can get a key in the developer&#x27;s dashboard.
+   */
+  apikey?: string;
+  /**
+   * Locale.
+   */
+  lang: &#x27;ru_RU&#x27; | &#x27;en_US&#x27; | &#x27;en_RU&#x27; | &#x27;ru_UA&#x27; | &#x27;uk_UA&#x27; | &#x27;tr_TR&#x27;;
+  /**
+   * The order for setting geographical coordinates in API functions that accept longitude-latitude input.
+   */
+  coordorder?: &#x27;latlong&#x27; | &#x27;longlat&#x27;;
+  /**
+   * List of modules to load.
+   */
+  load?: string;
+  /**
+   * API loading mode.
+   */
+  mode?: &#x27;release&#x27; | &#x27;debug&#x27;;
+  /**
+   * Use commercial version of the API.
+   */
+  enterprise?: boolean;
+  /**
+   * Version number of the API.
+   */
+  version?: string;
+}
+
+/**
+ * @dynamic
+ * Injectable service that handles loading of Yandex.Maps API.
+ *
+ * @example
+ * import { YaApiLoaderService } from &#x27;angular8-yandex-maps&#x27;;
+ *
+ * export class AppComponent {
+ *               constructor(private yaApiLoaderService: YaApiLoaderService) {
+ *                 this.scriptService.load()
+ *                   .subscribe(ymaps &#x3D;&gt; console.log(ymaps))
+ *               }
+ * }
+ */
+@Injectable({
+  providedIn: &#x27;root&#x27;,
+})
+export class YaApiLoaderService {
+  private readonly _config: YaConfig;
+
+  private readonly _window: Window &amp; { ymaps: typeof ymaps };
+
+  private readonly _defaultConfig: YaConfig &#x3D; { lang: &#x27;ru_RU&#x27; };
+
+  private _script: HTMLScriptElement;
+
+  constructor(
+    @Optional() @Inject(YA_CONFIG) config: YaConfig | null,
+    @Inject(DOCUMENT) private readonly _document: Document,
+  ) {
+    this._config &#x3D; config || this._defaultConfig;
+
+    if (this._document.defaultView) {
+      this._window &#x3D; this._document.defaultView;
+    } else {
+      throw new Error(&#x27;document.defaultView is null&#x27;);
+    }
+  }
+
+  /**
+   * Inits Yandex.Maps script
+   */
+  load(): Observable&lt;typeof ymaps&gt; {
+    const window &#x3D; this._window;
+
+    if (&#x27;ymaps&#x27; in this._window) {
+      return from(window.ymaps.ready()).pipe(map(() &#x3D;&gt; window.ymaps));
+    }
+
+    if (!this._script) {
+      const script &#x3D; this._document.createElement(&#x27;script&#x27;);
+
+      script.type &#x3D; &#x27;text/javascript&#x27;;
+      script.src &#x3D; this._getScriptSource(this._config);
+      script.id &#x3D; &#x27;yandexMapsApiScript&#x27;;
+      script.async &#x3D; true;
+      script.defer &#x3D; true;
+
+      this._script &#x3D; this._document.body.appendChild(script);
+    }
+
+    const load &#x3D; fromEvent(this._script, &#x27;load&#x27;).pipe(
+      switchMap(() &#x3D;&gt; from(window.ymaps.ready()).pipe(map(() &#x3D;&gt; window.ymaps))),
+    );
+
+    const error &#x3D; fromEvent(this._script, &#x27;error&#x27;).pipe(switchMap((e) &#x3D;&gt; throwError(e)));
+
+    return merge(load, error).pipe(take(1));
+  }
+
+  /**
+   * Returns script source by config
+   * @param config config with parameters that will be added in source
+   * @example
+   * // returns &#x27;https://api-maps.yandex.ru/2.1/?apikey&#x3D;658f67a2-fd77-42e9-b99e-2bd48c4ccad4&amp;lang&#x3D;en_US&#x27;
+   * getScriptSource({ apikey: &#x27;658f67a2-fd77-42e9-b99e-2bd48c4ccad4&#x27;, lang: &#x27;en_US&#x27; })
+   */
+  private _getScriptSource(config: YaConfig): string {
+    const { enterprise, version &#x3D; &#x27;2.1&#x27;, ...rest } &#x3D; config;
+    const params &#x3D; this._convertConfigIntoQueryParams(rest);
+
+    return &#x60;https://${enterprise ? &#x27;enterprise.&#x27; : &#x27;&#x27;}api-maps.yandex.ru/${version}/?${params}&#x60;;
+  }
+
+  /**
+   * Converts a config into a query string parameters
+   * @param config object for converting
+   * @example
+   * // returns &quot;lang&#x3D;ru_RU&amp;apikey&#x3D;XXX&quot;
+   * convertIntoQueryParams({ lang: &#x27;ru_RU&#x27;, apikey: &#x27;XXX&#x27; })
+   */
+  private _convertConfigIntoQueryParams(config: YaConfig): string {
+    return Object.entries(config)
+      .map(([key, value]) &#x3D;&gt; &#x60;${key}&#x3D;${value}&#x60;)
+      .join(&#x27;&amp;&#x27;);
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'YaConfig.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

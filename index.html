@@ -1,0 +1,188 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Angular Yandex Maps</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+	      <link rel="stylesheet" href="./styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="./" class="navbar-brand">Angular Yandex Maps</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content getting-started">
+                   <div class="content-data">
+
+<p><img src="https://img.shields.io/npm/v/angular8-yandex-maps" alt="npm" class="img-responsive">
+<img src="https://img.shields.io/github/workflow/status/ddubrava/angular8-yandex-maps/CI/master" alt="GitHub Workflow Status (branch)" class="img-responsive">
+<a href="https://codecov.io/gh/ddubrava/angular8-yandex-maps"><img src="https://codecov.io/gh/ddubrava/angular8-yandex-maps/branch/master/graph/badge.svg?token=ZU50NBBBH6" alt="codecov" class="img-responsive"></a>
+<img src="https://img.shields.io/npm/dm/angular8-yandex-maps?color=blue" alt="npm" class="img-responsive">
+<img src="https://img.shields.io/bundlephobia/min/angular8-yandex-maps" alt="npm bundle size" class="img-responsive">
+<img src="https://img.shields.io/github/stars/ddubrava/angular8-yandex-maps" alt="GitHub Repo stars" class="img-responsive"></p>
+<h1 id="angular8-yandex-maps">Angular8-yandex-maps</h1>
+<p>Angular components for Yandex.Maps.</p>
+<h2 id="documentation">Documentation</h2>
+<p><a href="https://ddubrava.github.io/angular8-yandex-maps/">Documentation</a></p>
+<h2 id="examples">Examples</h2>
+<p><a href="https://ddubrava.github.io/angular8-yandex-maps/additional-documentation/examples.html">Examples</a></p>
+<h2 id="installation">Installation</h2>
+<div><pre class="line-numbers"><code class="language-bash">npm install angular8-yandex-maps</code></pre></div><h4 id="version-compatibility">Version compatibility</h4>
+<table class="table table-bordered compodoc-table">
+<thead>
+<tr>
+<th>Angular version</th>
+<th>Library Version</th>
+<th>Documentation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>v9, v10, v11</td>
+<td>v11.x</td>
+<td><a href="https://ddubrava.github.io/angular8-yandex-maps/#/">DOCUMENTATION</a></td>
+</tr>
+<tr>
+<td>v8</td>
+<td>v8.x</td>
+<td><a href="https://github.com/ddubrava/angular8-yandex-maps/tree/8.0.0/docs">DOCUMENTATION</a></td>
+</tr>
+<tr>
+<td>v7</td>
+<td>v7.x</td>
+<td><a href="https://github.com/ddubrava/angular8-yandex-maps/tree/7.0.0/docs">DOCUMENTATION</a></td>
+</tr>
+<tr>
+<td>v6</td>
+<td>v6.x</td>
+<td><a href="https://github.com/ddubrava/angular8-yandex-maps/tree/6.0.0/docs">DOCUMENTATION</a></td>
+</tr>
+</tbody>
+</table>
+<div><pre class="line-numbers"><code class="language-bash">npm install angular8-yandex-maps&#64;^6.0.0</code></pre></div><h2 id="usage">Usage</h2>
+<h3 id="appmodulets">app.module.ts</h3>
+<h5 id="default-map-config-options">Default map config options</h5>
+<div><pre class="line-numbers"><code class="language-typescript">import { AngularYandexMapsModule } from &#39;angular8-yandex-maps&#39;;
+
+&#64;NgModule({
+  imports: [AngularYandexMapsModule],
+})
+export class AppModule {}</code></pre></div><h5 id="own-map-config-options">Own map config options</h5>
+<div><pre class="line-numbers"><code class="language-typescript">import { AngularYandexMapsModule, YaConfig } from &#39;angular8-yandex-maps&#39;;
+
+const mapConfig: YaConfig = {
+  apikey: &#39;API_KEY&#39;,
+  lang: &#39;en_US&#39;,
+};
+
+&#64;NgModule({
+  imports: [AngularYandexMapsModule.forRoot(mapConfig)],
+})
+export class AppModule {}</code></pre></div><h5 id="injection-token">Injection token</h5>
+<div><pre class="line-numbers"><code class="language-typescript">import { AngularYandexMapsModule, YA_CONFIG } from &#39;angular8-yandex-maps&#39;;
+
+&#64;NgModule({
+  imports: [AngularYandexMapsModule],
+  providers: [
+    {
+      provide: YA_CONFIG,
+      useValue: {
+        apikey: &#39;API_KEY&#39;,
+        lang: &#39;en_US&#39;,
+      },
+    },
+  ],
+})
+export class AppModule {}</code></pre></div><h3 id="componenthtml">component.html</h3>
+<div><pre class="line-numbers"><code class="language-html">&lt;div class=&quot;container&quot;&gt;
+  &lt;ya-map [center]=&quot;[55.751952, 37.600739]&quot; [zoom]=&quot;12&quot;&gt;
+    &lt;ya-placemark [geometry]=&quot;[55.751952, 37.600739]&quot;&gt;&lt;/ya-placemark&gt;
+  &lt;/ya-map&gt;
+&lt;/div&gt;</code></pre></div><h3 id="componentcss">component.css</h3>
+<div><pre class="line-numbers"><code class="language-css">.container {
+  width: 1000px;
+  height: 500px;
+}</code></pre></div><h2 id="changelog">Changelog</h2>
+<p><a href="https://github.com/ddubrava/angular8-yandex-maps/blob/master/CHANGELOG.md">CHANGELOG</a></p>
+<h2 id="license">License</h2>
+<p><a href="https://github.com/ddubrava/angular8-yandex-maps/blob/master/LICENSE.md">MIT</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 0;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'getting-started';
+            var COMPODOC_CURRENT_PAGE_URL = 'index.html';
+       </script>
+
+       <script src="./js/libs/custom-elements.min.js"></script>
+       <script src="./js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="./js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="./js/menu-wc.js" defer></script>
+
+       <script src="./js/libs/bootstrap-native.js"></script>
+
+       <script src="./js/libs/es6-shim.min.js"></script>
+       <script src="./js/libs/EventDispatcher.js"></script>
+       <script src="./js/libs/promise.min.js"></script>
+       <script src="./js/libs/zepto.min.js"></script>
+
+       <script src="./js/compodoc.js"></script>
+
+       <script src="./js/tabs.js"></script>
+       <script src="./js/menu.js"></script>
+       <script src="./js/libs/clipboard.min.js"></script>
+       <script src="./js/libs/prism.js"></script>
+       <script src="./js/sourceCode.js"></script>
+       <script src="./js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
