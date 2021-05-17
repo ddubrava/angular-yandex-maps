@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { Component, ViewChild } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { YaClustererComponent } from './ya-clusterer.component';
 import { AngularYandexMapsModule } from '../../angular-yandex-maps.module';
 import { YaMapComponent } from '../ya-map/ya-map.component';
@@ -70,9 +70,7 @@ describe('YaClustererComponent', () => {
           provide: YaMapComponent,
           useValue: {
             isBrowser: true,
-            map$: new Observable((observer) => {
-              observer.next(mapSpy);
-            }),
+            map$: new BehaviorSubject(mapSpy),
           },
         },
       ],
@@ -82,8 +80,6 @@ describe('YaClustererComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(MockHostComponent);
     component = fixture.componentInstance.clusterer;
-
-    mapSpy = createMapSpy();
 
     const placemarkSpy = createPlacemarkSpy();
     createPlacemarkConstructorSpy(placemarkSpy);

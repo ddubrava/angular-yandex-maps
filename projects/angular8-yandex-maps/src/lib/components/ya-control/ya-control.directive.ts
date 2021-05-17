@@ -1,4 +1,13 @@
-import { Directive, EventEmitter, Input, NgZone, OnChanges, OnInit, Output } from '@angular/core';
+import {
+  Directive,
+  EventEmitter,
+  Input,
+  NgZone,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { Subscription } from 'rxjs';
 import { YaReadyEvent } from '../../utils/event-manager';
 import { YaMapComponent } from '../ya-map/ya-map.component';
@@ -36,7 +45,7 @@ export type YaControlType =
 @Directive({
   selector: 'ya-control',
 })
-export class YaControlDirective implements OnInit, OnChanges {
+export class YaControlDirective implements OnInit, OnChanges, OnDestroy {
   private readonly _sub = new Subscription();
 
   private _control?: any;
@@ -93,6 +102,12 @@ export class YaControlDirective implements OnInit, OnChanges {
       });
 
       this._sub.add(sub);
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this._control) {
+      this._yaMapComponent?.map$.value?.controls.remove(this._control);
     }
   }
 }

@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { YaPlacemarkDirective } from './ya-placemark.directive';
 import {
   createMapSpy,
@@ -56,9 +56,7 @@ describe('Directive: YaPlacemark', () => {
           provide: YaMapComponent,
           useValue: {
             isBrowser: true,
-            map$: new Observable((observer) => {
-              observer.next(mapSpy);
-            }),
+            map$: new BehaviorSubject(mapSpy),
           },
         },
       ],
@@ -171,6 +169,13 @@ describe('Directive: YaPlacemark', () => {
     fixture.detectChanges();
 
     expect(placemarkSpy.options.set).toHaveBeenCalledWith(options);
+  });
+
+  it('should remove placemark from map.geoObjects on destroy', () => {
+    fixture.detectChanges();
+    fixture.destroy();
+
+    expect(mapSpy.geoObjects.remove).toHaveBeenCalledWith(placemarkSpy);
   });
 
   it('should init event handlers that are set on the placemark', () => {

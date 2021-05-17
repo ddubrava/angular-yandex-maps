@@ -31,9 +31,9 @@ export function createMapSpy(): jasmine.SpyObj<ymaps.Map> {
       events: jasmine.createSpyObj('events', ['add']),
       behaviors: jasmine.createSpyObj('behaviors', ['enable']),
       margin: jasmine.createSpyObj('margin', ['setDefaultMargin']),
-      controls: jasmine.createSpyObj('controls', ['add']),
+      controls: jasmine.createSpyObj('controls', ['add', 'remove']),
       options: jasmine.createSpyObj('controls', ['set']),
-      geoObjects: jasmine.createSpyObj('geoObjects', ['add']),
+      geoObjects: jasmine.createSpyObj('geoObjects', ['add', 'remove']),
     },
   );
 

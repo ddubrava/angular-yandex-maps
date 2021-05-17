@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { YaGeoObjectDirective } from './ya-geoobject.directive';
 import { YaMapComponent } from '../ya-map/ya-map.component';
 import {
@@ -53,9 +53,7 @@ describe('Directive: YaGeoObject', () => {
           provide: YaMapComponent,
           useValue: {
             isBrowser: true,
-            map$: new Observable((observer) => {
-              observer.next(mapSpy);
-            }),
+            map$: new BehaviorSubject(mapSpy),
           },
         },
       ],
@@ -181,6 +179,13 @@ describe('Directive: YaGeoObject', () => {
     fixture.detectChanges();
 
     expect(console.warn).toHaveBeenCalled();
+  });
+
+  it('should remove geoObject from map.geoObjects on destroy', () => {
+    fixture.detectChanges();
+    fixture.destroy();
+
+    expect(mapSpy.geoObjects.remove).toHaveBeenCalledWith(geoObjectSpy);
   });
 
   it('should init event handlers that are set on the geoObject', () => {

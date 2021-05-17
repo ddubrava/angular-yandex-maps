@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { YaPanoramaDirective } from './ya-panorama.directive';
 import {
   createMapSpy,
@@ -55,9 +55,7 @@ describe('YaPanoramaDirective', () => {
           useValue: {
             container: { nativeElement: { id: 'random_test_id' } },
             isBrowser: true,
-            map$: new Observable((observer) => {
-              observer.next(mapSpy);
-            }),
+            map$: new BehaviorSubject(mapSpy),
           },
         },
       ],
@@ -214,7 +212,7 @@ describe('YaPanoramaDirective', () => {
     expect(console.warn).toHaveBeenCalled();
   });
 
-  it('should init event handlers that are set on the placemark', () => {
+  it('should init event handlers that are set on the panorama', () => {
     const addSpy = playerSpy.events.add;
     fixture.detectChanges();
 

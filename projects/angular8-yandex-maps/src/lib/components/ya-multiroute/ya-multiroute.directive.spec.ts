@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { YaMultirouteDirective } from './ya-multiroute.directive';
 import { YaMapComponent } from '../ya-map/ya-map.component';
 import {
@@ -56,9 +56,7 @@ describe('Directive: YaMultiroute', () => {
           provide: YaMapComponent,
           useValue: {
             isBrowser: true,
-            map$: new Observable((observer) => {
-              observer.next(mapSpy);
-            }),
+            map$: new BehaviorSubject(mapSpy),
           },
         },
       ],
@@ -184,6 +182,13 @@ describe('Directive: YaMultiroute', () => {
 
     expect(multirouteSpy.model.setReferencePoints).toHaveBeenCalledWith(model.referencePoints);
     expect(multirouteSpy.model.setParams).toHaveBeenCalledWith(model.params);
+  });
+
+  it('should remove multiroute from map.geoObjects on destroy', () => {
+    fixture.detectChanges();
+    fixture.destroy();
+
+    expect(mapSpy.geoObjects.remove).toHaveBeenCalledWith(multirouteSpy);
   });
 
   it('should init event handlers that are set on the multiroute', () => {

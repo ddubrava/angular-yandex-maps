@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { YaControlDirective, YaControlType } from './ya-control.directive';
 import {
   createMapSpy,
@@ -39,9 +39,7 @@ describe('Directive: YaControl', () => {
           provide: YaMapComponent,
           useValue: {
             isBrowser: true,
-            map$: new Observable((observer) => {
-              observer.next(mapSpy);
-            }),
+            map$: new BehaviorSubject(mapSpy),
           },
         },
       ],
@@ -112,5 +110,12 @@ describe('Directive: YaControl', () => {
     fixture.detectChanges();
 
     expect(console.warn).toHaveBeenCalled();
+  });
+
+  it('should remove control from map.controls on destroy', () => {
+    fixture.detectChanges();
+    fixture.destroy();
+
+    expect(mapSpy.controls.remove).toHaveBeenCalledWith(routePanelSpy);
   });
 });
