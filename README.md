@@ -1,5 +1,6 @@
 ![npm](https://img.shields.io/npm/v/angular8-yandex-maps)
 ![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/ddubrava/angular8-yandex-maps/CI/master)
+[![codecov](https://codecov.io/gh/ddubrava/angular8-yandex-maps/branch/master/graph/badge.svg?token=ZU50NBBBH6)](https://codecov.io/gh/ddubrava/angular8-yandex-maps)
 ![npm](https://img.shields.io/npm/dm/angular8-yandex-maps?color=blue)
 ![npm bundle size](https://img.shields.io/bundlephobia/min/angular8-yandex-maps)
 ![GitHub Repo stars](https://img.shields.io/github/stars/ddubrava/angular8-yandex-maps)
