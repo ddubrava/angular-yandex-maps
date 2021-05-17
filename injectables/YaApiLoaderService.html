@@ -70,7 +70,7 @@
 
 export class AppComponent {
   constructor(private yaApiLoaderService: YaApiLoaderService) {
-    this.scriptService.load()
+    this.yaApiLoaderService.load()
       .subscribe(ymaps =&gt; console.log(ymaps))
   }
 }</code></pre>
@@ -265,7 +265,7 @@ export interface YaConfig {
  *
  * export class AppComponent {
  *               constructor(private yaApiLoaderService: YaApiLoaderService) {
- *                 this.scriptService.load()
+ *                 this.yaApiLoaderService.load()
  *                   .subscribe(ymaps &#x3D;&gt; console.log(ymaps))
  *               }
  * }
