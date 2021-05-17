@@ -148,18 +148,20 @@ export class YaPanoramaDirective implements OnInit, OnChanges, OnDestroy {
     if (player) {
       const { point, layer, options } = changes;
 
-      if (point) {
-        player.moveTo(point.currentValue);
-      }
+      /**
+       * player.moveTo resets values to default if any of them isn't passed.
+       * That's why we use value from currentValue OR previous value from input.
+       * With that logic it's possible to pass only point, layer or options.
+       */
+      if (point || layer) {
+        const combinedPoint: number[] = point?.currentValue || this.point;
+        const combinedLayer: ymaps.panorama.Layer = layer?.currentValue || this.layer;
 
-      if (layer && point === undefined) {
-        console.warn('The layer can not be changed without a point');
+        player.moveTo(combinedPoint, { layer: combinedLayer });
       }
 
       if (options) {
-        console.warn(
-          'The options can not be changed after entity init. You can set them manually using ymaps or recreate the Panorama with new options',
-        );
+        this._setOptions(options.currentValue, player);
       }
     }
   }
@@ -182,6 +184,7 @@ export class YaPanoramaDirective implements OnInit, OnChanges, OnDestroy {
         const player = new ymaps.panorama.Player(id, panorama, this.options);
         this._player = player;
 
+        this._eventManager.setTarget(player);
         this._ngZone.run(() => this.ready.emit({ ymaps, target: player }));
       });
 
@@ -192,6 +195,43 @@ export class YaPanoramaDirective implements OnInit, OnChanges, OnDestroy {
   ngOnDestroy(): void {
     this._eventManager.destroy();
     this._sub.unsubscribe();
+  }
+
+  /**
+   * Destructs state and passes it in API.
+   * @param options
+   * @param player
+   */
+  private _setOptions(options: ymaps.panorama.IPlayerOptions, player: ymaps.panorama.Player): void {
+    const {
+      autoFitToViewport,
+      controls,
+      direction,
+      hotkeysEnabled,
+      span,
+      scrollZoomBehavior,
+      suppressMapOpenBlock,
+    } = options;
+
+    if (
+      autoFitToViewport ||
+      controls ||
+      hotkeysEnabled ||
+      scrollZoomBehavior ||
+      suppressMapOpenBlock
+    ) {
+      console.warn(
+        'Only direction and span can be set after entity init. To set other options, you should recreate a Panorama with new options',
+      );
+    }
+
+    if (direction) {
+      player.setDirection(direction);
+    }
+
+    if (span) {
+      player.setSpan(span);
+    }
   }
 
   /**
