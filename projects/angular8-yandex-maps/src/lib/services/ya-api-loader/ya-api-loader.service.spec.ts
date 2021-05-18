@@ -1,4 +1,5 @@
 import { YaApiLoaderService, YaConfig } from './ya-api-loader.service';
+import { createReadySpy } from '../../testing/fake-ymaps-utils';
 
 describe('YaApiLoaderService', () => {
   let service: YaApiLoaderService;
@@ -6,18 +7,16 @@ describe('YaApiLoaderService', () => {
 
   beforeEach(() => {
     mockDocument = {
-      defaultView: {},
       createElement: jasmine.createSpy('createElement'),
       body: jasmine.createSpyObj('body', ['appendChild']),
     };
   });
 
-  it('should throw error if defaultView is null', () => {
-    mockDocument.defaultView = null;
-    expect(() => new YaApiLoaderService(null, mockDocument)).toThrowError();
+  afterEach(() => {
+    (window.ymaps as any) = undefined;
   });
 
-  it("should create script with default options if config isn't passed", () => {
+  it('should create script with default options if config is not passed', () => {
     service = new YaApiLoaderService(null, mockDocument);
 
     const script = {} as HTMLScriptElement;
@@ -73,10 +72,7 @@ describe('YaApiLoaderService', () => {
   });
 
   it('should not append second script if window.ymaps is defined', () => {
-    mockDocument.defaultView.ymaps = {
-      ready: () => new Promise((resolve) => resolve({})),
-    };
-
+    createReadySpy();
     service = new YaApiLoaderService(null, mockDocument);
     service.load();
 
@@ -118,10 +114,7 @@ describe('YaApiLoaderService', () => {
     });
 
     setTimeout(() => {
-      mockDocument.defaultView.ymaps = {
-        ready: () => new Promise((resolve) => resolve({})),
-      };
-
+      createReadySpy();
       onHandlers.load();
     });
   });
@@ -152,10 +145,7 @@ describe('YaApiLoaderService', () => {
     );
 
     setTimeout(() => {
-      mockDocument.defaultView.ymaps = {
-        ready: () => new Promise((resolve) => resolve({})),
-      };
-
+      createReadySpy();
       onHandlers.error(event);
     });
   });
