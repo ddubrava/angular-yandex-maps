@@ -16,7 +16,9 @@ import { Observable, Subscription } from 'rxjs';
 import { YaGeoObjectDirective } from '../ya-geoobject/ya-geoobject.directive';
 import { YaMapComponent } from '../ya-map/ya-map.component';
 import { YaPlacemarkDirective } from '../ya-placemark/ya-placemark.directive';
-import { EventManager, YaEvent, YaReadyEvent } from '../../utils/event-manager';
+import { EventManager } from '../../utils/event-manager';
+import { YaReadyEvent } from '../../typings/ya-ready-event';
+import { YaEvent } from '../../typings/ya-event';
 
 /**
  * The `ya-clusterer` component wraps `ymaps.Clusterer` class from the Yandex Maps API.

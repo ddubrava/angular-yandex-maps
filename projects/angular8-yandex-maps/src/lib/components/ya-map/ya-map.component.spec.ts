@@ -3,12 +3,12 @@ import { Component, ViewChild } from '@angular/core';
 
 import * as GenerateRandomIdModule from '../../utils/generate-random-id';
 import { YaMapComponent } from './ya-map.component';
-import { YaReadyEvent } from '../../utils/event-manager';
 import {
   createMapConstructorSpy,
   createMapSpy,
   createReadySpy,
 } from '../../testing/fake-ymaps-utils';
+import { YaReadyEvent } from '../../typings/ya-ready-event';
 
 @Component({
   template: `
