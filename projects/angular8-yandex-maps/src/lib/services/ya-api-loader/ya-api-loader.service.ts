@@ -13,7 +13,7 @@ export interface YaConfig {
   /**
    * Locale.
    */
-  lang: 'ru_RU' | 'en_US' | 'en_RU' | 'ru_UA' | 'uk_UA' | 'tr_TR';
+  lang?: 'ru_RU' | 'en_US' | 'en_RU' | 'ru_UA' | 'uk_UA' | 'tr_TR';
   /**
    * The order for setting geographical coordinates in API functions that accept longitude-latitude input.
    */
@@ -66,7 +66,10 @@ export class YaApiLoaderService {
     @Optional() @Inject(YA_CONFIG) config: YaConfig | null,
     @Inject(DOCUMENT) private readonly _document: Document,
   ) {
-    this._config = config || this._defaultConfig;
+    this._config = {
+      ...this._defaultConfig,
+      ...config,
+    };
 
     if (this._document.defaultView) {
       this._window = this._document.defaultView;
