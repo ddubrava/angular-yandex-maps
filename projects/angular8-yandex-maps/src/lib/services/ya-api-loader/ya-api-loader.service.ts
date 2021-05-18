@@ -37,8 +37,7 @@ export interface YaConfig {
 }
 
 /**
- * @dynamic
- * Injectable service that handles loading of Yandex.Maps API.
+ * The `YaApiLoader` service handles loading of Yandex.Maps API.
  *
  * @example
  * import { YaApiLoaderService } from 'angular8-yandex-maps';
@@ -49,6 +48,8 @@ export interface YaConfig {
  *                   .subscribe(v => console.log(v))
  *               }
  * }
+ *
+ * @dynamic
  */
 @Injectable({
   providedIn: 'root',
