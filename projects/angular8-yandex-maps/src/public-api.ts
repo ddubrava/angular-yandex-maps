@@ -9,6 +9,7 @@ export * from './lib/angular-yandex-maps.module';
 
 // Services
 export * from './lib/services/ya-api-loader/ya-api-loader.service';
+export * from './lib/services/ya-geocoder/ya-geocoder.service';
 
 // Components
 export * from './lib/components/ya-clusterer/ya-clusterer.component';
