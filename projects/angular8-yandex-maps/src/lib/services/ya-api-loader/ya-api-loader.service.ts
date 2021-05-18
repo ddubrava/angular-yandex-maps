@@ -46,7 +46,7 @@ export interface YaConfig {
  * export class AppComponent {
  *               constructor(private yaApiLoaderService: YaApiLoaderService) {
  *                 this.yaApiLoaderService.load()
- *                   .subscribe(ymaps => console.log(ymaps))
+ *                   .subscribe(v => console.log(v))
  *               }
  * }
  */
@@ -55,8 +55,6 @@ export interface YaConfig {
 })
 export class YaApiLoaderService {
   private readonly _config: YaConfig;
-
-  private readonly _window: Window & { ymaps: typeof ymaps };
 
   private readonly _defaultConfig: YaConfig = { lang: 'ru_RU' };
 
@@ -70,22 +68,14 @@ export class YaApiLoaderService {
       ...this._defaultConfig,
       ...config,
     };
-
-    if (this._document.defaultView) {
-      this._window = this._document.defaultView;
-    } else {
-      throw new Error('document.defaultView is null');
-    }
   }
 
   /**
-   * Inits Yandex.Maps script
+   * Loads Yandex.Maps API
    */
   load(): Observable<typeof ymaps> {
-    const window = this._window;
-
-    if ('ymaps' in this._window) {
-      return from(window.ymaps.ready()).pipe(map(() => window.ymaps));
+    if (window.ymaps) {
+      return from(ymaps.ready()).pipe(map(() => ymaps));
     }
 
     if (!this._script) {
@@ -101,7 +91,7 @@ export class YaApiLoaderService {
     }
 
     const load = fromEvent(this._script, 'load').pipe(
-      switchMap(() => from(window.ymaps.ready()).pipe(map(() => window.ymaps))),
+      switchMap(() => from(ymaps.ready()).pipe(map(() => ymaps))),
     );
 
     const error = fromEvent(this._script, 'error').pipe(switchMap((e) => throwError(e)));

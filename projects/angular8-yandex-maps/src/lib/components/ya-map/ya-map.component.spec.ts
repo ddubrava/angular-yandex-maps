@@ -1,12 +1,14 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component, ViewChild } from '@angular/core';
-import { Observable } from 'rxjs';
 
 import * as GenerateRandomIdModule from '../../utils/generate-random-id';
 import { YaMapComponent } from './ya-map.component';
 import { YaReadyEvent } from '../../utils/event-manager';
-import { YaApiLoaderService } from '../../services/ya-api-loader/ya-api-loader.service';
-import { createMapConstructorSpy, createMapSpy } from '../../testing/fake-ymaps-utils';
+import {
+  createMapConstructorSpy,
+  createMapSpy,
+  createReadySpy,
+} from '../../testing/fake-ymaps-utils';
 
 @Component({
   template: `
@@ -44,13 +46,10 @@ describe('YaMapComponent', () => {
   let mapConstructorSpy: jasmine.Spy;
 
   beforeEach(async () => {
-    const yaApiLoaderServiceStub = {
-      load: () => new Observable((s) => s.next()),
-    };
+    createReadySpy();
 
     await TestBed.configureTestingModule({
       declarations: [MockHostComponent, YaMapComponent],
-      providers: [{ provide: YaApiLoaderService, useValue: yaApiLoaderServiceStub }],
     }).compileComponents();
   });
 

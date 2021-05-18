@@ -1,3 +1,5 @@
+import { Observable } from 'rxjs';
+
 // The global `window` variable is typed as an intersection of `Window` and `globalThis`.
 // We re-declare `window` here and omit `globalThis` as it is typed with the actual Yandex Maps
 // types which we intend to override with jasmine spies for testing. Keeping `globalThis`
@@ -6,6 +8,8 @@ declare let window: Window;
 
 interface TestingWindow extends Window {
   ymaps?: {
+    ready?: jasmine.Spy;
+    geocode?: jasmine.Spy;
     Map?: jasmine.Spy;
     Placemark?: jasmine.Spy;
     GeoObject?: jasmine.Spy;
@@ -20,6 +24,42 @@ interface TestingWindow extends Window {
       RoutePanel?: jasmine.Spy;
     };
   };
+}
+
+/** Creates a jasmine.Spy for a ymaps.ready. */
+export function createReadySpy(): jasmine.Spy<jasmine.Func> {
+  const readySpy = jasmine
+    .createSpy('ready')
+    .and.returnValue(new Observable((observer) => observer.next()));
+
+  const testingWindow: TestingWindow = window;
+
+  if (testingWindow.ymaps) {
+    testingWindow.ymaps.ready = readySpy;
+  } else {
+    testingWindow.ymaps = {
+      ready: readySpy,
+    };
+  }
+
+  return readySpy;
+}
+
+/** Creates a jasmine.Spy for a ymaps.load. */
+export function createGeocoderSpy(): jasmine.Spy<jasmine.Func> {
+  const geocodeSpy = jasmine.createSpy('geocode').and.returnValue(Promise.resolve({}));
+
+  const testingWindow: TestingWindow = window;
+
+  if (testingWindow.ymaps) {
+    testingWindow.ymaps.geocode = geocodeSpy;
+  } else {
+    testingWindow.ymaps = {
+      geocode: geocodeSpy,
+    };
+  }
+
+  return geocodeSpy;
 }
 
 /** Creates a jasmine.SpyObj for a ymaps.Map. */
