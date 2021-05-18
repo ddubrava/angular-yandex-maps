@@ -91,6 +91,7 @@
                                         <a href="#enterprise">enterprise</a>
                                 </li>
                                 <li>
+                                            <span class="modifier">Optional</span>
                                         <a href="#lang">lang</a>
                                 </li>
                                 <li>
@@ -259,6 +260,11 @@
                                         </td>
                                     </tr>
 
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
 
 
 
@@ -411,7 +417,7 @@ export interface YaConfig {
   /**
    * Locale.
    */
-  lang: &#x27;ru_RU&#x27; | &#x27;en_US&#x27; | &#x27;en_RU&#x27; | &#x27;ru_UA&#x27; | &#x27;uk_UA&#x27; | &#x27;tr_TR&#x27;;
+  lang?: &#x27;ru_RU&#x27; | &#x27;en_US&#x27; | &#x27;en_RU&#x27; | &#x27;ru_UA&#x27; | &#x27;uk_UA&#x27; | &#x27;tr_TR&#x27;;
   /**
    * The order for setting geographical coordinates in API functions that accept longitude-latitude input.
    */
@@ -462,7 +468,10 @@ export class YaApiLoaderService {
     @Optional() @Inject(YA_CONFIG) config: YaConfig | null,
     @Inject(DOCUMENT) private readonly _document: Document,
   ) {
-    this._config &#x3D; config || this._defaultConfig;
+    this._config &#x3D; {
+      ...this._defaultConfig,
+      ...config,
+    };
   }
 
   /**
