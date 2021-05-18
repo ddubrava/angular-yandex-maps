@@ -7,7 +7,6 @@ import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 
 const mapConfig: YaConfig = {
-  lang: 'en_US',
   apikey: environment.apikey,
 };
 
