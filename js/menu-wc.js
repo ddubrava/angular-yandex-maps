@@ -145,6 +145,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <li class="link">
                                     <a href="injectables/YaApiLoaderService.html" data-type="entity-link">YaApiLoaderService</a>
                                 </li>
+                                <li class="link">
+                                    <a href="injectables/YaGeocoderService.html" data-type="entity-link">YaGeocoderService</a>
+                                </li>
                             </ul>
                         </li>
                     <li class="chapter">

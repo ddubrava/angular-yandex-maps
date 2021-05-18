@@ -444,7 +444,7 @@ export interface YaConfig {
  * export class AppComponent {
  *               constructor(private yaApiLoaderService: YaApiLoaderService) {
  *                 this.yaApiLoaderService.load()
- *                   .subscribe(ymaps &#x3D;&gt; console.log(ymaps))
+ *                   .subscribe(v &#x3D;&gt; console.log(v))
  *               }
  * }
  */
@@ -453,8 +453,6 @@ export interface YaConfig {
 })
 export class YaApiLoaderService {
   private readonly _config: YaConfig;
-
-  private readonly _window: Window &amp; { ymaps: typeof ymaps };
 
   private readonly _defaultConfig: YaConfig &#x3D; { lang: &#x27;ru_RU&#x27; };
 
@@ -465,22 +463,14 @@ export class YaApiLoaderService {
     @Inject(DOCUMENT) private readonly _document: Document,
   ) {
     this._config &#x3D; config || this._defaultConfig;
-
-    if (this._document.defaultView) {
-      this._window &#x3D; this._document.defaultView;
-    } else {
-      throw new Error(&#x27;document.defaultView is null&#x27;);
-    }
   }
 
   /**
-   * Inits Yandex.Maps script
+   * Loads Yandex.Maps API
    */
   load(): Observable&lt;typeof ymaps&gt; {
-    const window &#x3D; this._window;
-
-    if (&#x27;ymaps&#x27; in this._window) {
-      return from(window.ymaps.ready()).pipe(map(() &#x3D;&gt; window.ymaps));
+    if (window.ymaps) {
+      return from(ymaps.ready()).pipe(map(() &#x3D;&gt; ymaps));
     }
 
     if (!this._script) {
@@ -496,7 +486,7 @@ export class YaApiLoaderService {
     }
 
     const load &#x3D; fromEvent(this._script, &#x27;load&#x27;).pipe(
-      switchMap(() &#x3D;&gt; from(window.ymaps.ready()).pipe(map(() &#x3D;&gt; window.ymaps))),
+      switchMap(() &#x3D;&gt; from(ymaps.ready()).pipe(map(() &#x3D;&gt; ymaps))),
     );
 
     const error &#x3D; fromEvent(this._script, &#x27;error&#x27;).pipe(switchMap((e) &#x3D;&gt; throwError(e)));
