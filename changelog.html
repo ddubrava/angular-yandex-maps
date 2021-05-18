@@ -31,8 +31,17 @@
                    <div class="content-data">
 
 <h1 id="changelog">Changelog</h1>
-<h2 id="1200---2021-05-18"><a href="https://github.com/ddubrava/angular8-yandex-maps/compare/v11.0.2...v12.0.0">12.0.0</a> - 2021-05-18</h2>
+<h2 id="1210---2021-05-18">[12.1.0] - 2021-05-18</h2>
 <h3 id="added">Added</h3>
+<ul>
+<li>Geocoder service</li>
+</ul>
+<h3 id="changed">Changed</h3>
+<ul>
+<li>Make <code>lang</code> in <code>YaConfig</code> optional</li>
+</ul>
+<h2 id="1200---2021-05-18"><a href="https://github.com/ddubrava/angular8-yandex-maps/compare/v11.0.2...v12.0.0">12.0.0</a> - 2021-05-18</h2>
+<h3 id="added-1">Added</h3>
 <ul>
 <li>Support Angular 12</li>
 </ul>
@@ -42,22 +51,22 @@
 <li>Change <code>YaPanorama</code> API</li>
 </ul>
 <h2 id="1102---2021-03-12"><a href="https://github.com/ddubrava/angular8-yandex-maps/compare/v11.0.1...v11.0.2">11.0.2</a> - 2021-03-12</h2>
-<h3 id="added-1">Added</h3>
+<h3 id="added-2">Added</h3>
 <ul>
 <li>Add <code>geocode</code> function in typings</li>
 <li>Add missing properties in <code>Clusterer</code> class</li>
 </ul>
-<h3 id="changed">Changed</h3>
+<h3 id="changed-1">Changed</h3>
 <ul>
 <li>Make <code>YaReadyEvent</code> emit after instance is added in a map/clusterer component</li>
 </ul>
 <h2 id="1101---2021-01-25"><a href="https://github.com/ddubrava/angular8-yandex-maps/compare/v11.0.0...v11.0.1">11.0.1</a> - 2021-01-25</h2>
-<h3 id="changed-1">Changed</h3>
+<h3 id="changed-2">Changed</h3>
 <ul>
 <li>Make <code>referencePoints</code> in <code>model</code> input in YaMultirouteDirective optional</li>
 </ul>
 <h2 id="1100---2020-11-20"><a href="https://github.com/ddubrava/angular8-yandex-maps/compare/v10.4.1...v11.0.0">11.0.0</a> - 2020-11-20</h2>
-<h3 id="added-2">Added</h3>
+<h3 id="added-3">Added</h3>
 <ul>
 <li>Support Angular 11</li>
 </ul>
@@ -77,12 +86,12 @@
 <li>Remove <code>Event</code> from return type of initScript()</li>
 </ul>
 <h2 id="1040---2020-10-26"><a href="https://github.com/ddubrava/angular8-yandex-maps/compare/v10.3.1...v10.4.0">10.4.0</a> - 2020-10-26</h2>
-<h3 id="added-3">Added</h3>
+<h3 id="added-4">Added</h3>
 <ul>
 <li>Typings, @types/yandex-maps, <code>npm install --save-dev @types/yandex-maps</code></li>
 <li>&#39;error&#39; event handling in ScriptService</li>
 </ul>
-<h3 id="changed-2">Changed</h3>
+<h3 id="changed-3">Changed</h3>
 <ul>
 <li>Output &#39;baloon&#39; was renamed in &#39;balloon&#39; (breaking changes)</li>
 <li>Mouse, multitouch events are running outside angular now (#35)</li>
@@ -93,26 +102,26 @@
 <li>Omit wrong query params when loading API</li>
 </ul>
 <h2 id="1031---2020-10-14"><a href="https://github.com/ddubrava/angular8-yandex-maps/compare/v10.2.0...v10.3.1">10.3.1</a> - 2020-10-14</h2>
-<h3 id="added-4">Added</h3>
+<h3 id="added-5">Added</h3>
 <ul>
 <li>Wrap the EventEmitters in the ngZone.run() method</li>
 </ul>
 <h2 id="1020---2020-10-12"><a href="https://github.com/ddubrava/angular8-yandex-maps/compare/v10.1.1...v10.2.0">10.2.0</a> - 2020-10-12</h2>
-<h3 id="added-5">Added</h3>
+<h3 id="added-6">Added</h3>
 <ul>
 <li>Content children changes of Clusterer</li>
 </ul>
 <h2 id="1011---2020-10-09"><a href="https://github.com/ddubrava/angular8-yandex-maps/compare/v10.1.0...v10.1.1">10.1.1</a> - 2020-10-09</h2>
-<h3 id="added-6">Added</h3>
+<h3 id="added-7">Added</h3>
 <ul>
 <li>Improve code documentation</li>
 </ul>
 <h2 id="1010---2020-09-28"><a href="https://github.com/ddubrava/angular8-yandex-maps/compare/v10.0.0...v10.1.0">10.1.0</a> - 2020-09-28</h2>
-<h3 id="added-7">Added</h3>
+<h3 id="added-8">Added</h3>
 <ul>
 <li>Export ScriptService for appending script in document</li>
 </ul>
-<h3 id="changed-3">Changed</h3>
+<h3 id="changed-4">Changed</h3>
 <ul>
 <li>OnlyInstance is deprecated now, use ScriptService instead</li>
 </ul>
@@ -121,41 +130,41 @@
 <li>Remove &#39;center input is required&#39; error if onlyInstance is provided</li>
 </ul>
 <h2 id="1000---2020-08-22"><a href="https://github.com/ddubrava/angular8-yandex-maps/compare/v9.0.0...v10.0.0">10.0.0</a> - 2020-08-22</h2>
-<h3 id="added-8">Added</h3>
+<h3 id="added-9">Added</h3>
 <ul>
 <li>Support Angular 10</li>
 </ul>
 <h2 id="900---2020-08-22"><a href="https://github.com/ddubrava/angular8-yandex-maps/compare/v8.0.0...v9.0.0">9.0.0</a> - 2020-08-22</h2>
-<h3 id="added-9">Added</h3>
+<h3 id="added-10">Added</h3>
 <ul>
 <li>Support Angular 9</li>
 </ul>
 <h2 id="800---2020-08-22"><a href="https://github.com/ddubrava/angular8-yandex-maps/compare/v7.0.0...v8.0.0">8.0.0</a> - 2020-08-22</h2>
-<h3 id="added-10">Added</h3>
+<h3 id="added-11">Added</h3>
 <ul>
 <li>Support Angular 8</li>
 </ul>
 <h2 id="700---2020-08-22"><a href="https://github.com/ddubrava/angular8-yandex-maps/compare/v6.0.0...v7.0.0">7.0.0</a> - 2020-08-22</h2>
-<h3 id="added-11">Added</h3>
+<h3 id="added-12">Added</h3>
 <ul>
 <li>Support Angular 7</li>
 </ul>
 <h2 id="600---2020-08-22"><a href="https://github.com/ddubrava/angular8-yandex-maps/compare/v2.1.1...v6.0.0">6.0.0</a> - 2020-08-22</h2>
-<h3 id="added-12">Added</h3>
+<h3 id="added-13">Added</h3>
 <ul>
 <li>Support Angular 6</li>
 </ul>
 <h2 id="211---2020-08-09"><a href="https://github.com/ddubrava/angular8-yandex-maps/compare/v2.1.0...v2.1.1">2.1.1</a> - 2020-08-09</h2>
-<h3 id="changed-4">Changed</h3>
+<h3 id="changed-5">Changed</h3>
 <ul>
 <li>Links to new repo name in README, documentation, changelog</li>
 </ul>
 <h2 id="210---2020-08-02"><a href="https://github.com/ddubrava/angular8-yandex-maps/compare/v2.0.1...v2.1.0">2.1.0</a> - 2020-08-02</h2>
-<h3 id="added-13">Added</h3>
+<h3 id="added-14">Added</h3>
 <ul>
 <li>Clusterer component</li>
 </ul>
-<h3 id="changed-5">Changed</h3>
+<h3 id="changed-6">Changed</h3>
 <ul>
 <li>Clusterer input from ya-map was removed</li>
 </ul>
@@ -166,22 +175,22 @@
 <li>Wrong link to examples</li>
 </ul>
 <h2 id="200---2020-07-30"><a href="https://github.com/ddubrava/angular8-yandex-maps/compare/v1.15.0...v2.0.0">2.0.0</a> - 2020-07-30</h2>
-<h3 id="added-14">Added</h3>
+<h3 id="added-15">Added</h3>
 <ul>
 <li>Dynamic dynamic entity configuration. Now component handles input changes and provides it to API</li>
 </ul>
-<h3 id="changed-6">Changed</h3>
+<h3 id="changed-7">Changed</h3>
 <ul>
 <li>Components&#39; selectors. &#39;angular&#39; was removed from selectors, &#39;yandex&#39; became &#39;ya&#39;. E.g. <angular-yandex-map> -&gt; <ya-map></li>
 <li>Documentation. Add docsify</li>
 </ul>
 <h2 id="1150---2020-07-24"><a href="https://github.com/ddubrava/angular8-yandex-maps/compare/v1.14.5....v1.15.0">1.15.0</a> - 2020-07-24</h2>
-<h3 id="added-15">Added</h3>
+<h3 id="added-16">Added</h3>
 <ul>
 <li>Support version property in config</li>
 </ul>
 <h2 id="1145---2020-06-30"><a href="https://github.com/ddubrava/angular8-yandex-maps/compare/v1.14.4....v1.14.5">1.14.5</a> - 2020-06-30</h2>
-<h3 id="added-16">Added</h3>
+<h3 id="added-17">Added</h3>
 <ul>
 <li>Support for enterprise API</li>
 </ul>
@@ -191,7 +200,7 @@
 <li>Build erorr</li>
 </ul>
 <h2 id="1143---2020-06-29"><a href="https://github.com/ddubrava/angular8-yandex-maps/compare/v1.14.2...v1.14.3">1.14.3</a> - 2020-06-29</h2>
-<h3 id="added-17">Added</h3>
+<h3 id="added-18">Added</h3>
 <ul>
 <li>Config injection token</li>
 </ul>
@@ -207,31 +216,31 @@
 <li>Wrong return type of AngularYandexMapsModule.forRoot(...)</li>
 </ul>
 <h2 id="1140---2020-06-05"><a href="https://github.com/ddubrava/angular8-yandex-maps/compare/v1.13.1...v1.14.0">1.14.0</a> - 2020-06-05</h2>
-<h3 id="changed-7">Changed</h3>
+<h3 id="changed-8">Changed</h3>
 <ul>
 <li>IConfig interface, add new properties from API</li>
 </ul>
 <h2 id="1131---2020-05-21"><a href="https://github.com/ddubrava/angular8-yandex-maps/compare/v1.13.0...v1.13.1">1.13.1</a> - 2020-05-21</h2>
-<h3 id="changed-8">Changed</h3>
+<h3 id="changed-9">Changed</h3>
 <ul>
 <li>README, update usage section</li>
 </ul>
 <h2 id="1130---2020-05-21"><a href="https://github.com/ddubrava/angular8-yandex-maps/compare/v1.12.0...v1.13.0">1.13.0</a> - 2020-05-21</h2>
-<h3 id="added-18">Added</h3>
+<h3 id="added-19">Added</h3>
 <ul>
 <li>Support map localization</li>
 </ul>
-<h3 id="changed-9">Changed</h3>
+<h3 id="changed-10">Changed</h3>
 <ul>
 <li>Now forRoot() accepts IConfig instead of string</li>
 </ul>
 <h2 id="1120---2020-04-24"><a href="https://github.com/ddubrava/angular8-yandex-maps/compare/v1.11.4...v1.12.0">1.12.0</a> - 2020-04-24</h2>
-<h3 id="added-19">Added</h3>
+<h3 id="added-20">Added</h3>
 <ul>
 <li>Support for changing ContentChild after map init (E.g. Issue#11)</li>
 </ul>
 <h2 id="1114---2020-04-02"><a href="https://github.com/ddubrava/angular8-yandex-maps/compare/v1.11.3...v1.11.4">1.11.4</a> - 2020-04-02</h2>
-<h3 id="added-20">Added</h3>
+<h3 id="added-21">Added</h3>
 <ul>
 <li>Export types: ILoadEvent &amp; IEvent</li>
 </ul>
@@ -241,22 +250,22 @@
 <li>The conflict between Bootstrap&#39;s container and library</li>
 </ul>
 <h2 id="1112---2020-03-25"><a href="https://github.com/ddubrava/angular8-yandex-maps/compare/v1.11.0...v1.11.2">1.11.2</a> - 2020-03-25</h2>
-<h3 id="changed-10">Changed</h3>
+<h3 id="changed-11">Changed</h3>
 <ul>
 <li>README, replace examples list by link to docs</li>
 </ul>
 <h2 id="1110---2020-01-22"><a href="https://github.com/ddubrava/angular8-yandex-maps/compare/v1.10.3...v1.11.0">1.11.0</a> - 2020-01-22</h2>
-<h3 id="added-21">Added</h3>
+<h3 id="added-22">Added</h3>
 <ul>
 <li>onlyInstance input. With that option, entities aren&#39;t creating. The map only returns ILoadEvent.</li>
 </ul>
 <h2 id="1103---2020-01-10"><a href="https://github.com/ddubrava/angular8-yandex-maps/compare/v1.10.2...v1.10.3">1.10.3</a> - 2020-01-10</h2>
-<h3 id="changed-11">Changed</h3>
+<h3 id="changed-12">Changed</h3>
 <ul>
 <li>README. Move documentation to <a href="https://ddubrava.github.io/angular8-yandex-maps-docs/">angular8-yandex-maps-Docs</a></li>
 </ul>
 <h2 id="1102---2020-01-02"><a href="https://github.com/ddubrava/angular8-yandex-maps/compare/v1.10.1...v1.10.2">1.10.2</a> - 2020-01-02</h2>
-<h3 id="changed-12">Changed</h3>
+<h3 id="changed-13">Changed</h3>
 <ul>
 <li>forRoot() is optional for AngularYandexMapsModule</li>
 </ul>
@@ -266,16 +275,16 @@
 <li>Lazy loading of YMaps script</li>
 </ul>
 <h2 id="1100---2019-11-22"><a href="https://github.com/ddubrava/angular8-yandex-maps/compare/v1.9.0...v1.10.0">1.10.0</a> - 2019-11-22</h2>
-<h3 id="changed-13">Changed</h3>
+<h3 id="changed-14">Changed</h3>
 <ul>
 <li>IEvent - ymaps: any is added</li>
 </ul>
-<h3 id="added-22">Added</h3>
+<h3 id="added-23">Added</h3>
 <ul>
 <li>ILoadEvent - { instance: any, ymaps: any }</li>
 </ul>
 <h2 id="190---2019-11-19"><a href="https://github.com/ddubrava/angular8-yandex-maps/compare/v1.8.0...v1.9.0">1.9.0</a> - 2019-11-19</h2>
-<h3 id="added-23">Added</h3>
+<h3 id="added-24">Added</h3>
 <ul>
 <li>Map outputs</li>
 <li>Panorama outputs</li>
@@ -284,27 +293,27 @@
 <li>GeoObject outputs</li>
 </ul>
 <h2 id="180---2019-11-19"><a href="https://github.com/ddubrava/angular8-yandex-maps/compare/v1.7.3...v1.8.0">1.8.0</a> - 2019-11-19</h2>
-<h3 id="changed-14">Changed</h3>
+<h3 id="changed-15">Changed</h3>
 <ul>
 <li>Output &#39;onInit&#39; renamed to &#39;load&#39;</li>
 </ul>
 <h2 id="173---2019-11-17"><a href="https://github.com/ddubrava/angular8-yandex-maps/compare/v1.7.2...v1.7.3">1.7.3</a> - 2019-11-17</h2>
-<h3 id="added-24">Added</h3>
+<h3 id="added-25">Added</h3>
 <ul>
 <li>New examples in README</li>
 </ul>
 <h2 id="172---2019-11-17"><a href="https://github.com/ddubrava/angular8-yandex-maps/compare/v1.7.1...v1.7.2">1.7.2</a> - 2019-11-17</h2>
-<h3 id="changed-15">Changed</h3>
-<ul>
-<li>Fix anchors in README</li>
-</ul>
-<h2 id="171---2019-11-17"><a href="https://github.com/ddubrava/angular8-yandex-maps/compare/v1.7.0...v1.7.1">1.7.1</a> - 2019-11-17</h2>
 <h3 id="changed-16">Changed</h3>
 <ul>
 <li>Fix anchors in README</li>
 </ul>
+<h2 id="171---2019-11-17"><a href="https://github.com/ddubrava/angular8-yandex-maps/compare/v1.7.0...v1.7.1">1.7.1</a> - 2019-11-17</h2>
+<h3 id="changed-17">Changed</h3>
+<ul>
+<li>Fix anchors in README</li>
+</ul>
 <h2 id="170---2019-11-17"><a href="https://github.com/ddubrava/angular8-yandex-maps/compare/v1.6.0...v1.7.0">1.7.0</a> - 2019-11-17</h2>
-<h3 id="added-25">Added</h3>
+<h3 id="added-26">Added</h3>
 <ul>
 <li>Control component, supports all Controls of Yandex.Map API</li>
 </ul>
@@ -313,48 +322,48 @@
 <li>Search Control component</li>
 </ul>
 <h2 id="160---2019-11-16"><a href="https://github.com/ddubrava/angular8-yandex-maps/compare/v1.5.0...v1.6.0">1.6.0</a> - 2019-11-16</h2>
-<h3 id="added-26">Added</h3>
+<h3 id="added-27">Added</h3>
 <ul>
 <li>Panorama component</li>
 </ul>
 <h2 id="150---2019-11-15"><a href="https://github.com/ddubrava/angular8-yandex-maps/compare/v1.4.0...v1.5.0">1.5.0</a> - 2019-11-15</h2>
-<h3 id="added-27">Added</h3>
+<h3 id="added-28">Added</h3>
 <ul>
 <li>Clusterer for Placemark in Map inputs</li>
 </ul>
-<h3 id="changed-17">Changed</h3>
+<h3 id="changed-18">Changed</h3>
 <ul>
 <li>Inputs of Map</li>
 </ul>
 <h2 id="140---2019-11-09"><a href="https://github.com/ddubrava/angular8-yandex-maps/compare/v1.3.0...v1.4.0">1.4.0</a> - 2019-11-09</h2>
-<h3 id="changed-18">Changed</h3>
+<h3 id="changed-19">Changed</h3>
 <ul>
 <li>Inputs of Map</li>
 <li>Inputs of Placemark</li>
 <li>Inputs of MultiRoute</li>
 </ul>
 <h2 id="130---2019-10-30"><a href="https://github.com/ddubrava/angular8-yandex-maps/compare/v1.2.1...v1.3.0">1.3.0</a> - 2019-10-30</h2>
-<h3 id="added-28">Added</h3>
+<h3 id="added-29">Added</h3>
 <ul>
 <li>Angular 6+ support</li>
 </ul>
 <h2 id="121---2019-10-27"><a href="https://github.com/ddubrava/angular8-yandex-maps/compare/v1.2.0...v1.2.1">1.2.1</a> - 2019-10-27</h2>
-<h3 id="changed-19">Changed</h3>
+<h3 id="changed-20">Changed</h3>
 <ul>
 <li>Update README</li>
 </ul>
 <h2 id="120---2019-10-27"><a href="https://github.com/ddubrava/angular8-yandex-maps/compare/v1.1.0...v1.2.0">1.2.0</a> - 2019-10-27</h2>
-<h3 id="added-29">Added</h3>
+<h3 id="added-30">Added</h3>
 <ul>
 <li>Search component</li>
 </ul>
-<h3 id="changed-20">Changed</h3>
+<h3 id="changed-21">Changed</h3>
 <ul>
 <li>Error logging message and logic</li>
 <li>Cleanup app.html</li>
 </ul>
 <h2 id="110---2019-10-27"><a href="https://github.com/ddubrava/angular8-yandex-maps/compare/v1.0.1...v1.1.0">1.1.0</a> - 2019-10-27</h2>
-<h3 id="added-30">Added</h3>
+<h3 id="added-31">Added</h3>
 <ul>
 <li>GeoObject component</li>
 <li>Error logging for Map, Placemark, Multiroute components</li>
@@ -364,7 +373,7 @@
 <li>YandexMapModule types</li>
 </ul>
 <h2 id="101---2019-10-26"><a href="https://github.com/ddubrava/angular8-yandex-maps/compare/v1.0.0...v1.0.1">1.0.1</a> - 2019-10-26</h2>
-<h3 id="changed-21">Changed</h3>
+<h3 id="changed-22">Changed</h3>
 <ul>
 <li>Change README examples</li>
 </ul>
