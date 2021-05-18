@@ -1,5 +1,15 @@
 # Changelog
 
+## [12.1.0] - 2021-05-18
+
+### Added
+
+- Geocoder service
+
+### Changed
+
+- Make `lang` in `YaConfig` optional
+
 ## [12.0.0] - 2021-05-18
 
 ### Added
