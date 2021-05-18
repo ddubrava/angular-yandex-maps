@@ -33,6 +33,23 @@ describe('YaApiLoaderService', () => {
     expect(mockDocument.body.appendChild).toHaveBeenCalled();
   });
 
+  it('should use default language if is not passed', () => {
+    const config: YaConfig = {
+      apikey: 'X-X-X',
+    };
+
+    service = new YaApiLoaderService(config, mockDocument);
+
+    const script = {} as HTMLScriptElement;
+    mockDocument.createElement.and.returnValue(script);
+
+    service.load();
+
+    expect(script.src).toContain('https://api-maps.yandex.ru/2.1');
+    expect(script.src).toContain('apikey=X-X-X');
+    expect(script.src).toContain('lang=ru_RU');
+  });
+
   it('should create script with provided options if config is passed', () => {
     const config: YaConfig = {
       apikey: 'X-X-X',
@@ -60,7 +77,6 @@ describe('YaApiLoaderService', () => {
 
   it('should create enterprise script if enterprise flag is passed', () => {
     const config: YaConfig = {
-      lang: 'ru_RU',
       enterprise: true,
     };
 
