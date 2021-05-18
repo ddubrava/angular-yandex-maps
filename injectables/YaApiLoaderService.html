@@ -59,6 +59,13 @@
             <code>projects/angular8-yandex-maps/src/lib/services/ya-api-loader/ya-api-loader.service.ts</code>
         </p>
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>The <code>YaApiLoader</code> service handles loading of Yandex.Maps API.</p>
+
+            </p>
 
 
             <p class="comment">
@@ -69,10 +76,10 @@
                             <pre class="line-numbers"><code class="language-html">import { YaApiLoaderService } from 'angular8-yandex-maps';
 
 export class AppComponent {
-  constructor(private yaApiLoaderService: YaApiLoaderService) {
-    this.yaApiLoaderService.load()
-      .subscribe(v =&gt; console.log(v))
-  }
+   constructor(private yaApiLoaderService: YaApiLoaderService) {
+     this.yaApiLoaderService.load()
+       .subscribe(v =&gt; console.log(v))
+   }
 }</code></pre>
                         </div>
             </div>
@@ -116,7 +123,7 @@ export class AppComponent {
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="61" class="link-to-prism">projects/angular8-yandex-maps/src/lib/services/ya-api-loader/ya-api-loader.service.ts:61</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="62" class="link-to-prism">projects/angular8-yandex-maps/src/lib/services/ya-api-loader/ya-api-loader.service.ts:62</a></div>
                             </td>
                         </tr>
 
@@ -193,8 +200,8 @@ export class AppComponent {
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="76"
-                            class="link-to-prism">projects/angular8-yandex-maps/src/lib/services/ya-api-loader/ya-api-loader.service.ts:76</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="77"
+                            class="link-to-prism">projects/angular8-yandex-maps/src/lib/services/ya-api-loader/ya-api-loader.service.ts:77</a></div>
                 </td>
             </tr>
 
@@ -257,8 +264,7 @@ export interface YaConfig {
 }
 
 /**
- * @dynamic
- * Injectable service that handles loading of Yandex.Maps API.
+ * The &#x60;YaApiLoader&#x60; service handles loading of Yandex.Maps API.
  *
  * @example
  * import { YaApiLoaderService } from &#x27;angular8-yandex-maps&#x27;;
@@ -269,6 +275,8 @@ export interface YaConfig {
  *                   .subscribe(v &#x3D;&gt; console.log(v))
  *               }
  * }
+ *
+ * @dynamic
  */
 @Injectable({
   providedIn: &#x27;root&#x27;,
