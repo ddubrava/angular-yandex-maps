@@ -164,6 +164,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             <li class="link">
                                 <a href="interfaces/YaEvent.html" data-type="entity-link">YaEvent</a>
                             </li>
+                            <li class="link">
+                                <a href="interfaces/YaReadyEvent.html" data-type="entity-link">YaReadyEvent</a>
+                            </li>
                         </ul>
                     </li>
                     <li class="chapter">
