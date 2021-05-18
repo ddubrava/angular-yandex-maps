@@ -51,9 +51,12 @@ describe('YaApiLoaderService', () => {
 
     service.load();
 
-    expect(script.src).toBe(
-      'https://api-maps.yandex.ru/2.1/?apikey=X-X-X&lang=en_US&coordorder=latlong&load=package.full&mode=release',
-    );
+    expect(script.src).toContain('https://api-maps.yandex.ru/2.1');
+    expect(script.src).toContain('apikey=X-X-X');
+    expect(script.src).toContain('lang=en_US');
+    expect(script.src).toContain('coordorder=latlong');
+    expect(script.src).toContain('load=package.full');
+    expect(script.src).toContain('mode=release');
   });
 
   it('should create enterprise script if enterprise flag is passed', () => {
