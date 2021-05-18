@@ -18,7 +18,7 @@ import { YaMapComponent } from '../ya-map/ya-map.component';
  * You can configure it via the component's inputs.
  * Events can be bound using the outputs of the component.
  *
- * <example-url>https://geoobject-polygon.stackblitz.io/</example-url>
+ * <example-url>https://stackblitz.com/edit/geoobject-polygon?embed=1</example-url>
  *
  * @example
  * <ya-map [center]="[55.761952, 37.620739]">

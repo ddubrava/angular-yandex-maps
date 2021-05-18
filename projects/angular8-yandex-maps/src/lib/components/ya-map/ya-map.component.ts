@@ -25,7 +25,7 @@ import { YaApiLoaderService } from '../../services/ya-api-loader/ya-api-loader.s
  * You can configure the map via the component's inputs.
  * Events can be bound using the outputs of the component.
  *
- * <example-url>https://map-onload-event.stackblitz.io</example-url>
+ * <example-url>https://stackblitz.com/edit/map-onload-event?embed=1</example-url>
  *
  * @example
  * <ya-map

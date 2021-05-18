@@ -23,6 +23,8 @@ type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
  * You can configure it via the component's inputs.
  * Events can be bound using the outputs of the component.
  *
+ * <example-url>https://stackblitz.com/edit/multiroute-pedestrian?embed=1</example-url>
+ *
  * @example
  * <ya-map [center]="[55.761952, 37.620739]">
  *              <ya-multiroute

@@ -18,7 +18,7 @@ import { EventManager, YaEvent, YaReadyEvent } from '../../utils/event-manager';
  * You can configure it via the directive's inputs.
  * Events can be bound using the outputs of the directive.
  *
- * <example-url>https://custom-placemark.stackblitz.io/</example-url>
+ * <example-url>https://stackblitz.com/edit/custom-placemark?embed=1</example-url>
  *
  * @example
  * <ya-map [center]="[55.751952, 37.600739]">

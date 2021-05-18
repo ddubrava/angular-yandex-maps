@@ -19,6 +19,8 @@ import { YaMapComponent } from '../ya-map/ya-map.component';
  * You can configure it via the component's inputs.
  * Events can be bound using the outputs of the component.
  *
+ * <example-url>https://stackblitz.com/edit/panorama?embed=1</example-url>
+ *
  * @example
  * <ya-map>
  *              <ya-panorama [point]="[59.938557, 30.316198]" layer="yandex#airPanorama"></ya-panorama>

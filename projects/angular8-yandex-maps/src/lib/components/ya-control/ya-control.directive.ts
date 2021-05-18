@@ -32,7 +32,7 @@ export type YaControlType =
  * You can configure `ymaps.control[YaControlType]` via the component's inputs.
  * API Events can be bound only manually. You can use `ready` event to get an instance.
  *
- * <example-url>https://searchcontrol.stackblitz.io/</example-url>
+ * <example-url>https://stackblitz.com/edit/searchcontrol?embed=1</example-url>
  *
  * @example
  * <ya-map [center]="[55.761952, 37.620739]">

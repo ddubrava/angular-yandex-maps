@@ -23,7 +23,7 @@ import { EventManager, YaEvent, YaReadyEvent } from '../../utils/event-manager';
  * You can configure it via the component's inputs.
  * Events can be bound using the outputs of the component.
  *
- * <example-url>https://placemark-clusterer.stackblitz.io/</example-url>
+ * <example-url>https://stackblitz.com/edit/placemark-clusterer?embed=1</example-url>
  *
  * @example
  * <ya-map [center]="[55.761952, 37.620739]">
