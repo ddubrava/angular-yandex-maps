@@ -14,7 +14,7 @@ import {
   createPlacemarkConstructorSpy,
   createPlacemarkSpy,
 } from '../../testing/fake-ymaps-utils';
-import { YaReadyEvent } from '../../utils/event-manager';
+import { YaReadyEvent } from '../../typings/ya-ready-event';
 
 @Component({
   template: `

@@ -8,7 +8,7 @@ import {
   createRoutePanelSpy,
 } from '../../testing/fake-ymaps-utils';
 import { YaMapComponent } from '../ya-map/ya-map.component';
-import { YaReadyEvent } from '../../utils/event-manager';
+import { YaReadyEvent } from '../../typings/ya-ready-event';
 
 @Component({
   template: '<ya-control [type]="type" [parameters]="parameters"></ya-control>',

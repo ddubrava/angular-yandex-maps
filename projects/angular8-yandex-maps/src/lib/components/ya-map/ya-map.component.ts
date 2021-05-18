@@ -16,9 +16,11 @@ import {
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { EventManager, YaEvent, YaReadyEvent } from '../../utils/event-manager';
+import { EventManager } from '../../utils/event-manager';
 import { generateRandomId } from '../../utils/generate-random-id';
 import { YaApiLoaderService } from '../../services/ya-api-loader/ya-api-loader.service';
+import { YaReadyEvent } from '../../typings/ya-ready-event';
+import { YaEvent } from '../../typings/ya-event';
 
 /**
  * The `ya-map` component wraps `ymaps.Map` class from the Yandex Maps API.
