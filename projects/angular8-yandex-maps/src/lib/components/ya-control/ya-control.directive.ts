@@ -9,8 +9,8 @@ import {
   Output,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { YaReadyEvent } from '../../utils/event-manager';
 import { YaMapComponent } from '../ya-map/ya-map.component';
+import { YaReadyEvent } from '../../typings/ya-ready-event';
 
 export type YaControlType =
   | 'Button'
