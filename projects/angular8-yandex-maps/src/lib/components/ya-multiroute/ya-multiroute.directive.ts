@@ -245,7 +245,7 @@ export class YaMultirouteDirective implements OnInit, OnChanges, OnDestroy {
 
       if (options) {
         /**
-         * Wrong typings in DefinitelyTyped.
+         * Typings seems ok, bug in Yandex.Maps API documentation
          */
         (multiroute.options as any).set(options.currentValue);
       }

@@ -267,7 +267,7 @@ export function createRoutePanelSpy(): jasmine.SpyObj<ymaps.control.RoutePanel> 
 export function createRoutePanelConstructorSpy(
   routePanelSpy: jasmine.SpyObj<ymaps.control.RoutePanel>,
 ): jasmine.Spy {
-  const routerPanelConstructorSpy = jasmine
+  const routePanelConstructorSpy = jasmine
     .createSpy('GeoObject constructor')
     .and.returnValue(routePanelSpy);
 
@@ -275,17 +275,17 @@ export function createRoutePanelConstructorSpy(
 
   if (testingWindow.ymaps) {
     testingWindow.ymaps.control = {
-      RoutePanel: routerPanelConstructorSpy,
+      RoutePanel: routePanelConstructorSpy,
     };
   } else {
     testingWindow.ymaps = {
       control: {
-        RoutePanel: routerPanelConstructorSpy,
+        RoutePanel: routePanelConstructorSpy,
       },
     };
   }
 
-  return routerPanelConstructorSpy;
+  return routePanelConstructorSpy;
 }
 
 /** Creates a jasmine.SpyObj for a ymaps.Clusterer. */

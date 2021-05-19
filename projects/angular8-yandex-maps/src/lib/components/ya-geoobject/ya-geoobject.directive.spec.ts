@@ -160,6 +160,25 @@ describe('Directive: YaGeoObject', () => {
     expect(geoObjectSpy.properties.set as any).toHaveBeenCalledWith(feature.properties);
   });
 
+  it('should set options after init', () => {
+    fixture.detectChanges();
+
+    const options = {
+      cursor: 'pointer',
+      draggable: true,
+      fill: true,
+      fillColor: '#ffffff',
+      openBalloonOnClick: false,
+      outline: false,
+      strokeColor: '#fff333',
+    };
+
+    fixture.componentInstance.options = options;
+    fixture.detectChanges();
+
+    expect(geoObjectSpy.options.set).toHaveBeenCalledWith(options);
+  });
+
   it('should console warn if feature.geometry is passed after init', () => {
     fixture.detectChanges();
 

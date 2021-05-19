@@ -96,6 +96,30 @@ describe('Directive: YaControl', () => {
     expect(routePanelConstructorSpy.calls.mostRecent()?.args[0]).toEqual(parameters);
   });
 
+  it('should manually set state for RoutePanel', () => {
+    const parameters = {
+      state: {
+        from: 'Омск',
+        to: 'Москва',
+      },
+    };
+
+    /**
+     * Change instanceof behaviour
+     */
+    Object.defineProperty(routePanelConstructorSpy, Symbol.hasInstance, {
+      value: () => true,
+    });
+
+    fixture.componentInstance.parameters = parameters;
+    fixture.detectChanges();
+
+    /**
+     * Typings seems ok, bug in Yandex.Maps API documentation
+     */
+    expect((routePanelSpy.routePanel.state as any).set).toHaveBeenCalledWith(parameters.state);
+  });
+
   it('should console warn if parameters is passed after init', () => {
     fixture.detectChanges();
 

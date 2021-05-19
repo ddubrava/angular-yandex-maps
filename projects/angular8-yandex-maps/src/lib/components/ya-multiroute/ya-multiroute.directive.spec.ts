@@ -184,6 +184,26 @@ describe('Directive: YaMultiroute', () => {
     expect(multirouteSpy.model.setParams).toHaveBeenCalledWith(model.params);
   });
 
+  it('should set options after init', () => {
+    fixture.detectChanges();
+
+    const options = {
+      routeMarker: {},
+      routeWalkMarker: {},
+      boundsAutoApply: true,
+      useMapMargin: false,
+    };
+
+    fixture.componentInstance.options = options;
+
+    fixture.detectChanges();
+
+    /**
+     * Typings seems ok, bug in Yandex.Maps API documentation
+     */
+    expect((multirouteSpy.options as any).set).toHaveBeenCalledWith(options);
+  });
+
   it('should remove multiroute from map.geoObjects on destroy', () => {
     fixture.detectChanges();
     fixture.destroy();
