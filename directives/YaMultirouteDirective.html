@@ -1107,7 +1107,7 @@ Shorthand for [model]=&quot;{ referencePoints: [0, 0] }&quot;.
   SimpleChanges,
 } from &#x27;@angular/core&#x27;;
 import { Observable, Subscription } from &#x27;rxjs&#x27;;
-import { EventManager } from &#x27;../../utils/event-manager&#x27;;
+import { EventManager } from &#x27;../../event-manager&#x27;;
 import { YaMapComponent } from &#x27;../ya-map/ya-map.component&#x27;;
 import { YaReadyEvent } from &#x27;../../typings/ya-ready-event&#x27;;
 import { YaEvent } from &#x27;../../typings/ya-event&#x27;;
@@ -1341,10 +1341,7 @@ export class YaMultirouteDirective implements OnInit, OnChanges, OnDestroy {
       }
 
       if (options) {
-        /**
-         * Typings seems ok, bug in Yandex.Maps API documentation
-         */
-        (multiroute.options as any).set(options.currentValue);
+        multiroute.options.set(options.currentValue);
       }
     }
   }
