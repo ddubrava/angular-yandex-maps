@@ -133,7 +133,8 @@
           "options": {
             "main": "projects/angular8-yandex-maps/src/test.ts",
             "tsConfig": "projects/angular8-yandex-maps/tsconfig.spec.json",
-            "karmaConfig": "projects/angular8-yandex-maps/karma.conf.js"
+            "karmaConfig": "projects/angular8-yandex-maps/karma.conf.js",
+            "codeCoverageExclude": ["projects/angular8-yandex-maps/src/lib/testing/*"]
           }
         },
         "lint": {
