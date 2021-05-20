@@ -90,10 +90,7 @@ export class YaControlDirective implements OnInit, OnChanges, OnDestroy {
             this.parameters &&
             this.parameters.state
           ) {
-            /**
-             * Typings seems ok, bug in Yandex.Maps API documentation
-             */
-            (control.routePanel.state as any).set({ ...this.parameters.state });
+            control.routePanel.state.set({ ...this.parameters.state });
           }
 
           map.controls.add(control);

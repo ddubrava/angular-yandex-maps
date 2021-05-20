@@ -247,10 +247,7 @@ export class YaPlacemarkDirective implements OnInit, OnChanges, OnDestroy {
       }
 
       if (properties) {
-        /**
-         * Wrong typings in DefinitelyTyped.
-         */
-        (placemark.properties as any).set(properties.currentValue);
+        placemark.properties.set(properties.currentValue);
       }
 
       if (options) {

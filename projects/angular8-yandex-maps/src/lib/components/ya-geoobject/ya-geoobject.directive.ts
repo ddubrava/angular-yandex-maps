@@ -289,10 +289,7 @@ export class YaGeoObjectDirective implements OnInit, OnChanges, OnDestroy {
     }
 
     if (properties) {
-      /**
-       * Wrong typings in DefinitelyTyped.
-       */
-      (geoObject.properties as any).set(properties);
+      geoObject.properties.set(properties);
     }
   }
 

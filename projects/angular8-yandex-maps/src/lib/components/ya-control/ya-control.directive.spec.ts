@@ -114,10 +114,7 @@ describe('Directive: YaControl', () => {
     fixture.componentInstance.parameters = parameters;
     fixture.detectChanges();
 
-    /**
-     * Typings seems ok, bug in Yandex.Maps API documentation
-     */
-    expect((routePanelSpy.routePanel.state as any).set).toHaveBeenCalledWith(parameters.state);
+    expect(routePanelSpy.routePanel.state.set).toHaveBeenCalledWith(parameters.state);
   });
 
   it('should console warn if parameters is passed after init', () => {

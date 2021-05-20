@@ -98,10 +98,7 @@ describe('YaClustererComponent', () => {
   it('should create clusterer', () => {
     fixture.detectChanges();
     expect(clustererConstructorSpy).toHaveBeenCalledWith(undefined);
-    /**
-     * Typings seems ok, bug in Yandex.Maps API documentation
-     */
-    expect(mapSpy.geoObjects.add as any).toHaveBeenCalledWith(clustererSpy);
+    expect(mapSpy.geoObjects.add).toHaveBeenCalledWith(clustererSpy);
   });
 
   it('should emit ready on clusterer load', () => {

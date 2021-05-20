@@ -154,10 +154,7 @@ describe('Directive: YaGeoObject', () => {
     fixture.componentInstance.feature = feature;
     fixture.detectChanges();
 
-    /**
-     * Wrong typings in DefinitelyTyped.
-     */
-    expect(geoObjectSpy.properties.set as any).toHaveBeenCalledWith(feature.properties);
+    expect(geoObjectSpy.properties.set).toHaveBeenCalledWith(feature.properties);
   });
 
   it('should set options after init', () => {

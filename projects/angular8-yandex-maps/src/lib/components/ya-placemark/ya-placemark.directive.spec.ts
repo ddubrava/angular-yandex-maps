@@ -149,10 +149,7 @@ describe('Directive: YaPlacemark', () => {
     fixture.componentInstance.properties = properties;
     fixture.detectChanges();
 
-    /**
-     * Wrong typings in DefinitelyTyped.
-     */
-    expect((placemarkSpy.properties as any).set).toHaveBeenCalledWith(properties);
+    expect(placemarkSpy.properties.set).toHaveBeenCalledWith(properties);
   });
 
   it('should set options after init', () => {

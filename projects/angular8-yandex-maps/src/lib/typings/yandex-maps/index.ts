@@ -880,7 +880,7 @@ declare namespace ymaps {
 
       getAll(): object;
 
-      set(path: object | string, value: object | number | string | null | undefined): this;
+      set(path: object | string, value?: object | number | string | null | undefined): this;
 
       setAll(): this;
 
@@ -2034,7 +2034,7 @@ declare namespace ymaps {
 
       events: IEventManager;
 
-      add(child: IGeoObject | ObjectManager, index?: number): this;
+      add(child: IGeoObject | ObjectManager | Clusterer, index?: number): this;
 
       each(callback: (object: IGeoObject) => void, context?: object): void;
 
@@ -2653,7 +2653,7 @@ declare namespace ymaps {
 
       resolve(key: string, name?: string): object;
 
-      set(key: object | string, value?: object | number | string | null): this;
+      set(key: object | string, value?: object | number | string | null | undefined): this;
 
       unset(keys: string[][] | string[] | string): this;
 
@@ -3155,7 +3155,7 @@ declare namespace ymaps {
 
     hint: clusterer.Hint;
 
-    add(objects: IGeoObject | IGeoObject[]): Clusterer;
+    add(objects: IGeoObject | IGeoObject[]): this;
 
     createCluster(center: number[], geoObjects: IGeoObject[]): IGeoObject;
 
@@ -3167,13 +3167,13 @@ declare namespace ymaps {
 
     getMap(): Map;
 
-    getObjectState(geoObject: IGeoObject): Object;
+    getObjectState(geoObject: IGeoObject): { isShown: boolean; cluster: any; isClustered: boolean };
 
     getParent(): IParentOnMap | null;
 
-    remove(objects: IGeoObject | IGeoObject[]): Clusterer;
+    remove(objects: IGeoObject | IGeoObject[]): this;
 
-    removeAll(): Clusterer;
+    removeAll(): this;
 
     setParent(parent: IControlParent): this;
   }
@@ -3931,6 +3931,8 @@ declare namespace ymaps {
   }
 
   interface IDataManager extends IEventEmitter {
+    set(key: object | string, value?: object | number | string | null | undefined): this;
+
     get(path: string, defaultValue: object): object;
   }
 
@@ -4304,6 +4306,8 @@ declare namespace ymaps {
 
     resolve(key: string, name?: string): object;
 
+    set(key: object | string, value?: object | number | string | null | undefined): this;
+
     setName(name: string): void;
   }
 
@@ -4655,6 +4659,56 @@ declare namespace ymaps {
     removeAll(): Monitor;
   }
 
+  class ObjectManager implements ICustomizable, IEventEmitter, IGeoObject, IParentOnMap {
+    constructor(options: IObjectManagerOptions);
+
+    clusters: objectManager.ClusterCollection;
+
+    events: IEventManager;
+
+    geometry: IGeometry | null;
+
+    objects: objectManager.ObjectCollection;
+
+    options: IOptionManager;
+
+    properties: IDataManager;
+
+    state: IDataManager;
+
+    add(objects: object | object[] | string): this;
+
+    getBounds(): number[][] | null;
+
+    getFilter(): string | ((object: object | string) => boolean) | null;
+
+    getMap(): Map;
+
+    getObjectState(id: any): {
+      found: boolean;
+      isShown: boolean;
+      cluster?: object;
+      isClustered: boolean;
+      isFilteredOut: boolean;
+    };
+
+    getOverlay(): Promise<IOverlay | null>;
+
+    getOverlaySync(): IOverlay | null;
+
+    getParent(): IParentOnMap | null;
+
+    getPixelBounds(): number[][] | null;
+
+    remove(objects: object | object[] | string): this;
+
+    removeAll(): this;
+
+    setFilter(filterFunction: (object: object | string) => boolean): void;
+
+    setParent(parent: IParentOnMap | null): this;
+  }
+
   interface IObjectManagerOptions {
     clusterize?: boolean;
     syncOverlayInit?: boolean;
@@ -4663,29 +4717,145 @@ declare namespace ymaps {
     geoObjectOpenBalloonOnClick?: boolean;
   }
 
-  class ObjectManager {
-    constructor(options: IObjectManagerOptions);
-
-    objects: objectManager.ObjectCollection;
-
-    add(params: object): ObjectManager;
-
-    removeAll(): this;
-  }
-
   namespace objectManager {
-    class ObjectCollection implements ICollection, ICustomizable {
-      options: option.Manager;
+    class Balloon implements Omit<IBalloonManager<map.Balloon>, 'isOpen' | 'open'> {
+      constructor(collection: object);
 
       events: IEventManager;
 
-      add(object: object): this;
+      autoPan(): Promise<ymaps.Balloon>;
+
+      close(force?: boolean): Promise<ymaps.Balloon>;
+
+      destroy(): void;
+
+      getData(): object | null;
+
+      getOptions(): IOptionManager | null;
+
+      getOverlay(): Promise<IOverlay | null>;
+
+      getOverlaySync(): IOverlay | null;
+
+      getPosition(): number[] | null;
+
+      isOpen(id: any): boolean;
+
+      open(objectId: any, anchorPixelPosition?: boolean): Promise<ymaps.Balloon>;
+
+      setData(objectData: object | string | HTMLElement): Promise<ymaps.Balloon>;
+
+      setOptions(options: object): Promise<ymaps.Balloon>;
+
+      setPosition(position: number[]): Promise<ymaps.Balloon>;
+    }
+
+    class ClusterCollection implements ICustomizable, IEventEmitter {
+      balloon: objectManager.Balloon;
+
+      events: IEventManager;
+
+      hint: objectManager.Hint;
+
+      options: option.Manager;
+
+      overlays: objectManager.OverlayCollection;
+
+      state: data.Manager;
+
+      each(callback: (cluster: object) => void, context?: object): void;
+
+      getAll(): object[];
+
+      getById(id: string): object | null;
 
       getIterator(): IIterator;
 
-      remove(object: object): this;
+      getLength(): number;
 
-      getById(id: string | null | undefined): object | null;
+      getObjectManager(): ObjectManager;
+
+      setClusterOptions(objectId: string, options: object): this;
+    }
+
+    class Hint implements Omit<IHintManager<map.Hint>, 'isOpen' | 'open'> {
+      constructor(collection: object);
+
+      events: IEventManager;
+
+      close(force?: boolean): Promise<map.Hint>;
+
+      destroy(): void;
+
+      getData(): object | null;
+
+      getOptions(): IOptionManager | null;
+
+      getOverlay(): Promise<IOverlay | null>;
+
+      getOverlaySync(): IOverlay | null;
+
+      getPosition(): number[] | null;
+
+      isOpen(id: any): boolean;
+
+      open(objectId: any, position?: number[]): Promise<map.Hint>;
+
+      setData(data: object | string | HTMLElement): Promise<map.Hint>;
+
+      setOptions(options: object): Promise<map.Hint>;
+
+      setPosition(position: number[]): Promise<map.Hint>;
+    }
+
+    class ObjectCollection implements ICollection, ICustomizable {
+      balloon: objectManager.Balloon;
+
+      events: IEventManager;
+
+      hint: objectManager.Hint;
+
+      options: option.Manager;
+
+      overlays: objectManager.OverlayCollection;
+
+      add(object: object): this;
+
+      each(callback: (object: object) => void, context?: object): void;
+
+      getAll(): object[];
+
+      getById(id: number): object | null;
+
+      getIterator(): IIterator;
+
+      getLength(): number;
+
+      getObjectManager(): ObjectManager;
+
+      remove(data: object | object[] | string): this;
+
+      removeAll(): objectManager.ObjectCollection;
+
+      setObjectOptions(objectId: any, options: object): ObjectCollection;
+    }
+
+    class OverlayCollection implements ICustomizable, IEventEmitter {
+      events: IEventManager;
+
+      options: IOptionManager;
+
+      each(callback: (overlay: IOverlay) => void, context?: object): void;
+
+      getAll(): object[];
+
+      getById(id: number): IOverlay | null;
+
+      getId(overlay: IOverlay): number | null;
+
+      getIterator(): IIterator;
+
+      getLength(): number;
     }
   }
 

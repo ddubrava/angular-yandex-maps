@@ -244,10 +244,7 @@ export class YaMultirouteDirective implements OnInit, OnChanges, OnDestroy {
       }
 
       if (options) {
-        /**
-         * Typings seems ok, bug in Yandex.Maps API documentation
-         */
-        (multiroute.options as any).set(options.currentValue);
+        multiroute.options.set(options.currentValue);
       }
     }
   }

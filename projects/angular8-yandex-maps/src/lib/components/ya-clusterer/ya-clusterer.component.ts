@@ -128,10 +128,7 @@ export class YaClustererComponent implements AfterContentInit, OnChanges, OnDest
           const clusterer = this._createClusterer();
           this._clusterer = clusterer;
 
-          /**
-           * Typings seems ok, bug in Yandex.Maps API documentation
-           */
-          map.geoObjects.add(clusterer as any);
+          map.geoObjects.add(clusterer);
           this._eventManager.setTarget(clusterer);
           this._watchForContentChanges(clusterer);
           this.ready.emit({ ymaps, target: clusterer });

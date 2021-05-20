@@ -198,10 +198,7 @@ describe('Directive: YaMultiroute', () => {
 
     fixture.detectChanges();
 
-    /**
-     * Typings seems ok, bug in Yandex.Maps API documentation
-     */
-    expect((multirouteSpy.options as any).set).toHaveBeenCalledWith(options);
+    expect(multirouteSpy.options.set).toHaveBeenCalledWith(options);
   });
 
   it('should remove multiroute from map.geoObjects on destroy', () => {
