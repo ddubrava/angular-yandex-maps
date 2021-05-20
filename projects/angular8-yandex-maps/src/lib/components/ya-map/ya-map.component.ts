@@ -16,7 +16,7 @@ import {
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { EventManager } from '../../utils/event-manager';
+import { EventManager } from '../../event-manager';
 import { generateRandomId } from '../../utils/generate-random-id';
 import { YaApiLoaderService } from '../../services/ya-api-loader/ya-api-loader.service';
 import { YaReadyEvent } from '../../typings/ya-ready-event';

@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { from, Observable, Subscription } from 'rxjs';
 import { filter, map, switchMap } from 'rxjs/operators';
-import { EventManager } from '../../utils/event-manager';
+import { EventManager } from '../../event-manager';
 import { YaMapComponent } from '../ya-map/ya-map.component';
 import { YaReadyEvent } from '../../typings/ya-ready-event';
 import { YaEvent } from '../../typings/ya-event';

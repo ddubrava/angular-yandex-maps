@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { YaMapComponent } from '../ya-map/ya-map.component';
-import { EventManager } from '../../utils/event-manager';
+import { EventManager } from '../../event-manager';
 import { YaReadyEvent } from '../../typings/ya-ready-event';
 import { YaEvent } from '../../typings/ya-event';
 
