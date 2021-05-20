@@ -288,9 +288,9 @@ export class YaMapComponent implements AfterViewInit, OnChanges, OnDestroy {
         const id = generateRandomId();
         const map = this._createMap(id);
 
-        this.map$.next(map);
         this._eventManager.setTarget(map);
         this._ngZone.run(() => this.ready.emit({ ymaps, target: map }));
+        this.map$.next(map);
       });
 
       this._sub.add(sub);
