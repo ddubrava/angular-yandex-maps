@@ -617,7 +617,7 @@ declare namespace ymaps {
         title?: string;
       };
       options?: IBaseButtonParametersOptions;
-      state?: {};
+      state?: object;
     }
 
     class RoutePanel implements IControl, ICustomizable {
@@ -649,7 +649,14 @@ declare namespace ymaps {
         showHeader?: boolean;
         title?: string;
         visible?: boolean;
-        state?: {};
+        [key: string]: any;
+      };
+      state?: {
+        fromEnabled?: boolean;
+        from?: string;
+        to?: string;
+        type?: string;
+        toEnabled?: boolean;
       };
     }
 
@@ -658,7 +665,7 @@ declare namespace ymaps {
     }
 
     interface IRulerControlParameters {
-      data?: {};
+      data?: object;
       options?: {
         adjustMapMargin?: boolean;
         position?: {
@@ -670,7 +677,7 @@ declare namespace ymaps {
         scaleLine?: boolean;
         visible?: boolean;
       };
-      state?: {};
+      state?: object;
     }
 
     class SearchControl implements IControl, ICustomizable {
@@ -710,7 +717,7 @@ declare namespace ymaps {
     }
 
     interface ISearchControlParameters {
-      data?: {};
+      data?: object;
       options?: {
         adjustMapMargin?: boolean;
         boundedBy?: number[][];
@@ -744,7 +751,7 @@ declare namespace ymaps {
         zoomMargin?: number;
         visible?: boolean;
       };
-      state?: {};
+      state?: object;
     }
 
     const storage: util.Storage;
@@ -859,15 +866,26 @@ declare namespace ymaps {
     }
 
     interface IZoomControlParameters {
+      data?: object;
       options?: {
+        adjustMapMargin?: boolean;
+        layout?: string | IClassConstructor<IZoomControlLayout>;
+        float?: 'none' | 'left' | 'right';
         position?: {
-          top?: number | string | 'auto';
-          right?: number | string | 'auto';
-          bottom?: number | string | 'auto';
-          left?: number | string | 'auto';
+          bottom?: number | string;
+          left?: number | string;
+          right?: number | string;
+          top?: number | string;
         };
+        size?: string;
+        visible?: boolean;
+        zoomDuration?: number;
+        zoomStep?: number;
+        state?: object;
       };
     }
+
+    interface IZoomControlLayout extends ILayout {}
   }
 
   namespace data {
@@ -876,7 +894,7 @@ declare namespace ymaps {
 
       events: IEventManager;
 
-      get(path: string, defaultValue: object): object;
+      get(path: string, defaultValue?: object): object;
 
       getAll(): object;
 
@@ -2161,6 +2179,8 @@ declare namespace ymaps {
 
         options: IOptionManager;
 
+        balloon: geoObject.Balloon;
+
         getOverlay(): Promise<IOverlay | null>;
 
         getOverlaySync(): IOverlay | null;
@@ -2286,6 +2306,8 @@ declare namespace ymaps {
         events: IEventManager;
 
         options: IOptionManager;
+
+        balloon: geoObject.Balloon;
 
         getOverlay(): Promise<IOverlay | null>;
 
@@ -2466,31 +2488,29 @@ declare namespace ymaps {
 
       editor: EditorAddon;
 
-      model: MultiRouteModel;
+      events: IEventManager;
 
       geometry: IGeometry | null;
+
+      model: MultiRouteModel;
+
+      options: IOptionManager;
 
       properties: IDataManager;
 
       state: IDataManager;
 
-      events: IEventManager;
+      getActiveRoute(): multiRouter.driving.Route | multiRouter.masstransit.Route | null;
 
-      options: IOptionManager;
+      getBounds(): number[][] | null;
+
+      getMap(): Map;
 
       getOverlay(): Promise<IOverlay | null>;
 
       getOverlaySync(): IOverlay | null;
 
       getParent(): object | null;
-
-      setParent(parent: object): this;
-
-      getMap(): Map;
-
-      getActiveRoute(): driving.Route | masstransit.Route | null;
-
-      getBounds(): number[][] | null;
 
       getPixelBounds(): number[][] | null;
 
@@ -2501,6 +2521,8 @@ declare namespace ymaps {
       getWayPoints(): GeoObjectCollection;
 
       setActiveRoute(route: driving.Route | masstransit.Route | null): void;
+
+      setParent(parent: object): this;
     }
 
     interface IMultiRouteOptions {
@@ -2643,7 +2665,7 @@ declare namespace ymaps {
 
       events: IEventManager;
 
-      get(key: string, defaultValue: object): object;
+      get(key: string, defaultValue?: object): object;
 
       getAll(): object;
 
@@ -3191,6 +3213,8 @@ declare namespace ymaps {
     useMapMargin?: boolean;
     viewportMargin?: number[][] | number[] | number;
     zoomMargin?: number[][] | number[] | number;
+
+    [key: string]: any;
   }
 
   class ClusterPlacemark implements IGeoObject, collection.Item {
@@ -3397,6 +3421,8 @@ declare namespace ymaps {
     preset?: string;
     rectangleOverlay?: OverlayKey;
     setMapCursorInDragging?: boolean;
+
+    [key: string]: any;
   }
 
   class GeoObjectCollection implements IGeoObject, IGeoObjectCollection {
@@ -3612,9 +3638,21 @@ declare namespace ymaps {
   class Placemark extends GeoObject<IPointGeometry, geometry.Point> {
     constructor(
       geometry: number[] | object | IPointGeometry,
-      properties: object | IDataManager,
+      properties: IPlacemarkProperties | IDataManager,
       options?: IPlacemarkOptions,
     );
+  }
+
+  interface IPlacemarkProperties {
+    iconContent?: string;
+    iconCaption?: string;
+    hintContent?: string;
+    balloonContent?: string;
+    balloonContentHeader?: string;
+    balloonContentBody?: string;
+    balloonContentFooter?: string;
+
+    [key: string]: any;
   }
 
   interface IPlacemarkOptions {
@@ -3623,6 +3661,8 @@ declare namespace ymaps {
     hasBalloon?: boolean;
     hasHint?: boolean;
     hideIconOnBalloonOpen?: boolean;
+    iconColor?: string;
+    iconLayout?: 'default#image' | 'default#imageWithContent' | string;
     iconOffset?: number[];
     iconShape?: IGeometryJson | null;
     interactiveZIndex?: boolean;
@@ -3633,6 +3673,7 @@ declare namespace ymaps {
     openHintOnHover?: boolean;
     pane?: string;
     pointOverlay?: string;
+    preset?: string;
     syncOverlayInit?: boolean;
     useMapMarginInDragging?: boolean;
     visible?: boolean;
@@ -3640,6 +3681,8 @@ declare namespace ymaps {
     zIndexActive?: number;
     zIndexDrag?: number;
     zIndexHover?: number;
+
+    [key: string]: any;
   }
 
   class Polygon extends GeoObject<IPolygonGeometry> {
@@ -3933,7 +3976,7 @@ declare namespace ymaps {
   interface IDataManager extends IEventEmitter {
     set(key: object | string, value?: object | number | string | null | undefined): this;
 
-    get(path: string, defaultValue: object): object;
+    get(path: string, defaultValue?: object): object;
   }
 
   interface IDomEventEmitter extends IEventEmitter {}
@@ -4117,11 +4160,11 @@ declare namespace ymaps {
 
   interface IGeometryJson {
     type: string;
-    /**
-     * The field doesn't documented in API, but it uses in examples.
-     * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/GeoObject.html}
-     */
-    coordinates: number[] | number[][];
+    coordinates: number[] | number[][] | number[][][];
+    fillRule?: 'evenOdd' | 'nonZero';
+    radius?: number;
+
+    [key: string]: any;
   }
 
   interface IGeoObject<T = IGeometry>
@@ -4296,7 +4339,7 @@ declare namespace ymaps {
   type IMultiRouteReferencePoint = string | number[] | geometry.Point;
 
   interface IOptionManager extends IChild<IOptionManager>, IEventEmitter, IFreezable {
-    get(key: string, defaultValue: object): object;
+    get(key: string, defaultValue?: object): object;
 
     getAll(): object;
 
@@ -4599,9 +4642,18 @@ declare namespace ymaps {
 
   interface IRoutePanel {
     options: IOptionManager;
+
     state: IDataManager;
 
+    enable(): void;
+
+    geolocate(name: string): Promise<{ geoObjects: GeoObjectCollection }>;
+
     getRoute(): multiRouter.MultiRoute;
+
+    getRouteAsync(): Promise<multiRouter.MultiRoute>;
+
+    isEnable(): boolean;
 
     switchPoints(): void;
   }
@@ -4709,12 +4761,12 @@ declare namespace ymaps {
     setParent(parent: IParentOnMap | null): this;
   }
 
-  interface IObjectManagerOptions {
+  interface IObjectManagerOptions extends Omit<IClustererOptions, 'hasBalloon' | 'hasHint'> {
     clusterize?: boolean;
     syncOverlayInit?: boolean;
     viewportMargin?: number | number[];
-    clusterHasBalloon?: boolean;
-    geoObjectOpenBalloonOnClick?: boolean;
+
+    [key: string]: any;
   }
 
   namespace objectManager {
