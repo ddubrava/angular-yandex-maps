@@ -8,23 +8,48 @@
 - [Searching for organizations](https://stackblitz.com/edit/search-for-organizations)
 - [Calculating delivery cost](https://stackblitz.com/edit/calculating-delivery-cost)
 
-##### Panorama
+##### Map
 
-- [Panorama](https://stackblitz.com/edit/panorama)
+- [Creating and deleting](https://stackblitz.com/edit/creating-and-deleting-map)
+- [General parameters](https://stackblitz.com/edit/general-parameters-map)
+- [Creating maps on demand](https://stackblitz.com/edit/creating-maps-on-demand)
 
 ##### GeoObjects
 
-- [Changing a placemark icon when hovering over it](https://stackblitz.com/edit/changing-a-placemark-on-hover)
+- [Placemark](https://stackblitz.com/edit/placemark)
+- [Polyline](https://stackblitz.com/edit/geoboejct-polyline)
 - [Rectangle](https://stackblitz.com/edit/rectangle)
 - [Polygon](https://stackblitz.com/edit/geoobject-polygon)
 - [Circle](https://stackblitz.com/edit/geoobject-circle)
+- [Changing a placemark icon when hovering over it](https://stackblitz.com/edit/changing-a-placemark-on-hover)
 
-##### Multiroute
+##### Users's location
+
+- [Detecting user location](https://stackblitz.com/edit/detecting-user-location)
+
+##### Routing
 
 - [Building a driving multiroute](https://stackblitz.com/edit/multiroute)
 - [Building a pedestrian multiroute](https://stackblitz.com/edit/multiroute-pedestrian)
 
-##### Control
+##### Balloon and hint
+
+- [Balloon and hint](https://stackblitz.com/edit/balloon-and-hint)
+- [Placemark and balloon panel](https://stackblitz.com/edit/placemark-and-balloon-panel)
+
+##### Controls
 
 - [Search Control](https://stackblitz.com/edit/searchcontrol)
 - [RoutePanel Control](https://stackblitz.com/edit/route-panel)
+
+##### Clustering
+
+- [Clustering](https://stackblitz.com/edit/creating-a-clusterer)
+
+##### ObjectManager
+
+- [Adding objects to the map via ObjectManager](https://stackblitz.com/edit/placemark-clusterer)
+
+##### Panoramas
+
+- [Inserting into the Yandex panoramas page](https://stackblitz.com/edit/panorama)
