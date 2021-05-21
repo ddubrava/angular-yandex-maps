@@ -4872,4 +4872,16 @@ declare namespace ymaps {
   interface IHotspot extends IDomEventEmitter {
     events: IEventManager;
   }
+
+  namespace geolocation {
+    interface IGeolocationOptions {
+      autoReverseGeocode?: boolean;
+      mapStateAutoApply?: boolean;
+      provider?: string;
+      timeout?: number;
+      useMapMargin?: boolean;
+    }
+
+    function get(options?: IGeolocationOptions): Promise<{ geoObjects: GeoObjectCollection }>;
+  }
 }
