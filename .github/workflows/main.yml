@@ -101,7 +101,7 @@ jobs:
         run: |
           npm install
 
-      - name: Build library
+      - name: Test library
         run: |
           npm run test:headless
 
