@@ -37,8 +37,10 @@ describe('EventManager', () => {
     dummyZone = {
       run: jasmine.createSpy('NgZone.run').and.callFake((callback: () => void) => callback()),
     } as unknown as NgZone;
+
     target = new TestEventTarget();
     manager = new EventManager(dummyZone);
+    (window.ymaps as any) = {};
   });
 
   afterEach(() => {
