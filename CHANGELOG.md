@@ -1,5 +1,11 @@
 # Changelog
 
+## [12.1.4] - 2021-05-21
+
+### Changed
+
+- Improve typings: add IPlacemarkProperties, some missing fields, improve Control classes, IObjectManagerOptions,
+
 ## [12.1.2] - 2021-05-21
 
 ### Changed
@@ -415,6 +421,7 @@
 
 - Release without changes
 
+[12.1.3]: https://github.com/ddubrava/angular8-yandex-maps/compare/v12.1.2...v12.1.3
 [12.1.2]: https://github.com/ddubrava/angular8-yandex-maps/compare/v12.1.1...v12.1.2
 [12.1.1]: https://github.com/ddubrava/angular8-yandex-maps/compare/v12.1.0...v12.1.1
 [12.1.0]: https://github.com/ddubrava/angular8-yandex-maps/compare/v12.0.0...v12.1.0
