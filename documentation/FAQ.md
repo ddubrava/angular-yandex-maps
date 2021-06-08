@@ -42,8 +42,6 @@ class MapComponent {
 }
 ```
 
-If you don't need any components and need only
-
 ## 4. I can't find a component for `XXX`
 
 The library can't wrap all API classes. If you can't find any component, use `ymaps` object and follow Yandex.Maps API.
