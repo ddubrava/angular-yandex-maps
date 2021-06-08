@@ -2,5 +2,9 @@
   {
     "title": "Examples",
     "file": "EXAMPLES.md"
+  },
+  {
+    "title": "FAQ",
+    "file": "FAQ.md"
   }
 ]
