@@ -3482,24 +3482,63 @@ declare namespace ymaps {
     toArray(): IGeoObject[];
   }
 
+  interface ILayerOptions {
+    brightness?: number;
+    notFoundTile?: string | null;
+    pane?: IPane | string;
+    projection?: any;
+    tileSize?: number[][];
+    tileTransparent?: boolean;
+    zIndex?: number;
+  }
+
   class Layer implements ILayer, IParentOnMap, IPositioningContext {
-    constructor(tileUrlTemplate: string | ((tileNumber: number[], tileZoom: number) => string));
+    constructor(
+      tileUrlTemplate: string | ((tileNumber: number[], tileZoom: number) => string),
+      options?: ILayerOptions,
+    );
 
     events: IEventManager;
 
     options: IOptionManager;
 
+    clientPixelsToNumber(clientPixelPoint: number, tileZoom: number): number[];
+
     fromClientPixels(clientPixelPoint: number[]): number[];
 
-    getZoom(): number;
+    getBrightness?(): number;
 
-    toClientPixels(globalPixelPoint: number[]): number[];
+    getCopyrights?(coords: number[], zoom: number): Promise<Array<string | HTMLElement>>;
+
+    getMap(): Map;
+
+    getPane(): IPane;
 
     getParent(): null | IControlParent;
 
+    getTileSize(zoom: number): number[];
+
+    getTileStatus(): { readyTileNumber: number; totalTileNumber: number };
+
+    getTileUrl(tileNumber: number[], tileZoom: number): string | null;
+
+    getTileUrlTemplate(): string | any;
+
+    getZoom(): number;
+
+    getZoomRange?(point: number[]): Promise<number[]>;
+
+    numberToClientBounds(tileNumber: number[], tileZoom: number): number[][];
+
+    restrict(num: number[], tileZoom: number): number[] | null;
+
     setParent(parent: IControlParent): this;
 
-    getMap(): Map;
+    setTileUrlTemplate(tileUrlTemplate: string | any): void;
+
+    toClientPixels(globalPixelPoint: number[]): number[];
+
+    update(updateBounds: any): void;
 
     getAlias(): string;
 
@@ -3877,6 +3916,8 @@ declare namespace ymaps {
 
       valueOf(): object;
     }
+
+    function resolve(value: any): any;
   }
 
   /* Interfaces */
@@ -4968,5 +5009,137 @@ declare namespace ymaps {
     state: data.Manager;
 
     destroy(): void;
+  }
+
+  interface ITile extends IEventEmitter {
+    events: IEventManager;
+
+    destroy(): void;
+
+    isReady(): boolean;
+  }
+
+  interface ICanvasTile extends ITile {
+    events: IEventManager;
+
+    destroy(): void;
+
+    isReady(): boolean;
+
+    renderAt(context: any, canvasSize: number[], bounds: number[][], animate?: boolean): void;
+  }
+
+  interface IDomTile extends ITile {
+    events: IEventManager;
+
+    destroy(): void;
+
+    isReady(): boolean;
+
+    renderAt(context: HTMLElement, clientBounds: number[][], animate?: boolean): void;
+  }
+
+  namespace layer {
+    const storage: util.Storage;
+
+    namespace tile {
+      interface ITileOptions {
+        notFoundTile?: string | null;
+        tileAnimationDuration?: number;
+      }
+
+      interface ITileRenderOptions {
+        tileNumber?: number[];
+        tileZoom?: number;
+      }
+
+      class CanvasTile implements ICanvasTile {
+        constructor(url: string, options?: ITileOptions, renderOptions?: ITileRenderOptions);
+
+        events: IEventManager;
+
+        destroy(): void;
+
+        isReady(): boolean;
+
+        renderAt(context: any, canvasSize: number[], bounds: number[][], animate?: boolean): void;
+      }
+
+      class DomTile implements IDomTile {
+        constructor(url: string, options?: ITileOptions, renderOptions?: ITileRenderOptions);
+
+        events: IEventManager;
+
+        destroy(): void;
+
+        isReady(): boolean;
+
+        renderAt(context: HTMLElement, clientBounds: number[][], animate?: boolean): void;
+      }
+    }
+
+    namespace tileContainer {
+      interface CanvasContainerOptions {
+        notFoundTile?: string | null;
+        tileClass?: ICanvasTile;
+        tileTransparent?: boolean;
+      }
+
+      class CanvasContainer implements IChildOnMap {
+        constructor(layer: ILayer, options?: CanvasContainerOptions);
+
+        events: IEventManager;
+
+        getMap(): Map;
+
+        getParent(): object | null;
+
+        getTile(tileNumber: number[], tileZoom: number, priority: number): ICanvasTile;
+
+        setParent(parent: object | null): this;
+      }
+
+      interface DomContainerOptions {
+        notFoundTile?: string | null;
+        tileClass?: IDomTile;
+        tileTransparent?: boolean;
+      }
+
+      class DomContainer implements IChildOnMap {
+        constructor(layer: ILayer, options?: DomContainerOptions);
+
+        events: IEventManager;
+
+        getMap(): Map;
+
+        getParent(): object | null;
+
+        getTile(tileNumber: number[], tileZoom: number, priority: number): ICanvasTile;
+
+        setParent(parent: object | null): this;
+      }
+    }
+  }
+
+  namespace mapType {
+    const storage: util.Storage;
+  }
+
+  namespace projection {
+    class Cartesian implements IProjection {
+      constructor(bounds: number[][], cycled?: boolean[], scale?: number | number[]);
+
+      fromGlobalPixels(globalPixelPoint: number[], zoom: number): number[];
+
+      getCoordSystem(): ICoordSystem;
+
+      isCycled(): boolean[];
+
+      toGlobalPixels(coordPoint: number[], zoom: number): number[];
+    }
+
+    const sphericalMercator: IProjection;
+
+    const wgs84Mercator: IProjection;
   }
 }
