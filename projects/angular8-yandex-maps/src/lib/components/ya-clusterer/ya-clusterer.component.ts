@@ -131,7 +131,7 @@ export class YaClustererComponent implements AfterContentInit, OnChanges, OnDest
           map.geoObjects.add(clusterer);
           this._eventManager.setTarget(clusterer);
           this._watchForContentChanges(clusterer);
-          this.ready.emit({ ymaps, target: clusterer });
+          this._ngZone.run(() => this.ready.emit({ ymaps, target: clusterer }));
         }
       });
 

@@ -257,7 +257,7 @@ export class YaGeoObjectDirective implements OnInit, OnChanges, OnDestroy {
 
           map.geoObjects.add(geoObject);
           this._eventManager.setTarget(geoObject);
-          this.ready.emit({ ymaps, target: geoObject });
+          this._ngZone.run(() => this.ready.emit({ ymaps, target: geoObject }));
         }
       });
 
