@@ -4936,4 +4936,37 @@ declare namespace ymaps {
 
     function get(options?: IGeolocationOptions): Promise<{ geoObjects: GeoObjectCollection }>;
   }
+
+  interface ISuggestProvider {
+    suggest(
+      request: string,
+      options?: {
+        boundedBy?: number[][];
+        results?: number;
+      },
+    ): Promise<object>;
+  }
+
+  interface ISuggestViewOptions {
+    boundedBy?: number[][];
+    container?: HTMLElement;
+    layout?: string | any;
+    offset?: number[];
+    provider?: string | ISuggestProvider;
+    results?: number;
+    width?: number;
+    zIndex?: number;
+  }
+
+  class SuggestView implements ICustomizable, IEventEmitter {
+    constructor(element: HTMLElement | string, options?: ISuggestViewOptions);
+
+    events: IEventManager;
+
+    options: IOptionManager;
+
+    state: data.Manager;
+
+    destroy(): void;
+  }
 }
