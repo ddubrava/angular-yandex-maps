@@ -1,5 +1,15 @@
 # Changelog
 
+## [12.1.5] - 2021-06-08
+
+### Added
+
+- SuggestView, layer, projection, mapType in typings
+
+### Changed
+
+- Run all `ready` events within `NgZone`
+
 ## [12.1.4] - 2021-05-21
 
 ### Changed
@@ -421,6 +431,7 @@
 
 - Release without changes
 
+[12.1.5]: https://github.com/ddubrava/angular8-yandex-maps/compare/v12.1.4...v12.1.5
 [12.1.4]: https://github.com/ddubrava/angular8-yandex-maps/compare/v12.1.2...v12.1.4
 [12.1.2]: https://github.com/ddubrava/angular8-yandex-maps/compare/v12.1.1...v12.1.2
 [12.1.1]: https://github.com/ddubrava/angular8-yandex-maps/compare/v12.1.0...v12.1.1
