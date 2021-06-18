@@ -94,7 +94,7 @@ export class YaControlDirective implements OnInit, OnChanges, OnDestroy {
           }
 
           map.controls.add(control);
-          this.ready.emit({ ymaps, target: control });
+          this._ngZone.run(() => this.ready.emit({ ymaps, target: control }));
         }
       });
 

@@ -265,7 +265,7 @@ export class YaPlacemarkDirective implements OnInit, OnChanges, OnDestroy {
 
           map.geoObjects.add(placemark);
           this._eventManager.setTarget(placemark);
-          this.ready.emit({ ymaps, target: placemark });
+          this._ngZone.run(() => this.ready.emit({ ymaps, target: placemark }));
         }
       });
 

@@ -258,7 +258,7 @@ export class YaMultirouteDirective implements OnInit, OnChanges, OnDestroy {
 
           map.geoObjects.add(multiroute);
           this._eventManager.setTarget(multiroute);
-          this.ready.emit({ ymaps, target: multiroute });
+          this._ngZone.run(() => this.ready.emit({ ymaps, target: multiroute }));
         }
       });
 
