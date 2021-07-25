@@ -8,7 +8,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
-	      <link rel="stylesheet" href="../styles/style.css">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css" media="(prefers-color-scheme: dark)">
     </head>
     <body>
 
@@ -37,7 +38,7 @@
 
 <ol class="breadcrumb">
   <li>Directives</li>
-  <li>YaPlacemarkDirective</li>
+  <li >YaPlacemarkDirective</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -61,6 +62,7 @@
             <code>projects/angular8-yandex-maps/src/lib/components/ya-placemark/ya-placemark.directive.ts</code>
         </p>
 
+
             <p class="comment">
                 <h3>Description</h3>
             </p>
@@ -69,6 +71,9 @@
 You can configure it via the directive&#39;s inputs.
 Events can be bound using the outputs of the directive.</p>
 <p><example-url><a href="https://stackblitz.com/edit/custom-placemark?embed=1">https://stackblitz.com/edit/custom-placemark?embed=1</a></example-url></p>
+<p>&lt;ya-map [center]=&quot;[55.751952, 37.600739]&quot;&gt;
+             &lt;ya-placemark [geometry]=&quot;[55.751952, 37.600739]&quot;&gt;</ya-placemark>
+</ya-map></p>
 
             </p>
 
@@ -81,16 +86,6 @@ Events can be bound using the outputs of the directive.</p>
                             <code><a href="https://angular.io/api/core/OnDestroy" target="_blank" >OnDestroy</a></code>
             </p>
 
-            <p class="comment">
-                <h3>Example</h3>
-            </p>
-            <div class="io-description">
-                        <div>
-                            <pre class="line-numbers"><code class="language-html">&lt;ya-map [center]=&quot;[55.751952, 37.600739]&quot;&gt;
-  &lt;ya-placemark [geometry]=&quot;[55.751952, 37.600739]&quot;&gt;&lt;/ya-placemark&gt;
-&lt;/ya-map&gt;</code></pre>
-                        </div>
-            </div>
 
         <section>
             <h3>Metadata</h3>
@@ -120,7 +115,7 @@ Events can be bound using the outputs of the directive.</p>
                         <ul class="index-list">
                             <li>
                                     <span class="modifier">Optional</span>
-                                <a href="#placemark">placemark</a>
+                                <a href="#placemark" >placemark</a>
                             </li>
                         </ul>
                     </td>
@@ -136,13 +131,13 @@ Events can be bound using the outputs of the directive.</p>
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#geometry">geometry</a>
+                                <a href="#geometry" >geometry</a>
                             </li>
                             <li>
-                                <a href="#options">options</a>
+                                <a href="#options" >options</a>
                             </li>
                             <li>
-                                <a href="#properties">properties</a>
+                                <a href="#properties" >properties</a>
                             </li>
                         </ul>
                     </td>
@@ -157,91 +152,91 @@ Events can be bound using the outputs of the directive.</p>
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#balloonclose">balloonclose</a>
+                                <a href="#balloonclose" >balloonclose</a>
                             </li>
                             <li>
-                                <a href="#balloonopen">balloonopen</a>
+                                <a href="#balloonopen" >balloonopen</a>
                             </li>
                             <li>
-                                <a href="#beforedrag">beforedrag</a>
+                                <a href="#beforedrag" >beforedrag</a>
                             </li>
                             <li>
-                                <a href="#beforedragstart">beforedragstart</a>
+                                <a href="#beforedragstart" >beforedragstart</a>
                             </li>
                             <li>
-                                <a href="#editorstatechange">editorstatechange</a>
+                                <a href="#editorstatechange" >editorstatechange</a>
                             </li>
                             <li>
-                                <a href="#geometrychange">geometrychange</a>
+                                <a href="#geometrychange" >geometrychange</a>
                             </li>
                             <li>
-                                <a href="#hintclose">hintclose</a>
+                                <a href="#hintclose" >hintclose</a>
                             </li>
                             <li>
-                                <a href="#hintopen">hintopen</a>
+                                <a href="#hintopen" >hintopen</a>
                             </li>
                             <li>
-                                <a href="#mapchange">mapchange</a>
+                                <a href="#mapchange" >mapchange</a>
                             </li>
                             <li>
-                                <a href="#multitouchend">multitouchend</a>
+                                <a href="#multitouchend" >multitouchend</a>
                             </li>
                             <li>
-                                <a href="#multitouchmove">multitouchmove</a>
+                                <a href="#multitouchmove" >multitouchmove</a>
                             </li>
                             <li>
-                                <a href="#multitouchstart">multitouchstart</a>
+                                <a href="#multitouchstart" >multitouchstart</a>
                             </li>
                             <li>
-                                <a href="#optionschange">optionschange</a>
+                                <a href="#optionschange" >optionschange</a>
                             </li>
                             <li>
-                                <a href="#overlaychange">overlaychange</a>
+                                <a href="#overlaychange" >overlaychange</a>
                             </li>
                             <li>
-                                <a href="#parentchange">parentchange</a>
+                                <a href="#parentchange" >parentchange</a>
                             </li>
                             <li>
-                                <a href="#propertieschange">propertieschange</a>
+                                <a href="#propertieschange" >propertieschange</a>
                             </li>
                             <li>
-                                <a href="#ready">ready</a>
+                                <a href="#ready" >ready</a>
                             </li>
                             <li>
-                                <a href="#yaclick">yaclick</a>
+                                <a href="#yaclick" >yaclick</a>
                             </li>
                             <li>
-                                <a href="#yacontextmenu">yacontextmenu</a>
+                                <a href="#yacontextmenu" >yacontextmenu</a>
                             </li>
                             <li>
-                                <a href="#yadbclick">yadbclick</a>
+                                <a href="#yadbclick" >yadbclick</a>
                             </li>
                             <li>
-                                <a href="#yadrag">yadrag</a>
+                                <a href="#yadrag" >yadrag</a>
                             </li>
                             <li>
-                                <a href="#yadragend">yadragend</a>
+                                <a href="#yadragend" >yadragend</a>
                             </li>
                             <li>
-                                <a href="#yadragstart">yadragstart</a>
+                                <a href="#yadragstart" >yadragstart</a>
                             </li>
                             <li>
-                                <a href="#yamousedown">yamousedown</a>
+                                <a href="#yamousedown" >yamousedown</a>
                             </li>
                             <li>
-                                <a href="#yamouseenter">yamouseenter</a>
+                                <a href="#yamouseenter" >yamouseenter</a>
                             </li>
                             <li>
-                                <a href="#yamouseleave">yamouseleave</a>
+                                <a href="#yamouseleave" >yamouseleave</a>
                             </li>
                             <li>
-                                <a href="#yamousemove">yamousemove</a>
+                                <a href="#yamousemove" >yamousemove</a>
                             </li>
                             <li>
-                                <a href="#yamouseup">yamouseup</a>
+                                <a href="#yamouseup" >yamouseup</a>
                             </li>
                             <li>
-                                <a href="#yawheel">yawheel</a>
+                                <a href="#yawheel" >yawheel</a>
                             </li>
                         </ul>
                     </td>
@@ -259,7 +254,7 @@ Events can be bound using the outputs of the directive.</p>
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(_ngZone: <a href="https://angular.io/api/core/NgZone" target="_blank">NgZone</a>, _yaMapComponent: <a href="../components/YaMapComponent.html">YaMapComponent</a>)</code>
+<code>constructor(_ngZone: <a href="https://angular.io/api/core/NgZone" target="_blank">NgZone</a>, _yaMapComponent: <a href="../components/YaMapComponent.html" target="_self">YaMapComponent</a>)</code>
                     </td>
                 </tr>
                         <tr>
@@ -338,7 +333,7 @@ Events can be bound using the outputs of the directive.</p>
                 <tr>
                     <td class="col-md-4">
                         <div class="io-description"><p>Coordinates of the placemark, or a hash describing the geometry, or a reference to the point geometry object.
-<a href="https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/Placemark.html#Placemark__param-geometry">https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/Placemark.html#Placemark__param-geometry</a></p>
+://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/Placemark.html#Placemark__param-geometry<a href="https">https</a></p>
 </div>
                     </td>
                 </tr>
@@ -366,7 +361,7 @@ Events can be bound using the outputs of the directive.</p>
                 <tr>
                     <td class="col-md-4">
                         <div class="io-description"><p>Options for the placemark.
-<a href="https://yandex.com/maps/jsapi/doc/2.1/ref/reference/Placemark-docpage/#Placemarkparam-options">https://yandex.com/maps/jsapi/doc/2.1/ref/reference/Placemark-docpage/#Placemarkparam-options</a></p>
+://yandex.com/maps/jsapi/doc/2.1/ref/reference/Placemark-docpage/#Placemarkparam-options<a href="https">https</a></p>
 </div>
                     </td>
                 </tr>
@@ -394,7 +389,7 @@ Events can be bound using the outputs of the directive.</p>
                 <tr>
                     <td class="col-md-4">
                         <div class="io-description"><p>Properties for the placemark.
-<a href="https://yandex.com/maps/jsapi/doc/2.1/ref/reference/Placemark-docpage/#Placemarkparam-properties">https://yandex.com/maps/jsapi/doc/2.1/ref/reference/Placemark-docpage/#Placemarkparam-properties</a></p>
+://yandex.com/maps/jsapi/doc/2.1/ref/reference/Placemark-docpage/#Placemarkparam-properties<a href="https">https</a></p>
 </div>
                     </td>
                 </tr>
@@ -1192,37 +1187,36 @@ Events can be bound using the outputs of the directive.</p>
 
             <section>
     
-        <h3 id="inputs">
-            Properties
-        </h3>
-        <table class="table table-sm table-bordered">
-            <tbody>
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="placemark"></a>
+                    <span class="name">
+                            <span class="modifier">Optional</span>
+                        <span ><b>placemark</b></span>
+                        <a href="#placemark"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="placemark"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Optional</span>
-                            placemark</b>
-                            <a href="#placemark"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>    <code>ymaps.Placemark</code>
+
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>    <code>ymaps.Placemark</code>
-
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-placemark/ya-placemark.directive.ts:38</a></div>
                         </td>
                     </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-placemark/ya-placemark.directive.ts:38</a></div>
-                            </td>
-                        </tr>
 
 
-            </tbody>
-        </table>
+        </tbody>
+    </table>
 </section>
 
 
@@ -1565,9 +1559,9 @@ export class YaPlacemarkDirective implements OnInit, OnChanges, OnDestroy {
 
        <script src="../js/libs/custom-elements.min.js"></script>
        <script src="../js/libs/lit-html.js"></script>
-       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
-       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
-       <script src="../js/menu-wc.js" defer></script>
+       
+       <script type="module" src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
 
        <script src="../js/libs/bootstrap-native.js"></script>
 

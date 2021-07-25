@@ -8,7 +8,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
-	      <link rel="stylesheet" href="../styles/style.css">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css" media="(prefers-color-scheme: dark)">
     </head>
     <body>
 
@@ -37,7 +38,7 @@
 
 <ol class="breadcrumb">
   <li>Directives</li>
-  <li>YaControlDirective</li>
+  <li >YaControlDirective</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -61,6 +62,7 @@
             <code>projects/angular8-yandex-maps/src/lib/components/ya-control/ya-control.directive.ts</code>
         </p>
 
+
             <p class="comment">
                 <h3>Description</h3>
             </p>
@@ -69,6 +71,12 @@
 You can configure <code>ymaps.control[YaControlType]</code> via the component&#39;s inputs.
 API Events can be bound only manually. You can use <code>ready</code> event to get an instance.</p>
 <p><example-url><a href="https://stackblitz.com/edit/searchcontrol?embed=1">https://stackblitz.com/edit/searchcontrol?embed=1</a></example-url></p>
+<p>&lt;ya-map [center]=&quot;[55.761952, 37.620739]&quot;&gt;
+             &lt;ya-control
+               type=&quot;RoutePanel&quot;
+               [parameters]=&quot;{ options: { float: &#39;right&#39; } }&quot;
+             &gt;</ya-control>
+</ya-map></p>
 
             </p>
 
@@ -81,19 +89,6 @@ API Events can be bound only manually. You can use <code>ready</code> event to g
                             <code><a href="https://angular.io/api/core/OnDestroy" target="_blank" >OnDestroy</a></code>
             </p>
 
-            <p class="comment">
-                <h3>Example</h3>
-            </p>
-            <div class="io-description">
-                        <div>
-                            <pre class="line-numbers"><code class="language-html">&lt;ya-map [center]=&quot;[55.761952, 37.620739]&quot;&gt;
-  &lt;ya-control
-    type=&quot;RoutePanel&quot;
-    [parameters]=&quot;{ options: { float: 'right' } }&quot;
-  &gt;&lt;/ya-control&gt;
-&lt;/ya-map&gt;</code></pre>
-                        </div>
-            </div>
 
         <section>
             <h3>Metadata</h3>
@@ -124,10 +119,10 @@ API Events can be bound only manually. You can use <code>ready</code> event to g
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#parameters">parameters</a>
+                                <a href="#parameters" >parameters</a>
                             </li>
                             <li>
-                                <a href="#type">type</a>
+                                <a href="#type" >type</a>
                             </li>
                         </ul>
                     </td>
@@ -142,7 +137,7 @@ API Events can be bound only manually. You can use <code>ready</code> event to g
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#ready">ready</a>
+                                <a href="#ready" >ready</a>
                             </li>
                         </ul>
                     </td>
@@ -160,7 +155,7 @@ API Events can be bound only manually. You can use <code>ready</code> event to g
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(_ngZone: <a href="https://angular.io/api/core/NgZone" target="_blank">NgZone</a>, _yaMapComponent: <a href="../components/YaMapComponent.html">YaMapComponent</a>)</code>
+<code>constructor(_ngZone: <a href="https://angular.io/api/core/NgZone" target="_blank">NgZone</a>, _yaMapComponent: <a href="../components/YaMapComponent.html" target="_self">YaMapComponent</a>)</code>
                     </td>
                 </tr>
                         <tr>
@@ -465,9 +460,9 @@ export class YaControlDirective implements OnInit, OnChanges, OnDestroy {
 
        <script src="../js/libs/custom-elements.min.js"></script>
        <script src="../js/libs/lit-html.js"></script>
-       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
-       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
-       <script src="../js/menu-wc.js" defer></script>
+       
+       <script type="module" src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
 
        <script src="../js/libs/bootstrap-native.js"></script>
 

@@ -8,7 +8,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
-	      <link rel="stylesheet" href="../styles/style.css">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css" media="(prefers-color-scheme: dark)">
     </head>
     <body>
 
@@ -37,7 +38,7 @@
 
 <ol class="breadcrumb">
   <li>Directives</li>
-  <li>YaMultirouteDirective</li>
+  <li >YaMultirouteDirective</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -61,6 +62,7 @@
             <code>projects/angular8-yandex-maps/src/lib/components/ya-multiroute/ya-multiroute.directive.ts</code>
         </p>
 
+
             <p class="comment">
                 <h3>Description</h3>
             </p>
@@ -69,6 +71,12 @@
 You can configure it via the component&#39;s inputs.
 Events can be bound using the outputs of the component.</p>
 <p><example-url><a href="https://stackblitz.com/edit/multiroute-pedestrian?embed=1">https://stackblitz.com/edit/multiroute-pedestrian?embed=1</a></example-url></p>
+<p>&lt;ya-map [center]=&quot;[55.761952, 37.620739]&quot;&gt;
+             &lt;ya-multiroute
+               [referencePoints]=&quot;[[55.751952, 37.600739], &#39;Красные ворота, Москва&#39;]&quot;
+               [model]=&quot;{ params: { routingMode: &#39;pedestrian&#39; } }&quot;
+             &gt;</ya-multiroute>
+</ya-map></p>
 
             </p>
 
@@ -81,19 +89,6 @@ Events can be bound using the outputs of the component.</p>
                             <code><a href="https://angular.io/api/core/OnDestroy" target="_blank" >OnDestroy</a></code>
             </p>
 
-            <p class="comment">
-                <h3>Example</h3>
-            </p>
-            <div class="io-description">
-                        <div>
-                            <pre class="line-numbers"><code class="language-html">&lt;ya-map [center]=&quot;[55.761952, 37.620739]&quot;&gt;
-  &lt;ya-multiroute
-    [referencePoints]=&quot;[[55.751952, 37.600739], 'Красные ворота, Москва']&quot;
-    [model]=&quot;{ params: { routingMode: 'pedestrian' } }&quot;
-  &gt;&lt;/ya-multiroute&gt;
-&lt;/ya-map&gt;</code></pre>
-                        </div>
-            </div>
 
         <section>
             <h3>Metadata</h3>
@@ -124,13 +119,13 @@ Events can be bound using the outputs of the component.</p>
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#model">model</a>
+                                <a href="#model" >model</a>
                             </li>
                             <li>
-                                <a href="#options">options</a>
+                                <a href="#options" >options</a>
                             </li>
                             <li>
-                                <a href="#referencePoints">referencePoints</a>
+                                <a href="#referencePoints" >referencePoints</a>
                             </li>
                         </ul>
                     </td>
@@ -145,82 +140,82 @@ Events can be bound using the outputs of the component.</p>
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#activeroutechange">activeroutechange</a>
+                                <a href="#activeroutechange" >activeroutechange</a>
                             </li>
                             <li>
-                                <a href="#balloonclose">balloonclose</a>
+                                <a href="#balloonclose" >balloonclose</a>
                             </li>
                             <li>
-                                <a href="#balloonopen">balloonopen</a>
+                                <a href="#balloonopen" >balloonopen</a>
                             </li>
                             <li>
-                                <a href="#boundsautoapply">boundsautoapply</a>
+                                <a href="#boundsautoapply" >boundsautoapply</a>
                             </li>
                             <li>
-                                <a href="#boundschange">boundschange</a>
+                                <a href="#boundschange" >boundschange</a>
                             </li>
                             <li>
-                                <a href="#geometrychange">geometrychange</a>
+                                <a href="#geometrychange" >geometrychange</a>
                             </li>
                             <li>
-                                <a href="#mapchange">mapchange</a>
+                                <a href="#mapchange" >mapchange</a>
                             </li>
                             <li>
-                                <a href="#multitouchend">multitouchend</a>
+                                <a href="#multitouchend" >multitouchend</a>
                             </li>
                             <li>
-                                <a href="#multitouchmove">multitouchmove</a>
+                                <a href="#multitouchmove" >multitouchmove</a>
                             </li>
                             <li>
-                                <a href="#multitouchstart">multitouchstart</a>
+                                <a href="#multitouchstart" >multitouchstart</a>
                             </li>
                             <li>
-                                <a href="#optionschange">optionschange</a>
+                                <a href="#optionschange" >optionschange</a>
                             </li>
                             <li>
-                                <a href="#overlaychange">overlaychange</a>
+                                <a href="#overlaychange" >overlaychange</a>
                             </li>
                             <li>
-                                <a href="#parentchange">parentchange</a>
+                                <a href="#parentchange" >parentchange</a>
                             </li>
                             <li>
-                                <a href="#pixelboundschange">pixelboundschange</a>
+                                <a href="#pixelboundschange" >pixelboundschange</a>
                             </li>
                             <li>
-                                <a href="#propertieschange">propertieschange</a>
+                                <a href="#propertieschange" >propertieschange</a>
                             </li>
                             <li>
-                                <a href="#ready">ready</a>
+                                <a href="#ready" >ready</a>
                             </li>
                             <li>
-                                <a href="#update">update</a>
+                                <a href="#update" >update</a>
                             </li>
                             <li>
-                                <a href="#yaclick">yaclick</a>
+                                <a href="#yaclick" >yaclick</a>
                             </li>
                             <li>
-                                <a href="#yacontextmenu">yacontextmenu</a>
+                                <a href="#yacontextmenu" >yacontextmenu</a>
                             </li>
                             <li>
-                                <a href="#yadbclick">yadbclick</a>
+                                <a href="#yadbclick" >yadbclick</a>
                             </li>
                             <li>
-                                <a href="#yamousedown">yamousedown</a>
+                                <a href="#yamousedown" >yamousedown</a>
                             </li>
                             <li>
-                                <a href="#yamouseenter">yamouseenter</a>
+                                <a href="#yamouseenter" >yamouseenter</a>
                             </li>
                             <li>
-                                <a href="#yamouseleave">yamouseleave</a>
+                                <a href="#yamouseleave" >yamouseleave</a>
                             </li>
                             <li>
-                                <a href="#yamousemove">yamousemove</a>
+                                <a href="#yamousemove" >yamousemove</a>
                             </li>
                             <li>
-                                <a href="#yamouseup">yamouseup</a>
+                                <a href="#yamouseup" >yamouseup</a>
                             </li>
                             <li>
-                                <a href="#yawheel">yawheel</a>
+                                <a href="#yawheel" >yawheel</a>
                             </li>
                         </ul>
                     </td>
@@ -238,7 +233,7 @@ Events can be bound using the outputs of the component.</p>
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(_ngZone: <a href="https://angular.io/api/core/NgZone" target="_blank">NgZone</a>, _yaMapComponent: <a href="../components/YaMapComponent.html">YaMapComponent</a>)</code>
+<code>constructor(_ngZone: <a href="https://angular.io/api/core/NgZone" target="_blank">NgZone</a>, _yaMapComponent: <a href="../components/YaMapComponent.html" target="_self">YaMapComponent</a>)</code>
                     </td>
                 </tr>
                         <tr>
@@ -317,7 +312,7 @@ Events can be bound using the outputs of the component.</p>
                 <tr>
                     <td class="col-md-4">
                         <div class="io-description"><p>Model description object of a multiroute.
-<a href="https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/IMultiRouteModelJson.html">https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/IMultiRouteModelJson.html</a></p>
+://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/IMultiRouteModelJson.html<a href="https">https</a></p>
 </div>
                     </td>
                 </tr>
@@ -345,7 +340,7 @@ Events can be bound using the outputs of the component.</p>
                 <tr>
                     <td class="col-md-4">
                         <div class="io-description"><p>Options for the multiroute.
-<a href="https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/multiRouter.MultiRoute.html#multiRouter.MultiRoute__param-options">https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/multiRouter.MultiRoute.html#multiRouter.MultiRoute__param-options</a></p>
+://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/multiRouter.MultiRoute.html#multiRouter.MultiRoute__param-options<a href="https">https</a></p>
 </div>
                     </td>
                 </tr>
@@ -374,7 +369,7 @@ Events can be bound using the outputs of the component.</p>
                     <td class="col-md-4">
                         <div class="io-description"><p>Reference points for the multiroute.
 Shorthand for [model]=&quot;{ referencePoints: [0, 0] }&quot;.
-<a href="https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/IMultiRouteReferencePoint.html">https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/IMultiRouteReferencePoint.html</a></p>
+://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/IMultiRouteReferencePoint.html<a href="https">https</a></p>
 </div>
                     </td>
                 </tr>
@@ -1455,9 +1450,9 @@ export class YaMultirouteDirective implements OnInit, OnChanges, OnDestroy {
 
        <script src="../js/libs/custom-elements.min.js"></script>
        <script src="../js/libs/lit-html.js"></script>
-       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
-       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
-       <script src="../js/menu-wc.js" defer></script>
+       
+       <script type="module" src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
 
        <script src="../js/libs/bootstrap-native.js"></script>
 

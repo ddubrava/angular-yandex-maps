@@ -8,7 +8,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
-	      <link rel="stylesheet" href="../styles/style.css">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css" media="(prefers-color-scheme: dark)">
     </head>
     <body>
 
@@ -38,7 +39,7 @@
 
 <ol class="breadcrumb">
   <li>Injectables</li>
-  <li>YaGeocoderService</li>
+  <li >YaGeocoderService</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -59,30 +60,23 @@
             <code>projects/angular8-yandex-maps/src/lib/services/ya-geocoder/ya-geocoder.service.ts</code>
         </p>
 
+
             <p class="comment">
                 <h3>Description</h3>
             </p>
             <p class="comment">
                 <p>The <code>YaGeocoder</code> service wraps <code>ymaps.geocode</code> static function from the Yandex Maps API.</p>
+<p>import { YaGeocoderService } from &#39;angular8-yandex-maps&#39;;</p>
+<p>export class AppComponent {
+              constructor(private yaGeocoderService: YaGeocoderService) {
+                this.yaGeocoderService.geocode(&#39;Moscow&#39;)
+                  .subscribe(v =&gt; console.log(v))
+              }
+}</p>
 
             </p>
 
 
-            <p class="comment">
-                <h3>Example</h3>
-            </p>
-            <div class="io-description">
-                        <div>
-                            <pre class="line-numbers"><code class="language-html">import { YaGeocoderService } from 'angular8-yandex-maps';
-
-export class AppComponent {
-   constructor(private yaGeocoderService: YaGeocoderService) {
-     this.yaGeocoderService.geocode('Moscow')
-       .subscribe(v =&gt; console.log(v))
-   }
-}</code></pre>
-                        </div>
-            </div>
 
             <section>
     <h3 id="index">Index</h3>
@@ -98,7 +92,7 @@ export class AppComponent {
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#geocode">geocode</a>
+                                <a href="#geocode" >geocode</a>
                             </li>
                         </ul>
                     </td>
@@ -118,7 +112,7 @@ export class AppComponent {
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(_ngZone: <a href="https://angular.io/api/core/NgZone" target="_blank">NgZone</a>, _yaApiLoaderService: <a href="../injectables/YaApiLoaderService.html">YaApiLoaderService</a>)</code>
+<code>constructor(_ngZone: <a href="https://angular.io/api/core/NgZone" target="_blank">NgZone</a>, _yaApiLoaderService: <a href="../injectables/YaApiLoaderService.html" target="_self">YaApiLoaderService</a>)</code>
                     </td>
                 </tr>
                         <tr>
@@ -184,9 +178,7 @@ export class AppComponent {
                 <td class="col-md-4">
                     <a name="geocode"></a>
                     <span class="name">
-                        <b>
-                            geocode
-                        </b>
+                        <span ><b>geocode</b></span>
                         <a href="#geocode"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -353,9 +345,9 @@ export class YaGeocoderService {
 
        <script src="../js/libs/custom-elements.min.js"></script>
        <script src="../js/libs/lit-html.js"></script>
-       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
-       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
-       <script src="../js/menu-wc.js" defer></script>
+       
+       <script type="module" src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
 
        <script src="../js/libs/bootstrap-native.js"></script>
 

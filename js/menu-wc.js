@@ -83,7 +83,7 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                         </a>
                         <ul class="links collapse " ${ isNormalMode ? 'id="modules-links"' : 'id="xs-modules-links"' }>
                             <li class="link">
-                                <a href="modules/AngularYandexMapsModule.html" data-type="entity-link">AngularYandexMapsModule</a>
+                                <a href="modules/AngularYandexMapsModule.html" data-type="entity-link" >AngularYandexMapsModule</a>
                                     <li class="chapter inner">
                                         <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
                                             'data-target="#components-links-module-AngularYandexMapsModule-01a0d7260f49937e6e0d5977429afe84"' : 'data-target="#xs-components-links-module-AngularYandexMapsModule-01a0d7260f49937e6e0d5977429afe84"' }>
@@ -94,12 +94,10 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                         <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-AngularYandexMapsModule-01a0d7260f49937e6e0d5977429afe84"' :
                                             'id="xs-components-links-module-AngularYandexMapsModule-01a0d7260f49937e6e0d5977429afe84"' }>
                                             <li class="link">
-                                                <a href="components/YaClustererComponent.html"
-                                                    data-type="entity-link" data-context="sub-entity" data-context-id="modules">YaClustererComponent</a>
+                                                <a href="components/YaClustererComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >YaClustererComponent</a>
                                             </li>
                                             <li class="link">
-                                                <a href="components/YaMapComponent.html"
-                                                    data-type="entity-link" data-context="sub-entity" data-context-id="modules">YaMapComponent</a>
+                                                <a href="components/YaMapComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >YaMapComponent</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -113,24 +111,19 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                     <ul class="links collapse" ${ isNormalMode ? 'id="directives-links-module-AngularYandexMapsModule-01a0d7260f49937e6e0d5977429afe84"' :
                                         'id="xs-directives-links-module-AngularYandexMapsModule-01a0d7260f49937e6e0d5977429afe84"' }>
                                         <li class="link">
-                                            <a href="directives/YaControlDirective.html"
-                                                data-type="entity-link" data-context="sub-entity" data-context-id="modules">YaControlDirective</a>
+                                            <a href="directives/YaControlDirective.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >YaControlDirective</a>
                                         </li>
                                         <li class="link">
-                                            <a href="directives/YaGeoObjectDirective.html"
-                                                data-type="entity-link" data-context="sub-entity" data-context-id="modules">YaGeoObjectDirective</a>
+                                            <a href="directives/YaGeoObjectDirective.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >YaGeoObjectDirective</a>
                                         </li>
                                         <li class="link">
-                                            <a href="directives/YaMultirouteDirective.html"
-                                                data-type="entity-link" data-context="sub-entity" data-context-id="modules">YaMultirouteDirective</a>
+                                            <a href="directives/YaMultirouteDirective.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >YaMultirouteDirective</a>
                                         </li>
                                         <li class="link">
-                                            <a href="directives/YaPanoramaDirective.html"
-                                                data-type="entity-link" data-context="sub-entity" data-context-id="modules">YaPanoramaDirective</a>
+                                            <a href="directives/YaPanoramaDirective.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >YaPanoramaDirective</a>
                                         </li>
                                         <li class="link">
-                                            <a href="directives/YaPlacemarkDirective.html"
-                                                data-type="entity-link" data-context="sub-entity" data-context-id="modules">YaPlacemarkDirective</a>
+                                            <a href="directives/YaPlacemarkDirective.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >YaPlacemarkDirective</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -146,10 +139,10 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             </div>
                             <ul class="links collapse " ${ isNormalMode ? 'id="injectables-links"' : 'id="xs-injectables-links"' }>
                                 <li class="link">
-                                    <a href="injectables/YaApiLoaderService.html" data-type="entity-link">YaApiLoaderService</a>
+                                    <a href="injectables/YaApiLoaderService.html" data-type="entity-link" >YaApiLoaderService</a>
                                 </li>
                                 <li class="link">
-                                    <a href="injectables/YaGeocoderService.html" data-type="entity-link">YaGeocoderService</a>
+                                    <a href="injectables/YaGeocoderService.html" data-type="entity-link" >YaGeocoderService</a>
                                 </li>
                             </ul>
                         </li>
@@ -162,13 +155,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                         </div>
                         <ul class="links collapse " ${ isNormalMode ? ' id="interfaces-links"' : 'id="xs-interfaces-links"' }>
                             <li class="link">
-                                <a href="interfaces/YaConfig.html" data-type="entity-link">YaConfig</a>
+                                <a href="interfaces/YaConfig.html" data-type="entity-link" >YaConfig</a>
                             </li>
                             <li class="link">
-                                <a href="interfaces/YaEvent.html" data-type="entity-link">YaEvent</a>
+                                <a href="interfaces/YaEvent.html" data-type="entity-link" >YaEvent</a>
                             </li>
                             <li class="link">
-                                <a href="interfaces/YaReadyEvent.html" data-type="entity-link">YaReadyEvent</a>
+                                <a href="interfaces/YaReadyEvent.html" data-type="entity-link" >YaReadyEvent</a>
                             </li>
                         </ul>
                     </li>

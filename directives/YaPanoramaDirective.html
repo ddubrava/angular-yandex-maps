@@ -8,7 +8,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
-	      <link rel="stylesheet" href="../styles/style.css">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css" media="(prefers-color-scheme: dark)">
     </head>
     <body>
 
@@ -37,7 +38,7 @@
 
 <ol class="breadcrumb">
   <li>Directives</li>
-  <li>YaPanoramaDirective</li>
+  <li >YaPanoramaDirective</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -61,6 +62,7 @@
             <code>projects/angular8-yandex-maps/src/lib/components/ya-panorama/ya-panorama.directive.ts</code>
         </p>
 
+
             <p class="comment">
                 <h3>Description</h3>
             </p>
@@ -69,6 +71,9 @@
 You can configure it via the component&#39;s inputs.
 Events can be bound using the outputs of the component.</p>
 <p><example-url><a href="https://stackblitz.com/edit/panorama?embed=1">https://stackblitz.com/edit/panorama?embed=1</a></example-url></p>
+<ya-map>
+             <ya-panorama [point]="[59.938557, 30.316198]" layer="yandex#airPanorama"></ya-panorama>
+</ya-map>
 
             </p>
 
@@ -81,16 +86,6 @@ Events can be bound using the outputs of the component.</p>
                             <code><a href="https://angular.io/api/core/OnDestroy" target="_blank" >OnDestroy</a></code>
             </p>
 
-            <p class="comment">
-                <h3>Example</h3>
-            </p>
-            <div class="io-description">
-                        <div>
-                            <pre class="line-numbers"><code class="language-html">&lt;ya-map&gt;
-  &lt;ya-panorama [point]=&quot;[59.938557, 30.316198]&quot; layer=&quot;yandex#airPanorama&quot;&gt;&lt;/ya-panorama&gt;
-&lt;/ya-map&gt;</code></pre>
-                        </div>
-            </div>
 
         <section>
             <h3>Metadata</h3>
@@ -121,13 +116,13 @@ Events can be bound using the outputs of the component.</p>
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#layer">layer</a>
+                                <a href="#layer" >layer</a>
                             </li>
                             <li>
-                                <a href="#options">options</a>
+                                <a href="#options" >options</a>
                             </li>
                             <li>
-                                <a href="#point">point</a>
+                                <a href="#point" >point</a>
                             </li>
                         </ul>
                     </td>
@@ -142,40 +137,40 @@ Events can be bound using the outputs of the component.</p>
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#destroy">destroy</a>
+                                <a href="#destroy" >destroy</a>
                             </li>
                             <li>
-                                <a href="#directionchange">directionchange</a>
+                                <a href="#directionchange" >directionchange</a>
                             </li>
                             <li>
-                                <a href="#fullscreenenter">fullscreenenter</a>
+                                <a href="#fullscreenenter" >fullscreenenter</a>
                             </li>
                             <li>
-                                <a href="#fullscreenexit">fullscreenexit</a>
+                                <a href="#fullscreenexit" >fullscreenexit</a>
                             </li>
                             <li>
-                                <a href="#markercollapse">markercollapse</a>
+                                <a href="#markercollapse" >markercollapse</a>
                             </li>
                             <li>
-                                <a href="#markerexpand">markerexpand</a>
+                                <a href="#markerexpand" >markerexpand</a>
                             </li>
                             <li>
-                                <a href="#markermouseenter">markermouseenter</a>
+                                <a href="#markermouseenter" >markermouseenter</a>
                             </li>
                             <li>
-                                <a href="#markermouseleave">markermouseleave</a>
+                                <a href="#markermouseleave" >markermouseleave</a>
                             </li>
                             <li>
-                                <a href="#panoramachange">panoramachange</a>
+                                <a href="#panoramachange" >panoramachange</a>
                             </li>
                             <li>
-                                <a href="#ready">ready</a>
+                                <a href="#ready" >ready</a>
                             </li>
                             <li>
-                                <a href="#spanchange">spanchange</a>
+                                <a href="#spanchange" >spanchange</a>
                             </li>
                             <li>
-                                <a href="#yaerror">yaerror</a>
+                                <a href="#yaerror" >yaerror</a>
                             </li>
                         </ul>
                     </td>
@@ -193,7 +188,7 @@ Events can be bound using the outputs of the component.</p>
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(_ngZone: <a href="https://angular.io/api/core/NgZone" target="_blank">NgZone</a>, _yaMapComponent: <a href="../components/YaMapComponent.html">YaMapComponent</a>)</code>
+<code>constructor(_ngZone: <a href="https://angular.io/api/core/NgZone" target="_blank">NgZone</a>, _yaMapComponent: <a href="../components/YaMapComponent.html" target="_self">YaMapComponent</a>)</code>
                     </td>
                 </tr>
                         <tr>
@@ -272,7 +267,7 @@ Events can be bound using the outputs of the component.</p>
                 <tr>
                     <td class="col-md-4">
                         <div class="io-description"><p>The layer to search for panoramas.
-<a href="https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/panorama.locate.html#panorama.locate__param-options.layer">https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/panorama.locate.html#panorama.locate__param-options.layer</a></p>
+://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/panorama.locate.html#panorama.locate__param-options.layer<a href="https">https</a></p>
 </div>
                     </td>
                 </tr>
@@ -300,7 +295,7 @@ Events can be bound using the outputs of the component.</p>
                 <tr>
                     <td class="col-md-4">
                         <div class="io-description"><p>Options for the player.
-<a href="https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/panorama.Player.html#panorama.Player__param-options">https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/panorama.Player.html#panorama.Player__param-options</a></p>
+://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/panorama.Player.html#panorama.Player__param-options<a href="https">https</a></p>
 </div>
                     </td>
                 </tr>
@@ -328,7 +323,7 @@ Events can be bound using the outputs of the component.</p>
                 <tr>
                     <td class="col-md-4">
                         <div class="io-description"><p>The point for searching for nearby panoramas.
-<a href="https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/panorama.locate.html#panorama.locate__param-point">https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/panorama.locate.html#panorama.locate__param-point</a></p>
+://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/panorama.locate.html#panorama.locate__param-point<a href="https">https</a></p>
 </div>
                     </td>
                 </tr>
@@ -953,9 +948,9 @@ export class YaPanoramaDirective implements OnInit, OnChanges, OnDestroy {
 
        <script src="../js/libs/custom-elements.min.js"></script>
        <script src="../js/libs/lit-html.js"></script>
-       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
-       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
-       <script src="../js/menu-wc.js" defer></script>
+       
+       <script type="module" src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
 
        <script src="../js/libs/bootstrap-native.js"></script>
 

@@ -8,7 +8,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
-	      <link rel="stylesheet" href="../styles/style.css">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css" media="(prefers-color-scheme: dark)">
     </head>
     <body>
 
@@ -38,7 +39,7 @@
 
 <ol class="breadcrumb">
   <li>Injectables</li>
-  <li>YaApiLoaderService</li>
+  <li >YaApiLoaderService</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -59,30 +60,23 @@
             <code>projects/angular8-yandex-maps/src/lib/services/ya-api-loader/ya-api-loader.service.ts</code>
         </p>
 
+
             <p class="comment">
                 <h3>Description</h3>
             </p>
             <p class="comment">
                 <p>The <code>YaApiLoader</code> service handles loading of Yandex.Maps API.</p>
+<p>import { YaApiLoaderService } from &#39;angular8-yandex-maps&#39;;</p>
+<p>export class AppComponent {
+              constructor(private yaApiLoaderService: YaApiLoaderService) {
+                this.yaApiLoaderService.load()
+                  .subscribe(v =&gt; console.log(v))
+              }
+}</p>
 
             </p>
 
 
-            <p class="comment">
-                <h3>Example</h3>
-            </p>
-            <div class="io-description">
-                        <div>
-                            <pre class="line-numbers"><code class="language-html">import { YaApiLoaderService } from 'angular8-yandex-maps';
-
-export class AppComponent {
-   constructor(private yaApiLoaderService: YaApiLoaderService) {
-     this.yaApiLoaderService.load()
-       .subscribe(v =&gt; console.log(v))
-   }
-}</code></pre>
-                        </div>
-            </div>
 
             <section>
     <h3 id="index">Index</h3>
@@ -98,7 +92,7 @@ export class AppComponent {
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#load">load</a>
+                                <a href="#load" >load</a>
                             </li>
                         </ul>
                     </td>
@@ -118,7 +112,7 @@ export class AppComponent {
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(config: <a href="../interfaces/YaConfig.html">YaConfig | null</a>, _document: Document)</code>
+<code>constructor(config: <a href="../interfaces/YaConfig.html" target="_self">YaConfig | null</a>, _document: Document)</code>
                     </td>
                 </tr>
                         <tr>
@@ -184,9 +178,7 @@ export class AppComponent {
                 <td class="col-md-4">
                     <a name="load"></a>
                     <span class="name">
-                        <b>
-                            load
-                        </b>
+                        <span ><b>load</b></span>
                         <a href="#load"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -392,9 +384,9 @@ export class YaApiLoaderService {
 
        <script src="../js/libs/custom-elements.min.js"></script>
        <script src="../js/libs/lit-html.js"></script>
-       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
-       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
-       <script src="../js/menu-wc.js" defer></script>
+       
+       <script type="module" src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
 
        <script src="../js/libs/bootstrap-native.js"></script>
 
