@@ -3337,8 +3337,7 @@ declare namespace ymaps {
 
     callMethod(name: string): void;
 
-    get<T extends {}, K extends keyof T = keyof T>(name: K): T[K];
-    get(name: string): object;
+    get(name: string): any;
 
     getSourceEvent(): IEvent<OriginalEvent> | null;
 
@@ -4040,7 +4039,7 @@ declare namespace ymaps {
 
     get(name: 'newZoom' | 'oldZoom'): number | undefined;
 
-    get(name: string): object;
+    get(name: string): any;
 
     getSourceEvent(): IEvent<OriginalEvent> | null;
 
