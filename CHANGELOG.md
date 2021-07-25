@@ -1,5 +1,12 @@
 # Changelog
 
+## [12.1.6] - 2021-07-25
+
+### Changed
+
+- Remove tslib dependency, update peerDependencies in project
+- Event.get() return type
+
 ## [12.1.5] - 2021-06-08
 
 ### Added
@@ -431,6 +438,7 @@
 
 - Release without changes
 
+[12.1.6]: https://github.com/ddubrava/angular8-yandex-maps/compare/v12.1.5...v12.1.6
 [12.1.5]: https://github.com/ddubrava/angular8-yandex-maps/compare/v12.1.4...v12.1.5
 [12.1.4]: https://github.com/ddubrava/angular8-yandex-maps/compare/v12.1.2...v12.1.4
 [12.1.2]: https://github.com/ddubrava/angular8-yandex-maps/compare/v12.1.1...v12.1.2
