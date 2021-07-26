@@ -30,10 +30,12 @@ import { YaEvent } from '../../typings/ya-event';
  * <example-url>https://stackblitz.com/edit/map-onload-event?embed=1</example-url>
  *
  * @example
+ * ```html
  * <ya-map
- *              [center]="[55.751952, 37.600739]"
- *              [state]="{type: 'yandex#satellite'}"
+ *   [center]="[55.751952, 37.600739]"
+ *   [state]="{type: 'yandex#satellite'}"
  * ></ya-map>
+ * ```
  */
 @Component({
   selector: 'ya-map',

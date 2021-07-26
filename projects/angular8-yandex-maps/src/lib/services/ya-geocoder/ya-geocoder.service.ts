@@ -7,14 +7,16 @@ import { YaApiLoaderService } from '../ya-api-loader/ya-api-loader.service';
  * The `YaGeocoder` service wraps `ymaps.geocode` static function from the Yandex Maps API.
  *
  * @example
+ * ```ts
  * import { YaGeocoderService } from 'angular8-yandex-maps';
  *
  * export class AppComponent {
- *               constructor(private yaGeocoderService: YaGeocoderService) {
- *                 this.yaGeocoderService.geocode('Moscow')
- *                   .subscribe(v => console.log(v))
- *               }
+ *   constructor(private yaGeocoderService: YaGeocoderService) {
+ *     this.yaGeocoderService.geocode('Moscow')
+ *       .subscribe(v => console.log(v))
+ *   }
  * }
+ * ```
  */
 @Injectable({
   providedIn: 'root',

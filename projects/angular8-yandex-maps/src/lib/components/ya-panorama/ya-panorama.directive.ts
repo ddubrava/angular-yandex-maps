@@ -24,9 +24,11 @@ import { YaEvent } from '../../typings/ya-event';
  * <example-url>https://stackblitz.com/edit/panorama?embed=1</example-url>
  *
  * @example
+ * ```html
  * <ya-map>
- *              <ya-panorama [point]="[59.938557, 30.316198]" layer="yandex#airPanorama"></ya-panorama>
+ *   <ya-panorama [point]="[59.938557, 30.316198]" layer="yandex#airPanorama"></ya-panorama>
  * </ya-map>
+ * ```
  */
 @Directive({
   selector: 'ya-panorama',

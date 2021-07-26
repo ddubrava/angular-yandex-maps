@@ -40,14 +40,16 @@ export interface YaConfig {
  * The `YaApiLoader` service handles loading of Yandex.Maps API.
  *
  * @example
+ * ```ts
  * import { YaApiLoaderService } from 'angular8-yandex-maps';
  *
  * export class AppComponent {
- *               constructor(private yaApiLoaderService: YaApiLoaderService) {
- *                 this.yaApiLoaderService.load()
- *                   .subscribe(v => console.log(v))
- *               }
+ *   constructor(private yaApiLoaderService: YaApiLoaderService) {
+ *     this.yaApiLoaderService.load()
+ *       .subscribe(v => console.log(v))
+ *   }
  * }
+ *```
  *
  * @dynamic
  */
