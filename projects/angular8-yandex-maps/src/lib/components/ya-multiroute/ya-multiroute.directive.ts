@@ -28,12 +28,14 @@ type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
  * <example-url>https://stackblitz.com/edit/multiroute-pedestrian?embed=1</example-url>
  *
  * @example
+ * ```html
  * <ya-map [center]="[55.761952, 37.620739]">
- *              <ya-multiroute
- *                [referencePoints]="[[55.751952, 37.600739], 'Красные ворота, Москва']"
- *                [model]="{ params: { routingMode: 'pedestrian' } }"
- *              ></ya-multiroute>
+ *   <ya-multiroute
+ *     [referencePoints]="[[55.751952, 37.600739], 'Красные ворота, Москва']"
+ *     [model]="{ params: { routingMode: 'pedestrian' } }"
+ *   ></ya-multiroute>
  * </ya-map>
+ * ```
  */
 @Directive({
   selector: 'ya-multiroute',

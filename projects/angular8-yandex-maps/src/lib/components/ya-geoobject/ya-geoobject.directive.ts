@@ -23,11 +23,13 @@ import { YaEvent } from '../../typings/ya-event';
  * <example-url>https://stackblitz.com/edit/geoobject-polygon?embed=1</example-url>
  *
  * @example
+ * ```html
  * <ya-map [center]="[55.761952, 37.620739]">
- *              <ya-geoobject
- *                [feature]="{ geometry: { type: 'Rectangle', coordinates: [[55.665, 37.66], [55.64,37.53]] } }"
- *              ></ya-geoobject>
+ *   <ya-geoobject
+ *     [feature]="{ geometry: { type: 'Rectangle', coordinates: [[55.665, 37.66], [55.64,37.53]] } }"
+ *   ></ya-geoobject>
  * </ya-map>
+ * ```
  */
 @Directive({
   selector: 'ya-geoobject',

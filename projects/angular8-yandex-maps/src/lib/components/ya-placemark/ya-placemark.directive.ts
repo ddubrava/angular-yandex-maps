@@ -23,9 +23,11 @@ import { YaEvent } from '../../typings/ya-event';
  * <example-url>https://stackblitz.com/edit/custom-placemark?embed=1</example-url>
  *
  * @example
+ * ```html
  * <ya-map [center]="[55.751952, 37.600739]">
- *              <ya-placemark [geometry]="[55.751952, 37.600739]"></ya-placemark>
+ *   <ya-placemark [geometry]="[55.751952, 37.600739]"></ya-placemark>
  * </ya-map>
+ * ```
  */
 @Directive({
   selector: 'ya-placemark',

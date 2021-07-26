@@ -28,19 +28,23 @@ import { YaEvent } from '../../typings/ya-event';
  * <example-url>https://stackblitz.com/edit/placemark-clusterer?embed=1</example-url>
  *
  * @example
+ * ```html
  * <ya-map [center]="[55.761952, 37.620739]">
- *              <ya-clusterer [options]="{ minClusterSize: 5 }">
- *                <ya-placemark [geometry]="[55.74, 37.5]"></ya-placemark>
- *                <ya-placemark [geometry]="[55.64, 37.46]"></ya-placemark>
- *                <ya-placemark [geometry]="[55.75, 37.38]"></ya-placemark>
- *                <ya-geoobject
- *                  [feature]="{ geometry: { type: 'Point', coordinates: [55.81, 37.4] } }"
- *                 ></ya-geoobject>
- *                <ya-geoobject
- *                  [feature]="{ geometry: { type: 'Point', coordinates: [55.7, 37.39] } }"
- *                 ></ya-geoobject>
- *              </ya-clusterer>
+ *   <ya-clusterer [options]="{ minClusterSize: 5 }">
+ *     <ya-placemark [geometry]="[55.74, 37.5]"></ya-placemark>
+ *     <ya-placemark [geometry]="[55.64, 37.46]"></ya-placemark>
+ *     <ya-placemark [geometry]="[55.75, 37.38]"></ya-placemark>
+ *
+ *     <ya-geoobject
+ *       [feature]="{ geometry: { type: 'Point', coordinates: [55.81, 37.4] } }"
+ *      ></ya-geoobject>
+ *
+ *     <ya-geoobject
+ *       [feature]="{ geometry: { type: 'Point', coordinates: [55.7, 37.39] } }"
+ *      ></ya-geoobject>
+ *   </ya-clusterer>
  * </ya-map>
+ * ```
  */
 @Component({
   selector: 'ya-clusterer',

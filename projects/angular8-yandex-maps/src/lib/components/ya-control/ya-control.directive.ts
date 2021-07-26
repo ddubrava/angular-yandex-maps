@@ -35,12 +35,14 @@ export type YaControlType =
  * <example-url>https://stackblitz.com/edit/searchcontrol?embed=1</example-url>
  *
  * @example
+ * ```html
  * <ya-map [center]="[55.761952, 37.620739]">
- *              <ya-control
- *                type="RoutePanel"
- *                [parameters]="{ options: { float: 'right' } }"
- *              ></ya-control>
+ *   <ya-control
+ *     type="RoutePanel"
+ *     [parameters]="{ options: { float: 'right' } }"
+ *   ></ya-control>
  * </ya-map>
+ * ```
  */
 @Directive({
   selector: 'ya-control',
