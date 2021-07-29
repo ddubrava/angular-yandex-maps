@@ -1,5 +1,11 @@
 # Changelog
 
+## [12.1.7] - 2021-07-29
+
+### Fixed
+
+- Broken double click event, rename it in `dblclick`
+
 ## [12.1.6] - 2021-07-25
 
 ### Changed
@@ -438,6 +444,7 @@
 
 - Release without changes
 
+[12.1.7]: https://github.com/ddubrava/angular8-yandex-maps/compare/v12.1.6...v12.1.7
 [12.1.6]: https://github.com/ddubrava/angular8-yandex-maps/compare/v12.1.5...v12.1.6
 [12.1.5]: https://github.com/ddubrava/angular8-yandex-maps/compare/v12.1.4...v12.1.5
 [12.1.4]: https://github.com/ddubrava/angular8-yandex-maps/compare/v12.1.2...v12.1.4
