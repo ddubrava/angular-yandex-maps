@@ -216,7 +216,7 @@ describe('Directive: YaGeoObject', () => {
     expect(addSpy).not.toHaveBeenCalledWith('beforedrag', jasmine.any(Function));
     expect(addSpy).not.toHaveBeenCalledWith('beforedragstart', jasmine.any(Function));
     expect(addSpy).not.toHaveBeenCalledWith('click', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('dbclick', jasmine.any(Function));
+    expect(addSpy).not.toHaveBeenCalledWith('dblclick', jasmine.any(Function));
     expect(addSpy).not.toHaveBeenCalledWith('dragend', jasmine.any(Function));
     expect(addSpy).not.toHaveBeenCalledWith('editorstatechange', jasmine.any(Function));
     expect(addSpy).not.toHaveBeenCalledWith('geometrychange', jasmine.any(Function));
