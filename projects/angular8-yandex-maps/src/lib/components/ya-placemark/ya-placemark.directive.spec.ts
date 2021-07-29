@@ -187,7 +187,7 @@ describe('Directive: YaPlacemark', () => {
     expect(addSpy).not.toHaveBeenCalledWith('beforedrag', jasmine.any(Function));
     expect(addSpy).not.toHaveBeenCalledWith('beforedragstart', jasmine.any(Function));
     expect(addSpy).not.toHaveBeenCalledWith('contextmenu', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('dbclick', jasmine.any(Function));
+    expect(addSpy).not.toHaveBeenCalledWith('dblclick', jasmine.any(Function));
     expect(addSpy).not.toHaveBeenCalledWith('dragend', jasmine.any(Function));
     expect(addSpy).not.toHaveBeenCalledWith('dragstart', jasmine.any(Function));
     expect(addSpy).not.toHaveBeenCalledWith('editorstatechange', jasmine.any(Function));

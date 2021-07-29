@@ -260,7 +260,7 @@ describe('YaMapComponent', () => {
     expect(addSpy).not.toHaveBeenCalledWith('balloonopen', jasmine.any(Function));
     expect(addSpy).not.toHaveBeenCalledWith('boundschange', jasmine.any(Function));
     expect(addSpy).not.toHaveBeenCalledWith('contextmenu', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('dbclick', jasmine.any(Function));
+    expect(addSpy).not.toHaveBeenCalledWith('dblclick', jasmine.any(Function));
     expect(addSpy).not.toHaveBeenCalledWith('destroy', jasmine.any(Function));
     expect(addSpy).not.toHaveBeenCalledWith('hintclose', jasmine.any(Function));
     expect(addSpy).not.toHaveBeenCalledWith('marginchange', jasmine.any(Function));

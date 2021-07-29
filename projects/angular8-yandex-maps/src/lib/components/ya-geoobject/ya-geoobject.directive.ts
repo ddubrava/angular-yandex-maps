@@ -99,8 +99,8 @@ export class YaGeoObjectDirective implements OnInit, OnChanges, OnDestroy {
   /**
    * Double left-click on the object.
    */
-  @Output() yadbclick: Observable<YaEvent<ymaps.GeoObject>> =
-    this._eventManager.getLazyEmitter('dbclick');
+  @Output() yadblclick: Observable<YaEvent<ymaps.GeoObject>> =
+    this._eventManager.getLazyEmitter('dblclick');
 
   /**
    * Dragging a geo object.

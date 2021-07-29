@@ -148,8 +148,8 @@ export class YaMapComponent implements AfterViewInit, OnChanges, OnDestroy {
   /**
    * Double left-click on the object.
    */
-  @Output() yadbclick: Observable<YaEvent<ymaps.Map>> =
-    this._eventManager.getLazyEmitter('dbclick');
+  @Output() yadblclick: Observable<YaEvent<ymaps.Map>> =
+    this._eventManager.getLazyEmitter('dblclick');
 
   /**
    * The map was destroyed.

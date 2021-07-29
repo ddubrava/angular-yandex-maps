@@ -120,8 +120,8 @@ export class YaMultirouteDirective implements OnInit, OnChanges, OnDestroy {
   /**
    * Double left-click on the object.
    */
-  @Output() yadbclick: Observable<YaEvent<ymaps.multiRouter.MultiRoute>> =
-    this._eventManager.getLazyEmitter('dbclick');
+  @Output() yadblclick: Observable<YaEvent<ymaps.multiRouter.MultiRoute>> =
+    this._eventManager.getLazyEmitter('dblclick');
 
   /**
    * Change to the geo object geometry.
