@@ -222,7 +222,7 @@ describe('Directive: YaMultiroute', () => {
     expect(addSpy).not.toHaveBeenCalledWith('boundschange', jasmine.any(Function));
     expect(addSpy).not.toHaveBeenCalledWith('yaclick', jasmine.any(Function));
     expect(addSpy).not.toHaveBeenCalledWith('yacontextmenu', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('yadbclick', jasmine.any(Function));
+    expect(addSpy).not.toHaveBeenCalledWith('yadblclick', jasmine.any(Function));
     expect(addSpy).not.toHaveBeenCalledWith('geometrychange', jasmine.any(Function));
     expect(addSpy).not.toHaveBeenCalledWith('yamousedown', jasmine.any(Function));
     expect(addSpy).not.toHaveBeenCalledWith('yamouseenter', jasmine.any(Function));
