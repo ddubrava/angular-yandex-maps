@@ -196,7 +196,7 @@ Events can be bound using the outputs of the component.</p>
                                 <a href="#yacontextmenu" >yacontextmenu</a>
                             </li>
                             <li>
-                                <a href="#yadbclick" >yadbclick</a>
+                                <a href="#yadblclick" >yadblclick</a>
                             </li>
                             <li>
                                 <a href="#yamousedown" >yamousedown</a>
@@ -894,8 +894,8 @@ Shorthand for [model]=&quot;{ referencePoints: [0, 0] }&quot;.
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="yadbclick"></a>
-                        <b>yadbclick</b>
+                        <a name="yadblclick"></a>
+                        <b>yadblclick</b>
                     </td>
                 </tr>
                 <tr>
@@ -1211,8 +1211,8 @@ export class YaMultirouteDirective implements OnInit, OnChanges, OnDestroy {
   /**
    * Double left-click on the object.
    */
-  @Output() yadbclick: Observable&lt;YaEvent&lt;ymaps.multiRouter.MultiRoute&gt;&gt; &#x3D;
-    this._eventManager.getLazyEmitter(&#x27;dbclick&#x27;);
+  @Output() yadblclick: Observable&lt;YaEvent&lt;ymaps.multiRouter.MultiRoute&gt;&gt; &#x3D;
+    this._eventManager.getLazyEmitter(&#x27;dblclick&#x27;);
 
   /**
    * Change to the geo object geometry.
