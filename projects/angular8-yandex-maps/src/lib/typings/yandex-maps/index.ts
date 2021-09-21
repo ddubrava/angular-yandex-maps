@@ -5,10 +5,11 @@
 /* eslint-disable max-classes-per-file */
 
 /**
- * Type definitions for non-npm package yandex-maps 2.1.
+ * Type definitions for Yandex.Maps.
+ * Due to inactivity the typings were copied and improved from the DefinitelyTyped repository.
  * Definitions by: Delagen <https://github.com/Delagen> / gastwork13 <https://github.com/gastwork13>.
- * Due to inactivity typings were copied and improved.
- * @see {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/concepts/About.html}
+ * @link https://www.npmjs.com/package/@types/yandex-maps
+ * @link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/concepts/About.html
  */
 declare namespace ymaps {
   interface IClassConstructor<T> {
