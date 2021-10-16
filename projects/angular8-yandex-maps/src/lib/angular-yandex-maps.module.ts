@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 
 import { YA_CONFIG, YaConfig } from './services/ya-api-loader/ya-api-loader.service';
@@ -21,7 +20,6 @@ import { YaPlacemarkDirective } from './components/ya-placemark/ya-placemark.dir
     YaPanoramaDirective,
     YaPlacemarkDirective,
   ],
-  imports: [CommonModule],
   exports: [
     YaClustererComponent,
     YaControlDirective,
