@@ -85,13 +85,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="modules/AngularYandexMapsModule.html" data-type="entity-link" >AngularYandexMapsModule</a>
                                     <li class="chapter inner">
                                         <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                            'data-target="#components-links-module-AngularYandexMapsModule-01a0d7260f49937e6e0d5977429afe84"' : 'data-target="#xs-components-links-module-AngularYandexMapsModule-01a0d7260f49937e6e0d5977429afe84"' }>
+                                            'data-target="#components-links-module-AngularYandexMapsModule-0ab137c1761ca7f4a19c4b7aabaa9190"' : 'data-target="#xs-components-links-module-AngularYandexMapsModule-0ab137c1761ca7f4a19c4b7aabaa9190"' }>
                                             <span class="icon ion-md-cog"></span>
                                             <span>Components</span>
                                             <span class="icon ion-ios-arrow-down"></span>
                                         </div>
-                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-AngularYandexMapsModule-01a0d7260f49937e6e0d5977429afe84"' :
-                                            'id="xs-components-links-module-AngularYandexMapsModule-01a0d7260f49937e6e0d5977429afe84"' }>
+                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-AngularYandexMapsModule-0ab137c1761ca7f4a19c4b7aabaa9190"' :
+                                            'id="xs-components-links-module-AngularYandexMapsModule-0ab137c1761ca7f4a19c4b7aabaa9190"' }>
                                             <li class="link">
                                                 <a href="components/YaClustererComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >YaClustererComponent</a>
                                             </li>
@@ -102,13 +102,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                     </li>
                                 <li class="chapter inner">
                                     <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                        'data-target="#directives-links-module-AngularYandexMapsModule-01a0d7260f49937e6e0d5977429afe84"' : 'data-target="#xs-directives-links-module-AngularYandexMapsModule-01a0d7260f49937e6e0d5977429afe84"' }>
+                                        'data-target="#directives-links-module-AngularYandexMapsModule-0ab137c1761ca7f4a19c4b7aabaa9190"' : 'data-target="#xs-directives-links-module-AngularYandexMapsModule-0ab137c1761ca7f4a19c4b7aabaa9190"' }>
                                         <span class="icon ion-md-code-working"></span>
                                         <span>Directives</span>
                                         <span class="icon ion-ios-arrow-down"></span>
                                     </div>
-                                    <ul class="links collapse" ${ isNormalMode ? 'id="directives-links-module-AngularYandexMapsModule-01a0d7260f49937e6e0d5977429afe84"' :
-                                        'id="xs-directives-links-module-AngularYandexMapsModule-01a0d7260f49937e6e0d5977429afe84"' }>
+                                    <ul class="links collapse" ${ isNormalMode ? 'id="directives-links-module-AngularYandexMapsModule-0ab137c1761ca7f4a19c4b7aabaa9190"' :
+                                        'id="xs-directives-links-module-AngularYandexMapsModule-0ab137c1761ca7f4a19c4b7aabaa9190"' }>
                                         <li class="link">
                                             <a href="directives/YaControlDirective.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >YaControlDirective</a>
                                         </li>
