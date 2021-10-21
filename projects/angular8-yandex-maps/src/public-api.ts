@@ -1,8 +1,9 @@
-/// <reference path="./lib/typings/yandex-maps/index.ts" />
-
 /*
  * Public API Surface of angular8-yandex-maps
  */
+
+// Typings
+import './lib/typings/yandex-maps/index';
 
 // Module
 export * from './lib/angular-yandex-maps.module';

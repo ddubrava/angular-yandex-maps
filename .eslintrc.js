@@ -10,19 +10,27 @@ module.exports = {
       extends: [
         'plugin:@angular-eslint/recommended',
         'plugin:@angular-eslint/template/process-inline-templates',
+        'eslint:recommended',
+        'plugin:@typescript-eslint/recommended',
         'airbnb-base',
         'airbnb-typescript/base',
         'prettier',
       ],
       rules: {
-        'import/prefer-default-export': 'off',
-        'import/no-extraneous-dependencies': 'off',
         'class-methods-use-this': 'off',
-        'no-underscore-dangle': 'off',
+        'import/no-extraneous-dependencies': 'off',
+        'import/prefer-default-export': 'off',
         'no-console': ['error', { allow: ['warn', 'error'] }],
-        '@typescript-eslint/prefer-readonly': ['error'],
+        'no-underscore-dangle': 'off',
+
+        '@typescript-eslint/ban-types': [
+          'error',
+          {
+            types: { object: false },
+            extendDefaults: true,
+          },
+        ],
         '@typescript-eslint/indent': 'off',
-        '@typescript-eslint/no-non-null-assertion': 'off',
         '@typescript-eslint/naming-convention': [
           'error',
           {
@@ -32,6 +40,9 @@ module.exports = {
             leadingUnderscore: 'require',
           },
         ],
+        '@typescript-eslint/no-explicit-any': 'off',
+        '@typescript-eslint/no-non-null-assertion': 'off',
+        '@typescript-eslint/prefer-readonly': ['error'],
       },
     },
     {
