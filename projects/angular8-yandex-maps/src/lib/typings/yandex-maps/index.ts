@@ -1,7 +1,9 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-shadow */
+/* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
+/* eslint-disable @typescript-eslint/no-namespace */
+/* eslint-disable @typescript-eslint/no-shadow */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable max-classes-per-file */
 
 /**
@@ -886,7 +888,7 @@ declare namespace ymaps {
       };
     }
 
-    interface IZoomControlLayout extends ILayout {}
+    type IZoomControlLayout = ILayout;
   }
 
   namespace data {
@@ -3956,7 +3958,7 @@ declare namespace ymaps {
     setParent(parent: object | null): this;
   }
 
-  interface IChildOnMap extends IChild<IControlParent> {}
+  type IChildOnMap = IChild<IControlParent>;
 
   interface ICircleGeometry extends ICircleGeometryAccess, IGeometry {}
 
@@ -3982,7 +3984,7 @@ declare namespace ymaps {
     remove(object: object): this;
   }
 
-  interface IControl extends IChildOnMap {}
+  type IControl = IChildOnMap;
 
   interface IControlParent extends IParentOnMap {
     getChildElement(child: IControl): Promise<HTMLElement>;
@@ -4000,7 +4002,7 @@ declare namespace ymaps {
     ): object;
   }
 
-  interface ICopyrightsAccessor extends ICopyrightsProvider {}
+  type ICopyrightsAccessor = ICopyrightsProvider;
 
   interface ICopyrightsProvider extends IEventEmitter {
     getCopyrights(coords: number[], zoom: number): Promise<Array<string | HTMLElement>>;
@@ -4020,7 +4022,7 @@ declare namespace ymaps {
     get(path: string, defaultValue?: object): object;
   }
 
-  interface IDomEventEmitter extends IEventEmitter {}
+  type IDomEventEmitter = IEventEmitter;
 
   interface IEvent<OriginalEvent = {}, Target = {}> {
     originalEvent: {
@@ -4119,7 +4121,7 @@ declare namespace ymaps {
     onBeforeEventFiring?(events: IEventManager, type: string, event?: IEvent): void;
   }
 
-  interface IExpandableControlLayout extends ILayout {}
+  type IExpandableControlLayout = ILayout;
 
   interface IFreezable {
     events: IEventManager;
@@ -4197,7 +4199,7 @@ declare namespace ymaps {
     getPixels(): number[];
   }
 
-  interface IGeometryEditorRootModel extends IGeometryEditorModel {}
+  type IGeometryEditorRootModel = IGeometryEditorModel;
 
   interface IGeometryJson {
     type: string;
@@ -4264,7 +4266,7 @@ declare namespace ymaps {
     indexOf(geoObject: IGeoObject): number;
   }
 
-  interface IHintManager<T> extends IPopupManager<T> {}
+  type IHintManager<T> = IPopupManager<T>;
 
   interface IIterator {
     getNext(): object | null;
@@ -4699,7 +4701,7 @@ declare namespace ymaps {
     switchPoints(): void;
   }
 
-  interface ISearchControlLayout extends IExpandableControlLayout {}
+  type ISearchControlLayout = IExpandableControlLayout;
 
   interface ISelectableControl extends IControl {
     deselect(): void;
@@ -4715,7 +4717,7 @@ declare namespace ymaps {
     select(): void;
   }
 
-  interface ISelectableControlLayout extends ILayout {}
+  type ISelectableControlLayout = ILayout;
 
   interface IShape {
     contains(position: number[]): boolean;
