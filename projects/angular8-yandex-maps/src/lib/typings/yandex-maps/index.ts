@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable @typescript-eslint/brace-style */
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
 /* eslint-disable @typescript-eslint/no-namespace */
 /* eslint-disable @typescript-eslint/no-shadow */
@@ -70,7 +71,291 @@ declare namespace ymaps {
     | 'default#silent'
     | string;
 
-  type PresetKey = string;
+  type PresetWithTextKey =
+    | 'islands#blueIcon'
+    | 'islands#darkGreenIcon'
+    | 'islands#redIcon'
+    | 'islands#violetIcon'
+    | 'islands#darkOrangeIcon'
+    | 'islands#blackIcon'
+    | 'islands#nightIcon'
+    | 'islands#yellowIcon'
+    | 'islands#darkBlueIcon'
+    | 'islands#greenIcon'
+    | 'islands#pinkIcon'
+    | 'islands#orangeIcon'
+    | 'islands#grayIcon'
+    | 'islands#lightBlueIcon'
+    | 'islands#brownIcon'
+    | 'islands#oliveIcon';
+
+  type PresetWithTextStretchyKey =
+    | 'islands#blueStretchyIcon'
+    | 'islands#darkGreenStretchyIcon'
+    | 'islands#redStretchyIcon'
+    | 'islands#violetStretchyIcon'
+    | 'islands#darkOrangeStretchyIcon'
+    | 'islands#blackStretchyIcon'
+    | 'islands#nightStretchyIcon'
+    | 'islands#yellowStretchyIcon'
+    | 'islands#darkBlueStretchyIcon'
+    | 'islands#greenStretchyIcon'
+    | 'islands#pinkStretchyIcon'
+    | 'islands#orangeStretchyIcon'
+    | 'islands#grayStretchyIcon'
+    | 'islands#lightBlueStretchyIcon'
+    | 'islands#brownStretchyIcon'
+    | 'islands#oliveStretchyIcon';
+
+  type PresetDotKey =
+    | 'islands#blueDotIcon'
+    | 'islands#darkGreenDotIcon'
+    | 'islands#redDotIcon'
+    | 'islands#violetDotIcon'
+    | 'islands#darkOrangeDotIcon'
+    | 'islands#blackDotIcon'
+    | 'islands#nightDotIcon'
+    | 'islands#yellowDotIcon'
+    | 'islands#darkBlueDotIcon'
+    | 'islands#greenDotIcon'
+    | 'islands#pinkDotIcon'
+    | 'islands#orangeDotIcon'
+    | 'islands#grayDotIcon'
+    | 'islands#lightBlueDotIcon'
+    | 'islands#brownDotIcon'
+    | 'islands#oliveDotIcon';
+
+  type PresetCircleKey =
+    | 'islands#blueCircleIcon'
+    | 'islands#darkGreenCircleIcon'
+    | 'islands#redCircleIcon'
+    | 'islands#violetCircleIcon'
+    | 'islands#darkOrangeCircleIcon'
+    | 'islands#blackCircleIcon'
+    | 'islands#nightCircleIcon'
+    | 'islands#yellowCircleIcon'
+    | 'islands#darkBlueCircleIcon'
+    | 'islands#greenCircleIcon'
+    | 'islands#pinkCircleIcon'
+    | 'islands#orangeCircleIcon'
+    | 'islands#grayCircleIcon'
+    | 'islands#lightBlueCircleIcon'
+    | 'islands#brownCircleIcon'
+    | 'islands#oliveCircleIcon';
+
+  type PresetCircleDotKey =
+    | 'islands#blueCircleDotIcon'
+    | 'islands#darkGreenCircleDotIcon'
+    | 'islands#redCircleDotIcon'
+    | 'islands#violetCircleDotIcon'
+    | 'islands#darkOrangeCircleDotIcon'
+    | 'islands#blackCircleDotIcon'
+    | 'islands#nightCircleDotIcon'
+    | 'islands#yellowCircleDotIcon'
+    | 'islands#darkBlueCircleDotIcon'
+    | 'islands#greenCircleDotIcon'
+    | 'islands#pinkCircleDotIcon'
+    | 'islands#orangeCircleDotIcon'
+    | 'islands#grayCircleDotIcon'
+    | 'islands#lightBlueCircleDotIcon'
+    | 'islands#brownCircleDotIcon'
+    | 'islands#oliveCircleDotIcon';
+
+  type PresetWithIconKey =
+    | 'islands#blueAirportIcon'
+    | 'islands#blueAttentionIcon'
+    | 'islands#blueAutoIcon'
+    | 'islands#blueBarIcon'
+    | 'islands#blueBarberIcon'
+    | 'islands#blueBeachIcon'
+    | 'islands#blueBicycleIcon'
+    | 'islands#blueBicycle2Icon'
+    | 'islands#blueBookIcon'
+    | 'islands#blueCarWashIcon'
+    | 'islands#blueChristianIcon'
+    | 'islands#blueCinemaIcon'
+    | 'islands#blueCircusIcon'
+    | 'islands#blueCourtIcon'
+    | 'islands#blueDeliveryIcon'
+    | 'islands#blueDiscountIcon'
+    | 'islands#blueDogIcon'
+    | 'islands#blueEducationIcon'
+    | 'islands#blueEntertainmentCenterIcon'
+    | 'islands#blueFactoryIcon'
+    | 'islands#blueFamilyIcon'
+    | 'islands#blueFashionIcon'
+    | 'islands#blueFoodIcon'
+    | 'islands#blueFuelStationIcon'
+    | 'islands#blueGardenIcon'
+    | 'islands#blueGovernmentIcon'
+    | 'islands#blueHeartIcon'
+    | 'islands#blueHomeIcon'
+    | 'islands#blueHotelIcon'
+    | 'islands#blueHydroIcon'
+    | 'islands#blueInfoIcon'
+    | 'islands#blueLaundryIcon'
+    | 'islands#blueLeisureIcon'
+    | 'islands#blueMassTransitIcon'
+    | 'islands#blueMedicalIcon'
+    | 'islands#blueMoneyIcon'
+    | 'islands#blueMountainIcon'
+    | 'islands#blueNightClubIcon'
+    | 'islands#blueObservationIcon'
+    | 'islands#blueParkIcon'
+    | 'islands#blueParkingIcon'
+    | 'islands#bluePersonIcon'
+    | 'islands#bluePocketIcon'
+    | 'islands#bluePoolIcon'
+    | 'islands#bluePostIcon'
+    | 'islands#blueRailwayIcon'
+    | 'islands#blueRapidTransitIcon'
+    | 'islands#blueRepairShopIcon'
+    | 'islands#blueRunIcon'
+    | 'islands#blueScienceIcon'
+    | 'islands#blueShoppingIcon'
+    | 'islands#blueSouvenirsIcon'
+    | 'islands#blueSportIcon'
+    | 'islands#blueStarIcon'
+    | 'islands#blueTheaterIcon'
+    | 'islands#blueToiletIcon'
+    | 'islands#blueUnderpassIcon'
+    | 'islands#blueVegetationIcon'
+    | 'islands#blueVideoIcon'
+    | 'islands#blueWasteIcon'
+    | 'islands#blueWaterParkIcon'
+    | 'islands#blueWaterwayIcon'
+    | 'islands#blueWorshipIcon'
+    | 'islands#blueZooIcon';
+
+  type PresetWithIconCircleKey =
+    | 'islands#blueHomeCircleIcon'
+    | 'islands#blueScienceCircleIcon'
+    | 'islands#blueAirportCircleIcon'
+    | 'islands#blueAttentionCircleIcon'
+    | 'islands#blueAutoCircleIcon'
+    | 'islands#blueBarCircleIcon'
+    | 'islands#blueBarberCircleIcon'
+    | 'islands#blueBeachCircleIcon'
+    | 'islands#blueBicycleCircleIcon'
+    | 'islands#blueBicycle2CircleIcon'
+    | 'islands#blueBookCircleIcon'
+    | 'islands#blueCarWashCircleIcon'
+    | 'islands#blueChristianCircleIcon'
+    | 'islands#blueCinemaCircleIcon'
+    | 'islands#blueCircusCircleIcon'
+    | 'islands#blueCourtCircleIcon'
+    | 'islands#blueDeliveryCircleIcon'
+    | 'islands#blueDiscountCircleIcon'
+    | 'islands#blueDogCircleIcon'
+    | 'islands#blueEducationCircleIcon'
+    | 'islands#blueEntertainmentCenterCircleIcon'
+    | 'islands#blueFactoryCircleIcon'
+    | 'islands#blueFamilyCircleIcon'
+    | 'islands#blueFashionCircleIcon'
+    | 'islands#blueFoodCircleIcon'
+    | 'islands#blueFuelStationCircleIcon'
+    | 'islands#blueGardenCircleIcon'
+    | 'islands#blueGovernmentCircleIcon'
+    | 'islands#blueHeartCircleIcon'
+    | 'islands#blueHotelCircleIcon'
+    | 'islands#blueHydroCircleIcon'
+    | 'islands#blueInfoCircleIcon'
+    | 'islands#blueLaundryCircleIcon'
+    | 'islands#blueLeisureCircleIcon'
+    | 'islands#blueMassTransitCircleIcon'
+    | 'islands#blueMedicalCircleIcon'
+    | 'islands#blueMoneyCircleIcon'
+    | 'islands#blueMountainCircleIcon'
+    | 'islands#blueNightClubCircleIcon'
+    | 'islands#blueObservationCircleIcon'
+    | 'islands#blueParkCircleIcon'
+    | 'islands#blueParkingCircleIcon'
+    | 'islands#bluePersonCircleIcon'
+    | 'islands#bluePocketCircleIcon'
+    | 'islands#bluePoolCircleIcon'
+    | 'islands#bluePostCircleIcon'
+    | 'islands#blueRailwayCircleIcon'
+    | 'islands#blueRapidTransitCircleIcon'
+    | 'islands#blueRepairShopCircleIcon'
+    | 'islands#blueRunCircleIcon'
+    | 'islands#blueShoppingCircleIcon'
+    | 'islands#blueSouvenirsCircleIcon'
+    | 'islands#blueSportCircleIcon'
+    | 'islands#blueStarCircleIcon'
+    | 'islands#blueTheaterCircleIcon'
+    | 'islands#blueToiletCircleIcon'
+    | 'islands#blueUnderpassCircleIcon'
+    | 'islands#blueVegetationCircleIcon'
+    | 'islands#blueVideoCircleIcon'
+    | 'islands#blueWasteCircleIcon'
+    | 'islands#blueWaterParkCircleIcon'
+    | 'islands#blueWaterwayCircleIcon'
+    | 'islands#blueWorshipCircleIcon'
+    | 'islands#blueZooCircleIcon';
+
+  type PresetPictogramKey = 'islands#geolocationIcon';
+
+  type PresetClusterKey =
+    | 'islands#blueClusterIcons'
+    | 'islands#invertedBlueClusterIcons'
+    | 'islands#redClusterIcons'
+    | 'islands#invertedRedClusterIcons'
+    | 'islands#darkOrangeClusterIcons'
+    | 'islands#invertedDarkOrangeClusterIcons'
+    | 'islands#nightClusterIcons'
+    | 'islands#invertedNightClusterIcons'
+    | 'islands#darkBlueClusterIcons'
+    | 'islands#invertedDarkBlueClusterIcons'
+    | 'islands#pinkClusterIcons'
+    | 'islands#invertedPinkClusterIcons'
+    | 'islands#grayClusterIcons'
+    | 'islands#invertedGrayClusterIcons'
+    | 'islands#brownClusterIcons'
+    | 'islands#invertedBrownClusterIcons'
+    | 'islands#darkGreenClusterIcons'
+    | 'islands#invertedDarkGreenClusterIcons'
+    | 'islands#violetClusterIcons'
+    | 'islands#invertedVioletClusterIcons'
+    | 'islands#blackClusterIcons'
+    | 'islands#invertedBlackClusterIcons'
+    | 'islands#yellowClusterIcons'
+    | 'islands#invertedYellowClusterIcons'
+    | 'islands#greenClusterIcons'
+    | 'islands#invertedGreenClusterIcons'
+    | 'islands#orangeClusterIcons'
+    | 'islands#invertedOrangeClusterIcons'
+    | 'islands#lightBlueClusterIcons'
+    | 'islands#invertedLightBlueClusterIcons'
+    | 'islands#oliveClusterIcons'
+    | 'islands#invertedOliveClusterIcons';
+
+  type PresetKey =
+    | PresetWithTextKey
+    | PresetWithTextStretchyKey
+    | PresetDotKey
+    | PresetCircleKey
+    | PresetCircleDotKey
+    | PresetWithIconKey
+    | PresetWithIconCircleKey
+    | PresetPictogramKey
+    | PresetClusterKey
+    | string;
+
+  type IconLayoutKey = 'default#image' | 'default#imageWithContent' | string;
+
+  type ClusterLayoutKey =
+    | 'cluster#balloonTwoColumns'
+    | 'cluster#balloonCarousel'
+    | 'cluster#balloonAccordion'
+    | string;
+
+  type ClusterContentLayoutKey =
+    | 'cluster#balloonTwoColumnsItemContent'
+    | 'cluster#balloonCarouselItemContent'
+    | 'cluster#balloonAccordionItemContent'
+    | string;
+
+  type EventMap = GlobalEventHandlersEventMap;
 
   namespace behavior {
     class DblClickZoom implements IBehavior {
@@ -935,21 +1220,85 @@ declare namespace ymaps {
 
       setParent(parent: IEventManager | null): this;
 
-      fire(type: string, eventobject: object | IEvent): this;
+      fire(type: string, eventObject: object | IEvent): this;
+    }
+  }
+
+  namespace domEvent {
+    interface manager {
+      add<K extends keyof EventMap>(
+        htmlElement: HTMLElement | Document,
+        types: K,
+        callback: (event: EventMap[K]) => void,
+        context?: object,
+        capture?: boolean,
+      ): this;
+
+      add(
+        htmlElement: HTMLElement | Document,
+        types: string[] | string,
+        callback: (event: any) => void,
+        context?: object,
+        capture?: boolean,
+      ): this;
+
+      group(htmlElement: HTMLElement | Document, capture?: boolean): event.Group;
+
+      remove(
+        htmlElement: HTMLElement | Document,
+        types: string[] | string,
+        callback: ((event: any) => void) | string,
+        context?: object,
+        capture?: boolean,
+      ): this;
     }
   }
 
   namespace event {
-    class Manager<Target = {}> implements IEventManager<Target> {
-      constructor(params?: {
-        context?: object;
-        controllers?: IEventWorkflowController[];
-        parent?: IEventManager;
-      });
+    class Group implements IEventGroup {
+      events: IEventManager;
 
+      add<K extends keyof EventMap>(
+        types: K,
+        callback: (event: EventMap[K] | IEvent) => void,
+        context?: object,
+        priority?: number,
+      ): this;
       add(
         types: string[][] | string[] | string,
-        callback: (event: IEvent<{}, Target>) => void,
+        callback: (event: object | IEvent) => void,
+        context?: object,
+        priority?: number,
+      ): this;
+
+      remove(
+        types: string[][] | string[] | string,
+        callback: (event: object | IEvent) => void,
+        context?: object,
+        priority?: number,
+      ): this;
+
+      removeAll(): this;
+
+      getLength(): number;
+    }
+
+    class Manager<TargetGeometry = {}> implements IEventManager<TargetGeometry> {
+      constructor(params?: {
+        context?: object | undefined;
+        controllers?: IEventWorkflowController[] | undefined;
+        parent?: IEventManager | undefined;
+      });
+
+      add<K extends keyof EventMap>(
+        types: K,
+        callback: (event: IEvent<EventMap[K], TargetGeometry>) => void,
+        context?: object,
+        priority?: number,
+      ): this;
+      add(
+        types: string[][] | string[] | string,
+        callback: (event: IEvent<{}, TargetGeometry>) => void,
         context?: object,
         priority?: number,
       ): this;
@@ -967,9 +1316,9 @@ declare namespace ymaps {
 
       setParent(parent: IEventManager | null): this;
 
-      fire(type: string, eventobject: object | IEvent): this;
+      fire(type: string, eventObject: object | IEvent): this;
 
-      createEventobject(type: string, event: object, target: object): Event;
+      createEventObject(type: string, event: object, target: object): Event;
 
       once(
         types: string[][] | string[] | string,
@@ -977,6 +1326,15 @@ declare namespace ymaps {
         context?: object,
         priority?: number,
       ): this;
+    }
+
+    class Mapper implements IEventTrigger {
+      constructor(
+        targetEventManager: IEventManager,
+        mappingTable: Record<string, ((event: IEvent) => IEvent | null) | boolean>,
+      );
+
+      fire(type: string, eventObject?: object | IEvent): this;
     }
   }
 
@@ -1039,7 +1397,7 @@ declare namespace ymaps {
 
         setParent(parent: IEventManager | null): this;
 
-        fire(type: string, eventobject: object | IEvent): this;
+        fire(type: string, eventObject: object | IEvent): this;
       }
 
       class Point implements IBasePointGeometry {
@@ -1177,7 +1535,7 @@ declare namespace ymaps {
 
       setParent(parent: IEventManager | null): this;
 
-      fire(type: string, eventobject: object | IEvent): this;
+      fire(type: string, eventObject: object | IEvent): this;
     }
 
     class Point implements IPointGeometry {
@@ -1222,7 +1580,7 @@ declare namespace ymaps {
 
       contains(position: number[]): boolean;
 
-      fire(type: string, eventobject: object | IEvent): this;
+      fire(type: string, eventObject: object | IEvent): this;
 
       freeze(): IFreezable;
 
@@ -1841,6 +2199,50 @@ declare namespace ymaps {
 
         rebuild(): void;
       }
+    }
+
+    class Image implements ILayout {
+      events: IEventManager;
+
+      destroy(): void;
+
+      getData(): object;
+
+      getParentElement(): HTMLElement;
+
+      getShape(): IShape | null;
+
+      isEmpty(): boolean;
+
+      setData(data: object): void;
+
+      setParentElement(parent: HTMLElement | null): void;
+    }
+
+    interface IImageOptionsWithIconPrefix {
+      iconImageClipRect?: number[][] | undefined;
+      iconImageHref?: string | undefined;
+      iconImageOffset?: number[] | undefined;
+      iconImageSize?: number[] | undefined;
+      iconShape?: IShape | object | null | undefined;
+    }
+
+    class ImageWithContent extends Image {}
+
+    interface IImageWithContentOptionsWithIconPrefix extends IImageOptionsWithIconPrefix {
+      iconContentLayout?: IClassConstructor<ILayout> | string | undefined;
+      iconContentOffset?: number[] | undefined;
+      iconContentSize?: number[] | undefined;
+    }
+
+    class PieChart extends templateBased.Base {}
+
+    interface IPieChartOptionsWithIconPrefix {
+      iconPieChartCaptionMaxWidth?: number | undefined;
+      iconPieChartCoreFillStyle?: string | undefined;
+      iconPieChartCoreRadius?: number | (() => number) | undefined;
+      iconPieChartStrokeStyle?: string | undefined;
+      iconPieChartStrokeWidth?: number | undefined;
     }
 
     const storage: util.Storage;
@@ -2712,10 +3114,100 @@ declare namespace ymaps {
         priority?: number,
       ): this;
 
-      fire(type: string, eventobject: object | IEvent): this;
+      fire(type: string, eventObject: object | IEvent): this;
     }
 
     const presetStorage: util.Storage;
+  }
+
+  namespace pane {
+    class EventsPane implements IEventPane {
+      constructor(
+        map: Map,
+        params: {
+          className?: string;
+          css?: CSSStyleDeclaration;
+          patch?: {
+            selectable?: boolean;
+          };
+          transparent?: boolean;
+          checkContextMenu?: boolean;
+          zIndex?: number;
+        },
+      );
+
+      events: IEventManager;
+
+      destroy(): void;
+
+      getElement(): HTMLElement;
+
+      getMap(): Map;
+
+      getOverflow(): 'visible' | 'hidden';
+
+      getZIndex(): number;
+    }
+
+    class MovablePane implements IContainerPane {
+      constructor(
+        map: Map,
+        params: {
+          css?: CSSStyleDeclaration;
+          margin?: number;
+          overflow?: 'hidden' | 'visible';
+          zIndex?: number;
+        },
+      );
+
+      events: IEventManager;
+
+      destroy(): void;
+
+      fromClientPixels(clientPixelPoint: number[]): number[];
+
+      getElement(): HTMLElement;
+
+      getMap(): Map;
+
+      getOverflow(): 'visible' | 'hidden';
+
+      getZIndex(): number;
+
+      getZoom(): number;
+
+      toClientPixels(globalPixelPoint: number[]): number[];
+    }
+
+    class StaticPane implements IContainerPane {
+      constructor(
+        map: Map,
+        params: {
+          css?: CSSStyleDeclaration;
+          margin?: number;
+          overflow?: 'visible' | 'hidden';
+          zIndex?: number;
+        },
+      );
+
+      events: IEventManager;
+
+      destroy(): void;
+
+      fromClientPixels(clientPixelPoint: number[]): number[];
+
+      getElement(): HTMLElement;
+
+      getMap(): Map;
+
+      getOverflow(): 'visible' | 'hidden';
+
+      getZIndex(): number;
+
+      getZoom(): number;
+
+      toClientPixels(globalPixelPoint: number[]): number[];
+    }
   }
 
   namespace panorama {
@@ -3028,6 +3520,15 @@ declare namespace ymaps {
     }
   }
 
+  interface meta {
+    coordinatesOrder: 'latlong' | 'longlat';
+    countryCode: string;
+    languageCode: string;
+    mode: 'release' | 'debug';
+    ns: typeof ymaps;
+    version: string;
+  }
+
   class Balloon extends Popup<Balloon> implements IBaloon<Balloon>, IBalloonManager<Balloon> {
     constructor(map: Map, options?: IBalloonOptions);
 
@@ -3063,7 +3564,7 @@ declare namespace ymaps {
       priority?: number,
     ): this;
 
-    fire(type: string, eventobject: object | IEvent): this;
+    fire(type: string, eventObject: object | IEvent): this;
 
     destroy(): void;
 
@@ -3076,16 +3577,19 @@ declare namespace ymaps {
     autoPan?: boolean;
     autoPanCheckZoomRange?: boolean;
     autoPanDuration?: number;
-    autoPanMargin?: number[][] | number[] | number;
+    autoPanMargin?: number | number[] | undefined;
     autoPanUseMapMargin?: boolean;
     closeButton?: boolean;
+    closeTimeout?: number | undefined;
     contentLayout?: IClassConstructor<ILayout> | string;
+    interactivityModel?: InteractivityModelKey | undefined;
     layout?: IClassConstructor<ILayout> | string;
     maxHeight?: number;
     maxWidth?: number;
     minHeight?: number;
     minWidth?: number;
     offset?: number[];
+    openTimeout?: number | undefined;
     pane?: string;
     panelContentLayout?: IClassConstructor<ILayout> | string;
     panelMaxHeightRatio?: number;
@@ -3093,6 +3597,35 @@ declare namespace ymaps {
     shadow?: boolean;
     shadowLayout?: IClassConstructor<ILayout> | string;
     shadowOffset?: number[];
+    zIndex?: string | undefined;
+  }
+
+  interface IBalloonOptionsWithBalloonPrefix {
+    balloonContent?: string | undefined;
+    balloonAutoPan?: boolean | undefined;
+    balloonAutoPanCheckZoomRange?: boolean | undefined;
+    balloonAutoPanDuration?: number | undefined;
+    balloonAutoPanMargin?: number | number[] | undefined;
+    balloonAutoPanUseMapMargin?: boolean | undefined;
+    balloonCloseButton?: boolean | undefined;
+    balloonCloseTimeout?: number | undefined;
+    balloonContentLayout?: IClassConstructor<ILayout> | string | undefined;
+    balloonInteractivityModel?: InteractivityModelKey | undefined;
+    balloonLayout?: IClassConstructor<ILayout> | string | undefined;
+    balloonMaxHeight?: number | undefined;
+    balloonMaxWidth?: number | undefined;
+    balloonMinHeight?: number | undefined;
+    balloonMinWidth?: number | undefined;
+    balloonOffset?: number[] | undefined;
+    balloonOpenTimeout?: number | undefined;
+    balloonPane?: string | undefined;
+    balloonPanelContentLayout?: IClassConstructor<ILayout> | string | undefined;
+    balloonPanelMaxHeightRatio?: number | undefined;
+    balloonPanelMaxMapArea?: number | undefined;
+    balloonShadow?: boolean | undefined;
+    balloonShadowLayout?: IClassConstructor<ILayout> | string | undefined;
+    balloonShadowOffset?: number[] | undefined;
+    balloonZIndex?: string | undefined;
   }
 
   class Circle implements GeoObject<ICircleGeometry> {
@@ -3203,21 +3736,24 @@ declare namespace ymaps {
     setParent(parent: IControlParent): this;
   }
 
-  interface IClustererOptions {
+  interface IClustererOptionsInject {
     gridSize?: number;
     groupByCoordinates?: boolean;
     hasBalloon?: boolean;
     hasHint?: boolean;
-    margin?: number[][] | number[] | number;
+    margin?: number[] | number | undefined;
     maxZoom?: number[] | number;
     minClusterSize?: number;
     preset?: PresetKey;
     showInAlphabeticalOrder?: boolean;
     useMapMargin?: boolean;
-    viewportMargin?: number[][] | number[] | number;
-    zoomMargin?: number[][] | number[] | number;
+    viewportMargin?: number[] | number | undefined;
+    zoomMargin?: number[] | number | undefined;
+  }
 
-    [key: string]: any;
+  interface IClustererOptions extends IClustererOptionsInject {
+    hasBalloon?: boolean | undefined;
+    hasHint?: boolean | undefined;
   }
 
   class ClusterPlacemark implements IGeoObject, collection.Item {
@@ -3261,16 +3797,11 @@ declare namespace ymaps {
   }
 
   interface IClusterPlacemarkOptions {
-    balloonContentLayout?:
-      | 'cluster#balloonTwoColumns'
-      | 'cluster#balloonCarousel'
-      | 'cluster#balloonAccordion'
-      | string
-      | IClassConstructor<ILayout>;
+    balloonContentLayout?: IClassConstructor<ILayout> | ClusterLayoutKey | undefined;
     balloonContentLayoutHeight?: number;
     balloonContentLayoutWidth?: number;
-    balloonItemContentLayout?: ILayout | string;
-    balloonPanelContentLayout?: string | IClassConstructor<ILayout>;
+    balloonItemContentLayout?: ILayout | ClusterContentLayoutKey | undefined;
+    balloonPanelContentLayout?: IClassConstructor<ILayout> | ClusterLayoutKey | undefined;
     cursor?: string;
     disableClickZoom?: boolean;
     hideIconOnBalloonOpen?: boolean;
@@ -3280,7 +3811,7 @@ declare namespace ymaps {
     icons?: Array<{
       href: string;
       size: number[];
-      ooffset: number[];
+      offset: number[];
       shape?: IShape | IGeometryJson;
     }>;
     iconShape?: IGeometryJson;
@@ -3290,6 +3821,35 @@ declare namespace ymaps {
     openEmptyHint?: boolean;
     openHintOnHover?: boolean;
     zIndexHover?: number;
+  }
+
+  interface IClusterPlacemarkOptionsWithClusterPrefix {
+    clusterBalloonContentLayout?: IClassConstructor<ILayout> | ClusterLayoutKey | undefined;
+    clusterBalloonContentLayoutHeight?: number | undefined;
+    clusterBalloonContentLayoutWidth?: number | undefined;
+    clusterBalloonItemContentLayout?: ILayout | ClusterContentLayoutKey | undefined;
+    clusterBalloonPanelContentLayout?: IClassConstructor<ILayout> | ClusterLayoutKey | undefined;
+    clusterCursor?: string | undefined;
+    clusterDisableClickZoom?: boolean | undefined;
+    clusterHideIconOnBalloonOpen?: boolean | undefined;
+    clusterIconColor?: string | undefined;
+    clusterIconContentLayout?: IClassConstructor<ILayout> | string | undefined;
+    clusterIconLayout?: IClassConstructor<ILayout> | string | undefined;
+    clusterIcons?:
+      | Array<{
+          href: string;
+          size: number[];
+          offset: number[];
+          shape?: IShape | IGeometryJson | undefined;
+        }>
+      | undefined;
+    clusterIconShape?: IGeometryJson | undefined;
+    clusterInteractivityModel?: InteractivityModelKey | undefined;
+    clusterNumbers?: number[] | undefined;
+    clusterOpenBalloonOnClick?: boolean | undefined;
+    clusterOpenEmptyHint?: boolean | undefined;
+    clusterOpenHintOnHover?: boolean | undefined;
+    clusterZIndexHover?: number | undefined;
   }
 
   class Collection<T = {}> implements ICollection, collection.Item {
@@ -3328,21 +3888,29 @@ declare namespace ymaps {
     removeAll(): this;
   }
 
-  class Event<OriginalEvent = {}, Target = {}> implements IEvent<OriginalEvent, Target> {
+  class Event<OriginalEvent = {}, TargetGeometry = {}>
+    implements IEvent<OriginalEvent, TargetGeometry>
+  {
     constructor(originalEvent: object, sourceEvent: IEvent);
 
     originalEvent: {
-      target: Target;
-      [key: string]: any;
+      domEvent: {
+        originalEvent: OriginalEvent;
+      };
+      target: {
+        geometry?: TargetGeometry;
+      };
     };
 
     allowMapEvent(): void;
 
     callMethod(name: string): void;
 
+    get<T extends OriginalEvent, K extends keyof T = keyof T>(name: K): T[K];
+
     get(name: string): any;
 
-    getSourceEvent(): IEvent<OriginalEvent> | null;
+    getSourceEvent(): IEvent<OriginalEvent, TargetGeometry> | null;
 
     isDefaultPrevented(): boolean;
 
@@ -3359,7 +3927,45 @@ declare namespace ymaps {
     stopPropagation(): boolean;
   }
 
-  class GeoObject<T = IGeometry, Target = {}> implements IGeoObject<T> {
+  class DomEvent<OriginalEvent = {}, TargetGeometry = {}>
+    implements IDomEvent<OriginalEvent, TargetGeometry>
+  {
+    constructor(originalEvent: DomEvent, type?: object);
+
+    originalEvent: {
+      domEvent: {
+        originalEvent: OriginalEvent;
+      };
+      target: {
+        geometry?: TargetGeometry | undefined;
+      };
+    };
+
+    allowMapEvent(): void;
+
+    callMethod(name: string): void;
+
+    get<T extends OriginalEvent, K extends keyof T = keyof T>(name: K): T[K];
+    get(name: string): any;
+
+    getSourceEvent(): IDomEvent<OriginalEvent, TargetGeometry>;
+
+    isDefaultPrevented(): boolean;
+
+    isImmediatePropagationStopped(): boolean;
+
+    isMapEventAllowed(): boolean;
+
+    isPropagationStopped(): boolean;
+
+    preventDefault(): boolean;
+
+    stopImmediatePropagation(): boolean;
+
+    stopPropagation(): boolean;
+  }
+
+  class GeoObject<T = IGeometry, TargetGeometry = {}> implements IGeoObject<T> {
     constructor(feature?: IGeoObjectFeature, options?: IGeoObjectOptions);
 
     geometry: T | null;
@@ -3370,7 +3976,7 @@ declare namespace ymaps {
 
     hint: geoObject.Hint;
 
-    events: event.Manager<Target>;
+    events: event.Manager<TargetGeometry>;
 
     options: option.Manager;
 
@@ -3394,7 +4000,7 @@ declare namespace ymaps {
     properties?: IDataManager | object;
   }
 
-  interface IGeoObjectOptions extends ICircleOptions {
+  interface IGeoObjectOptions extends ICircleOptions, IBalloonOptionsWithBalloonPrefix {
     iconCaptionMaxWidth?: number;
     iconColor?: string;
     iconContentLayout?: string | IClassConstructor<ILayout>;
@@ -3420,11 +4026,9 @@ declare namespace ymaps {
     lineStringOverlay?: OverlayKey;
     pointOverlay?: OverlayKey;
     polygonOverlay?: OverlayKey;
-    preset?: string;
+    preset?: PresetKey | undefined;
     rectangleOverlay?: OverlayKey;
     setMapCursorInDragging?: boolean;
-
-    [key: string]: any;
   }
 
   class GeoObjectCollection implements IGeoObject, IGeoObjectCollection {
@@ -3613,6 +4217,15 @@ declare namespace ymaps {
     setZoom(zoom: number, options?: IMapZoomOptions): Promise<void>;
   }
 
+  class MapEvent<OriginalEvent = {}, TargetGeometry = {}> extends Event<
+    OriginalEvent,
+    TargetGeometry
+  > {
+    get(name: string): any;
+    get(name: 'coords' | 'globalPixels' | 'pagePixels' | 'clientPixels'): [number, number];
+    get(name: 'domEvent'): DomEvent<OriginalEvent, TargetGeometry> | undefined;
+  }
+
   interface IMapMarginOptions {
     useMapMargin?: boolean;
   }
@@ -3665,7 +4278,7 @@ declare namespace ymaps {
     minZoom?: number;
     nativeFullscreen?: boolean;
     projection?: IProjection;
-    restrictMapArea?: boolean | number[][];
+    restrictMapArea?: boolean | number[][] | undefined;
     suppressMapOpenBlock?: boolean;
     suppressObsoleteBrowserNotifier?: boolean;
     yandexMapAutoSwitch?: boolean;
@@ -3696,25 +4309,28 @@ declare namespace ymaps {
     [key: string]: any;
   }
 
-  interface IPlacemarkOptions {
+  interface IPlacemarkOptions
+    extends IBalloonOptionsWithBalloonPrefix,
+      layout.IImageWithContentOptionsWithIconPrefix,
+      layout.IPieChartOptionsWithIconPrefix {
     cursor?: string;
     draggable?: boolean;
     hasBalloon?: boolean;
     hasHint?: boolean;
     hideIconOnBalloonOpen?: boolean;
-    iconColor?: string;
-    iconLayout?: 'default#image' | 'default#imageWithContent' | string;
+    iconColor?: string | undefined;
+    iconLayout?: IClassConstructor<ILayout> | IconLayoutKey | undefined;
     iconOffset?: number[];
     iconShape?: IGeometryJson | null;
     interactiveZIndex?: boolean;
-    interactivityModel?: string;
+    interactivityModel?: InteractivityModelKey | undefined;
     openBalloonOnClick?: boolean;
     openEmptyBalloon?: boolean;
     openEmptyHint?: boolean;
     openHintOnHover?: boolean;
     pane?: string;
     pointOverlay?: string;
-    preset?: string;
+    preset?: PresetKey | undefined;
     syncOverlayInit?: boolean;
     useMapMarginInDragging?: boolean;
     visible?: boolean;
@@ -3722,8 +4338,6 @@ declare namespace ymaps {
     zIndexActive?: number;
     zIndexDrag?: number;
     zIndexHover?: number;
-
-    [key: string]: any;
   }
 
   class Polygon extends GeoObject<IPolygonGeometry> {
@@ -3745,7 +4359,7 @@ declare namespace ymaps {
     hasBalloon?: boolean;
     hasHint?: boolean;
     interactiveZIndex?: boolean;
-    interactivityModel?: string;
+    interactivityModel?: InteractivityModelKey | undefined;
     opacity?: number;
     openBalloonOnClick?: boolean;
     openEmptyBalloon?: boolean;
@@ -3781,7 +4395,7 @@ declare namespace ymaps {
     hasBalloon?: boolean;
     hasHint?: boolean;
     interactiveZIndex?: boolean;
-    interactivityModel?: string;
+    interactivityModel?: InteractivityModelKey | undefined;
     lineStringOverlay?: () => object | string;
     opacity?: number;
     openBalloonOnClick?: boolean;
@@ -3838,12 +4452,12 @@ declare namespace ymaps {
   }
 
   function ready(
-    successCallback?: () => any | IReadyobject,
+    successCallback?: () => any | IReadyObject,
     errorCallback?: () => any,
     context?: object,
   ): Promise<void>;
 
-  interface IReadyobject {
+  interface IReadyObject {
     require?: string[];
     context?: object;
 
@@ -3853,11 +4467,11 @@ declare namespace ymaps {
   }
 
   namespace templateLayoutFactory {
-    function createClass(
+    function createClass<O extends {} = {}, S extends {} = {}>(
       template: string,
-      overrides?: object,
-      staticMethods?: object,
-    ): IClassConstructor<layout.templateBased.Base>;
+      overrides?: O,
+      staticMethods?: S,
+    ): IClassConstructor<layout.templateBased.Base & O & S>;
   }
 
   namespace util {
@@ -3901,18 +4515,22 @@ declare namespace ymaps {
       constructor(resolver?: () => void);
 
       done(
-        onFulfilled?: () => void,
-        onRejected?: () => void,
-        onProgress?: () => void,
+        onFulfilled?: (...args: any[]) => void,
+        onRejected?: (err?: Error | any) => void,
+        onProgress?: (...args: any[]) => void,
         ctx?: object,
       ): void;
 
-      spread(onFulfilled?: () => void, onRejected?: () => void, ctx?: object): Promise;
+      spread(
+        onFulfilled?: (...args: any[]) => void,
+        onRejected?: (err?: Error | any) => void,
+        ctx?: object,
+      ): Promise;
 
       then(
-        onFulfilled?: () => void,
-        onRejected?: () => void,
-        onProgress?: () => void,
+        onFulfilled?: (...args: any[]) => void,
+        onRejected?: (err?: Error | any) => void,
+        onProgress?: (...args: any[]) => void,
         ctx?: object,
       ): Promise;
 
@@ -3984,6 +4602,8 @@ declare namespace ymaps {
     remove(object: object): this;
   }
 
+  interface IContainerPane extends IPane, IPositioningContext {}
+
   type IControl = IChildOnMap;
 
   interface IControlParent extends IParentOnMap {
@@ -4024,17 +4644,21 @@ declare namespace ymaps {
 
   type IDomEventEmitter = IEventEmitter;
 
-  interface IEvent<OriginalEvent = {}, Target = {}> {
+  interface IEvent<OriginalEvent = {}, TargetGeometry = {}> {
     originalEvent: {
-      target: Target;
-      [key: string]: any;
+      domEvent: {
+        originalEvent: OriginalEvent;
+      };
+      target: {
+        geometry?: TargetGeometry | undefined;
+      };
     };
 
     allowMapEvent(): void;
 
     callMethod(name: string): void;
 
-    get<T extends {}, K extends keyof T = keyof T>(name: K): T[K];
+    get<T extends OriginalEvent, K extends keyof T = keyof T>(name: K): T[K];
 
     get(name: 'type'): string;
 
@@ -4044,7 +4668,7 @@ declare namespace ymaps {
 
     get(name: string): any;
 
-    getSourceEvent(): IEvent<OriginalEvent> | null;
+    getSourceEvent(): IEvent<OriginalEvent, TargetGeometry> | null;
 
     isDefaultPrevented(): boolean;
 
@@ -4061,6 +4685,11 @@ declare namespace ymaps {
     stopPropagation(): boolean;
   }
 
+  interface IDomEvent<OriginalEvent = {}, TargetGeometry = {}>
+    extends IEvent<OriginalEvent, TargetGeometry> {
+    getSourceEvent(): IDomEvent<OriginalEvent, TargetGeometry>;
+  }
+
   interface IEventController {
     onStartListening?(events: IEventManager, type: string): void;
 
@@ -4072,6 +4701,13 @@ declare namespace ymaps {
   }
 
   interface IEventGroup {
+    add<K extends keyof EventMap>(
+      types: K,
+      callback: (event: EventMap[K] | IEvent) => void,
+      context?: object,
+      priority?: number,
+    ): this;
+
     add(
       types: string[][] | string[] | string,
       callback: (event: object | IEvent) => void,
@@ -4089,7 +4725,14 @@ declare namespace ymaps {
     removeAll(): this;
   }
 
-  interface IEventManager<Target = {}> extends IEventTrigger {
+  interface IEventManager<TargetGeometry = {}> extends IEventTrigger {
+    add<K extends keyof EventMap>(
+      types: K,
+      callback: (event: IEvent<EventMap[K], TargetGeometry>) => void,
+      context?: object,
+      priority?: number,
+    ): this;
+
     add(
       types: string[][] | string[] | string,
       callback: (event: IEvent) => void,
@@ -4111,8 +4754,10 @@ declare namespace ymaps {
     setParent(parent: object | null): this;
   }
 
+  interface IEventPane extends IDomEventEmitter, IPane {}
+
   interface IEventTrigger {
-    fire(type: string, eventobject?: object | IEvent): this;
+    fire(type: string, eventObject?: object | IEvent): this;
   }
 
   interface IEventWorkflowController extends IEventController {
@@ -4804,12 +5449,12 @@ declare namespace ymaps {
     setParent(parent: IParentOnMap | null): this;
   }
 
-  interface IObjectManagerOptions extends Omit<IClustererOptions, 'hasBalloon' | 'hasHint'> {
-    clusterize?: boolean;
-    syncOverlayInit?: boolean;
-    viewportMargin?: number | number[];
-
-    [key: string]: any;
+  interface IObjectManagerOptions
+    extends IClustererOptionsInject,
+      IClusterPlacemarkOptionsWithClusterPrefix {
+    clusterize?: boolean | undefined;
+    syncOverlayInit?: boolean | undefined;
+    viewportMargin?: number[] | number | undefined;
   }
 
   namespace objectManager {
@@ -4955,7 +5600,32 @@ declare namespace ymaps {
   }
 
   namespace modules {
-    function require(modules: string | string[]): vow.Promise;
+    type ResolveCallbackFunction = (
+      provide: (module: any, error?: any) => void,
+      ...depends: any[]
+    ) => void;
+
+    function define(
+      module: string,
+      depends?: string[],
+      resolveCallback?: ResolveCallbackFunction,
+      context?: object,
+    ): typeof modules;
+
+    function define(
+      module: string,
+      resolveCallback?: ResolveCallbackFunction,
+      context?: object,
+    ): typeof modules;
+
+    function isDefined(module: string): boolean;
+
+    function require(
+      modules: string | string[],
+      successCallback?: (...args: any[]) => void,
+      errorCallback?: (error: any) => void,
+      context?: object,
+    ): vow.Promise;
   }
 
   class Hotspot implements IHotspot {
