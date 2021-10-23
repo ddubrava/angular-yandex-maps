@@ -1,6 +1,5 @@
 {
   "name": "angular-yandex-maps",
-  "version": "12.0.0",
   "private": true,
   "scripts": {
     "start": "ng serve --configuration=local",
@@ -10,7 +9,8 @@
     "test": "ng test angular8-yandex-maps",
     "test:headless": "npm run test -- --watch=false --browsers=ChromeHeadless",
     "test:coverage": "npm run test:headless -- --code-coverage",
-    "lint": "ng lint angular8-yandex-maps"
+    "lint": "ng lint angular8-yandex-maps",
+    "release": "standard-version"
   },
   "husky": {
     "hooks": {
