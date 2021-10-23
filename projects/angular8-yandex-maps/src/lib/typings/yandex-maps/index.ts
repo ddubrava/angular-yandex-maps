@@ -3044,6 +3044,96 @@ declare namespace ymaps {
     const presetStorage: util.Storage;
   }
 
+  namespace pane {
+    class EventsPane implements IEventPane {
+      constructor(
+        map: Map,
+        params: {
+          className?: string;
+          css?: CSSStyleDeclaration;
+          patch?: {
+            selectable?: boolean;
+          };
+          transparent?: boolean;
+          checkContextMenu?: boolean;
+          zIndex?: number;
+        },
+      );
+
+      events: IEventManager;
+
+      destroy(): void;
+
+      getElement(): HTMLElement;
+
+      getMap(): Map;
+
+      getOverflow(): 'visible' | 'hidden';
+
+      getZIndex(): number;
+    }
+
+    class MovablePane implements IContainerPane {
+      constructor(
+        map: Map,
+        params: {
+          css?: CSSStyleDeclaration;
+          margin?: number;
+          overflow?: 'hidden' | 'visible';
+          zIndex?: number;
+        },
+      );
+
+      events: IEventManager;
+
+      destroy(): void;
+
+      fromClientPixels(clientPixelPoint: number[]): number[];
+
+      getElement(): HTMLElement;
+
+      getMap(): Map;
+
+      getOverflow(): 'visible' | 'hidden';
+
+      getZIndex(): number;
+
+      getZoom(): number;
+
+      toClientPixels(globalPixelPoint: number[]): number[];
+    }
+
+    class StaticPane implements IContainerPane {
+      constructor(
+        map: Map,
+        params: {
+          css?: CSSStyleDeclaration;
+          margin?: number;
+          overflow?: 'visible' | 'hidden';
+          zIndex?: number;
+        },
+      );
+
+      events: IEventManager;
+
+      destroy(): void;
+
+      fromClientPixels(clientPixelPoint: number[]): number[];
+
+      getElement(): HTMLElement;
+
+      getMap(): Map;
+
+      getOverflow(): 'visible' | 'hidden';
+
+      getZIndex(): number;
+
+      getZoom(): number;
+
+      toClientPixels(globalPixelPoint: number[]): number[];
+    }
+  }
+
   namespace panorama {
     type Layer = 'yandex#panorama' | 'yandex#airPanorama';
 
@@ -3352,6 +3442,15 @@ declare namespace ymaps {
 
       shift(offset: number[]): IShape;
     }
+  }
+
+  interface meta {
+    coordinatesOrder: 'latlong' | 'longlat';
+    countryCode: string;
+    languageCode: string;
+    mode: 'release' | 'debug';
+    ns: typeof ymaps;
+    version: string;
   }
 
   class Balloon extends Popup<Balloon> implements IBaloon<Balloon>, IBalloonManager<Balloon> {
@@ -4093,7 +4192,7 @@ declare namespace ymaps {
     iconOffset?: number[];
     iconShape?: IGeometryJson | null;
     interactiveZIndex?: boolean;
-    interactivityModel?: string;
+    interactivityModel?: InteractivityModelKey | undefined;
     openBalloonOnClick?: boolean;
     openEmptyBalloon?: boolean;
     openEmptyHint?: boolean;
@@ -4129,7 +4228,7 @@ declare namespace ymaps {
     hasBalloon?: boolean;
     hasHint?: boolean;
     interactiveZIndex?: boolean;
-    interactivityModel?: string;
+    interactivityModel?: InteractivityModelKey | undefined;
     opacity?: number;
     openBalloonOnClick?: boolean;
     openEmptyBalloon?: boolean;
@@ -4165,7 +4264,7 @@ declare namespace ymaps {
     hasBalloon?: boolean;
     hasHint?: boolean;
     interactiveZIndex?: boolean;
-    interactivityModel?: string;
+    interactivityModel?: InteractivityModelKey | undefined;
     lineStringOverlay?: () => object | string;
     opacity?: number;
     openBalloonOnClick?: boolean;
@@ -4237,11 +4336,11 @@ declare namespace ymaps {
   }
 
   namespace templateLayoutFactory {
-    function createClass(
+    function createClass<O extends {} = {}, S extends {} = {}>(
       template: string,
-      overrides?: object,
-      staticMethods?: object,
-    ): IClassConstructor<layout.templateBased.Base>;
+      overrides?: O,
+      staticMethods?: S,
+    ): IClassConstructor<layout.templateBased.Base & O & S>;
   }
 
   namespace util {
@@ -4285,18 +4384,22 @@ declare namespace ymaps {
       constructor(resolver?: () => void);
 
       done(
-        onFulfilled?: () => void,
-        onRejected?: () => void,
-        onProgress?: () => void,
+        onFulfilled?: (...args: any[]) => void,
+        onRejected?: (err?: Error | any) => void,
+        onProgress?: (...args: any[]) => void,
         ctx?: object,
       ): void;
 
-      spread(onFulfilled?: () => void, onRejected?: () => void, ctx?: object): Promise;
+      spread(
+        onFulfilled?: (...args: any[]) => void,
+        onRejected?: (err?: Error | any) => void,
+        ctx?: object,
+      ): Promise;
 
       then(
-        onFulfilled?: () => void,
-        onRejected?: () => void,
-        onProgress?: () => void,
+        onFulfilled?: (...args: any[]) => void,
+        onRejected?: (err?: Error | any) => void,
+        onProgress?: (...args: any[]) => void,
         ctx?: object,
       ): Promise;
 
@@ -4367,6 +4470,8 @@ declare namespace ymaps {
 
     remove(object: object): this;
   }
+
+  interface IContainerPane extends IPane, IPositioningContext {}
 
   type IControl = IChildOnMap;
 
@@ -4494,6 +4599,8 @@ declare namespace ymaps {
 
     setParent(parent: object | null): this;
   }
+
+  interface IEventPane extends IDomEventEmitter, IPane {}
 
   interface IEventTrigger {
     fire(type: string, eventObject?: object | IEvent): this;
@@ -5339,18 +5446,23 @@ declare namespace ymaps {
   }
 
   namespace modules {
-    function define(
-      modules: string,
-      resolveCallback: (provide: any) => void,
-      context?: object,
-    ): vow.Promise;
+    type ResolveCallbackFunction = (
+      provide: (module: any, error?: any) => void,
+      ...depends: any[]
+    ) => void;
 
     function define(
-      modules: string,
-      depends: string[],
-      resolveCallback: (provide: any, ...args: any[]) => void,
+      module: string,
+      depends?: string[],
+      resolveCallback?: ResolveCallbackFunction,
       context?: object,
-    ): vow.Promise;
+    ): typeof modules;
+
+    function define(
+      module: string,
+      resolveCallback?: ResolveCallbackFunction,
+      context?: object,
+    ): typeof modules;
 
     function isDefined(module: string): boolean;
 
