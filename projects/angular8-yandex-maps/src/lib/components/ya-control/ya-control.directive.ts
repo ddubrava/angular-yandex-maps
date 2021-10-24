@@ -12,6 +12,9 @@ import { Subscription } from 'rxjs';
 import { YaMapComponent } from '../ya-map/ya-map.component';
 import { YaReadyEvent } from '../../typings/ya-ready-event';
 
+/**
+ * Control types.
+ */
 export type YaControlType =
   | 'Button'
   | 'FullscreenControl'
