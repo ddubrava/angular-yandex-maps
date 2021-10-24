@@ -66,6 +66,7 @@
     "ng-packagr": "^12.2.4",
     "prettier": "^2.4.1",
     "protractor": "~7.0.0",
+    "standard-version": "^9.3.2",
     "ts-node": "~8.3.0",
     "typescript": "4.2.4"
   }
