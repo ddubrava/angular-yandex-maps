@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [12.2.0](https://github.com/ddubrava/angular8-yandex-maps/compare/v12.1.7...v12.2.0) (2021-10-24)
+
+### Features
+
+- **typings:** add a lot of new typings and fix
+  existing ([#130](https://github.com/ddubrava/angular8-yandex-maps/issues/130)) ([bd71c07](https://github.com/ddubrava/angular8-yandex-maps/commit/bd71c074533887263f69adfb2f6d1e75a12bb519))
+
 ## [12.1.7](https://github.com/ddubrava/angular8-yandex-maps/compare/v12.1.6...v12.1.7) (2021-07-29)
 
 ### Bug Fixes
