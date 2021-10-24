@@ -10,6 +10,7 @@
         <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
 	   <link rel="stylesheet" href="../styles/style.css">
         <link rel="stylesheet" href="../styles/dark.css" media="(prefers-color-scheme: dark)">
+        <link rel="stylesheet" href="../styles/Readthedocs.css">
     </head>
     <body>
 
@@ -19,7 +20,7 @@
         </div>
 
         <div class="xs-menu menu" id="mobile-menu">
-            <compodoc-menu></compodoc-menu>
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
         </div>
 
         <div class="container-fluid main">
@@ -68,6 +69,13 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>API loading parameters.</p>
+
+            </p>
 
 
         <section>
@@ -460,8 +468,14 @@ import { Inject, Injectable, InjectionToken, Optional } from &#x27;@angular/core
 import { from, fromEvent, merge, Observable, throwError } from &#x27;rxjs&#x27;;
 import { map, switchMap, take } from &#x27;rxjs/operators&#x27;;
 
+/**
+ * Injection token to specify configuration.
+ */
 export const YA_CONFIG &#x3D; new InjectionToken&lt;YaConfig&gt;(&#x27;YA_CONFIG&#x27;);
 
+/**
+ * API loading parameters.
+ */
 export interface YaConfig {
   /**
    * API key. You can get a key in the developer&#x27;s dashboard.
@@ -531,7 +545,7 @@ export class YaApiLoaderService {
   }
 
   /**
-   * Loads Yandex.Maps API
+   * Loads Yandex.Maps API.
    */
   load(): Observable&lt;typeof ymaps&gt; {
     if (window.ymaps) {
@@ -560,7 +574,7 @@ export class YaApiLoaderService {
   }
 
   /**
-   * Returns script source by config
+   * Returns script source by config.
    * @param config config with parameters that will be added in source
    * @example
    * // returns &#x27;https://api-maps.yandex.ru/2.1/?apikey&#x3D;658f67a2-fd77-42e9-b99e-2bd48c4ccad4&amp;lang&#x3D;en_US&#x27;
@@ -574,7 +588,7 @@ export class YaApiLoaderService {
   }
 
   /**
-   * Converts a config into a query string parameters
+   * Converts a config into a query string parameters.
    * @param config object for converting
    * @example
    * // returns &quot;lang&#x3D;ru_RU&amp;apikey&#x3D;XXX&quot;
@@ -614,6 +628,7 @@ export class YaApiLoaderService {
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
             var COMPODOC_CURRENT_PAGE_URL = 'YaConfig.html';
+            var MAX_SEARCH_RESULTS = 15;
        </script>
 
        <script src="../js/libs/custom-elements.min.js"></script>
@@ -636,6 +651,10 @@ export class YaApiLoaderService {
        <script src="../js/libs/clipboard.min.js"></script>
        <script src="../js/libs/prism.js"></script>
        <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
        <script src="../js/lazy-load-graphs.js"></script>
 
 
