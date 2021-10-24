@@ -13,11 +13,15 @@ Angular components for Yandex.Maps.
 
 [Documentation](https://ddubrava.github.io/angular8-yandex-maps/)
 
-See repository branches for older versions.
+See the repository branches for older versions.
 
 ## Examples
 
 [Examples](https://ddubrava.github.io/angular8-yandex-maps/additional-documentation/examples.html)
+
+## FAQ
+
+[FAQ](https://ddubrava.github.io/angular8-yandex-maps/additional-documentation/faq.html)
 
 ## Installation
 

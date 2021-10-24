@@ -1,10 +1,13 @@
+/**
+ * Event that is returned from outputs.
+ */
 export interface YaEvent<T = any> {
   /**
-   * Instance of target
+   * Instance of target.
    */
   target: T;
   /**
-   * API global object
+   * API global object.
    */
   ymaps: typeof ymaps;
   /**

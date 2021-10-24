@@ -20,6 +20,7 @@ module.exports = {
         'class-methods-use-this': 'off',
         'import/no-extraneous-dependencies': 'off',
         'import/prefer-default-export': 'off',
+        'multiline-comment-style': ['error', 'starred-block'],
         'no-console': ['error', { allow: ['warn', 'error'] }],
         'no-underscore-dangle': 'off',
 

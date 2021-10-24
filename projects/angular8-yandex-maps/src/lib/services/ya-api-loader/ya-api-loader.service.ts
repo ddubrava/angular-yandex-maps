@@ -3,8 +3,14 @@ import { Inject, Injectable, InjectionToken, Optional } from '@angular/core';
 import { from, fromEvent, merge, Observable, throwError } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
 
+/**
+ * Injection token to specify configuration.
+ */
 export const YA_CONFIG = new InjectionToken<YaConfig>('YA_CONFIG');
 
+/**
+ * API loading parameters.
+ */
 export interface YaConfig {
   /**
    * API key. You can get a key in the developer's dashboard.
@@ -74,7 +80,7 @@ export class YaApiLoaderService {
   }
 
   /**
-   * Loads Yandex.Maps API
+   * Loads Yandex.Maps API.
    */
   load(): Observable<typeof ymaps> {
     if (window.ymaps) {
@@ -103,7 +109,7 @@ export class YaApiLoaderService {
   }
 
   /**
-   * Returns script source by config
+   * Returns script source by config.
    * @param config config with parameters that will be added in source
    * @example
    * // returns 'https://api-maps.yandex.ru/2.1/?apikey=658f67a2-fd77-42e9-b99e-2bd48c4ccad4&lang=en_US'
@@ -117,7 +123,7 @@ export class YaApiLoaderService {
   }
 
   /**
-   * Converts a config into a query string parameters
+   * Converts a config into a query string parameters.
    * @param config object for converting
    * @example
    * // returns "lang=ru_RU&apikey=XXX"

@@ -248,8 +248,10 @@ export class YaMapComponent implements AfterViewInit, OnChanges, OnDestroy {
   constructor(
     private readonly _ngZone: NgZone,
     private readonly _yaApiLoaderService: YaApiLoaderService,
-    // We need to use the same type like in an Angular
-    // "export declare const PLATFORM_ID: InjectionToken<Object>"
+    /*
+     * We need to use the same type like in an Angular.
+     * "export declare const PLATFORM_ID: InjectionToken<Object>"
+     */
     // eslint-disable-next-line @typescript-eslint/ban-types
     @Inject(PLATFORM_ID) platformId: Object,
   ) {
