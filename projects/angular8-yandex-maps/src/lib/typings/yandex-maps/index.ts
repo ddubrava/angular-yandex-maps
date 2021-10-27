@@ -4151,6 +4151,38 @@ declare namespace ymaps {
     getElement(): HTMLElement;
   }
 
+  type IHint = IPopup<IHint>;
+
+  interface IHintOptions {
+    closeTimeout?: number;
+    contentLayout?: IClassConstructor<ILayout> | string;
+    fitPane?: boolean;
+    holdByMouse?: boolean;
+    interactivityModel?: InteractivityModelKey;
+    layout?: IClassConstructor<ILayout> | string;
+    offset?: number[];
+    openTimeout?: number;
+    pane?: string;
+    zIndex?: number;
+  }
+
+  interface IHintOptionsWithHintPrefix {
+    hintCloseTimeout?: number;
+    hintContentLayout?: IClassConstructor<ILayout> | string;
+    hintFitPane?: boolean;
+    hintHoldByMouse?: boolean;
+    hintInteractivityModel?: InteractivityModelKey;
+    hintLayout?: IClassConstructor<ILayout> | string;
+    hintOffset?: number[];
+    hintOpenTimeout?: number;
+    hintPage?: string;
+    hintZIndex?: number;
+  }
+
+  class Hint extends Popup<Hint> implements IHint {
+    constructor(map: Map, options?: IHintOptions);
+  }
+
   class Map implements IDomEventEmitter {
     constructor(parentElement: HTMLElement | string, state: IMapState, options?: IMapOptions);
 
