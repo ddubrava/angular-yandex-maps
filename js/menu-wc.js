@@ -72,10 +72,10 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 'data-target="#modules-links"' : 'data-target="#xs-modules-links"' }>
                                 <span class="icon ion-ios-archive"></span>
                                 <span class="link-name">Modules</span>
-                                <span class="icon ion-ios-arrow-down"></span>
+                                <span class="icon ion-ios-arrow-up"></span>
                             </div>
                         </a>
-                        <ul class="links collapse " ${ isNormalMode ? 'id="modules-links"' : 'id="xs-modules-links"' }>
+                        <ul class="links collapse in" ${ isNormalMode ? 'id="modules-links"' : 'id="xs-modules-links"' }>
                             <li class="link">
                                 <a href="modules/AngularYandexMapsModule.html" data-type="entity-link" >AngularYandexMapsModule</a>
                                     <li class="chapter inner">
