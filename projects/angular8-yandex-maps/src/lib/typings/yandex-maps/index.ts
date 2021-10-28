@@ -5671,6 +5671,222 @@ declare namespace ymaps {
     ): vow.Promise;
   }
 
+  interface IHotspotObjectSource extends ICustomizable, IEventEmitter {
+    cancelLastRequest(): void;
+
+    requestObjects(
+      layer: hotspot.Layer,
+      tileNumber: number[],
+      zoom: number,
+      callback: () => void,
+    ): void;
+  }
+
+  interface IHotspotLayerOptions
+    extends IBalloonOptionsWithBalloonPrefix,
+      IHintOptionsWithHintPrefix {
+    cursor?: string;
+    dontChangeCursor?: boolean;
+    hasBalloon?: boolean;
+    hasHint?: boolean;
+    interactivityModel?: InteractivityModelKey;
+    openBalloonOnClick?: boolean;
+    openEmptyBalloon?: boolean;
+    openEmptyHint?: boolean;
+    openHintOnHover?: boolean;
+    pane?: IEventPane;
+    showEmptyBalloon?: boolean;
+    zIndex?: number;
+  }
+
+  interface IHotspotLayerObject extends ICustomizable, IDomEventEmitter {
+    getGeometry(): object;
+
+    getHotspot(): IHotspot;
+
+    getId(): number;
+
+    getProperties(): object;
+
+    setGeometry(geometry: object): void;
+
+    setId(id: number): void;
+
+    setProperties(properties: object): void;
+  }
+
+  namespace hotspot {
+    namespace layer {
+      namespace addon {
+        const balloon: {
+          get(layer: hotspot.Layer): IPopupManager<Balloon>;
+        };
+
+        const hint: {
+          get(layer: hotspot.Layer): IPopupManager<Hint>;
+        };
+      }
+
+      class Balloon implements IBalloonManager<Balloon> {
+        constructor(hotspotLayer: object);
+
+        events: IEventManager;
+
+        autoPan(): Promise<Balloon>;
+
+        close(force?: boolean): Promise<Balloon>;
+
+        destroy(): void;
+
+        getData(): object | null;
+
+        getOptions(): IOptionManager | null;
+
+        getOverlay(): Promise<IOverlay | null>;
+
+        getOverlaySync(): IOverlay | null;
+
+        getPosition(): number[] | null;
+
+        isOpen(): boolean;
+
+        open(position?: number[], data?: object, options?: object): Promise<Balloon>;
+
+        setData(data: object | string | HTMLElement): Promise<Balloon>;
+
+        setOptions(options: object): Promise<Balloon>;
+
+        setPosition(position: number[]): Promise<Balloon>;
+      }
+
+      class Hint implements IHintManager<Hint> {
+        constructor(hotspotLayer: object);
+
+        events: IEventManager;
+
+        close(force?: boolean): Promise<Hint>;
+
+        destroy(): void;
+
+        getData(): object | null;
+
+        getOptions(): IOptionManager | null;
+
+        getOverlay(): Promise<IOverlay | null>;
+
+        getOverlaySync(): IOverlay | null;
+
+        getPosition(): number[] | null;
+
+        isOpen(): boolean;
+
+        open(position?: number[], data?: object, options?: object): Promise<Hint>;
+
+        setData(data: object | string | HTMLElement): Promise<Hint>;
+
+        setOptions(options: object): Promise<Hint>;
+
+        setPosition(position: number[]): Promise<Hint>;
+      }
+
+      class Object implements IHotspotLayerObject {
+        constructor(shape: IShape, feature: object, options: object);
+
+        events: IEventManager;
+
+        options: IOptionManager;
+
+        getGeometry(): object;
+
+        getHotspot(): IHotspot;
+
+        getId(): number;
+
+        getProperties(): object;
+
+        setGeometry(geometry: object): void;
+
+        setId(id: number): void;
+
+        setProperties(properties: object): void;
+      }
+    }
+
+    class Layer implements IChildOnMap, ICustomizable {
+      constructor(objectSource: IHotspotObjectSource, options: IHotspotLayerOptions);
+
+      balloon: hotspot.layer.Balloon;
+
+      events: IEventManager;
+
+      hint: hotspot.layer.Balloon;
+
+      options: IOptionManager;
+
+      getMap(): Map;
+
+      getObjectInPosition(coords: number[]): vow.Promise;
+
+      getObjectsInPosition(coords: number[]): vow.Promise;
+
+      getObjectSource(): ObjectSource;
+
+      getParent(): IParentOnMap | null;
+
+      setParent(parent: IParentOnMap | null): this;
+
+      update(): void;
+    }
+
+    class ObjectSource implements IHotspotObjectSource {
+      constructor(
+        tileUrlTemplate: string | ((tileNumber: number[], tileZoom: number) => string),
+        keyTemplate?: string | ((tileNumber: number[], tileZoom: number) => string),
+        options?: {
+          bounds?: number[][];
+          maxZoom?: number;
+          minZoom?: number;
+          noCache?: boolean;
+        },
+      );
+
+      events: IEventManager;
+
+      options: IOptionManager;
+
+      cancelLastRequest(): void;
+
+      getKey(tileNumber: number[], zoom: number): string;
+
+      getKeyTemplate(): string;
+
+      getTileUrl(tileNumber: number[], zoom: number): string;
+
+      getTileUrlTemplate(): string;
+
+      parseResponse(
+        layer: hotspot.Layer,
+        res: object,
+        callback: () => void,
+        tileNumber: number[],
+        zoom: number,
+      ): void;
+
+      requestObjects(
+        layer: hotspot.Layer,
+        tileNumber: number[],
+        zoom: number,
+        callback: () => void,
+      ): void;
+
+      restrict(layer: hotspot.Layer, tileNumber: number[], zoom: number): boolean;
+
+      setKeyTemplate(template: string): void;
+
+      setTileUrlTemplate(template: string): void;
+    }
+  }
+
   class Hotspot implements IHotspot {
     constructor(shape: IShape, zIndex?: number);
 
