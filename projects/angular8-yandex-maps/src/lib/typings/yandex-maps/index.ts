@@ -4498,6 +4498,17 @@ declare namespace ymaps {
     errorCallback?(): void;
   }
 
+  namespace regions {
+    function load(
+      region: string,
+      options?: {
+        disputedBorders?: string;
+        lang?: string;
+        quality?: number;
+      },
+    ): vow.Promise;
+  }
+
   namespace templateLayoutFactory {
     function createClass<O extends {} = {}, S extends {} = {}>(
       template: string,
