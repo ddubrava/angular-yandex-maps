@@ -27,6 +27,7 @@ information, please see Yandex.Maps API documentation.
 - [Polyline editor](https://stackblitz.com/edit/polyline-editor)
 - [Rectangle](https://stackblitz.com/edit/rectangle)
 - [Polygon](https://stackblitz.com/edit/geoobject-polygon)
+- [Filling a polygon with the image](https://stackblitz.com/edit/filling-a-polygon-with-the-image)
 - [Polygon editor](https://stackblitz.com/edit/polygon-editor)
 - [Circle](https://stackblitz.com/edit/geoobject-circle)
 - [Changing a placemark icon when hovering over it](https://stackblitz.com/edit/changing-a-placemark-on-hover)
@@ -34,12 +35,15 @@ information, please see Yandex.Maps API documentation.
 ##### Balloon and hint
 
 - [Balloon and hint](https://stackblitz.com/edit/balloon-and-hint)
+- [Dynamically loading balloon content](https://stackblitz.com/edit/dynamically-loading-balloon-content)
 - [Placemark and balloon panel](https://stackblitz.com/edit/placemark-and-balloon-panel)
+- [The layout of the placemark hint](https://stackblitz.com/edit/the-layout-of-the-placemark-hint)
 
 ##### Controls
 
 - [Standard sets of controls](https://stackblitz.com/edit/standard-sets-of-controls)
 - [Adding individual controls](https://stackblitz.com/edit/adding-individual-controls)
+- [Adding buttons to the map](https://stackblitz.com/edit/adding-buttons-to-the-map)
 - [Custom button layout](https://stackblitz.com/edit/button-control)
 - [Search Control](https://stackblitz.com/edit/searchcontrol)
 - [RoutePanel Control](https://stackblitz.com/edit/route-panel)
