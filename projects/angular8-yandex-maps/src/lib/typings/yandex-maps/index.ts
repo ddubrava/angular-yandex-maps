@@ -4517,7 +4517,103 @@ declare namespace ymaps {
     ): IClassConstructor<layout.templateBased.Base & O & S>;
   }
 
+  type ResolveCallbackFunction = (
+    provide: (module: any, error?: any) => void,
+    ...depends: any[]
+  ) => void;
+
+  interface IRatioMap {
+    [key: string]: string;
+  }
+
   namespace util {
+    class AsyncStorage extends Storage {
+      define(
+        key: string,
+        depends: string[],
+        resolveCallback: ResolveCallbackFunction,
+        context?: object,
+      ): this;
+
+      define(key: string, resolveCallback: ResolveCallbackFunction, context?: object): this;
+
+      isDefined(key: string): boolean;
+
+      require(
+        keys: string | string[],
+        successCallback?: (...args: any[]) => void,
+        errorCallback?: (error: any) => void,
+        context?: object,
+      ): vow.Promise;
+    }
+
+    function augment(ChildClass: any, ParentClass: any, override: object): any;
+
+    function bind(callback: any, context: object): any;
+
+    const bounds: {
+      areIntersecting(
+        bounds1: number[][],
+        bounds2: number[][],
+        projection?: typeof ymaps.projection.wgs84Mercator,
+      ): boolean;
+
+      containsBounds(
+        outer: number[][],
+        inner: number[][],
+        projection?: typeof ymaps.projection.wgs84Mercator,
+      ): boolean;
+
+      containsPoint(
+        bounds: number[][],
+        point: number[],
+        projection?: typeof ymaps.projection.wgs84Mercator,
+      ): boolean;
+
+      fromBounds(
+        sourceBounds: number[][],
+        projection?: typeof ymaps.projection.wgs84Mercator,
+      ): number[][];
+
+      fromGlobalPixelBounds(
+        pixelBounds: number[][],
+        zoom: number,
+        projection?: typeof ymaps.projection.wgs84Mercator,
+      ): number[][];
+
+      fromPoints(
+        points: number[][],
+        projection?: typeof ymaps.projection.wgs84Mercator,
+      ): number[][];
+
+      getCenter(bounds: number[][], projection?: typeof ymaps.projection.wgs84Mercator): number[];
+
+      getCenterAndZoom(
+        bounds: number[][],
+        containerSize: number[],
+        projection?: typeof ymaps.projection.wgs84Mercator,
+        params?: {
+          inscribe?: boolean;
+          margin?: number | number[];
+          preciseZoom?: boolean;
+        },
+      ): object;
+
+      getIntersections(
+        bounds1: number[][],
+        bounds2: number[][],
+        projection?: typeof ymaps.projection.wgs84Mercator,
+      ): number[][][];
+
+      getSize(bounds: number[][], projection?: typeof ymaps.projection.wgs84Mercator): number[];
+
+      toGlobalPixelBounds(
+        geoBounds: number[][],
+        zoom: number[],
+        projection?: typeof ymaps.projection.wgs84Mercator,
+      ): number[][];
+    };
+
     namespace cursor {
       class Accessor {
         constructor(key: string);
@@ -4526,15 +4622,86 @@ declare namespace ymaps {
 
         remove(): void;
 
-        setKey(): void;
+        setKey(key: string): void;
       }
 
       class Manager {
         constructor(element: HTMLElement);
 
+        events: event.Manager;
+
         push(key: string): Accessor;
       }
     }
+
+    function defineClass(constructor: any, parentClass?: any, override?: object): any;
+
+    function defineClass(constructor: any, override?: object): any;
+
+    class Dragger implements IEventEmitter {
+      constructor(params?: {
+        autoStartElement?: HTMLElement | IDomEventEmitter;
+        byRightButton?: boolean;
+        tremor?: number;
+      });
+
+      events: IEventManager;
+
+      destroy(): void;
+
+      isDragging(): boolean;
+
+      start(event: IDomEvent): void;
+
+      stop(): void;
+    }
+
+    function extend(target: object, ...source: object[]): object;
+
+    const hd: {
+      getPixelRatio(): number;
+
+      selectRatio(hash: IRatioMap): number;
+
+      selectValue(hash: object | IRatioMap): object;
+    };
+
+    namespace math {
+      function areEqual(first: number[], second: number[], diff?: number): boolean;
+
+      function cycleRestrict(value: number, min: number, max: number): number;
+
+      function restrict(value: number, min: number, max: number): number;
+    }
+
+    const pixelBounds: {
+      areIntersecting(bounds1: number[][], bounds2: number[][]): boolean;
+
+      containsBounds(outer: number[][], inner: number[][]): boolean;
+
+      containsPoint(bounds: number[][], point: number[][]): boolean;
+
+      fromBounds(sourceBounds: number[][]): number[][];
+
+      fromPoints(points: number[][]): number[][];
+
+      getCenter(bounds: number[][]): number[];
+
+      getIntersection(bounds1: number[][], bounds2: number[][]): number[][] | null;
+
+      getSize(bounds: number[][]): number[];
+    };
+
+    function requireCenterAndZoom(
+      mapType: string | MapType | map.ZoomRange,
+      bounds: number[][],
+      containerSize: number[],
+      params?: {
+        inscribe?: boolean;
+        margin?: number | number[];
+        preciseZoom?: boolean;
+      },
+    ): vow.Promise;
 
     class Storage {
       add(key: string, object: object): this;
@@ -5643,11 +5810,6 @@ declare namespace ymaps {
   }
 
   namespace modules {
-    type ResolveCallbackFunction = (
-      provide: (module: any, error?: any) => void,
-      ...depends: any[]
-    ) => void;
-
     function define(
       module: string,
       depends?: string[],
