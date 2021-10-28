@@ -16,6 +16,8 @@
  */
 declare namespace ymaps {
   interface IClassConstructor<T> {
+    superclass: any;
+
     new (): T;
   }
 
