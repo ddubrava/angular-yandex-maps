@@ -55,14 +55,16 @@
 <p>The Yandex.Maps components implement all the arguments for their respective classes from the Yandex.Maps JavaScript API
 through inputs, but they also have specific inputs for some of the most common options. For example,
 the <a href="https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/Map.html">Map class</a> has state and options.</p>
-<div><pre class="line-numbers"><code class="language-html">&lt;ya-map [state]=&quot;state&quot; [options]=&quot;options&quot;&gt;&lt;/ya-map&gt;</code></pre></div><div><pre class="line-numbers"><code class="language-typescript">state: ymaps.IMapState = {
-  center: [55.751952, 37.600739],
-  zoom: 3,
-};
+<div><pre class="line-numbers"><code class="language-html">&lt;ya-map [state]=&quot;state&quot; [options]=&quot;options&quot;&gt;&lt;/ya-map&gt;</code></pre></div><div><pre class="line-numbers"><code class="language-typescript">export class AppComponent {
+  state: ymaps.IMapState = {
+    center: [55.751952, 37.600739],
+    zoom: 3,
+  };
 
-options: ymaps.IMapOptions = {
-  maxZoom: 5,
-};</code></pre></div><p>It can also have individual options set for some of the most common options.</p>
+  options: ymaps.IMapOptions = {
+    maxZoom: 5,
+  };
+}</code></pre></div><p>It can also have individual options set for some of the most common options.</p>
 <div><pre class="line-numbers"><code class="language-html">&lt;ya-map [center]=&quot;[55.751952, 37.600739]&quot; [zoom]=&quot;5&quot;&gt;&lt;/ya-map&gt;</code></pre></div><p>Not every option has its own input. See the API for each component to see if the option has a dedicated input or if it
 should be set in the options input.</p>
 <h2 id="components-events">Components events</h2>
@@ -72,7 +74,7 @@ from <a href="https://yandex.ru/dev/maps/jsapi/doc/2.1/ref/reference/Map.html#Ma
 <div><pre class="line-numbers"><code class="language-html">&lt;ya-map (balloonclose)=&quot;onBalloonClose($event)&quot;&gt;&lt;/ya-map&gt;</code></pre></div><h2 id="how-can-i-access-to-the-created-object-instance-and-global-api-object">How can I access to the created object instance and global API object?</h2>
 <p>The Yandex.Maps components implement <code>ready</code> output
 returning <a href="https://ddubrava.github.io/angular8-yandex-maps/interfaces/YaReadyEvent.html"><code>YaReadyEvent</code></a> interface.</p>
-<div><pre class="line-numbers"><code class="language-html">&lt;ya-map (ready)=&quot;onMapReady($event)&quot;&gt;&lt;/ya-map&gt;</code></pre></div><div><pre class="line-numbers"><code class="language-typescript">class MapComponent {
+<div><pre class="line-numbers"><code class="language-html">&lt;ya-map (ready)=&quot;onMapReady($event)&quot;&gt;&lt;/ya-map&gt;</code></pre></div><div><pre class="line-numbers"><code class="language-typescript">export class AppComponent {
   onMapReady(event: YaReadyEvent&lt;ymaps.Map&gt;): void {
     const { ymaps, target } = event;
   }
