@@ -1984,6 +1984,15 @@ declare namespace ymaps {
     }
 
     class Point implements IGeometryEditor {
+      constructor(
+        geometry: IPointGeometry,
+        options?: {
+          dblClickHandler?: (ref: any) => void;
+          drawingCursor?: string;
+          drawOver?: boolean;
+        },
+      );
+
       events: IEventManager;
 
       geometry: IGeometry;
@@ -2203,7 +2212,25 @@ declare namespace ymaps {
       }
     }
 
+    interface IImageOptions {
+      imageClipRect?: number[][] | undefined;
+      imageHref?: string | undefined;
+      imageOffset?: number[] | undefined;
+      imageSize?: number[] | undefined;
+      shape?: IShape | object | null | undefined;
+    }
+
+    interface IImageOptionsWithIconPrefix {
+      iconImageClipRect?: number[][] | undefined;
+      iconImageHref?: string | undefined;
+      iconImageOffset?: number[] | undefined;
+      iconImageSize?: number[] | undefined;
+      iconShape?: IShape | object | null | undefined;
+    }
+
     class Image implements ILayout {
+      constructor(data: { options?: IImageOptions });
+
       events: IEventManager;
 
       destroy(): void;
@@ -2219,14 +2246,6 @@ declare namespace ymaps {
       setData(data: object): void;
 
       setParentElement(parent: HTMLElement | null): void;
-    }
-
-    interface IImageOptionsWithIconPrefix {
-      iconImageClipRect?: number[][] | undefined;
-      iconImageHref?: string | undefined;
-      iconImageOffset?: number[] | undefined;
-      iconImageSize?: number[] | undefined;
-      iconShape?: IShape | object | null | undefined;
     }
 
     class ImageWithContent extends Image {}
@@ -4177,7 +4196,7 @@ declare namespace ymaps {
     hintLayout?: IClassConstructor<ILayout> | string;
     hintOffset?: number[];
     hintOpenTimeout?: number;
-    hintPage?: string;
+    hintPane?: string;
     hintZIndex?: number;
   }
 
@@ -4326,7 +4345,7 @@ declare namespace ymaps {
   class Placemark extends GeoObject<IPointGeometry, geometry.Point> {
     constructor(
       geometry: number[] | object | IPointGeometry,
-      properties: IPlacemarkProperties | IDataManager,
+      properties?: IPlacemarkProperties | IDataManager,
       options?: IPlacemarkOptions,
     );
   }
@@ -4339,14 +4358,14 @@ declare namespace ymaps {
     balloonContentHeader?: string;
     balloonContentBody?: string;
     balloonContentFooter?: string;
-
     [key: string]: any;
   }
 
   interface IPlacemarkOptions
-    extends IBalloonOptionsWithBalloonPrefix,
+    extends layout.IImageOptionsWithIconPrefix,
       layout.IImageWithContentOptionsWithIconPrefix,
-      layout.IPieChartOptionsWithIconPrefix {
+      IBalloonOptionsWithBalloonPrefix,
+      IHintOptionsWithHintPrefix {
     cursor?: string;
     draggable?: boolean;
     hasBalloon?: boolean;
@@ -4372,6 +4391,8 @@ declare namespace ymaps {
     zIndexActive?: number;
     zIndexDrag?: number;
     zIndexHover?: number;
+
+    [key: string]: any;
   }
 
   class Polygon extends GeoObject<IPolygonGeometry> {
@@ -5063,7 +5084,6 @@ declare namespace ymaps {
     coordinates: number[] | number[][] | number[][][];
     fillRule?: 'evenOdd' | 'nonZero';
     radius?: number;
-
     [key: string]: any;
   }
 
