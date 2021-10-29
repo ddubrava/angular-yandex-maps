@@ -11,14 +11,16 @@ the [Map class](https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/Map.html
 ```
 
 ```typescript
-state: ymaps.IMapState = {
-  center: [55.751952, 37.600739],
-  zoom: 3,
-};
+export class AppComponent {
+  state: ymaps.IMapState = {
+    center: [55.751952, 37.600739],
+    zoom: 3,
+  };
 
-options: ymaps.IMapOptions = {
-  maxZoom: 5,
-};
+  options: ymaps.IMapOptions = {
+    maxZoom: 5,
+  };
+}
 ```
 
 It can also have individual options set for some of the most common options.
@@ -50,7 +52,7 @@ returning [`YaReadyEvent`](https://ddubrava.github.io/angular8-yandex-maps/inter
 ```
 
 ```typescript
-class MapComponent {
+export class AppComponent {
   onMapReady(event: YaReadyEvent<ymaps.Map>): void {
     const { ymaps, target } = event;
   }
