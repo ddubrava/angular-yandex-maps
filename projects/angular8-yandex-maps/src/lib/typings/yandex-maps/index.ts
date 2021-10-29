@@ -1298,6 +1298,7 @@ declare namespace ymaps {
         context?: object,
         priority?: number,
       ): this;
+
       add(
         types: string[][] | string[] | string,
         callback: (event: IEvent<{}, TargetGeometry>) => void,
@@ -4253,21 +4254,21 @@ declare namespace ymaps {
 
     getZoom(): number;
 
-    panTo(center: number[] | object[], options?: IMapPanOptions): Promise<void>;
+    panTo(center: number[] | object[], options?: IMapPanOptions): this;
 
-    setBounds(bounds: number[][], options?: IMapBoundsOptions): Promise<void>;
+    setBounds(bounds: number[][], options?: IMapBoundsOptions): this;
 
-    setCenter(center: number[], zoom?: number, options?: IMapPositionOptions): Promise<void>;
+    setCenter(center: number[], zoom?: number, options?: IMapPositionOptions): this;
 
     setGlobalPixelCenter(
       globalPixelCenter: number[],
       zoom?: number,
       options?: IMapPositionOptions,
-    ): Promise<void>;
+    ): this;
 
-    setType(type: string | MapType, options?: IMapCheckZoomRangeOptions): Promise<void>;
+    setType(type: string | MapType, options?: IMapCheckZoomRangeOptions): this;
 
-    setZoom(zoom: number, options?: IMapZoomOptions): Promise<void>;
+    setZoom(zoom: number, options?: IMapZoomOptions): this;
   }
 
   class MapEvent<OriginalEvent = {}, TargetGeometry = {}> extends Event<
@@ -5093,8 +5094,12 @@ declare namespace ymaps {
       IDomEventEmitter,
       IParentOnMap {
     geometry: T | null;
+
     properties: IDataManager;
+
     state: IDataManager;
+
+    balloon?: geoObject.Balloon;
 
     getOverlay(): Promise<IOverlay | null>;
 
@@ -5142,6 +5147,129 @@ declare namespace ymaps {
 
     indexOf(geoObject: IGeoObject): number;
   }
+
+  interface IPromiseProvider {
+    then(onResolve: () => void, onReject: (err?: Error | any) => void): this;
+  }
+
+  type IGeoQuerySource =
+    | IGeoObject
+    | IGeoObject[]
+    | ICollection
+    | ICollection[]
+    | IPromiseProvider
+    | vow.Promise
+    | GeoQueryResult
+    | string
+    | object
+    | object[];
+
+  class GeoQueryResult implements IPromiseProvider {
+    constructor(source: IGeoQuerySource);
+
+    then(onResolve: () => void, onReject?: (err?: Error | any) => void, context?: object): this;
+
+    add(source: IGeoQuerySource): this;
+
+    addEvents(events: string | string[], callback: () => void, context?: object): this;
+
+    addTo(collection: ICollection): this;
+
+    addToMap(map: Map): this;
+
+    applyBoundsToMap(
+      map: Map,
+      options?: {
+        checkZoomRange?: boolean;
+        duration?: number;
+        preciseZoom?: boolean;
+        timingFUnction?: string;
+        useMapMargin?: boolean;
+        zoomMargin?: number | number[];
+      },
+    ): this;
+
+    clusterize(options?: IClustererOptions): Clusterer;
+
+    each(callback: (e: any) => void, context?: object): this;
+
+    get(index: number): IGeoObject;
+
+    getBounds(): number[][] | null;
+
+    getCenter(map?: Map): number[];
+
+    getCentralObject(map: Map): IGeoObject | null;
+
+    getClosestTo(object: IGeoObject | IGeometry | Map | number[] | object | any): IGeoObject | null;
+
+    getExtreme(key: 'top' | 'right' | 'bottom' | 'left'): number;
+
+    getExtremeObject(key: 'top' | 'right' | 'bottom' | 'left'): IGeoObject;
+
+    getGlobalPixelBounds(map: Map): Number[][] | null;
+
+    getGlobalPixelCenter(map: Map): number[];
+
+    getIterator(): IIterator;
+
+    getLength(): number;
+
+    getMaxZoom(map?: Map, options?: { useMapMargin?: boolean }): number;
+
+    getParent(): this | null;
+
+    indexOf(item: IGeoObject | any): number;
+
+    intersect(result: this): this;
+
+    isReady(): boolean;
+
+    map(callback: (e: any) => void, context?: object): this;
+
+    remove(
+      objects: IGeoObject | IGeoObject[] | ICollection | ICollection[] | this | vow.Promise | any,
+    ): this;
+
+    removeEvents(events: string | string[], callback: () => void, context?: object): void;
+
+    removeFrom(collection: ICollection): this;
+
+    removeFromMap(map: Map): this;
+
+    reverse(): this;
+
+    search(condition: string | ((o: object) => boolean)): this;
+
+    searchContaining(
+      object: IGeoObject | IGeometry | Map | number[] | number[][] | object | any,
+    ): this;
+
+    searchInside(object: IGeoObject | IGeometry | Map | any): this;
+
+    searchIntersect(
+      object: IGeoObject | IGeometry | Map | any,
+      options?: { considerOccurance?: boolean },
+    ): this;
+
+    setOptions(key: string | object, value?: any): this;
+
+    setProperties(path: string, value?: any): this;
+
+    slice(begin: number, end?: number): this;
+
+    sort(comparator: string | ((a: any, b: any) => number)): any;
+
+    sortByDistance(
+      object: IGeoObject | IGeometry | Map | number[] | number[][] | object | any,
+    ): this;
+
+    unsetOptions(keys: string | string[]): this;
+
+    unsetProperties(path: string): this;
+  }
+
+  function geoQuery(source: IGeoQuerySource): GeoQueryResult;
 
   type IHintManager<T> = IPopupManager<T>;
 
