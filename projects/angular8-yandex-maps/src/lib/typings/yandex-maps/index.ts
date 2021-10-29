@@ -1984,6 +1984,15 @@ declare namespace ymaps {
     }
 
     class Point implements IGeometryEditor {
+      constructor(
+        geometry: IPointGeometry,
+        options?: {
+          dblClickHandler?: (ref: any) => void;
+          drawingCursor?: string;
+          drawOver?: boolean;
+        },
+      );
+
       events: IEventManager;
 
       geometry: IGeometry;
