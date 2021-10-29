@@ -4363,7 +4363,7 @@ declare namespace ymaps {
 
   interface IPlacemarkOptions
     extends layout.IImageOptionsWithIconPrefix,
-      layout.ImageWithContent,
+      layout.IImageWithContentOptionsWithIconPrefix,
       IBalloonOptionsWithBalloonPrefix,
       IHintOptionsWithHintPrefix {
     cursor?: string;
