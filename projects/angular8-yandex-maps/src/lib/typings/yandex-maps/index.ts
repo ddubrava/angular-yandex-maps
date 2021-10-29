@@ -2248,14 +2248,6 @@ declare namespace ymaps {
       setParentElement(parent: HTMLElement | null): void;
     }
 
-    interface IImageOptionsWithIconPrefix {
-      iconImageClipRect?: number[][] | undefined;
-      iconImageHref?: string | undefined;
-      iconImageOffset?: number[] | undefined;
-      iconImageSize?: number[] | undefined;
-      iconShape?: IShape | object | null | undefined;
-    }
-
     class ImageWithContent extends Image {}
 
     interface IImageWithContentOptionsWithIconPrefix extends IImageOptionsWithIconPrefix {
@@ -4204,7 +4196,7 @@ declare namespace ymaps {
     hintLayout?: IClassConstructor<ILayout> | string;
     hintOffset?: number[];
     hintOpenTimeout?: number;
-    hintPage?: string;
+    hintPane?: string;
     hintZIndex?: number;
   }
 
@@ -4353,7 +4345,7 @@ declare namespace ymaps {
   class Placemark extends GeoObject<IPointGeometry, geometry.Point> {
     constructor(
       geometry: number[] | object | IPointGeometry,
-      properties: IPlacemarkProperties | IDataManager,
+      properties?: IPlacemarkProperties | IDataManager,
       options?: IPlacemarkOptions,
     );
   }
@@ -4366,14 +4358,14 @@ declare namespace ymaps {
     balloonContentHeader?: string;
     balloonContentBody?: string;
     balloonContentFooter?: string;
-
     [key: string]: any;
   }
 
   interface IPlacemarkOptions
-    extends IBalloonOptionsWithBalloonPrefix,
-      layout.IImageWithContentOptionsWithIconPrefix,
-      layout.IPieChartOptionsWithIconPrefix {
+    extends layout.IImageOptionsWithIconPrefix,
+      layout.ImageWithContent,
+      IBalloonOptionsWithBalloonPrefix,
+      IHintOptionsWithHintPrefix {
     cursor?: string;
     draggable?: boolean;
     hasBalloon?: boolean;
@@ -4399,6 +4391,8 @@ declare namespace ymaps {
     zIndexActive?: number;
     zIndexDrag?: number;
     zIndexHover?: number;
+
+    [key: string]: any;
   }
 
   class Polygon extends GeoObject<IPolygonGeometry> {
@@ -5090,7 +5084,6 @@ declare namespace ymaps {
     coordinates: number[] | number[][] | number[][][];
     fillRule?: 'evenOdd' | 'nonZero';
     radius?: number;
-
     [key: string]: any;
   }
 
