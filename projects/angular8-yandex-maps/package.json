@@ -1,7 +1,7 @@
 {
   "name": "angular8-yandex-maps",
   "version": "12.2.0",
-  "description": "Angular components for Yandex.Maps",
+  "description": "Yandex.Maps Angular components that implements the Yandex.Maps JavaScript API",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ddubrava/angular8-yandex-maps.git"
