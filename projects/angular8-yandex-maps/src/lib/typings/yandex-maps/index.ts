@@ -5259,7 +5259,7 @@ declare namespace ymaps {
   type IMultiRouteReferencePoint = string | number[] | geometry.Point;
 
   interface IOptionManager extends IChild<IOptionManager>, IEventEmitter, IFreezable {
-    get(key: string, defaultValue?: object): object;
+    get(key: string, defaultValue?: object): any;
 
     getAll(): object;
 
