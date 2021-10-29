@@ -50,30 +50,58 @@
 
 
 
-<h1 id="faq">FAQ</h1>
-<h2 id="1-property-xxx-does-not-exist-on-type-typeof-ymaps">1. Property <code>XXX</code> does not exist on type <code>typeof ymaps</code></h2>
-<p>Some properties may not exist in the type definitions. Submit a bug please and use type casting:</p>
-<div><pre class="line-numbers"><code class="language-typescript">(ymaps as any).XXX;</code></pre></div><h2 id="2-how-can-i-load-api-without-using-components">2. How can I load API without using components?</h2>
+<h1 id="frequently-asked-questions">Frequently asked questions</h1>
+<h2 id="components-configuration">Components configuration</h2>
+<p>The Yandex.Maps components implement all the arguments for their respective classes from the Yandex.Maps JavaScript API
+through inputs, but they also have specific inputs for some of the most common options. For example,
+the <a href="https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/Map.html">Map class</a> has state and options.</p>
+<div><pre class="line-numbers"><code class="language-html">&lt;ya-map [state]=&quot;state&quot; [options]=&quot;options&quot;&gt;&lt;/ya-map&gt;</code></pre></div><div><pre class="line-numbers"><code class="language-typescript">state: ymaps.IMapState = {
+  center: [55.751952, 37.600739],
+  zoom: 3,
+};
+
+options: ymaps.IMapOptions = {
+  maxZoom: 5,
+};</code></pre></div><p>It can also have individual options set for some of the most common options.</p>
+<div><pre class="line-numbers"><code class="language-html">&lt;ya-map [center]=&quot;[55.751952, 37.600739]&quot; [zoom]=&quot;5&quot;&gt;&lt;/ya-map&gt;</code></pre></div><p>Not every option has its own input. See the API for each component to see if the option has a dedicated input or if it
+should be set in the options input.</p>
+<h2 id="components-events">Components events</h2>
+<p>The Yandex.Maps components implement all the events for their respective classes from the Yandex.Maps JavaScript API
+through outputs. For example, to add the listener on the <code>balloonclose</code> event
+from <a href="https://yandex.ru/dev/maps/jsapi/doc/2.1/ref/reference/Map.html#Map__events-summary">Map class</a>.</p>
+<div><pre class="line-numbers"><code class="language-html">&lt;ya-map (balloonclose)=&quot;onBalloonClose($event)&quot;&gt;&lt;/ya-map&gt;</code></pre></div><h2 id="how-can-i-access-to-the-created-object-instance-and-global-api-object">How can I access to the created object instance and global API object?</h2>
+<p>The Yandex.Maps components implement <code>ready</code> output
+returning <a href="https://ddubrava.github.io/angular8-yandex-maps/interfaces/YaReadyEvent.html"><code>YaReadyEvent</code></a> interface.</p>
+<div><pre class="line-numbers"><code class="language-html">&lt;ya-map (ready)=&quot;onMapReady($event)&quot;&gt;&lt;/ya-map&gt;</code></pre></div><div><pre class="line-numbers"><code class="language-typescript">class MapComponent {
+  onMapReady(event: YaReadyEvent&lt;ymaps.Map&gt;): void {
+    const { ymaps, target } = event;
+  }
+}</code></pre></div><h2 id="how-can-i-create-a-component-that-doesnt-exist-in-the-library">How can I create a component that doesn&#39;t exist in the library?</h2>
+<p>You should use the global API object, there are two ways to get it:</p>
+<ol>
+<li><a href="#how-can-i-access-to-the-created-object-instance-and-global-api-object">Use components outputs (recommended)</a></li>
+<li><a href="#is-it-possible-to-load-the-api-without-using-components">Use YaApiLoaderService</a></li>
+</ol>
+<h2 id="property-xxx-does-not-exist-on-type-typeof-ymaps">Property <code>XXX</code> does not exist on type <code>typeof ymaps</code>.</h2>
+<p>Our Yandex.Maps typings are not ideal, there are a lot of missing fields. Unfortunately, at the same time a lot of
+fields are not documented in the Yandex.Maps API. If you find any problems, submit a bug please and use type casting.</p>
+<div><pre class="line-numbers"><code class="language-typescript">const instance = new (ymaps as any).UnexistingClass();</code></pre></div><h2 id="is-it-possible-to-load-the-api-without-using-components">Is it possible to load the API without using components?</h2>
 <p>Use <a href="https://ddubrava.github.io/angular8-yandex-maps/injectables/YaApiLoaderService.html"><code>YaApiLoaderService</code></a>.</p>
 <div><pre class="line-numbers"><code class="language-typescript">import { YaApiLoaderService } from &#39;angular8-yandex-maps&#39;;
 
 export class AppComponent {
   constructor(private yaApiLoaderService: YaApiLoaderService) {
-    this.yaApiLoaderService.load().subscribe((api) =&gt; console.log(api));
+    this.yaApiLoaderService.load().subscribe((v) =&gt; console.log(v));
   }
-}</code></pre></div><h2 id="3-how-can-i-get-created-object-instance-and-global-api-object">3. How can I get created object instance and global API object?</h2>
-<p>All components have <code>(ready)</code> event
-implementing <a href="https://ddubrava.github.io/angular8-yandex-maps/interfaces/YaReadyEvent.html"><code>YaReadyEvent</code></a> interface.
-Using <code>$event</code> you can access <code>ymaps</code> and also object instance. Moreover, <code>ready</code> event means object is created, so API
-is loaded. You can access <code>ymaps</code> using <code>window.ymaps</code></p>
-<div><pre class="line-numbers"><code class="language-html">&lt;ya-map (ready)=&quot;onMapReady($event)&quot;&gt;&lt;/ya-map&gt;</code></pre></div><div><pre class="line-numbers"><code class="language-typescript">class MapComponent {
-  onMapReady(event: YaReadyEvent) {
-    // destructing ymaps same as window.ymaps, API is already loaded
-    const { ymaps, instance } = event;
-  }
-}</code></pre></div><h2 id="4-i-cant-find-a-component-for-xxx">4. I can&#39;t find a component for <code>XXX</code></h2>
-<p>The library can&#39;t wrap all API classes. If you can&#39;t find any component, use <code>ymaps</code> object and follow Yandex.Maps API.</p>
+}</code></pre></div><h2 id="how-can-i-use-the-geocoder">How can I use the geocoder?</h2>
+<p>Use <a href="http://localhost:63342/.gitignore/dist/docs/injectables/YaGeocoderService.html"><code>YaGeocoderService</code></a>.</p>
+<div><pre class="line-numbers"><code class="language-typescript">import { YaGeocoderService } from &#39;angular8-yandex-maps&#39;;
 
+export class AppComponent {
+  constructor(private yaGeocoderService: YaGeocoderService) {
+    this.yaGeocoderService.geocode(&#39;Moscow&#39;).subscribe((v) =&gt; console.log(v));
+  }
+}</code></pre></div>
                    </div><div class="search-results">
     <div class="has-results">
         <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>

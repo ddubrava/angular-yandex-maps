@@ -32,28 +32,40 @@
                <div class="content getting-started">
                    <div class="content-data">
 
-<p><img src="https://img.shields.io/npm/v/angular8-yandex-maps" alt="npm" class="img-responsive">
-<img src="https://img.shields.io/github/workflow/status/ddubrava/angular8-yandex-maps/CI/master" alt="GitHub Workflow Status (branch)" class="img-responsive">
-<a href="https://codecov.io/gh/ddubrava/angular8-yandex-maps"><img src="https://codecov.io/gh/ddubrava/angular8-yandex-maps/branch/master/graph/badge.svg?token=ZU50NBBBH6" alt="codecov" class="img-responsive"></a>
-<img src="https://img.shields.io/npm/dm/angular8-yandex-maps?color=blue" alt="npm" class="img-responsive">
-<img src="https://img.shields.io/bundlephobia/min/angular8-yandex-maps" alt="npm bundle size" class="img-responsive">
-<img src="https://img.shields.io/github/stars/ddubrava/angular8-yandex-maps" alt="GitHub Repo stars" class="img-responsive"></p>
-<h1 id="angular8-yandex-maps">Angular8-yandex-maps</h1>
-<p>Angular components for Yandex.Maps.</p>
-<h2 id="documentation">Documentation</h2>
-<p><a href="https://ddubrava.github.io/angular8-yandex-maps/">Documentation</a></p>
-<p>See the repository branches for older versions.</p>
-<h2 id="examples">Examples</h2>
-<p><a href="https://ddubrava.github.io/angular8-yandex-maps/additional-documentation/examples.html">Examples</a></p>
-<h2 id="faq">FAQ</h2>
-<p><a href="https://ddubrava.github.io/angular8-yandex-maps/additional-documentation/faq.html">FAQ</a></p>
+<h1 align="center">Angular8-yandex-maps</h1>
+<p align="center">Yandex.Maps Angular components that implements the Yandex.Maps JavaScript API</p>
+
+<p align="center">
+  <a href="https://www.npmjs.com/package/angular8-yandex-maps">
+    <img src="https://img.shields.io/npm/v/angular8-yandex-maps" alt="NPM version">
+  </a>
+
+  <a href="https://www.npmjs.com/package/angular8-yandex-maps">
+    <img src="https://img.shields.io/npm/dm/angular8-yandex-maps?color=blue" alt="NPM downloads">
+  </a>
+
+  <img alt="GitHub" src="https://img.shields.io/github/license/ddubrava/angular8-yandex-maps">
+
+  <img src="https://img.shields.io/github/workflow/status/ddubrava/angular8-yandex-maps/CI/master" alt="CI">
+
+  <a href="https://codecov.io/gh/ddubrava/angular8-yandex-maps">
+    <img src="https://codecov.io/gh/ddubrava/angular8-yandex-maps/branch/master/graph/badge.svg?token=ZU50NBBBH6" alt="Codecov">
+  </a>
+</p>
+
+<h4 align="center">
+  <a href="https://ddubrava.github.io/angular8-yandex-maps/modules/AngularYandexMapsModule.html">📄 Documentation</a> |
+  <a href="https://ddubrava.github.io/angular8-yandex-maps/additional-documentation/examples.html">🗺️ Examples</a> |
+  <a href="https://ddubrava.github.io/angular8-yandex-maps/additional-documentation/faq.html">❓ FAQ</a>
+</h4>
+
 <h2 id="installation">Installation</h2>
 <div><pre class="line-numbers"><code class="language-bash">npm install angular8-yandex-maps</code></pre></div><h4 id="version-compatibility">Version compatibility</h4>
 <table class="table table-bordered compodoc-table">
 <thead>
 <tr>
 <th>Angular version</th>
-<th>Library Version</th>
+<th>Library version</th>
 </tr>
 </thead>
 <tbody>
@@ -75,7 +87,7 @@
 </tr>
 </tbody>
 </table>
-<div><pre class="line-numbers"><code class="language-bash">npm install angular8-yandex-maps&#64;^6.0.0</code></pre></div><h2 id="usage">Usage</h2>
+<div><pre class="line-numbers"><code class="language-bash">npm install angular8-yandex-maps&#64;^8.0.0</code></pre></div><h2 id="usage">Usage</h2>
 <h3 id="appmodulets">app.module.ts</h3>
 <h5 id="default-map-config-options">Default map config options</h5>
 <div><pre class="line-numbers"><code class="language-typescript">import { AngularYandexMapsModule } from &#39;angular8-yandex-maps&#39;;
@@ -94,21 +106,6 @@ const mapConfig: YaConfig = {
 &#64;NgModule({
   imports: [AngularYandexMapsModule.forRoot(mapConfig)],
 })
-export class AppModule {}</code></pre></div><h5 id="injection-token">Injection token</h5>
-<div><pre class="line-numbers"><code class="language-typescript">import { AngularYandexMapsModule, YA_CONFIG } from &#39;angular8-yandex-maps&#39;;
-
-&#64;NgModule({
-  imports: [AngularYandexMapsModule],
-  providers: [
-    {
-      provide: YA_CONFIG,
-      useValue: {
-        apikey: &#39;API_KEY&#39;,
-        lang: &#39;en_US&#39;,
-      },
-    },
-  ],
-})
 export class AppModule {}</code></pre></div><h3 id="componenthtml">component.html</h3>
 <div><pre class="line-numbers"><code class="language-html">&lt;div class=&quot;container&quot;&gt;
   &lt;ya-map [center]=&quot;[55.751952, 37.600739]&quot; [zoom]=&quot;12&quot;&gt;
@@ -118,10 +115,15 @@ export class AppModule {}</code></pre></div><h3 id="componenthtml">component.htm
 <div><pre class="line-numbers"><code class="language-css">.container {
   width: 1000px;
   height: 500px;
-}</code></pre></div><h2 id="changelog">Changelog</h2>
-<p><a href="https://github.com/ddubrava/angular8-yandex-maps/blob/master/CHANGELOG.md">CHANGELOG</a></p>
-<h2 id="license">License</h2>
-<p><a href="https://github.com/ddubrava/angular8-yandex-maps/blob/master/LICENSE.md">MIT</a></p>
+}</code></pre></div><h2 id="🤝-contributing">🤝 Contributing</h2>
+<p>Contributions, issues and feature requests are welcome!<br />Feel free to
+check <a href="https://github.com/ddubrava/angular8-yandex-maps/issues">issues page</a>. You can also take a look at
+the <a href="https://github.com/ddubrava/angular8-yandex-maps/blob/master/CONTRIBUTING.md">contributing guide</a>.</p>
+<h2 id="⭐-show-your-support">⭐ Show your support</h2>
+<p>Give a star if this project helped you!</p>
+<h2 id="📝-license">📝 License</h2>
+<p>Copyright © 2021 <a href="https://github.com/ddubrava">Daniil Dubrava</a>.<br />
+This project is <a href="https://github.com/ddubrava/angular8-yandex-maps/blob/master/LICENSE">MIT</a> licensed.</p>
 
 
 
