@@ -3772,9 +3772,13 @@ declare namespace ymaps {
     zoomMargin?: number[] | number | undefined;
   }
 
-  interface IClustererOptions extends IClustererOptionsInject {
+  interface IClustererOptions
+    extends IClustererOptionsInject,
+      IClusterPlacemarkOptionsWithClusterPrefix {
     hasBalloon?: boolean | undefined;
     hasHint?: boolean | undefined;
+
+    [key: string]: any;
   }
 
   class ClusterPlacemark implements IGeoObject, collection.Item {
@@ -3829,12 +3833,12 @@ declare namespace ymaps {
     iconColor?: string;
     iconContentLayout?: string | IClassConstructor<ILayout>;
     iconLayout?: string | IClassConstructor<ILayout>;
-    icons?: Array<{
+    icons?: {
       href: string;
       size: number[];
       offset: number[];
       shape?: IShape | IGeometryJson;
-    }>;
+    }[];
     iconShape?: IGeometryJson;
     interactivityModel?: InteractivityModelKey;
     numbers?: number[];
@@ -3856,14 +3860,12 @@ declare namespace ymaps {
     clusterIconColor?: string | undefined;
     clusterIconContentLayout?: IClassConstructor<ILayout> | string | undefined;
     clusterIconLayout?: IClassConstructor<ILayout> | string | undefined;
-    clusterIcons?:
-      | Array<{
-          href: string;
-          size: number[];
-          offset: number[];
-          shape?: IShape | IGeometryJson | undefined;
-        }>
-      | undefined;
+    clusterIcons?: {
+      href: string;
+      size: number[];
+      offset: number[];
+      shape?: IShape | IGeometryJson | undefined;
+    }[];
     clusterIconShape?: IGeometryJson | undefined;
     clusterInteractivityModel?: InteractivityModelKey | undefined;
     clusterNumbers?: number[] | undefined;
