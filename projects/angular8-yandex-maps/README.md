@@ -107,4 +107,4 @@ Give a star if this project helped you!
 ## 📝 License
 
 Copyright © 2021 [Daniil Dubrava](https://github.com/ddubrava).<br />
-This project is [MIT](https://github.com/ddubrava/angular8-yandex-maps/blob/master/LICENSE) licensed.
+This project is [MIT](https://github.com/ddubrava/angular8-yandex-maps/blob/master/LICENSE.md) licensed.
