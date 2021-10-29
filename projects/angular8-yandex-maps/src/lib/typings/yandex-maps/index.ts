@@ -2212,7 +2212,25 @@ declare namespace ymaps {
       }
     }
 
+    interface IImageOptions {
+      imageClipRect?: number[][] | undefined;
+      imageHref?: string | undefined;
+      imageOffset?: number[] | undefined;
+      imageSize?: number[] | undefined;
+      shape?: IShape | object | null | undefined;
+    }
+
+    interface IImageOptionsWithIconPrefix {
+      iconImageClipRect?: number[][] | undefined;
+      iconImageHref?: string | undefined;
+      iconImageOffset?: number[] | undefined;
+      iconImageSize?: number[] | undefined;
+      iconShape?: IShape | object | null | undefined;
+    }
+
     class Image implements ILayout {
+      constructor(data: { options?: IImageOptions });
+
       events: IEventManager;
 
       destroy(): void;
