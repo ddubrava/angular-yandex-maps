@@ -1,7 +1,7 @@
 import { NgZone } from '@angular/core';
 import { EventManager } from './event-manager';
 
-/** Imitates a Yandex Maps event target and keeps track of the registered events. */
+/** Imitates a Yandex.Maps event target and keeps track of the registered events. */
 class TestEventTarget {
   currentEvents = new Map<string, Set<() => void>>();
 

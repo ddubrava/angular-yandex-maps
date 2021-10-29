@@ -17,7 +17,7 @@ import { YaReadyEvent } from '../../typings/ya-ready-event';
 import { YaEvent } from '../../typings/ya-event';
 
 /**
- * The `ya-panorama` component wraps `ymaps.panorama.Player` class from the Yandex Maps API.
+ * The `ya-panorama` component wraps `ymaps.panorama.Player` class from the Yandex.Maps API.
  * You can configure it via the component's inputs.
  * Events can be bound using the outputs of the component.
  *

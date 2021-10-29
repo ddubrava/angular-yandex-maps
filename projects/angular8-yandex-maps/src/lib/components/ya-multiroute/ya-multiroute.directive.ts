@@ -21,7 +21,7 @@ import { YaEvent } from '../../typings/ya-event';
 type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
 
 /**
- * The `ya-multiroute` component wraps `ymaps.multiRouter.MultiRoute` class from the Yandex Maps API.
+ * The `ya-multiroute` component wraps `ymaps.multiRouter.MultiRoute` class from the Yandex.Maps API.
  * You can configure it via the component's inputs.
  * Events can be bound using the outputs of the component.
  *

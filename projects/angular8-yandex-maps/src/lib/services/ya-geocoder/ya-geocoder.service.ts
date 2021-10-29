@@ -4,7 +4,7 @@ import { from, Observable } from 'rxjs';
 import { YaApiLoaderService } from '../ya-api-loader/ya-api-loader.service';
 
 /**
- * The `YaGeocoder` service wraps `ymaps.geocode` static function from the Yandex Maps API.
+ * The `YaGeocoder` service wraps `ymaps.geocode` static function from the Yandex.Maps API.
  *
  * @example
  * ```ts

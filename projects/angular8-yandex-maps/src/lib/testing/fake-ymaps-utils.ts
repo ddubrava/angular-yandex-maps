@@ -2,7 +2,7 @@ import { Observable } from 'rxjs';
 
 /*
  * The global `window` variable is typed as an intersection of `Window` and `globalThis`.
- * We re-declare `window` here and omit `globalThis` as it is typed with the actual Yandex Maps
+ * We re-declare `window` here and omit `globalThis` as it is typed with the actual Yandex.Maps
  * types which we intend to override with jasmine spies for testing. Keeping `globalThis`
  * would mean that `window` is not assignable to our testing window.
  */

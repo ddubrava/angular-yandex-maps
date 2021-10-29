@@ -31,7 +31,7 @@ export type YaControlType =
   | 'ZoomControl';
 
 /**
- * The `ya-control` component wraps `ymaps.control[YaControlType]` classes from the Yandex Maps API.
+ * The `ya-control` component wraps `ymaps.control[YaControlType]` classes from the Yandex.Maps API.
  * You can configure `ymaps.control[YaControlType]` via the component's inputs.
  * API Events can be bound only manually. You can use `ready` event to get an instance.
  *

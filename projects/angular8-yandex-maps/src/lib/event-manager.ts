@@ -1,5 +1,5 @@
 /**
- * Copied from angular/components/google-maps and edited for Yandex Maps API.
+ * Copied from angular/components/google-maps and edited for Yandex.Maps API.
  * {@link https://github.com/angular/components/blob/master/src/google-maps/map-event-manager.ts}
  */
 
@@ -16,7 +16,7 @@ type EventManagerTarget = {
 };
 
 /**
- * Manages event on a Yandex Maps object, ensuring that events are added only when necessary.
+ * Manages event on a Yandex.Maps object, ensuring that events are added only when necessary.
  * @internal
  */
 export class EventManager {
