@@ -59,11 +59,25 @@ information, please see Yandex.Maps API documentation.
 ##### Clustering
 
 - [Creating a clusterer](https://stackblitz.com/edit/creating-a-clusterer)
+- [Creating a clusterer with arbitrary icons](https://stackblitz.com/edit/creating-a-clusterer-with-arbitrary-icons)
+- [Changing the color of clusters and placemarks when hovering](https://stackblitz.com/edit/changing-the-color-of-clusters-and-placemarks-when-hovering)
+- [Layout in the form of a pie chart](https://stackblitz.com/edit/layout-in-the-form-of-a-pie-chart)
+
+#### GeoQuery
+
+- [Points falling within a circle](https://stackblitz.com/edit/points-falling-within-a-circle)
+- [Adding objects to the visible area of the map](https://stackblitz.com/edit/adding-objects-to-the-visible-area-of-the-map)
 
 ##### Behaviours and events
 
 - [Map behaviour](https://stackblitz.com/edit/map-behavior-yandex-maps)
 - [Event properties. Click coordinates](https://stackblitz.com/edit/event-properties-click-coordinates)
+
+##### Search on a map
+
+- [Direct geocoding](https://stackblitz.com/edit/direct-geocoding)
+- [Reverse geocoding](https://stackblitz.com/edit/reverse-geocoding)
+- [Searching for organizations](https://stackblitz.com/edit/search-for-organizations)
 
 ##### Traffic
 
@@ -72,11 +86,14 @@ information, please see Yandex.Maps API documentation.
 ##### Users's location
 
 - [Detecting user location](https://stackblitz.com/edit/detecting-user-location)
+- [Adding the "Geolocation" button](https://stackblitz.com/edit/adding-the-geolocation-button);
 
 ##### Routing
 
 - [Building a driving multiroute](https://stackblitz.com/edit/multiroute)
 - [Building a pedestrian multiroute](https://stackblitz.com/edit/multiroute-pedestrian)
+- [Custom layout for the multiroute balloon](https://stackblitz.com/edit/custom-layout-for-the-multiroute-balloon)
+- [Calculating delivery cost](https://stackblitz.com/edit/calculating-delivery-cost)
 
 ##### ObjectManager
 
