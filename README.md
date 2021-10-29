@@ -1,27 +1,29 @@
-![npm](https://img.shields.io/npm/v/angular8-yandex-maps)
-![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/ddubrava/angular8-yandex-maps/CI/master)
-[![codecov](https://codecov.io/gh/ddubrava/angular8-yandex-maps/branch/master/graph/badge.svg?token=ZU50NBBBH6)](https://codecov.io/gh/ddubrava/angular8-yandex-maps)
-![npm](https://img.shields.io/npm/dm/angular8-yandex-maps?color=blue)
-![npm bundle size](https://img.shields.io/bundlephobia/min/angular8-yandex-maps)
-![GitHub Repo stars](https://img.shields.io/github/stars/ddubrava/angular8-yandex-maps)
+<h1 align="center">Angular8-yandex-maps</h1>
+<p align="center">Yandex.Maps Angular components that implements the Yandex.Maps JavaScript API</p>
 
-# Angular8-yandex-maps
+<p align="center">
+  <a href="https://www.npmjs.com/package/angular8-yandex-maps">
+    <img src="https://img.shields.io/npm/v/angular8-yandex-maps" alt="NPM version">
+  </a>
 
-Angular components for Yandex.Maps.
+  <a href="https://www.npmjs.com/package/angular8-yandex-maps">
+    <img src="https://img.shields.io/npm/dm/angular8-yandex-maps?color=blue" alt="NPM downloads">
+  </a>
 
-## Documentation
+  <img alt="GitHub" src="https://img.shields.io/github/license/ddubrava/angular8-yandex-maps">
 
-[Documentation](https://ddubrava.github.io/angular8-yandex-maps/)
+  <img src="https://img.shields.io/github/workflow/status/ddubrava/angular8-yandex-maps/CI/master" alt="CI">
 
-See the repository branches for older versions.
+  <a href="https://codecov.io/gh/ddubrava/angular8-yandex-maps">
+    <img src="https://codecov.io/gh/ddubrava/angular8-yandex-maps/branch/master/graph/badge.svg?token=ZU50NBBBH6" alt="Codecov">
+  </a>
+</p>
 
-## Examples
-
-[Examples](https://ddubrava.github.io/angular8-yandex-maps/additional-documentation/examples.html)
-
-## FAQ
-
-[FAQ](https://ddubrava.github.io/angular8-yandex-maps/additional-documentation/faq.html)
+<h4 align="center">
+  <a href="https://ddubrava.github.io/angular8-yandex-maps/modules/AngularYandexMapsModule.html">📄 Documentation</a> |
+  <a href="https://ddubrava.github.io/angular8-yandex-maps/additional-documentation/examples.html">🗺️ Examples</a> |
+  <a href="https://ddubrava.github.io/angular8-yandex-maps/additional-documentation/faq.html">❓ FAQ</a>
+</h4>
 
 ## Installation
 
@@ -31,7 +33,7 @@ npm install angular8-yandex-maps
 
 #### Version compatibility
 
-| Angular version   | Library Version |
+| Angular version   | Library version |
 | ----------------- | --------------- |
 | v9, v10, v11, v12 | v12.x           |
 | v8                | v8.x            |
@@ -39,7 +41,7 @@ npm install angular8-yandex-maps
 | v6                | v6.x            |
 
 ```bash
-npm install angular8-yandex-maps@^6.0.0
+npm install angular8-yandex-maps@^8.0.0
 ```
 
 ## Usage
@@ -73,26 +75,6 @@ const mapConfig: YaConfig = {
 export class AppModule {}
 ```
 
-##### Injection token
-
-```typescript
-import { AngularYandexMapsModule, YA_CONFIG } from 'angular8-yandex-maps';
-
-@NgModule({
-  imports: [AngularYandexMapsModule],
-  providers: [
-    {
-      provide: YA_CONFIG,
-      useValue: {
-        apikey: 'API_KEY',
-        lang: 'en_US',
-      },
-    },
-  ],
-})
-export class AppModule {}
-```
-
 ### component.html
 
 ```html
@@ -112,10 +94,17 @@ export class AppModule {}
 }
 ```
 
-## Changelog
+## 🤝 Contributing
 
-[CHANGELOG](https://github.com/ddubrava/angular8-yandex-maps/blob/master/CHANGELOG.md)
+Contributions, issues and feature requests are welcome!<br />Feel free to
+check [issues page](https://github.com/ddubrava/angular8-yandex-maps/issues). You can also take a look at
+the [contributing guide](https://github.com/ddubrava/angular8-yandex-maps/blob/master/CONTRIBUTING.md).
 
-## License
+## ⭐ Show your support
 
-[MIT](https://github.com/ddubrava/angular8-yandex-maps/blob/master/LICENSE.md)
+Give a star if this project helped you!
+
+## 📝 License
+
+Copyright © 2021 [Daniil Dubrava](https://github.com/ddubrava).<br />
+This project is [MIT](https://github.com/ddubrava/angular8-yandex-maps/blob/master/LICENSE) licensed.
