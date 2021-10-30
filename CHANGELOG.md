@@ -7,7 +7,6 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Features
 
-* **typings:** add a lot of new typings and fix existing ([#130](https://github.com/ddubrava/angular8-yandex-maps/issues/130)) ([bd71c07](https://github.com/ddubrava/angular8-yandex-maps/commit/bd71c074533887263f69adfb2f6d1e75a12bb519)), closes [#55041](https://github.com/ddubrava/angular8-yandex-maps/issues/55041) [#55155](https://github.com/ddubrava/angular8-yandex-maps/issues/55155) [#56440](https://github.com/ddubrava/angular8-yandex-maps/issues/56440)
 * **typings:** add geoQuery function, GeoQueryResult class and other related entities ([#152](https://github.com/ddubrava/angular8-yandex-maps/issues/152)) ([71bebe0](https://github.com/ddubrava/angular8-yandex-maps/commit/71bebe0b731d30dad9d0352ab1fb72232d21d39e))
 * **typings:** add Hint class, IHint, IHintOptions and IHintOptionsWithHintPrefix interfaces ([#140](https://github.com/ddubrava/angular8-yandex-maps/issues/140)) ([1f19390](https://github.com/ddubrava/angular8-yandex-maps/commit/1f19390d81bb72481d7b4f914ff8d8994dc313ce)), closes [#139](https://github.com/ddubrava/angular8-yandex-maps/issues/139)
 * **typings:** add namespace regions with load function ([#141](https://github.com/ddubrava/angular8-yandex-maps/issues/141)) ([ec086b9](https://github.com/ddubrava/angular8-yandex-maps/commit/ec086b918c801b617e01b61c75d3a67a3b7ad494)), closes [#137](https://github.com/ddubrava/angular8-yandex-maps/issues/137)
