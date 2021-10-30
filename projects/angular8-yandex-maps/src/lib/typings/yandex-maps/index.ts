@@ -4024,7 +4024,10 @@ declare namespace ymaps {
     properties?: IDataManager | object;
   }
 
-  interface IGeoObjectOptions extends ICircleOptions, IBalloonOptionsWithBalloonPrefix {
+  interface IGeoObjectOptions
+    extends IBalloonOptionsWithBalloonPrefix,
+      IHintOptionsWithHintPrefix,
+      ICircleOptions {
     iconCaptionMaxWidth?: number;
     iconColor?: string;
     iconContentLayout?: string | IClassConstructor<ILayout>;
@@ -4053,6 +4056,8 @@ declare namespace ymaps {
     preset?: PresetKey | undefined;
     rectangleOverlay?: OverlayKey;
     setMapCursorInDragging?: boolean;
+
+    [key: string]: any;
   }
 
   class GeoObjectCollection implements IGeoObject, IGeoObjectCollection {
@@ -4367,6 +4372,7 @@ declare namespace ymaps {
   interface IPlacemarkOptions
     extends layout.IImageOptionsWithIconPrefix,
       layout.IImageWithContentOptionsWithIconPrefix,
+      layout.IPieChartOptionsWithIconPrefix,
       IBalloonOptionsWithBalloonPrefix,
       IHintOptionsWithHintPrefix {
     cursor?: string;
