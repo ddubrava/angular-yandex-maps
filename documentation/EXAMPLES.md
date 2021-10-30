@@ -102,3 +102,8 @@ information, please see Yandex.Maps API documentation.
 ##### Panoramas
 
 - [Inserting into the Yandex panoramas page](https://stackblitz.com/edit/panorama)
+- [Creating your own panorama](https://stackblitz.com/edit/creating-your-own-panorama)
+
+##### External modules
+
+- [Heatmap with CCTV cameras](https://stackblitz.com/edit/heatmap-with-cctv-cameras)
