@@ -4524,6 +4524,77 @@ declare namespace ymaps {
     errorCallback?(): void;
   }
 
+  interface IRectangleProperties {
+    hintContent?: string;
+    balloonContent?: string;
+    balloonContentHeader?: string;
+    balloonContentBody?: string;
+    balloonContentFooter?: string;
+  }
+
+  interface IRectangleOptions extends IBalloonOptionsWithBalloonPrefix, IHintOptionsWithHintPrefix {
+    cursor?: string;
+    draggable?: boolean;
+    fill?: boolean;
+    fillColor?: string;
+    fillImageHref?: string;
+    fillMethod?: string;
+    fillOpacity?: number;
+    hasBalloon?: boolean;
+    hasHint?: boolean;
+    interactiveZIndex?: boolean;
+    interactivityModel?: InteractivityModelKey;
+    opacity?: number;
+    openBalloonOnClick?: boolean;
+    openEmptyBalloon?: boolean;
+    openEmptyHint?: boolean;
+    openHintOnHover?: boolean;
+    outline?: boolean;
+    pane?: string;
+    rectangleOverlay?:
+      | OverlayKey
+      | ((
+      geometry: IPixelCircleGeometry,
+      data: IDataManager | object,
+      options: object,
+    ) => vow.Promise);
+    strokeColor?: string | string[];
+    strokeOpacity?: number | number[];
+    strokeStyle?: string | string[] | object | object[];
+    strokeWidth?: number | number[];
+    syncOverlayInit?: boolean;
+    useMapMarginInDragging?: boolean;
+    visible?: boolean;
+    zIndex?: number;
+    zIndexActive?: number;
+    zIndexDrag?: number;
+    zIndexHover?: number;
+
+    [key: string]: any;
+  }
+
+  interface IRectangleGeometryAccess extends IFreezable {
+    contains(position: number[]): boolean;
+
+    getClosest(anchorPosition: number[]): object;
+
+    getCoordinates(): number[][];
+
+    setCoordinates(coordinates: number[][]): ILineStringGeometryAccess;
+  }
+
+  interface IRectangleGeometry extends IGeometry, IRectangleGeometryAccess {
+    getType(): string;
+  }
+
+  class Rectangle extends GeoObject<ILineStringGeometry> {
+    constructor(
+      geometry: number[][] | object | IRectangleGeometry,
+      properties?: IRectangleProperties | IDataManager,
+      options?: IRectangleOptions,
+    );
+  }
+
   namespace regions {
     function load(
       region: string,
