@@ -1462,6 +1462,50 @@ declare namespace ymaps {
       }
     }
 
+    class Circle implements ICircleGeometry {
+      constructor(
+        coordinates?: number[] | null,
+        radius?: number,
+        options?: {
+          geodesic?: boolean;
+          pixelRendering?: string;
+          projection?: IProjection;
+        },
+      );
+
+      events: IEventManager;
+
+      options: IOptionManager;
+
+      contains(position: number[]): boolean;
+
+      freeze(): IFreezable;
+
+      getBounds(): number[][] | null;
+
+      getClosest(anchorPosition: number[]): object;
+
+      getCoordinates(): number[] | null;
+
+      getMap(): Map | null;
+
+      getPixelGeometry(options?: object): IPixelGeometry;
+
+      getRadius(): number;
+
+      getType(): string;
+
+      isFrozen(): boolean;
+
+      setCoordinates(coordinates: number[] | null): ICircleGeometryAccess;
+
+      setMap(map: Map): void;
+
+      setRadius(radius: number): ICircleGeometryAccess;
+
+      unfreeze(): IFreezable;
+    }
+
     class LineString implements ILineStringGeometry {
       constructor(
         coordinates?: number[][],
@@ -1539,97 +1583,6 @@ declare namespace ymaps {
       setParent(parent: IEventManager | null): this;
 
       fire(type: string, eventObject: object | IEvent): this;
-    }
-
-    class Point implements IPointGeometry {
-      constructor(coordinates?: number[] | null);
-
-      options: IOptionManager;
-
-      events: IEventManager;
-
-      getMap(): Map | null;
-
-      getPixelGeometry(options?: object): IPixelGeometry;
-
-      setMap(map: Map): void;
-
-      getBounds(): number[][] | null;
-
-      getType(): string;
-
-      getCoordinates(): number[] | null;
-
-      setCoordinates(coordinates: number[] | null): this;
-    }
-
-    class Polygon implements IPolygonGeometry {
-      constructor(coordinates?: number[][][], fillRule?: 'evenOdd' | 'nonZero', options?: object);
-
-      events: IEventManager;
-
-      options: IOptionManager;
-
-      static fromEncodedCoordinates(encodedCoordinates: string): Polygon;
-
-      static toEncodedCoordinates(geometry: Polygon): string;
-
-      add(
-        types: string[][] | string[] | string,
-        callback: (event: object | IEvent) => void,
-        context?: object,
-        priority?: number,
-      ): this;
-
-      contains(position: number[]): boolean;
-
-      fire(type: string, eventObject: object | IEvent): this;
-
-      freeze(): IFreezable;
-
-      get(index: number): number[][];
-
-      getBounds(): number[][] | null;
-
-      getChildGeometry(index: number): ILinearRingGeometryAccess;
-
-      getClosest(anchorPosition: number[]): object;
-
-      getCoordinates(): number[][][];
-
-      getFillRule(): 'evenOdd' | 'nonZero';
-
-      getLength(): number;
-
-      getMap(): Map | null;
-
-      getParent(): object | null;
-
-      getPixelGeometry(options?: object): IPixelGeometry;
-
-      getType(): string;
-
-      group(): IEventGroup;
-
-      insert(index: number, path: number[][]): IPolygonGeometryAccess;
-
-      isFrozen(): boolean;
-
-      remove(index: number): ILinearRingGeometryAccess;
-
-      set(index: number, path: number[][]): IPolygonGeometryAccess;
-
-      setCoordinates(coordinates: number[][][]): IPolygonGeometryAccess;
-
-      setFillRule(fillRule: 'evenOdd' | 'nonZero'): IPolygonGeometryAccess;
-
-      setMap(map: Map): void;
-
-      setParent(parent: object | null): this;
-
-      splice(index: number, number: number): ILinearRingGeometryAccess[];
-
-      unfreeze(): IFreezable;
     }
 
     namespace pixel {
@@ -1804,6 +1757,137 @@ declare namespace ymaps {
 
         shift(offset: number[]): IPixelGeometry;
       }
+    }
+
+    class Point implements IPointGeometry {
+      constructor(coordinates?: number[] | null);
+
+      options: IOptionManager;
+
+      events: IEventManager;
+
+      getMap(): Map | null;
+
+      getPixelGeometry(options?: object): IPixelGeometry;
+
+      setMap(map: Map): void;
+
+      getBounds(): number[][] | null;
+
+      getType(): string;
+
+      getCoordinates(): number[] | null;
+
+      setCoordinates(coordinates: number[] | null): this;
+    }
+
+    class Polygon implements IPolygonGeometry {
+      constructor(coordinates?: number[][][], fillRule?: 'evenOdd' | 'nonZero', options?: object);
+
+      events: IEventManager;
+
+      options: IOptionManager;
+
+      static fromEncodedCoordinates(encodedCoordinates: string): Polygon;
+
+      static toEncodedCoordinates(geometry: Polygon): string;
+
+      add(
+        types: string[][] | string[] | string,
+        callback: (event: object | IEvent) => void,
+        context?: object,
+        priority?: number,
+      ): this;
+
+      contains(position: number[]): boolean;
+
+      fire(type: string, eventObject: object | IEvent): this;
+
+      freeze(): IFreezable;
+
+      get(index: number): number[][];
+
+      getBounds(): number[][] | null;
+
+      getChildGeometry(index: number): ILinearRingGeometryAccess;
+
+      getClosest(anchorPosition: number[]): object;
+
+      getCoordinates(): number[][][];
+
+      getFillRule(): 'evenOdd' | 'nonZero';
+
+      getLength(): number;
+
+      getMap(): Map | null;
+
+      getParent(): object | null;
+
+      getPixelGeometry(options?: object): IPixelGeometry;
+
+      getType(): string;
+
+      group(): IEventGroup;
+
+      insert(index: number, path: number[][]): IPolygonGeometryAccess;
+
+      isFrozen(): boolean;
+
+      remove(index: number): ILinearRingGeometryAccess;
+
+      set(index: number, path: number[][]): IPolygonGeometryAccess;
+
+      setCoordinates(coordinates: number[][][]): IPolygonGeometryAccess;
+
+      setFillRule(fillRule: 'evenOdd' | 'nonZero'): IPolygonGeometryAccess;
+
+      setMap(map: Map): void;
+
+      setParent(parent: object | null): this;
+
+      splice(index: number, number: number): ILinearRingGeometryAccess[];
+
+      unfreeze(): IFreezable;
+    }
+
+    class Rectangle implements IRectangleGeometry {
+      constructor(
+        coordinates?: number[][] | null,
+        options?: {
+          coordRendering?: string;
+          geodesic?: boolean;
+          pixelRendering?: string;
+          projection?: IProjection;
+        },
+      );
+
+      events: IEventManager;
+
+      options: IOptionManager;
+
+      contains(position: number[]): boolean;
+
+      freeze(): IFreezable;
+
+      getBounds(): number[][] | null;
+
+      getClosest(anchorPosition: number[]): object;
+
+      getCoordinates(): number[][];
+
+      getMap(): Map | null;
+
+      getPixelGeometry(options?: object): IPixelGeometry;
+
+      getType(): string;
+
+      isFrozen(): boolean;
+
+      setCoordinates(coordinates: number[][]): IRectangleGeometryAccess;
+
+      setMap(map: Map): void;
+
+      unfreeze(): IFreezable;
     }
   }
 
@@ -4580,7 +4664,7 @@ declare namespace ymaps {
 
     getCoordinates(): number[][];
 
-    setCoordinates(coordinates: number[][]): ILineStringGeometryAccess;
+    setCoordinates(coordinates: number[][]): IRectangleGeometryAccess;
   }
 
   interface IRectangleGeometry extends IGeometry, IRectangleGeometryAccess {
@@ -4896,9 +4980,9 @@ declare namespace ymaps {
 
     getRadius(): number;
 
-    setCoordinates(coordinates: number[] | null): this;
+    setCoordinates(coordinates: number[] | null): ICircleGeometryAccess;
 
-    setRadius(radius: number): this;
+    setRadius(radius: number): ICircleGeometryAccess;
   }
 
   interface ICollection extends IEventEmitter {
