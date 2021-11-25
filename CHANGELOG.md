@@ -2,24 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-## [12.3.0](https://github.com/ddubrava/angular8-yandex-maps/compare/v12.1.7...v12.3.0) (2021-10-30)
-
+## [13.0.0](https://github.com/ddubrava/angular8-yandex-maps/compare/v12.3.0...v13.0.0) (2021-11-25)
 
 ### Features
 
-* **typings:** add geoQuery function, GeoQueryResult class and other related entities ([#152](https://github.com/ddubrava/angular8-yandex-maps/issues/152)) ([71bebe0](https://github.com/ddubrava/angular8-yandex-maps/commit/71bebe0b731d30dad9d0352ab1fb72232d21d39e))
-* **typings:** add Hint class, IHint, IHintOptions and IHintOptionsWithHintPrefix interfaces ([#140](https://github.com/ddubrava/angular8-yandex-maps/issues/140)) ([1f19390](https://github.com/ddubrava/angular8-yandex-maps/commit/1f19390d81bb72481d7b4f914ff8d8994dc313ce)), closes [#139](https://github.com/ddubrava/angular8-yandex-maps/issues/139)
-* **typings:** add namespace regions with load function ([#141](https://github.com/ddubrava/angular8-yandex-maps/issues/141)) ([ec086b9](https://github.com/ddubrava/angular8-yandex-maps/commit/ec086b918c801b617e01b61c75d3a67a3b7ad494)), closes [#137](https://github.com/ddubrava/angular8-yandex-maps/issues/137)
-* **typings:** add ymaps.hotspot namespace ([#142](https://github.com/ddubrava/angular8-yandex-maps/issues/142)) ([635f910](https://github.com/ddubrava/angular8-yandex-maps/commit/635f9106c592177d8caa0f1803c7263dc7fb3c37)), closes [#136](https://github.com/ddubrava/angular8-yandex-maps/issues/136)
-* **typings:** create Rectangle, geometry.Circle and geometry.Rectangle classes ([#154](https://github.com/ddubrava/angular8-yandex-maps/issues/154)) ([1731419](https://github.com/ddubrava/angular8-yandex-maps/commit/173141924b9299f94e21bbc19ff0e365531b3b31))
-* **typings:** extend IGeoObjectOptions and IPlacemarkOptions interfaces ([#153](https://github.com/ddubrava/angular8-yandex-maps/issues/153)) ([10268b6](https://github.com/ddubrava/angular8-yandex-maps/commit/10268b64091dd978b7d37d81b75e2dee8faa92e8))
-* **typings:** IClustererOptions extend IClusterPlacemarkOptionsWithClusterPrefix ([#149](https://github.com/ddubrava/angular8-yandex-maps/issues/149)) ([fdd026c](https://github.com/ddubrava/angular8-yandex-maps/commit/fdd026c8ea7d38121704188bbc665495653bd144))
-* **typings:** improve IPlacemarkOptions, add constructor for geometryEditor.Point and layout.Image ([#148](https://github.com/ddubrava/angular8-yandex-maps/issues/148)) ([1397284](https://github.com/ddubrava/angular8-yandex-maps/commit/13972844eb33fb03d07f3ea099d5a37680020f21)), closes [#144](https://github.com/ddubrava/angular8-yandex-maps/issues/144)
-* **typings:** improve util namespace & add superclass in IClassConstructor ([#143](https://github.com/ddubrava/angular8-yandex-maps/issues/143)) ([6ace6aa](https://github.com/ddubrava/angular8-yandex-maps/commit/6ace6aa792fa8ab3fd39733e076606647ed50ee0)), closes [#137](https://github.com/ddubrava/angular8-yandex-maps/issues/137)
+- update to angular 13 ([#157](https://github.com/ddubrava/angular8-yandex-maps/issues/157)) ([dbc5e26](https://github.com/ddubrava/angular8-yandex-maps/commit/dbc5e26301564278846ee35fc97a6e6791d0b78d))
+
+## [12.3.0](https://github.com/ddubrava/angular8-yandex-maps/compare/v12.1.7...v12.3.0) (2021-10-30)
+
+### Features
+
+- **typings:** add geoQuery function, GeoQueryResult class and other related entities ([#152](https://github.com/ddubrava/angular8-yandex-maps/issues/152)) ([71bebe0](https://github.com/ddubrava/angular8-yandex-maps/commit/71bebe0b731d30dad9d0352ab1fb72232d21d39e))
+- **typings:** add Hint class, IHint, IHintOptions and IHintOptionsWithHintPrefix interfaces ([#140](https://github.com/ddubrava/angular8-yandex-maps/issues/140)) ([1f19390](https://github.com/ddubrava/angular8-yandex-maps/commit/1f19390d81bb72481d7b4f914ff8d8994dc313ce)), closes [#139](https://github.com/ddubrava/angular8-yandex-maps/issues/139)
+- **typings:** add namespace regions with load function ([#141](https://github.com/ddubrava/angular8-yandex-maps/issues/141)) ([ec086b9](https://github.com/ddubrava/angular8-yandex-maps/commit/ec086b918c801b617e01b61c75d3a67a3b7ad494)), closes [#137](https://github.com/ddubrava/angular8-yandex-maps/issues/137)
+- **typings:** add ymaps.hotspot namespace ([#142](https://github.com/ddubrava/angular8-yandex-maps/issues/142)) ([635f910](https://github.com/ddubrava/angular8-yandex-maps/commit/635f9106c592177d8caa0f1803c7263dc7fb3c37)), closes [#136](https://github.com/ddubrava/angular8-yandex-maps/issues/136)
+- **typings:** create Rectangle, geometry.Circle and geometry.Rectangle classes ([#154](https://github.com/ddubrava/angular8-yandex-maps/issues/154)) ([1731419](https://github.com/ddubrava/angular8-yandex-maps/commit/173141924b9299f94e21bbc19ff0e365531b3b31))
+- **typings:** extend IGeoObjectOptions and IPlacemarkOptions interfaces ([#153](https://github.com/ddubrava/angular8-yandex-maps/issues/153)) ([10268b6](https://github.com/ddubrava/angular8-yandex-maps/commit/10268b64091dd978b7d37d81b75e2dee8faa92e8))
+- **typings:** IClustererOptions extend IClusterPlacemarkOptionsWithClusterPrefix ([#149](https://github.com/ddubrava/angular8-yandex-maps/issues/149)) ([fdd026c](https://github.com/ddubrava/angular8-yandex-maps/commit/fdd026c8ea7d38121704188bbc665495653bd144))
+- **typings:** improve IPlacemarkOptions, add constructor for geometryEditor.Point and layout.Image ([#148](https://github.com/ddubrava/angular8-yandex-maps/issues/148)) ([1397284](https://github.com/ddubrava/angular8-yandex-maps/commit/13972844eb33fb03d07f3ea099d5a37680020f21)), closes [#144](https://github.com/ddubrava/angular8-yandex-maps/issues/144)
+- **typings:** improve util namespace & add superclass in IClassConstructor ([#143](https://github.com/ddubrava/angular8-yandex-maps/issues/143)) ([6ace6aa](https://github.com/ddubrava/angular8-yandex-maps/commit/6ace6aa792fa8ab3fd39733e076606647ed50ee0)), closes [#137](https://github.com/ddubrava/angular8-yandex-maps/issues/137)
 
 ### Bug Fixes
 
-* **typings:** change IOptionManager.get() return type from object to any ([#150](https://github.com/ddubrava/angular8-yandex-maps/issues/150)) ([f85dbeb](https://github.com/ddubrava/angular8-yandex-maps/commit/f85dbeb69494302574f0a27b5845e573ac0feb0b))
+- **typings:** change IOptionManager.get() return type from object to any ([#150](https://github.com/ddubrava/angular8-yandex-maps/issues/150)) ([f85dbeb](https://github.com/ddubrava/angular8-yandex-maps/commit/f85dbeb69494302574f0a27b5845e573ac0feb0b))
 
 ## [12.2.0](https://github.com/ddubrava/angular8-yandex-maps/compare/v12.1.7...v12.2.0) (2021-10-24)
 
