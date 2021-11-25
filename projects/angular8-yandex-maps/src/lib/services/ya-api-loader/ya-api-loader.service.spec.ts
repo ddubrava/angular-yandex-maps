@@ -1,8 +1,29 @@
 import { YaApiLoaderService, YaConfig } from './ya-api-loader.service';
 import { createReadySpy } from '../../testing/fake-ymaps-utils';
 
+class FakeHTMLScriptElement {
+  onHandlers: Record<string, any> = {};
+
+  async: boolean;
+
+  defer: boolean;
+
+  id: string;
+
+  src: string;
+
+  type: string;
+
+  addEventListener(type: string, listener: EventListenerOrEventListenerObject): void {
+    this.onHandlers[type] = listener;
+  }
+
+  removeEventListener(): void {}
+}
+
 describe('YaApiLoaderService', () => {
   let service: YaApiLoaderService;
+  let script: FakeHTMLScriptElement;
   let mockDocument: any;
 
   beforeEach(() => {
@@ -10,6 +31,8 @@ describe('YaApiLoaderService', () => {
       createElement: jasmine.createSpy('createElement'),
       body: jasmine.createSpyObj('body', ['appendChild']),
     };
+
+    script = new FakeHTMLScriptElement();
   });
 
   afterEach(() => {
@@ -19,8 +42,8 @@ describe('YaApiLoaderService', () => {
   it('should create script with default options if config is not passed', () => {
     service = new YaApiLoaderService(null, mockDocument);
 
-    const script = {} as HTMLScriptElement;
     mockDocument.createElement.and.returnValue(script);
+    mockDocument.body.appendChild.and.returnValue(script);
 
     service.load();
 
@@ -40,8 +63,8 @@ describe('YaApiLoaderService', () => {
 
     service = new YaApiLoaderService(config, mockDocument);
 
-    const script = {} as HTMLScriptElement;
     mockDocument.createElement.and.returnValue(script);
+    mockDocument.body.appendChild.and.returnValue(script);
 
     service.load();
 
@@ -62,8 +85,8 @@ describe('YaApiLoaderService', () => {
 
     service = new YaApiLoaderService(config, mockDocument);
 
-    const script = {} as HTMLScriptElement;
     mockDocument.createElement.and.returnValue(script);
+    mockDocument.body.appendChild.and.returnValue(script);
 
     service.load();
 
@@ -82,8 +105,8 @@ describe('YaApiLoaderService', () => {
 
     service = new YaApiLoaderService(config, mockDocument);
 
-    const script = {} as HTMLScriptElement;
     mockDocument.createElement.and.returnValue(script);
+    mockDocument.body.appendChild.and.returnValue(script);
 
     service.load();
 
@@ -92,6 +115,7 @@ describe('YaApiLoaderService', () => {
 
   it('should not append second script if window.ymaps is defined', () => {
     createReadySpy();
+
     service = new YaApiLoaderService(null, mockDocument);
     service.load();
 
@@ -102,8 +126,8 @@ describe('YaApiLoaderService', () => {
   it('should not append second script if load called in a sequence', () => {
     service = new YaApiLoaderService(null, mockDocument);
 
-    mockDocument.createElement.and.returnValue({});
-    mockDocument.body.appendChild.and.returnValue({});
+    mockDocument.createElement.and.returnValue(script);
+    mockDocument.body.appendChild.and.returnValue(script);
 
     service.load();
     service.load();
@@ -115,15 +139,6 @@ describe('YaApiLoaderService', () => {
   it('should return observable with ymaps on script load', (done) => {
     service = new YaApiLoaderService(null, mockDocument);
 
-    const onHandlers: { [key: string]: any } = {};
-
-    const script = {
-      addEventListener(type: string, listener: any) {
-        onHandlers[type] = listener;
-      },
-      removeEventListener() {},
-    };
-
     mockDocument.createElement.and.returnValue(script);
     mockDocument.body.appendChild.and.returnValue(script);
 
@@ -134,38 +149,28 @@ describe('YaApiLoaderService', () => {
 
     setTimeout(() => {
       createReadySpy();
-      onHandlers.load();
+      script.onHandlers.load();
     });
   });
 
   it('should throw error on script loading error', (done) => {
     service = new YaApiLoaderService(null, mockDocument);
 
-    const onHandlers: { [key: string]: any } = {};
-
-    const script = {
-      addEventListener(type: string, listener: any) {
-        onHandlers[type] = listener;
-      },
-      removeEventListener() {},
-    };
-
-    const event = new Event('load');
+    const error = {};
 
     mockDocument.createElement.and.returnValue(script);
     mockDocument.body.appendChild.and.returnValue(script);
 
-    service.load().subscribe(
-      () => {},
-      (e) => {
-        expect(e).toEqual(event);
+    service.load().subscribe({
+      error: (e) => {
+        expect(e).toEqual(error);
         done();
       },
-    );
+    });
 
     setTimeout(() => {
       createReadySpy();
-      onHandlers.error(event);
+      script.onHandlers.error(error);
     });
   });
 });
