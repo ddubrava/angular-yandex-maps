@@ -10,12 +10,9 @@
     "test:headless": "npm run test -- --watch=false --browsers=ChromeHeadless",
     "test:coverage": "npm run test:headless -- --code-coverage",
     "lint": "ng lint angular8-yandex-maps",
-    "release": "standard-version"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
+    "release": "standard-version",
+    "prepare": "husky install",
+    "pre-commit": "lint-staged"
   },
   "lint-staged": {
     "*.{js,ts,json,md,html,css}": "prettier --write",
