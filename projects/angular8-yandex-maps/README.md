@@ -93,18 +93,3 @@ export class AppModule {}
   height: 500px;
 }
 ```
-
-## 🤝 Contributing
-
-Contributions, issues and feature requests are welcome!<br />Feel free to
-check [issues page](https://github.com/ddubrava/angular8-yandex-maps/issues). You can also take a look at
-the [contributing guide](https://github.com/ddubrava/angular8-yandex-maps/blob/master/CONTRIBUTING.md).
-
-## ⭐ Show your support
-
-Give a star if this project helped you!
-
-## 📝 License
-
-Copyright © 2021 [Daniil Dubrava](https://github.com/ddubrava).<br />
-This project is [MIT](https://github.com/ddubrava/angular8-yandex-maps/blob/master/LICENSE.md) licensed.
