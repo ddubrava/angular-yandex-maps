@@ -161,7 +161,7 @@ API Events can be bound only manually. You can use <code>ready</code> event to g
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="71" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-control/ya-control.directive.ts:71</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="72" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-control/ya-control.directive.ts:72</a></div>
                             </td>
                         </tr>
 
@@ -229,7 +229,7 @@ API Events can be bound only manually. You can use <code>ready</code> event to g
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="66" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-control/ya-control.directive.ts:66</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="67" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-control/ya-control.directive.ts:67</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -256,7 +256,7 @@ API Events can be bound only manually. You can use <code>ready</code> event to g
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="61" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-control/ya-control.directive.ts:61</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="62" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-control/ya-control.directive.ts:62</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -286,7 +286,7 @@ API Events can be bound only manually. You can use <code>ready</code> event to g
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="71" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-control/ya-control.directive.ts:71</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="72" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-control/ya-control.directive.ts:72</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -318,6 +318,7 @@ API Events can be bound only manually. You can use <code>ready</code> event to g
   Output,
 } from &#x27;@angular/core&#x27;;
 import { Subscription } from &#x27;rxjs&#x27;;
+
 import { YaMapComponent } from &#x27;../ya-map/ya-map.component&#x27;;
 import { YaReadyEvent } from &#x27;../../typings/ya-ready-event&#x27;;
 
@@ -390,15 +391,14 @@ export class YaControlDirective implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnInit(): void {
+    // It should be a noop during server-side rendering.
     if (this._yaMapComponent.isBrowser) {
       const sub &#x3D; this._yaMapComponent.map$.subscribe((map) &#x3D;&gt; {
         if (map) {
           const control &#x3D; new ymaps.control[this.type](this.parameters);
           this._control &#x3D; control;
 
-          /**
-           * RoutePanel ignores state in parameters. API bug
-           */
+          // RoutePanel ignores state in parameters. API bug
           if (
             control instanceof ymaps.control.RoutePanel &amp;&amp;
             this.parameters &amp;&amp;

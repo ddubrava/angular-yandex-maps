@@ -213,7 +213,7 @@ Events can be bound using the outputs of the component.</p>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="108" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-clusterer/ya-clusterer.component.ts:108</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="109" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-clusterer/ya-clusterer.component.ts:109</a></div>
                             </td>
                         </tr>
 
@@ -281,7 +281,7 @@ Events can be bound using the outputs of the component.</p>
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="71" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-clusterer/ya-clusterer.component.ts:71</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="72" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-clusterer/ya-clusterer.component.ts:72</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -312,7 +312,7 @@ Events can be bound using the outputs of the component.</p>
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="83" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-clusterer/ya-clusterer.component.ts:83</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="84" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-clusterer/ya-clusterer.component.ts:84</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -339,7 +339,7 @@ Events can be bound using the outputs of the component.</p>
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="89" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-clusterer/ya-clusterer.component.ts:89</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="90" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-clusterer/ya-clusterer.component.ts:90</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -366,7 +366,7 @@ Events can be bound using the outputs of the component.</p>
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="95" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-clusterer/ya-clusterer.component.ts:95</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="96" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-clusterer/ya-clusterer.component.ts:96</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -393,7 +393,7 @@ Events can be bound using the outputs of the component.</p>
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="101" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-clusterer/ya-clusterer.component.ts:101</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="102" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-clusterer/ya-clusterer.component.ts:102</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -420,7 +420,7 @@ Events can be bound using the outputs of the component.</p>
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="107" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-clusterer/ya-clusterer.component.ts:107</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="108" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-clusterer/ya-clusterer.component.ts:108</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -447,7 +447,7 @@ Events can be bound using the outputs of the component.</p>
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="76" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-clusterer/ya-clusterer.component.ts:76</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="77" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-clusterer/ya-clusterer.component.ts:77</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -482,12 +482,13 @@ Events can be bound using the outputs of the component.</p>
   SimpleChanges,
 } from &#x27;@angular/core&#x27;;
 import { Observable, Subscription } from &#x27;rxjs&#x27;;
+
+import { EventManager } from &#x27;../../event-manager&#x27;;
+import { YaEvent } from &#x27;../../typings/ya-event&#x27;;
 import { YaGeoObjectDirective } from &#x27;../ya-geoobject/ya-geoobject.directive&#x27;;
 import { YaMapComponent } from &#x27;../ya-map/ya-map.component&#x27;;
 import { YaPlacemarkDirective } from &#x27;../ya-placemark/ya-placemark.directive&#x27;;
-import { EventManager } from &#x27;../../event-manager&#x27;;
 import { YaReadyEvent } from &#x27;../../typings/ya-ready-event&#x27;;
-import { YaEvent } from &#x27;../../typings/ya-event&#x27;;
 
 /**
  * The &#x60;ya-clusterer&#x60; component wraps &#x60;ymaps.Clusterer&#x60; class from the Yandex.Maps API.
@@ -595,6 +596,7 @@ export class YaClustererComponent implements AfterContentInit, OnChanges, OnDest
   }
 
   ngAfterContentInit(): void {
+    // It should be a noop during server-side rendering.
     if (this._yaMapComponent.isBrowser) {
       const sub &#x3D; this._yaMapComponent.map$.subscribe((map) &#x3D;&gt; {
         if (map) {
@@ -625,9 +627,7 @@ export class YaClustererComponent implements AfterContentInit, OnChanges, OnDest
   }
 
   private _watchForContentChanges(clusterer: ymaps.Clusterer): void {
-    /**
-     * Adds new Placemarks to the clusterer on changes.
-     */
+    // Adds new Placemarks to the clusterer on changes.
     const currentPlacemarks &#x3D; new Set&lt;ymaps.Placemark&gt;();
 
     this._getInternalPlacemarks(this._placemarks.toArray()).forEach((placemark) &#x3D;&gt; {
@@ -650,9 +650,7 @@ export class YaClustererComponent implements AfterContentInit, OnChanges, OnDest
 
     this._sub.add(placemarksSub);
 
-    /**
-     * Adds new GeoObjects to the clusterer on changes.
-     */
+    // Adds new GeoObjects to the clusterer on changes.
     const currentGeoObjects &#x3D; new Set&lt;ymaps.GeoObject&gt;();
 
     this._getInternalGeoObjects(this._geoObjects.toArray()).forEach((geoObject) &#x3D;&gt; {
