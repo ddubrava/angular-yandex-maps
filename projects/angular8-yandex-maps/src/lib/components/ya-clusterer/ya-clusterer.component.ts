@@ -13,12 +13,13 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
+
+import { EventManager } from '../../event-manager';
+import { YaEvent } from '../../typings/ya-event';
 import { YaGeoObjectDirective } from '../ya-geoobject/ya-geoobject.directive';
 import { YaMapComponent } from '../ya-map/ya-map.component';
 import { YaPlacemarkDirective } from '../ya-placemark/ya-placemark.directive';
-import { EventManager } from '../../event-manager';
 import { YaReadyEvent } from '../../typings/ya-ready-event';
-import { YaEvent } from '../../typings/ya-event';
 
 /**
  * The `ya-clusterer` component wraps `ymaps.Clusterer` class from the Yandex.Maps API.
@@ -126,6 +127,7 @@ export class YaClustererComponent implements AfterContentInit, OnChanges, OnDest
   }
 
   ngAfterContentInit(): void {
+    // It should be a noop during server-side rendering.
     if (this._yaMapComponent.isBrowser) {
       const sub = this._yaMapComponent.map$.subscribe((map) => {
         if (map) {
@@ -156,9 +158,7 @@ export class YaClustererComponent implements AfterContentInit, OnChanges, OnDest
   }
 
   private _watchForContentChanges(clusterer: ymaps.Clusterer): void {
-    /**
-     * Adds new Placemarks to the clusterer on changes.
-     */
+    // Adds new Placemarks to the clusterer on changes.
     const currentPlacemarks = new Set<ymaps.Placemark>();
 
     this._getInternalPlacemarks(this._placemarks.toArray()).forEach((placemark) => {
@@ -181,9 +181,7 @@ export class YaClustererComponent implements AfterContentInit, OnChanges, OnDest
 
     this._sub.add(placemarksSub);
 
-    /**
-     * Adds new GeoObjects to the clusterer on changes.
-     */
+    // Adds new GeoObjects to the clusterer on changes.
     const currentGeoObjects = new Set<ymaps.GeoObject>();
 
     this._getInternalGeoObjects(this._geoObjects.toArray()).forEach((geoObject) => {

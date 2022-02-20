@@ -20,18 +20,9 @@ module.exports = {
         'class-methods-use-this': 'off',
         'import/no-extraneous-dependencies': 'off',
         'import/prefer-default-export': 'off',
-        'multiline-comment-style': ['error', 'starred-block'],
         'no-console': ['error', { allow: ['warn', 'error'] }],
         'no-underscore-dangle': 'off',
 
-        '@typescript-eslint/ban-types': [
-          'error',
-          {
-            types: { object: false },
-            extendDefaults: true,
-          },
-        ],
-        '@typescript-eslint/indent': 'off',
         '@typescript-eslint/naming-convention': [
           'error',
           {

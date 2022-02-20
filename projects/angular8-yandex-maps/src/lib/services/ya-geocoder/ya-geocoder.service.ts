@@ -1,6 +1,7 @@
 import { Injectable, NgZone } from '@angular/core';
-import { switchMap } from 'rxjs/operators';
 import { from, Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+
 import { YaApiLoaderService } from '../ya-api-loader/ya-api-loader.service';
 
 /**

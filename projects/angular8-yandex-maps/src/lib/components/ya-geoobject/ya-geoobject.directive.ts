@@ -10,10 +10,11 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
+
 import { EventManager } from '../../event-manager';
+import { YaEvent } from '../../typings/ya-event';
 import { YaMapComponent } from '../ya-map/ya-map.component';
 import { YaReadyEvent } from '../../typings/ya-ready-event';
-import { YaEvent } from '../../typings/ya-event';
 
 /**
  * The `ya-geoobject` component wraps `ymaps.GeoObject` class from the Yandex.Maps API.
@@ -251,6 +252,7 @@ export class YaGeoObjectDirective implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnInit(): void {
+    // It should be a noop during server-side rendering.
     if (this._yaMapComponent.isBrowser) {
       const sub = this._yaMapComponent.map$.subscribe((map) => {
         if (map) {
