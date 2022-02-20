@@ -28,7 +28,9 @@ interface TestingWindow extends Window {
   };
 }
 
-/** Creates a jasmine.Spy for a ymaps.ready. */
+/**
+ * Creates a jasmine.Spy for a ymaps.ready.
+ */
 export function createReadySpy(): jasmine.Spy<jasmine.Func> {
   const readySpy = jasmine
     .createSpy('ready')
@@ -47,7 +49,9 @@ export function createReadySpy(): jasmine.Spy<jasmine.Func> {
   return readySpy;
 }
 
-/** Creates a jasmine.Spy for a ymaps.load. */
+/**
+ * Creates a jasmine.Spy for a ymaps.load.
+ */
 export function createGeocoderSpy(): jasmine.Spy<jasmine.Func> {
   const geocodeSpy = jasmine.createSpy('geocode').and.returnValue(Promise.resolve({}));
 
@@ -64,7 +68,9 @@ export function createGeocoderSpy(): jasmine.Spy<jasmine.Func> {
   return geocodeSpy;
 }
 
-/** Creates a jasmine.SpyObj for a ymaps.Map. */
+/**
+ * Creates a jasmine.SpyObj for a ymaps.Map.
+ */
 export function createMapSpy(): jasmine.SpyObj<ymaps.Map> {
   const spy = jasmine.createSpyObj(
     'ymaps.Map',
@@ -86,7 +92,10 @@ export function createMapSpy(): jasmine.SpyObj<ymaps.Map> {
   return spy;
 }
 
-/** Creates a jasmine.Spy to watch for the constructor of a ymaps.Map. */
+/**
+ * Creates a jasmine.Spy to watch for the constructor of a ymaps.Map.
+ * @param mapSpy
+ */
 export function createMapConstructorSpy(mapSpy: jasmine.SpyObj<ymaps.Map>): jasmine.Spy {
   const mapConstructorSpy = jasmine.createSpy('Map constructor').and.returnValue(mapSpy);
 
@@ -103,7 +112,9 @@ export function createMapConstructorSpy(mapSpy: jasmine.SpyObj<ymaps.Map>): jasm
   return mapConstructorSpy;
 }
 
-/** Creates a jasmine.SpyObj for a ymaps.Placemark. */
+/**
+ * Creates a jasmine.SpyObj for a ymaps.Placemark.
+ */
 export function createPlacemarkSpy(): jasmine.SpyObj<ymaps.Placemark> {
   const spy = jasmine.createSpyObj('ymaps.Placemark', [], {
     events: jasmine.createSpyObj('events', ['add']),
@@ -119,7 +130,10 @@ export function createPlacemarkSpy(): jasmine.SpyObj<ymaps.Placemark> {
   return spy;
 }
 
-/** Creates a jasmine.Spy to watch for the constructor of a ymaps.Placemark. */
+/**
+ * Creates a jasmine.Spy to watch for the constructor of a ymaps.Placemark.
+ * @param placemarkSpy
+ */
 export function createPlacemarkConstructorSpy(
   placemarkSpy: jasmine.SpyObj<ymaps.Placemark>,
 ): jasmine.Spy {
@@ -140,7 +154,9 @@ export function createPlacemarkConstructorSpy(
   return placemarkConstructorSpy;
 }
 
-/** Creates a jasmine.SpyObj for a ymaps.panorama.Player. */
+/**
+ * Creates a jasmine.SpyObj for a ymaps.panorama.Player.
+ */
 export function createPlayerSpy(): jasmine.SpyObj<ymaps.panorama.Player> {
   const spy = jasmine.createSpyObj('ymaps.panorama.Player', ['moveTo', 'setDirection', 'setSpan'], {
     events: jasmine.createSpyObj('events', ['add']),
@@ -153,7 +169,10 @@ export function createPlayerSpy(): jasmine.SpyObj<ymaps.panorama.Player> {
   return spy;
 }
 
-/** Creates a jasmine.Spy to watch for the constructor of a ymaps.panorama.Player. */
+/**
+ * Creates a jasmine.Spy to watch for the constructor of a ymaps.panorama.Player.
+ * @param playerSpy
+ */
 export function createPlayerConstructorSpy(
   playerSpy: jasmine.SpyObj<ymaps.panorama.Player>,
 ): jasmine.Spy {
@@ -176,7 +195,9 @@ export function createPlayerConstructorSpy(
   return playerConstructorSpy;
 }
 
-/** Creates a jasmine.SpyObj for a ymaps.multiRouter.MultiRoute. */
+/**
+ * Creates a jasmine.SpyObj for a ymaps.multiRouter.MultiRoute.
+ */
 export function createMultirouteSpy(): jasmine.SpyObj<ymaps.multiRouter.MultiRoute> {
   const spy = jasmine.createSpyObj(
     'ymaps.multiRouter.MultiRoute',
@@ -195,7 +216,10 @@ export function createMultirouteSpy(): jasmine.SpyObj<ymaps.multiRouter.MultiRou
   return spy;
 }
 
-/** Creates a jasmine.Spy to watch for the constructor of a ymaps.multiRouter.MultiRoute. */
+/**
+ * Creates a jasmine.Spy to watch for the constructor of a ymaps.multiRouter.MultiRoute.
+ * @param multirouteSpy
+ */
 export function createMultirouteConstructorSpy(
   multirouteSpy: jasmine.SpyObj<ymaps.multiRouter.MultiRoute>,
 ): jasmine.Spy {
@@ -220,7 +244,9 @@ export function createMultirouteConstructorSpy(
   return multirouteConstructorSpy;
 }
 
-/** Creates a jasmine.SpyObj for a ymaps.GeoObject. */
+/**
+ * Creates a jasmine.SpyObj for a ymaps.GeoObject.
+ */
 export function createGeoObjectSpy(): jasmine.SpyObj<ymaps.GeoObject> {
   const spy = jasmine.createSpyObj('ymaps.GeoObject', [], {
     events: jasmine.createSpyObj('events', ['add']),
@@ -235,7 +261,10 @@ export function createGeoObjectSpy(): jasmine.SpyObj<ymaps.GeoObject> {
   return spy;
 }
 
-/** Creates a jasmine.Spy to watch for the constructor of a ymaps.GeoObject. */
+/**
+ * Creates a jasmine.Spy to watch for the constructor of a ymaps.GeoObject.
+ * @param geoObjectSpy
+ */
 export function createGeoObjectConstructorSpy(
   geoObjectSpy: jasmine.SpyObj<ymaps.GeoObject>,
 ): jasmine.Spy {
@@ -256,7 +285,9 @@ export function createGeoObjectConstructorSpy(
   return geoObjectConstructorSpy;
 }
 
-/** Creates a jasmine.SpyObj for a ymaps.control.RoutePanel. */
+/**
+ * Creates a jasmine.SpyObj for a ymaps.control.RoutePanel.
+ */
 export function createRoutePanelSpy(): jasmine.SpyObj<ymaps.control.RoutePanel> {
   return jasmine.createSpyObj('ymaps.GeoObject', [], {
     routePanel: jasmine.createSpyObj('routePanel', [], {
@@ -265,7 +296,10 @@ export function createRoutePanelSpy(): jasmine.SpyObj<ymaps.control.RoutePanel> 
   });
 }
 
-/** Creates a jasmine.Spy to watch for the constructor of a ymaps.control.RoutePanel. */
+/**
+ * Creates a jasmine.Spy to watch for the constructor of a ymaps.control.RoutePanel.
+ * @param routePanelSpy
+ */
 export function createRoutePanelConstructorSpy(
   routePanelSpy: jasmine.SpyObj<ymaps.control.RoutePanel>,
 ): jasmine.Spy {
@@ -290,7 +324,9 @@ export function createRoutePanelConstructorSpy(
   return routePanelConstructorSpy;
 }
 
-/** Creates a jasmine.SpyObj for a ymaps.Clusterer. */
+/**
+ * Creates a jasmine.SpyObj for a ymaps.Clusterer.
+ */
 export function createClustererSpy(): jasmine.SpyObj<ymaps.Clusterer> {
   const spy = jasmine.createSpyObj('ymaps.Clusterer', ['add', 'remove'], {
     events: jasmine.createSpyObj('events', ['add']),
@@ -304,7 +340,10 @@ export function createClustererSpy(): jasmine.SpyObj<ymaps.Clusterer> {
   return spy;
 }
 
-/** Creates a jasmine.Spy to watch for the constructor of a ymaps.Clusterer. */
+/**
+ * Creates a jasmine.Spy to watch for the constructor of a ymaps.Clusterer.
+ * @param clustererSpy
+ */
 export function createClustererConstructorSpy(
   clustererSpy: jasmine.SpyObj<ymaps.Clusterer>,
 ): jasmine.Spy {

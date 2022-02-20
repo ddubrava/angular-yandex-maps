@@ -1,14 +1,15 @@
 import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BehaviorSubject } from 'rxjs';
-import { YaMultirouteDirective } from './ya-multiroute.directive';
+
 import { YaMapComponent } from '../ya-map/ya-map.component';
+import { YaMultirouteDirective } from './ya-multiroute.directive';
+import { YaReadyEvent } from '../../typings/ya-ready-event';
 import {
   createMapSpy,
   createMultirouteConstructorSpy,
   createMultirouteSpy,
 } from '../../testing/fake-ymaps-utils';
-import { YaReadyEvent } from '../../typings/ya-ready-event';
 
 @Component({
   template: `
@@ -16,9 +17,9 @@ import { YaReadyEvent } from '../../typings/ya-ready-event';
       [referencePoints]="referencePoints"
       [model]="model"
       [options]="options"
-      (mapchange)="handleMapchange()"
-      (parentchange)="handleParentchange()"
-      (pixelboundschange)="handlePixelboundschange()"
+      (mapchange)="handleMapChange()"
+      (parentchange)="handleParentChange()"
+      (pixelboundschange)="handlePixelBoundsChange()"
     ></ya-multiroute>
   `,
 })
@@ -31,11 +32,11 @@ class MockHostComponent {
 
   options: ymaps.multiRouter.IMultiRouteOptions;
 
-  handleMapchange(): void {}
+  handleMapChange(): void {}
 
-  handleParentchange(): void {}
+  handleParentChange(): void {}
 
-  handlePixelboundschange(): void {}
+  handlePixelBoundsChange(): void {}
 }
 
 describe('Directive: YaMultiroute', () => {

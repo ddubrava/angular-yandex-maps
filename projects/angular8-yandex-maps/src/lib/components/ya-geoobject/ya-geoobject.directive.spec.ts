@@ -1,14 +1,15 @@
 import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BehaviorSubject } from 'rxjs';
+
 import { YaGeoObjectDirective } from './ya-geoobject.directive';
 import { YaMapComponent } from '../ya-map/ya-map.component';
+import { YaReadyEvent } from '../../typings/ya-ready-event';
 import {
   createGeoObjectConstructorSpy,
   createGeoObjectSpy,
   createMapSpy,
 } from '../../testing/fake-ymaps-utils';
-import { YaReadyEvent } from '../../typings/ya-ready-event';
 
 @Component({
   template: `
@@ -17,7 +18,7 @@ import { YaReadyEvent } from '../../typings/ya-ready-event';
       [options]="options"
       (yacontextmenu)="handleContextMenu()"
       (yadrag)="handleDrag()"
-      (multitouchstart)="handleMultitouchstart()"
+      (multitouchstart)="handleMultitouchStart()"
     ></ya-geoobject>
   `,
 })
@@ -32,7 +33,7 @@ class MockHostComponent {
 
   handleDrag(): void {}
 
-  handleMultitouchstart(): void {}
+  handleMultitouchStart(): void {}
 }
 
 describe('Directive: YaGeoObject', () => {

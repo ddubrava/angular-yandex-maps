@@ -10,10 +10,11 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
-import { YaMapComponent } from '../ya-map/ya-map.component';
+
 import { EventManager } from '../../event-manager';
-import { YaReadyEvent } from '../../typings/ya-ready-event';
 import { YaEvent } from '../../typings/ya-event';
+import { YaMapComponent } from '../ya-map/ya-map.component';
+import { YaReadyEvent } from '../../typings/ya-ready-event';
 
 /**
  * The `ya-placemark` directive wraps `ymaps.Placemark` class from the Yandex.Maps API.
@@ -259,6 +260,7 @@ export class YaPlacemarkDirective implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnInit(): void {
+    // It should be a noop during server-side rendering.
     if (this._yaMapComponent.isBrowser) {
       const sub = this._yaMapComponent.map$.subscribe((map) => {
         if (map) {

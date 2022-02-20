@@ -9,6 +9,7 @@ import {
   Output,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
+
 import { YaMapComponent } from '../ya-map/ya-map.component';
 import { YaReadyEvent } from '../../typings/ya-ready-event';
 
@@ -81,15 +82,14 @@ export class YaControlDirective implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnInit(): void {
+    // It should be a noop during server-side rendering.
     if (this._yaMapComponent.isBrowser) {
       const sub = this._yaMapComponent.map$.subscribe((map) => {
         if (map) {
           const control = new ymaps.control[this.type](this.parameters);
           this._control = control;
 
-          /**
-           * RoutePanel ignores state in parameters. API bug
-           */
+          // RoutePanel ignores state in parameters. API bug
           if (
             control instanceof ymaps.control.RoutePanel &&
             this.parameters &&

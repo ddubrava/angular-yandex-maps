@@ -16,11 +16,12 @@ import {
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+
 import { EventManager } from '../../event-manager';
-import { generateRandomId } from '../../utils/generate-random-id';
 import { YaApiLoaderService } from '../../services/ya-api-loader/ya-api-loader.service';
-import { YaReadyEvent } from '../../typings/ya-ready-event';
 import { YaEvent } from '../../typings/ya-event';
+import { YaReadyEvent } from '../../typings/ya-ready-event';
+import { generateRandomId } from '../../utils/generate-random-id';
 
 /**
  * The `ya-map` component wraps `ymaps.Map` class from the Yandex.Maps API.
@@ -249,7 +250,7 @@ export class YaMapComponent implements AfterViewInit, OnChanges, OnDestroy {
     private readonly _ngZone: NgZone,
     private readonly _yaApiLoaderService: YaApiLoaderService,
     /*
-     * We need to use the same type like in an Angular.
+     * We need to use the same type as in an Angular.
      * "export declare const PLATFORM_ID: InjectionToken<Object>"
      */
     // eslint-disable-next-line @typescript-eslint/ban-types
@@ -287,9 +288,7 @@ export class YaMapComponent implements AfterViewInit, OnChanges, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    /**
-     * It should be a noop during server-side rendering.
-     */
+    // It should be a noop during server-side rendering.
     if (this.isBrowser) {
       const sub = this._yaApiLoaderService.load().subscribe(() => {
         const id = generateRandomId();
