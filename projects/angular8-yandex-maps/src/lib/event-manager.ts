@@ -6,6 +6,7 @@
 import { NgZone } from '@angular/core';
 import { BehaviorSubject, Observable, Subscriber } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+
 import { YaEvent } from './typings/ya-event';
 
 /**
@@ -46,7 +47,7 @@ export class EventManager {
     return this._targetStream.pipe(
       switchMap((target) => {
         const observable = new Observable<YaEvent>((observer) => {
-          // If the target hasn't been initialized yet, cache the observer so it can be added later.
+          // If the target hasn't been initialized yet, cache the observer, so it can be added later.
           if (!target) {
             this._pending.push({ observable, observer });
             return undefined;

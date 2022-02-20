@@ -17,9 +17,9 @@ import {
       [referencePoints]="referencePoints"
       [model]="model"
       [options]="options"
-      (mapchange)="handleMapchange()"
-      (parentchange)="handleParentchange()"
-      (pixelboundschange)="handlePixelboundschange()"
+      (mapchange)="handleMapChange()"
+      (parentchange)="handleParentChange()"
+      (pixelboundschange)="handlePixelBoundsChange()"
     ></ya-multiroute>
   `,
 })
@@ -32,11 +32,11 @@ class MockHostComponent {
 
   options: ymaps.multiRouter.IMultiRouteOptions;
 
-  handleMapchange(): void {}
+  handleMapChange(): void {}
 
-  handleParentchange(): void {}
+  handleParentChange(): void {}
 
-  handlePixelboundschange(): void {}
+  handlePixelBoundsChange(): void {}
 }
 
 describe('Directive: YaMultiroute', () => {

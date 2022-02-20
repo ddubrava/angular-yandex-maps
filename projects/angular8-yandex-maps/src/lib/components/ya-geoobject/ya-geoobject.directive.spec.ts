@@ -18,7 +18,7 @@ import {
       [options]="options"
       (yacontextmenu)="handleContextMenu()"
       (yadrag)="handleDrag()"
-      (multitouchstart)="handleMultitouchstart()"
+      (multitouchstart)="handleMultitouchStart()"
     ></ya-geoobject>
   `,
 })
@@ -33,7 +33,7 @@ class MockHostComponent {
 
   handleDrag(): void {}
 
-  handleMultitouchstart(): void {}
+  handleMultitouchStart(): void {}
 }
 
 describe('Directive: YaGeoObject', () => {

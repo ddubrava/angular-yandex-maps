@@ -105,9 +105,7 @@ describe('Directive: YaControl', () => {
       },
     };
 
-    /**
-     * Change instanceof behaviour
-     */
+    // Change instanceof behaviour
     Object.defineProperty(routePanelConstructorSpy, Symbol.hasInstance, {
       value: () => true,
     });
