@@ -22,7 +22,7 @@ class MockHostComponent {
   parameters: any;
 }
 
-describe('Directive: YaControl', () => {
+describe('YaControlDirective', () => {
   let component: YaControlDirective;
   let fixture: ComponentFixture<MockHostComponent>;
 

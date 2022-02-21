@@ -39,7 +39,7 @@ class MockHostComponent {
   handleParentChange(): void {}
 }
 
-describe('Directive: YaPlacemark', () => {
+describe('YaPlacemarkDirective', () => {
   let component: YaPlacemarkDirective;
   let fixture: ComponentFixture<MockHostComponent>;
 

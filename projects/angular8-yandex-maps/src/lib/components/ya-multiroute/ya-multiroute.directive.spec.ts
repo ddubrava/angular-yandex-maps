@@ -39,7 +39,7 @@ class MockHostComponent {
   handlePixelBoundsChange(): void {}
 }
 
-describe('Directive: YaMultiroute', () => {
+describe('YaMultirouteDirective', () => {
   let component: YaMultirouteDirective;
   let fixture: ComponentFixture<MockHostComponent>;
 
@@ -221,15 +221,15 @@ describe('Directive: YaMultiroute', () => {
     expect(addSpy).not.toHaveBeenCalledWith('balloonopen', jasmine.any(Function));
     expect(addSpy).not.toHaveBeenCalledWith('boundsautoapply', jasmine.any(Function));
     expect(addSpy).not.toHaveBeenCalledWith('boundschange', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('yaclick', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('yacontextmenu', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('yadblclick', jasmine.any(Function));
+    expect(addSpy).not.toHaveBeenCalledWith('click', jasmine.any(Function));
+    expect(addSpy).not.toHaveBeenCalledWith('contextmenu', jasmine.any(Function));
+    expect(addSpy).not.toHaveBeenCalledWith('dblclick', jasmine.any(Function));
     expect(addSpy).not.toHaveBeenCalledWith('geometrychange', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('yamousedown', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('yamouseenter', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('yamouseleave', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('yamousemove', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('yamouseup', jasmine.any(Function));
+    expect(addSpy).not.toHaveBeenCalledWith('mousedown', jasmine.any(Function));
+    expect(addSpy).not.toHaveBeenCalledWith('mouseenter', jasmine.any(Function));
+    expect(addSpy).not.toHaveBeenCalledWith('mouseleave', jasmine.any(Function));
+    expect(addSpy).not.toHaveBeenCalledWith('mousemove', jasmine.any(Function));
+    expect(addSpy).not.toHaveBeenCalledWith('mouseup', jasmine.any(Function));
     expect(addSpy).not.toHaveBeenCalledWith('multitouchend', jasmine.any(Function));
     expect(addSpy).not.toHaveBeenCalledWith('multitouchmove', jasmine.any(Function));
     expect(addSpy).not.toHaveBeenCalledWith('multitouchstart', jasmine.any(Function));

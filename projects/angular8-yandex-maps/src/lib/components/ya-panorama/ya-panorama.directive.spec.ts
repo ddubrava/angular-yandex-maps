@@ -220,7 +220,7 @@ describe('YaPanoramaDirective', () => {
     expect(addSpy).toHaveBeenCalledWith('destroy', jasmine.any(Function));
     expect(addSpy).toHaveBeenCalledWith('fullscreenexit', jasmine.any(Function));
     expect(addSpy).not.toHaveBeenCalledWith('directionchange', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('yaerror', jasmine.any(Function));
+    expect(addSpy).not.toHaveBeenCalledWith('error', jasmine.any(Function));
     expect(addSpy).not.toHaveBeenCalledWith('fullscreenenter', jasmine.any(Function));
     expect(addSpy).not.toHaveBeenCalledWith('markercollapse', jasmine.any(Function));
     expect(addSpy).not.toHaveBeenCalledWith('markerexpand', jasmine.any(Function));

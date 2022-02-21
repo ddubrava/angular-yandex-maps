@@ -36,7 +36,7 @@ class MockHostComponent {
   handleMultitouchStart(): void {}
 }
 
-describe('Directive: YaGeoObject', () => {
+describe('YaGeoObjectDirective', () => {
   let component: YaGeoObjectDirective;
   let fixture: ComponentFixture<MockHostComponent>;
 
