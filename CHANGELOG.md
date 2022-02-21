@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [13.1.0](https://github.com/ddubrava/angular8-yandex-maps/compare/v13.0.0...v13.1.0) (2022-02-21)
+
+### Features
+
+- **ObjectManager:** Create ObjectManager directive ([#162](https://github.com/ddubrava/angular8-yandex-maps/issues/162)) ([72d905a](https://github.com/ddubrava/angular8-yandex-maps/commit/72d905a640d6e4f11cd3b893379ebc33785bf3e6))
+
 ## [13.0.0](https://github.com/ddubrava/angular8-yandex-maps/compare/v12.3.0...v13.0.0) (2021-11-25)
 
 ### Features
