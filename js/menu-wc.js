@@ -80,13 +80,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="modules/AngularYandexMapsModule.html" data-type="entity-link" >AngularYandexMapsModule</a>
                                     <li class="chapter inner">
                                         <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                            'data-target="#components-links-module-AngularYandexMapsModule-6f5b103ca9c176f4542ea0074802bd68b670cb39d83a451aae15eefa63c15a7dfc7cb51f3dee7c843dfef1a5f543d8751c0cdd0e8698e68dc213ed6623c2cfd7"' : 'data-target="#xs-components-links-module-AngularYandexMapsModule-6f5b103ca9c176f4542ea0074802bd68b670cb39d83a451aae15eefa63c15a7dfc7cb51f3dee7c843dfef1a5f543d8751c0cdd0e8698e68dc213ed6623c2cfd7"' }>
+                                            'data-target="#components-links-module-AngularYandexMapsModule-2ff790cc6b10ad8474c35f48b7c998b4c1ac1af0ada92d36028269500cb7ed57909a93ed59204d541dde2fc33ed2246e615824f39d261633c7a80c0f5d78486c"' : 'data-target="#xs-components-links-module-AngularYandexMapsModule-2ff790cc6b10ad8474c35f48b7c998b4c1ac1af0ada92d36028269500cb7ed57909a93ed59204d541dde2fc33ed2246e615824f39d261633c7a80c0f5d78486c"' }>
                                             <span class="icon ion-md-cog"></span>
                                             <span>Components</span>
                                             <span class="icon ion-ios-arrow-down"></span>
                                         </div>
-                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-AngularYandexMapsModule-6f5b103ca9c176f4542ea0074802bd68b670cb39d83a451aae15eefa63c15a7dfc7cb51f3dee7c843dfef1a5f543d8751c0cdd0e8698e68dc213ed6623c2cfd7"' :
-                                            'id="xs-components-links-module-AngularYandexMapsModule-6f5b103ca9c176f4542ea0074802bd68b670cb39d83a451aae15eefa63c15a7dfc7cb51f3dee7c843dfef1a5f543d8751c0cdd0e8698e68dc213ed6623c2cfd7"' }>
+                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-AngularYandexMapsModule-2ff790cc6b10ad8474c35f48b7c998b4c1ac1af0ada92d36028269500cb7ed57909a93ed59204d541dde2fc33ed2246e615824f39d261633c7a80c0f5d78486c"' :
+                                            'id="xs-components-links-module-AngularYandexMapsModule-2ff790cc6b10ad8474c35f48b7c998b4c1ac1af0ada92d36028269500cb7ed57909a93ed59204d541dde2fc33ed2246e615824f39d261633c7a80c0f5d78486c"' }>
                                             <li class="link">
                                                 <a href="components/YaClustererComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >YaClustererComponent</a>
                                             </li>
@@ -97,13 +97,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                     </li>
                                 <li class="chapter inner">
                                     <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                        'data-target="#directives-links-module-AngularYandexMapsModule-6f5b103ca9c176f4542ea0074802bd68b670cb39d83a451aae15eefa63c15a7dfc7cb51f3dee7c843dfef1a5f543d8751c0cdd0e8698e68dc213ed6623c2cfd7"' : 'data-target="#xs-directives-links-module-AngularYandexMapsModule-6f5b103ca9c176f4542ea0074802bd68b670cb39d83a451aae15eefa63c15a7dfc7cb51f3dee7c843dfef1a5f543d8751c0cdd0e8698e68dc213ed6623c2cfd7"' }>
+                                        'data-target="#directives-links-module-AngularYandexMapsModule-2ff790cc6b10ad8474c35f48b7c998b4c1ac1af0ada92d36028269500cb7ed57909a93ed59204d541dde2fc33ed2246e615824f39d261633c7a80c0f5d78486c"' : 'data-target="#xs-directives-links-module-AngularYandexMapsModule-2ff790cc6b10ad8474c35f48b7c998b4c1ac1af0ada92d36028269500cb7ed57909a93ed59204d541dde2fc33ed2246e615824f39d261633c7a80c0f5d78486c"' }>
                                         <span class="icon ion-md-code-working"></span>
                                         <span>Directives</span>
                                         <span class="icon ion-ios-arrow-down"></span>
                                     </div>
-                                    <ul class="links collapse" ${ isNormalMode ? 'id="directives-links-module-AngularYandexMapsModule-6f5b103ca9c176f4542ea0074802bd68b670cb39d83a451aae15eefa63c15a7dfc7cb51f3dee7c843dfef1a5f543d8751c0cdd0e8698e68dc213ed6623c2cfd7"' :
-                                        'id="xs-directives-links-module-AngularYandexMapsModule-6f5b103ca9c176f4542ea0074802bd68b670cb39d83a451aae15eefa63c15a7dfc7cb51f3dee7c843dfef1a5f543d8751c0cdd0e8698e68dc213ed6623c2cfd7"' }>
+                                    <ul class="links collapse" ${ isNormalMode ? 'id="directives-links-module-AngularYandexMapsModule-2ff790cc6b10ad8474c35f48b7c998b4c1ac1af0ada92d36028269500cb7ed57909a93ed59204d541dde2fc33ed2246e615824f39d261633c7a80c0f5d78486c"' :
+                                        'id="xs-directives-links-module-AngularYandexMapsModule-2ff790cc6b10ad8474c35f48b7c998b4c1ac1af0ada92d36028269500cb7ed57909a93ed59204d541dde2fc33ed2246e615824f39d261633c7a80c0f5d78486c"' }>
                                         <li class="link">
                                             <a href="directives/YaControlDirective.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >YaControlDirective</a>
                                         </li>
@@ -112,6 +112,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                         </li>
                                         <li class="link">
                                             <a href="directives/YaMultirouteDirective.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >YaMultirouteDirective</a>
+                                        </li>
+                                        <li class="link">
+                                            <a href="directives/YaObjectManagerDirective.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >YaObjectManagerDirective</a>
                                         </li>
                                         <li class="link">
                                             <a href="directives/YaPanoramaDirective.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >YaPanoramaDirective</a>
