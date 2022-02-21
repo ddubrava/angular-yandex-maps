@@ -22,5 +22,6 @@ export * from './lib/components/ya-control/ya-control.directive';
 export * from './lib/components/ya-geoobject/ya-geoobject.directive';
 export * from './lib/components/ya-map/ya-map.component';
 export * from './lib/components/ya-multiroute/ya-multiroute.directive';
+export * from './lib/components/ya-object-manager/ya-object-manager.directive';
 export * from './lib/components/ya-panorama/ya-panorama.directive';
 export * from './lib/components/ya-placemark/ya-placemark.directive';

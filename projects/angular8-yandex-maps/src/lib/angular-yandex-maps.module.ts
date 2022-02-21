@@ -7,6 +7,7 @@ import { YaControlDirective } from './components/ya-control/ya-control.directive
 import { YaGeoObjectDirective } from './components/ya-geoobject/ya-geoobject.directive';
 import { YaMapComponent } from './components/ya-map/ya-map.component';
 import { YaMultirouteDirective } from './components/ya-multiroute/ya-multiroute.directive';
+import { YaObjectManagerDirective } from './components/ya-object-manager/ya-object-manager.directive';
 import { YaPanoramaDirective } from './components/ya-panorama/ya-panorama.directive';
 import { YaPlacemarkDirective } from './components/ya-placemark/ya-placemark.directive';
 
@@ -17,6 +18,7 @@ import { YaPlacemarkDirective } from './components/ya-placemark/ya-placemark.dir
     YaGeoObjectDirective,
     YaMapComponent,
     YaMultirouteDirective,
+    YaObjectManagerDirective,
     YaPanoramaDirective,
     YaPlacemarkDirective,
   ],
@@ -26,6 +28,7 @@ import { YaPlacemarkDirective } from './components/ya-placemark/ya-placemark.dir
     YaGeoObjectDirective,
     YaMapComponent,
     YaMultirouteDirective,
+    YaObjectManagerDirective,
     YaPanoramaDirective,
     YaPlacemarkDirective,
   ],
