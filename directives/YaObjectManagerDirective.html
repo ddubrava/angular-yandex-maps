@@ -50,6 +50,9 @@
         <li >
             <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
         </li>
+        <li >
+            <a href="#example" role="tab" id="example-tab" data-toggle="tab" data-link="example">Examples</a>
+        </li>
 </ul>
 
 <div class="tab-content">
@@ -62,6 +65,21 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>The <code>ya-object-manager</code> component wraps <code>ymaps.ObjectManager</code> class from the Yandex.Maps API.
+You can configure it via the component&#39;s inputs.
+Events can be bound using the outputs of the component.</p>
+<p><example-url><a href="https://stackblitz.com/edit/object-manager?embed=1">https://stackblitz.com/edit/object-manager?embed=1</a></example-url></p>
+<div><pre class="line-numbers"><code class="language-html">&lt;ya-map [center]=&quot;[55.761952, 37.620739]&quot;&gt;
+  &lt;ya-object-manager
+    [options]=&quot;{ clusterize: true }&quot;
+    (ready)=&quot;onReady($event)&quot;
+  &gt;&lt;/ya-object-manager&gt;
+&lt;/ya-map&gt;</code></pre></div>
+            </p>
 
             <p class="comment">
                 <h3>Implements</h3>
@@ -194,7 +212,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="144" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-object-manager/ya-object-manager.directive.ts:144</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="165" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-object-manager/ya-object-manager.directive.ts:165</a></div>
                             </td>
                         </tr>
 
@@ -262,9 +280,16 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-object-manager/ya-object-manager.directive.ts:29</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-object-manager/ya-object-manager.directive.ts:50</a></div>
                             </td>
                         </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Options for the ObjectManager.
+<a href="https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/ObjectManager.html#ObjectManager__param-options">https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/ObjectManager.html#ObjectManager__param-options</a></p>
+</div>
+                    </td>
+                </tr>
             </tbody>
         </table>
 </section>
@@ -286,7 +311,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="59" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-object-manager/ya-object-manager.directive.ts:59</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="80" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-object-manager/ya-object-manager.directive.ts:80</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -313,7 +338,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="65" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-object-manager/ya-object-manager.directive.ts:65</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="86" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-object-manager/ya-object-manager.directive.ts:86</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -340,7 +365,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="101" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-object-manager/ya-object-manager.directive.ts:101</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="122" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-object-manager/ya-object-manager.directive.ts:122</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -367,7 +392,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="107" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-object-manager/ya-object-manager.directive.ts:107</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="128" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-object-manager/ya-object-manager.directive.ts:128</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -394,7 +419,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="113" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-object-manager/ya-object-manager.directive.ts:113</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="134" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-object-manager/ya-object-manager.directive.ts:134</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -421,7 +446,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="119" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-object-manager/ya-object-manager.directive.ts:119</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="140" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-object-manager/ya-object-manager.directive.ts:140</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -448,7 +473,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="125" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-object-manager/ya-object-manager.directive.ts:125</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="146" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-object-manager/ya-object-manager.directive.ts:146</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -475,7 +500,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="131" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-object-manager/ya-object-manager.directive.ts:131</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="152" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-object-manager/ya-object-manager.directive.ts:152</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -502,7 +527,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="137" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-object-manager/ya-object-manager.directive.ts:137</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="158" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-object-manager/ya-object-manager.directive.ts:158</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -529,7 +554,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-object-manager/ya-object-manager.directive.ts:34</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-object-manager/ya-object-manager.directive.ts:55</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -556,7 +581,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-object-manager/ya-object-manager.directive.ts:41</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="62" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-object-manager/ya-object-manager.directive.ts:62</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -583,7 +608,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-object-manager/ya-object-manager.directive.ts:47</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="68" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-object-manager/ya-object-manager.directive.ts:68</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -610,7 +635,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-object-manager/ya-object-manager.directive.ts:53</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="74" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-object-manager/ya-object-manager.directive.ts:74</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -637,7 +662,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="71" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-object-manager/ya-object-manager.directive.ts:71</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="92" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-object-manager/ya-object-manager.directive.ts:92</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -664,7 +689,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="77" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-object-manager/ya-object-manager.directive.ts:77</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="98" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-object-manager/ya-object-manager.directive.ts:98</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -691,7 +716,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="83" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-object-manager/ya-object-manager.directive.ts:83</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="104" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-object-manager/ya-object-manager.directive.ts:104</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -718,7 +743,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="89" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-object-manager/ya-object-manager.directive.ts:89</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="110" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-object-manager/ya-object-manager.directive.ts:110</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -745,7 +770,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="95" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-object-manager/ya-object-manager.directive.ts:95</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="116" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-object-manager/ya-object-manager.directive.ts:116</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -772,7 +797,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="143" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-object-manager/ya-object-manager.directive.ts:143</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="164" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-object-manager/ya-object-manager.directive.ts:164</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -811,6 +836,23 @@ import { YaEvent } from &#x27;../../typings/ya-event&#x27;;
 import { YaMapComponent } from &#x27;../ya-map/ya-map.component&#x27;;
 import { YaReadyEvent } from &#x27;../../typings/ya-ready-event&#x27;;
 
+/**
+ * The &#x60;ya-object-manager&#x60; component wraps &#x60;ymaps.ObjectManager&#x60; class from the Yandex.Maps API.
+ * You can configure it via the component&#x27;s inputs.
+ * Events can be bound using the outputs of the component.
+ *
+ * &lt;example-url&gt;https://stackblitz.com/edit/object-manager?embed&#x3D;1&lt;/example-url&gt;
+ *
+ * @example
+ * &#x60;&#x60;&#x60;html
+ * &lt;ya-map [center]&#x3D;&quot;[55.761952, 37.620739]&quot;&gt;
+ *   &lt;ya-object-manager
+ *     [options]&#x3D;&quot;{ clusterize: true }&quot;
+ *     (ready)&#x3D;&quot;onReady($event)&quot;
+ *   &gt;&lt;/ya-object-manager&gt;
+ * &lt;/ya-map&gt;
+ * &#x60;&#x60;&#x60;
+ */
 @Directive({
   selector: &#x27;ya-object-manager&#x27;,
 })
@@ -821,6 +863,10 @@ export class YaObjectManagerDirective implements OnInit, OnChanges, OnDestroy {
 
   private _objectManager?: ymaps.ObjectManager;
 
+  /**
+   * Options for the ObjectManager.
+   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/ObjectManager.html#ObjectManager__param-options}
+   */
   @Input() options: ymaps.IObjectManagerOptions;
 
   /**
@@ -993,6 +1039,11 @@ export class YaObjectManagerDirective implements OnInit, OnChanges, OnDestroy {
 </code></pre>
     </div>
 
+    <div class="tab-pane fade " id="c-example">
+            <iframe class="exampleContainer" src="https://stackblitz.com/edit/object-manager?embed&#x3D;1">
+                <p>no-iframes</p>
+            </iframe>
+    </div>
 </div>
 
 
