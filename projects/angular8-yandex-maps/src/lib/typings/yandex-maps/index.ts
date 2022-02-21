@@ -7,6 +7,10 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable max-classes-per-file */
 
+type Prefix<Type, P> = {
+  [Property in keyof Type as `${string & P}${Capitalize<string & Property>}`]: Type[Property];
+};
+
 /**
  * Type definitions for Yandex.Maps.
  * Due to inactivity the typings were copied and improved from the DefinitelyTyped repository.
@@ -2305,13 +2309,7 @@ declare namespace ymaps {
       shape?: IShape | object | null | undefined;
     }
 
-    interface IImageOptionsWithIconPrefix {
-      iconImageClipRect?: number[][] | undefined;
-      iconImageHref?: string | undefined;
-      iconImageOffset?: number[] | undefined;
-      iconImageSize?: number[] | undefined;
-      iconShape?: IShape | object | null | undefined;
-    }
+    type IImageOptionsWithIconPrefix = Prefix<IImageOptions, 'icon'>;
 
     class Image implements ILayout {
       constructor(data: { options?: IImageOptions });
@@ -2335,21 +2333,26 @@ declare namespace ymaps {
 
     class ImageWithContent extends Image {}
 
-    interface IImageWithContentOptionsWithIconPrefix extends IImageOptionsWithIconPrefix {
-      iconContentLayout?: IClassConstructor<ILayout> | string | undefined;
-      iconContentOffset?: number[] | undefined;
-      iconContentSize?: number[] | undefined;
-    }
+    type IImageWithContentOptionsWithIconPrefix = Prefix<
+      IImageOptions & {
+        contentLayout?: IClassConstructor<ILayout> | string | undefined;
+        contentOffset?: number[] | undefined;
+        contentSize?: number[] | undefined;
+      },
+      'icon'
+    >;
 
     class PieChart extends templateBased.Base {}
 
-    interface IPieChartOptionsWithIconPrefix {
-      iconPieChartCaptionMaxWidth?: number | undefined;
-      iconPieChartCoreFillStyle?: string | undefined;
-      iconPieChartCoreRadius?: number | (() => number) | undefined;
-      iconPieChartStrokeStyle?: string | undefined;
-      iconPieChartStrokeWidth?: number | undefined;
+    interface PieChartOptions {
+      pieChartCaptionMaxWidth?: number | undefined;
+      pieChartCoreFillStyle?: string | undefined;
+      pieChartCoreRadius?: number | (() => number) | undefined;
+      pieChartStrokeStyle?: string | undefined;
+      pieChartStrokeWidth?: number | undefined;
     }
+
+    type IPieChartOptionsWithIconPrefix = Prefix<PieChartOptions, 'icon'>;
 
     const storage: util.Storage;
   }
@@ -3706,33 +3709,7 @@ declare namespace ymaps {
     zIndex?: string | undefined;
   }
 
-  interface IBalloonOptionsWithBalloonPrefix {
-    balloonContent?: string | undefined;
-    balloonAutoPan?: boolean | undefined;
-    balloonAutoPanCheckZoomRange?: boolean | undefined;
-    balloonAutoPanDuration?: number | undefined;
-    balloonAutoPanMargin?: number | number[] | undefined;
-    balloonAutoPanUseMapMargin?: boolean | undefined;
-    balloonCloseButton?: boolean | undefined;
-    balloonCloseTimeout?: number | undefined;
-    balloonContentLayout?: IClassConstructor<ILayout> | string | undefined;
-    balloonInteractivityModel?: InteractivityModelKey | undefined;
-    balloonLayout?: IClassConstructor<ILayout> | string | undefined;
-    balloonMaxHeight?: number | undefined;
-    balloonMaxWidth?: number | undefined;
-    balloonMinHeight?: number | undefined;
-    balloonMinWidth?: number | undefined;
-    balloonOffset?: number[] | undefined;
-    balloonOpenTimeout?: number | undefined;
-    balloonPane?: string | undefined;
-    balloonPanelContentLayout?: IClassConstructor<ILayout> | string | undefined;
-    balloonPanelMaxHeightRatio?: number | undefined;
-    balloonPanelMaxMapArea?: number | undefined;
-    balloonShadow?: boolean | undefined;
-    balloonShadowLayout?: IClassConstructor<ILayout> | string | undefined;
-    balloonShadowOffset?: number[] | undefined;
-    balloonZIndex?: string | undefined;
-  }
+  type IBalloonOptionsWithBalloonPrefix = Prefix<IBalloonOptions, 'balloon'>;
 
   class Circle implements GeoObject<ICircleGeometry> {
     constructor(
@@ -3906,12 +3883,13 @@ declare namespace ymaps {
     geoObjects: IGeoObject[];
   }
 
-  interface IClusterPlacemarkOptions {
+  interface IClusterPlacemarkOptions extends IBalloonOptionsWithBalloonPrefix {
     balloonContentLayout?: IClassConstructor<ILayout> | ClusterLayoutKey | undefined;
     balloonContentLayoutHeight?: number;
     balloonContentLayoutWidth?: number;
     balloonItemContentLayout?: ILayout | ClusterContentLayoutKey | undefined;
     balloonPanelContentLayout?: IClassConstructor<ILayout> | ClusterLayoutKey | undefined;
+    hasBalloon?: boolean;
     cursor?: string;
     disableClickZoom?: boolean;
     hideIconOnBalloonOpen?: boolean;
@@ -3933,32 +3911,7 @@ declare namespace ymaps {
     zIndexHover?: number;
   }
 
-  interface IClusterPlacemarkOptionsWithClusterPrefix {
-    clusterBalloonContentLayout?: IClassConstructor<ILayout> | ClusterLayoutKey | undefined;
-    clusterBalloonContentLayoutHeight?: number | undefined;
-    clusterBalloonContentLayoutWidth?: number | undefined;
-    clusterBalloonItemContentLayout?: ILayout | ClusterContentLayoutKey | undefined;
-    clusterBalloonPanelContentLayout?: IClassConstructor<ILayout> | ClusterLayoutKey | undefined;
-    clusterCursor?: string | undefined;
-    clusterDisableClickZoom?: boolean | undefined;
-    clusterHideIconOnBalloonOpen?: boolean | undefined;
-    clusterIconColor?: string | undefined;
-    clusterIconContentLayout?: IClassConstructor<ILayout> | string | undefined;
-    clusterIconLayout?: IClassConstructor<ILayout> | string | undefined;
-    clusterIcons?: {
-      href: string;
-      size: number[];
-      offset: number[];
-      shape?: IShape | IGeometryJson | undefined;
-    }[];
-    clusterIconShape?: IGeometryJson | undefined;
-    clusterInteractivityModel?: InteractivityModelKey | undefined;
-    clusterNumbers?: number[] | undefined;
-    clusterOpenBalloonOnClick?: boolean | undefined;
-    clusterOpenEmptyHint?: boolean | undefined;
-    clusterOpenHintOnHover?: boolean | undefined;
-    clusterZIndexHover?: number | undefined;
-  }
+  type IClusterPlacemarkOptionsWithClusterPrefix = Prefix<IClusterPlacemarkOptions, 'cluster'>;
 
   class Collection<T = {}> implements ICollection, collection.Item {
     constructor(options?: object);
@@ -4108,10 +4061,20 @@ declare namespace ymaps {
     properties?: IDataManager | object;
   }
 
-  interface IGeoObjectOptions
-    extends IBalloonOptionsWithBalloonPrefix,
-      IHintOptionsWithHintPrefix,
-      ICircleOptions {
+  interface IGeoObjectOptions extends IBalloonOptionsWithBalloonPrefix, IHintOptionsWithHintPrefix {
+    circleOverlay?:
+      | string
+      | ((geometry: IPixelCircleGeometry, data: object, options: object) => Promise<IOverlay>);
+    cursor?: string;
+    draggable?: boolean;
+    fill?: boolean;
+    fillColor?: string;
+    fillImageHref?: string;
+    fillMethod?: 'stretch' | 'tile';
+    fillOpacity?: number;
+    hasBalloon?: boolean;
+    hasHint?: boolean;
+    hideIconOnBalloonOpen?: boolean;
     iconCaptionMaxWidth?: number;
     iconColor?: string;
     iconContentLayout?: string | IClassConstructor<ILayout>;
@@ -4134,15 +4097,37 @@ declare namespace ymaps {
     iconShadowImageSize?: number[];
     iconShadowLayout?: string | IClassConstructor<ILayout>;
     iconShadowOffset?: number[];
+    interactiveZIndex?: boolean;
+    interactivityModel?: InteractivityModelKey;
     lineStringOverlay?: OverlayKey;
+    opacity?: number;
+    openBalloonOnClick?: boolean;
+    openEmptyBalloon?: boolean;
+    openEmptyHint?: boolean;
+    openHintOnHover?: boolean;
+    outline?: boolean;
+    pane?: string;
     pointOverlay?: OverlayKey;
     polygonOverlay?: OverlayKey;
     preset?: PresetKey | undefined;
     rectangleOverlay?: OverlayKey;
     setMapCursorInDragging?: boolean;
+    strokeColor?: string[][] | string[] | string;
+    strokeOpacity?: number[][] | number[] | number;
+    strokeStyle?: string[][][] | object[][] | string[] | object[] | string | object;
+    strokeWidth?: number[][] | number[] | number;
+    syncOverlayInit?: boolean;
+    useMapMarginInDragging?: boolean;
+    visible?: boolean;
+    zIndex?: number;
+    zIndexActive?: number;
+    zIndexDrag?: number;
+    zIndexHover?: number;
 
     [key: string]: any;
   }
+
+  type IGeoObjectOptionsWithGeoObjectPrefix = Prefix<IGeoObjectOptions, 'geoObject'>;
 
   class GeoObjectCollection implements IGeoObject, IGeoObjectCollection {
     constructor(
@@ -4279,18 +4264,7 @@ declare namespace ymaps {
     zIndex?: number;
   }
 
-  interface IHintOptionsWithHintPrefix {
-    hintCloseTimeout?: number;
-    hintContentLayout?: IClassConstructor<ILayout> | string;
-    hintFitPane?: boolean;
-    hintHoldByMouse?: boolean;
-    hintInteractivityModel?: InteractivityModelKey;
-    hintLayout?: IClassConstructor<ILayout> | string;
-    hintOffset?: number[];
-    hintOpenTimeout?: number;
-    hintPane?: string;
-    hintZIndex?: number;
-  }
+  type IHintOptionsWithHintPrefix = Prefix<IHintOptions, 'hint'>;
 
   class Hint extends Popup<Hint> implements IHint {
     constructor(map: Map, options?: IHintOptions);
@@ -4644,10 +4618,10 @@ declare namespace ymaps {
     rectangleOverlay?:
       | OverlayKey
       | ((
-      geometry: IPixelCircleGeometry,
-      data: IDataManager | object,
-      options: object,
-    ) => vow.Promise);
+          geometry: IPixelCircleGeometry,
+          data: IDataManager | object,
+          options: object,
+        ) => vow.Promise);
     strokeColor?: string | string[];
     strokeOpacity?: number | number[];
     strokeStyle?: string | string[] | object | object[];
@@ -5967,14 +5941,15 @@ declare namespace ymaps {
 
     removeAll(): this;
 
-    setFilter(filterFunction: (object: object | string) => boolean): void;
+    setFilter(filterFunction: ((object: object) => boolean) | string): void;
 
     setParent(parent: IParentOnMap | null): this;
   }
 
   interface IObjectManagerOptions
-    extends IClustererOptionsInject,
-      IClusterPlacemarkOptionsWithClusterPrefix {
+    extends Omit<IClustererOptionsInject, 'hasBalloon' | 'hasHint'>,
+      IClusterPlacemarkOptionsWithClusterPrefix,
+      Omit<IGeoObjectOptionsWithGeoObjectPrefix, 'visible'> {
     clusterize?: boolean | undefined;
     syncOverlayInit?: boolean | undefined;
     viewportMargin?: number[] | number | undefined;

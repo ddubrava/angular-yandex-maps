@@ -16,6 +16,7 @@ interface TestingWindow extends Window {
     Placemark?: jasmine.Spy;
     GeoObject?: jasmine.Spy;
     Clusterer?: jasmine.Spy;
+    ObjectManager?: jasmine.Spy;
     panorama?: {
       Player?: jasmine.Spy;
     };
@@ -155,6 +156,127 @@ export function createPlacemarkConstructorSpy(
 }
 
 /**
+ * Creates a jasmine.SpyObj for a ymaps.GeoObject.
+ */
+export function createGeoObjectSpy(): jasmine.SpyObj<ymaps.GeoObject> {
+  const spy = jasmine.createSpyObj('ymaps.GeoObject', [], {
+    events: jasmine.createSpyObj('events', ['add']),
+    properties: jasmine.createSpyObj('properties', ['set']),
+    options: jasmine.createSpyObj('options', ['set']),
+  });
+
+  spy.events.add.and.returnValue({
+    remove: () => {},
+  });
+
+  return spy;
+}
+
+/**
+ * Creates a jasmine.Spy to watch for the constructor of a ymaps.GeoObject.
+ * @param geoObjectSpy
+ */
+export function createGeoObjectConstructorSpy(
+  geoObjectSpy: jasmine.SpyObj<ymaps.GeoObject>,
+): jasmine.Spy {
+  const geoObjectConstructorSpy = jasmine
+    .createSpy('GeoObject constructor')
+    .and.returnValue(geoObjectSpy);
+
+  const testingWindow: TestingWindow = window;
+
+  if (testingWindow.ymaps) {
+    testingWindow.ymaps.GeoObject = geoObjectConstructorSpy;
+  } else {
+    testingWindow.ymaps = {
+      GeoObject: geoObjectConstructorSpy,
+    };
+  }
+
+  return geoObjectConstructorSpy;
+}
+
+/**
+ * Creates a jasmine.SpyObj for a ymaps.Clusterer.
+ */
+export function createClustererSpy(): jasmine.SpyObj<ymaps.Clusterer> {
+  const spy = jasmine.createSpyObj('ymaps.Clusterer', ['add', 'remove'], {
+    events: jasmine.createSpyObj('events', ['add']),
+    options: jasmine.createSpyObj('options', ['set']),
+  });
+
+  spy.events.add.and.returnValue({
+    remove: () => {},
+  });
+
+  return spy;
+}
+
+/**
+ * Creates a jasmine.Spy to watch for the constructor of a ymaps.Clusterer.
+ * @param clustererSpy
+ */
+export function createClustererConstructorSpy(
+  clustererSpy: jasmine.SpyObj<ymaps.Clusterer>,
+): jasmine.Spy {
+  const clustererConstructorSpy = jasmine
+    .createSpy('Clusterer constructor')
+    .and.returnValue(clustererSpy);
+
+  const testingWindow: TestingWindow = window;
+
+  if (testingWindow.ymaps) {
+    testingWindow.ymaps.Clusterer = clustererConstructorSpy;
+  } else {
+    testingWindow.ymaps = {
+      Clusterer: clustererConstructorSpy,
+    };
+  }
+
+  return clustererConstructorSpy;
+}
+
+/**
+ * Creates a jasmine.SpyObj for a ymaps.ObjectManager.
+ */
+export function createObjectManagerSpy(): jasmine.SpyObj<ymaps.ObjectManager> {
+  const spy = jasmine.createSpyObj('ymaps.ObjectManager', ['add', 'remove'], {
+    events: jasmine.createSpyObj('events', ['add']),
+    options: jasmine.createSpyObj('options', ['set']),
+  });
+
+  spy.events.add.and.returnValue({
+    remove: () => {},
+  });
+
+  return spy;
+}
+
+/**
+ * Creates a jasmine.Spy to watch for the constructor of a ymaps.ObjectManager.
+ * @param objectManagerSpy
+ */
+export function createObjectManagerConstructorSpy(
+  objectManagerSpy: jasmine.SpyObj<ymaps.ObjectManager>,
+): jasmine.Spy {
+  const objectManagerConstructorSpy = jasmine
+    .createSpy('ObjectManager constructor')
+    .and.returnValue(objectManagerSpy);
+
+  const testingWindow: TestingWindow = window;
+
+  if (testingWindow.ymaps) {
+    testingWindow.ymaps.ObjectManager = objectManagerConstructorSpy;
+  } else {
+    testingWindow.ymaps = {
+      ObjectManager: objectManagerConstructorSpy,
+    };
+  }
+
+  return objectManagerConstructorSpy;
+}
+
+/**
  * Creates a jasmine.SpyObj for a ymaps.panorama.Player.
  */
 export function createPlayerSpy(): jasmine.SpyObj<ymaps.panorama.Player> {
@@ -245,47 +367,6 @@ export function createMultirouteConstructorSpy(
 }
 
 /**
- * Creates a jasmine.SpyObj for a ymaps.GeoObject.
- */
-export function createGeoObjectSpy(): jasmine.SpyObj<ymaps.GeoObject> {
-  const spy = jasmine.createSpyObj('ymaps.GeoObject', [], {
-    events: jasmine.createSpyObj('events', ['add']),
-    properties: jasmine.createSpyObj('properties', ['set']),
-    options: jasmine.createSpyObj('options', ['set']),
-  });
-
-  spy.events.add.and.returnValue({
-    remove: () => {},
-  });
-
-  return spy;
-}
-
-/**
- * Creates a jasmine.Spy to watch for the constructor of a ymaps.GeoObject.
- * @param geoObjectSpy
- */
-export function createGeoObjectConstructorSpy(
-  geoObjectSpy: jasmine.SpyObj<ymaps.GeoObject>,
-): jasmine.Spy {
-  const geoObjectConstructorSpy = jasmine
-    .createSpy('GeoObject constructor')
-    .and.returnValue(geoObjectSpy);
-
-  const testingWindow: TestingWindow = window;
-
-  if (testingWindow.ymaps) {
-    testingWindow.ymaps.GeoObject = geoObjectConstructorSpy;
-  } else {
-    testingWindow.ymaps = {
-      GeoObject: geoObjectConstructorSpy,
-    };
-  }
-
-  return geoObjectConstructorSpy;
-}
-
-/**
  * Creates a jasmine.SpyObj for a ymaps.control.RoutePanel.
  */
 export function createRoutePanelSpy(): jasmine.SpyObj<ymaps.control.RoutePanel> {
@@ -322,44 +403,4 @@ export function createRoutePanelConstructorSpy(
   }
 
   return routePanelConstructorSpy;
-}
-
-/**
- * Creates a jasmine.SpyObj for a ymaps.Clusterer.
- */
-export function createClustererSpy(): jasmine.SpyObj<ymaps.Clusterer> {
-  const spy = jasmine.createSpyObj('ymaps.Clusterer', ['add', 'remove'], {
-    events: jasmine.createSpyObj('events', ['add']),
-    options: jasmine.createSpyObj('options', ['set']),
-  });
-
-  spy.events.add.and.returnValue({
-    remove: () => {},
-  });
-
-  return spy;
-}
-
-/**
- * Creates a jasmine.Spy to watch for the constructor of a ymaps.Clusterer.
- * @param clustererSpy
- */
-export function createClustererConstructorSpy(
-  clustererSpy: jasmine.SpyObj<ymaps.Clusterer>,
-): jasmine.Spy {
-  const clustererConstructorSpy = jasmine
-    .createSpy('Clusterer constructor')
-    .and.returnValue(clustererSpy);
-
-  const testingWindow: TestingWindow = window;
-
-  if (testingWindow.ymaps) {
-    testingWindow.ymaps.Clusterer = clustererConstructorSpy;
-  } else {
-    testingWindow.ymaps = {
-      Clusterer: clustererConstructorSpy,
-    };
-  }
-
-  return clustererConstructorSpy;
 }
