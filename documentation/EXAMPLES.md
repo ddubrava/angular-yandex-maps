@@ -97,7 +97,14 @@ information, please see Yandex.Maps API documentation.
 
 ##### ObjectManager
 
-- [Adding objects to the map via ObjectManager](https://stackblitz.com/edit/placemark-clusterer)
+- [Adding objects to the map via ObjectManager](https://stackblitz.com/edit/object-manager)
+- [Event handling in objects of ObjectManager](https://stackblitz.com/edit/event-handling-in-objects-of-objectmanager)
+- [Opening the balloon on the placemark in ObjectManager](https://stackblitz.com/edit/opening-the-balloon-on-the-placemark-in-objectmanager)
+- [Loading the placemark balloon data on demand](https://stackblitz.com/edit/loading-the-placemark-balloon-data-on-demand)
+- [Adding objects with different geometries to the map](https://stackblitz.com/edit/adding-objects-with-different-geometries-to-the-map)
+- [Adding placemarks with various options and content to the ObjectManager](https://stackblitz.com/edit/adding-placemarks-with-various-options-and-content-to-th)
+- [Adding a GeoJSON file to the map from the maps constructor](https://stackblitz.com/edit/adding-a-geojson-file-to-the-map-from-the-maps-construct)
+- [Filtering objects](https://stackblitz.com/edit/filtering-objects)
 
 ##### Panoramas
 
