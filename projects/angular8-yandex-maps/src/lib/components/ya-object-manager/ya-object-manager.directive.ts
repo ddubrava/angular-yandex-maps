@@ -16,6 +16,23 @@ import { YaEvent } from '../../typings/ya-event';
 import { YaMapComponent } from '../ya-map/ya-map.component';
 import { YaReadyEvent } from '../../typings/ya-ready-event';
 
+/**
+ * The `ya-object-manager` component wraps `ymaps.ObjectManager` class from the Yandex.Maps API.
+ * You can configure it via the component's inputs.
+ * Events can be bound using the outputs of the component.
+ *
+ * <example-url>https://stackblitz.com/edit/object-manager?embed=1</example-url>
+ *
+ * @example
+ * ```html
+ * <ya-map [center]="[55.761952, 37.620739]">
+ *   <ya-object-manager
+ *     [options]="{ clusterize: true }"
+ *     (ready)="onReady($event)"
+ *   ></ya-object-manager>
+ * </ya-map>
+ * ```
+ */
 @Directive({
   selector: 'ya-object-manager',
 })
@@ -26,6 +43,10 @@ export class YaObjectManagerDirective implements OnInit, OnChanges, OnDestroy {
 
   private _objectManager?: ymaps.ObjectManager;
 
+  /**
+   * Options for the ObjectManager.
+   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/ObjectManager.html#ObjectManager__param-options}
+   */
   @Input() options: ymaps.IObjectManagerOptions;
 
   /**
