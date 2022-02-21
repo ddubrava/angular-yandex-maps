@@ -73,3 +73,14 @@
     <ya-control type="SearchControl"></ya-control>
   </ya-map>
 </div>
+
+<h1>ObjectManager</h1>
+
+<div class="container">
+  <ya-map [center]="[55.751952, 37.600739]">
+    <ya-object-manager
+      [options]="{ clusterize: true }"
+      (ready)="onObjectManagerReady($event)"
+    ></ya-object-manager>
+  </ya-map>
+</div>
