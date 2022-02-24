@@ -4875,15 +4875,15 @@ declare namespace ymaps {
 
   namespace vow {
     class Deferred {
-      promise(): Promise;
+      promise(): vow.Promise;
 
-      reject(reason: object): void;
+      reject(reason: any): void;
 
-      resolve(value: object): void;
+      resolve(value: any): void;
     }
 
     class Promise {
-      constructor(resolver?: () => void);
+      constructor(resolver?: (resolve?: any, reject?: any) => void);
 
       done(
         onFulfilled?: (...args: any[]) => void,
@@ -4896,19 +4896,25 @@ declare namespace ymaps {
         onFulfilled?: (...args: any[]) => void,
         onRejected?: (err?: Error | any) => void,
         ctx?: object,
-      ): Promise;
+      ): vow.Promise;
 
       then(
         onFulfilled?: (...args: any[]) => void,
         onRejected?: (err?: Error | any) => void,
         onProgress?: (...args: any[]) => void,
         ctx?: object,
-      ): Promise;
+      ): vow.Promise;
 
       valueOf(): object;
     }
 
-    function resolve(value: any): any;
+    function all(iterable: any): vow.Promise;
+
+    function defer(): vow.Deferred;
+
+    function reject(reason: any): vow.Promise;
+
+    function resolve(value: any): vow.Promise;
   }
 
   /* Interfaces */
