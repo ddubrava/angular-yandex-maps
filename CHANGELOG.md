@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [13.2.0](https://github.com/ddubrava/angular8-yandex-maps/compare/v13.1.0...v13.2.0) (2022-02-25)
+
+### Features
+
+- **typings:** improve vow namespace [#163](https://github.com/ddubrava/angular8-yandex-maps/issues/163) ([#166](https://github.com/ddubrava/angular8-yandex-maps/issues/166)) ([029dae9](https://github.com/ddubrava/angular8-yandex-maps/commit/029dae99232171de388aca3464101f50c47dff30))
+- **typings:** improve ymaps.control namespace ([#167](https://github.com/ddubrava/angular8-yandex-maps/issues/167)) ([1563ba8](https://github.com/ddubrava/angular8-yandex-maps/commit/1563ba8a289c3b75d47a0238fdf6c8304062448a)), closes [#165](https://github.com/ddubrava/angular8-yandex-maps/issues/165)
+
 ## [13.1.0](https://github.com/ddubrava/angular8-yandex-maps/compare/v13.0.0...v13.1.0) (2022-02-21)
 
 ### Features
