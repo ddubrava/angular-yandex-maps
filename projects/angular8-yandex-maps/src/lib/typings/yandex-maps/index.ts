@@ -654,11 +654,13 @@ declare namespace ymaps {
     class Button implements ICustomizable, ISelectableControl {
       constructor(parameters?: IButtonParameters | string);
 
-      options: IOptionManager;
+      data: data.Manager;
 
       events: IEventManager;
 
-      data: data.Manager;
+      options: IOptionManager;
+
+      press: Event;
 
       state: data.Manager;
 
@@ -668,30 +670,17 @@ declare namespace ymaps {
 
       enable(): void;
 
+      getMap(): Map;
+
+      getParent(): IControlParent | null;
+
       isEnabled(): boolean;
 
       isSelected(): boolean;
 
       select(): void;
 
-      getParent(): null | IControlParent;
-
       setParent(parent: IControlParent): this;
-    }
-
-    interface IBaseButtonParametersOptions {
-      adjustMapMargin?: boolean;
-      float?: 'none' | 'left' | 'right';
-      floatIndex?: number;
-      layout?: IClassConstructor<ISelectableControlLayout> | string;
-      maxWidth?: number[][] | number[] | number;
-      position?: {
-        bottom?: number | string;
-        left?: number | string;
-        right?: number | string;
-        top?: number | string;
-      };
-      visible?: boolean;
     }
 
     interface IButtonParameters {
@@ -700,9 +689,21 @@ declare namespace ymaps {
         image?: string;
         title?: string;
       };
-      options?: IBaseButtonParametersOptions & {
+      options?: {
+        adjustMapMargin?: boolean;
+        float?: 'none' | 'left' | 'right';
+        floatIndex?: number;
+        layout?: IClassConstructor<ISelectableControlLayout> | string;
+        maxWidth?: number[][] | number[] | number;
+        position?: {
+          bottom?: number | string;
+          left?: number | string;
+          right?: number | string;
+          top?: number | string;
+        };
         selectOnClick?: boolean;
         size?: 'auto' | 'small' | 'medium' | 'large';
+        visible?: boolean;
       };
       state?: {
         enabled?: boolean;
@@ -722,13 +723,23 @@ declare namespace ymaps {
       data?: {
         title?: string;
       };
-      options?: IBaseButtonParametersOptions & {
-        collapseOnBlur?: boolean;
-        expandOnClick?: boolean;
-        popupFloat?: 'left' | 'right';
+      options?: {
+        adjustMapMargin?: boolean;
+        float?: 'none' | 'left' | 'right';
+        floatIndex?: number;
+        layout?: IClassConstructor<ISelectableControlLayout> | string;
+        maxWidth?: number[][] | number[] | number;
+        position?: {
+          bottom?: number | string;
+          left?: number | string;
+          right?: number | string;
+          top?: number | string;
+        };
+        visible?: boolean;
       };
       state?: {
-        expanded?: boolean;
+        enabled?: boolean;
+        selected?: boolean;
       };
     }
 
@@ -741,45 +752,94 @@ declare namespace ymaps {
         image?: string;
         title?: string;
       };
-      options?: IBaseButtonParametersOptions;
+      options?: {
+        adjustMapMargin?: boolean;
+        float?: 'none' | 'left' | 'right';
+        floatIndex?: number;
+        maxWidth?: number[][] | number[] | number;
+        noPlacemark?: boolean;
+        position?: {
+          bottom?: number | string;
+          left?: number | string;
+          right?: number | string;
+          top?: number | string;
+        };
+        visible?: boolean;
+        useMapMargin?: boolean;
+      };
+      state?: Record<string, any>;
     }
 
     class ListBox implements ICollection, IControl, ICustomizable {
       constructor(parameters?: IListBoxParameters);
 
+      data: data.Manager;
+
       events: IEventManager;
 
       options: IOptionManager;
 
-      data: data.Manager;
-
       state: data.Manager;
 
-      add(object: object): this;
+      add(object: Record<string, any>): this;
+
+      collapse(): this;
+
+      expand(): this;
+
+      get(value: any): this;
 
       getIterator(): IIterator;
 
-      remove(object: object): this;
+      getMap(): Map;
 
       getParent(): null | IControlParent;
+
+      isExpanded(): boolean;
+
+      remove(object: Record<string, any>): this;
 
       setParent(parent: IControlParent): this;
     }
 
-    interface IListBoxParameters extends IButtonParameters {
-      options?: IBaseButtonParametersOptions & {
-        noPlacemark?: boolean;
+    interface IListBoxParameters {
+      data?: {
+        content?: string;
+        image?: string;
+        title?: string;
+      };
+      items?: IControl[];
+      options?: {
+        adjustMapMargin?: boolean;
+        collapseOnBlur?: boolean;
+        expandOnClick?: boolean;
+        float?: 'none' | 'left' | 'right';
+        floatIndex?: number;
+        layout?: IClassConstructor<ISelectableControlLayout> | string;
+        maxWidth?: number[][] | number[] | number;
+        popupFloat?: string;
+        position?: {
+          bottom?: number | string;
+          left?: number | string;
+          right?: number | string;
+          top?: number | string;
+        };
+        visible?: boolean;
+      };
+      state?: {
+        expanded?: boolean;
+        filters?: any;
       };
     }
 
     class ListBoxItem implements ICustomizable, ISelectableControl {
-      constructor(parameters?: IListBoxItemParameters);
+      constructor(parameters?: IListBoxItemParameters | string);
 
-      options: IOptionManager;
+      data: data.Manager;
 
       events: IEventManager;
 
-      data: data.Manager;
+      options: IOptionManager;
 
       state: data.Manager;
 
@@ -789,17 +849,17 @@ declare namespace ymaps {
 
       enable(): void;
 
+      getMap(): Map;
+
+      getParent(): IControlParent | null;
+
       isEnabled(): boolean;
 
       isSelected(): boolean;
 
       select(): void;
 
-      getParent(): null | IControlParent;
-
       setParent(parent: IControlParent): this;
-
-      getMap(): Map;
     }
 
     interface IListBoxItemParameters {
@@ -820,7 +880,7 @@ declare namespace ymaps {
     }
 
     class Manager {
-      constructor(map: Map, controls?: Array<string | IControl>, options?: IManagerOptions);
+      constructor(map: Map, controls?: string[] | IControl[], options?: IManagerOptions);
 
       events: event.Manager;
 
@@ -828,11 +888,11 @@ declare namespace ymaps {
 
       state: data.Manager;
 
-      add(control: IControl | ControlKey, options?: IManagerControlOptions): this;
+      add(control: IControl | ControlKey, options?: Record<string, unknown>): this;
 
-      each(callback: (control: IControl) => void, context?: object): this;
+      each(callback: (control: IControl) => void, context?: Record<string, any>): this;
 
-      get(index: number | string): IControl | null;
+      get(index: number | string): any;
 
       getChildElement(control: IControl): Promise<HTMLElement>;
 
@@ -851,17 +911,6 @@ declare namespace ymaps {
       states?: string[];
     }
 
-    interface IManagerControlOptions {
-      float?: 'none' | 'left' | 'right';
-      floatIndex?: number;
-      position?: {
-        bottom?: number | string;
-        left?: number | string;
-        right?: number | string;
-        top?: number | string;
-      };
-    }
-
     class RouteButton implements IControl, ICustomizable {
       constructor(parameters?: IRouteButtonParameters);
 
@@ -877,8 +926,10 @@ declare namespace ymaps {
     }
 
     interface IRouteButtonParameters {
+      lazy?: boolean;
       options?: {
         adjustMapMargin?: boolean;
+        autofocus?: boolean;
         collapseOnBlur?: boolean;
         float?: 'none' | 'left' | 'right';
         floatIndex?: number;
@@ -910,8 +961,21 @@ declare namespace ymaps {
         image?: string;
         title?: string;
       };
-      options?: IBaseButtonParametersOptions;
-      state?: object;
+      options?: {
+        adjustMapMargin?: boolean;
+        float?: 'none' | 'left' | 'right';
+        floatIndex?: number;
+        layout?: IClassConstructor<ISelectableControlLayout> | string;
+        maxWidth?: number[][] | number[] | number;
+        position?: {
+          bottom?: number | string;
+          left?: number | string;
+          right?: number | string;
+          top?: number | string;
+        };
+        visible?: boolean;
+      };
+      state?: Record<string, any>;
     }
 
     class RoutePanel implements IControl, ICustomizable {
@@ -945,13 +1009,7 @@ declare namespace ymaps {
         visible?: boolean;
         [key: string]: any;
       };
-      state?: {
-        fromEnabled?: boolean;
-        from?: string;
-        to?: string;
-        type?: string;
-        toEnabled?: boolean;
-      };
+      state?: Record<string, any>;
     }
 
     class RulerControl extends Button {
@@ -959,7 +1017,7 @@ declare namespace ymaps {
     }
 
     interface IRulerControlParameters {
-      data?: object;
+      data?: Record<string, any>;
       options?: {
         adjustMapMargin?: boolean;
         position?: {
@@ -971,7 +1029,7 @@ declare namespace ymaps {
         scaleLine?: boolean;
         visible?: boolean;
       };
-      state?: object;
+      state?: Record<string, any>;
     }
 
     class SearchControl implements IControl, ICustomizable {
@@ -983,21 +1041,19 @@ declare namespace ymaps {
 
       state: data.Manager;
 
-      getParent(): null | IControlParent;
-
-      setParent(parent: IControlParent): this;
-
       clear(): void;
 
       getMap(): Map;
 
+      getParent(): IControlParent | null;
+
       getRequestString(): string;
 
-      getResponseMetaData(): object;
+      getResponseMetaData(): Record<string, any>;
 
-      getResult(index: number): Promise<object>;
+      getResult(index: number): vow.Promise;
 
-      getResultsArray(): object[];
+      getResultsArray(): Record<string, any>[];
 
       getResultsCount(): number;
 
@@ -1005,13 +1061,15 @@ declare namespace ymaps {
 
       hideResult(): void;
 
-      search(request: string): Promise<void>;
+      search(request: string): vow.Promise;
+
+      setParent(parent: IControlParent): this;
 
       showResult(index: number): this;
     }
 
     interface ISearchControlParameters {
-      data?: object;
+      data?: Record<string, any>;
       options?: {
         adjustMapMargin?: boolean;
         boundedBy?: number[][];
@@ -1044,8 +1102,9 @@ declare namespace ymaps {
         useMapBounds?: boolean;
         zoomMargin?: number;
         visible?: boolean;
+        useMapMargin?: boolean;
       };
-      state?: object;
+      state?: Record<string, any>;
     }
 
     const storage: util.Storage;
@@ -1091,12 +1150,12 @@ declare namespace ymaps {
     }
 
     interface ITrafficControlParameters {
-      options: {
+      options?: {
         adjustMapMargin?: boolean;
         collapseOnBlur?: boolean;
         float?: 'none' | 'left' | 'right';
         floatIndex: number;
-        layout?: string | IClassConstructor<ISelectableControlLayout>;
+        layout?: string | IClassConstructor<ITrafficControlLayout>;
         maxWidth?: number | number[];
         position?: {
           bottom?: number | string;
@@ -1106,20 +1165,45 @@ declare namespace ymaps {
         };
         size?: string;
         visible?: boolean;
-        state?: {
-          providerKey?: TrafficControlProviderKey;
-          trafficShown?: boolean;
-        };
+      };
+      state?: {
+        providerKey?: TrafficControlProviderKey;
+        trafficShown?: boolean;
       };
     }
 
     class TypeSelector extends ListBox {
-      constructor(parameters?: ITypeSelectorParameters);
+      constructor(parameters?: string[] | MapType[] | ITypeSelectorParameters);
+
+      addMapType(mapType: string | MapType, positionIndex?: number): this;
+
+      removeAllMapTypes(): this;
+
+      removeMapType(mapType: string | MapType): this;
     }
 
     interface ITypeSelectorParameters {
+      mapTypes?: string[] | MapType[];
       options?: {
-        panoramasItemMode: 'on' | 'off' | 'ifMercator';
+        adjustMapMargin?: boolean;
+        collapseOnBlur?: boolean;
+        collapseTimeout?: number;
+        expandOnClick?: boolean;
+        float?: 'none' | 'left' | 'right';
+        floatIndex: number;
+        layout?: string | IClassConstructor<ISelectableControlLayout>;
+        maxWidth?: number | number[];
+        panoramasItemMode?: 'on' | 'ifMercator' | 'off';
+        position?: {
+          bottom?: number | string;
+          left?: number | string;
+          right?: number | string;
+          top?: number | string;
+        };
+        visible?: boolean;
+      };
+      state?: {
+        expanded: boolean;
       };
     }
 
@@ -1130,41 +1214,18 @@ declare namespace ymaps {
 
       options: IOptionManager;
 
-      state: data.Manager;
-
-      getParent(): null | IControlParent;
-
-      setParent(parent: IControlParent): this;
-
-      clear(): void;
-
       getMap(): Map;
 
-      getRequestString(): string;
+      getParent(): IControlParent | null;
 
-      getResponseMetaData(): object;
-
-      getResult(index: number): Promise<object>;
-
-      getResultsArray(): object[];
-
-      getResultsCount(): number;
-
-      getSelectedIndex(): number;
-
-      hideResult(): void;
-
-      search(request: string): Promise<void>;
-
-      showResult(index: number): this;
+      setParent(parent: IControlParent): this;
     }
 
     interface IZoomControlParameters {
-      data?: object;
+      data?: Record<string, any>;
       options?: {
         adjustMapMargin?: boolean;
         layout?: string | IClassConstructor<IZoomControlLayout>;
-        float?: 'none' | 'left' | 'right';
         position?: {
           bottom?: number | string;
           left?: number | string;
@@ -1175,28 +1236,26 @@ declare namespace ymaps {
         visible?: boolean;
         zoomDuration?: number;
         zoomStep?: number;
-        state?: object;
       };
+      state?: Record<string, any>;
     }
-
-    type IZoomControlLayout = ILayout;
   }
 
   namespace data {
     class Manager implements IDataManager, IFreezable {
-      constructor(data?: object);
+      constructor(data?: Record<string, any>);
 
       events: IEventManager;
 
-      get(path: string, defaultValue?: object): object;
+      get(path: string, defaultValue?: any): any;
 
-      getAll(): object;
+      getAll(): Record<string, any>;
 
-      set(path: object | string, value?: object | number | string | null | undefined): this;
+      set(path: Record<string, any> | string, value?: any): this;
 
       setAll(): this;
 
-      unset(path: object | string): this;
+      unset(path: string | string[]): this;
 
       unsetAll(): this;
 
@@ -3175,13 +3234,13 @@ declare namespace ymaps {
 
   namespace option {
     class Manager implements IOptionManager {
-      constructor(options?: object, parent?: IOptionManager, name?: string);
+      constructor(options?: Record<string, any>, parent?: IOptionManager, name?: string);
 
       events: IEventManager;
 
-      get(key: string, defaultValue?: object): object;
+      get(key: string, defaultValue?: any): any;
 
-      getAll(): object;
+      getAll(): Record<string, any>;
 
       getName(): string;
 
@@ -3189,7 +3248,7 @@ declare namespace ymaps {
 
       resolve(key: string, name?: string): object;
 
-      set(key: object | string, value?: object | number | string | null | undefined): this;
+      set(key: Record<string, any> | string, value?: any): this;
 
       unset(keys: string[][] | string[] | string): this;
 
@@ -3938,7 +3997,7 @@ declare namespace ymaps {
 
     filter(filterFunction: (object: object) => boolean): object[];
 
-    get(index: number): object;
+    get(index: number): any;
 
     getAll(): T[];
 
@@ -4007,6 +4066,7 @@ declare namespace ymaps {
     callMethod(name: string): void;
 
     get<T extends OriginalEvent, K extends keyof T = keyof T>(name: K): T[K];
+
     get(name: string): any;
 
     getSourceEvent(): IDomEvent<OriginalEvent, TargetGeometry>;
@@ -4341,7 +4401,9 @@ declare namespace ymaps {
     TargetGeometry
   > {
     get(name: string): any;
+
     get(name: 'coords' | 'globalPixels' | 'pagePixels' | 'clientPixels'): [number, number];
+
     get(name: 'domEvent'): DomEvent<OriginalEvent, TargetGeometry> | undefined;
   }
 
@@ -4865,11 +4927,11 @@ declare namespace ymaps {
     ): vow.Promise;
 
     class Storage {
-      add(key: string, object: object): this;
+      add(key: string, object: Record<string, any>): this;
 
-      get(key: string | object): object | string;
+      get(key: string | Record<string, any>): Record<string, any> | string;
 
-      remove(key: string): object;
+      remove(key: string): this;
     }
   }
 
@@ -5014,9 +5076,9 @@ declare namespace ymaps {
   }
 
   interface IDataManager extends IEventEmitter {
-    set(key: object | string, value?: object | number | string | null | undefined): this;
+    set(key: Record<string, any> | string, value?: any): this;
 
-    get(path: string, defaultValue?: object): object;
+    get(path: string, defaultValue?: any): any;
   }
 
   type IDomEventEmitter = IEventEmitter;
@@ -5530,9 +5592,9 @@ declare namespace ymaps {
   type IMultiRouteReferencePoint = string | number[] | geometry.Point;
 
   interface IOptionManager extends IChild<IOptionManager>, IEventEmitter, IFreezable {
-    get(key: string, defaultValue?: object): any;
+    get(key: string, defaultValue?: any): any;
 
-    getAll(): object;
+    getAll(): Record<string, any>;
 
     getName(): string;
 
@@ -5540,7 +5602,7 @@ declare namespace ymaps {
 
     resolve(key: string, name?: string): object;
 
-    set(key: object | string, value?: object | number | string | null | undefined): this;
+    set(key: Record<string, any> | string, value?: any): this;
 
     setName(name: string): void;
   }
@@ -5866,6 +5928,10 @@ declare namespace ymaps {
   }
 
   type ISelectableControlLayout = ILayout;
+
+  type ITrafficControlLayout = ILayout;
+
+  type IZoomControlLayout = ILayout;
 
   interface IShape {
     contains(position: number[]): boolean;
