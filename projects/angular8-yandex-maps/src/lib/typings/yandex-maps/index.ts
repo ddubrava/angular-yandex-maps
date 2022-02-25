@@ -1243,19 +1243,19 @@ declare namespace ymaps {
 
   namespace data {
     class Manager implements IDataManager, IFreezable {
-      constructor(data?: object);
+      constructor(data?: Record<string, any>);
 
       events: IEventManager;
 
-      get(path: string, defaultValue?: object): object;
+      get(path: string, defaultValue?: any): any;
 
-      getAll(): object;
+      getAll(): Record<string, any>;
 
-      set(path: object | string, value?: any): this;
+      set(path: Record<string, any> | string, value?: any): this;
 
       setAll(): this;
 
-      unset(path: object | string): this;
+      unset(path: string | string[]): this;
 
       unsetAll(): this;
 
@@ -3234,13 +3234,13 @@ declare namespace ymaps {
 
   namespace option {
     class Manager implements IOptionManager {
-      constructor(options?: object, parent?: IOptionManager, name?: string);
+      constructor(options?: Record<string, any>, parent?: IOptionManager, name?: string);
 
       events: IEventManager;
 
-      get(key: string, defaultValue?: object): object;
+      get(key: string, defaultValue?: any): any;
 
-      getAll(): object;
+      getAll(): Record<string, any>;
 
       getName(): string;
 
@@ -3248,7 +3248,7 @@ declare namespace ymaps {
 
       resolve(key: string, name?: string): object;
 
-      set(key: object | string, value?: any): this;
+      set(key: Record<string, any> | string, value?: any): this;
 
       unset(keys: string[][] | string[] | string): this;
 
@@ -3997,7 +3997,7 @@ declare namespace ymaps {
 
     filter(filterFunction: (object: object) => boolean): object[];
 
-    get(index: number): object;
+    get(index: number): any;
 
     getAll(): T[];
 
@@ -4066,6 +4066,7 @@ declare namespace ymaps {
     callMethod(name: string): void;
 
     get<T extends OriginalEvent, K extends keyof T = keyof T>(name: K): T[K];
+
     get(name: string): any;
 
     getSourceEvent(): IDomEvent<OriginalEvent, TargetGeometry>;
@@ -4400,7 +4401,9 @@ declare namespace ymaps {
     TargetGeometry
   > {
     get(name: string): any;
+
     get(name: 'coords' | 'globalPixels' | 'pagePixels' | 'clientPixels'): [number, number];
+
     get(name: 'domEvent'): DomEvent<OriginalEvent, TargetGeometry> | undefined;
   }
 
@@ -4924,11 +4927,11 @@ declare namespace ymaps {
     ): vow.Promise;
 
     class Storage {
-      add(key: string, object: object): this;
+      add(key: string, object: Record<string, any>): this;
 
-      get(key: string | object): object | string;
+      get(key: string | Record<string, any>): Record<string, any> | string;
 
-      remove(key: string): object;
+      remove(key: string): this;
     }
   }
 
@@ -5073,9 +5076,9 @@ declare namespace ymaps {
   }
 
   interface IDataManager extends IEventEmitter {
-    set(key: object | string, value?: any): this;
+    set(key: Record<string, any> | string, value?: any): this;
 
-    get(path: string, defaultValue?: object): object;
+    get(path: string, defaultValue?: any): any;
   }
 
   type IDomEventEmitter = IEventEmitter;
@@ -5589,9 +5592,9 @@ declare namespace ymaps {
   type IMultiRouteReferencePoint = string | number[] | geometry.Point;
 
   interface IOptionManager extends IChild<IOptionManager>, IEventEmitter, IFreezable {
-    get(key: string, defaultValue?: object): any;
+    get(key: string, defaultValue?: any): any;
 
-    getAll(): object;
+    getAll(): Record<string, any>;
 
     getName(): string;
 
@@ -5599,7 +5602,7 @@ declare namespace ymaps {
 
     resolve(key: string, name?: string): object;
 
-    set(key: object | string, value?: any): this;
+    set(key: Record<string, any> | string, value?: any): this;
 
     setName(name: string): void;
   }
