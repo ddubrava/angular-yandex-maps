@@ -91,7 +91,7 @@ export class AppComponent {
 
 ## How can I use the geocoder?
 
-Use [`YaGeocoderService`](http://localhost:63342/.gitignore/dist/docs/injectables/YaGeocoderService.html).
+Use [`YaGeocoderService`](https://ddubrava.github.io/angular8-yandex-maps/injectables/YaGeocoderService.html).
 
 ```typescript
 import { YaGeocoderService } from 'angular8-yandex-maps';
