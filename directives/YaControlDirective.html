@@ -73,13 +73,16 @@
 You can configure <code>ymaps.control[YaControlType]</code> via the component&#39;s inputs.
 API Events can be bound only manually. You can use <code>ready</code> event to get an instance.</p>
 <p><example-url><a href="https://stackblitz.com/edit/searchcontrol?embed=1">https://stackblitz.com/edit/searchcontrol?embed=1</a></example-url></p>
-<div><pre class="line-numbers"><code class="language-html">&lt;ya-map [center]=&quot;[55.761952, 37.620739]&quot;&gt;
+<div><pre class="line-numbers"><code class="language-html">```html
+&lt;ya-map [center]=&quot;[55.761952, 37.620739]&quot;&gt;
   &lt;ya-control
     type=&quot;RoutePanel&quot;
     [parameters]=&quot;{ options: { float: &#39;right&#39; } }&quot;
   &gt;&lt;/ya-control&gt;
-&lt;/ya-map&gt;</code></pre></div>
+&lt;/ya-map&gt;</code></pre></div><p>```</p>
+
             </p>
+
 
             <p class="comment">
                 <h3>Implements</h3>
@@ -431,6 +434,7 @@ export class YaControlDirective implements OnInit, OnChanges, OnDestroy {
             </iframe>
     </div>
 </div>
+
 
 
 

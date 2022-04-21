@@ -68,14 +68,14 @@
             </p>
             <p class="comment">
                 <p>The <code>YaGeocoder</code> service wraps <code>ymaps.geocode</code> static function from the Yandex.Maps API.</p>
-<div><pre class="line-numbers"><code class="language-ts">import { YaGeocoderService } from &#39;angular8-yandex-maps&#39;;
-
-export class AppComponent {
+<div><pre class="line-numbers"><code class="language-html">```ts
+import { YaGeocoderService } from &#39;angular8-yandex-maps&#39;;</code></pre></div><p>export class AppComponent {
   constructor(private yaGeocoderService: YaGeocoderService) {
     this.yaGeocoderService.geocode(&#39;Moscow&#39;)
       .subscribe(v =&gt; console.log(v))
   }
-}</code></pre></div>
+}</p>
+<div><pre class="line-numbers"><code class="language-none"></code></pre></div>
             </p>
 
 
@@ -326,6 +326,7 @@ export class YaGeocoderService {
     </div>
 
 </div>
+
 
 
 

@@ -74,21 +74,21 @@
 You can configure it via the component&#39;s inputs.
 Events can be bound using the outputs of the component.</p>
 <p><example-url><a href="https://stackblitz.com/edit/placemark-clusterer?embed=1">https://stackblitz.com/edit/placemark-clusterer?embed=1</a></example-url></p>
-<div><pre class="line-numbers"><code class="language-html">&lt;ya-map [center]=&quot;[55.761952, 37.620739]&quot;&gt;
+<div><pre class="line-numbers"><code class="language-html">```html
+&lt;ya-map [center]=&quot;[55.761952, 37.620739]&quot;&gt;
   &lt;ya-clusterer [options]=&quot;{ minClusterSize: 5 }&quot;&gt;
     &lt;ya-placemark [geometry]=&quot;[55.74, 37.5]&quot;&gt;&lt;/ya-placemark&gt;
     &lt;ya-placemark [geometry]=&quot;[55.64, 37.46]&quot;&gt;&lt;/ya-placemark&gt;
-    &lt;ya-placemark [geometry]=&quot;[55.75, 37.38]&quot;&gt;&lt;/ya-placemark&gt;
+    &lt;ya-placemark [geometry]=&quot;[55.75, 37.38]&quot;&gt;&lt;/ya-placemark&gt;</code></pre></div><div><pre class="line-numbers"><code class="language-none">&lt;ya-geoobject
+  [feature]=&quot;{ geometry: { type: &#39;Point&#39;, coordinates: [55.81, 37.4] } }&quot;
+ &gt;&lt;/ya-geoobject&gt;
 
-    &lt;ya-geoobject
-      [feature]=&quot;{ geometry: { type: &#39;Point&#39;, coordinates: [55.81, 37.4] } }&quot;
-     &gt;&lt;/ya-geoobject&gt;
+&lt;ya-geoobject
+  [feature]=&quot;{ geometry: { type: &#39;Point&#39;, coordinates: [55.7, 37.39] } }&quot;
+ &gt;&lt;/ya-geoobject&gt;</code></pre></div>  </ya-clusterer>
+</ya-map>
+```
 
-    &lt;ya-geoobject
-      [feature]=&quot;{ geometry: { type: &#39;Point&#39;, coordinates: [55.7, 37.39] } }&quot;
-     &gt;&lt;/ya-geoobject&gt;
-  &lt;/ya-clusterer&gt;
-&lt;/ya-map&gt;</code></pre></div>
     </p>
 
 
@@ -757,6 +757,7 @@ export class YaClustererComponent implements AfterContentInit, OnChanges, OnDest
     var ACTUAL_COMPONENT = {'name': 'YaClustererComponent'};
 </script>
 <script src="../js/tree.js"></script>
+
 
 
 
