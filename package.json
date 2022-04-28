@@ -5,7 +5,7 @@
     "start": "ng serve --configuration=local",
     "start:lib": "ng build angular8-yandex-maps --watch",
     "build": "ng build angular8-yandex-maps --configuration production",
-    "build:docs": "compodoc -p tsconfig.doc.json --output dist/docs --theme readthedocs --name \"Angular Yandex Maps\" --includes documentation --hideGenerator --disableLifeCycleHooks --disableInternal --disablePrivate --disableDependencies",
+    "build:docs": "compodoc --output dist/docs",
     "test": "ng test angular8-yandex-maps",
     "test:headless": "npm run test -- --watch=false --browsers=ChromeHeadless",
     "test:coverage": "npm run test:headless -- --code-coverage",
