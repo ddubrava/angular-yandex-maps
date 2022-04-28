@@ -1,5 +1,5 @@
 <h1 align="center">Angular8-yandex-maps</h1>
-<p align="center">Yandex.Maps Angular components that implements the Yandex.Maps JavaScript API</p>
+<p align="center">Yandex.Maps Angular components that implement the Yandex.Maps JavaScript API</p>
 
 <p align="center">
   <a href="https://www.npmjs.com/package/angular8-yandex-maps">
