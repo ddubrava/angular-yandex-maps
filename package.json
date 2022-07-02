@@ -11,12 +11,7 @@
     "test:coverage": "npm run test:headless -- --code-coverage",
     "lint": "ng lint angular8-yandex-maps",
     "release": "standard-version",
-    "prepare": "husky install",
-    "pre-commit": "lint-staged"
-  },
-  "lint-staged": {
-    "*.{js,ts,json,md,html,css}": "prettier --write",
-    "*.{js,ts}": "eslint --fix"
+    "prepare": "husky install"
   },
   "dependencies": {
     "@angular/animations": "^14.0.4",
