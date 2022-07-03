@@ -71,6 +71,7 @@
 
 export class AppComponent {
   constructor(private yaGeocoderService: YaGeocoderService) {
+    // Don&#39;t forget to unsubscribe
     this.yaGeocoderService.geocode(&#39;Moscow&#39;)
       .subscribe(v =&gt; console.log(v))
   }
@@ -113,12 +114,12 @@ export class AppComponent {
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(_ngZone: <a href="https://angular.io/api/core/NgZone" target="_blank">NgZone</a>, _yaApiLoaderService: <a href="../injectables/YaApiLoaderService.html" target="_self">YaApiLoaderService</a>)</code>
+<code>constructor(ngZone: <a href="https://angular.io/api/core/NgZone" target="_blank">NgZone</a>, yaApiLoaderService: <a href="../injectables/YaApiLoaderService.html" target="_self">YaApiLoaderService</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">projects/angular8-yandex-maps/src/lib/services/ya-geocoder/ya-geocoder.service.ts:25</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">projects/angular8-yandex-maps/src/lib/services/ya-geocoder/ya-geocoder.service.ts:26</a></div>
                             </td>
                         </tr>
 
@@ -136,7 +137,7 @@ export class AppComponent {
                                         </thead>
                                         <tbody>
                                                 <tr>
-                                                        <td>_ngZone</td>
+                                                        <td>ngZone</td>
                                                   
                                                         <td>
                                                                         <code><a href="https://angular.io/api/core/NgZone" target="_blank" >NgZone</a></code>
@@ -148,7 +149,7 @@ export class AppComponent {
                                                     
                                                 </tr>
                                                 <tr>
-                                                        <td>_yaApiLoaderService</td>
+                                                        <td>yaApiLoaderService</td>
                                                   
                                                         <td>
                                                                         <code><a href="../injectables/YaApiLoaderService.html" target="_self" >YaApiLoaderService</a></code>
@@ -193,8 +194,8 @@ export class AppComponent {
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="36"
-                            class="link-to-prism">projects/angular8-yandex-maps/src/lib/services/ya-geocoder/ya-geocoder.service.ts:36</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="37"
+                            class="link-to-prism">projects/angular8-yandex-maps/src/lib/services/ya-geocoder/ya-geocoder.service.ts:37</a></div>
                 </td>
             </tr>
 
@@ -286,6 +287,7 @@ import { YaApiLoaderService } from &#x27;../ya-api-loader/ya-api-loader.service&
  *
  * export class AppComponent {
  *   constructor(private yaGeocoderService: YaGeocoderService) {
+ *     // Don&#x27;t forget to unsubscribe
  *     this.yaGeocoderService.geocode(&#x27;Moscow&#x27;)
  *       .subscribe(v &#x3D;&gt; console.log(v))
  *   }
@@ -297,8 +299,8 @@ import { YaApiLoaderService } from &#x27;../ya-api-loader/ya-api-loader.service&
 })
 export class YaGeocoderService {
   constructor(
-    private readonly _ngZone: NgZone,
-    private readonly _yaApiLoaderService: YaApiLoaderService,
+    private readonly ngZone: NgZone,
+    private readonly yaApiLoaderService: YaApiLoaderService,
   ) {}
 
   /**
@@ -307,12 +309,12 @@ export class YaGeocoderService {
    * @param options Options.
    */
   geocode(request: string | number[], options?: ymaps.IGeocodeOptions): Observable&lt;object&gt; {
-    return this._yaApiLoaderService.load().pipe(
+    return this.yaApiLoaderService.load().pipe(
       switchMap(() &#x3D;&gt; from(ymaps.geocode(request, options))),
       switchMap(
         (result) &#x3D;&gt;
           new Observable&lt;object&gt;((observer) &#x3D;&gt; {
-            this._ngZone.run(() &#x3D;&gt; {
+            this.ngZone.run(() &#x3D;&gt; {
               observer.next(result);
               observer.complete();
             });
