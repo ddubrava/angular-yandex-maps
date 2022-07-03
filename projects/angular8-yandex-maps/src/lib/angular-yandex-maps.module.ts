@@ -1,7 +1,5 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 
-import { YA_CONFIG, YaConfig } from './services/ya-api-loader/ya-api-loader.service';
-
 import { YaClustererComponent } from './components/ya-clusterer/ya-clusterer.component';
 import { YaControlDirective } from './components/ya-control/ya-control.directive';
 import { YaGeoObjectDirective } from './components/ya-geoobject/ya-geoobject.directive';
@@ -10,6 +8,8 @@ import { YaMultirouteDirective } from './components/ya-multiroute/ya-multiroute.
 import { YaObjectManagerDirective } from './components/ya-object-manager/ya-object-manager.directive';
 import { YaPanoramaDirective } from './components/ya-panorama/ya-panorama.directive';
 import { YaPlacemarkDirective } from './components/ya-placemark/ya-placemark.directive';
+import { YaConfig } from './models/ya-config';
+import { YA_CONFIG } from './tokens/ya-config';
 
 @NgModule({
   declarations: [

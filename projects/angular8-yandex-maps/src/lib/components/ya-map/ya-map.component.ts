@@ -1,3 +1,4 @@
+import { isPlatformBrowser } from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -14,13 +15,13 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, takeUntil } from 'rxjs';
+import { take } from 'rxjs/operators';
 
-import { EventManager } from '../../event-manager';
+import { EventManager } from '../../event-manager/event-manager';
+import { YaEvent } from '../../models/ya-event';
+import { YaReadyEvent } from '../../models/ya-ready-event';
 import { YaApiLoaderService } from '../../services/ya-api-loader/ya-api-loader.service';
-import { YaEvent } from '../../typings/ya-event';
-import { YaReadyEvent } from '../../typings/ya-ready-event';
 import { generateRandomId } from '../../utils/generate-random-id';
 
 /**
@@ -44,13 +45,13 @@ import { generateRandomId } from '../../utils/generate-random-id';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class YaMapComponent implements AfterViewInit, OnChanges, OnDestroy {
-  @ViewChild('container') container: ElementRef;
+  @ViewChild('container') readonly container: ElementRef;
 
-  private readonly _sub = new Subscription();
+  private readonly destroy$ = new Subject<void>();
 
-  private readonly _eventManager = new EventManager(this._ngZone);
+  private readonly eventManager = new EventManager(this.ngZone);
 
-  map$ = new BehaviorSubject<ymaps.Map | undefined>(undefined);
+  map$ = new BehaviorSubject<ymaps.Map | null>(null);
 
   isBrowser: boolean;
 
@@ -91,170 +92,163 @@ export class YaMapComponent implements AfterViewInit, OnChanges, OnDestroy {
    * The start of a new smooth map movement.
    */
   @Output() actionbegin: Observable<YaEvent<ymaps.Map>> =
-    this._eventManager.getLazyEmitter('actionbegin');
+    this.eventManager.getLazyEmitter('actionbegin');
 
   /**
    * Event that occurs when an action step was prematurely stopped.
    */
   @Output() actionbreak: Observable<YaEvent<ymaps.Map>> =
-    this._eventManager.getLazyEmitter('actionbreak');
+    this.eventManager.getLazyEmitter('actionbreak');
 
   /**
    * The end of smooth map movement.
    */
   @Output() actionend: Observable<YaEvent<ymaps.Map>> =
-    this._eventManager.getLazyEmitter('actionend');
+    this.eventManager.getLazyEmitter('actionend');
 
   /**
    * The start of a new step of smooth movement.
    */
   @Output() actiontick: Observable<YaEvent<ymaps.Map>> =
-    this._eventManager.getLazyEmitter('actiontick');
+    this.eventManager.getLazyEmitter('actiontick');
 
   /**
    * The end of performing a step of smooth movement.
    */
   @Output() actiontickcomplete: Observable<YaEvent<ymaps.Map>> =
-    this._eventManager.getLazyEmitter('actiontickcomplete');
+    this.eventManager.getLazyEmitter('actiontickcomplete');
 
   /**
    * Closing the balloon.
    */
   @Output() balloonclose: Observable<YaEvent<ymaps.Map>> =
-    this._eventManager.getLazyEmitter('balloonclose');
+    this.eventManager.getLazyEmitter('balloonclose');
 
   /**
    * Opening a balloon on a map.
    */
   @Output() balloonopen: Observable<YaEvent<ymaps.Map>> =
-    this._eventManager.getLazyEmitter('balloonopen');
+    this.eventManager.getLazyEmitter('balloonopen');
 
   /**
    * Event for a change to the map viewport.
    */
   @Output() boundschange: Observable<YaEvent<ymaps.Map>> =
-    this._eventManager.getLazyEmitter('boundschange');
+    this.eventManager.getLazyEmitter('boundschange');
 
   /**
    * Single left-click on the object.
    */
-  @Output() yaclick: Observable<YaEvent<ymaps.Map>> = this._eventManager.getLazyEmitter('click');
+  @Output() yaclick: Observable<YaEvent<ymaps.Map>> = this.eventManager.getLazyEmitter('click');
 
   /**
    * Calls the element's context menu.
    */
   @Output() yacontextmenu: Observable<YaEvent<ymaps.Map>> =
-    this._eventManager.getLazyEmitter('contextmenu');
+    this.eventManager.getLazyEmitter('contextmenu');
 
   /**
    * Double left-click on the object.
    */
   @Output() yadblclick: Observable<YaEvent<ymaps.Map>> =
-    this._eventManager.getLazyEmitter('dblclick');
+    this.eventManager.getLazyEmitter('dblclick');
 
   /**
    * The map was destroyed.
    */
-  @Output() destroy: Observable<YaEvent<ymaps.Map>> = this._eventManager.getLazyEmitter('destroy');
+  @Output() destroy: Observable<YaEvent<ymaps.Map>> = this.eventManager.getLazyEmitter('destroy');
 
   /**
    * Closing the hint.
    */
   @Output() hintclose: Observable<YaEvent<ymaps.Map>> =
-    this._eventManager.getLazyEmitter('hintclose');
+    this.eventManager.getLazyEmitter('hintclose');
 
   /**
    * Opening a hint on a map.
    */
-  @Output() hintopen: Observable<YaEvent<ymaps.Map>> =
-    this._eventManager.getLazyEmitter('hintopen');
+  @Output() hintopen: Observable<YaEvent<ymaps.Map>> = this.eventManager.getLazyEmitter('hintopen');
 
   /**
    * Map margins changed.
    */
   @Output() marginchange: Observable<YaEvent<ymaps.Map>> =
-    this._eventManager.getLazyEmitter('marginchange');
+    this.eventManager.getLazyEmitter('marginchange');
 
   /**
    * Pressing the mouse button over the object.
    */
   @Output() yamousedown: Observable<YaEvent<ymaps.Map>> =
-    this._eventManager.getLazyEmitter('mousedown');
+    this.eventManager.getLazyEmitter('mousedown');
 
   /**
    * Pointing the cursor at the object.
    */
   @Output() yamouseenter: Observable<YaEvent<ymaps.Map>> =
-    this._eventManager.getLazyEmitter('mouseenter');
+    this.eventManager.getLazyEmitter('mouseenter');
 
   /**
    * Moving the cursor off of the object.
    */
   @Output() yamouseleave: Observable<YaEvent<ymaps.Map>> =
-    this._eventManager.getLazyEmitter('mouseleave');
+    this.eventManager.getLazyEmitter('mouseleave');
 
   /**
    * Moving the cursor over the object.
    */
   @Output() yamousemove: Observable<YaEvent<ymaps.Map>> =
-    this._eventManager.getLazyEmitter('mousemove');
+    this.eventManager.getLazyEmitter('mousemove');
 
   /**
    * Letting go of the mouse button over an object.
    */
-  @Output() yamouseup: Observable<YaEvent<ymaps.Map>> =
-    this._eventManager.getLazyEmitter('mouseup');
+  @Output() yamouseup: Observable<YaEvent<ymaps.Map>> = this.eventManager.getLazyEmitter('mouseup');
 
   /**
    * End of multitouch.
    */
   @Output() multitouchend: Observable<YaEvent<ymaps.Map>> =
-    this._eventManager.getLazyEmitter('multitouchend');
+    this.eventManager.getLazyEmitter('multitouchend');
 
   /**
    * Repeating event during multitouch.
    */
   @Output() multitouchmove: Observable<YaEvent<ymaps.Map>> =
-    this._eventManager.getLazyEmitter('multitouchmove');
+    this.eventManager.getLazyEmitter('multitouchmove');
 
   /**
    * Start of multitouch.
    */
   @Output() multitouchstart: Observable<YaEvent<ymaps.Map>> =
-    this._eventManager.getLazyEmitter('multitouchstart');
+    this.eventManager.getLazyEmitter('multitouchstart');
 
   /**
    * Map options changed.
    */
   @Output() optionschange: Observable<YaEvent<ymaps.Map>> =
-    this._eventManager.getLazyEmitter('optionschange');
+    this.eventManager.getLazyEmitter('optionschange');
 
   /**
    * Map size changed.
    */
   @Output() sizechange: Observable<YaEvent<ymaps.Map>> =
-    this._eventManager.getLazyEmitter('sizechange');
+    this.eventManager.getLazyEmitter('sizechange');
 
   /**
    * The map type changed.
    */
   @Output() typechange: Observable<YaEvent<ymaps.Map>> =
-    this._eventManager.getLazyEmitter('typechange');
+    this.eventManager.getLazyEmitter('typechange');
 
   /**
    * Mouse wheel scrolling.
    */
-  @Output() yawheel: Observable<YaEvent<ymaps.Map>> = this._eventManager.getLazyEmitter('wheel');
+  @Output() yawheel: Observable<YaEvent<ymaps.Map>> = this.eventManager.getLazyEmitter('wheel');
 
   constructor(
-    private readonly _ngZone: NgZone,
-    private readonly _yaApiLoaderService: YaApiLoaderService,
-    /*
-     * We need to use the same type as in an Angular.
-     * "export declare const PLATFORM_ID: InjectionToken<Object>"
-     */
-    // eslint-disable-next-line @typescript-eslint/ban-types
-    @Inject(PLATFORM_ID) platformId: Object,
+    private readonly ngZone: NgZone,
+    private readonly yaApiLoaderService: YaApiLoaderService,
+    @Inject(PLATFORM_ID) platformId: object,
   ) {
     this.isBrowser = isPlatformBrowser(platformId);
   }
@@ -270,7 +264,7 @@ export class YaMapComponent implements AfterViewInit, OnChanges, OnDestroy {
       const { center, zoom, state, options } = changes;
 
       if (state) {
-        this._setState(this._combineState(), map);
+        this.setState(this.combineState(), map);
       }
 
       if (center) {
@@ -290,22 +284,24 @@ export class YaMapComponent implements AfterViewInit, OnChanges, OnDestroy {
   ngAfterViewInit(): void {
     // It should be a noop during server-side rendering.
     if (this.isBrowser) {
-      const sub = this._yaApiLoaderService.load().subscribe(() => {
-        const id = generateRandomId();
-        const map = this._createMap(id);
+      this.yaApiLoaderService
+        .load()
+        .pipe(take(1), takeUntil(this.destroy$))
+        .subscribe(() => {
+          const id = generateRandomId();
+          const map = this.createMap(id);
 
-        this.map$.next(map);
-        this._eventManager.setTarget(map);
-        this._ngZone.run(() => this.ready.emit({ ymaps, target: map }));
-      });
-
-      this._sub.add(sub);
+          this.map$.next(map);
+          this.eventManager.setTarget(map);
+          this.ngZone.run(() => this.ready.emit({ ymaps, target: map }));
+        });
     }
   }
 
   ngOnDestroy(): void {
-    this._eventManager.destroy();
-    this._sub.unsubscribe();
+    this.eventManager.destroy();
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   /**
@@ -313,7 +309,7 @@ export class YaMapComponent implements AfterViewInit, OnChanges, OnDestroy {
    * @param state
    * @param map
    */
-  private _setState(state: ymaps.IMapState, map: ymaps.Map): void {
+  private setState(state: ymaps.IMapState, map: ymaps.Map): void {
     const { behaviors, bounds, center, controls, margin, type, zoom } = state;
 
     if (behaviors) {
@@ -349,18 +345,18 @@ export class YaMapComponent implements AfterViewInit, OnChanges, OnDestroy {
    * Creates a map.
    * @param id ID which will be set to the map container.
    */
-  private _createMap(id: string): ymaps.Map {
+  private createMap(id: string): ymaps.Map {
     const containerElem: HTMLElement = this.container.nativeElement;
     containerElem.setAttribute('id', id);
     containerElem.style.cssText = 'width: 100%; height: 100%;';
 
-    return new ymaps.Map(id, this._combineState(), this.options || {});
+    return new ymaps.Map(id, this.combineState(), this.options || {});
   }
 
   /**
    * Combines the center and zoom into single object.
    */
-  private _combineState(): ymaps.IMapState {
+  private combineState(): ymaps.IMapState {
     const state = this.state || {};
 
     return {

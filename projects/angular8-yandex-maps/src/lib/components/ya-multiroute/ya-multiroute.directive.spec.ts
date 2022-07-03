@@ -2,14 +2,14 @@ import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BehaviorSubject } from 'rxjs';
 
-import { YaMapComponent } from '../ya-map/ya-map.component';
-import { YaMultirouteDirective } from './ya-multiroute.directive';
-import { YaReadyEvent } from '../../typings/ya-ready-event';
+import { YaReadyEvent } from '../../models/ya-ready-event';
 import {
   createMapSpy,
   createMultirouteConstructorSpy,
   createMultirouteSpy,
 } from '../../testing/fake-ymaps-utils';
+import { YaMapComponent } from '../ya-map/ya-map.component';
+import { YaMultirouteDirective } from './ya-multiroute.directive';
 
 @Component({
   template: `

@@ -2,14 +2,14 @@ import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BehaviorSubject } from 'rxjs';
 
-import { YaControlDirective, YaControlType } from './ya-control.directive';
-import { YaMapComponent } from '../ya-map/ya-map.component';
-import { YaReadyEvent } from '../../typings/ya-ready-event';
+import { YaReadyEvent } from '../../models/ya-ready-event';
 import {
   createMapSpy,
   createRoutePanelConstructorSpy,
   createRoutePanelSpy,
 } from '../../testing/fake-ymaps-utils';
+import { YaMapComponent } from '../ya-map/ya-map.component';
+import { YaControlDirective, YaControlType } from './ya-control.directive';
 
 @Component({
   template: '<ya-control [type]="type" [parameters]="parameters"></ya-control>',

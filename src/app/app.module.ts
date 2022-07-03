@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AngularYandexMapsModule, YaConfig } from 'angular8-yandex-maps';
-import { environment } from '../environments/environment';
 
+import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 
 const mapConfig: YaConfig = {
@@ -13,7 +12,6 @@ const mapConfig: YaConfig = {
 @NgModule({
   declarations: [AppComponent],
   imports: [AngularYandexMapsModule.forRoot(mapConfig), BrowserModule],
-  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

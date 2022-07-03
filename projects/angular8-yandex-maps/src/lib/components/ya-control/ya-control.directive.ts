@@ -8,10 +8,11 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
+import { filter, take } from 'rxjs/operators';
 
+import { YaReadyEvent } from '../../models/ya-ready-event';
 import { YaMapComponent } from '../ya-map/ya-map.component';
-import { YaReadyEvent } from '../../typings/ya-ready-event';
 
 /**
  * Control types.
@@ -52,9 +53,9 @@ export type YaControlType =
   selector: 'ya-control',
 })
 export class YaControlDirective implements OnInit, OnChanges, OnDestroy {
-  private readonly _sub = new Subscription();
+  private readonly destroy$ = new Subject<void>();
 
-  private _control?: any;
+  private control?: any;
 
   /**
    * Control type.
@@ -71,10 +72,10 @@ export class YaControlDirective implements OnInit, OnChanges, OnDestroy {
    */
   @Output() ready: EventEmitter<YaReadyEvent<any>> = new EventEmitter<YaReadyEvent<any>>();
 
-  constructor(private readonly _ngZone: NgZone, private readonly _yaMapComponent: YaMapComponent) {}
+  constructor(private readonly ngZone: NgZone, private readonly yaMapComponent: YaMapComponent) {}
 
   ngOnChanges(): void {
-    if (this._control) {
+    if (this.control) {
       console.warn(
         'Control does not support dynamic configuration. You can config it manually using ymaps or recreate the component with new configuration',
       );
@@ -83,11 +84,12 @@ export class YaControlDirective implements OnInit, OnChanges, OnDestroy {
 
   ngOnInit(): void {
     // It should be a noop during server-side rendering.
-    if (this._yaMapComponent.isBrowser) {
-      const sub = this._yaMapComponent.map$.subscribe((map) => {
-        if (map) {
+    if (this.yaMapComponent.isBrowser) {
+      this.yaMapComponent.map$
+        .pipe(filter(Boolean), take(1), takeUntil(this.destroy$))
+        .subscribe((map) => {
           const control = new ymaps.control[this.type](this.parameters);
-          this._control = control;
+          this.control = control;
 
           // RoutePanel ignores state in parameters. API bug
           if (
@@ -99,17 +101,17 @@ export class YaControlDirective implements OnInit, OnChanges, OnDestroy {
           }
 
           map.controls.add(control);
-          this._ngZone.run(() => this.ready.emit({ ymaps, target: control }));
-        }
-      });
-
-      this._sub.add(sub);
+          this.ngZone.run(() => this.ready.emit({ ymaps, target: control }));
+        });
     }
   }
 
   ngOnDestroy(): void {
-    if (this._control) {
-      this._yaMapComponent?.map$.value?.controls.remove(this._control);
+    if (this.control) {
+      this.yaMapComponent?.map$.value?.controls.remove(this.control);
     }
+
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

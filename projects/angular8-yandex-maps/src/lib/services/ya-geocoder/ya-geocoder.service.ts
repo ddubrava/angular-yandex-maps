@@ -13,6 +13,7 @@ import { YaApiLoaderService } from '../ya-api-loader/ya-api-loader.service';
  *
  * export class AppComponent {
  *   constructor(private yaGeocoderService: YaGeocoderService) {
+ *     // Don't forget to unsubscribe
  *     this.yaGeocoderService.geocode('Moscow')
  *       .subscribe(v => console.log(v))
  *   }
@@ -24,8 +25,8 @@ import { YaApiLoaderService } from '../ya-api-loader/ya-api-loader.service';
 })
 export class YaGeocoderService {
   constructor(
-    private readonly _ngZone: NgZone,
-    private readonly _yaApiLoaderService: YaApiLoaderService,
+    private readonly ngZone: NgZone,
+    private readonly yaApiLoaderService: YaApiLoaderService,
   ) {}
 
   /**
@@ -34,12 +35,12 @@ export class YaGeocoderService {
    * @param options Options.
    */
   geocode(request: string | number[], options?: ymaps.IGeocodeOptions): Observable<object> {
-    return this._yaApiLoaderService.load().pipe(
+    return this.yaApiLoaderService.load().pipe(
       switchMap(() => from(ymaps.geocode(request, options))),
       switchMap(
         (result) =>
           new Observable<object>((observer) => {
-            this._ngZone.run(() => {
+            this.ngZone.run(() => {
               observer.next(result);
               observer.complete();
             });

@@ -9,12 +9,13 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
+import { filter, take } from 'rxjs/operators';
 
-import { EventManager } from '../../event-manager';
-import { YaEvent } from '../../typings/ya-event';
+import { EventManager } from '../../event-manager/event-manager';
+import { YaEvent } from '../../models/ya-event';
+import { YaReadyEvent } from '../../models/ya-ready-event';
 import { YaMapComponent } from '../ya-map/ya-map.component';
-import { YaReadyEvent } from '../../typings/ya-ready-event';
 
 /**
  * The `ya-geoobject` component wraps `ymaps.GeoObject` class from the Yandex.Maps API.
@@ -36,9 +37,9 @@ import { YaReadyEvent } from '../../typings/ya-ready-event';
   selector: 'ya-geoobject',
 })
 export class YaGeoObjectDirective implements OnInit, OnChanges, OnDestroy {
-  private readonly _sub = new Subscription();
+  private readonly destroy$ = new Subject<void>();
 
-  private readonly _eventManager = new EventManager(this._ngZone);
+  private readonly eventManager = new EventManager(this.ngZone);
 
   geoObject?: ymaps.GeoObject;
 
@@ -65,171 +66,170 @@ export class YaGeoObjectDirective implements OnInit, OnChanges, OnDestroy {
    * Closing the balloon.
    */
   @Output() balloonclose: Observable<YaEvent<ymaps.GeoObject>> =
-    this._eventManager.getLazyEmitter('balloonclose');
+    this.eventManager.getLazyEmitter('balloonclose');
 
   /**
    * Opening a balloon on a map.
    */
   @Output() balloonopen: Observable<YaEvent<ymaps.GeoObject>> =
-    this._eventManager.getLazyEmitter('balloonopen');
+    this.eventManager.getLazyEmitter('balloonopen');
 
   /**
    * Event preceding the "drag" event.
    */
   @Output() beforedrag: Observable<YaEvent<ymaps.GeoObject>> =
-    this._eventManager.getLazyEmitter('beforedrag');
+    this.eventManager.getLazyEmitter('beforedrag');
 
   /**
    * Event preceding the "dragstart" event.
    */
   @Output() beforedragstart: Observable<YaEvent<ymaps.GeoObject>> =
-    this._eventManager.getLazyEmitter('beforedragstart');
+    this.eventManager.getLazyEmitter('beforedragstart');
 
   /**
    * Single left-click on the object.
    */
   @Output() yaclick: Observable<YaEvent<ymaps.GeoObject>> =
-    this._eventManager.getLazyEmitter('click');
+    this.eventManager.getLazyEmitter('click');
 
   /**
    * Calls the element's context menu.
    */
   @Output() yacontextmenu: Observable<YaEvent<ymaps.GeoObject>> =
-    this._eventManager.getLazyEmitter('contextmenu');
+    this.eventManager.getLazyEmitter('contextmenu');
 
   /**
    * Double left-click on the object.
    */
   @Output() yadblclick: Observable<YaEvent<ymaps.GeoObject>> =
-    this._eventManager.getLazyEmitter('dblclick');
+    this.eventManager.getLazyEmitter('dblclick');
 
   /**
    * Dragging a geo object.
    */
-  @Output() yadrag: Observable<YaEvent<ymaps.GeoObject>> =
-    this._eventManager.getLazyEmitter('drag');
+  @Output() yadrag: Observable<YaEvent<ymaps.GeoObject>> = this.eventManager.getLazyEmitter('drag');
 
   /**
    * End of geo object dragging.
    */
   @Output() yadragend: Observable<YaEvent<ymaps.GeoObject>> =
-    this._eventManager.getLazyEmitter('dragend');
+    this.eventManager.getLazyEmitter('dragend');
 
   /**
    * Start of geo object dragging.
    */
   @Output() yadragstart: Observable<YaEvent<ymaps.GeoObject>> =
-    this._eventManager.getLazyEmitter('dragstart');
+    this.eventManager.getLazyEmitter('dragstart');
 
   /**
    * Change in the state of the editor for the geo object's geometry.
    */
   @Output() editorstatechange: Observable<YaEvent<ymaps.GeoObject>> =
-    this._eventManager.getLazyEmitter('editorstatechange');
+    this.eventManager.getLazyEmitter('editorstatechange');
 
   /**
    * Change to the geo object geometry
    */
   @Output() geometrychange: Observable<YaEvent<ymaps.GeoObject>> =
-    this._eventManager.getLazyEmitter('geometrychange');
+    this.eventManager.getLazyEmitter('geometrychange');
 
   /**
    * Closing the hint.
    */
   @Output() hintclose: Observable<YaEvent<ymaps.GeoObject>> =
-    this._eventManager.getLazyEmitter('hintclose');
+    this.eventManager.getLazyEmitter('hintclose');
 
   /**
    * Opening a hint on a map.
    */
   @Output() hintopen: Observable<YaEvent<ymaps.GeoObject>> =
-    this._eventManager.getLazyEmitter('hintopen');
+    this.eventManager.getLazyEmitter('hintopen');
 
   /**
    * Map reference changed.
    */
   @Output() mapchange: Observable<YaEvent<ymaps.GeoObject>> =
-    this._eventManager.getLazyEmitter('mapchange');
+    this.eventManager.getLazyEmitter('mapchange');
 
   /**
    * Pressing the mouse button over the object.
    */
   @Output() yamousedown: Observable<YaEvent<ymaps.GeoObject>> =
-    this._eventManager.getLazyEmitter('mousedown');
+    this.eventManager.getLazyEmitter('mousedown');
 
   /**
    * Pointing the cursor at the object.
    */
   @Output() yamouseenter: Observable<YaEvent<ymaps.GeoObject>> =
-    this._eventManager.getLazyEmitter('mouseenter');
+    this.eventManager.getLazyEmitter('mouseenter');
 
   /**
    * Moving the cursor off of the object.
    */
   @Output() yamouseleave: Observable<YaEvent<ymaps.GeoObject>> =
-    this._eventManager.getLazyEmitter('mouseleave');
+    this.eventManager.getLazyEmitter('mouseleave');
 
   /**
    * Moving the cursor over the object.
    */
   @Output() yamousemove: Observable<YaEvent<ymaps.GeoObject>> =
-    this._eventManager.getLazyEmitter('mousemove');
+    this.eventManager.getLazyEmitter('mousemove');
 
   /**
    * Letting go of the mouse button over an object.
    */
   @Output() yamouseup: Observable<YaEvent<ymaps.GeoObject>> =
-    this._eventManager.getLazyEmitter('mouseup');
+    this.eventManager.getLazyEmitter('mouseup');
 
   /**
    * End of multitouch.
    */
   @Output() multitouchend: Observable<YaEvent<ymaps.GeoObject>> =
-    this._eventManager.getLazyEmitter('multitouchend');
+    this.eventManager.getLazyEmitter('multitouchend');
 
   /**
    * Repeating event during multitouch.
    */
   @Output() multitouchmove: Observable<YaEvent<ymaps.GeoObject>> =
-    this._eventManager.getLazyEmitter('multitouchmove');
+    this.eventManager.getLazyEmitter('multitouchmove');
 
   /**
    * Start of multitouch.
    */
   @Output() multitouchstart: Observable<YaEvent<ymaps.GeoObject>> =
-    this._eventManager.getLazyEmitter('multitouchstart');
+    this.eventManager.getLazyEmitter('multitouchstart');
 
   /**
    * Change to the object options.
    */
   @Output() optionschange: Observable<YaEvent<ymaps.GeoObject>> =
-    this._eventManager.getLazyEmitter('optionschange');
+    this.eventManager.getLazyEmitter('optionschange');
 
   /**
    * Change to the geo object overlay.
    */
   @Output() overlaychange: Observable<YaEvent<ymaps.GeoObject>> =
-    this._eventManager.getLazyEmitter('overlaychange');
+    this.eventManager.getLazyEmitter('overlaychange');
 
   /**
    * The parent object reference changed.
    */
   @Output() parentchange: Observable<YaEvent<ymaps.GeoObject>> =
-    this._eventManager.getLazyEmitter('parentchange');
+    this.eventManager.getLazyEmitter('parentchange');
 
   /**
    * Change to the geo object data.
    */
   @Output() propertieschange: Observable<YaEvent<ymaps.GeoObject>> =
-    this._eventManager.getLazyEmitter('propertieschange');
+    this.eventManager.getLazyEmitter('propertieschange');
 
   /**
    * Mouse wheel scrolling.
    */
   @Output() yawheel: Observable<YaEvent<ymaps.GeoObject>> =
-    this._eventManager.getLazyEmitter('wheel');
+    this.eventManager.getLazyEmitter('wheel');
 
-  constructor(private readonly _ngZone: NgZone, private readonly _yaMapComponent: YaMapComponent) {}
+  constructor(private readonly ngZone: NgZone, private readonly yaMapComponent: YaMapComponent) {}
 
   /**
    * Handles input changes and passes them in API.
@@ -242,7 +242,7 @@ export class YaGeoObjectDirective implements OnInit, OnChanges, OnDestroy {
       const { feature, options } = changes;
 
       if (feature) {
-        this._setFeature(feature.currentValue, geoObject);
+        this.setFeature(feature.currentValue, geoObject);
       }
 
       if (options) {
@@ -253,29 +253,28 @@ export class YaGeoObjectDirective implements OnInit, OnChanges, OnDestroy {
 
   ngOnInit(): void {
     // It should be a noop during server-side rendering.
-    if (this._yaMapComponent.isBrowser) {
-      const sub = this._yaMapComponent.map$.subscribe((map) => {
-        if (map) {
-          const geoObject = this._createGeoObject();
+    if (this.yaMapComponent.isBrowser) {
+      this.yaMapComponent.map$
+        .pipe(filter(Boolean), take(1), takeUntil(this.destroy$))
+        .subscribe((map) => {
+          const geoObject = this.createGeoObject();
           this.geoObject = geoObject;
 
           map.geoObjects.add(geoObject);
-          this._eventManager.setTarget(geoObject);
-          this._ngZone.run(() => this.ready.emit({ ymaps, target: geoObject }));
-        }
-      });
-
-      this._sub.add(sub);
+          this.eventManager.setTarget(geoObject);
+          this.ngZone.run(() => this.ready.emit({ ymaps, target: geoObject }));
+        });
     }
   }
 
   ngOnDestroy(): void {
     if (this.geoObject) {
-      this._yaMapComponent?.map$.value?.geoObjects.remove(this.geoObject);
-      this._eventManager.destroy();
+      this.yaMapComponent?.map$.value?.geoObjects.remove(this.geoObject);
+      this.eventManager.destroy();
     }
 
-    this._sub.unsubscribe();
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   /**
@@ -283,7 +282,7 @@ export class YaGeoObjectDirective implements OnInit, OnChanges, OnDestroy {
    * @param feature
    * @param geoObject
    */
-  private _setFeature(feature: ymaps.IGeoObjectFeature, geoObject: ymaps.GeoObject): void {
+  private setFeature(feature: ymaps.IGeoObjectFeature, geoObject: ymaps.GeoObject): void {
     const { geometry, properties } = feature;
 
     if (geometry) {
@@ -300,7 +299,7 @@ export class YaGeoObjectDirective implements OnInit, OnChanges, OnDestroy {
   /**
    * Creates GeoObject.
    */
-  private _createGeoObject(): ymaps.GeoObject {
+  private createGeoObject(): ymaps.GeoObject {
     return new ymaps.GeoObject(this.feature, this.options);
   }
 }

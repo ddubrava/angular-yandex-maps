@@ -2,19 +2,11 @@
  * Public API Surface of angular8-yandex-maps
  */
 
-// Typings
+// Yandex.Maps typings
 import './lib/typings/yandex-maps/index';
 
 // Module
 export * from './lib/angular-yandex-maps.module';
-
-// Services
-export * from './lib/services/ya-api-loader/ya-api-loader.service';
-export * from './lib/services/ya-geocoder/ya-geocoder.service';
-
-// Interfaces
-export * from './lib/typings/ya-event';
-export * from './lib/typings/ya-ready-event';
 
 // Components
 export * from './lib/components/ya-clusterer/ya-clusterer.component';
@@ -25,3 +17,15 @@ export * from './lib/components/ya-multiroute/ya-multiroute.directive';
 export * from './lib/components/ya-object-manager/ya-object-manager.directive';
 export * from './lib/components/ya-panorama/ya-panorama.directive';
 export * from './lib/components/ya-placemark/ya-placemark.directive';
+
+// Services
+export * from './lib/services/ya-api-loader/ya-api-loader.service';
+export * from './lib/services/ya-geocoder/ya-geocoder.service';
+
+// Models
+export * from './lib/models/ya-config';
+export * from './lib/models/ya-event';
+export * from './lib/models/ya-ready-event';
+
+// Tokens
+export * from './lib/tokens/ya-config';

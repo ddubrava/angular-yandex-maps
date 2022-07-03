@@ -9,13 +9,13 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { from, Observable, Subscription } from 'rxjs';
-import { filter, map, switchMap } from 'rxjs/operators';
+import { from, Observable, Subject, takeUntil } from 'rxjs';
+import { filter, map, switchMap, take } from 'rxjs/operators';
 
-import { EventManager } from '../../event-manager';
-import { YaEvent } from '../../typings/ya-event';
+import { EventManager } from '../../event-manager/event-manager';
+import { YaEvent } from '../../models/ya-event';
+import { YaReadyEvent } from '../../models/ya-ready-event';
 import { YaMapComponent } from '../ya-map/ya-map.component';
-import { YaReadyEvent } from '../../typings/ya-ready-event';
 
 /**
  * The `ya-panorama` component wraps `ymaps.panorama.Player` class from the Yandex.Maps API.
@@ -35,11 +35,11 @@ import { YaReadyEvent } from '../../typings/ya-ready-event';
   selector: 'ya-panorama',
 })
 export class YaPanoramaDirective implements OnInit, OnChanges, OnDestroy {
-  private readonly _sub = new Subscription();
+  private readonly destroy$ = new Subject<void>();
 
-  private readonly _eventManager = new EventManager(this._ngZone);
+  private readonly eventManager = new EventManager(this.ngZone);
 
-  private _player?: ymaps.panorama.Player;
+  private player?: ymaps.panorama.Player;
 
   /**
    * The point for searching for nearby panoramas.
@@ -70,76 +70,76 @@ export class YaPanoramaDirective implements OnInit, OnChanges, OnDestroy {
    * The player was closed by the user or destroyed using the panorama.Player.destroy method.
    */
   @Output() destroy: Observable<YaEvent<ymaps.panorama.Player>> =
-    this._eventManager.getLazyEmitter('destroy');
+    this.eventManager.getLazyEmitter('destroy');
 
   /**
    * The view direction changed.
    */
   @Output() directionchange: Observable<YaEvent<ymaps.panorama.Player>> =
-    this._eventManager.getLazyEmitter('directionchange');
+    this.eventManager.getLazyEmitter('directionchange');
 
   /**
    * An error occurred during operation of the player. The user will be shown the appropriate screen.
    */
   @Output() yaerror: Observable<YaEvent<ymaps.panorama.Player>> =
-    this._eventManager.getLazyEmitter('error');
+    this.eventManager.getLazyEmitter('error');
 
   /**
    * The panorama player switched to full-screen mode.
    */
   @Output() fullscreenenter: Observable<YaEvent<ymaps.panorama.Player>> =
-    this._eventManager.getLazyEmitter('fullscreenenter');
+    this.eventManager.getLazyEmitter('fullscreenenter');
 
   /**
    * The panorama player exited full-screen mode.
    */
   @Output() fullscreenexit: Observable<YaEvent<ymaps.panorama.Player>> =
-    this._eventManager.getLazyEmitter('fullscreenexit');
+    this.eventManager.getLazyEmitter('fullscreenexit');
 
   /**
    * The user clicked on an expanded marker.
    */
   @Output() markercollapse: Observable<YaEvent<ymaps.panorama.Player>> =
-    this._eventManager.getLazyEmitter('markercollapse');
+    this.eventManager.getLazyEmitter('markercollapse');
 
   /**
    * The user clicked on a collapsed marker.
    */
   @Output() markerexpand: Observable<YaEvent<ymaps.panorama.Player>> =
-    this._eventManager.getLazyEmitter('markerexpand');
+    this.eventManager.getLazyEmitter('markerexpand');
 
   /**
    * The user's cursor hovered over a marker.
    */
   @Output() markermouseenter: Observable<YaEvent<ymaps.panorama.Player>> =
-    this._eventManager.getLazyEmitter('markermouseenter');
+    this.eventManager.getLazyEmitter('markermouseenter');
 
   /**
    * The user's cursor left a marker.
    */
   @Output() markermouseleave: Observable<YaEvent<ymaps.panorama.Player>> =
-    this._eventManager.getLazyEmitter('markermouseleave');
+    this.eventManager.getLazyEmitter('markermouseleave');
 
   /**
    * The open panorama changed.
    */
   @Output() panoramachange: Observable<YaEvent<ymaps.panorama.Player>> =
-    this._eventManager.getLazyEmitter('panoramachange');
+    this.eventManager.getLazyEmitter('panoramachange');
 
   /**
    * The size of the viewport has been changed.
    */
   @Output() spanchange: Observable<YaEvent<ymaps.panorama.Player>> =
-    this._eventManager.getLazyEmitter('spanchange');
+    this.eventManager.getLazyEmitter('spanchange');
 
-  constructor(private readonly _ngZone: NgZone, private readonly _yaMapComponent: YaMapComponent) {}
+  constructor(private readonly ngZone: NgZone, private readonly yaMapComponent: YaMapComponent) {}
 
   /**
    * Handles input changes and passes them in API.
    * @param changes
    */
   ngOnChanges(changes: SimpleChanges): void {
-    const player = this._player;
+    const { player } = this;
 
     if (player) {
       const { point, layer, options } = changes;
@@ -157,39 +157,38 @@ export class YaPanoramaDirective implements OnInit, OnChanges, OnDestroy {
       }
 
       if (options) {
-        this._setOptions(options.currentValue, player);
+        this.setOptions(options.currentValue, player);
       }
     }
   }
 
   ngOnInit(): void {
     // It should be a noop during server-side rendering.
-    if (this._yaMapComponent.isBrowser) {
-      const panorama$ = this._yaMapComponent.map$.pipe(
-        filter((m): m is ymaps.Map => Boolean(m)),
+    if (this.yaMapComponent.isBrowser) {
+      const panorama$ = this.yaMapComponent.map$.pipe(
+        filter(Boolean),
         switchMap((m: ymaps.Map) => {
           // Map and panorama use the same container, so need to destroy/remove map
           m.destroy();
-          return this._createPanorama();
+          return this.createPanorama();
         }),
       );
 
-      const sub = panorama$.subscribe((panorama) => {
-        const { id } = this._yaMapComponent.container.nativeElement;
+      panorama$.pipe(take(1), takeUntil(this.destroy$)).subscribe((panorama) => {
+        const { id } = this.yaMapComponent.container.nativeElement;
         const player = new ymaps.panorama.Player(id, panorama, this.options);
-        this._player = player;
+        this.player = player;
 
-        this._eventManager.setTarget(player);
-        this._ngZone.run(() => this.ready.emit({ ymaps, target: player }));
+        this.eventManager.setTarget(player);
+        this.ngZone.run(() => this.ready.emit({ ymaps, target: player }));
       });
-
-      this._sub.add(sub);
     }
   }
 
   ngOnDestroy(): void {
-    this._eventManager.destroy();
-    this._sub.unsubscribe();
+    this.eventManager.destroy();
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   /**
@@ -197,7 +196,7 @@ export class YaPanoramaDirective implements OnInit, OnChanges, OnDestroy {
    * @param options
    * @param player
    */
-  private _setOptions(options: ymaps.panorama.IPlayerOptions, player: ymaps.panorama.Player): void {
+  private setOptions(options: ymaps.panorama.IPlayerOptions, player: ymaps.panorama.Player): void {
     const {
       autoFitToViewport,
       controls,
@@ -232,7 +231,7 @@ export class YaPanoramaDirective implements OnInit, OnChanges, OnDestroy {
   /**
    * Searches for a panorama and returns first
    */
-  private _createPanorama(): Observable<ymaps.IPanorama> {
+  private createPanorama(): Observable<ymaps.IPanorama> {
     return from(ymaps.panorama.locate(this.point, { layer: this.layer })).pipe(
       map((panoramas) => panoramas[0]),
     );

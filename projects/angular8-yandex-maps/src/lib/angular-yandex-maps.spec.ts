@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { AngularYandexMapsModule } from './angular-yandex-maps.module';
-import { YA_CONFIG } from './services/ya-api-loader/ya-api-loader.service';
+import { YA_CONFIG } from './tokens/ya-config';
 
 describe('AngularYandexMapsModule', () => {
   it('should not provide YaConfig when forRoot is not call', () => {

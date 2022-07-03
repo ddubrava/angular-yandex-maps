@@ -84,6 +84,7 @@ import { YaApiLoaderService } from 'angular8-yandex-maps';
 
 export class AppComponent {
   constructor(private yaApiLoaderService: YaApiLoaderService) {
+    // Don't forget to unsubscribe
     this.yaApiLoaderService.load().subscribe((v) => console.log(v));
   }
 }
@@ -98,6 +99,7 @@ import { YaGeocoderService } from 'angular8-yandex-maps';
 
 export class AppComponent {
   constructor(private yaGeocoderService: YaGeocoderService) {
+    // Don't forget to unsubscribe
     this.yaGeocoderService.geocode('Moscow').subscribe((v) => console.log(v));
   }
 }

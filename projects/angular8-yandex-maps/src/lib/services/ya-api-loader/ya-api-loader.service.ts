@@ -1,46 +1,10 @@
 import { DOCUMENT } from '@angular/common';
-import { Inject, Injectable, InjectionToken, Optional } from '@angular/core';
+import { Inject, Injectable, Optional } from '@angular/core';
 import { from, fromEvent, merge, Observable, throwError } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
 
-/**
- * Injection token to specify configuration.
- */
-export const YA_CONFIG = new InjectionToken<YaConfig>('YA_CONFIG');
-
-/**
- * API loading parameters.
- */
-export interface YaConfig {
-  /**
-   * API key. You can get a key in the developer's dashboard.
-   */
-  apikey?: string;
-  /**
-   * Locale.
-   */
-  lang?: 'ru_RU' | 'en_US' | 'en_RU' | 'ru_UA' | 'uk_UA' | 'tr_TR';
-  /**
-   * The order for setting geographical coordinates in API functions that accept longitude-latitude input.
-   */
-  coordorder?: 'latlong' | 'longlat';
-  /**
-   * List of modules to load.
-   */
-  load?: string;
-  /**
-   * API loading mode.
-   */
-  mode?: 'release' | 'debug';
-  /**
-   * Use commercial version of the API.
-   */
-  enterprise?: boolean;
-  /**
-   * Version number of the API.
-   */
-  version?: string;
-}
+import { YaConfig } from '../../models/ya-config';
+import { YA_CONFIG } from '../../tokens/ya-config';
 
 /**
  * The `YaApiLoader` service handles loading of Yandex.Maps API.
@@ -51,6 +15,7 @@ export interface YaConfig {
  *
  * export class AppComponent {
  *   constructor(private yaApiLoaderService: YaApiLoaderService) {
+ *     // Don't forget to unsubscribe
  *     this.yaApiLoaderService.load()
  *       .subscribe(v => console.log(v))
  *   }
@@ -63,18 +28,18 @@ export interface YaConfig {
   providedIn: 'root',
 })
 export class YaApiLoaderService {
-  private readonly _config: YaConfig;
+  private readonly config: YaConfig;
 
-  private readonly _defaultConfig: YaConfig = { lang: 'ru_RU' };
-
-  private _script: HTMLScriptElement;
+  private script: HTMLScriptElement;
 
   constructor(
     @Optional() @Inject(YA_CONFIG) config: YaConfig | null,
-    @Inject(DOCUMENT) private readonly _document: Document,
+    @Inject(DOCUMENT) private readonly document: Document,
   ) {
-    this._config = {
-      ...this._defaultConfig,
+    const defaultConfig: YaConfig = { lang: 'ru_RU' };
+
+    this.config = {
+      ...defaultConfig,
       ...config,
     };
   }
@@ -87,23 +52,24 @@ export class YaApiLoaderService {
       return from(ymaps.ready()).pipe(map(() => ymaps));
     }
 
-    if (!this._script) {
-      const script = this._document.createElement('script');
+    if (!this.script) {
+      const script = this.document.createElement('script');
 
       script.type = 'text/javascript';
-      script.src = this._getScriptSource(this._config);
+      script.src = this.getScriptSource(this.config);
       script.id = 'yandexMapsApiScript';
       script.async = true;
       script.defer = true;
 
-      this._script = this._document.body.appendChild(script);
+      this.script = this.document.body.appendChild(script);
     }
 
-    const load = fromEvent(this._script, 'load').pipe(
-      switchMap(() => from(ymaps.ready()).pipe(map(() => ymaps))),
+    const load = fromEvent(this.script, 'load').pipe(
+      switchMap(() => from(ymaps.ready())),
+      map(() => ymaps),
     );
 
-    const error = fromEvent(this._script, 'error').pipe(switchMap((e) => throwError(e)));
+    const error = fromEvent(this.script, 'error').pipe(switchMap(throwError));
 
     return merge(load, error).pipe(take(1));
   }
@@ -115,9 +81,9 @@ export class YaApiLoaderService {
    * // returns 'https://api-maps.yandex.ru/2.1/?apikey=658f67a2-fd77-42e9-b99e-2bd48c4ccad4&lang=en_US'
    * getScriptSource({ apikey: '658f67a2-fd77-42e9-b99e-2bd48c4ccad4', lang: 'en_US' })
    */
-  private _getScriptSource(config: YaConfig): string {
+  private getScriptSource(config: YaConfig): string {
     const { enterprise, version = '2.1', ...rest } = config;
-    const params = this._convertConfigIntoQueryParams(rest);
+    const params = this.convertConfigIntoQueryParams(rest);
 
     return `https://${enterprise ? 'enterprise.' : ''}api-maps.yandex.ru/${version}/?${params}`;
   }
@@ -129,7 +95,7 @@ export class YaApiLoaderService {
    * // returns "lang=ru_RU&apikey=XXX"
    * convertIntoQueryParams({ lang: 'ru_RU', apikey: 'XXX' })
    */
-  private _convertConfigIntoQueryParams(config: YaConfig): string {
+  private convertConfigIntoQueryParams(config: YaConfig): string {
     return Object.entries(config)
       .map(([key, value]) => `${key}=${value}`)
       .join('&');

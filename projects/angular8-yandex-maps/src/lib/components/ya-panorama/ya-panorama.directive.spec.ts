@@ -2,14 +2,14 @@ import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-import { YaMapComponent } from '../ya-map/ya-map.component';
-import { YaPanoramaDirective } from './ya-panorama.directive';
-import { YaReadyEvent } from '../../typings/ya-ready-event';
+import { YaReadyEvent } from '../../models/ya-ready-event';
 import {
   createMapSpy,
   createPlayerConstructorSpy,
   createPlayerSpy,
 } from '../../testing/fake-ymaps-utils';
+import { YaMapComponent } from '../ya-map/ya-map.component';
+import { YaPanoramaDirective } from './ya-panorama.directive';
 
 @Component({
   template: `

@@ -1290,7 +1290,7 @@ declare namespace ymaps {
   }
 
   namespace domEvent {
-    interface manager {
+    interface Manager {
       add<K extends keyof EventMap>(
         htmlElement: HTMLElement | Document,
         types: K,
@@ -1317,6 +1317,8 @@ declare namespace ymaps {
         capture?: boolean,
       ): this;
     }
+
+    const manager: Manager;
   }
 
   namespace event {
@@ -3688,7 +3690,7 @@ declare namespace ymaps {
     }
   }
 
-  interface meta {
+  interface Meta {
     coordinatesOrder: 'latlong' | 'longlat';
     countryCode: string;
     languageCode: string;
@@ -3696,6 +3698,8 @@ declare namespace ymaps {
     ns: typeof ymaps;
     version: string;
   }
+
+  const meta: Meta;
 
   class Balloon extends Popup<Balloon> implements IBaloon<Balloon>, IBalloonManager<Balloon> {
     constructor(map: Map, options?: IBalloonOptions);
