@@ -14,12 +14,12 @@ import {
 } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 
-import { EventManager } from '../../event-manager';
-import { YaEvent } from '../../typings/ya-event';
+import { EventManager } from '../../event-manager/event-manager';
+import { YaEvent } from '../../models/ya-event';
 import { YaGeoObjectDirective } from '../ya-geoobject/ya-geoobject.directive';
 import { YaMapComponent } from '../ya-map/ya-map.component';
 import { YaPlacemarkDirective } from '../ya-placemark/ya-placemark.directive';
-import { YaReadyEvent } from '../../typings/ya-ready-event';
+import { YaReadyEvent } from '../../models/ya-ready-event';
 
 /**
  * The `ya-clusterer` component wraps `ymaps.Clusterer` class from the Yandex.Maps API.

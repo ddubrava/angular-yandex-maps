@@ -9,7 +9,7 @@ import {
   createObjectManagerConstructorSpy,
   createObjectManagerSpy,
 } from '../../testing/fake-ymaps-utils';
-import { YaReadyEvent } from '../../typings/ya-ready-event';
+import { YaReadyEvent } from '../../models/ya-ready-event';
 
 @Component({
   template: `

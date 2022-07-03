@@ -11,7 +11,7 @@ import {
 import { Subscription } from 'rxjs';
 
 import { YaMapComponent } from '../ya-map/ya-map.component';
-import { YaReadyEvent } from '../../typings/ya-ready-event';
+import { YaReadyEvent } from '../../models/ya-ready-event';
 
 /**
  * Control types.

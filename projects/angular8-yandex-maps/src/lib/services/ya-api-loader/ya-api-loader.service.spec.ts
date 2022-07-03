@@ -1,4 +1,5 @@
-import { YaApiLoaderService, YaConfig } from './ya-api-loader.service';
+import { YaApiLoaderService } from './ya-api-loader.service';
+import { YaConfig } from '../../models/ya-config';
 import { createReadySpy } from '../../testing/fake-ymaps-utils';
 
 class FakeHTMLScriptElement {

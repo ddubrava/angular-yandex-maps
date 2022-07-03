@@ -1,8 +1,8 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 
-import { YA_CONFIG, YaConfig } from './services/ya-api-loader/ya-api-loader.service';
-
+import { YA_CONFIG } from './tokens/ya-config';
 import { YaClustererComponent } from './components/ya-clusterer/ya-clusterer.component';
+import { YaConfig } from './models/ya-config';
 import { YaControlDirective } from './components/ya-control/ya-control.directive';
 import { YaGeoObjectDirective } from './components/ya-geoobject/ya-geoobject.directive';
 import { YaMapComponent } from './components/ya-map/ya-map.component';

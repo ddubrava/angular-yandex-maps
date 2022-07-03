@@ -12,10 +12,10 @@ import {
 import { from, Observable, Subscription } from 'rxjs';
 import { filter, map, switchMap } from 'rxjs/operators';
 
-import { EventManager } from '../../event-manager';
-import { YaEvent } from '../../typings/ya-event';
+import { EventManager } from '../../event-manager/event-manager';
+import { YaEvent } from '../../models/ya-event';
 import { YaMapComponent } from '../ya-map/ya-map.component';
-import { YaReadyEvent } from '../../typings/ya-ready-event';
+import { YaReadyEvent } from '../../models/ya-ready-event';
 
 /**
  * The `ya-panorama` component wraps `ymaps.panorama.Player` class from the Yandex.Maps API.

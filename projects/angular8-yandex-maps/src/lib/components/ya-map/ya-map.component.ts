@@ -17,10 +17,10 @@ import {
 import { isPlatformBrowser } from '@angular/common';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 
-import { EventManager } from '../../event-manager';
+import { EventManager } from '../../event-manager/event-manager';
 import { YaApiLoaderService } from '../../services/ya-api-loader/ya-api-loader.service';
-import { YaEvent } from '../../typings/ya-event';
-import { YaReadyEvent } from '../../typings/ya-ready-event';
+import { YaEvent } from '../../models/ya-event';
+import { YaReadyEvent } from '../../models/ya-ready-event';
 import { generateRandomId } from '../../utils/generate-random-id';
 
 /**

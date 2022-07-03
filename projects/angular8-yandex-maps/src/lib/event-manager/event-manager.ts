@@ -1,5 +1,5 @@
 /**
- * Copied from angular/components/google-maps and edited for Yandex.Maps API.
+ * Copied from angular/components/google-maps and updated for Yandex.Maps API.
  * {@link https://github.com/angular/components/blob/master/src/google-maps/map-event-manager.ts}
  */
 
@@ -7,7 +7,7 @@ import { NgZone } from '@angular/core';
 import { BehaviorSubject, Observable, Subscriber } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { YaEvent } from './typings/ya-event';
+import { YaEvent } from '../models/ya-event';
 
 /**
  * @internal

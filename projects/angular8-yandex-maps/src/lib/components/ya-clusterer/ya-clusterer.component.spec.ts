@@ -5,7 +5,7 @@ import { BehaviorSubject } from 'rxjs';
 import { AngularYandexMapsModule } from '../../angular-yandex-maps.module';
 import { YaClustererComponent } from './ya-clusterer.component';
 import { YaMapComponent } from '../ya-map/ya-map.component';
-import { YaReadyEvent } from '../../typings/ya-ready-event';
+import { YaReadyEvent } from '../../models/ya-ready-event';
 import {
   createClustererConstructorSpy,
   createClustererSpy,
