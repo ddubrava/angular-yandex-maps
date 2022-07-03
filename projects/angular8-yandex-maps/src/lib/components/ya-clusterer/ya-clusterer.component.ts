@@ -12,14 +12,15 @@ import {
   QueryList,
   SimpleChanges,
 } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
+import { filter, take } from 'rxjs/operators';
 
 import { EventManager } from '../../event-manager/event-manager';
 import { YaEvent } from '../../models/ya-event';
+import { YaReadyEvent } from '../../models/ya-ready-event';
 import { YaGeoObjectDirective } from '../ya-geoobject/ya-geoobject.directive';
 import { YaMapComponent } from '../ya-map/ya-map.component';
 import { YaPlacemarkDirective } from '../ya-placemark/ya-placemark.directive';
-import { YaReadyEvent } from '../../models/ya-ready-event';
 
 /**
  * The `ya-clusterer` component wraps `ymaps.Clusterer` class from the Yandex.Maps API.
@@ -54,16 +55,16 @@ import { YaReadyEvent } from '../../models/ya-ready-event';
 })
 export class YaClustererComponent implements AfterContentInit, OnChanges, OnDestroy {
   @ContentChildren(YaPlacemarkDirective)
-  private readonly _placemarks: QueryList<YaPlacemarkDirective>;
+  private readonly placemarks: QueryList<YaPlacemarkDirective>;
 
   @ContentChildren(YaGeoObjectDirective)
-  private readonly _geoObjects: QueryList<YaGeoObjectDirective>;
+  private readonly geoObjects: QueryList<YaGeoObjectDirective>;
 
-  private readonly _sub = new Subscription();
+  private readonly destroy$ = new Subject<void>();
 
-  private readonly _eventManager = new EventManager(this._ngZone);
+  private readonly eventManager = new EventManager(this.ngZone);
 
-  private _clusterer?: ymaps.Clusterer;
+  private clusterer?: ymaps.Clusterer;
 
   /**
    * Options for the clusterer.
@@ -82,40 +83,40 @@ export class YaClustererComponent implements AfterContentInit, OnChanges, OnDest
    * Closing the hint.
    */
   @Output() hintclose: Observable<YaEvent<ymaps.Clusterer>> =
-    this._eventManager.getLazyEmitter('hintclose');
+    this.eventManager.getLazyEmitter('hintclose');
 
   /**
    * Opening a hint on a map.
    */
   @Output() hintopen: Observable<YaEvent<ymaps.Clusterer>> =
-    this._eventManager.getLazyEmitter('hintopen');
+    this.eventManager.getLazyEmitter('hintopen');
 
   /**
    * Map reference changed.
    */
   @Output() mapchange: Observable<YaEvent<ymaps.Clusterer>> =
-    this._eventManager.getLazyEmitter('mapchange');
+    this.eventManager.getLazyEmitter('mapchange');
 
   /**
    * Change to the object options.
    */
   @Output() optionschange: Observable<YaEvent<ymaps.Clusterer>> =
-    this._eventManager.getLazyEmitter('optionschange');
+    this.eventManager.getLazyEmitter('optionschange');
 
   /**
    * The parent object reference changed.
    */
   @Output() parentchange: Observable<YaEvent<ymaps.Clusterer>> =
-    this._eventManager.getLazyEmitter('parentchange');
+    this.eventManager.getLazyEmitter('parentchange');
 
-  constructor(private readonly _ngZone: NgZone, private readonly _yaMapComponent: YaMapComponent) {}
+  constructor(private readonly ngZone: NgZone, private readonly yaMapComponent: YaMapComponent) {}
 
   /**
    * Handles input changes and passes them in API.
    * @param changes
    */
   ngOnChanges(changes: SimpleChanges): void {
-    const clusterer = this._clusterer;
+    const { clusterer } = this;
 
     if (clusterer) {
       const { options } = changes;
@@ -128,81 +129,76 @@ export class YaClustererComponent implements AfterContentInit, OnChanges, OnDest
 
   ngAfterContentInit(): void {
     // It should be a noop during server-side rendering.
-    if (this._yaMapComponent.isBrowser) {
-      const sub = this._yaMapComponent.map$.subscribe((map) => {
-        if (map) {
-          const clusterer = this._createClusterer();
-          this._clusterer = clusterer;
+    if (this.yaMapComponent.isBrowser) {
+      this.yaMapComponent.map$
+        .pipe(filter(Boolean), take(1), takeUntil(this.destroy$))
+        .subscribe((map) => {
+          const clusterer = this.createClusterer();
+          this.clusterer = clusterer;
 
           map.geoObjects.add(clusterer);
-          this._eventManager.setTarget(clusterer);
-          this._watchForContentChanges(clusterer);
-          this._ngZone.run(() => this.ready.emit({ ymaps, target: clusterer }));
-        }
-      });
-
-      this._sub.add(sub);
+          this.eventManager.setTarget(clusterer);
+          this.watchForContentChanges(clusterer);
+          this.ngZone.run(() => this.ready.emit({ ymaps, target: clusterer }));
+        });
     }
   }
 
   ngOnDestroy(): void {
-    this._eventManager.destroy();
-    this._sub.unsubscribe();
+    this.eventManager.destroy();
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   /**
    * Creates Clusterer.
    */
-  private _createClusterer(): ymaps.Clusterer {
+  private createClusterer(): ymaps.Clusterer {
     return new ymaps.Clusterer(this.options);
   }
 
-  private _watchForContentChanges(clusterer: ymaps.Clusterer): void {
+  private watchForContentChanges(clusterer: ymaps.Clusterer): void {
     // Adds new Placemarks to the clusterer on changes.
     const currentPlacemarks = new Set<ymaps.Placemark>();
 
-    this._getInternalPlacemarks(this._placemarks.toArray()).forEach((placemark) => {
+    this.getInternalPlacemarks(this.placemarks.toArray()).forEach((placemark) => {
       currentPlacemarks.add(placemark);
       clusterer.add(placemark);
     });
 
-    const placemarksSub = this._placemarks.changes.subscribe(
-      (placemarkDirectives: YaPlacemarkDirective[]) => {
+    this.placemarks.changes
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((placemarkDirectives: YaPlacemarkDirective[]) => {
         const newPlacemarks = new Set<ymaps.Placemark>(
-          this._getInternalPlacemarks(placemarkDirectives),
+          this.getInternalPlacemarks(placemarkDirectives),
         );
 
-        const difference = this._getDifference<ymaps.Placemark>(newPlacemarks, currentPlacemarks);
+        const difference = this.getDifference<ymaps.Placemark>(newPlacemarks, currentPlacemarks);
 
         clusterer.add(difference.toAdd);
         clusterer.remove(difference.toRemove);
-      },
-    );
-
-    this._sub.add(placemarksSub);
+      });
 
     // Adds new GeoObjects to the clusterer on changes.
     const currentGeoObjects = new Set<ymaps.GeoObject>();
 
-    this._getInternalGeoObjects(this._geoObjects.toArray()).forEach((geoObject) => {
+    this.getInternalGeoObjects(this.geoObjects.toArray()).forEach((geoObject) => {
       currentGeoObjects.add(geoObject);
       clusterer.add(geoObject);
     });
 
-    const geoObjectsSub = this._geoObjects.changes.subscribe(
-      (geoObjectDirectives: YaGeoObjectDirective[]) => {
+    this.geoObjects.changes
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((geoObjectDirectives: YaGeoObjectDirective[]) => {
         const newGeoObjects = new Set<ymaps.GeoObject>(
-          this._getInternalGeoObjects(geoObjectDirectives),
+          this.getInternalGeoObjects(geoObjectDirectives),
         );
 
-        const difference = this._getDifference<ymaps.GeoObject>(newGeoObjects, currentGeoObjects);
+        const difference = this.getDifference<ymaps.GeoObject>(newGeoObjects, currentGeoObjects);
 
         clusterer.add(difference.toAdd);
         clusterer.remove(difference.toRemove);
-      },
-    );
-
-    this._sub.add(geoObjectsSub);
+      });
   }
 
   /**
@@ -211,7 +207,7 @@ export class YaClustererComponent implements AfterContentInit, OnChanges, OnDest
    * @param newSet
    * @param currentSet
    */
-  private _getDifference<T>(newSet: Set<T>, currentSet: Set<T>) {
+  private getDifference<T>(newSet: Set<T>, currentSet: Set<T>) {
     const toAdd: T[] = [];
     const toRemove: T[] = [];
 
@@ -235,13 +231,13 @@ export class YaClustererComponent implements AfterContentInit, OnChanges, OnDest
     };
   }
 
-  private _getInternalPlacemarks(placemarks: YaPlacemarkDirective[]): ymaps.Placemark[] {
+  private getInternalPlacemarks(placemarks: YaPlacemarkDirective[]): ymaps.Placemark[] {
     return placemarks
       .filter((component) => !!component.placemark)
       .map((component) => component.placemark!);
   }
 
-  private _getInternalGeoObjects(geoObjects: YaGeoObjectDirective[]): ymaps.GeoObject[] {
+  private getInternalGeoObjects(geoObjects: YaGeoObjectDirective[]): ymaps.GeoObject[] {
     return geoObjects
       .filter((component) => !!component.geoObject)
       .map((component) => component.geoObject!);

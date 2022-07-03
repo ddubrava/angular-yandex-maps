@@ -2,14 +2,14 @@ import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BehaviorSubject } from 'rxjs';
 
-import { YaGeoObjectDirective } from './ya-geoobject.directive';
-import { YaMapComponent } from '../ya-map/ya-map.component';
 import { YaReadyEvent } from '../../models/ya-ready-event';
 import {
   createGeoObjectConstructorSpy,
   createGeoObjectSpy,
   createMapSpy,
 } from '../../testing/fake-ymaps-utils';
+import { YaMapComponent } from '../ya-map/ya-map.component';
+import { YaGeoObjectDirective } from './ya-geoobject.directive';
 
 @Component({
   template: `

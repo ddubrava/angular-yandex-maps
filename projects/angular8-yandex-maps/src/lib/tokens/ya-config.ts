@@ -1,4 +1,5 @@
 import { InjectionToken } from '@angular/core';
+
 import { YaConfig } from '../models/ya-config';
 
 /**

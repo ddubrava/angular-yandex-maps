@@ -24,32 +24,32 @@ export class EventManager {
   /**
    * Listeners that were added before the target was set.
    */
-  private _pending: {
+  private pending: {
     observable: Observable<any>;
     observer: Subscriber<any>;
   }[] = [];
 
-  private _listeners: {
+  private listeners: {
     name: string;
     callback: (e: ymaps.Event) => void;
     manager: ymaps.IEventManager;
   }[] = [];
 
-  private readonly _targetStream = new BehaviorSubject<EventManagerTarget | undefined>(undefined);
+  private readonly targetStream = new BehaviorSubject<EventManagerTarget | undefined>(undefined);
 
-  constructor(private readonly _ngZone: NgZone) {}
+  constructor(private readonly ngZone: NgZone) {}
 
   /**
    * Gets an observable that adds an event listener to the map when a consumer subscribes to it.
    * @param name
    */
   getLazyEmitter(name: string): Observable<YaEvent> {
-    return this._targetStream.pipe(
+    return this.targetStream.pipe(
       switchMap((target) => {
         const observable = new Observable<YaEvent>((observer) => {
           // If the target hasn't been initialized yet, cache the observer, so it can be added later.
           if (!target) {
-            this._pending.push({ observable, observer });
+            this.pending.push({ observable, observer });
             return undefined;
           }
 
@@ -60,11 +60,11 @@ export class EventManager {
               ymaps,
             };
 
-            this._ngZone.run(() => observer.next(e));
+            this.ngZone.run(() => observer.next(e));
           };
 
           const listener = target.events.add(name, callback);
-          this._listeners.push({ name, callback, manager: listener });
+          this.listeners.push({ name, callback, manager: listener });
 
           // Unsubscribe function
           return () => listener.remove(name, callback as any);
@@ -80,7 +80,7 @@ export class EventManager {
    * @param target
    */
   setTarget(target: EventManagerTarget): void {
-    const currentTarget = this._targetStream.value;
+    const currentTarget = this.targetStream.value;
 
     if (target === currentTarget) {
       return;
@@ -88,36 +88,36 @@ export class EventManager {
 
     // Clear the listeners from the pre-existing target.
     if (currentTarget) {
-      this._clearListeners();
-      this._pending = [];
+      this.clearListeners();
+      this.pending = [];
     }
 
-    this._targetStream.next(target);
+    this.targetStream.next(target);
 
     // Add the listeners that were bound before the map was initialized.
-    this._pending.forEach((subscriber) => subscriber.observable.subscribe(subscriber.observer));
+    this.pending.forEach((subscriber) => subscriber.observable.subscribe(subscriber.observer));
 
-    this._pending = [];
+    this.pending = [];
   }
 
   /**
    * Destroys the manager and clears the event listeners.
    */
   destroy(): void {
-    this._clearListeners();
-    this._pending = [];
-    this._targetStream.complete();
+    this.clearListeners();
+    this.pending = [];
+    this.targetStream.complete();
   }
 
   /**
    * Clears all currently-registered event listeners.
    */
-  private _clearListeners() {
-    this._listeners.forEach((listener) => {
+  private clearListeners() {
+    this.listeners.forEach((listener) => {
       const { name, callback, manager } = listener;
       manager.remove(name, callback as any);
     });
 
-    this._listeners = [];
+    this.listeners = [];
   }
 }

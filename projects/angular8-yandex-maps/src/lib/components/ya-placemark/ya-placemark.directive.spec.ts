@@ -2,14 +2,14 @@ import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BehaviorSubject } from 'rxjs';
 
-import { YaMapComponent } from '../ya-map/ya-map.component';
-import { YaPlacemarkDirective } from './ya-placemark.directive';
 import { YaReadyEvent } from '../../models/ya-ready-event';
 import {
   createMapSpy,
   createPlacemarkConstructorSpy,
   createPlacemarkSpy,
 } from '../../testing/fake-ymaps-utils';
+import { YaMapComponent } from '../ya-map/ya-map.component';
+import { YaPlacemarkDirective } from './ya-placemark.directive';
 
 @Component({
   template: `
