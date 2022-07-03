@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [14.0.1](https://github.com/ddubrava/angular8-yandex-maps/compare/v13.2.0...v14.0.1) (2022-07-03)
+
+### Features
+
+- update Angular and deps to latest ([724452e](https://github.com/ddubrava/angular8-yandex-maps/commit/724452e1bc152eb95b224d02d8a037f475b4d209))
+
 ## [13.2.0](https://github.com/ddubrava/angular8-yandex-maps/compare/v13.1.0...v13.2.0) (2022-02-25)
 
 ### Features
