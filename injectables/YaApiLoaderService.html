@@ -71,6 +71,7 @@
 
 export class AppComponent {
   constructor(private yaApiLoaderService: YaApiLoaderService) {
+    // Don&#39;t forget to unsubscribe
     this.yaApiLoaderService.load()
       .subscribe(v =&gt; console.log(v))
   }
@@ -113,12 +114,12 @@ export class AppComponent {
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(config: <a href="../interfaces/YaConfig.html" target="_self">YaConfig | null</a>, _document: Document)</code>
+<code>constructor(config: <a href="../interfaces/YaConfig.html" target="_self">YaConfig | null</a>, document: Document)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="70" class="link-to-prism">projects/angular8-yandex-maps/src/lib/services/ya-api-loader/ya-api-loader.service.ts:70</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">projects/angular8-yandex-maps/src/lib/services/ya-api-loader/ya-api-loader.service.ts:33</a></div>
                             </td>
                         </tr>
 
@@ -148,7 +149,7 @@ export class AppComponent {
                                                     
                                                 </tr>
                                                 <tr>
-                                                        <td>_document</td>
+                                                        <td>document</td>
                                                   
                                                         <td>
                                                                     <code>Document</code>
@@ -193,8 +194,8 @@ export class AppComponent {
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="85"
-                            class="link-to-prism">projects/angular8-yandex-maps/src/lib/services/ya-api-loader/ya-api-loader.service.ts:85</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="50"
+                            class="link-to-prism">projects/angular8-yandex-maps/src/lib/services/ya-api-loader/ya-api-loader.service.ts:50</a></div>
                 </td>
             </tr>
 
@@ -219,48 +220,12 @@ export class AppComponent {
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { DOCUMENT } from &#x27;@angular/common&#x27;;
-import { Inject, Injectable, InjectionToken, Optional } from &#x27;@angular/core&#x27;;
+import { Inject, Injectable, Optional } from &#x27;@angular/core&#x27;;
 import { from, fromEvent, merge, Observable, throwError } from &#x27;rxjs&#x27;;
 import { map, switchMap, take } from &#x27;rxjs/operators&#x27;;
 
-/**
- * Injection token to specify configuration.
- */
-export const YA_CONFIG &#x3D; new InjectionToken&lt;YaConfig&gt;(&#x27;YA_CONFIG&#x27;);
-
-/**
- * API loading parameters.
- */
-export interface YaConfig {
-  /**
-   * API key. You can get a key in the developer&#x27;s dashboard.
-   */
-  apikey?: string;
-  /**
-   * Locale.
-   */
-  lang?: &#x27;ru_RU&#x27; | &#x27;en_US&#x27; | &#x27;en_RU&#x27; | &#x27;ru_UA&#x27; | &#x27;uk_UA&#x27; | &#x27;tr_TR&#x27;;
-  /**
-   * The order for setting geographical coordinates in API functions that accept longitude-latitude input.
-   */
-  coordorder?: &#x27;latlong&#x27; | &#x27;longlat&#x27;;
-  /**
-   * List of modules to load.
-   */
-  load?: string;
-  /**
-   * API loading mode.
-   */
-  mode?: &#x27;release&#x27; | &#x27;debug&#x27;;
-  /**
-   * Use commercial version of the API.
-   */
-  enterprise?: boolean;
-  /**
-   * Version number of the API.
-   */
-  version?: string;
-}
+import { YaConfig } from &#x27;../../models/ya-config&#x27;;
+import { YA_CONFIG } from &#x27;../../tokens/ya-config&#x27;;
 
 /**
  * The &#x60;YaApiLoader&#x60; service handles loading of Yandex.Maps API.
@@ -271,6 +236,7 @@ export interface YaConfig {
  *
  * export class AppComponent {
  *   constructor(private yaApiLoaderService: YaApiLoaderService) {
+ *     // Don&#x27;t forget to unsubscribe
  *     this.yaApiLoaderService.load()
  *       .subscribe(v &#x3D;&gt; console.log(v))
  *   }
@@ -283,18 +249,18 @@ export interface YaConfig {
   providedIn: &#x27;root&#x27;,
 })
 export class YaApiLoaderService {
-  private readonly _config: YaConfig;
+  private readonly config: YaConfig;
 
-  private readonly _defaultConfig: YaConfig &#x3D; { lang: &#x27;ru_RU&#x27; };
-
-  private _script: HTMLScriptElement;
+  private script: HTMLScriptElement;
 
   constructor(
     @Optional() @Inject(YA_CONFIG) config: YaConfig | null,
-    @Inject(DOCUMENT) private readonly _document: Document,
+    @Inject(DOCUMENT) private readonly document: Document,
   ) {
-    this._config &#x3D; {
-      ...this._defaultConfig,
+    const defaultConfig: YaConfig &#x3D; { lang: &#x27;ru_RU&#x27; };
+
+    this.config &#x3D; {
+      ...defaultConfig,
       ...config,
     };
   }
@@ -307,23 +273,24 @@ export class YaApiLoaderService {
       return from(ymaps.ready()).pipe(map(() &#x3D;&gt; ymaps));
     }
 
-    if (!this._script) {
-      const script &#x3D; this._document.createElement(&#x27;script&#x27;);
+    if (!this.script) {
+      const script &#x3D; this.document.createElement(&#x27;script&#x27;);
 
       script.type &#x3D; &#x27;text/javascript&#x27;;
-      script.src &#x3D; this._getScriptSource(this._config);
+      script.src &#x3D; this.getScriptSource(this.config);
       script.id &#x3D; &#x27;yandexMapsApiScript&#x27;;
       script.async &#x3D; true;
       script.defer &#x3D; true;
 
-      this._script &#x3D; this._document.body.appendChild(script);
+      this.script &#x3D; this.document.body.appendChild(script);
     }
 
-    const load &#x3D; fromEvent(this._script, &#x27;load&#x27;).pipe(
-      switchMap(() &#x3D;&gt; from(ymaps.ready()).pipe(map(() &#x3D;&gt; ymaps))),
+    const load &#x3D; fromEvent(this.script, &#x27;load&#x27;).pipe(
+      switchMap(() &#x3D;&gt; from(ymaps.ready())),
+      map(() &#x3D;&gt; ymaps),
     );
 
-    const error &#x3D; fromEvent(this._script, &#x27;error&#x27;).pipe(switchMap((e) &#x3D;&gt; throwError(e)));
+    const error &#x3D; fromEvent(this.script, &#x27;error&#x27;).pipe(switchMap(throwError));
 
     return merge(load, error).pipe(take(1));
   }
@@ -335,9 +302,9 @@ export class YaApiLoaderService {
    * // returns &#x27;https://api-maps.yandex.ru/2.1/?apikey&#x3D;658f67a2-fd77-42e9-b99e-2bd48c4ccad4&amp;lang&#x3D;en_US&#x27;
    * getScriptSource({ apikey: &#x27;658f67a2-fd77-42e9-b99e-2bd48c4ccad4&#x27;, lang: &#x27;en_US&#x27; })
    */
-  private _getScriptSource(config: YaConfig): string {
+  private getScriptSource(config: YaConfig): string {
     const { enterprise, version &#x3D; &#x27;2.1&#x27;, ...rest } &#x3D; config;
-    const params &#x3D; this._convertConfigIntoQueryParams(rest);
+    const params &#x3D; this.convertConfigIntoQueryParams(rest);
 
     return &#x60;https://${enterprise ? &#x27;enterprise.&#x27; : &#x27;&#x27;}api-maps.yandex.ru/${version}/?${params}&#x60;;
   }
@@ -349,7 +316,7 @@ export class YaApiLoaderService {
    * // returns &quot;lang&#x3D;ru_RU&amp;apikey&#x3D;XXX&quot;
    * convertIntoQueryParams({ lang: &#x27;ru_RU&#x27;, apikey: &#x27;XXX&#x27; })
    */
-  private _convertConfigIntoQueryParams(config: YaConfig): string {
+  private convertConfigIntoQueryParams(config: YaConfig): string {
     return Object.entries(config)
       .map(([key, value]) &#x3D;&gt; &#x60;${key}&#x3D;${value}&#x60;)
       .join(&#x27;&amp;&#x27;);
