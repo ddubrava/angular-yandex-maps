@@ -93,7 +93,6 @@ fields are not documented in the Yandex.Maps API. If you find any problems, subm
 
 export class AppComponent {
   constructor(private yaApiLoaderService: YaApiLoaderService) {
-    // Don&#39;t forget to unsubscribe
     this.yaApiLoaderService.load().subscribe((v) =&gt; console.log(v));
   }
 }</code></pre></div><h2 id="how-can-i-use-the-geocoder">How can I use the geocoder?</h2>
@@ -102,7 +101,6 @@ export class AppComponent {
 
 export class AppComponent {
   constructor(private yaGeocoderService: YaGeocoderService) {
-    // Don&#39;t forget to unsubscribe
     this.yaGeocoderService.geocode(&#39;Moscow&#39;).subscribe((v) =&gt; console.log(v));
   }
 }</code></pre></div>

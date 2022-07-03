@@ -449,6 +449,8 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ModuleWithProviders, NgModule } from &#x27;@angular/core&#x27;;
 
+import { YA_CONFIG, YaConfig } from &#x27;./services/ya-api-loader/ya-api-loader.service&#x27;;
+
 import { YaClustererComponent } from &#x27;./components/ya-clusterer/ya-clusterer.component&#x27;;
 import { YaControlDirective } from &#x27;./components/ya-control/ya-control.directive&#x27;;
 import { YaGeoObjectDirective } from &#x27;./components/ya-geoobject/ya-geoobject.directive&#x27;;
@@ -457,8 +459,6 @@ import { YaMultirouteDirective } from &#x27;./components/ya-multiroute/ya-multir
 import { YaObjectManagerDirective } from &#x27;./components/ya-object-manager/ya-object-manager.directive&#x27;;
 import { YaPanoramaDirective } from &#x27;./components/ya-panorama/ya-panorama.directive&#x27;;
 import { YaPlacemarkDirective } from &#x27;./components/ya-placemark/ya-placemark.directive&#x27;;
-import { YaConfig } from &#x27;./models/ya-config&#x27;;
-import { YA_CONFIG } from &#x27;./tokens/ya-config&#x27;;
 
 @NgModule({
   declarations: [

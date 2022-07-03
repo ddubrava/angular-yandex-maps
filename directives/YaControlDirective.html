@@ -155,12 +155,12 @@ API Events can be bound only manually. You can use <code>ready</code> event to g
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(ngZone: <a href="https://angular.io/api/core/NgZone" target="_blank">NgZone</a>, yaMapComponent: <a href="../components/YaMapComponent.html" target="_self">YaMapComponent</a>)</code>
+<code>constructor(_ngZone: <a href="https://angular.io/api/core/NgZone" target="_blank">NgZone</a>, _yaMapComponent: <a href="../components/YaMapComponent.html" target="_self">YaMapComponent</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="73" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-control/ya-control.directive.ts:73</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="72" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-control/ya-control.directive.ts:72</a></div>
                             </td>
                         </tr>
 
@@ -178,7 +178,7 @@ API Events can be bound only manually. You can use <code>ready</code> event to g
                                         </thead>
                                         <tbody>
                                                 <tr>
-                                                        <td>ngZone</td>
+                                                        <td>_ngZone</td>
                                                   
                                                         <td>
                                                                         <code><a href="https://angular.io/api/core/NgZone" target="_blank" >NgZone</a></code>
@@ -190,7 +190,7 @@ API Events can be bound only manually. You can use <code>ready</code> event to g
                                                     
                                                 </tr>
                                                 <tr>
-                                                        <td>yaMapComponent</td>
+                                                        <td>_yaMapComponent</td>
                                                   
                                                         <td>
                                                                         <code><a href="../components/YaMapComponent.html" target="_self" >YaMapComponent</a></code>
@@ -228,7 +228,7 @@ API Events can be bound only manually. You can use <code>ready</code> event to g
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="68" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-control/ya-control.directive.ts:68</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="67" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-control/ya-control.directive.ts:67</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -255,7 +255,7 @@ API Events can be bound only manually. You can use <code>ready</code> event to g
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-control/ya-control.directive.ts:63</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="62" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-control/ya-control.directive.ts:62</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -285,7 +285,7 @@ API Events can be bound only manually. You can use <code>ready</code> event to g
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="73" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-control/ya-control.directive.ts:73</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="72" class="link-to-prism">projects/angular8-yandex-maps/src/lib/components/ya-control/ya-control.directive.ts:72</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -316,11 +316,10 @@ API Events can be bound only manually. You can use <code>ready</code> event to g
   OnInit,
   Output,
 } from &#x27;@angular/core&#x27;;
-import { Subject, takeUntil } from &#x27;rxjs&#x27;;
-import { filter, take } from &#x27;rxjs/operators&#x27;;
+import { Subscription } from &#x27;rxjs&#x27;;
 
-import { YaReadyEvent } from &#x27;../../models/ya-ready-event&#x27;;
 import { YaMapComponent } from &#x27;../ya-map/ya-map.component&#x27;;
+import { YaReadyEvent } from &#x27;../../typings/ya-ready-event&#x27;;
 
 /**
  * Control types.
@@ -361,9 +360,9 @@ export type YaControlType &#x3D;
   selector: &#x27;ya-control&#x27;,
 })
 export class YaControlDirective implements OnInit, OnChanges, OnDestroy {
-  private readonly destroy$ &#x3D; new Subject&lt;void&gt;();
+  private readonly _sub &#x3D; new Subscription();
 
-  private control?: any;
+  private _control?: any;
 
   /**
    * Control type.
@@ -380,10 +379,10 @@ export class YaControlDirective implements OnInit, OnChanges, OnDestroy {
    */
   @Output() ready: EventEmitter&lt;YaReadyEvent&lt;any&gt;&gt; &#x3D; new EventEmitter&lt;YaReadyEvent&lt;any&gt;&gt;();
 
-  constructor(private readonly ngZone: NgZone, private readonly yaMapComponent: YaMapComponent) {}
+  constructor(private readonly _ngZone: NgZone, private readonly _yaMapComponent: YaMapComponent) {}
 
   ngOnChanges(): void {
-    if (this.control) {
+    if (this._control) {
       console.warn(
         &#x27;Control does not support dynamic configuration. You can config it manually using ymaps or recreate the component with new configuration&#x27;,
       );
@@ -392,12 +391,11 @@ export class YaControlDirective implements OnInit, OnChanges, OnDestroy {
 
   ngOnInit(): void {
     // It should be a noop during server-side rendering.
-    if (this.yaMapComponent.isBrowser) {
-      this.yaMapComponent.map$
-        .pipe(filter(Boolean), take(1), takeUntil(this.destroy$))
-        .subscribe((map) &#x3D;&gt; {
+    if (this._yaMapComponent.isBrowser) {
+      const sub &#x3D; this._yaMapComponent.map$.subscribe((map) &#x3D;&gt; {
+        if (map) {
           const control &#x3D; new ymaps.control[this.type](this.parameters);
-          this.control &#x3D; control;
+          this._control &#x3D; control;
 
           // RoutePanel ignores state in parameters. API bug
           if (
@@ -409,18 +407,18 @@ export class YaControlDirective implements OnInit, OnChanges, OnDestroy {
           }
 
           map.controls.add(control);
-          this.ngZone.run(() &#x3D;&gt; this.ready.emit({ ymaps, target: control }));
-        });
+          this._ngZone.run(() &#x3D;&gt; this.ready.emit({ ymaps, target: control }));
+        }
+      });
+
+      this._sub.add(sub);
     }
   }
 
   ngOnDestroy(): void {
-    if (this.control) {
-      this.yaMapComponent?.map$.value?.controls.remove(this.control);
+    if (this._control) {
+      this._yaMapComponent?.map$.value?.controls.remove(this._control);
     }
-
-    this.destroy$.next();
-    this.destroy$.complete();
   }
 }
 </code></pre>
