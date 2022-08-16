@@ -1003,19 +1003,16 @@ export class YaObjectManagerDirective implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnInit(): void {
-    // It should be a noop during server-side rendering.
-    if (this.yaMapComponent.isBrowser) {
-      this.yaMapComponent.map$
-        .pipe(filter(Boolean), take(1), takeUntil(this.destroy$))
-        .subscribe((map) &#x3D;&gt; {
-          const objectManager &#x3D; this.createObjectManager();
-          this.objectManager &#x3D; objectManager;
+    this.yaMapComponent.map$
+      .pipe(filter(Boolean), take(1), takeUntil(this.destroy$))
+      .subscribe((map) &#x3D;&gt; {
+        const objectManager &#x3D; this.createObjectManager();
+        this.objectManager &#x3D; objectManager;
 
-          map.geoObjects.add(objectManager);
-          this.eventManager.setTarget(objectManager);
-          this.ngZone.run(() &#x3D;&gt; this.ready.emit({ ymaps, target: objectManager }));
-        });
-    }
+        map.geoObjects.add(objectManager);
+        this.eventManager.setTarget(objectManager);
+        this.ngZone.run(() &#x3D;&gt; this.ready.emit({ ymaps, target: objectManager }));
+      });
   }
 
   ngOnDestroy(): void {

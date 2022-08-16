@@ -114,12 +114,12 @@ export class AppComponent {
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(config: <a href="../interfaces/YaConfig.html" target="_self">YaConfig | null</a>, document: Document)</code>
+<code>constructor(config: <a href="../interfaces/YaConfig.html" target="_self">YaConfig | null</a>, document: Document, platformId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank">object</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">projects/angular8-yandex-maps/src/lib/services/ya-api-loader/ya-api-loader.service.ts:33</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">projects/angular8-yandex-maps/src/lib/services/ya-api-loader/ya-api-loader.service.ts:35</a></div>
                             </td>
                         </tr>
 
@@ -153,6 +153,18 @@ export class AppComponent {
                                                   
                                                         <td>
                                                                     <code>Document</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>platformId</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -194,8 +206,8 @@ export class AppComponent {
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="50"
-                            class="link-to-prism">projects/angular8-yandex-maps/src/lib/services/ya-api-loader/ya-api-loader.service.ts:50</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="55"
+                            class="link-to-prism">projects/angular8-yandex-maps/src/lib/services/ya-api-loader/ya-api-loader.service.ts:55</a></div>
                 </td>
             </tr>
 
@@ -219,9 +231,9 @@ export class AppComponent {
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { DOCUMENT } from &#x27;@angular/common&#x27;;
-import { Inject, Injectable, Optional } from &#x27;@angular/core&#x27;;
-import { from, fromEvent, merge, Observable, throwError } from &#x27;rxjs&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { DOCUMENT, isPlatformBrowser } from &#x27;@angular/common&#x27;;
+import { Inject, Injectable, Optional, PLATFORM_ID } from &#x27;@angular/core&#x27;;
+import { from, fromEvent, merge, NEVER, Observable, throwError } from &#x27;rxjs&#x27;;
 import { map, switchMap, take } from &#x27;rxjs/operators&#x27;;
 
 import { YaConfig } from &#x27;../../models/ya-config&#x27;;
@@ -249,6 +261,8 @@ import { YA_CONFIG } from &#x27;../../tokens/ya-config&#x27;;
   providedIn: &#x27;root&#x27;,
 })
 export class YaApiLoaderService {
+  private readonly isBrowser: boolean;
+
   private readonly config: YaConfig;
 
   private script: HTMLScriptElement;
@@ -256,7 +270,10 @@ export class YaApiLoaderService {
   constructor(
     @Optional() @Inject(YA_CONFIG) config: YaConfig | null,
     @Inject(DOCUMENT) private readonly document: Document,
+    @Inject(PLATFORM_ID) platformId: object,
   ) {
+    this.isBrowser &#x3D; isPlatformBrowser(platformId);
+
     const defaultConfig: YaConfig &#x3D; { lang: &#x27;ru_RU&#x27; };
 
     this.config &#x3D; {
@@ -269,6 +286,10 @@ export class YaApiLoaderService {
    * Loads Yandex.Maps API.
    */
   load(): Observable&lt;typeof ymaps&gt; {
+    if (!this.isBrowser) {
+      return NEVER;
+    }
+
     if (window.ymaps) {
       return from(ymaps.ready()).pipe(map(() &#x3D;&gt; ymaps));
     }

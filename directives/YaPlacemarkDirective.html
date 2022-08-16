@@ -1486,19 +1486,16 @@ export class YaPlacemarkDirective implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnInit(): void {
-    // It should be a noop during server-side rendering.
-    if (this.yaMapComponent.isBrowser) {
-      this.yaMapComponent.map$
-        .pipe(filter(Boolean), take(1), takeUntil(this.destroy$))
-        .subscribe((map) &#x3D;&gt; {
-          const placemark &#x3D; this.createPlacemark();
-          this.placemark &#x3D; placemark;
+    this.yaMapComponent.map$
+      .pipe(filter(Boolean), take(1), takeUntil(this.destroy$))
+      .subscribe((map) &#x3D;&gt; {
+        const placemark &#x3D; this.createPlacemark();
+        this.placemark &#x3D; placemark;
 
-          map.geoObjects.add(placemark);
-          this.eventManager.setTarget(placemark);
-          this.ngZone.run(() &#x3D;&gt; this.ready.emit({ ymaps, target: placemark }));
-        });
-    }
+        map.geoObjects.add(placemark);
+        this.eventManager.setTarget(placemark);
+        this.ngZone.run(() &#x3D;&gt; this.ready.emit({ ymaps, target: placemark }));
+      });
   }
 
   ngOnDestroy(): void {
