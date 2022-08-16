@@ -1,6 +1,6 @@
-import { DOCUMENT } from '@angular/common';
-import { Inject, Injectable, Optional } from '@angular/core';
-import { from, fromEvent, merge, Observable, throwError } from 'rxjs';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { Inject, Injectable, Optional, PLATFORM_ID } from '@angular/core';
+import { from, fromEvent, merge, NEVER, Observable, throwError } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
 
 import { YaConfig } from '../../models/ya-config';
@@ -28,6 +28,8 @@ import { YA_CONFIG } from '../../tokens/ya-config';
   providedIn: 'root',
 })
 export class YaApiLoaderService {
+  private readonly isBrowser: boolean;
+
   private readonly config: YaConfig;
 
   private script: HTMLScriptElement;
@@ -35,7 +37,10 @@ export class YaApiLoaderService {
   constructor(
     @Optional() @Inject(YA_CONFIG) config: YaConfig | null,
     @Inject(DOCUMENT) private readonly document: Document,
+    @Inject(PLATFORM_ID) platformId: object,
   ) {
+    this.isBrowser = isPlatformBrowser(platformId);
+
     const defaultConfig: YaConfig = { lang: 'ru_RU' };
 
     this.config = {
@@ -48,6 +53,10 @@ export class YaApiLoaderService {
    * Loads Yandex.Maps API.
    */
   load(): Observable<typeof ymaps> {
+    if (!this.isBrowser) {
+      return NEVER;
+    }
+
     if (window.ymaps) {
       return from(ymaps.ready()).pipe(map(() => ymaps));
     }

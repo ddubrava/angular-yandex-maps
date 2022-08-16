@@ -128,20 +128,17 @@ export class YaClustererComponent implements AfterContentInit, OnChanges, OnDest
   }
 
   ngAfterContentInit(): void {
-    // It should be a noop during server-side rendering.
-    if (this.yaMapComponent.isBrowser) {
-      this.yaMapComponent.map$
-        .pipe(filter(Boolean), take(1), takeUntil(this.destroy$))
-        .subscribe((map) => {
-          const clusterer = this.createClusterer();
-          this.clusterer = clusterer;
+    this.yaMapComponent.map$
+      .pipe(filter(Boolean), take(1), takeUntil(this.destroy$))
+      .subscribe((map) => {
+        const clusterer = this.createClusterer();
+        this.clusterer = clusterer;
 
-          map.geoObjects.add(clusterer);
-          this.eventManager.setTarget(clusterer);
-          this.watchForContentChanges(clusterer);
-          this.ngZone.run(() => this.ready.emit({ ymaps, target: clusterer }));
-        });
-    }
+        map.geoObjects.add(clusterer);
+        this.eventManager.setTarget(clusterer);
+        this.watchForContentChanges(clusterer);
+        this.ngZone.run(() => this.ready.emit({ ymaps, target: clusterer }));
+      });
   }
 
   ngOnDestroy(): void {

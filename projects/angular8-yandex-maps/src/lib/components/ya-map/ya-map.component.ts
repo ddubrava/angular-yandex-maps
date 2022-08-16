@@ -1,17 +1,14 @@
-import { isPlatformBrowser } from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   ElementRef,
   EventEmitter,
-  Inject,
   Input,
   NgZone,
   OnChanges,
   OnDestroy,
   Output,
-  PLATFORM_ID,
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
@@ -52,8 +49,6 @@ export class YaMapComponent implements AfterViewInit, OnChanges, OnDestroy {
   private readonly eventManager = new EventManager(this.ngZone);
 
   map$ = new BehaviorSubject<ymaps.Map | null>(null);
-
-  isBrowser: boolean;
 
   /**
    * Map center geocoordinates. Default is [0, 0].
@@ -248,10 +243,7 @@ export class YaMapComponent implements AfterViewInit, OnChanges, OnDestroy {
   constructor(
     private readonly ngZone: NgZone,
     private readonly yaApiLoaderService: YaApiLoaderService,
-    @Inject(PLATFORM_ID) platformId: object,
-  ) {
-    this.isBrowser = isPlatformBrowser(platformId);
-  }
+  ) {}
 
   /**
    * Handles input changes and passes them in API.
@@ -282,20 +274,17 @@ export class YaMapComponent implements AfterViewInit, OnChanges, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    // It should be a noop during server-side rendering.
-    if (this.isBrowser) {
-      this.yaApiLoaderService
-        .load()
-        .pipe(take(1), takeUntil(this.destroy$))
-        .subscribe(() => {
-          const id = generateRandomId();
-          const map = this.createMap(id);
+    this.yaApiLoaderService
+      .load()
+      .pipe(take(1), takeUntil(this.destroy$))
+      .subscribe(() => {
+        const id = generateRandomId();
+        const map = this.createMap(id);
 
-          this.map$.next(map);
-          this.eventManager.setTarget(map);
-          this.ngZone.run(() => this.ready.emit({ ymaps, target: map }));
-        });
-    }
+        this.map$.next(map);
+        this.eventManager.setTarget(map);
+        this.ngZone.run(() => this.ready.emit({ ymaps, target: map }));
+      });
   }
 
   ngOnDestroy(): void {

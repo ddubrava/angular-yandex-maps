@@ -163,26 +163,23 @@ export class YaPanoramaDirective implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnInit(): void {
-    // It should be a noop during server-side rendering.
-    if (this.yaMapComponent.isBrowser) {
-      const panorama$ = this.yaMapComponent.map$.pipe(
-        filter(Boolean),
-        switchMap((m: ymaps.Map) => {
-          // Map and panorama use the same container, so need to destroy/remove map
-          m.destroy();
-          return this.createPanorama();
-        }),
-      );
+    const panorama$ = this.yaMapComponent.map$.pipe(
+      filter(Boolean),
+      switchMap((m: ymaps.Map) => {
+        // Map and panorama use the same container, so need to destroy/remove map
+        m.destroy();
+        return this.createPanorama();
+      }),
+    );
 
-      panorama$.pipe(take(1), takeUntil(this.destroy$)).subscribe((panorama) => {
-        const { id } = this.yaMapComponent.container.nativeElement;
-        const player = new ymaps.panorama.Player(id, panorama, this.options);
-        this.player = player;
+    panorama$.pipe(take(1), takeUntil(this.destroy$)).subscribe((panorama) => {
+      const { id } = this.yaMapComponent.container.nativeElement;
+      const player = new ymaps.panorama.Player(id, panorama, this.options);
+      this.player = player;
 
-        this.eventManager.setTarget(player);
-        this.ngZone.run(() => this.ready.emit({ ymaps, target: player }));
-      });
-    }
+      this.eventManager.setTarget(player);
+      this.ngZone.run(() => this.ready.emit({ ymaps, target: player }));
+    });
   }
 
   ngOnDestroy(): void {
