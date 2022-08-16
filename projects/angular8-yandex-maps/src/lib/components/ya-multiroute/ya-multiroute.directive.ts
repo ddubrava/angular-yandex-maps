@@ -254,19 +254,16 @@ export class YaMultirouteDirective implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnInit(): void {
-    // It should be a noop during server-side rendering.
-    if (this.yaMapComponent.isBrowser) {
-      this.yaMapComponent.map$
-        .pipe(filter(Boolean), take(1), takeUntil(this.destroy$))
-        .subscribe((map) => {
-          const multiroute = this.createMultiroute();
-          this.multiroute = multiroute;
+    this.yaMapComponent.map$
+      .pipe(filter(Boolean), take(1), takeUntil(this.destroy$))
+      .subscribe((map) => {
+        const multiroute = this.createMultiroute();
+        this.multiroute = multiroute;
 
-          map.geoObjects.add(multiroute);
-          this.eventManager.setTarget(multiroute);
-          this.ngZone.run(() => this.ready.emit({ ymaps, target: multiroute }));
-        });
-    }
+        map.geoObjects.add(multiroute);
+        this.eventManager.setTarget(multiroute);
+        this.ngZone.run(() => this.ready.emit({ ymaps, target: multiroute }));
+      });
   }
 
   ngOnDestroy(): void {

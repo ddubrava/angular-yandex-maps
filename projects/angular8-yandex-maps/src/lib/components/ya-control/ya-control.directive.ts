@@ -83,27 +83,24 @@ export class YaControlDirective implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnInit(): void {
-    // It should be a noop during server-side rendering.
-    if (this.yaMapComponent.isBrowser) {
-      this.yaMapComponent.map$
-        .pipe(filter(Boolean), take(1), takeUntil(this.destroy$))
-        .subscribe((map) => {
-          const control = new ymaps.control[this.type](this.parameters);
-          this.control = control;
+    this.yaMapComponent.map$
+      .pipe(filter(Boolean), take(1), takeUntil(this.destroy$))
+      .subscribe((map) => {
+        const control = new ymaps.control[this.type](this.parameters);
+        this.control = control;
 
-          // RoutePanel ignores state in parameters. API bug
-          if (
-            control instanceof ymaps.control.RoutePanel &&
-            this.parameters &&
-            this.parameters.state
-          ) {
-            control.routePanel.state.set({ ...this.parameters.state });
-          }
+        // RoutePanel ignores state in parameters. API bug
+        if (
+          control instanceof ymaps.control.RoutePanel &&
+          this.parameters &&
+          this.parameters.state
+        ) {
+          control.routePanel.state.set({ ...this.parameters.state });
+        }
 
-          map.controls.add(control);
-          this.ngZone.run(() => this.ready.emit({ ymaps, target: control }));
-        });
-    }
+        map.controls.add(control);
+        this.ngZone.run(() => this.ready.emit({ ymaps, target: control }));
+      });
   }
 
   ngOnDestroy(): void {

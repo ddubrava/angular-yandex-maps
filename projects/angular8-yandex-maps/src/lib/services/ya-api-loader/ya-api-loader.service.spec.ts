@@ -26,12 +26,15 @@ describe('YaApiLoaderService', () => {
   let service: YaApiLoaderService;
   let script: FakeHTMLScriptElement;
   let mockDocument: any;
+  let platformId: object;
 
   beforeEach(() => {
     mockDocument = {
       createElement: jasmine.createSpy('createElement'),
       body: jasmine.createSpyObj('body', ['appendChild']),
     };
+
+    platformId = 'browser' as any;
 
     script = new FakeHTMLScriptElement();
   });
@@ -41,7 +44,7 @@ describe('YaApiLoaderService', () => {
   });
 
   it('should create script with default options if config is not passed', () => {
-    service = new YaApiLoaderService(null, mockDocument);
+    service = new YaApiLoaderService(null, mockDocument, platformId);
 
     mockDocument.createElement.and.returnValue(script);
     mockDocument.body.appendChild.and.returnValue(script);
@@ -62,7 +65,7 @@ describe('YaApiLoaderService', () => {
       apikey: 'X-X-X',
     };
 
-    service = new YaApiLoaderService(config, mockDocument);
+    service = new YaApiLoaderService(config, mockDocument, platformId);
 
     mockDocument.createElement.and.returnValue(script);
     mockDocument.body.appendChild.and.returnValue(script);
@@ -84,7 +87,7 @@ describe('YaApiLoaderService', () => {
       version: '2.1',
     };
 
-    service = new YaApiLoaderService(config, mockDocument);
+    service = new YaApiLoaderService(config, mockDocument, platformId);
 
     mockDocument.createElement.and.returnValue(script);
     mockDocument.body.appendChild.and.returnValue(script);
@@ -104,7 +107,7 @@ describe('YaApiLoaderService', () => {
       enterprise: true,
     };
 
-    service = new YaApiLoaderService(config, mockDocument);
+    service = new YaApiLoaderService(config, mockDocument, platformId);
 
     mockDocument.createElement.and.returnValue(script);
     mockDocument.body.appendChild.and.returnValue(script);
@@ -117,7 +120,7 @@ describe('YaApiLoaderService', () => {
   it('should not append second script if window.ymaps is defined', () => {
     createReadySpy();
 
-    service = new YaApiLoaderService(null, mockDocument);
+    service = new YaApiLoaderService(null, mockDocument, platformId);
     service.load();
 
     expect(mockDocument.createElement).not.toHaveBeenCalled();
@@ -125,7 +128,7 @@ describe('YaApiLoaderService', () => {
   });
 
   it('should not append second script if load called in a sequence', () => {
-    service = new YaApiLoaderService(null, mockDocument);
+    service = new YaApiLoaderService(null, mockDocument, platformId);
 
     mockDocument.createElement.and.returnValue(script);
     mockDocument.body.appendChild.and.returnValue(script);
@@ -138,7 +141,7 @@ describe('YaApiLoaderService', () => {
   });
 
   it('should return observable with ymaps on script load', (done) => {
-    service = new YaApiLoaderService(null, mockDocument);
+    service = new YaApiLoaderService(null, mockDocument, platformId);
 
     mockDocument.createElement.and.returnValue(script);
     mockDocument.body.appendChild.and.returnValue(script);
@@ -155,7 +158,7 @@ describe('YaApiLoaderService', () => {
   });
 
   it('should throw error on script loading error', (done) => {
-    service = new YaApiLoaderService(null, mockDocument);
+    service = new YaApiLoaderService(null, mockDocument, platformId);
 
     const error = {};
 
@@ -173,5 +176,15 @@ describe('YaApiLoaderService', () => {
       createReadySpy();
       script.onHandlers.error(error);
     });
+  });
+
+  it('should not load API on server-side rendering', () => {
+    platformId = 'server' as any;
+    service = new YaApiLoaderService(null, mockDocument, platformId);
+
+    service.load();
+
+    expect(mockDocument.createElement).not.toHaveBeenCalled();
+    expect(mockDocument.body.appendChild).not.toHaveBeenCalled();
   });
 });
