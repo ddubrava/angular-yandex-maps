@@ -1,12 +1,21 @@
 # Changelog
 
-All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+All notable changes to this project will be documented in this file.
+See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+### [14.0.2](https://github.com/ddubrava/angular8-yandex-maps/compare/v13.2.0...v14.0.2) (2022-08-17)
+
+### Bug Fixes
+
+- move PLATFORM_ID logic from components to API loader
+  service ([#175](https://github.com/ddubrava/angular8-yandex-maps/issues/175)) ([8d902c5](https://github.com/ddubrava/angular8-yandex-maps/commit/8d902c5d40ac2e11326712cf64ae017a1d5d215d))
 
 ### [14.0.1](https://github.com/ddubrava/angular8-yandex-maps/compare/v13.2.0...v14.0.1) (2022-07-03)
 
 ### Features
 
-- update Angular and deps to latest ([724452e](https://github.com/ddubrava/angular8-yandex-maps/commit/724452e1bc152eb95b224d02d8a037f475b4d209))
+- update to angular 14 with some minor
+  changes ([#173](https://github.com/ddubrava/angular8-yandex-maps/issues/173)) ([780efbe](https://github.com/ddubrava/angular8-yandex-maps/commit/780efbeb7978f27016f369f23d396f0a98d249db))
 
 ## [13.2.0](https://github.com/ddubrava/angular8-yandex-maps/compare/v13.1.0...v13.2.0) (2022-02-25)
 
