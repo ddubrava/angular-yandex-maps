@@ -1357,16 +1357,9 @@ declare namespace ymaps {
         parent?: IEventManager | undefined;
       });
 
-      add<K extends keyof EventMap>(
-        types: K,
-        callback: (event: IEvent<EventMap[K], TargetGeometry>) => void,
-        context?: object,
-        priority?: number,
-      ): this;
-
       add(
         types: string[][] | string[] | string,
-        callback: (event: IEvent<{}, TargetGeometry>) => void,
+        callback: (event: IEvent) => void,
         context?: object,
         priority?: number,
       ): this;
@@ -5169,13 +5162,6 @@ declare namespace ymaps {
   }
 
   interface IEventManager<TargetGeometry = {}> extends IEventTrigger {
-    add<K extends keyof EventMap>(
-      types: K,
-      callback: (event: IEvent<EventMap[K], TargetGeometry>) => void,
-      context?: object,
-      priority?: number,
-    ): this;
-
     add(
       types: string[][] | string[] | string,
       callback: (event: IEvent) => void,
