@@ -37,7 +37,7 @@ export type YaControlType =
  * You can configure `ymaps.control[YaControlType]` via the component's inputs.
  * API Events can be bound only manually. You can use `ready` event to get an instance.
  *
- * <example-url>https://stackblitz.com/edit/searchcontrol?embed=1</example-url>
+ * <example-url>https://stackblitz.com/edit/searchcontrol?embed=1&view=preview</example-url>
  *
  * @example
  * ```html
@@ -63,12 +63,12 @@ export class YaControlDirective implements OnInit, OnChanges, OnDestroy {
   @Input() type: YaControlType;
 
   /**
-   * Parameters for the Control.
+   * Control parameters.
    */
   @Input() parameters: any;
 
   /**
-   * Control instance is added in a Map.
+   * Control instance is added to a Map.
    */
   @Output() ready: EventEmitter<YaReadyEvent<any>> = new EventEmitter<YaReadyEvent<any>>();
 

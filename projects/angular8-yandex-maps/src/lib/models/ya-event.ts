@@ -1,9 +1,9 @@
 /**
- * Event that is returned from outputs.
+ * Returns from an output.
  */
 export interface YaEvent<T = any> {
   /**
-   * Instance of target.
+   * Instance of a target.
    */
   target: T;
   /**

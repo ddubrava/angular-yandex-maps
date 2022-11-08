@@ -20,9 +20,9 @@
 </p>
 
 <h4 align="center">
-  <a href="https://ddubrava.github.io/angular8-yandex-maps/modules/AngularYandexMapsModule.html">📄 Documentation</a> |
-  <a href="https://ddubrava.github.io/angular8-yandex-maps/additional-documentation/examples.html">🗺️ Examples</a> |
-  <a href="https://ddubrava.github.io/angular8-yandex-maps/additional-documentation/faq.html">❓ FAQ</a>
+  <a href="https://ddubrava.github.io/angular8-yandex-maps">📄 Documentation</a> |
+  <a href="https://ddubrava.github.io/angular8-yandex-maps/#/examples">🗺️ Examples</a> |
+  <a href="https://ddubrava.github.io/angular8-yandex-maps/#/faq">❓ FAQ</a>
 </h4>
 
 ## Installation
