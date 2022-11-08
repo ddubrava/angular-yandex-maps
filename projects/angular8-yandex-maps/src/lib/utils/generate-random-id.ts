@@ -3,4 +3,4 @@
  * @example f175517fa4f3
  * @internal
  */
-export const generateRandomId = (): string => `f${Number(new Date()).toString(16)}`;
+export const generateRandomId = (): string => `f${Date.now().toString(16)}`;
