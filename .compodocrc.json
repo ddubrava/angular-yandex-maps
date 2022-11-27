@@ -1,9 +1,9 @@
 {
   "tsconfig": "tsconfig.doc.json",
+  "output": "dist/compodoc",
+  "exportFormat": "json",
   "name": "Angular Yandex Maps",
-  "includes": "docs",
   "hideGenerator": true,
-  "includesName": "Examples & FAQ",
   "disableCoverage": true,
   "disablePrivate": true,
   "disableInternal": true,

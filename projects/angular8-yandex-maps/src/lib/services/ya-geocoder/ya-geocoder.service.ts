@@ -11,6 +11,7 @@ import { YaApiLoaderService } from '../ya-api-loader/ya-api-loader.service';
  * ```ts
  * import { YaGeocoderService } from 'angular8-yandex-maps';
  *
+ * @Component()
  * export class AppComponent {
  *   constructor(private yaGeocoderService: YaGeocoderService) {
  *     // Don't forget to unsubscribe

@@ -6,7 +6,7 @@ on:
       - master
 
 env:
-  PRIMARY_NODE_VERSION: 14
+  PRIMARY_NODE_VERSION: 18
 
 jobs:
   deploy:
@@ -44,17 +44,17 @@ jobs:
         uses: actions/upload-artifact@master
         with:
           name: documentation
-          path: dist/docs
+          path: dist/docsify
 
       - name: Download Artifact
         uses: actions/download-artifact@master
         with:
           name: documentation
-          path: dist/docs
+          path: dist/docsify
 
       - name: Deploy to github pages
         uses: JamesIves/github-pages-deploy-action@3.6.2
         with:
           branch: gh-pages
-          folder: dist/docs
+          folder: dist/docsify
           clean: true

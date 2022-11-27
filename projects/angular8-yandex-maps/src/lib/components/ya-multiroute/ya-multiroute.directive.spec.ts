@@ -110,7 +110,7 @@ describe('YaMultirouteDirective', () => {
     });
   });
 
-  it('should set model', () => {
+  it('should set models', () => {
     const model = {
       referencePoints: [[55.751952, 37.600739], 'Красные ворота, Москва'],
       params: {
@@ -139,7 +139,7 @@ describe('YaMultirouteDirective', () => {
     expect(multirouteConstructorSpy.calls.mostRecent()?.args[1]).toEqual(options);
   });
 
-  it('should give precedence to referencePoints over model', () => {
+  it('should give precedence to referencePoints over models', () => {
     const referencePoints = ['Moscow', 'Saint-Petersburg'];
 
     const model = {
@@ -165,7 +165,7 @@ describe('YaMultirouteDirective', () => {
     expect(multirouteSpy.model.setReferencePoints).toHaveBeenCalledWith(referencePoints);
   });
 
-  it('should set model after init', () => {
+  it('should set models after init', () => {
     fixture.detectChanges();
 
     const model = {

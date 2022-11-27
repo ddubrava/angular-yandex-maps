@@ -9,7 +9,7 @@ on:
       - '**'
 
 env:
-  PRIMARY_NODE_VERSION: 14
+  PRIMARY_NODE_VERSION: 18
 
 jobs:
   lint:

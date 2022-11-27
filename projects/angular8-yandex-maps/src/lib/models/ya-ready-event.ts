@@ -1,9 +1,9 @@
 /**
- * Event that is returned from a `(ready)` output.
+ * Returns from a `(ready)` output.
  */
 export interface YaReadyEvent<T = any> {
   /**
-   * Instance of target.
+   * Instance of a target.
    */
   target: T;
   /**

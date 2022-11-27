@@ -45,7 +45,7 @@ from [Map class](https://yandex.ru/dev/maps/jsapi/doc/2.1/ref/reference/Map.html
 ## How can I access to the created object instance and global API object?
 
 The Yandex.Maps components implement `ready` output
-returning [`YaReadyEvent`](https://ddubrava.github.io/angular8-yandex-maps/interfaces/YaReadyEvent.html) interface.
+returning [`YaReadyEvent`](../src/interfaces/YaReadyEvent) interface.
 
 ```html
 <ya-map (ready)="onMapReady($event)"></ya-map>
@@ -63,8 +63,10 @@ export class AppComponent {
 
 You should use the global API object, there are two ways to get it:
 
-1. [Use components outputs (recommended)](#how-can-i-access-to-the-created-object-instance-and-global-api-object)
-2. [Use YaApiLoaderService](#is-it-possible-to-load-the-api-without-using-components)
+1. If you have a Map component
+   - [use component outputs](#how-can-i-access-to-the-created-object-instance-and-global-api-object)
+2. If you don't have a Map component
+   - [use YaApiLoaderService](#is-it-possible-to-load-the-api-without-using-components)
 
 ## Property `XXX` does not exist on type `typeof ymaps`.
 
@@ -77,30 +79,8 @@ const instance = new (ymaps as any).UnexistingClass();
 
 ## Is it possible to load the API without using components?
 
-Use [`YaApiLoaderService`](https://ddubrava.github.io/angular8-yandex-maps/injectables/YaApiLoaderService.html).
-
-```typescript
-import { YaApiLoaderService } from 'angular8-yandex-maps';
-
-export class AppComponent {
-  constructor(private yaApiLoaderService: YaApiLoaderService) {
-    // Don't forget to unsubscribe
-    this.yaApiLoaderService.load().subscribe((v) => console.log(v));
-  }
-}
-```
+Use [`YaApiLoaderService`](/services/YaApiLoaderService).
 
 ## How can I use the geocoder?
 
-Use [`YaGeocoderService`](https://ddubrava.github.io/angular8-yandex-maps/injectables/YaGeocoderService.html).
-
-```typescript
-import { YaGeocoderService } from 'angular8-yandex-maps';
-
-export class AppComponent {
-  constructor(private yaGeocoderService: YaGeocoderService) {
-    // Don't forget to unsubscribe
-    this.yaGeocoderService.geocode('Moscow').subscribe((v) => console.log(v));
-  }
-}
-```
+Use [`YaGeocoderService`](/services/YaGeocoderService).
