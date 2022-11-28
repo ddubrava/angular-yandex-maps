@@ -8,7 +8,7 @@
     "-------------------------------- Start": "",
     "start": "ng serve --configuration=local",
     "start:lib": "ng build angular8-yandex-maps --watch",
-    "start:docs": "concurrently \"compodoc -s -w\" \"cd docsifier && npm run start\"",
+    "start:docs": "compodoc && concurrently -k \"compodoc -s -w\" \"cd docsifier && npm run start\"",
     "-------------------------------- Build": "",
     "build": "ng build angular8-yandex-maps --configuration production",
     "build:docs": "compodoc && cd ./docsifier && npm run build",
