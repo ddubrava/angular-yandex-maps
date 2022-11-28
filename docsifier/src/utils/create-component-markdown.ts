@@ -27,7 +27,7 @@ const createDecoratorType = (type: string): string => {
   const match = formatted.match(/Ya.+?(?=<|$)/);
 
   if (!match) {
-    return '-';
+    return type;
   }
 
   return `[${match[0]}](interfaces/${match[0]})`;
