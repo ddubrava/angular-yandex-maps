@@ -30,9 +30,9 @@ Events can be bound using the outputs of the component.
 [filename](https://stackblitz.com/edit/placemark-clusterer?embed=1&view=preview ':include :type=iframe width=100% height=650px')
 
 ## Inputs
-| Name    | Description                                                                                 | Type | API Reference                                                                                                                              |
-| ------- | ------------------------------------------------------------------------------------------- | ---- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| options |   Clusterer options. Options for child cluster objects are set with the "cluster" prefix.   | -    | [Clusterer.html#Clusterer__param-options](https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/Clusterer.html#Clusterer__param-options) |
+| Name    | Description                                                                                 | Type                    | API Reference                                                                                                                              |
+| ------- | ------------------------------------------------------------------------------------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| options |   Clusterer options. Options for child cluster objects are set with the "cluster" prefix.   | ymaps.IClustererOptions | [Clusterer.html#Clusterer__param-options](https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/Clusterer.html#Clusterer__param-options) |
 
 ## Outputs
 | Name          | Description                              | Type                                    | API Reference                                                                                                                                                        |

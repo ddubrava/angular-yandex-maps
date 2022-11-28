@@ -15,11 +15,11 @@ Events can be bound using the outputs of the component.
 
 
 ## Inputs
-| Name    | Description                                       | Type | API Reference                                                                                                                                                                  |
-| ------- | ------------------------------------------------- | ---- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| layer   |   The layer to search for panoramas.              | -    | [panorama.locate.html#panorama.locate__param-options.layer](https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/panorama.locate.html#panorama.locate__param-options.layer) |
-| options |   Player options.                                 | -    | [panorama.Player.html#panorama.Player__param-options](https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/panorama.Player.html#panorama.Player__param-options)             |
-| point   |   The point for searching for nearby panoramas.   | -    | [panorama.locate.html#panorama.locate__param-point](https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/panorama.locate.html#panorama.locate__param-point)                 |
+| Name    | Description                                       | Type                          | API Reference                                                                                                                                                                  |
+| ------- | ------------------------------------------------- | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| layer   |   The layer to search for panoramas.              | ymaps.panorama.Layer          | [panorama.locate.html#panorama.locate__param-options.layer](https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/panorama.locate.html#panorama.locate__param-options.layer) |
+| options |   Player options.                                 | ymaps.panorama.IPlayerOptions | [panorama.Player.html#panorama.Player__param-options](https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/panorama.Player.html#panorama.Player__param-options)             |
+| point   |   The point for searching for nearby panoramas.   | number[]                      | [panorama.locate.html#panorama.locate__param-point](https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/panorama.locate.html#panorama.locate__param-point)                 |
 
 ## Outputs
 | Name             | Description                                                                                          | Type                                    | API Reference                                                                                                                                                                  |

@@ -23,7 +23,7 @@ API Events can be bound only manually. You can use `ready` event to get an insta
 ## Inputs
 | Name       | Description            | Type                                      | API Reference |
 | ---------- | ---------------------- | ----------------------------------------- | ------------- |
-| parameters |   Control parameters.  | -                                         | —             |
+| parameters |   Control parameters.  | any                                       | —             |
 | type       |   Control type.        | [YaControlType](interfaces/YaControlType) | —             |
 
 ## Outputs

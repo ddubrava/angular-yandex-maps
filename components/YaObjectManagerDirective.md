@@ -21,9 +21,9 @@ Events can be bound using the outputs of the component.
 [filename](https://stackblitz.com/edit/object-manager?embed=1&view=preview ':include :type=iframe width=100% height=650px')
 
 ## Inputs
-| Name    | Description                | Type | API Reference                                                                                                                                              |
-| ------- | -------------------------- | ---- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| options |   ObjectManager options.   | -    | [ObjectManager.html#ObjectManager__param-options](https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/ObjectManager.html#ObjectManager__param-options) |
+| Name    | Description                | Type                        | API Reference                                                                                                                                              |
+| ------- | -------------------------- | --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| options |   ObjectManager options.   | ymaps.IObjectManagerOptions | [ObjectManager.html#ObjectManager__param-options](https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/ObjectManager.html#ObjectManager__param-options) |
 
 ## Outputs
 | Name             | Description                                        | Type                                    | API Reference                                                                                                                                                                  |
