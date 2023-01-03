@@ -10,10 +10,6 @@
     <img src="https://img.shields.io/npm/dm/angular8-yandex-maps?color=blue" alt="NPM downloads">
   </a>
 
-  <img alt="GitHub" src="https://img.shields.io/github/license/ddubrava/angular8-yandex-maps">
-
-  <img src="https://img.shields.io/github/workflow/status/ddubrava/angular8-yandex-maps/CI/master" alt="CI">
-
   <a href="https://codecov.io/gh/ddubrava/angular8-yandex-maps">
     <img src="https://codecov.io/gh/ddubrava/angular8-yandex-maps/branch/master/graph/badge.svg?token=ZU50NBBBH6" alt="Codecov">
   </a>
