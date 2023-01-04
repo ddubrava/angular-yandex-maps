@@ -152,5 +152,13 @@
   "defaultProject": "angular-yandex-maps",
   "cli": {
     "analytics": "4732e9ba-8f7f-45a5-a678-8f649ccc81cb"
+  },
+  "schematics": {
+    "@angular-eslint/schematics:application": {
+      "setParserOptionsProject": true
+    },
+    "@angular-eslint/schematics:library": {
+      "setParserOptionsProject": true
+    }
   }
 }
