@@ -22,8 +22,6 @@ import { YA_CONFIG } from '../../tokens/ya-config';
  *   }
  * }
  *```
- *
- * @dynamic
  */
 @Injectable({
   providedIn: 'root',
