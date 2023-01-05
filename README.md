@@ -31,6 +31,7 @@ npm install angular8-yandex-maps
 
 | Angular version        | Library version |
 | ---------------------- | --------------- |
+| v15                    | v15.x           |
 | v14                    | v14.x           |
 | v9, v10, v11, v12, v13 | v13.x           |
 | v8                     | v8.x            |
