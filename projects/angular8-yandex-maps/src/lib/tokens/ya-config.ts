@@ -3,7 +3,7 @@ import { InjectionToken } from '@angular/core';
 import { YaConfig } from '../interfaces/ya-config';
 
 /**
- * Injection token to specify configuration.
+ * An injection token to specify a configuration.
  *
  * ```ts
  *  NgModule({

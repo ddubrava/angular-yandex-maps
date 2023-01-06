@@ -61,15 +61,8 @@ export class YaApiLoaderService {
     }
 
     if (!this.script) {
-      const script = this.document.createElement('script');
-
-      script.type = 'text/javascript';
-      script.src = this.getScriptSource(this.config);
-      script.id = 'yandexMapsApiScript';
-      script.async = true;
-      script.defer = true;
-
-      this.script = this.document.body.appendChild(script);
+      this.script = this.createScript();
+      this.document.body.appendChild(this.script);
     }
 
     const load = fromEvent(this.script, 'load').pipe(
@@ -82,9 +75,21 @@ export class YaApiLoaderService {
     return merge(load, error).pipe(take(1));
   }
 
+  private createScript(): HTMLScriptElement {
+    const script = this.document.createElement('script');
+
+    script.type = 'text/javascript';
+    script.src = this.getScriptSource(this.config);
+    script.id = 'yandexMapsApiScript';
+    script.async = true;
+    script.defer = true;
+
+    return script;
+  }
+
   /**
-   * Returns script source by config.
-   * @param config config with parameters that will be added in source
+   * Returns a script source from a config.
+   * @param config parameters to add to a source
    * @example
    * // returns 'https://api-maps.yandex.ru/2.1/?apikey=658f67a2-fd77-42e9-b99e-2bd48c4ccad4&lang=en_US'
    * getScriptSource({ apikey: '658f67a2-fd77-42e9-b99e-2bd48c4ccad4', lang: 'en_US' })
@@ -97,8 +102,8 @@ export class YaApiLoaderService {
   }
 
   /**
-   * Converts a config into a query string parameters.
-   * @param config object for converting
+   * Converts a config into query string parameters.
+   * @param config object to convert
    * @example
    * // returns "lang=ru_RU&apikey=XXX"
    * convertIntoQueryParams({ lang: 'ru_RU', apikey: 'XXX' })

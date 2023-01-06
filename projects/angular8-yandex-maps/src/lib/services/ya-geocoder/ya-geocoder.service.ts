@@ -32,8 +32,9 @@ export class YaGeocoderService {
 
   /**
    * Processes geocoding requests.
-   * @param request The address for which coordinates need to be obtained (forward geocoding), or the coordinates for which the address needs to be determined (reverse geocoding).
-   * @param options Options.
+   * @param request the address for which coordinates need to be obtained (forward geocoding),
+   * or the coordinates for which the address needs to be determined (reverse geocoding).
+   * @param options geocode options.
    */
   geocode(request: string | number[], options?: ymaps.IGeocodeOptions): Observable<object> {
     return this.yaApiLoaderService.load().pipe(
