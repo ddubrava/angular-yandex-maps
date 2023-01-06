@@ -1,13 +1,13 @@
 import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { YaReadyEvent } from '../../models/ya-ready-event';
+import { YaReadyEvent } from '../../interfaces/ya-ready-event';
 import {
   createMapConstructorSpy,
   createMapSpy,
   createReadySpy,
 } from '../../testing/fake-ymaps-utils';
-import * as GenerateRandomIdModule from '../../utils/generate-random-id';
+import * as GenerateRandomIdModule from '../../utils/generate-random-id/generate-random-id';
 import { YaMapComponent } from './ya-map.component';
 
 @Component({

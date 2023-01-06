@@ -1,4 +1,4 @@
-import { YaConfig } from '../../models/ya-config';
+import { YaConfig } from '../../interfaces/ya-config';
 import { createReadySpy } from '../../testing/fake-ymaps-utils';
 import { YaApiLoaderService } from './ya-api-loader.service';
 

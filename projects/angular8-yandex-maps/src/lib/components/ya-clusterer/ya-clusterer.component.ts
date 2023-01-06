@@ -15,9 +15,9 @@ import {
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
 
-import { EventManager } from '../../event-manager/event-manager';
-import { YaEvent } from '../../models/ya-event';
-import { YaReadyEvent } from '../../models/ya-ready-event';
+import { YaEvent } from '../../interfaces/ya-event';
+import { YaReadyEvent } from '../../interfaces/ya-ready-event';
+import { EventManager } from '../../utils/event-manager/event-manager';
 import { YaGeoObjectDirective } from '../ya-geoobject/ya-geoobject.directive';
 import { YaMapComponent } from '../ya-map/ya-map.component';
 import { YaPlacemarkDirective } from '../ya-placemark/ya-placemark.directive';

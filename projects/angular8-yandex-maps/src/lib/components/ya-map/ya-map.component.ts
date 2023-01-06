@@ -15,11 +15,11 @@ import {
 import { BehaviorSubject, Observable, Subject, takeUntil } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { EventManager } from '../../event-manager/event-manager';
-import { YaEvent } from '../../models/ya-event';
-import { YaReadyEvent } from '../../models/ya-ready-event';
+import { YaEvent } from '../../interfaces/ya-event';
+import { YaReadyEvent } from '../../interfaces/ya-ready-event';
 import { YaApiLoaderService } from '../../services/ya-api-loader/ya-api-loader.service';
-import { generateRandomId } from '../../utils/generate-random-id';
+import { EventManager } from '../../utils/event-manager/event-manager';
+import { generateRandomId } from '../../utils/generate-random-id/generate-random-id';
 
 /**
  * The `ya-map` component wraps `ymaps.Map` class from the Yandex.Maps API.

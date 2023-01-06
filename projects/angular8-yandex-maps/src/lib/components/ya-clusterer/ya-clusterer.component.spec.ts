@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BehaviorSubject } from 'rxjs';
 
 import { AngularYandexMapsModule } from '../../angular-yandex-maps.module';
-import { YaReadyEvent } from '../../models/ya-ready-event';
+import { YaReadyEvent } from '../../interfaces/ya-ready-event';
 import {
   createClustererConstructorSpy,
   createClustererSpy,
