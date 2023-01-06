@@ -1,5 +1,5 @@
 # YA_CONFIG
-Injection token to specify configuration.
+An injection token to specify a configuration.
 
 ```ts
  NgModule({
