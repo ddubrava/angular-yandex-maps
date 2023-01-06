@@ -14,6 +14,7 @@
 - [General parameters](https://stackblitz.com/edit/general-parameters-map)
 - [Creating maps on demand](https://stackblitz.com/edit/creating-maps-on-demand)
 - [Creating your own map](https://stackblitz.com/edit/custom-map-type)
+- [Change language at runtime](https://stackblitz.com/edit/change-language-at-runtime)
 
 ##### GeoObjects
 
