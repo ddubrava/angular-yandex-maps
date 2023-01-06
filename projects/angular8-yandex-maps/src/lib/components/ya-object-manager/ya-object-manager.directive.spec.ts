@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BehaviorSubject } from 'rxjs';
 
-import { YaReadyEvent } from '../../models/ya-ready-event';
+import { YaReadyEvent } from '../../interfaces/ya-ready-event';
 import {
   createMapSpy,
   createObjectManagerConstructorSpy,

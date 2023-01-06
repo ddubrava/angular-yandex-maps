@@ -11,7 +11,7 @@ import {
 import { Subject, takeUntil } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
 
-import { YaReadyEvent } from '../../models/ya-ready-event';
+import { YaReadyEvent } from '../../interfaces/ya-ready-event';
 import { YaMapComponent } from '../ya-map/ya-map.component';
 
 /**

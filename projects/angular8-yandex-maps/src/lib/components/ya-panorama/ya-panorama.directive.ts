@@ -12,9 +12,9 @@ import {
 import { from, Observable, Subject, takeUntil } from 'rxjs';
 import { filter, map, switchMap, take } from 'rxjs/operators';
 
-import { EventManager } from '../../event-manager/event-manager';
-import { YaEvent } from '../../models/ya-event';
-import { YaReadyEvent } from '../../models/ya-ready-event';
+import { YaEvent } from '../../interfaces/ya-event';
+import { YaReadyEvent } from '../../interfaces/ya-ready-event';
+import { EventManager } from '../../utils/event-manager/event-manager';
 import { YaMapComponent } from '../ya-map/ya-map.component';
 
 /**

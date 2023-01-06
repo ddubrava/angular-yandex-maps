@@ -7,7 +7,7 @@ import { NgZone } from '@angular/core';
 import { BehaviorSubject, Observable, Subscriber } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { YaEvent } from '../models/ya-event';
+import { YaEvent } from '../../interfaces/ya-event';
 
 /**
  * @internal

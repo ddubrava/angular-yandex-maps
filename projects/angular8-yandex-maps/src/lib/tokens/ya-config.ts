@@ -1,6 +1,6 @@
 import { InjectionToken } from '@angular/core';
 
-import { YaConfig } from '../models/ya-config';
+import { YaConfig } from '../interfaces/ya-config';
 
 /**
  * Injection token to specify configuration.

@@ -23,9 +23,9 @@ export * from './lib/services/ya-api-loader/ya-api-loader.service';
 export * from './lib/services/ya-geocoder/ya-geocoder.service';
 
 // Models
-export * from './lib/models/ya-config';
-export * from './lib/models/ya-event';
-export * from './lib/models/ya-ready-event';
+export * from './lib/interfaces/ya-config';
+export * from './lib/interfaces/ya-event';
+export * from './lib/interfaces/ya-ready-event';
 
 // Tokens
 export * from './lib/tokens/ya-config';

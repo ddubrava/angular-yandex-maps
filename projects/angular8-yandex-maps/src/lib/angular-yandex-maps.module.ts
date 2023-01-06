@@ -8,7 +8,7 @@ import { YaMultirouteDirective } from './components/ya-multiroute/ya-multiroute.
 import { YaObjectManagerDirective } from './components/ya-object-manager/ya-object-manager.directive';
 import { YaPanoramaDirective } from './components/ya-panorama/ya-panorama.directive';
 import { YaPlacemarkDirective } from './components/ya-placemark/ya-placemark.directive';
-import { YaConfig } from './models/ya-config';
+import { YaConfig } from './interfaces/ya-config';
 import { YA_CONFIG } from './tokens/ya-config';
 
 @NgModule({
