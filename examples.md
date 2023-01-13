@@ -64,7 +64,7 @@ information, please see Yandex.Maps API documentation.
 - [Changing the color of clusters and placemarks when hovering](https://stackblitz.com/edit/changing-the-color-of-clusters-and-placemarks-when-hovering)
 - [Layout in the form of a pie chart](https://stackblitz.com/edit/layout-in-the-form-of-a-pie-chart)
 
-#### GeoQuery
+##### GeoQuery
 
 - [Points falling within a circle](https://stackblitz.com/edit/points-falling-within-a-circle)
 - [Adding objects to the visible area of the map](https://stackblitz.com/edit/adding-objects-to-the-visible-area-of-the-map)
