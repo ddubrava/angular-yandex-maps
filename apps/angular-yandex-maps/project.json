@@ -84,18 +84,17 @@
       }
     },
     "test": {
-      "executor": "@angular-devkit/build-angular:karma",
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "main": "apps/angular-yandex-maps/src/test.ts",
-        "polyfills": "apps/angular-yandex-maps/src/polyfills.ts",
-        "tsConfig": "apps/angular-yandex-maps/tsconfig.spec.json",
-        "karmaConfig": "apps/angular-yandex-maps/karma.conf.js",
-        "assets": [
-          "apps/angular-yandex-maps/src/favicon.ico",
-          "apps/angular-yandex-maps/src/assets"
-        ],
-        "styles": ["apps/angular-yandex-maps/src/styles.css"],
-        "scripts": []
+        "jestConfig": "apps/angular-yandex-maps/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
       }
     }
   }

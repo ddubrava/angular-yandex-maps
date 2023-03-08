@@ -1,5 +1,5 @@
 {
-  "extends": "../../tsconfig.base.json",
+  "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
     "declaration": true,
@@ -13,6 +13,7 @@
     "strictMetadataEmit": true,
     "enableResourceInlining": true
   },
-  "exclude": ["src/test.ts", "**/*.spec.ts", "src/lib/testing/fake-ymaps-utils.ts"],
+  "exclude": ["**/*.spec.ts", "src/lib/testing/fake-ymaps-utils.ts"],
   "include": ["**/*.ts"]
 }
+ 
