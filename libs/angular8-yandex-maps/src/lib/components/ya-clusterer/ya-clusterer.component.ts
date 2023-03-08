@@ -12,15 +12,15 @@ import {
   QueryList,
   SimpleChanges,
 } from '@angular/core';
-import {Observable, Subject, takeUntil} from 'rxjs';
-import {filter, take} from 'rxjs/operators';
+import { Observable, Subject, takeUntil } from 'rxjs';
+import { filter, take } from 'rxjs/operators';
 
-import {YaEvent} from '../../interfaces/ya-event';
-import {YaReadyEvent} from '../../interfaces/ya-ready-event';
-import {EventManager} from '../../utils/event-manager/event-manager';
-import {YaGeoObjectDirective} from '../ya-geoobject/ya-geoobject.directive';
-import {YaMapComponent} from '../ya-map/ya-map.component';
-import {YaPlacemarkDirective} from '../ya-placemark/ya-placemark.directive';
+import { YaEvent } from '../../interfaces/ya-event';
+import { YaReadyEvent } from '../../interfaces/ya-ready-event';
+import { EventManager } from '../../utils/event-manager/event-manager';
+import { YaGeoObjectDirective } from '../ya-geoobject/ya-geoobject.directive';
+import { YaMapComponent } from '../ya-map/ya-map.component';
+import { YaPlacemarkDirective } from '../ya-placemark/ya-placemark.directive';
 
 /**
  * The `ya-clusterer` component wraps `ymaps.Clusterer` class from the Yandex.Maps API.

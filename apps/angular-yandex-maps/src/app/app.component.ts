@@ -1,5 +1,5 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {YaReadyEvent} from 'angular8-yandex-maps';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { YaReadyEvent } from 'angular8-yandex-maps';
 
 @Component({
   selector: 'app-root',

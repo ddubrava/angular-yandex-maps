@@ -1,4 +1,4 @@
-import {Observable} from 'rxjs';
+import { Observable } from 'rxjs';
 
 /*
  * The global `window` variable is typed as an intersection of `Window` and `globalThis`.

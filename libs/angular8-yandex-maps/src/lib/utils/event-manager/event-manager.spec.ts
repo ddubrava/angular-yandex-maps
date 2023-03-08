@@ -1,6 +1,6 @@
-import {NgZone} from '@angular/core';
+import { NgZone } from '@angular/core';
 
-import {EventManager} from './event-manager';
+import { EventManager } from './event-manager';
 
 /**
  * Imitates a Yandex.Maps event target and keeps track of the registered events.

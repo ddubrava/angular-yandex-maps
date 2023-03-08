@@ -1,4 +1,4 @@
-import {generateRandomId} from './generate-random-id';
+import { generateRandomId } from './generate-random-id';
 
 describe('generateRandomId', () => {
   it('should generate random id', () => {

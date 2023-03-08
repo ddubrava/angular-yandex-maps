@@ -16,4 +16,3 @@
   "exclude": ["**/*.spec.ts", "src/lib/testing/fake-ymaps-utils.ts"],
   "include": ["**/*.ts"]
 }
- 

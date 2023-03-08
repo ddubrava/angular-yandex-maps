@@ -5,5 +5,6 @@
     "module": "commonjs",
     "types": ["jest", "node"]
   },
+  "files": ["src/lib/typings/yandex-maps/index.ts", "src/lib/testing/fake-ymaps-utils.ts"],
   "include": ["jest.config.ts", "src/**/*.test.ts", "src/**/*.spec.ts", "src/**/*.d.ts"]
 }

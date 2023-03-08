@@ -1,11 +1,15 @@
-import {Component, ViewChild} from '@angular/core';
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {BehaviorSubject} from 'rxjs';
+import { Component, ViewChild } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { BehaviorSubject } from 'rxjs';
 
-import {YaReadyEvent} from '../../interfaces/ya-ready-event';
-import {createMapSpy, createObjectManagerConstructorSpy, createObjectManagerSpy,} from '../../testing/fake-ymaps-utils';
-import {YaMapComponent} from '../ya-map/ya-map.component';
-import {YaObjectManagerDirective} from './ya-object-manager.directive';
+import { YaReadyEvent } from '../../interfaces/ya-ready-event';
+import {
+  createMapSpy,
+  createObjectManagerConstructorSpy,
+  createObjectManagerSpy,
+} from '../../testing/fake-ymaps-utils';
+import { YaMapComponent } from '../ya-map/ya-map.component';
+import { YaObjectManagerDirective } from './ya-object-manager.directive';
 
 @Component({
   template: `

@@ -1,7 +1,7 @@
-import {TestBed} from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
-import {createGeocoderSpy, createReadySpy} from '../../testing/fake-ymaps-utils';
-import {YaGeocoderService} from './ya-geocoder.service';
+import { createGeocoderSpy, createReadySpy } from '../../testing/fake-ymaps-utils';
+import { YaGeocoderService } from './ya-geocoder.service';
 
 describe('YaGeocoderService', () => {
   let readySpy: jasmine.Spy<jasmine.Func>;

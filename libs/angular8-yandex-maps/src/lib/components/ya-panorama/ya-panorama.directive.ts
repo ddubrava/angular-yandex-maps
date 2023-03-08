@@ -9,13 +9,13 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import {from, Observable, Subject, takeUntil} from 'rxjs';
-import {filter, map, switchMap, take} from 'rxjs/operators';
+import { from, Observable, Subject, takeUntil } from 'rxjs';
+import { filter, map, switchMap, take } from 'rxjs/operators';
 
-import {YaEvent} from '../../interfaces/ya-event';
-import {YaReadyEvent} from '../../interfaces/ya-ready-event';
-import {EventManager} from '../../utils/event-manager/event-manager';
-import {YaMapComponent} from '../ya-map/ya-map.component';
+import { YaEvent } from '../../interfaces/ya-event';
+import { YaReadyEvent } from '../../interfaces/ya-ready-event';
+import { EventManager } from '../../utils/event-manager/event-manager';
+import { YaMapComponent } from '../ya-map/ya-map.component';
 
 /**
  * The `ya-panorama` component wraps `ymaps.panorama.Player` class from the Yandex.Maps API.

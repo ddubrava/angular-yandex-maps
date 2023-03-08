@@ -1,9 +1,9 @@
-import {Component, ViewChild} from '@angular/core';
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {BehaviorSubject} from 'rxjs';
+import { Component, ViewChild } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { BehaviorSubject } from 'rxjs';
 
-import {AngularYandexMapsModule} from '../../angular-yandex-maps.module';
-import {YaReadyEvent} from '../../interfaces/ya-ready-event';
+import { AngularYandexMapsModule } from '../../angular-yandex-maps.module';
+import { YaReadyEvent } from '../../interfaces/ya-ready-event';
 import {
   createClustererConstructorSpy,
   createClustererSpy,
@@ -13,8 +13,8 @@ import {
   createPlacemarkConstructorSpy,
   createPlacemarkSpy,
 } from '../../testing/fake-ymaps-utils';
-import {YaMapComponent} from '../ya-map/ya-map.component';
-import {YaClustererComponent} from './ya-clusterer.component';
+import { YaMapComponent } from '../ya-map/ya-map.component';
+import { YaClustererComponent } from './ya-clusterer.component';
 
 @Component({
   template: `

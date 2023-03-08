@@ -12,14 +12,14 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import {BehaviorSubject, Observable, Subject, takeUntil} from 'rxjs';
-import {take} from 'rxjs/operators';
+import { BehaviorSubject, Observable, Subject, takeUntil } from 'rxjs';
+import { take } from 'rxjs/operators';
 
-import {YaEvent} from '../../interfaces/ya-event';
-import {YaReadyEvent} from '../../interfaces/ya-ready-event';
-import {YaApiLoaderService} from '../../services/ya-api-loader/ya-api-loader.service';
-import {EventManager} from '../../utils/event-manager/event-manager';
-import {generateRandomId} from '../../utils/generate-random-id/generate-random-id';
+import { YaEvent } from '../../interfaces/ya-event';
+import { YaReadyEvent } from '../../interfaces/ya-ready-event';
+import { YaApiLoaderService } from '../../services/ya-api-loader/ya-api-loader.service';
+import { EventManager } from '../../utils/event-manager/event-manager';
+import { generateRandomId } from '../../utils/generate-random-id/generate-random-id';
 
 /**
  * The `ya-map` component wraps `ymaps.Map` class from the Yandex.Maps API.

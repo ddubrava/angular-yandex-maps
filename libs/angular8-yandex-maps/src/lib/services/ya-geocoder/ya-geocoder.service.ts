@@ -1,8 +1,8 @@
-import {Injectable, NgZone} from '@angular/core';
-import {from, Observable} from 'rxjs';
-import {switchMap} from 'rxjs/operators';
+import { Injectable, NgZone } from '@angular/core';
+import { from, Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
-import {YaApiLoaderService} from '../ya-api-loader/ya-api-loader.service';
+import { YaApiLoaderService } from '../ya-api-loader/ya-api-loader.service';
 
 /**
  * The `YaGeocoder` service wraps `ymaps.geocode` static function from the Yandex.Maps API.

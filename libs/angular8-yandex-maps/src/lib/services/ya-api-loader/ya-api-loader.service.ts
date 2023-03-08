@@ -1,10 +1,10 @@
-import {DOCUMENT, isPlatformBrowser} from '@angular/common';
-import {Inject, Injectable, Optional, PLATFORM_ID} from '@angular/core';
-import {from, fromEvent, merge, NEVER, Observable, throwError} from 'rxjs';
-import {map, switchMap, take} from 'rxjs/operators';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { Inject, Injectable, Optional, PLATFORM_ID } from '@angular/core';
+import { from, fromEvent, merge, NEVER, Observable, throwError } from 'rxjs';
+import { map, switchMap, take } from 'rxjs/operators';
 
-import {YaConfig} from '../../interfaces/ya-config';
-import {YA_CONFIG} from '../../tokens/ya-config';
+import { YaConfig } from '../../interfaces/ya-config';
+import { YA_CONFIG } from '../../tokens/ya-config';
 
 /**
  * The `YaApiLoader` service handles loading of Yandex.Maps API.
