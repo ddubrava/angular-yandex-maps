@@ -1,0 +1,102 @@
+{
+  "name": "angular-yandex-maps",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "generators": {
+    "@schematics/angular:application": {
+      "strict": true
+    }
+  },
+  "sourceRoot": "apps/angular-yandex-maps/src",
+  "prefix": "app",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "options": {
+        "outputPath": "dist/apps/angular-yandex-maps",
+        "index": "apps/angular-yandex-maps/src/index.html",
+        "main": "apps/angular-yandex-maps/src/main.ts",
+        "polyfills": "apps/angular-yandex-maps/src/polyfills.ts",
+        "tsConfig": "apps/angular-yandex-maps/tsconfig.app.json",
+        "assets": [
+          "apps/angular-yandex-maps/src/favicon.ico",
+          "apps/angular-yandex-maps/src/assets"
+        ],
+        "styles": ["apps/angular-yandex-maps/src/styles.css"],
+        "scripts": [],
+        "vendorChunk": true,
+        "extractLicenses": false,
+        "buildOptimizer": false,
+        "sourceMap": true,
+        "optimization": false,
+        "namedChunks": true
+      },
+      "configurations": {
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/angular-yandex-maps/src/environments/environment.ts",
+              "with": "apps/angular-yandex-maps/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "buildOptimizer": true,
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ]
+        },
+        "local": {
+          "fileReplacements": [
+            {
+              "replace": "apps/angular-yandex-maps/src/environments/environment.ts",
+              "with": "apps/angular-yandex-maps/src/environments/environment.local.ts"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "options": {
+        "browserTarget": "angular-yandex-maps:build"
+      },
+      "configurations": {
+        "production": {
+          "browserTarget": "angular-yandex-maps:build:production"
+        },
+        "local": {
+          "browserTarget": "angular-yandex-maps:build:local"
+        }
+      }
+    },
+    "test": {
+      "executor": "@angular-devkit/build-angular:karma",
+      "options": {
+        "main": "apps/angular-yandex-maps/src/test.ts",
+        "polyfills": "apps/angular-yandex-maps/src/polyfills.ts",
+        "tsConfig": "apps/angular-yandex-maps/tsconfig.spec.json",
+        "karmaConfig": "apps/angular-yandex-maps/karma.conf.js",
+        "assets": [
+          "apps/angular-yandex-maps/src/favicon.ico",
+          "apps/angular-yandex-maps/src/assets"
+        ],
+        "styles": ["apps/angular-yandex-maps/src/styles.css"],
+        "scripts": []
+      }
+    }
+  }
+}
