@@ -19,10 +19,11 @@
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": [
           "libs/angular8-yandex-maps/**/*.ts",
-          "libs/angular8-yandex-maps/**/*.component.html"
+          "libs/angular8-yandex-maps/**/*.html"
         ]
       }
     },

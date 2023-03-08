@@ -96,6 +96,16 @@
           "codeCoverage": true
         }
       }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "apps/angular-yandex-maps/**/*.ts",
+          "apps/angular-yandex-maps/**/*.html"
+        ]
+      }
     }
   }
 }

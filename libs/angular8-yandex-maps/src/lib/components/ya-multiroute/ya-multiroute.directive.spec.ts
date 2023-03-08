@@ -1,11 +1,15 @@
-import {Component, ViewChild} from '@angular/core';
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {BehaviorSubject} from 'rxjs';
+import { Component, ViewChild } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { BehaviorSubject } from 'rxjs';
 
-import {YaReadyEvent} from '../../interfaces/ya-ready-event';
-import {createMapSpy, createMultirouteConstructorSpy, createMultirouteSpy,} from '../../testing/fake-ymaps-utils';
-import {YaMapComponent} from '../ya-map/ya-map.component';
-import {YaMultirouteDirective} from './ya-multiroute.directive';
+import { YaReadyEvent } from '../../interfaces/ya-ready-event';
+import {
+  createMapSpy,
+  createMultirouteConstructorSpy,
+  createMultirouteSpy,
+} from '../../testing/fake-ymaps-utils';
+import { YaMapComponent } from '../ya-map/ya-map.component';
+import { YaMultirouteDirective } from './ya-multiroute.directive';
 
 @Component({
   template: `
