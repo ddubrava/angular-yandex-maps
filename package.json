@@ -10,7 +10,7 @@
     "start:lib": "nx build angular8-yandex-maps --watch",
     "start:docs": "compodoc && concurrently -k \"compodoc -s -w\" \"cd ./packages/docsifier && npm run start\"",
     "-------------------------------- Build": "",
-    "build": "nx build angular8-yandex-maps --configuration production",
+    "build": "nx build angular8-yandex-maps",
     "build:docs": "compodoc && cd ./packages/docsifier && npm run build",
     "-------------------------------- Test": "",
     "test": "nx test angular8-yandex-maps",
