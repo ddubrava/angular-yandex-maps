@@ -3,7 +3,7 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/angular8-yandex-maps/src",
-  "prefix": "lib",
+  "prefix": "ya",
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",

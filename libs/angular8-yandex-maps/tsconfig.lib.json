@@ -5,14 +5,14 @@
     "declaration": true,
     "declarationMap": true,
     "inlineSources": true,
-    "types": [],
-    "lib": ["dom", "es2018"]
+    "types": []
   },
-  "angularCompilerOptions": {
-    "skipTemplateCodegen": true,
-    "strictMetadataEmit": true,
-    "enableResourceInlining": true
-  },
-  "exclude": ["**/*.spec.ts", "src/lib/testing/fake-ymaps-utils.ts"],
-  "include": ["**/*.ts"]
+  "exclude": [
+    "src/test-setup.ts",
+    "src/**/*.spec.ts",
+    "jest.config.ts",
+    "src/**/*.test.ts",
+    "src/lib/testing/fake-ymaps-utils.ts"
+  ],
+  "include": ["src/**/*.ts"]
 }

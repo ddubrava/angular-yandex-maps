@@ -2,11 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { YaReadyEvent } from '../../interfaces/ya-ready-event';
-import {
-  createMapConstructorSpy,
-  createMapSpy,
-  createReadySpy,
-} from '../../testing/fake-ymaps-utils';
+import { mockMapConstructor, mockMapInstance, mockReady } from '../../testing/fake-ymaps-utils';
 import * as GenerateRandomIdModule from '../../utils/generate-random-id/generate-random-id';
 import { YaMapComponent } from './ya-map.component';
 
@@ -42,11 +38,11 @@ describe('YaMapComponent', () => {
   let component: YaMapComponent;
   let fixture: ComponentFixture<MockHostComponent>;
 
-  let mapSpy: jasmine.SpyObj<ymaps.Map>;
-  let mapConstructorSpy: jasmine.Spy;
+  let mapInstance: ReturnType<typeof mockMapInstance>;
+  let mapConstructorMock: jest.Mock;
 
   beforeEach(async () => {
-    createReadySpy();
+    mockReady();
 
     await TestBed.configureTestingModule({
       declarations: [MockHostComponent, YaMapComponent],
@@ -56,8 +52,9 @@ describe('YaMapComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(MockHostComponent);
     component = fixture.componentInstance.map;
-    mapSpy = createMapSpy();
-    mapConstructorSpy = createMapConstructorSpy(mapSpy);
+
+    mapInstance = mockMapInstance();
+    mapConstructorMock = mockMapConstructor(mapInstance);
   });
 
   afterEach(() => {
@@ -66,7 +63,7 @@ describe('YaMapComponent', () => {
 
   it('should create map', () => {
     const random = 'random_test_id';
-    spyOn(GenerateRandomIdModule, 'generateRandomId').and.returnValue(random);
+    jest.spyOn(GenerateRandomIdModule, 'generateRandomId').mockReturnValue(random);
 
     fixture.detectChanges();
 
@@ -74,16 +71,16 @@ describe('YaMapComponent', () => {
     expect(component.container.nativeElement.style.height).toBe('100%');
     expect(component.container.nativeElement.id).toBe(random);
 
-    expect(mapConstructorSpy).toHaveBeenCalledWith(random, { zoom: 10, center: [0, 0] }, {});
+    expect(mapConstructorMock).toHaveBeenCalledWith(random, { zoom: 10, center: [0, 0] }, {});
   });
 
   it('should emit ready on map load', () => {
-    spyOn(component.ready, 'emit');
+    jest.spyOn(component.ready, 'emit');
     fixture.detectChanges();
 
     const readyEvent: YaReadyEvent = {
       ymaps: window.ymaps,
-      target: mapSpy,
+      target: mapInstance,
     };
 
     expect(component.ready.emit).toHaveBeenCalledWith(readyEvent);
@@ -91,7 +88,7 @@ describe('YaMapComponent', () => {
 
   it('should set default center and zoom if not passed', () => {
     fixture.detectChanges();
-    expect(mapConstructorSpy.calls.mostRecent()?.args[1]).toEqual({
+    expect(mapConstructorMock.mock.calls[0][1]).toEqual({
       center: [0, 0],
       zoom: 10,
     });
@@ -106,7 +103,7 @@ describe('YaMapComponent', () => {
 
     fixture.detectChanges();
 
-    expect(mapConstructorSpy.calls.mostRecent()?.args[1]).toEqual({
+    expect(mapConstructorMock.mock.calls[0][1]).toEqual({
       center,
       zoom,
     });
@@ -116,7 +113,7 @@ describe('YaMapComponent', () => {
     fixture.componentInstance.zoom = 0;
     fixture.detectChanges();
 
-    expect(mapConstructorSpy.calls.mostRecent()?.args[1].zoom).toBe(0);
+    expect(mapConstructorMock.mock.calls[0][1].zoom).toBe(0);
   });
 
   it('should set map state and options', () => {
@@ -138,8 +135,8 @@ describe('YaMapComponent', () => {
 
     fixture.detectChanges();
 
-    expect(mapConstructorSpy.calls.mostRecent()?.args[1]).toEqual(state);
-    expect(mapConstructorSpy.calls.mostRecent()?.args[2]).toEqual(options);
+    expect(mapConstructorMock.mock.calls[0][1]).toEqual(state);
+    expect(mapConstructorMock.mock.calls[0][2]).toEqual(options);
   });
 
   it('should give precedence to center and zoom over state', () => {
@@ -159,7 +156,7 @@ describe('YaMapComponent', () => {
 
     fixture.detectChanges();
 
-    expect(mapConstructorSpy.calls.mostRecent()?.args[1]).toEqual(correctState);
+    expect(mapConstructorMock.mock.calls[0][1]).toEqual(correctState);
   });
 
   it('should set center and zoom after init', () => {
@@ -175,8 +172,8 @@ describe('YaMapComponent', () => {
 
     fixture.detectChanges();
 
-    expect(mapSpy.setCenter).toHaveBeenCalledWith(state.center);
-    expect(mapSpy.setZoom).toHaveBeenCalledWith(state.zoom);
+    expect(mapInstance.setCenter).toHaveBeenCalledWith(state.center);
+    expect(mapInstance.setZoom).toHaveBeenCalledWith(state.zoom);
   });
 
   it('should give precedence to center and zoom over state after init', () => {
@@ -197,8 +194,8 @@ describe('YaMapComponent', () => {
 
     fixture.detectChanges();
 
-    expect(mapSpy.setCenter).toHaveBeenCalledWith(correctState.center);
-    expect(mapSpy.setZoom).toHaveBeenCalledWith(correctState.zoom);
+    expect(mapInstance.setCenter).toHaveBeenCalledWith(correctState.center);
+    expect(mapInstance.setZoom).toHaveBeenCalledWith(correctState.zoom);
   });
 
   it('should set state after init', () => {
@@ -218,15 +215,15 @@ describe('YaMapComponent', () => {
 
     fixture.detectChanges();
 
-    expect(mapSpy.behaviors.enable).toHaveBeenCalledWith(state.behaviors);
-    expect(mapSpy.setBounds).toHaveBeenCalledWith(state.bounds);
-    expect(mapSpy.setCenter).toHaveBeenCalledWith(state.center);
-    expect(mapSpy.controls.add).toHaveBeenCalledTimes(state.controls.length);
-    expect(mapSpy.controls.add).toHaveBeenCalledWith(state.controls[0]);
-    expect(mapSpy.controls.add).toHaveBeenCalledWith(state.controls[1]);
-    expect(mapSpy.controls.add).toHaveBeenCalledWith(state.controls[2]);
-    expect(mapSpy.behaviors.enable).toHaveBeenCalledWith(state.behaviors);
-    expect(mapSpy.setZoom).toHaveBeenCalledWith(state.zoom);
+    expect(mapInstance.behaviors.enable).toHaveBeenCalledWith(state.behaviors);
+    expect(mapInstance.setBounds).toHaveBeenCalledWith(state.bounds);
+    expect(mapInstance.setCenter).toHaveBeenCalledWith(state.center);
+    expect(mapInstance.controls.add).toHaveBeenCalledTimes(state.controls.length);
+    expect(mapInstance.controls.add).toHaveBeenCalledWith(state.controls[0]);
+    expect(mapInstance.controls.add).toHaveBeenCalledWith(state.controls[1]);
+    expect(mapInstance.controls.add).toHaveBeenCalledWith(state.controls[2]);
+    expect(mapInstance.behaviors.enable).toHaveBeenCalledWith(state.behaviors);
+    expect(mapInstance.setZoom).toHaveBeenCalledWith(state.zoom);
   });
 
   it('should set options after init', () => {
@@ -242,53 +239,53 @@ describe('YaMapComponent', () => {
 
     fixture.detectChanges();
 
-    expect(mapSpy.options.set).toHaveBeenCalledWith(options);
+    expect(mapInstance.options.set).toHaveBeenCalledWith(options);
   });
 
   it('should init event handlers that are set on the map', () => {
-    const addSpy = mapSpy.events.add;
+    const addMock = mapInstance.events.add;
     fixture.detectChanges();
 
-    expect(addSpy).toHaveBeenCalledWith('click', jasmine.any(Function));
-    expect(addSpy).toHaveBeenCalledWith('hintopen', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('actionbegin', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('actionbreak', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('actionend', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('actiontick', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('actiontickcomplete', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('balloonclose', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('balloonopen', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('boundschange', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('contextmenu', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('dblclick', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('destroy', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('hintclose', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('marginchange', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('mousedown', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('mouseenter', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('mouseleave', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('mousemove', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('mouseup', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('multitouchend', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('multitouchmove', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('multitouchstart', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('optionschange', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('sizechange', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('typechange', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('wheel', jasmine.any(Function));
+    expect(addMock).toHaveBeenCalledWith('click', expect.any(Function));
+    expect(addMock).toHaveBeenCalledWith('hintopen', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('actionbegin', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('actionbreak', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('actionend', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('actiontick', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('actiontickcomplete', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('balloonclose', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('balloonopen', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('boundschange', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('contextmenu', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('dblclick', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('destroy', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('hintclose', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('marginchange', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('mousedown', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('mouseenter', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('mouseleave', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('mousemove', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('mouseup', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('multitouchend', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('multitouchmove', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('multitouchstart', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('optionschange', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('sizechange', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('typechange', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('wheel', expect.any(Function));
   });
 
   it('should be able to add an event listener after init', () => {
-    const addSpy = mapSpy.events.add;
+    const addMock = mapInstance.events.add;
     fixture.detectChanges();
 
-    expect(addSpy).not.toHaveBeenCalledWith('multitouchend', jasmine.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('multitouchend', expect.any(Function));
 
     // Pick an event that isn't bound in the template.
     const subscription = fixture.componentInstance.map.multitouchend.subscribe();
     fixture.detectChanges();
 
-    expect(addSpy).toHaveBeenCalledWith('multitouchend', jasmine.any(Function));
+    expect(addMock).toHaveBeenCalledWith('multitouchend', expect.any(Function));
     subscription.unsubscribe();
   });
 });

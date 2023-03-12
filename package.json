@@ -55,6 +55,7 @@
     "@typescript-eslint/parser": "^5.36.1",
     "concurrently": "^7.6.0",
     "eslint": "~8.15.0",
+    "jest-preset-angular": "~13.0.0",
     "eslint-config-prettier": "8.1.0",
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "husky": "^8.0.3",

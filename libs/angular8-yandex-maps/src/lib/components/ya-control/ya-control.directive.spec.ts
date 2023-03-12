@@ -4,9 +4,9 @@ import { BehaviorSubject } from 'rxjs';
 
 import { YaReadyEvent } from '../../interfaces/ya-ready-event';
 import {
-  createMapSpy,
-  createRoutePanelConstructorSpy,
-  createRoutePanelSpy,
+  mockMapInstance,
+  mockRoutePanel,
+  mockRoutePanelConstructor,
 } from '../../testing/fake-ymaps-utils';
 import { YaMapComponent } from '../ya-map/ya-map.component';
 import { YaControlDirective, YaControlType } from './ya-control.directive';
@@ -26,12 +26,12 @@ describe('YaControlDirective', () => {
   let component: YaControlDirective;
   let fixture: ComponentFixture<MockHostComponent>;
 
-  let mapSpy: jasmine.SpyObj<ymaps.Map>;
-  let routePanelSpy: jasmine.SpyObj<ymaps.control.RoutePanel>;
-  let routePanelConstructorSpy: jasmine.Spy;
+  let mapInstance: ReturnType<typeof mockMapInstance>;
+  let routePanelMock: ReturnType<typeof mockRoutePanel>;
+  let routePanelConstructorMock: jest.Mock;
 
   beforeEach(async () => {
-    mapSpy = createMapSpy();
+    mapInstance = mockMapInstance();
 
     await TestBed.configureTestingModule({
       declarations: [MockHostComponent, YaControlDirective],
@@ -40,7 +40,7 @@ describe('YaControlDirective', () => {
           provide: YaMapComponent,
           useValue: {
             isBrowser: true,
-            map$: new BehaviorSubject(mapSpy),
+            map$: new BehaviorSubject(mapInstance),
           },
         },
       ],
@@ -50,8 +50,9 @@ describe('YaControlDirective', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(MockHostComponent);
     component = fixture.componentInstance.control;
-    routePanelSpy = createRoutePanelSpy();
-    routePanelConstructorSpy = createRoutePanelConstructorSpy(routePanelSpy);
+
+    routePanelMock = mockRoutePanel();
+    routePanelConstructorMock = mockRoutePanelConstructor(routePanelMock);
   });
 
   afterEach(() => {
@@ -60,18 +61,17 @@ describe('YaControlDirective', () => {
 
   it('should create control', () => {
     fixture.detectChanges();
-
-    expect(routePanelConstructorSpy).toHaveBeenCalledWith(undefined);
-    expect(mapSpy.controls.add).toHaveBeenCalledWith(routePanelSpy);
+    expect(routePanelConstructorMock).toHaveBeenCalledWith(undefined);
+    expect(mapInstance.controls.add).toHaveBeenCalledWith(routePanelMock);
   });
 
   it('should emit ready on control load', () => {
-    spyOn(component.ready, 'emit');
+    jest.spyOn(component.ready, 'emit');
     fixture.detectChanges();
 
     const readyEvent: YaReadyEvent = {
       ymaps: window.ymaps,
-      target: routePanelSpy,
+      target: routePanelMock,
     };
 
     expect(component.ready.emit).toHaveBeenCalledWith(readyEvent);
@@ -94,7 +94,7 @@ describe('YaControlDirective', () => {
     fixture.componentInstance.parameters = parameters;
     fixture.detectChanges();
 
-    expect(routePanelConstructorSpy.calls.mostRecent()?.args[0]).toEqual(parameters);
+    expect(routePanelConstructorMock.mock.calls[0][0]).toEqual(parameters);
   });
 
   it('should manually set state for RoutePanel', () => {
@@ -106,20 +106,20 @@ describe('YaControlDirective', () => {
     };
 
     // Change instanceof behaviour
-    Object.defineProperty(routePanelConstructorSpy, Symbol.hasInstance, {
+    Object.defineProperty(routePanelConstructorMock, Symbol.hasInstance, {
       value: () => true,
     });
 
     fixture.componentInstance.parameters = parameters;
     fixture.detectChanges();
 
-    expect(routePanelSpy.routePanel.state.set).toHaveBeenCalledWith(parameters.state);
+    expect(routePanelMock.routePanel.state.set).toHaveBeenCalledWith(parameters.state);
   });
 
   it('should console warn if parameters is passed after init', () => {
     fixture.detectChanges();
 
-    console.warn = jasmine.createSpy('warn');
+    console.warn = jest.fn();
 
     fixture.componentInstance.parameters = {
       options: {
@@ -136,6 +136,6 @@ describe('YaControlDirective', () => {
     fixture.detectChanges();
     fixture.destroy();
 
-    expect(mapSpy.controls.remove).toHaveBeenCalledWith(routePanelSpy);
+    expect(mapInstance.controls.remove).toHaveBeenCalledWith(routePanelMock);
   });
 });

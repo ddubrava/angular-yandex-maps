@@ -1,16 +1,16 @@
 import { TestBed } from '@angular/core/testing';
 
-import { createGeocoderSpy, createReadySpy } from '../../testing/fake-ymaps-utils';
+import { mockGeocode, mockReady } from '../../testing/fake-ymaps-utils';
 import { YaGeocoderService } from './ya-geocoder.service';
 
 describe('YaGeocoderService', () => {
-  let readySpy: jasmine.Spy<jasmine.Func>;
-  let geocoderSpy: jasmine.Spy<jasmine.Func>;
+  let readyMock: jest.Mock;
+  let geocoderMock: jest.Mock;
   let service: YaGeocoderService;
 
   beforeEach(() => {
-    readySpy = createReadySpy();
-    geocoderSpy = createGeocoderSpy();
+    readyMock = mockReady();
+    geocoderMock = mockGeocode();
     service = TestBed.inject(YaGeocoderService);
   });
 
@@ -26,8 +26,8 @@ describe('YaGeocoderService', () => {
       done();
     });
 
-    expect(readySpy).toHaveBeenCalled();
-    expect(geocoderSpy).toHaveBeenCalledWith(request, undefined);
+    expect(readyMock).toHaveBeenCalled();
+    expect(geocoderMock).toHaveBeenCalledWith(request, undefined);
   });
 
   it('should geocode with options', () => {
@@ -40,6 +40,6 @@ describe('YaGeocoderService', () => {
     };
 
     service.geocode(request, options).subscribe();
-    expect(geocoderSpy).toHaveBeenCalledWith(request, options);
+    expect(geocoderMock).toHaveBeenCalledWith(request, options);
   });
 });

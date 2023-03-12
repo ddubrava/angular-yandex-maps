@@ -4,9 +4,9 @@ import { BehaviorSubject } from 'rxjs';
 
 import { YaReadyEvent } from '../../interfaces/ya-ready-event';
 import {
-  createMapSpy,
-  createPlacemarkConstructorSpy,
-  createPlacemarkSpy,
+  mockMapInstance,
+  mockPlacemarkConstructor,
+  mockPlacemarkInstance,
 } from '../../testing/fake-ymaps-utils';
 import { YaMapComponent } from '../ya-map/ya-map.component';
 import { YaPlacemarkDirective } from './ya-placemark.directive';
@@ -43,12 +43,12 @@ describe('YaPlacemarkDirective', () => {
   let component: YaPlacemarkDirective;
   let fixture: ComponentFixture<MockHostComponent>;
 
-  let mapSpy: jasmine.SpyObj<ymaps.Map>;
-  let placemarkSpy: jasmine.SpyObj<ymaps.Placemark>;
-  let placemarkConstructorSpy: jasmine.Spy;
+  let mapInstance: ReturnType<typeof mockMapInstance>;
+  let placemarkInstance: ReturnType<typeof mockPlacemarkInstance>;
+  let placemarkConstructorMock: jest.Mock;
 
   beforeEach(async () => {
-    mapSpy = createMapSpy();
+    mapInstance = mockMapInstance();
 
     await TestBed.configureTestingModule({
       declarations: [MockHostComponent, YaPlacemarkDirective],
@@ -57,7 +57,7 @@ describe('YaPlacemarkDirective', () => {
           provide: YaMapComponent,
           useValue: {
             isBrowser: true,
-            map$: new BehaviorSubject(mapSpy),
+            map$: new BehaviorSubject(mapInstance),
           },
         },
       ],
@@ -67,8 +67,9 @@ describe('YaPlacemarkDirective', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(MockHostComponent);
     component = fixture.componentInstance.placemark;
-    placemarkSpy = createPlacemarkSpy();
-    placemarkConstructorSpy = createPlacemarkConstructorSpy(placemarkSpy);
+
+    placemarkInstance = mockPlacemarkInstance();
+    placemarkConstructorMock = mockPlacemarkConstructor(placemarkInstance);
   });
 
   afterEach(() => {
@@ -77,17 +78,17 @@ describe('YaPlacemarkDirective', () => {
 
   it('should create placemark', () => {
     fixture.detectChanges();
-    expect(placemarkConstructorSpy).toHaveBeenCalledWith([0, 0], undefined, undefined);
-    expect(mapSpy.geoObjects.add).toHaveBeenCalledWith(placemarkSpy);
+    expect(placemarkConstructorMock).toHaveBeenCalledWith([0, 0], undefined, undefined);
+    expect(mapInstance.geoObjects.add).toHaveBeenCalledWith(placemarkInstance);
   });
 
   it('should emit ready on placemark load', () => {
-    spyOn(component.ready, 'emit');
+    jest.spyOn(component.ready, 'emit');
     fixture.detectChanges();
 
     const readyEvent: YaReadyEvent = {
       ymaps: window.ymaps,
-      target: placemarkSpy,
+      target: placemarkInstance,
     };
 
     expect(component.ready.emit).toHaveBeenCalledWith(readyEvent);
@@ -99,7 +100,7 @@ describe('YaPlacemarkDirective', () => {
     fixture.componentInstance.geometry = geometry;
     fixture.detectChanges();
 
-    expect(placemarkConstructorSpy.calls.mostRecent()?.args[0]).toEqual(geometry);
+    expect(placemarkConstructorMock.mock.calls[0][0]).toEqual(geometry);
   });
 
   it('should set placemark properties and options', () => {
@@ -122,8 +123,8 @@ describe('YaPlacemarkDirective', () => {
 
     fixture.detectChanges();
 
-    expect(placemarkConstructorSpy.calls.mostRecent()?.args[1]).toEqual(properties);
-    expect(placemarkConstructorSpy.calls.mostRecent()?.args[2]).toEqual(options);
+    expect(placemarkConstructorMock.mock.calls[0][1]).toEqual(properties);
+    expect(placemarkConstructorMock.mock.calls[0][2]).toEqual(options);
   });
 
   it('should set geometry after init', () => {
@@ -134,7 +135,7 @@ describe('YaPlacemarkDirective', () => {
     fixture.componentInstance.geometry = geometry;
     fixture.detectChanges();
 
-    expect(placemarkSpy.geometry!.setCoordinates).toHaveBeenCalledWith(geometry);
+    expect(placemarkInstance.geometry!.setCoordinates).toHaveBeenCalledWith(geometry);
   });
 
   it('should set properties after init', () => {
@@ -150,7 +151,7 @@ describe('YaPlacemarkDirective', () => {
     fixture.componentInstance.properties = properties;
     fixture.detectChanges();
 
-    expect(placemarkSpy.properties.set).toHaveBeenCalledWith(properties);
+    expect(placemarkInstance.properties.set).toHaveBeenCalledWith(properties);
   });
 
   it('should set options after init', () => {
@@ -166,61 +167,61 @@ describe('YaPlacemarkDirective', () => {
     fixture.componentInstance.options = options;
     fixture.detectChanges();
 
-    expect(placemarkSpy.options.set).toHaveBeenCalledWith(options);
+    expect(placemarkInstance.options.set).toHaveBeenCalledWith(options);
   });
 
   it('should remove placemark from map.geoObjects on destroy', () => {
     fixture.detectChanges();
     fixture.destroy();
 
-    expect(mapSpy.geoObjects.remove).toHaveBeenCalledWith(placemarkSpy);
+    expect(mapInstance.geoObjects.remove).toHaveBeenCalledWith(placemarkInstance);
   });
 
   it('should init event handlers that are set on the placemark', () => {
-    const addSpy = placemarkSpy.events.add;
+    const addMock = placemarkInstance.events.add;
     fixture.detectChanges();
 
-    expect(addSpy).toHaveBeenCalledWith('click', jasmine.any(Function));
-    expect(addSpy).toHaveBeenCalledWith('drag', jasmine.any(Function));
-    expect(addSpy).toHaveBeenCalledWith('parentchange', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('balloonclose', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('balloonopen', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('beforedrag', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('beforedragstart', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('contextmenu', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('dblclick', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('dragend', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('dragstart', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('editorstatechange', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('geometrychange', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('hintclose', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('hintopen', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('mapchange', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('mousedown', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('mouseenter', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('mouseleave', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('mousemove', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('mouseup', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('multitouchend', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('multitouchmove', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('multitouchstart', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('optionschange', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('overlaychange', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('propertieschange', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('wheel', jasmine.any(Function));
+    expect(addMock).toHaveBeenCalledWith('click', expect.any(Function));
+    expect(addMock).toHaveBeenCalledWith('drag', expect.any(Function));
+    expect(addMock).toHaveBeenCalledWith('parentchange', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('balloonclose', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('balloonopen', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('beforedrag', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('beforedragstart', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('contextmenu', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('dblclick', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('dragend', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('dragstart', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('editorstatechange', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('geometrychange', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('hintclose', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('hintopen', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('mapchange', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('mousedown', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('mouseenter', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('mouseleave', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('mousemove', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('mouseup', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('multitouchend', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('multitouchmove', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('multitouchstart', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('optionschange', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('overlaychange', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('propertieschange', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('wheel', expect.any(Function));
   });
 
   it('should be able to add an event listener after init', () => {
-    const addSpy = placemarkSpy.events.add;
+    const addMock = placemarkInstance.events.add;
     fixture.detectChanges();
 
-    expect(addSpy).not.toHaveBeenCalledWith('editorstatechange', jasmine.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('editorstatechange', expect.any(Function));
 
     // Pick an event that isn't bound in the template.
     const subscription = fixture.componentInstance.placemark.editorstatechange.subscribe();
     fixture.detectChanges();
 
-    expect(addSpy).toHaveBeenCalledWith('editorstatechange', jasmine.any(Function));
+    expect(addMock).toHaveBeenCalledWith('editorstatechange', expect.any(Function));
     subscription.unsubscribe();
   });
 });

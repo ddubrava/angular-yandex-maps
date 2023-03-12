@@ -4,9 +4,9 @@ import { BehaviorSubject } from 'rxjs';
 
 import { YaReadyEvent } from '../../interfaces/ya-ready-event';
 import {
-  createMapSpy,
-  createObjectManagerConstructorSpy,
-  createObjectManagerSpy,
+  mockManagerConstructor,
+  mockMapInstance,
+  mockObjectManager,
 } from '../../testing/fake-ymaps-utils';
 import { YaMapComponent } from '../ya-map/ya-map.component';
 import { YaObjectManagerDirective } from './ya-object-manager.directive';
@@ -37,12 +37,12 @@ describe('YaObjectManagerDirective', () => {
   let component: YaObjectManagerDirective;
   let fixture: ComponentFixture<MockHostComponent>;
 
-  let mapSpy: jasmine.SpyObj<ymaps.Map>;
-  let objectManagerSpy: jasmine.SpyObj<ymaps.ObjectManager>;
-  let objectManagerConstructorSpy: jasmine.Spy;
+  let mapInstance: ReturnType<typeof mockMapInstance>;
+  let objectManagerInstance: ReturnType<typeof mockObjectManager>;
+  let objectManagerConstructorMock: jest.Mock;
 
   beforeEach(async () => {
-    mapSpy = createMapSpy();
+    mapInstance = mockMapInstance();
 
     await TestBed.configureTestingModule({
       declarations: [MockHostComponent, YaObjectManagerDirective],
@@ -51,7 +51,7 @@ describe('YaObjectManagerDirective', () => {
           provide: YaMapComponent,
           useValue: {
             isBrowser: true,
-            map$: new BehaviorSubject(mapSpy),
+            map$: new BehaviorSubject(mapInstance),
           },
         },
       ],
@@ -61,8 +61,8 @@ describe('YaObjectManagerDirective', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(MockHostComponent);
     component = fixture.componentInstance.objectManager;
-    objectManagerSpy = createObjectManagerSpy();
-    objectManagerConstructorSpy = createObjectManagerConstructorSpy(objectManagerSpy);
+    objectManagerInstance = mockObjectManager();
+    objectManagerConstructorMock = mockManagerConstructor(objectManagerInstance);
   });
 
   afterEach(() => {
@@ -79,17 +79,17 @@ describe('YaObjectManagerDirective', () => {
     fixture.componentInstance.options = options;
     fixture.detectChanges();
 
-    expect(objectManagerConstructorSpy).toHaveBeenCalledWith(options);
-    expect(mapSpy.geoObjects.add).toHaveBeenCalledWith(objectManagerSpy);
+    expect(objectManagerConstructorMock).toHaveBeenCalledWith(options);
+    expect(mapInstance.geoObjects.add).toHaveBeenCalledWith(objectManagerInstance);
   });
 
   it('should emit ready on objectManager load', () => {
-    spyOn(component.ready, 'emit');
+    jest.spyOn(component.ready, 'emit');
     fixture.detectChanges();
 
     const readyEvent: YaReadyEvent = {
       ymaps: window.ymaps,
-      target: objectManagerSpy,
+      target: objectManagerInstance,
     };
 
     expect(component.ready.emit).toHaveBeenCalledWith(readyEvent);
@@ -105,7 +105,7 @@ describe('YaObjectManagerDirective', () => {
     fixture.componentInstance.options = options;
     fixture.detectChanges();
 
-    expect(objectManagerConstructorSpy.calls.mostRecent()?.args[0]).toEqual(options);
+    expect(objectManagerConstructorMock.mock.calls[0][0]).toEqual(options);
   });
 
   it('should set options after init', () => {
@@ -121,51 +121,51 @@ describe('YaObjectManagerDirective', () => {
 
     fixture.detectChanges();
 
-    expect(objectManagerSpy.options.set).toHaveBeenCalledWith(options);
+    expect(objectManagerInstance.options.set).toHaveBeenCalledWith(options);
   });
 
   it('should remove objectManager from map.geoObjects on destroy', () => {
     fixture.detectChanges();
     fixture.destroy();
 
-    expect(mapSpy.geoObjects.remove).toHaveBeenCalledWith(objectManagerSpy);
+    expect(mapInstance.geoObjects.remove).toHaveBeenCalledWith(objectManagerInstance);
   });
 
   it('should init event handlers that are set on the objectManager', () => {
-    const addSpy = objectManagerSpy.events.add;
+    const addMock = objectManagerInstance.events.add;
     fixture.detectChanges();
 
-    expect(addSpy).toHaveBeenCalledWith('click', jasmine.any(Function));
-    expect(addSpy).toHaveBeenCalledWith('geometrychange', jasmine.any(Function));
-    expect(addSpy).toHaveBeenCalledWith('multitouchmove', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('contextmenu', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('dblclick', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('mapchange', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('mousedown', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('mouseenter', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('mouseleave', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('mousemove', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('mouseup', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('multitouchend', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('multitouchstart', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('optionschange', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('overlaychange', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('parentchange', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('propertieschange', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('wheel', jasmine.any(Function));
+    expect(addMock).toHaveBeenCalledWith('click', expect.any(Function));
+    expect(addMock).toHaveBeenCalledWith('geometrychange', expect.any(Function));
+    expect(addMock).toHaveBeenCalledWith('multitouchmove', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('contextmenu', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('dblclick', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('mapchange', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('mousedown', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('mouseenter', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('mouseleave', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('mousemove', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('mouseup', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('multitouchend', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('multitouchstart', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('optionschange', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('overlaychange', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('parentchange', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('propertieschange', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('wheel', expect.any(Function));
   });
 
   it('should be able to add an event listener after init', () => {
-    const addSpy = objectManagerSpy.events.add;
+    const addMock = objectManagerInstance.events.add;
     fixture.detectChanges();
 
-    expect(addSpy).not.toHaveBeenCalledWith('overlaychange', jasmine.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('overlaychange', expect.any(Function));
 
     // Pick an event that isn't bound in the template.
     const subscription = fixture.componentInstance.objectManager.overlaychange.subscribe();
     fixture.detectChanges();
 
-    expect(addSpy).toHaveBeenCalledWith('overlaychange', jasmine.any(Function));
+    expect(addMock).toHaveBeenCalledWith('overlaychange', expect.any(Function));
     subscription.unsubscribe();
   });
 });

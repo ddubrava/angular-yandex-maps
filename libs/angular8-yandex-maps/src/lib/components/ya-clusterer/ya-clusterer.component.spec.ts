@@ -5,13 +5,13 @@ import { BehaviorSubject } from 'rxjs';
 import { AngularYandexMapsModule } from '../../angular-yandex-maps.module';
 import { YaReadyEvent } from '../../interfaces/ya-ready-event';
 import {
-  createClustererConstructorSpy,
-  createClustererSpy,
-  createGeoObjectConstructorSpy,
-  createGeoObjectSpy,
-  createMapSpy,
-  createPlacemarkConstructorSpy,
-  createPlacemarkSpy,
+  mockClustererConstructor,
+  mockClustererInstance,
+  mockGeoObjectConstructor,
+  mockGeoObjectInstance,
+  mockMapInstance,
+  mockPlacemarkConstructor,
+  mockPlacemarkInstance,
 } from '../../testing/fake-ymaps-utils';
 import { YaMapComponent } from '../ya-map/ya-map.component';
 import { YaClustererComponent } from './ya-clusterer.component';
@@ -55,12 +55,12 @@ describe('YaClustererComponent', () => {
   let component: YaClustererComponent;
   let fixture: ComponentFixture<MockHostComponent>;
 
-  let mapSpy: jasmine.SpyObj<ymaps.Map>;
-  let clustererSpy: jasmine.SpyObj<ymaps.Clusterer>;
-  let clustererConstructorSpy: jasmine.Spy;
+  let mapInstance: ReturnType<typeof mockMapInstance>;
+  let clustererInstance: ReturnType<typeof mockClustererInstance>;
+  let clustererConstructorMock: jest.Mock;
 
   beforeEach(async () => {
-    mapSpy = createMapSpy();
+    mapInstance = mockMapInstance();
 
     await TestBed.configureTestingModule({
       imports: [AngularYandexMapsModule],
@@ -70,7 +70,7 @@ describe('YaClustererComponent', () => {
           provide: YaMapComponent,
           useValue: {
             isBrowser: true,
-            map$: new BehaviorSubject(mapSpy),
+            map$: new BehaviorSubject(mapInstance),
           },
         },
       ],
@@ -81,14 +81,14 @@ describe('YaClustererComponent', () => {
     fixture = TestBed.createComponent(MockHostComponent);
     component = fixture.componentInstance.clusterer;
 
-    const placemarkSpy = createPlacemarkSpy();
-    createPlacemarkConstructorSpy(placemarkSpy);
+    const placemarkInstance = mockPlacemarkInstance();
+    mockPlacemarkConstructor(placemarkInstance);
 
-    const geoObjectSpy = createGeoObjectSpy();
-    createGeoObjectConstructorSpy(geoObjectSpy);
+    const geoObjectInstance = mockGeoObjectInstance();
+    mockGeoObjectConstructor(geoObjectInstance);
 
-    clustererSpy = createClustererSpy();
-    clustererConstructorSpy = createClustererConstructorSpy(clustererSpy);
+    clustererInstance = mockClustererInstance();
+    clustererConstructorMock = mockClustererConstructor(clustererInstance);
   });
 
   afterEach(() => {
@@ -97,17 +97,17 @@ describe('YaClustererComponent', () => {
 
   it('should create clusterer', () => {
     fixture.detectChanges();
-    expect(clustererConstructorSpy).toHaveBeenCalledWith(undefined);
-    expect(mapSpy.geoObjects.add).toHaveBeenCalledWith(clustererSpy);
+    expect(clustererConstructorMock).toHaveBeenCalledWith(undefined);
+    expect(mapInstance.geoObjects.add).toHaveBeenCalledWith(clustererInstance);
   });
 
   it('should emit ready on clusterer load', () => {
-    spyOn(component.ready, 'emit');
+    jest.spyOn(component.ready, 'emit');
     fixture.detectChanges();
 
     const readyEvent: YaReadyEvent = {
       ymaps: window.ymaps,
-      target: clustererSpy,
+      target: clustererInstance,
     };
 
     expect(component.ready.emit).toHaveBeenCalledWith(readyEvent);
@@ -125,7 +125,7 @@ describe('YaClustererComponent', () => {
     fixture.componentInstance.options = options;
     fixture.detectChanges();
 
-    expect(clustererConstructorSpy.calls.mostRecent()?.args[0]).toEqual(options);
+    expect(clustererConstructorMock.mock.calls[0][0]).toEqual(options);
   });
 
   it('should set options after init', () => {
@@ -138,56 +138,54 @@ describe('YaClustererComponent', () => {
     };
 
     fixture.componentInstance.options = options;
-
     fixture.detectChanges();
 
-    expect(clustererSpy.options.set).toHaveBeenCalledWith(options);
+    expect(clustererInstance.options.set).toHaveBeenCalledWith(options);
   });
 
   it('should set placemarks and geoObjects in the clusterer', () => {
     fixture.detectChanges();
-    expect(clustererSpy.add).toHaveBeenCalledWith(jasmine.any(Object));
+    expect(clustererInstance.add).toHaveBeenCalledWith(expect.any(Object));
   });
 
   it('should set update placemarks and geoObjects in the clusterer', () => {
     fixture.detectChanges();
-    expect(clustererSpy.add).toHaveBeenCalledWith(jasmine.any(Object));
+    expect(clustererInstance.add).toHaveBeenCalledWith(expect.any(Object));
 
     fixture.componentInstance.case = 'case2';
     fixture.detectChanges();
 
-    expect(clustererSpy.remove).toHaveBeenCalledWith(jasmine.any(Object));
-    expect(clustererSpy.add).toHaveBeenCalledWith(jasmine.any(Object));
+    expect(clustererInstance.remove).toHaveBeenCalledWith(expect.any(Object));
+    expect(clustererInstance.add).toHaveBeenCalledWith(expect.any(Object));
 
     fixture.componentInstance.case = 'case0';
     fixture.detectChanges();
 
-    expect(clustererSpy.remove).toHaveBeenCalledWith(jasmine.any(Object));
-    expect(clustererSpy.add).toHaveBeenCalledWith([]);
+    expect(clustererInstance.remove).toHaveBeenCalledWith(expect.any(Object));
+    expect(clustererInstance.add).toHaveBeenCalledWith([]);
   });
 
   it('should init event handlers that are set on the clusterer', () => {
-    const addSpy = clustererSpy.events.add;
+    const addMock = clustererInstance.events.add;
     fixture.detectChanges();
 
-    expect(addSpy).toHaveBeenCalledWith('hintclose', jasmine.any(Function));
-    expect(addSpy).toHaveBeenCalledWith('optionschange', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('hintopen', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('mapchange', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('parentchange', jasmine.any(Function));
+    expect(addMock).toHaveBeenCalledWith('hintclose', expect.any(Function));
+    expect(addMock).toHaveBeenCalledWith('optionschange', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('hintopen', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('mapchange', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('parentchange', expect.any(Function));
   });
 
   it('should be able to add an event listener after init', () => {
-    const addSpy = clustererSpy.events.add;
+    const addMock = clustererInstance.events.add;
     fixture.detectChanges();
 
-    expect(addSpy).not.toHaveBeenCalledWith('mapchange', jasmine.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('mapchange', expect.any(Function));
 
     // Pick an event that isn't bound in the template.
     const subscription = fixture.componentInstance.clusterer.mapchange.subscribe();
-    fixture.detectChanges();
 
-    expect(addSpy).toHaveBeenCalledWith('mapchange', jasmine.any(Function));
+    expect(addMock).toHaveBeenCalledWith('mapchange', expect.any(Function));
     subscription.unsubscribe();
   });
 });

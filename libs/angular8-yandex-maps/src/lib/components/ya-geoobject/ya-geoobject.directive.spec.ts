@@ -4,9 +4,9 @@ import { BehaviorSubject } from 'rxjs';
 
 import { YaReadyEvent } from '../../interfaces/ya-ready-event';
 import {
-  createGeoObjectConstructorSpy,
-  createGeoObjectSpy,
-  createMapSpy,
+  mockGeoObjectConstructor,
+  mockGeoObjectInstance,
+  mockMapInstance,
 } from '../../testing/fake-ymaps-utils';
 import { YaMapComponent } from '../ya-map/ya-map.component';
 import { YaGeoObjectDirective } from './ya-geoobject.directive';
@@ -40,12 +40,12 @@ describe('YaGeoObjectDirective', () => {
   let component: YaGeoObjectDirective;
   let fixture: ComponentFixture<MockHostComponent>;
 
-  let mapSpy: jasmine.SpyObj<ymaps.Map>;
-  let geoObjectSpy: jasmine.SpyObj<ymaps.GeoObject>;
-  let geoObjectConstructorSpy: jasmine.Spy;
+  let mapInstance: ReturnType<typeof mockMapInstance>;
+  let geoObjectInstance: ReturnType<typeof mockGeoObjectInstance>;
+  let geoObjectConstructorMock: jest.Mock;
 
   beforeEach(async () => {
-    mapSpy = createMapSpy();
+    mapInstance = mockMapInstance();
 
     await TestBed.configureTestingModule({
       declarations: [MockHostComponent, YaGeoObjectDirective],
@@ -54,7 +54,7 @@ describe('YaGeoObjectDirective', () => {
           provide: YaMapComponent,
           useValue: {
             isBrowser: true,
-            map$: new BehaviorSubject(mapSpy),
+            map$: new BehaviorSubject(mapInstance),
           },
         },
       ],
@@ -64,8 +64,9 @@ describe('YaGeoObjectDirective', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(MockHostComponent);
     component = fixture.componentInstance.geoObject;
-    geoObjectSpy = createGeoObjectSpy();
-    geoObjectConstructorSpy = createGeoObjectConstructorSpy(geoObjectSpy);
+
+    geoObjectInstance = mockGeoObjectInstance();
+    geoObjectConstructorMock = mockGeoObjectConstructor(geoObjectInstance);
   });
 
   afterEach(() => {
@@ -86,17 +87,17 @@ describe('YaGeoObjectDirective', () => {
     fixture.componentInstance.feature = feature;
     fixture.detectChanges();
 
-    expect(geoObjectConstructorSpy).toHaveBeenCalledWith(feature, undefined);
-    expect(mapSpy.geoObjects.add).toHaveBeenCalledWith(geoObjectSpy);
+    expect(geoObjectConstructorMock).toHaveBeenCalledWith(feature, undefined);
+    expect(mapInstance.geoObjects.add).toHaveBeenCalledWith(geoObjectInstance);
   });
 
   it('should emit ready on geoObject load', () => {
-    spyOn(component.ready, 'emit');
+    jest.spyOn(component.ready, 'emit');
     fixture.detectChanges();
 
     const readyEvent: YaReadyEvent = {
       ymaps: window.ymaps,
-      target: geoObjectSpy,
+      target: geoObjectInstance,
     };
 
     expect(component.ready.emit).toHaveBeenCalledWith(readyEvent);
@@ -120,7 +121,7 @@ describe('YaGeoObjectDirective', () => {
     fixture.componentInstance.feature = feature;
     fixture.detectChanges();
 
-    expect(geoObjectConstructorSpy.calls.mostRecent()?.args[0]).toEqual(feature);
+    expect(geoObjectConstructorMock.mock.calls[0][0]).toEqual(feature);
   });
 
   it('should set options', () => {
@@ -139,7 +140,7 @@ describe('YaGeoObjectDirective', () => {
     fixture.componentInstance.options = options;
     fixture.detectChanges();
 
-    expect(geoObjectConstructorSpy.calls.mostRecent()?.args[1]).toEqual(options);
+    expect(geoObjectConstructorMock.mock.calls[0][1]).toEqual(options);
   });
 
   it('should set feature.properties after init', () => {
@@ -155,7 +156,7 @@ describe('YaGeoObjectDirective', () => {
     fixture.componentInstance.feature = feature;
     fixture.detectChanges();
 
-    expect(geoObjectSpy.properties.set).toHaveBeenCalledWith(feature.properties);
+    expect(geoObjectInstance.properties.set).toHaveBeenCalledWith(feature.properties);
   });
 
   it('should set options after init', () => {
@@ -174,7 +175,7 @@ describe('YaGeoObjectDirective', () => {
     fixture.componentInstance.options = options;
     fixture.detectChanges();
 
-    expect(geoObjectSpy.options.set).toHaveBeenCalledWith(options);
+    expect(geoObjectInstance.options.set).toHaveBeenCalledWith(options);
   });
 
   it('should console warn if feature.geometry is passed after init', () => {
@@ -190,7 +191,7 @@ describe('YaGeoObjectDirective', () => {
       },
     };
 
-    console.warn = jasmine.createSpy('warn');
+    console.warn = jest.fn();
 
     fixture.componentInstance.feature = feature;
     fixture.detectChanges();
@@ -202,53 +203,53 @@ describe('YaGeoObjectDirective', () => {
     fixture.detectChanges();
     fixture.destroy();
 
-    expect(mapSpy.geoObjects.remove).toHaveBeenCalledWith(geoObjectSpy);
+    expect(mapInstance.geoObjects.remove).toHaveBeenCalledWith(geoObjectInstance);
   });
 
   it('should init event handlers that are set on the geoObject', () => {
-    const addSpy = geoObjectSpy.events.add;
+    const addMock = geoObjectInstance.events.add;
     fixture.detectChanges();
 
-    expect(addSpy).toHaveBeenCalledWith('contextmenu', jasmine.any(Function));
-    expect(addSpy).toHaveBeenCalledWith('drag', jasmine.any(Function));
-    expect(addSpy).toHaveBeenCalledWith('multitouchstart', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('balloonclose', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('balloonopen', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('beforedrag', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('beforedragstart', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('click', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('dblclick', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('dragend', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('editorstatechange', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('geometrychange', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('hintclose', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('hintopen', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('mapchange', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('mousedown', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('mouseenter', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('mouseleave', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('mousemove', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('mouseup', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('multitouchend', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('multitouchmove', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('optionschange', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('overlaychange', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('parentchange', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('propertieschange', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('wheel', jasmine.any(Function));
+    expect(addMock).toHaveBeenCalledWith('contextmenu', expect.any(Function));
+    expect(addMock).toHaveBeenCalledWith('drag', expect.any(Function));
+    expect(addMock).toHaveBeenCalledWith('multitouchstart', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('balloonclose', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('balloonopen', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('beforedrag', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('beforedragstart', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('click', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('dblclick', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('dragend', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('editorstatechange', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('geometrychange', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('hintclose', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('hintopen', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('mapchange', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('mousedown', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('mouseenter', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('mouseleave', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('mousemove', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('mouseup', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('multitouchend', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('multitouchmove', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('optionschange', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('overlaychange', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('parentchange', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('propertieschange', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('wheel', expect.any(Function));
   });
 
   it('should be able to add an event listener after init', () => {
-    const addSpy = geoObjectSpy.events.add;
+    const addMock = geoObjectInstance.events.add;
     fixture.detectChanges();
 
-    expect(addSpy).not.toHaveBeenCalledWith('hintopen', jasmine.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('hintopen', expect.any(Function));
 
     // Pick an event that isn't bound in the template.
     const subscription = fixture.componentInstance.geoObject.hintopen.subscribe();
     fixture.detectChanges();
 
-    expect(addSpy).toHaveBeenCalledWith('hintopen', jasmine.any(Function));
+    expect(addMock).toHaveBeenCalledWith('hintopen', expect.any(Function));
     subscription.unsubscribe();
   });
 });

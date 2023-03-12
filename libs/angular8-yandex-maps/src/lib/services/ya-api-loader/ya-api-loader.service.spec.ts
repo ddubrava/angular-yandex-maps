@@ -1,5 +1,5 @@
 import { YaConfig } from '../../interfaces/ya-config';
-import { createReadySpy } from '../../testing/fake-ymaps-utils';
+import { mockReady } from '../../testing/fake-ymaps-utils';
 import { YaApiLoaderService } from './ya-api-loader.service';
 
 class FakeHTMLScriptElement {
@@ -30,8 +30,10 @@ describe('YaApiLoaderService', () => {
 
   beforeEach(() => {
     mockDocument = {
-      createElement: jasmine.createSpy('createElement'),
-      body: jasmine.createSpyObj('body', ['appendChild']),
+      createElement: jest.fn(),
+      body: {
+        appendChild: jest.fn(),
+      },
     };
 
     platformId = 'browser' as any;
@@ -46,8 +48,8 @@ describe('YaApiLoaderService', () => {
   it('should create script with default options if config is not passed', () => {
     service = new YaApiLoaderService(null, mockDocument, platformId);
 
-    mockDocument.createElement.and.returnValue(script);
-    mockDocument.body.appendChild.and.returnValue(script);
+    mockDocument.createElement.mockReturnValue(script);
+    mockDocument.body.appendChild.mockReturnValue(script);
 
     service.load();
 
@@ -67,8 +69,8 @@ describe('YaApiLoaderService', () => {
 
     service = new YaApiLoaderService(config, mockDocument, platformId);
 
-    mockDocument.createElement.and.returnValue(script);
-    mockDocument.body.appendChild.and.returnValue(script);
+    mockDocument.createElement.mockReturnValue(script);
+    mockDocument.body.appendChild.mockReturnValue(script);
 
     service.load();
 
@@ -89,8 +91,8 @@ describe('YaApiLoaderService', () => {
 
     service = new YaApiLoaderService(config, mockDocument, platformId);
 
-    mockDocument.createElement.and.returnValue(script);
-    mockDocument.body.appendChild.and.returnValue(script);
+    mockDocument.createElement.mockReturnValue(script);
+    mockDocument.body.appendChild.mockReturnValue(script);
 
     service.load();
 
@@ -109,8 +111,8 @@ describe('YaApiLoaderService', () => {
 
     service = new YaApiLoaderService(config, mockDocument, platformId);
 
-    mockDocument.createElement.and.returnValue(script);
-    mockDocument.body.appendChild.and.returnValue(script);
+    mockDocument.createElement.mockReturnValue(script);
+    mockDocument.body.appendChild.mockReturnValue(script);
 
     service.load();
 
@@ -118,7 +120,7 @@ describe('YaApiLoaderService', () => {
   });
 
   it('should not append second script if window.ymaps is defined', () => {
-    createReadySpy();
+    mockReady();
 
     service = new YaApiLoaderService(null, mockDocument, platformId);
     service.load();
@@ -130,21 +132,21 @@ describe('YaApiLoaderService', () => {
   it('should not append second script if load called in a sequence', () => {
     service = new YaApiLoaderService(null, mockDocument, platformId);
 
-    mockDocument.createElement.and.returnValue(script);
-    mockDocument.body.appendChild.and.returnValue(script);
+    mockDocument.createElement.mockReturnValue(script);
+    mockDocument.body.appendChild.mockReturnValue(script);
 
     service.load();
     service.load();
 
-    expect(mockDocument.createElement.calls.count()).toBe(1);
-    expect(mockDocument.body.appendChild.calls.count()).toBe(1);
+    expect(mockDocument.createElement.mock.calls.length).toBe(1);
+    expect(mockDocument.body.appendChild.mock.calls.length).toBe(1);
   });
 
   it('should return observable with ymaps on script load', (done) => {
     service = new YaApiLoaderService(null, mockDocument, platformId);
 
-    mockDocument.createElement.and.returnValue(script);
-    mockDocument.body.appendChild.and.returnValue(script);
+    mockDocument.createElement.mockReturnValue(script);
+    mockDocument.body.appendChild.mockReturnValue(script);
 
     service.load().subscribe((api) => {
       expect(api.ready).toBeTruthy();
@@ -152,7 +154,7 @@ describe('YaApiLoaderService', () => {
     });
 
     setTimeout(() => {
-      createReadySpy();
+      mockReady();
       script.onHandlers.load();
     });
   });
@@ -162,8 +164,8 @@ describe('YaApiLoaderService', () => {
 
     const error = {};
 
-    mockDocument.createElement.and.returnValue(script);
-    mockDocument.body.appendChild.and.returnValue(script);
+    mockDocument.createElement.mockReturnValue(script);
+    mockDocument.body.appendChild.mockReturnValue(script);
 
     service.load().subscribe({
       error: (e) => {
@@ -173,7 +175,7 @@ describe('YaApiLoaderService', () => {
     });
 
     setTimeout(() => {
-      createReadySpy();
+      mockReady();
       script.onHandlers.error(error);
     });
   });

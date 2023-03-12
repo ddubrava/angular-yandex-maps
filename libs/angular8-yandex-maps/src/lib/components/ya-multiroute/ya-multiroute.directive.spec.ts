@@ -4,9 +4,9 @@ import { BehaviorSubject } from 'rxjs';
 
 import { YaReadyEvent } from '../../interfaces/ya-ready-event';
 import {
-  createMapSpy,
-  createMultirouteConstructorSpy,
-  createMultirouteSpy,
+  mockMapInstance,
+  mockMultiroute,
+  mockMultirouteConstructor,
 } from '../../testing/fake-ymaps-utils';
 import { YaMapComponent } from '../ya-map/ya-map.component';
 import { YaMultirouteDirective } from './ya-multiroute.directive';
@@ -43,12 +43,12 @@ describe('YaMultirouteDirective', () => {
   let component: YaMultirouteDirective;
   let fixture: ComponentFixture<MockHostComponent>;
 
-  let mapSpy: jasmine.SpyObj<ymaps.Map>;
-  let multirouteSpy: jasmine.SpyObj<ymaps.multiRouter.MultiRoute>;
-  let multirouteConstructorSpy: jasmine.Spy;
+  let mapInstance: ReturnType<typeof mockMapInstance>;
+  let multirouteInstance: ReturnType<typeof mockMultiroute>;
+  let multirouteConstructorMock: jest.Mock;
 
   beforeEach(async () => {
-    mapSpy = createMapSpy();
+    mapInstance = mockMapInstance();
 
     await TestBed.configureTestingModule({
       declarations: [MockHostComponent, YaMultirouteDirective],
@@ -57,7 +57,7 @@ describe('YaMultirouteDirective', () => {
           provide: YaMapComponent,
           useValue: {
             isBrowser: true,
-            map$: new BehaviorSubject(mapSpy),
+            map$: new BehaviorSubject(mapInstance),
           },
         },
       ],
@@ -67,8 +67,9 @@ describe('YaMultirouteDirective', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(MockHostComponent);
     component = fixture.componentInstance.multiroute;
-    multirouteSpy = createMultirouteSpy();
-    multirouteConstructorSpy = createMultirouteConstructorSpy(multirouteSpy);
+
+    multirouteInstance = mockMultiroute();
+    multirouteConstructorMock = mockMultirouteConstructor(multirouteInstance);
   });
 
   afterEach(() => {
@@ -84,17 +85,17 @@ describe('YaMultirouteDirective', () => {
     fixture.componentInstance.referencePoints = referencePoints;
     fixture.detectChanges();
 
-    expect(multirouteConstructorSpy).toHaveBeenCalledWith({ referencePoints }, undefined);
-    expect(mapSpy.geoObjects.add).toHaveBeenCalledWith(multirouteSpy);
+    expect(multirouteConstructorMock).toHaveBeenCalledWith({ referencePoints }, undefined);
+    expect(mapInstance.geoObjects.add).toHaveBeenCalledWith(multirouteInstance);
   });
 
   it('should emit ready on multiroute load', () => {
-    spyOn(component.ready, 'emit');
+    jest.spyOn(component.ready, 'emit');
     fixture.detectChanges();
 
     const readyEvent: YaReadyEvent = {
       ymaps: window.ymaps,
-      target: multirouteSpy,
+      target: multirouteInstance,
     };
 
     expect(component.ready.emit).toHaveBeenCalledWith(readyEvent);
@@ -105,7 +106,7 @@ describe('YaMultirouteDirective', () => {
     fixture.componentInstance.referencePoints = referencePoints;
     fixture.detectChanges();
 
-    expect(multirouteConstructorSpy.calls.mostRecent()?.args[0]).toEqual({
+    expect(multirouteConstructorMock.mock.calls[0][0]).toEqual({
       referencePoints,
     });
   });
@@ -123,7 +124,7 @@ describe('YaMultirouteDirective', () => {
     fixture.componentInstance.model = model;
     fixture.detectChanges();
 
-    expect(multirouteConstructorSpy.calls.mostRecent()?.args[0]).toEqual(model);
+    expect(multirouteConstructorMock.mock.calls[0][0]).toEqual(model);
   });
 
   it('should set options', () => {
@@ -136,7 +137,7 @@ describe('YaMultirouteDirective', () => {
     fixture.componentInstance.options = options;
     fixture.detectChanges();
 
-    expect(multirouteConstructorSpy.calls.mostRecent()?.args[1]).toEqual(options);
+    expect(multirouteConstructorMock.mock.calls[0][1]).toEqual(options);
   });
 
   it('should give precedence to referencePoints over models', () => {
@@ -151,7 +152,7 @@ describe('YaMultirouteDirective', () => {
 
     fixture.detectChanges();
 
-    expect(multirouteConstructorSpy.calls.mostRecent()?.args[0]).toEqual({ referencePoints });
+    expect(multirouteConstructorMock.mock.calls[0][0]).toEqual({ referencePoints });
   });
 
   it('should set referencePoints after init', () => {
@@ -162,7 +163,7 @@ describe('YaMultirouteDirective', () => {
 
     fixture.detectChanges();
 
-    expect(multirouteSpy.model.setReferencePoints).toHaveBeenCalledWith(referencePoints);
+    expect(multirouteInstance.model.setReferencePoints).toHaveBeenCalledWith(referencePoints);
   });
 
   it('should set models after init', () => {
@@ -181,8 +182,8 @@ describe('YaMultirouteDirective', () => {
 
     fixture.detectChanges();
 
-    expect(multirouteSpy.model.setReferencePoints).toHaveBeenCalledWith(model.referencePoints);
-    expect(multirouteSpy.model.setParams).toHaveBeenCalledWith(model.params);
+    expect(multirouteInstance.model.setReferencePoints).toHaveBeenCalledWith(model.referencePoints);
+    expect(multirouteInstance.model.setParams).toHaveBeenCalledWith(model.params);
   });
 
   it('should set options after init', () => {
@@ -199,58 +200,58 @@ describe('YaMultirouteDirective', () => {
 
     fixture.detectChanges();
 
-    expect(multirouteSpy.options.set).toHaveBeenCalledWith(options);
+    expect(multirouteInstance.options.set).toHaveBeenCalledWith(options);
   });
 
   it('should remove multiroute from map.geoObjects on destroy', () => {
     fixture.detectChanges();
     fixture.destroy();
 
-    expect(mapSpy.geoObjects.remove).toHaveBeenCalledWith(multirouteSpy);
+    expect(mapInstance.geoObjects.remove).toHaveBeenCalledWith(multirouteInstance);
   });
 
   it('should init event handlers that are set on the multiroute', () => {
-    const addSpy = multirouteSpy.events.add;
+    const addMock = multirouteInstance.events.add;
     fixture.detectChanges();
 
-    expect(addSpy).toHaveBeenCalledWith('mapchange', jasmine.any(Function));
-    expect(addSpy).toHaveBeenCalledWith('parentchange', jasmine.any(Function));
-    expect(addSpy).toHaveBeenCalledWith('pixelboundschange', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('activeroutechange', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('balloonclose', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('balloonopen', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('boundsautoapply', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('boundschange', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('click', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('contextmenu', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('dblclick', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('geometrychange', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('mousedown', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('mouseenter', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('mouseleave', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('mousemove', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('mouseup', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('multitouchend', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('multitouchmove', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('multitouchstart', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('optionschange', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('overlaychange', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('propertieschange', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('update', jasmine.any(Function));
-    expect(addSpy).not.toHaveBeenCalledWith('wheel', jasmine.any(Function));
+    expect(addMock).toHaveBeenCalledWith('mapchange', expect.any(Function));
+    expect(addMock).toHaveBeenCalledWith('parentchange', expect.any(Function));
+    expect(addMock).toHaveBeenCalledWith('pixelboundschange', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('activeroutechange', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('balloonclose', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('balloonopen', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('boundsautoapply', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('boundschange', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('click', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('contextmenu', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('dblclick', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('geometrychange', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('mousedown', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('mouseenter', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('mouseleave', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('mousemove', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('mouseup', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('multitouchend', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('multitouchmove', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('multitouchstart', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('optionschange', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('overlaychange', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('propertieschange', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('update', expect.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('wheel', expect.any(Function));
   });
 
   it('should be able to add an event listener after init', () => {
-    const addSpy = multirouteSpy.events.add;
+    const addMock = multirouteInstance.events.add;
     fixture.detectChanges();
 
-    expect(addSpy).not.toHaveBeenCalledWith('balloonopen', jasmine.any(Function));
+    expect(addMock).not.toHaveBeenCalledWith('balloonopen', expect.any(Function));
 
     // Pick an event that isn't bound in the template.
     const subscription = fixture.componentInstance.multiroute.balloonopen.subscribe();
     fixture.detectChanges();
 
-    expect(addSpy).toHaveBeenCalledWith('balloonopen', jasmine.any(Function));
+    expect(addMock).toHaveBeenCalledWith('balloonopen', expect.any(Function));
     subscription.unsubscribe();
   });
 });
