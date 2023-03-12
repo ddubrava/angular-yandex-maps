@@ -4,6 +4,8 @@ export default {
   preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   coverageDirectory: '../../coverage/packages/angular8-yandex-maps',
+  coverageReporters: ['text', 'cobertura'],
+  coveragePathIgnorePatterns: ['./src/test-utils.ts'],
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',

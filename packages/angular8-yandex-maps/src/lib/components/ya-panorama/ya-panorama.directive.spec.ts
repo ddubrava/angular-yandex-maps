@@ -1,14 +1,14 @@
 import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
-import { YaReadyEvent } from '../../interfaces/ya-ready-event';
 import {
   mockLocate,
   mockMapInstance,
   mockPlayer,
   mockPlayerConstructor,
-} from '../../testing/fake-ymaps-utils';
+} from '../../../test-utils';
+import { YaReadyEvent } from '../../interfaces/ya-ready-event';
 import { YaMapComponent } from '../ya-map/ya-map.component';
 import { YaPanoramaDirective } from './ya-panorama.directive';
 

@@ -14,8 +14,7 @@
     "build:docs": "compodoc && cd ./packages/docsifier && npm run build",
     "-------------------------------- Test": "",
     "test": "nx test angular8-yandex-maps",
-    "test:headless": "npm run test -- --watch=false --browsers=ChromeHeadless",
-    "test:coverage": "npm run test:headless -- --code-coverage",
+    "test:coverage": "npm run test -- --codeCoverage",
     "-------------------------------- Lint": "",
     "lint": "nx lint angular8-yandex-maps"
   },

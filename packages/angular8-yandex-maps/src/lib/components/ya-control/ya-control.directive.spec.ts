@@ -2,12 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BehaviorSubject } from 'rxjs';
 
+import { mockMapInstance, mockRoutePanel, mockRoutePanelConstructor } from '../../../test-utils';
 import { YaReadyEvent } from '../../interfaces/ya-ready-event';
-import {
-  mockMapInstance,
-  mockRoutePanel,
-  mockRoutePanelConstructor,
-} from '../../testing/fake-ymaps-utils';
 import { YaMapComponent } from '../ya-map/ya-map.component';
 import { YaControlDirective, YaControlType } from './ya-control.directive';
 

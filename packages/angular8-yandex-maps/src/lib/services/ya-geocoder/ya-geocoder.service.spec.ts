@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { mockGeocode, mockReady } from '../../testing/fake-ymaps-utils';
+import { mockGeocode, mockReady } from '../../../test-utils';
 import { YaGeocoderService } from './ya-geocoder.service';
 
 describe('YaGeocoderService', () => {

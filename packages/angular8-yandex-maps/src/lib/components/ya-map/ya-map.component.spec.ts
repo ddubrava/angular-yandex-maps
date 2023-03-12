@@ -1,8 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { mockMapConstructor, mockMapInstance, mockReady } from '../../../test-utils';
 import { YaReadyEvent } from '../../interfaces/ya-ready-event';
-import { mockMapConstructor, mockMapInstance, mockReady } from '../../testing/fake-ymaps-utils';
 import * as GenerateRandomIdModule from '../../utils/generate-random-id/generate-random-id';
 import { YaMapComponent } from './ya-map.component';
 

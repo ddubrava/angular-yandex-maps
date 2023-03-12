@@ -1,5 +1,5 @@
+import { mockReady } from '../../../test-utils';
 import { YaConfig } from '../../interfaces/ya-config';
-import { mockReady } from '../../testing/fake-ymaps-utils';
 import { YaApiLoaderService } from './ya-api-loader.service';
 
 class FakeHTMLScriptElement {

@@ -12,7 +12,7 @@
     "src/**/*.spec.ts",
     "jest.config.ts",
     "src/**/*.test.ts",
-    "src/lib/testing/fake-ymaps-utils.ts"
+    "src/test-utils.ts"
   ],
   "include": ["src/**/*.ts"]
 }

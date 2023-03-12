@@ -2,12 +2,12 @@ import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BehaviorSubject } from 'rxjs';
 
-import { YaReadyEvent } from '../../interfaces/ya-ready-event';
 import {
   mockMapInstance,
   mockPlacemarkConstructor,
   mockPlacemarkInstance,
-} from '../../testing/fake-ymaps-utils';
+} from '../../../test-utils';
+import { YaReadyEvent } from '../../interfaces/ya-ready-event';
 import { YaMapComponent } from '../ya-map/ya-map.component';
 import { YaPlacemarkDirective } from './ya-placemark.directive';
 

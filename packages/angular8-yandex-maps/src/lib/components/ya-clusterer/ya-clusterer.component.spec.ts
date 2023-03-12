@@ -2,8 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BehaviorSubject } from 'rxjs';
 
-import { AngularYandexMapsModule } from '../../angular-yandex-maps.module';
-import { YaReadyEvent } from '../../interfaces/ya-ready-event';
 import {
   mockClustererConstructor,
   mockClustererInstance,
@@ -12,7 +10,9 @@ import {
   mockMapInstance,
   mockPlacemarkConstructor,
   mockPlacemarkInstance,
-} from '../../testing/fake-ymaps-utils';
+} from '../../../test-utils';
+import { AngularYandexMapsModule } from '../../angular-yandex-maps.module';
+import { YaReadyEvent } from '../../interfaces/ya-ready-event';
 import { YaMapComponent } from '../ya-map/ya-map.component';
 import { YaClustererComponent } from './ya-clusterer.component';
 
