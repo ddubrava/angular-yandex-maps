@@ -37,5 +37,5 @@
       "inputs": ["default", "^production"]
     }
   },
-  "defaultProject": "angular-yandex-maps"
+  "defaultProject": "angular8-yandex-maps"
 }

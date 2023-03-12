@@ -103,7 +103,7 @@ Developing in this repo is easy:
 - In the root of the project, run `npm install` or `yarn install`.
 - Create `environment.local.ts` in `environments` directory to provide an API key
   - Add `export const environment = { production: false, apikey: UNDEFINED_OR_YOUR_API_KEY }`
-- Run `npm run start:lib` to start the library, then run `npm start` to start the app.
+- Run `npm run start:lib` to start the library, then run `npm run start:app` to start the app.
 - Make the required changes.
 
 ### Raising a PR

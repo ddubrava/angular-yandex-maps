@@ -1,0 +1,50 @@
+{
+  "name": "angular8-yandex-maps",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "packages/angular8-yandex-maps/src",
+  "prefix": "app",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:package",
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "options": {
+        "project": "packages/angular8-yandex-maps/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "packages/angular8-yandex-maps/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "packages/angular8-yandex-maps/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "packages/angular8-yandex-maps/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "packages/angular8-yandex-maps/**/*.ts",
+          "packages/angular8-yandex-maps/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}
