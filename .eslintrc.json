@@ -1,0 +1,14 @@
+{
+  "root": true,
+  "plugins": ["@nrwl/nx"],
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "extends": ["plugin:@nrwl/nx/typescript"]
+    },
+    {
+      "files": ["*.js"],
+      "extends": ["plugin:@nrwl/nx/javascript"]
+    }
+  ]
+}

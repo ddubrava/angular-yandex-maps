@@ -9,7 +9,7 @@
 
 # dependencies
 /node_modules
-/docsifier/node_modules
+/packages/docsifier/node_modules
 
 # profiling files
 chrome-profiler-events*.json

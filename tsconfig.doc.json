@@ -1,7 +1,7 @@
 {
-  "include": ["projects/angular8-yandex-maps/src/lib/**/*.ts"],
+  "include": ["packages/angular8-yandex-maps/src/lib/**/*.ts"],
   "exclude": [
-    "projects/angular8-yandex-maps/src/lib/typings/yandex-maps/index.ts",
-    "projects/angular8-yandex-maps/src/lib/testing/*"
+    "packages/angular8-yandex-maps/src/lib/typings/yandex-maps/index.ts",
+    "packages/angular8-yandex-maps/src/lib/testing/*"
   ]
 }
