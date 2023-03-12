@@ -1,13 +1,13 @@
 {
   "bumpFiles": [
     {
-      "filename": "./projects/angular8-yandex-maps/package.json",
+      "filename": "./libs/angular8-yandex-maps/package.json",
       "type": "json"
     }
   ],
   "packageFiles": [
     {
-      "filename": "./projects/angular8-yandex-maps/package.json",
+      "filename": "./libs/angular8-yandex-maps/package.json",
       "type": "json"
     }
   ]

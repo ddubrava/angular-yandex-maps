@@ -13,5 +13,5 @@ export const copyAssets = () => {
     fs.copyFileSync(`${assetsPath}/${file}`, `${DOCS_PATH}/${file}`);
   });
 
-  fs.copyFileSync('../README.md', `${DOCS_PATH}/README.md`);
+  fs.copyFileSync('../../README.md', `${DOCS_PATH}/README.md`);
 };

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A bridge between Compodoc and docsify",
   "scripts": {
-    "start": "npm run build && concurrently -k \"nodemon\" \"docsify serve ../dist/docsify\"",
+    "start": "npm run build && concurrently -k \"nodemon\" \"docsify serve ../../dist/docsify\"",
     "build": "npx ts-node src/index.ts"
   },
   "dependencies": {
