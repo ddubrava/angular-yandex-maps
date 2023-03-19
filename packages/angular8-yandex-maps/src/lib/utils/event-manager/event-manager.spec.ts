@@ -53,6 +53,11 @@ describe('EventManager', () => {
     (window.ymaps as any) = undefined;
   });
 
+  it('should return undefined if a target equals to a currentTarget', () => {
+    manager.setTarget(target);
+    expect(manager.setTarget(target)).toBe(undefined);
+  });
+
   it('should register a listener when subscribing to an event', () => {
     expect(target.events.add).not.toHaveBeenCalled();
 
