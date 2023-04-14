@@ -1,0 +1,41 @@
+name: '🐞 - Bug Report'
+title: '🐞 - '
+description: Report a bug
+labels: ['bug']
+assignees: ddubrava
+
+body:
+  - type: input
+    id: playground-link
+    attributes:
+      label: Playground Link
+    validations:
+      required: false
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      placeholder: |
+        Please provide the exception or error you saw.
+        How do you trigger this bug?
+        Please walk us through it step by step.
+        Please provide a screenshot if possible.
+    validations:
+      required: true
+
+  - type: input
+    id: angular-version
+    attributes:
+      label: Angular version
+      placeholder: x.y.z
+    validations:
+      required: true
+
+  - type: input
+    id: library-version
+    attributes:
+      label: Library version
+      placeholder: x.y.z
+    validations:
+      required: true
