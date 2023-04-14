@@ -38,6 +38,16 @@
   </ya-map>
 </div>
 
+<h1>Clusterer with a lot of placemarks</h1>
+
+<div class="container">
+  <ya-map [center]="[55.74, 37.58]" [zoom]="5">
+    <ya-clusterer>
+      <ya-placemark *ngFor="let coords of coordinates" [geometry]="coords"></ya-placemark>
+    </ya-clusterer>
+  </ya-map>
+</div>
+
 <h1>GeoObject</h1>
 
 <div class="container">

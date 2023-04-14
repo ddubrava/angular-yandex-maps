@@ -6,6 +6,7 @@ import {
   OnChanges,
   OnDestroy,
   OnInit,
+  Optional,
   Output,
   SimpleChanges,
 } from '@angular/core';
@@ -15,6 +16,7 @@ import { filter, take } from 'rxjs/operators';
 import { YaEvent } from '../../interfaces/ya-event';
 import { YaReadyEvent } from '../../interfaces/ya-ready-event';
 import { EventManager } from '../../utils/event-manager/event-manager';
+import { YaClustererComponent } from '../ya-clusterer/ya-clusterer.component';
 import { YaMapComponent } from '../ya-map/ya-map.component';
 
 /**
@@ -61,6 +63,7 @@ export class YaPlacemarkDirective implements OnInit, OnChanges, OnDestroy {
 
   /**
    * Placemark instance is added to a Map.
+   * Please note that if this component is used within a clusterer, the event is not run in an Angular Zone.
    */
   @Output() ready: EventEmitter<YaReadyEvent<ymaps.Placemark>> = new EventEmitter<
     YaReadyEvent<ymaps.Placemark>
@@ -261,7 +264,12 @@ export class YaPlacemarkDirective implements OnInit, OnChanges, OnDestroy {
   @Output() yawheel: Observable<YaEvent<ymaps.Placemark>> =
     this.eventManager.getLazyEmitter('wheel');
 
-  constructor(private readonly ngZone: NgZone, private readonly yaMapComponent: YaMapComponent) {}
+  constructor(
+    private readonly ngZone: NgZone,
+    private readonly yaMapComponent: YaMapComponent,
+    @Optional()
+    private readonly yaClustererComponent: YaClustererComponent | null,
+  ) {}
 
   /**
    * Handles input changes and passes them in API.
@@ -296,7 +304,24 @@ export class YaPlacemarkDirective implements OnInit, OnChanges, OnDestroy {
 
         map.geoObjects.add(placemark);
         this.eventManager.setTarget(placemark);
-        this.ngZone.run(() => this.ready.emit({ ymaps, target: placemark }));
+
+        /**
+         * Clusterer can contain thousands of entities,
+         * running this logic in a zone triggers thousands of ticks.
+         * That's why skip this logic if a placemark is within a clusterer.
+         *
+         * We could make a 'ready' event lazy, but it wouldn't solve the issue,
+         * as even if you use 'ready,' you will still have 1k ticks,
+         * while updating the UI may not be necessary.
+         * So it's up to the users to decide when to update the UI.
+         *
+         * @see https://github.com/ddubrava/angular8-yandex-maps/issues/194
+         */
+        if (this.yaClustererComponent) {
+          this.ready.emit({ ymaps, target: placemark });
+        } else {
+          // this.ngZone.run(() => this.ready.emit({ ymaps, target: placemark }));
+        }
       });
   }
 
