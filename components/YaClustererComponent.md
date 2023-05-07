@@ -8,13 +8,12 @@ Events can be bound using the outputs of the component.
 
 
 ```html
-```html
 <ya-map [center]="[55.761952, 37.620739]">
   <ya-clusterer [options]="{ minClusterSize: 5 }">
     <ya-placemark [geometry]="[55.74, 37.5]"></ya-placemark>
     <ya-placemark [geometry]="[55.64, 37.46]"></ya-placemark>
     <ya-placemark [geometry]="[55.75, 37.38]"></ya-placemark>
-```
+
     <ya-geoobject
       [feature]="{ geometry: { type: 'Point', coordinates: [55.81, 37.4] } }"
      ></ya-geoobject>

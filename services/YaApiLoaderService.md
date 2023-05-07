@@ -3,10 +3,9 @@
 
 The `YaApiLoader` service handles loading of Yandex.Maps API.
 
-```html
 ```ts
 import { YaApiLoaderService } from 'angular8-yandex-maps';
-```
+
 @Component()
 export class AppComponent {
   constructor(private yaApiLoaderService: YaApiLoaderService) {
