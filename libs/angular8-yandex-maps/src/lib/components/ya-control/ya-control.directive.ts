@@ -2,7 +2,6 @@ import {
   Directive,
   EventEmitter,
   Input,
-  NgZone,
   OnChanges,
   OnDestroy,
   OnInit,
@@ -68,11 +67,11 @@ export class YaControlDirective implements OnInit, OnChanges, OnDestroy {
   @Input() parameters?: any;
 
   /**
-   * Control instance is added to a Map.
+   * Control instance is added to a Map. This event runs outside an Angular zone.
    */
   @Output() ready: EventEmitter<YaReadyEvent<any>> = new EventEmitter<YaReadyEvent<any>>();
 
-  constructor(private readonly ngZone: NgZone, private readonly yaMapComponent: YaMapComponent) {}
+  constructor(private readonly yaMapComponent: YaMapComponent) {}
 
   ngOnChanges(): void {
     if (this.control) {
@@ -103,7 +102,7 @@ export class YaControlDirective implements OnInit, OnChanges, OnDestroy {
         }
 
         map.controls.add(control);
-        this.ngZone.run(() => this.ready.emit({ ymaps, target: control }));
+        this.ready.emit({ ymaps, target: control });
       });
   }
 

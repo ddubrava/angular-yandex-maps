@@ -73,7 +73,7 @@ export class YaClustererComponent implements AfterContentInit, OnChanges, OnDest
   @Input() options?: ymaps.IClustererOptions;
 
   /**
-   * Clusterer instance is added to a Map.
+   * Clusterer instance is added to a Map. This event runs outside an Angular zone.
    */
   @Output() ready: EventEmitter<YaReadyEvent<ymaps.Clusterer>> = new EventEmitter<
     YaReadyEvent<ymaps.Clusterer>
@@ -142,7 +142,7 @@ export class YaClustererComponent implements AfterContentInit, OnChanges, OnDest
         map.geoObjects.add(clusterer);
         this.eventManager.setTarget(clusterer);
         this.watchForContentChanges(clusterer);
-        this.ngZone.run(() => this.ready.emit({ ymaps, target: clusterer }));
+        this.ready.emit({ ymaps, target: clusterer });
       });
   }
 

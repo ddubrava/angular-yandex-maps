@@ -60,7 +60,7 @@ export class YaPlacemarkDirective implements OnInit, OnChanges, OnDestroy {
   @Input() options?: ymaps.IPlacemarkOptions;
 
   /**
-   * Placemark instance is added to a Map.
+   * Placemark instance is added to a Map. This event runs outside an Angular zone.
    */
   @Output() ready: EventEmitter<YaReadyEvent<ymaps.Placemark>> = new EventEmitter<
     YaReadyEvent<ymaps.Placemark>
@@ -296,7 +296,7 @@ export class YaPlacemarkDirective implements OnInit, OnChanges, OnDestroy {
 
         map.geoObjects.add(placemark);
         this.eventManager.setTarget(placemark);
-        this.ngZone.run(() => this.ready.emit({ ymaps, target: placemark }));
+        this.ready.emit({ ymaps, target: placemark });
       });
   }
 

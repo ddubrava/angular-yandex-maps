@@ -56,7 +56,7 @@ export class YaGeoObjectDirective implements OnInit, OnChanges, OnDestroy {
   @Input() options?: ymaps.IGeoObjectOptions;
 
   /**
-   * Geo object instance is added to a Map.
+   * Geo object instance is added to a Map. This event runs outside an Angular zone.
    */
   @Output() ready: EventEmitter<YaReadyEvent<ymaps.GeoObject>> = new EventEmitter<
     YaReadyEvent<ymaps.GeoObject>
@@ -288,7 +288,7 @@ export class YaGeoObjectDirective implements OnInit, OnChanges, OnDestroy {
 
         map.geoObjects.add(geoObject);
         this.eventManager.setTarget(geoObject);
-        this.ngZone.run(() => this.ready.emit({ ymaps, target: geoObject }));
+        this.ready.emit({ ymaps, target: geoObject });
       });
   }
 
