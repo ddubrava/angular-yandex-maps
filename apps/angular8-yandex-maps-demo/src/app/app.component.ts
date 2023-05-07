@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DoCheck } from '@angular/core';
 import { YaReadyEvent } from 'angular8-yandex-maps';
 
 @Component({
@@ -7,7 +7,17 @@ import { YaReadyEvent } from 'angular8-yandex-maps';
   styleUrls: ['./app.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent {
+export class AppComponent implements DoCheck {
+  coordinates = new Array(3000).fill(null).map(() => {
+    const max = 55;
+    const min = 35;
+
+    const lat = Math.random() * (max - min) + min;
+    const lon = Math.random() * (max - min) + min;
+
+    return [lat, lon];
+  });
+
   onObjectManagerReady({ target }: YaReadyEvent<ymaps.ObjectManager>) {
     target.objects.options.set('preset', 'islands#grayIcon');
 
@@ -32,5 +42,9 @@ export class AppComponent {
         },
       });
     });
+  }
+
+  ngDoCheck() {
+    console.log('do check');
   }
 }
