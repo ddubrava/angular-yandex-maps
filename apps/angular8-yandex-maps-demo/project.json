@@ -1,24 +1,25 @@
 {
-  "name": "angular-yandex-maps",
+  "name": "angular8-yandex-maps-demo",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "sourceRoot": "packages/angular-yandex-maps/src",
   "prefix": "app",
+  "sourceRoot": "apps/angular8-yandex-maps-demo/src",
+  "tags": [],
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/packages/angular-yandex-maps",
-        "index": "packages/angular-yandex-maps/src/index.html",
-        "main": "packages/angular-yandex-maps/src/main.ts",
+        "outputPath": "dist/apps/angular8-yandex-maps-demo",
+        "index": "apps/angular8-yandex-maps-demo/src/index.html",
+        "main": "apps/angular8-yandex-maps-demo/src/main.ts",
         "polyfills": ["zone.js"],
-        "tsConfig": "packages/angular-yandex-maps/tsconfig.app.json",
+        "tsConfig": "apps/angular8-yandex-maps-demo/tsconfig.app.json",
         "assets": [
-          "packages/angular-yandex-maps/src/favicon.ico",
-          "packages/angular-yandex-maps/src/assets"
+          "apps/angular8-yandex-maps-demo/src/favicon.ico",
+          "apps/angular8-yandex-maps-demo/src/assets"
         ],
-        "styles": ["packages/angular-yandex-maps/src/styles.css"],
+        "styles": ["apps/angular8-yandex-maps-demo/src/styles.css"],
         "scripts": []
       },
       "configurations": {
@@ -46,8 +47,8 @@
           "namedChunks": true,
           "fileReplacements": [
             {
-              "replace": "packages/angular-yandex-maps/src/environments/environment.ts",
-              "with": "packages/angular-yandex-maps/src/environments/environment.local.ts"
+              "replace": "apps/angular8-yandex-maps-demo/src/environments/environment.ts",
+              "with": "apps/angular8-yandex-maps-demo/src/environments/environment.local.ts"
             }
           ]
         }
@@ -58,10 +59,10 @@
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "production": {
-          "browserTarget": "angular-yandex-maps:build:production"
+          "browserTarget": "angular8-yandex-maps-demo:build:production"
         },
         "development": {
-          "browserTarget": "angular-yandex-maps:build:development"
+          "browserTarget": "angular8-yandex-maps-demo:build:development"
         }
       },
       "defaultConfiguration": "development"
@@ -69,24 +70,24 @@
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "browserTarget": "angular-yandex-maps:build"
+        "browserTarget": "angular8-yandex-maps-demo:build"
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": [
-          "packages/angular-yandex-maps/**/*.ts",
-          "packages/angular-yandex-maps/**/*.html"
+          "apps/angular8-yandex-maps-demo/**/*.ts",
+          "apps/angular8-yandex-maps-demo/**/*.html"
         ]
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "packages/angular-yandex-maps/jest.config.ts",
+        "jestConfig": "apps/angular8-yandex-maps-demo/jest.config.ts",
         "passWithNoTests": true
       },
       "configurations": {
@@ -95,7 +96,12 @@
           "codeCoverage": true
         }
       }
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "angular8-yandex-maps-demo:build"
+      }
     }
-  },
-  "tags": []
+  }
 }

@@ -1,11 +1,10 @@
 /* eslint-disable */
 export default {
-  displayName: 'angular8-yandex-maps',
+  displayName: 'angular8-yandex-maps-demo',
   preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  coverageDirectory: '../../coverage/packages/angular8-yandex-maps',
+  coverageDirectory: '../../coverage/apps/angular8-yandex-maps-demo',
   coverageReporters: ['text', 'cobertura'],
-  coveragePathIgnorePatterns: ['./src/test-utils.ts'],
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',
