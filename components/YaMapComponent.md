@@ -8,12 +8,13 @@ Events can be bound using the outputs of the component.
 
 
 ```html
+```html
 <ya-map
   [center]="[55.751952, 37.600739]"
   [state]="{type: 'yandex#satellite'}"
 ></ya-map>
 ```
-
+```
 
 ## Example
 [filename](https://stackblitz.com/edit/map-onload-event?embed=1&view=preview ':include :type=iframe width=100% height=650px')
