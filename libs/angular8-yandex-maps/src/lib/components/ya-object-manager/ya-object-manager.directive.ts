@@ -51,7 +51,7 @@ export class YaObjectManagerDirective implements OnInit, OnChanges, OnDestroy {
   @Input() options?: ymaps.IObjectManagerOptions;
 
   /**
-   * ObjectManager instance is added to a Map.
+   * ObjectManager instance is added to a Map. This event runs outside an Angular zone.
    */
   @Output() ready: EventEmitter<YaReadyEvent<ymaps.ObjectManager>> = new EventEmitter<
     YaReadyEvent<ymaps.ObjectManager>
@@ -210,7 +210,7 @@ export class YaObjectManagerDirective implements OnInit, OnChanges, OnDestroy {
 
         map.geoObjects.add(objectManager);
         this.eventManager.setTarget(objectManager);
-        this.ngZone.run(() => this.ready.emit({ ymaps, target: objectManager }));
+        this.ready.emit({ ymaps, target: objectManager });
       });
   }
 

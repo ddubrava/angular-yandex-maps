@@ -35,7 +35,7 @@ should be set in the options input.
 ## Components events
 
 The Yandex.Maps components implement all the events for their respective classes from the Yandex.Maps JavaScript API
-through outputs. For example, to add the listener on the `balloonclose` event
+through outputs. All these events run in an Angular zone. For example, to add the listener on the `balloonclose` event
 from [Map class](https://yandex.ru/dev/maps/jsapi/doc/2.1/ref/reference/Map.html#Map__events-summary).
 
 ```html

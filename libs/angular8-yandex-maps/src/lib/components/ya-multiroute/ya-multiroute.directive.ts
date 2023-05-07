@@ -69,7 +69,7 @@ export class YaMultirouteDirective implements OnInit, OnChanges, OnDestroy {
   @Input() options?: ymaps.multiRouter.IMultiRouteOptions;
 
   /**
-   * Multi-route instance is added to a Map.
+   * Multi-route instance is added to a Map. This event runs outside an Angular zone.
    */
   @Output() ready: EventEmitter<YaReadyEvent<ymaps.multiRouter.MultiRoute>> = new EventEmitter<
     YaReadyEvent<ymaps.multiRouter.MultiRoute>
@@ -285,7 +285,7 @@ export class YaMultirouteDirective implements OnInit, OnChanges, OnDestroy {
 
         map.geoObjects.add(multiroute);
         this.eventManager.setTarget(multiroute);
-        this.ngZone.run(() => this.ready.emit({ ymaps, target: multiroute }));
+        this.ready.emit({ ymaps, target: multiroute });
       });
   }
 

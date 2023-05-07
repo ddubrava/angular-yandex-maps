@@ -77,7 +77,7 @@ export class YaMapComponent implements AfterViewInit, OnChanges, OnDestroy {
   @Input() options?: ymaps.IMapOptions;
 
   /**
-   * Map instance is created.
+   * Map instance is created. This event runs outside an Angular zone.
    */
   @Output() ready: EventEmitter<YaReadyEvent<ymaps.Map>> = new EventEmitter<
     YaReadyEvent<ymaps.Map>
@@ -310,7 +310,7 @@ export class YaMapComponent implements AfterViewInit, OnChanges, OnDestroy {
 
         this.map$.next(map);
         this.eventManager.setTarget(map);
-        this.ngZone.run(() => this.ready.emit({ ymaps, target: map }));
+        this.ready.emit({ ymaps, target: map });
       });
   }
 

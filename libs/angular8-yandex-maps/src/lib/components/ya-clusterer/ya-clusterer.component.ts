@@ -73,7 +73,7 @@ export class YaClustererComponent implements AfterContentInit, OnChanges, OnDest
   @Input() options?: ymaps.IClustererOptions;
 
   /**
-   * Clusterer instance is added to a Map.
+   * Clusterer instance is added to a Map. This event runs outside an Angular zone.
    */
   @Output() ready: EventEmitter<YaReadyEvent<ymaps.Clusterer>> = new EventEmitter<
     YaReadyEvent<ymaps.Clusterer>
@@ -141,8 +141,9 @@ export class YaClustererComponent implements AfterContentInit, OnChanges, OnDest
 
         map.geoObjects.add(clusterer);
         this.eventManager.setTarget(clusterer);
-        this.watchForContentChanges(clusterer);
-        this.ngZone.run(() => this.ready.emit({ ymaps, target: clusterer }));
+        this.watchForPlacemarkChanges(clusterer);
+        this.watchForGeoObjectChanges(clusterer);
+        this.ready.emit({ ymaps, target: clusterer });
       });
   }
 
@@ -159,14 +160,12 @@ export class YaClustererComponent implements AfterContentInit, OnChanges, OnDest
     return new ymaps.Clusterer(this.options);
   }
 
-  private watchForContentChanges(clusterer: ymaps.Clusterer): void {
+  private watchForPlacemarkChanges(clusterer: ymaps.Clusterer): void {
     // Adds new Placemarks to the clusterer on changes.
-    const currentPlacemarks = new Set<ymaps.Placemark>();
+    const initialPlacemarks = this.getInternalPlacemarks(this.placemarks.toArray());
+    const currentPlacemarks = new Set<ymaps.Placemark>(initialPlacemarks);
 
-    this.getInternalPlacemarks(this.placemarks.toArray()).forEach((placemark) => {
-      currentPlacemarks.add(placemark);
-      clusterer.add(placemark);
-    });
+    clusterer.add(initialPlacemarks);
 
     this.placemarks.changes
       .pipe(takeUntil(this.destroy$))
@@ -177,17 +176,23 @@ export class YaClustererComponent implements AfterContentInit, OnChanges, OnDest
 
         const difference = this.getDifference<ymaps.Placemark>(newPlacemarks, currentPlacemarks);
 
-        clusterer.add(difference.toAdd);
-        clusterer.remove(difference.toRemove);
+        /**
+         * Clusterer methods under the hood call setTimeout, as a result it triggers unexpected ticks.
+         * @see https://github.com/ddubrava/angular8-yandex-maps/issues/194
+         */
+        this.ngZone.runOutsideAngular(() => {
+          clusterer.add(difference.toAdd);
+          clusterer.remove(difference.toRemove);
+        });
       });
+  }
 
+  private watchForGeoObjectChanges(clusterer: ymaps.Clusterer) {
     // Adds new GeoObjects to the clusterer on changes.
-    const currentGeoObjects = new Set<ymaps.GeoObject>();
+    const initialGeoObjects = this.getInternalGeoObjects(this.geoObjects.toArray());
+    const currentGeoObjects = new Set<ymaps.GeoObject>(initialGeoObjects);
 
-    this.getInternalGeoObjects(this.geoObjects.toArray()).forEach((geoObject) => {
-      currentGeoObjects.add(geoObject);
-      clusterer.add(geoObject);
-    });
+    clusterer.add(initialGeoObjects);
 
     this.geoObjects.changes
       .pipe(takeUntil(this.destroy$))
@@ -198,8 +203,14 @@ export class YaClustererComponent implements AfterContentInit, OnChanges, OnDest
 
         const difference = this.getDifference<ymaps.GeoObject>(newGeoObjects, currentGeoObjects);
 
-        clusterer.add(difference.toAdd);
-        clusterer.remove(difference.toRemove);
+        /**
+         * Clusterer methods under the hood call setTimeout, as a result it triggers unexpected ticks.
+         * @see https://github.com/ddubrava/angular8-yandex-maps/issues/194
+         */
+        this.ngZone.runOutsideAngular(() => {
+          clusterer.add(difference.toAdd);
+          clusterer.remove(difference.toRemove);
+        });
       });
   }
 

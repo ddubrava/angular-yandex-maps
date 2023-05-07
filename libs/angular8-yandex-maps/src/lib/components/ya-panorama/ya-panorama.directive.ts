@@ -58,7 +58,7 @@ export class YaPanoramaDirective implements OnInit, OnChanges, OnDestroy {
   @Input() options?: ymaps.panorama.IPlayerOptions;
 
   /**
-   * Panorama instance is created.
+   * Panorama instance is created. This event runs outside an Angular zone.
    */
   @Output() ready: EventEmitter<YaReadyEvent<ymaps.panorama.Player>> = new EventEmitter<
     YaReadyEvent<ymaps.panorama.Player>
@@ -188,7 +188,7 @@ export class YaPanoramaDirective implements OnInit, OnChanges, OnDestroy {
       this.player = player;
 
       this.eventManager.setTarget(player);
-      this.ngZone.run(() => this.ready.emit({ ymaps, target: player }));
+      this.ready.emit({ ymaps, target: player });
     });
   }
 
