@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [16.0.0](https://github.com/ddubrava/angular8-yandex-maps/compare/v15.0.0...v16.0.0) (2023-05-08)
+
+### Features
+
+- update to Angular 16 ([#198](https://github.com/ddubrava/angular8-yandex-maps/issues/198)) ([3806d23](https://github.com/ddubrava/angular8-yandex-maps/commit/3806d237752e3f7ba3260c7655c1d9f4bec208d4))
+
+### Bug Fixes
+
+- fix low performance when a lot of placemarks are used ([#199](https://github.com/ddubrava/angular8-yandex-maps/issues/199)) ([16d9332](https://github.com/ddubrava/angular8-yandex-maps/commit/16d93328edbe5c32ce0bd81312f04a22d9faf6d7))
+
 ## [15.0.0](https://github.com/ddubrava/angular8-yandex-maps/compare/v14.0.3...v15.0.0) (2023-01-04)
 
 ### Features
