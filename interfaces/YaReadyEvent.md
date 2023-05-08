@@ -1,7 +1,7 @@
 # YaReadyEvent
 
 
-Returns from a `(ready)` output.
+A component `(ready)` output event.
 
 
 ```ts

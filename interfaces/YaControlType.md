@@ -1,5 +1,5 @@
 # YaControlType
-<p>Control types.</p>
+<p>Types for <code>YaControlDirective[type]</code> input.</p>
 
 
 ```ts

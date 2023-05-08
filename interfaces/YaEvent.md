@@ -1,7 +1,7 @@
 # YaEvent
 
 
-Returns from an output.
+A component output event.
 
 
 ```ts
