@@ -35,8 +35,9 @@ import { YA_CONFIG } from './tokens/ya-config';
 })
 export class AngularYandexMapsModule {
   /**
-   * Please use this method when you register the module at the root level.
-   * @param config
+   * Please use this method when registering the module at the root level.
+   * If used in a lazy-loaded module, YaApiLoaderService will not take the provided configuration.
+   * @param config configuration for YaApiLoaderService
    */
   static forRoot(config: YaConfig): ModuleWithProviders<AngularYandexMapsModule> {
     return {

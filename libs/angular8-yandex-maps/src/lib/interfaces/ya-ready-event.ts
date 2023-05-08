@@ -1,5 +1,5 @@
 /**
- * Returns from a `(ready)` output.
+ * A component `(ready)` output event.
  */
 export interface YaReadyEvent<T = any> {
   /**

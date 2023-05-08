@@ -14,7 +14,7 @@ import { YaReadyEvent } from '../../interfaces/ya-ready-event';
 import { YaMapComponent } from '../ya-map/ya-map.component';
 
 /**
- * Control types.
+ * Types for `YaControlDirective[type]` input.
  */
 export type YaControlType =
   | 'Button'

@@ -1,5 +1,5 @@
 /**
- * Returns from an output.
+ * A component output event.
  */
 export interface YaEvent<T = any> {
   /**
