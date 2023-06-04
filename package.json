@@ -29,9 +29,9 @@
     "@angular/router": "16.0.4",
     "@nx/angular": "16.3.2",
     "@nx/devkit": "16.3.2",
-    "rxjs": "~7.8.1",
+    "rxjs": "7.8.1",
     "tslib": "2.5.3",
-    "zone.js": "~0.13.0"
+    "zone.js": "0.13.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "16.0.4",
