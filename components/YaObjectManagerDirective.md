@@ -8,6 +8,7 @@ Events can be bound using the outputs of the component.
 
 
 ```html
+```html
 <ya-map [center]="[55.761952, 37.620739]">
   <ya-object-manager
     [options]="{ clusterize: true }"
@@ -15,7 +16,7 @@ Events can be bound using the outputs of the component.
   ></ya-object-manager>
 </ya-map>
 ```
-
+```
 
 ## Example
 [filename](https://stackblitz.com/edit/object-manager?embed=1&view=preview ':include :type=iframe width=100% height=650px')
