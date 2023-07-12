@@ -5573,7 +5573,7 @@ declare namespace ymaps {
     requestSendInterval?: string | number;
     results?: number;
     reverseGeocoding?: boolean;
-    routingMode?: 'auto' | 'masstransit' | 'pedestrian';
+    routingMode?: 'auto' | 'masstransit' | 'pedestrian' | '';
     searchCoordOrder?: string;
     strictBounds?: boolean;
     viaIndexes?: number[];
