@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [16.0.2](https://github.com/ddubrava/angular8-yandex-maps/compare/v16.0.1...v16.0.2) (2023-07-12)
+
+### Bug Fixes
+
+- **types:** add bicycle IMultiRouteParams.routingMode ([#205](https://github.com/ddubrava/angular8-yandex-maps/issues/205)) ([0710c6c](https://github.com/ddubrava/angular8-yandex-maps/commit/0710c6cdaeaa44ed45dad7b589a9af1d64bee09f))
+
 ### [16.0.1](https://github.com/ddubrava/angular8-yandex-maps/compare/v16.0.0...v16.0.1) (2023-06-04)
 
 ### Bug Fixes
