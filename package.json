@@ -43,7 +43,7 @@
     "@angular/cli": "16.1.4",
     "@angular/compiler-cli": "16.1.4",
     "@angular/language-service": "16.1.4",
-    "@compodoc/compodoc": "1.1.21",
+    "@compodoc/compodoc": "1.1.18",
     "@nx/cypress": "16.5.1",
     "@nx/eslint-plugin": "16.5.1",
     "@nx/jest": "16.5.1",
