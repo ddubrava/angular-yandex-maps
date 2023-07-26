@@ -6,7 +6,6 @@ You can configure it via the component's inputs.
 Events can be bound using the outputs of the component.
 
 ```html
-```html
 <ya-map [center]="[55.761952, 37.620739]">
   <ya-multiroute
     [referencePoints]="[[55.751952, 37.600739], 'Красные ворота, Москва']"
@@ -14,7 +13,7 @@ Events can be bound using the outputs of the component.
   ></ya-multiroute>
 </ya-map>
 ```
-```
+
 
 
 

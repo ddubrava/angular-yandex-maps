@@ -8,14 +8,13 @@ Events can be bound using the outputs of the component.
 
 
 ```html
-```html
 <ya-map [center]="[55.761952, 37.620739]">
   <ya-geoobject
     [feature]="{ geometry: { type: 'Rectangle', coordinates: [[55.665, 37.66], [55.64,37.53]] } }"
   ></ya-geoobject>
 </ya-map>
 ```
-```
+
 
 ## Example
 [filename](https://stackblitz.com/edit/geoobject-polygon?embed=1&view=preview ':include :type=iframe width=100% height=650px')

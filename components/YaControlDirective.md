@@ -8,7 +8,6 @@ API Events can be bound only manually. You can use `ready` event to get an insta
 
 
 ```html
-```html
 <ya-map [center]="[55.761952, 37.620739]">
   <ya-control
     type="RoutePanel"
@@ -16,7 +15,7 @@ API Events can be bound only manually. You can use `ready` event to get an insta
   ></ya-control>
 </ya-map>
 ```
-```
+
 
 ## Example
 [filename](https://stackblitz.com/edit/searchcontrol?embed=1&view=preview ':include :type=iframe width=100% height=650px')
