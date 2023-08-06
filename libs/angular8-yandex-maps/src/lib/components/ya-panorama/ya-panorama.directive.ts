@@ -10,7 +10,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { from, Observable, Subject, takeUntil } from 'rxjs';
-import { filter, map, switchMap, take } from 'rxjs/operators';
+import { filter, map, switchMap } from 'rxjs/operators';
 
 import { YaEvent } from '../../interfaces/ya-event';
 import { YaReadyEvent } from '../../interfaces/ya-ready-event';
@@ -141,7 +141,10 @@ export class YaPanoramaDirective implements OnInit, OnChanges, OnDestroy {
   @Output() spanchange: Observable<YaEvent<ymaps.panorama.Player>> =
     this.eventManager.getLazyEmitter('spanchange');
 
-  constructor(private readonly ngZone: NgZone, private readonly yaMapComponent: YaMapComponent) {}
+  constructor(
+    private readonly ngZone: NgZone,
+    private readonly yaMapComponent: YaMapComponent,
+  ) {}
 
   /**
    * Handles input changes and passes them in API.
@@ -174,18 +177,39 @@ export class YaPanoramaDirective implements OnInit, OnChanges, OnDestroy {
   ngOnInit(): void {
     const panorama$ = this.yaMapComponent.map$.pipe(
       filter(Boolean),
-      switchMap((m: ymaps.Map) => {
-        // Map and panorama use the same container, so need to destroy/remove map
-        m.destroy();
+      switchMap((map: ymaps.Map) => {
+        /**
+         * Maps and panoramas use the same container,
+         * so we need to destroy/remove this map.
+         */
+        map.destroy();
+
         return this.createPanorama();
       }),
     );
 
-    panorama$.pipe(take(1), takeUntil(this.destroy$)).subscribe((panorama) => {
+    panorama$.pipe(takeUntil(this.destroy$)).subscribe((panorama) => {
       const { id } = this.yaMapComponent.container.nativeElement;
       const player = new ymaps.panorama.Player(id, panorama, this.options);
 
+      /**
+       * If the panorama$ is changed, it means that the $map is changed,
+       * and finally it means that the configuration is changed, e.g. language,
+       * and we need to reinitialize the player.
+       */
+      if (this.player) {
+        this.player.destroy();
+      }
+
       this.player = player;
+
+      /**
+       * The API breaks if we call destroy on a destroyed player instance.
+       * That's why sync states => local and API.
+       */
+      this.player.events.add('destroy', () => {
+        this.player = undefined;
+      });
 
       this.eventManager.setTarget(player);
       this.ready.emit({ ymaps, target: player });

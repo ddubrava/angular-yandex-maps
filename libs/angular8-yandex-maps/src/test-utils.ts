@@ -278,6 +278,7 @@ export const mockPlayer = () => ({
   moveTo: jest.fn(),
   setDirection: jest.fn(),
   setSpan: jest.fn(),
+  destroy: jest.fn(),
 });
 
 /**

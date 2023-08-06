@@ -10,7 +10,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { Observable, Subject, takeUntil } from 'rxjs';
-import { filter, take } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
 
 import { YaEvent } from '../../interfaces/ya-event';
 import { YaReadyEvent } from '../../interfaces/ya-ready-event';
@@ -250,7 +250,10 @@ export class YaMultirouteDirective implements OnInit, OnChanges, OnDestroy {
   @Output() yawheel: Observable<YaEvent<ymaps.multiRouter.MultiRoute>> =
     this.eventManager.getLazyEmitter('wheel');
 
-  constructor(private readonly ngZone: NgZone, private readonly yaMapComponent: YaMapComponent) {}
+  constructor(
+    private readonly ngZone: NgZone,
+    private readonly yaMapComponent: YaMapComponent,
+  ) {}
 
   /**
    * Handles input changes and passes them in API.
@@ -277,16 +280,14 @@ export class YaMultirouteDirective implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.yaMapComponent.map$
-      .pipe(filter(Boolean), take(1), takeUntil(this.destroy$))
-      .subscribe((map) => {
-        const multiroute = this.createMultiroute();
-        this.multiroute = multiroute;
+    this.yaMapComponent.map$.pipe(filter(Boolean), takeUntil(this.destroy$)).subscribe((map) => {
+      const multiroute = this.createMultiroute();
+      this.multiroute = multiroute;
 
-        map.geoObjects.add(multiroute);
-        this.eventManager.setTarget(multiroute);
-        this.ready.emit({ ymaps, target: multiroute });
-      });
+      map.geoObjects.add(multiroute);
+      this.eventManager.setTarget(multiroute);
+      this.ready.emit({ ymaps, target: multiroute });
+    });
   }
 
   ngOnDestroy(): void {
