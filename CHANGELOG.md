@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [16.1.0](https://github.com/ddubrava/angular8-yandex-maps/compare/v16.0.2...v16.1.0) (2023-08-10)
+
+### Features
+
+- add support for dynamic configuration ([#211](https://github.com/ddubrava/angular8-yandex-maps/issues/211)) ([4bf4e02](https://github.com/ddubrava/angular8-yandex-maps/commit/4bf4e020cb0fa66f89ce54af6e01746178df3b38))
+
 ### [16.0.2](https://github.com/ddubrava/angular8-yandex-maps/compare/v16.0.1...v16.0.2) (2023-07-12)
 
 ### Bug Fixes
