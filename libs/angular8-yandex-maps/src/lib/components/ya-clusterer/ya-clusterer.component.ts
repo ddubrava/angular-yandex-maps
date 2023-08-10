@@ -13,7 +13,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { Observable, Subject, takeUntil } from 'rxjs';
-import { filter, take } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
 
 import { YaEvent } from '../../interfaces/ya-event';
 import { YaReadyEvent } from '../../interfaces/ya-ready-event';
@@ -114,7 +114,10 @@ export class YaClustererComponent implements AfterContentInit, OnChanges, OnDest
   @Output() parentchange: Observable<YaEvent<ymaps.Clusterer>> =
     this.eventManager.getLazyEmitter('parentchange');
 
-  constructor(private readonly ngZone: NgZone, private readonly yaMapComponent: YaMapComponent) {}
+  constructor(
+    private readonly ngZone: NgZone,
+    private readonly yaMapComponent: YaMapComponent,
+  ) {}
 
   /**
    * Handles input changes and passes them in API.
@@ -133,18 +136,16 @@ export class YaClustererComponent implements AfterContentInit, OnChanges, OnDest
   }
 
   ngAfterContentInit(): void {
-    this.yaMapComponent.map$
-      .pipe(filter(Boolean), take(1), takeUntil(this.destroy$))
-      .subscribe((map) => {
-        const clusterer = this.createClusterer();
-        this.clusterer = clusterer;
+    this.yaMapComponent.map$.pipe(filter(Boolean), takeUntil(this.destroy$)).subscribe((map) => {
+      const clusterer = this.createClusterer();
+      this.clusterer = clusterer;
 
-        map.geoObjects.add(clusterer);
-        this.eventManager.setTarget(clusterer);
-        this.watchForPlacemarkChanges(clusterer);
-        this.watchForGeoObjectChanges(clusterer);
-        this.ready.emit({ ymaps, target: clusterer });
-      });
+      map.geoObjects.add(clusterer);
+      this.eventManager.setTarget(clusterer);
+      this.watchForPlacemarkChanges(clusterer);
+      this.watchForGeoObjectChanges(clusterer);
+      this.ready.emit({ ymaps, target: clusterer });
+    });
   }
 
   ngOnDestroy(): void {

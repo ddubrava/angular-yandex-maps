@@ -1,16 +1,29 @@
 import { TestBed } from '@angular/core/testing';
+import { of } from 'rxjs';
 
-import { mockGeocode, mockReady } from '../../../test-utils';
+import { mockGeocode } from '../../../test-utils';
+import { YaApiLoaderService } from '../ya-api-loader/ya-api-loader.service';
 import { YaGeocoderService } from './ya-geocoder.service';
 
 describe('YaGeocoderService', () => {
-  let readyMock: jest.Mock;
   let geocoderMock: jest.Mock;
   let service: YaGeocoderService;
 
   beforeEach(() => {
-    readyMock = mockReady();
     geocoderMock = mockGeocode();
+
+    TestBed.configureTestingModule({
+      providers: [
+        YaGeocoderService,
+        {
+          provide: YaApiLoaderService,
+          useValue: {
+            load: () => of({}),
+          },
+        },
+      ],
+    });
+
     service = TestBed.inject(YaGeocoderService);
   });
 
@@ -26,7 +39,6 @@ describe('YaGeocoderService', () => {
       done();
     });
 
-    expect(readyMock).toHaveBeenCalled();
     expect(geocoderMock).toHaveBeenCalledWith(request, undefined);
   });
 

@@ -1,8 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { BehaviorSubject, Subject } from 'rxjs';
 
-import { mockMapConstructor, mockMapInstance, mockReady } from '../../../test-utils';
+import { mockMapConstructor, mockMapInstance } from '../../../test-utils';
+import { YaConfig } from '../../interfaces/ya-config';
 import { YaReadyEvent } from '../../interfaces/ya-ready-event';
+import { YaApiLoaderService } from '../../services/ya-api-loader/ya-api-loader.service';
 import * as GenerateRandomIdModule from '../../utils/generate-random-id/generate-random-id';
 import { YaMapComponent } from './ya-map.component';
 
@@ -42,11 +45,21 @@ describe('YaMapComponent', () => {
   let mapInstance: ReturnType<typeof mockMapInstance>;
   let mapConstructorMock: jest.Mock;
 
+  let config$: Subject<YaConfig> = new BehaviorSubject({});
+
   beforeEach(async () => {
-    mockReady();
+    config$ = new BehaviorSubject({});
 
     await TestBed.configureTestingModule({
       declarations: [MockHostComponent, YaMapComponent],
+      providers: [
+        {
+          provide: YaApiLoaderService,
+          useValue: {
+            load: () => config$,
+          },
+        },
+      ],
     }).compileComponents();
   });
 
@@ -74,6 +87,13 @@ describe('YaMapComponent', () => {
     expect(component.container.nativeElement.id).toBe(random);
 
     expect(mapConstructorMock).toHaveBeenCalledWith(random, { zoom: 10, center: [0, 0] }, {});
+  });
+
+  it('should destroy map on config changes', () => {
+    fixture.detectChanges();
+
+    config$.next({ lang: 'en_US' });
+    expect(mapInstance.destroy).toHaveBeenCalled();
   });
 
   it('should emit ready on map load', () => {

@@ -10,7 +10,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { Observable, Subject, takeUntil } from 'rxjs';
-import { filter, take } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
 
 import { YaEvent } from '../../interfaces/ya-event';
 import { YaReadyEvent } from '../../interfaces/ya-ready-event';
@@ -261,7 +261,10 @@ export class YaPlacemarkDirective implements OnInit, OnChanges, OnDestroy {
   @Output() yawheel: Observable<YaEvent<ymaps.Placemark>> =
     this.eventManager.getLazyEmitter('wheel');
 
-  constructor(private readonly ngZone: NgZone, private readonly yaMapComponent: YaMapComponent) {}
+  constructor(
+    private readonly ngZone: NgZone,
+    private readonly yaMapComponent: YaMapComponent,
+  ) {}
 
   /**
    * Handles input changes and passes them in API.
@@ -288,16 +291,14 @@ export class YaPlacemarkDirective implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.yaMapComponent.map$
-      .pipe(filter(Boolean), take(1), takeUntil(this.destroy$))
-      .subscribe((map) => {
-        const placemark = this.createPlacemark();
-        this.placemark = placemark;
+    this.yaMapComponent.map$.pipe(filter(Boolean), takeUntil(this.destroy$)).subscribe((map) => {
+      const placemark = this.createPlacemark();
+      this.placemark = placemark;
 
-        map.geoObjects.add(placemark);
-        this.eventManager.setTarget(placemark);
-        this.ready.emit({ ymaps, target: placemark });
-      });
+      map.geoObjects.add(placemark);
+      this.eventManager.setTarget(placemark);
+      this.ready.emit({ ymaps, target: placemark });
+    });
   }
 
   ngOnDestroy(): void {

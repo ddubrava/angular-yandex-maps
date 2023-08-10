@@ -8,7 +8,7 @@ import {
   Output,
 } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
-import { filter, take } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
 
 import { YaReadyEvent } from '../../interfaces/ya-ready-event';
 import { YaMapComponent } from '../ya-map/ya-map.component';
@@ -82,28 +82,22 @@ export class YaControlDirective implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.yaMapComponent.map$
-      .pipe(filter(Boolean), take(1), takeUntil(this.destroy$))
-      .subscribe((map) => {
-        if (!this.type) {
-          throw new Error('ymaps.control[type] is invalid.');
-        }
+    this.yaMapComponent.map$.pipe(filter(Boolean), takeUntil(this.destroy$)).subscribe((map) => {
+      if (!this.type) {
+        throw new Error('ymaps.control[type] is invalid.');
+      }
 
-        const control = new ymaps.control[this.type](this.parameters);
-        this.control = control;
+      const control = new ymaps.control[this.type](this.parameters);
+      this.control = control;
 
-        // RoutePanel ignores state in parameters. API bug
-        if (
-          control instanceof ymaps.control.RoutePanel &&
-          this.parameters &&
-          this.parameters.state
-        ) {
-          control.routePanel.state.set({ ...this.parameters.state });
-        }
+      // RoutePanel ignores state in parameters. API bug
+      if (control instanceof ymaps.control.RoutePanel && this.parameters && this.parameters.state) {
+        control.routePanel.state.set({ ...this.parameters.state });
+      }
 
-        map.controls.add(control);
-        this.ready.emit({ ymaps, target: control });
-      });
+      map.controls.add(control);
+      this.ready.emit({ ymaps, target: control });
+    });
   }
 
   ngOnDestroy(): void {

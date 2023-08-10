@@ -13,7 +13,6 @@ import {
   ViewChild,
 } from '@angular/core';
 import { BehaviorSubject, Observable, Subject, takeUntil } from 'rxjs';
-import { take } from 'rxjs/operators';
 
 import { YaEvent } from '../../interfaces/ya-event';
 import { YaReadyEvent } from '../../interfaces/ya-ready-event';
@@ -303,10 +302,18 @@ export class YaMapComponent implements AfterViewInit, OnChanges, OnDestroy {
   ngAfterViewInit(): void {
     this.yaApiLoaderService
       .load()
-      .pipe(take(1), takeUntil(this.destroy$))
+      .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
         const id = generateRandomId();
         const map = this.createMap(id);
+
+        /**
+         * Once the configuration is changed, e.g. language,
+         * we need to reinitialize the map.
+         */
+        if (this.map$.value) {
+          this.map$.value.destroy();
+        }
 
         this.map$.next(map);
         this.eventManager.setTarget(map);

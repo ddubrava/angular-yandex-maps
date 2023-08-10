@@ -10,7 +10,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { Observable, Subject, takeUntil } from 'rxjs';
-import { filter, take } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
 
 import { YaEvent } from '../../interfaces/ya-event';
 import { YaReadyEvent } from '../../interfaces/ya-ready-event';
@@ -183,7 +183,10 @@ export class YaObjectManagerDirective implements OnInit, OnChanges, OnDestroy {
   @Output() yawheel: Observable<YaEvent<ymaps.ObjectManager>> =
     this.eventManager.getLazyEmitter('wheel');
 
-  constructor(private readonly ngZone: NgZone, private readonly yaMapComponent: YaMapComponent) {}
+  constructor(
+    private readonly ngZone: NgZone,
+    private readonly yaMapComponent: YaMapComponent,
+  ) {}
 
   /**
    * Handles input changes and passes them in API.
@@ -202,16 +205,14 @@ export class YaObjectManagerDirective implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.yaMapComponent.map$
-      .pipe(filter(Boolean), take(1), takeUntil(this.destroy$))
-      .subscribe((map) => {
-        const objectManager = this.createObjectManager();
-        this.objectManager = objectManager;
+    this.yaMapComponent.map$.pipe(filter(Boolean), takeUntil(this.destroy$)).subscribe((map) => {
+      const objectManager = this.createObjectManager();
+      this.objectManager = objectManager;
 
-        map.geoObjects.add(objectManager);
-        this.eventManager.setTarget(objectManager);
-        this.ready.emit({ ymaps, target: objectManager });
-      });
+      map.geoObjects.add(objectManager);
+      this.eventManager.setTarget(objectManager);
+      this.ready.emit({ ymaps, target: objectManager });
+    });
   }
 
   ngOnDestroy(): void {

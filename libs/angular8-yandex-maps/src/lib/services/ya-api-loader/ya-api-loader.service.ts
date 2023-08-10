@@ -1,13 +1,30 @@
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { Inject, Injectable, Optional, PLATFORM_ID } from '@angular/core';
-import { from, fromEvent, merge, NEVER, Observable, throwError } from 'rxjs';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import {
+  BehaviorSubject,
+  from,
+  fromEvent,
+  isObservable,
+  merge,
+  mergeMap,
+  NEVER,
+  Observable,
+  of,
+  tap,
+  throwError,
+} from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
 
 import { YaConfig } from '../../interfaces/ya-config';
 import { YA_CONFIG } from '../../tokens/ya-config';
+import { YaApiLoaderCache } from './interfaces/ya-api-loader-cache';
 
 /**
  * The `YaApiLoader` service handles loading of Yandex.Maps API.
+ *
+ * The service supports dynamic configuration changes by subscribing on a YaConfig observable.
+ * It stores global API objects in a local cache, and updates them in runtime if necessary.
+ * That's why do not provide this service, it will break the synchronizations between the local cache and HTML scripts.
  *
  * @example
  * ```ts
@@ -29,23 +46,29 @@ import { YA_CONFIG } from '../../tokens/ya-config';
 export class YaApiLoaderService {
   private readonly isBrowser: boolean;
 
-  private readonly config: YaConfig;
+  private readonly defaultConfig: YaConfig = { lang: 'ru_RU' };
 
-  private script?: HTMLScriptElement;
+  private readonly config$ = new BehaviorSubject<YaConfig>(this.defaultConfig);
+
+  private readonly cache = new Map<string, YaApiLoaderCache>();
 
   constructor(
-    @Optional() @Inject(YA_CONFIG) config: YaConfig | null,
+    @Inject(YA_CONFIG) config: YaConfig | Observable<YaConfig>,
     @Inject(DOCUMENT) private readonly document: Document,
     @Inject(PLATFORM_ID) platformId: object,
   ) {
     this.isBrowser = isPlatformBrowser(platformId);
 
-    const defaultConfig: YaConfig = { lang: 'ru_RU' };
+    if (!isObservable(config)) {
+      config = of(config);
+    }
 
-    this.config = {
-      ...defaultConfig,
-      ...config,
-    };
+    config.subscribe((config) => {
+      this.config$.next({
+        ...this.defaultConfig,
+        ...config,
+      });
+    });
   }
 
   /**
@@ -56,30 +79,78 @@ export class YaApiLoaderService {
       return NEVER;
     }
 
-    if (window.ymaps) {
-      return from(ymaps.ready()).pipe(map(() => ymaps));
-    }
+    return this.config$.pipe(
+      mergeMap((config) => {
+        /**
+         * We use a script source as a cache key, since there are a lot of parameters that affect the API.
+         * We can't rely only on one parameter. E.g., an enterprise flag is changed, we need to reload the API.
+         */
+        const cacheKey = this.getScriptSource(config);
+        const cache = this.cache.get(cacheKey) || {};
 
-    if (!this.script) {
-      this.script = this.createScript();
-      this.document.body.appendChild(this.script);
-    }
+        /**
+         * If it exists in the cache, return the ymaps from it,
+         * since script.onload triggers only once.
+         */
+        if (cache.ymaps) {
+          const apiObject: typeof ymaps = cache.ymaps;
 
-    const load = fromEvent(this.script, 'load').pipe(
-      switchMap(() => from(ymaps.ready())),
-      map(() => ymaps),
+          /**
+           * ready confirms that the API and DOM are ready for use,
+           * we can return of(window.ymaps), but calling ready is safer, I believe.
+           */
+          return from(apiObject.ready()).pipe(
+            /**
+             * Actually, we need to update it only if they are not equal,
+             * it happens if we change the configuration which required new window.ymaps.
+             */
+            tap(() => (window.ymaps = apiObject)),
+            map(() => apiObject),
+          );
+        }
+
+        let script = cache.script;
+
+        /**
+         * It's possible that we have a script, but do not have ymaps.
+         * It happens if there are concurrent requests, and the first request creates the script,
+         * while the second must just wait for the API to be loaded.
+         */
+        if (!script) {
+          script = this.createScript(config);
+          this.cache.set(cacheKey, { script });
+          this.document.body.appendChild(script);
+        }
+
+        /**
+         * The API throws an error on a script load if there is window.ymaps.
+         * So before changing the configuration, delete the global object.
+         */
+        if (window.ymaps) {
+          delete (window as any).ymaps;
+        }
+
+        /**
+         * window.ymaps is set explicitly via a script load event.
+         */
+        const load = fromEvent(script, 'load').pipe(
+          switchMap(() => from(ymaps.ready())),
+          tap(() => this.cache.set(cacheKey, { script, ymaps })),
+          map(() => ymaps),
+        );
+
+        const error = fromEvent(script, 'error').pipe(switchMap(throwError));
+
+        return merge(load, error).pipe(take(1));
+      }),
     );
-
-    const error = fromEvent(this.script, 'error').pipe(switchMap(throwError));
-
-    return merge(load, error).pipe(take(1));
   }
 
-  private createScript(): HTMLScriptElement {
+  private createScript(config: YaConfig): HTMLScriptElement {
     const script = this.document.createElement('script');
 
     script.type = 'text/javascript';
-    script.src = this.getScriptSource(this.config);
+    script.src = this.getScriptSource(config);
     script.id = 'yandexMapsApiScript';
     script.async = true;
     script.defer = true;

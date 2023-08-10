@@ -32,4 +32,6 @@ import { YaConfig } from '../interfaces/ya-config';
  * export class HomeModule {}
  * ```
  */
-export const YA_CONFIG = new InjectionToken<YaConfig>('YA_CONFIG');
+export const YA_CONFIG = new InjectionToken<YaConfig>('YA_CONFIG', {
+  factory: () => ({}),
+});

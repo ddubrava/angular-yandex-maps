@@ -1,4 +1,5 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import { YaClustererComponent } from './components/ya-clusterer/ya-clusterer.component';
 import { YaControlDirective } from './components/ya-control/ya-control.directive';
@@ -39,7 +40,9 @@ export class AngularYandexMapsModule {
    * If used in a lazy-loaded module, YaApiLoaderService will not take the provided configuration.
    * @param config configuration for YaApiLoaderService
    */
-  static forRoot(config: YaConfig): ModuleWithProviders<AngularYandexMapsModule> {
+  static forRoot(
+    config: YaConfig | Observable<YaConfig>,
+  ): ModuleWithProviders<AngularYandexMapsModule> {
     return {
       ngModule: AngularYandexMapsModule,
       providers: [{ provide: YA_CONFIG, useValue: config }],

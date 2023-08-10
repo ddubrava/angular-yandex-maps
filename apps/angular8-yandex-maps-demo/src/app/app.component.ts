@@ -1,5 +1,8 @@
 import { ChangeDetectionStrategy, Component, DoCheck } from '@angular/core';
-import { YaReadyEvent } from 'angular8-yandex-maps';
+import { YaConfig, YaReadyEvent } from 'angular8-yandex-maps';
+
+import { environment } from '../environments/environment';
+import { mapConfig$ } from './app.module';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +20,8 @@ export class AppComponent implements DoCheck {
 
     return [lat, lon];
   });
+
+  lang: YaConfig['lang'] = 'ru_RU';
 
   onObjectManagerReady({ target }: YaReadyEvent<ymaps.ObjectManager>) {
     target.objects.options.set('preset', 'islands#grayIcon');
@@ -46,5 +51,10 @@ export class AppComponent implements DoCheck {
 
   ngDoCheck() {
     console.log('do check');
+  }
+
+  toggleLanguage() {
+    this.lang = this.lang === 'ru_RU' ? 'en_US' : 'ru_RU';
+    mapConfig$.next({ lang: this.lang, apikey: environment.apikey });
   }
 }

@@ -47,8 +47,11 @@ describe('YaPanoramaDirective', () => {
   let playerConstructorMock: jest.Mock;
   let locateMock: ReturnType<typeof mockLocate>;
 
+  let map$: BehaviorSubject<typeof mapInstance>;
+
   beforeEach(async () => {
     mapInstance = mockMapInstance();
+    map$ = new BehaviorSubject(mapInstance);
 
     await TestBed.configureTestingModule({
       declarations: [MockHostComponent, YaPanoramaDirective],
@@ -58,7 +61,7 @@ describe('YaPanoramaDirective', () => {
           useValue: {
             container: { nativeElement: { id: 'random_test_id' } },
             isBrowser: true,
-            map$: new BehaviorSubject(mapInstance),
+            map$,
           },
         },
       ],
@@ -86,6 +89,15 @@ describe('YaPanoramaDirective', () => {
     expect(mapInstance.destroy).toHaveBeenCalled();
     expect(locateMock).toHaveBeenCalledWith([0, 0], { layer: undefined });
     expect(playerConstructorMock).toHaveBeenCalledWith('random_test_id', {}, undefined);
+  });
+
+  it('should destroy map and player on map changes', () => {
+    fixture.detectChanges();
+
+    map$.next(mapInstance);
+
+    expect(mapInstance.destroy).toHaveBeenCalled();
+    expect(playerMock.destroy).toHaveBeenCalled();
   });
 
   it('should emit ready on panorama load', () => {
