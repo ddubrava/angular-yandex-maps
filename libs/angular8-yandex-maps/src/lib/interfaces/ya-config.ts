@@ -9,6 +9,7 @@ export interface YaConfig {
   /**
    * Locale.
    */
+  suggestkey?: string;
   lang?: 'ru_RU' | 'en_US' | 'en_RU' | 'ru_UA' | 'uk_UA' | 'tr_TR';
   /**
    * The order for setting geographical coordinates in API functions that accept longitude-latitude input.
