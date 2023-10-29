@@ -108,7 +108,7 @@ describe('YaApiLoaderService', () => {
     fireScriptEvents();
   });
 
-  it('should use default language if it is not passed', (done) => {
+  it('should use default config options if they are not passed', (done) => {
     const config: YaConfig = {
       apikey: 'X-X-X',
     };
@@ -116,7 +116,8 @@ describe('YaApiLoaderService', () => {
     mockLoaderService(config);
 
     service.load().subscribe(() => {
-      expect(script.src).toContain('https://api-maps.yandex.ru/2.1');
+      expect(script.src).toContain('https://api-maps.yandex.ru');
+      expect(script.src).toContain('2.1');
       expect(script.src).toContain('apikey=X-X-X');
       expect(script.src).toContain('lang=ru_RU');
       done();
@@ -132,13 +133,14 @@ describe('YaApiLoaderService', () => {
       coordorder: 'latlong',
       load: 'package.full',
       mode: 'release',
-      version: '2.1',
+      version: '2.0',
     };
 
     mockLoaderService(config);
 
     service.load().subscribe(() => {
-      expect(script.src).toContain('https://api-maps.yandex.ru/2.1');
+      expect(script.src).toContain('https://api-maps.yandex.ru');
+      expect(script.src).toContain('2.0');
       expect(script.src).toContain('apikey=X-X-X');
       expect(script.src).toContain('lang=en_US');
       expect(script.src).toContain('coordorder=latlong');

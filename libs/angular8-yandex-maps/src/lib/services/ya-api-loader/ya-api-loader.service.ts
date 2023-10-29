@@ -46,7 +46,10 @@ import { YaApiLoaderCache } from './interfaces/ya-api-loader-cache';
 export class YaApiLoaderService {
   private readonly isBrowser: boolean;
 
-  private readonly defaultConfig: YaConfig = { lang: 'ru_RU' };
+  private readonly defaultConfig: YaConfig = {
+    lang: 'ru_RU',
+    version: '2.1',
+  };
 
   private readonly config$ = new BehaviorSubject<YaConfig>(this.defaultConfig);
 
@@ -166,7 +169,7 @@ export class YaApiLoaderService {
    * getScriptSource({ apikey: '658f67a2-fd77-42e9-b99e-2bd48c4ccad4', lang: 'en_US' })
    */
   private getScriptSource(config: YaConfig): string {
-    const { enterprise, version = '2.1', ...rest } = config;
+    const { enterprise, version, ...rest } = config;
     const params = this.convertConfigIntoQueryParams(rest);
 
     return `https://${enterprise ? 'enterprise.' : ''}api-maps.yandex.ru/${version}/?${params}`;
