@@ -36,8 +36,8 @@ testem.log
 /typings
 environment.local.ts
 .angular
+.nx/cache
 
 # System Files
 .DS_Store
 Thumbs.db
-

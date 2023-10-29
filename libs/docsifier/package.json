@@ -4,15 +4,16 @@
   "description": "A bridge between Compodoc and docsify",
   "scripts": {
     "start": "npm run build && concurrently -k \"nodemon\" \"docsify serve ../../dist/docsify\"",
-    "build": "npx ts-node src/index.ts"
+    "build": "ts-node src/index.ts"
   },
   "dependencies": {
     "markdown-table": "2.0.0",
-    "ts-dedent": "^2.2.0"
+    "ts-dedent": "2.2.0"
   },
   "devDependencies": {
     "@types/markdown-table": "2.0.0",
-    "docsify-cli": "^4.4.4",
-    "nodemon": "^2.0.20"
+    "docsify-cli": "4.4.4",
+    "nodemon": "3.0.1",
+    "ts-node": "10.9.1"
   }
 }
