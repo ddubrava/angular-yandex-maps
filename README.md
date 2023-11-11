@@ -31,7 +31,7 @@ npm install angular8-yandex-maps
 
 | Angular version        | Library version |
 | ---------------------- | --------------- |
-| v16                    | v16.x           |
+| v16, v17               | v17.x           |
 | v15                    | v15.x           |
 | v14                    | v14.x           |
 | v9, v10, v11, v12, v13 | v13.x           |
@@ -45,9 +45,11 @@ npm install angular8-yandex-maps@^8.0.0
 
 ## Usage
 
-### app.module.ts
+### SCAM
 
-##### Default map config options
+#### app.module.ts
+
+###### Default map config options
 
 ```typescript
 import { AngularYandexMapsModule } from 'angular8-yandex-maps';
@@ -58,7 +60,7 @@ import { AngularYandexMapsModule } from 'angular8-yandex-maps';
 export class AppModule {}
 ```
 
-##### Own map config options
+###### Own map config options
 
 ```typescript
 import { AngularYandexMapsModule, YaConfig } from 'angular8-yandex-maps';
@@ -74,7 +76,7 @@ const mapConfig: YaConfig = {
 export class AppModule {}
 ```
 
-### component.html
+#### component.html
 
 ```html
 <div class="container">
@@ -84,7 +86,61 @@ export class AppModule {}
 </div>
 ```
 
-### component.css
+#### component.css
+
+```css
+.container {
+  width: 1000px;
+  height: 500px;
+}
+```
+
+### Standalone
+
+#### component.ts
+
+###### Default map config options
+
+```typescript
+import { AngularYandexMapsModule } from 'angular8-yandex-maps';
+
+@Component({
+  selector: 'app-component',
+  standalone: true,
+  imports: [AngularYandexMapsModule],
+})
+export class Component {}
+```
+
+###### Own map config options
+
+#### app.config.ts
+
+```typescript
+import { ApplicationConfig, importProvidersFrom } from '@angular/core';
+import { YaConfig, AngularYandexMapsModule } from 'angular8-yandex-maps';
+
+const mapConfig: YaConfig = {
+  apikey: 'API_KEY',
+  lang: 'en_US',
+};
+
+export const appConfig: ApplicationConfig = {
+  providers: [importProvidersFrom(AngularYandexMapsModule.forRoot(mapConfig))],
+};
+```
+
+#### component.html
+
+```html
+<div class="container">
+  <ya-map [center]="[55.751952, 37.600739]" [zoom]="12">
+    <ya-placemark [geometry]="[55.751952, 37.600739]"></ya-placemark>
+  </ya-map>
+</div>
+```
+
+#### component.css
 
 ```css
 .container {
