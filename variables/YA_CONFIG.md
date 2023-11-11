@@ -7,9 +7,9 @@ Otherwise, use an `AngularYandexMapsModule.forRoot()` method in a root module.
 Please note that `YaApiLoaderService` is provided at the root level,
 so it won't take your configuration unless this token is provided in the root module.
 
-If you want to provide the configuration in the module other than the root module,
-you should provide `YaApiLoaderService`. However, keep in mind that `YaApiLoaderService` is not designed for such purposes,
-so it can lead to unexpected issues such as script duplications.
+If you want to provide the configuration in the module other than the root module, you have to provide `YaApiLoaderService`.
+But keep in mind that starting from `v16.1.0` `YaApiLoaderService` supports the dynamic configuration,
+if you provide this service it will lead to unexpected issues such as script duplications.
 
 ```ts
 @NgModule({
