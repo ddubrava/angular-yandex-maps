@@ -116,10 +116,7 @@ describe('YaApiLoaderService', () => {
     mockLoaderService(config);
 
     service.load().subscribe(() => {
-      expect(script.src).toContain('https://api-maps.yandex.ru');
-      expect(script.src).toContain('2.1');
-      expect(script.src).toContain('apikey=X-X-X');
-      expect(script.src).toContain('lang=ru_RU');
+      expect(script.src).toBe('https://api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=X-X-X');
       done();
     });
 
@@ -129,23 +126,23 @@ describe('YaApiLoaderService', () => {
   it('should create script with provided options if config is passed', (done) => {
     const config: YaConfig = {
       apikey: 'X-X-X',
+      suggest_apikey: 'Y-Y-Y',
       lang: 'en_US',
       coordorder: 'latlong',
       load: 'package.full',
       mode: 'release',
+      csp: true,
       version: '2.0',
     };
 
     mockLoaderService(config);
 
     service.load().subscribe(() => {
-      expect(script.src).toContain('https://api-maps.yandex.ru');
-      expect(script.src).toContain('2.0');
-      expect(script.src).toContain('apikey=X-X-X');
-      expect(script.src).toContain('lang=en_US');
-      expect(script.src).toContain('coordorder=latlong');
-      expect(script.src).toContain('load=package.full');
-      expect(script.src).toContain('mode=release');
+      // They are not in the same order as YaConfig, since there is a default config.
+      expect(script.src).toBe(
+        'https://api-maps.yandex.ru/2.0/?lang=en_US&apikey=X-X-X&suggest_apikey=Y-Y-Y&coordorder=latlong&load=package.full&mode=release&csp=true',
+      );
+
       done();
     });
 
