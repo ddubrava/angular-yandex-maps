@@ -172,6 +172,12 @@ export class YaApiLoaderService {
     const { enterprise, version, ...rest } = config;
     const params = this.convertConfigIntoQueryParams(rest);
 
+    if (version === 'v3') {
+      throw new Error(
+        'Yandex.Maps API v3 is not supported, if you need it like this issue:\nhttps://github.com/ddubrava/angular8-yandex-maps/issues/226',
+      );
+    }
+
     return `https://${enterprise ? 'enterprise.' : ''}api-maps.yandex.ru/${version}/?${params}`;
   }
 

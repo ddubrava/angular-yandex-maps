@@ -164,6 +164,23 @@ describe('YaApiLoaderService', () => {
     fireScriptEvents();
   });
 
+  it('should throw error if v3 version is used', (done) => {
+    const config: YaConfig = {
+      version: 'v3',
+    };
+
+    mockLoaderService(config);
+
+    service.load().subscribe({
+      error: (e) => {
+        expect(e).toBeInstanceOf(Error);
+        done();
+      },
+    });
+
+    fireScriptEvents();
+  });
+
   it('should use ymaps from cache if it is defined', (done) => {
     mockLoaderService();
 
