@@ -3,9 +3,13 @@
  */
 export interface YaConfig {
   /**
-   * API key. You can get a key in the developer's dashboard.
+   * API key.
    */
   apikey?: string;
+  /**
+   * Geosuggest API key.
+   */
+  suggest_apikey?: string;
   /**
    * Locale.
    */
@@ -22,6 +26,10 @@ export interface YaConfig {
    * API loading mode.
    */
   mode?: 'release' | 'debug';
+  /**
+   * Enables CSP mode.
+   */
+  csp?: boolean;
   /**
    * Use commercial version of the API.
    */
