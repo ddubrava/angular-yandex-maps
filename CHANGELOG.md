@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [14.1.0](https://github.com/ddubrava/angular8-yandex-maps/compare/v14.0.3...v14.1.0) (2024-02-10)
+
+### Features
+
+- add suggest_apikey & csp to YaConfig ([#235](https://github.com/ddubrava/angular8-yandex-maps/issues/235)) ([659ab1d](https://github.com/ddubrava/angular8-yandex-maps/commit/659ab1d8a59c51f3987009b23fd723f6fa3c2ba1))
+
 ### [14.0.4](https://github.com/ddubrava/angular8-yandex-maps/compare/v14.0.3...v14.0.4) (2022-11-27)
 
 ### Bug Fixes
