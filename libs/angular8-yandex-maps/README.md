@@ -45,6 +45,25 @@ npm install angular8-yandex-maps@^8.0.0
 
 ## Usage
 
+#### component.html
+
+```html
+<div class="container">
+  <ya-map [center]="[55.751952, 37.600739]" [zoom]="12">
+    <ya-placemark [geometry]="[55.751952, 37.600739]"></ya-placemark>
+  </ya-map>
+</div>
+```
+
+#### component.css
+
+```css
+.container {
+  width: 1000px;
+  height: 500px;
+}
+```
+
 ### SCAM
 
 #### app.module.ts
@@ -76,28 +95,7 @@ const mapConfig: YaConfig = {
 export class AppModule {}
 ```
 
-#### component.html
-
-```html
-<div class="container">
-  <ya-map [center]="[55.751952, 37.600739]" [zoom]="12">
-    <ya-placemark [geometry]="[55.751952, 37.600739]"></ya-placemark>
-  </ya-map>
-</div>
-```
-
-#### component.css
-
-```css
-.container {
-  width: 1000px;
-  height: 500px;
-}
-```
-
 ### Standalone
-
-#### component.ts
 
 ###### Default map config options
 
@@ -128,23 +126,4 @@ const mapConfig: YaConfig = {
 export const appConfig: ApplicationConfig = {
   providers: [importProvidersFrom(AngularYandexMapsModule.forRoot(mapConfig))],
 };
-```
-
-#### component.html
-
-```html
-<div class="container">
-  <ya-map [center]="[55.751952, 37.600739]" [zoom]="12">
-    <ya-placemark [geometry]="[55.751952, 37.600739]"></ya-placemark>
-  </ya-map>
-</div>
-```
-
-#### component.css
-
-```css
-.container {
-  width: 1000px;
-  height: 500px;
-}
 ```
