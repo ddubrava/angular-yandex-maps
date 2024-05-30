@@ -1,3 +1,5 @@
-import { DIST_PATH } from './dist-path';
+import * as path from 'path';
 
-export const DOCS_PATH = `${DIST_PATH}/docsify`;
+import { distPath } from './dist-path';
+
+export const docsPath = path.join(distPath, 'docsify');

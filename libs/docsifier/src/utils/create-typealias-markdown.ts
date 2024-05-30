@@ -1,7 +1,8 @@
 import * as fs from 'fs';
+import * as path from 'path';
 import dedent from 'ts-dedent';
 
-import { DOCS_PATH } from '../const/docs-path';
+import { docsPath } from '../const/docs-path';
 import { CompodocTypealias } from '../interfaces/compodoc-typealias';
 import { formatDescription } from './format-description';
 
@@ -20,6 +21,5 @@ export const createTypealiasMarkdown = (type: CompodocTypealias) => {
     \`\`\`
   `;
 
-  const path = `${DOCS_PATH}/interfaces/${name}.md`;
-  fs.writeFileSync(path, markdown);
+  fs.writeFileSync(path.join(docsPath, 'interfaces', `${name}.md`), markdown);
 };

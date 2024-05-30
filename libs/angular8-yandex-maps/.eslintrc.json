@@ -4,7 +4,7 @@
   "overrides": [
     {
       "files": ["*.ts"],
-      "plugins": ["simple-import-sort"],
+      "extends": ["plugin:@nx/angular", "plugin:@angular-eslint/template/process-inline-templates"],
       "rules": {
         "@angular-eslint/directive-selector": [
           "error",
@@ -21,14 +21,10 @@
           }
         ],
 
-        "simple-import-sort/imports": "error",
-        "simple-import-sort/exports": "error",
-
         "@typescript-eslint/no-explicit-any": "off",
         "@typescript-eslint/no-non-null-assertion": "off",
         "@typescript-eslint/no-empty-function": "off"
-      },
-      "extends": ["plugin:@nx/angular", "plugin:@angular-eslint/template/process-inline-templates"]
+      }
     },
     {
       "files": ["*.html"],

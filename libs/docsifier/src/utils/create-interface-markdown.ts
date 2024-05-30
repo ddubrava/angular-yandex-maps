@@ -1,7 +1,8 @@
 import * as fs from 'fs';
+import * as path from 'path';
 import dedent from 'ts-dedent';
 
-import { DOCS_PATH } from '../const/docs-path';
+import { docsPath } from '../const/docs-path';
 import { CompodocInterface } from '../interfaces/compodoc-interface';
 import { formatDescription } from './format-description';
 
@@ -20,6 +21,5 @@ export const createInterfaceMarkdown = (entity: CompodocInterface) => {
     \`\`\`
   `;
 
-  const path = `${DOCS_PATH}/interfaces/${name}.md`;
-  fs.writeFileSync(path, markdown);
+  fs.writeFileSync(path.join(docsPath, 'interfaces', `${name}.md`), markdown);
 };

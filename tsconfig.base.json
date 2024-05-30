@@ -8,14 +8,15 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "target": "es2015",
+    "target": "esnext",
     "module": "esnext",
-    "lib": ["es2020", "dom"],
+    "lib": ["esnext", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "angular8-yandex-maps": ["dist/libs/angular8-yandex-maps"]
+      "angular8-yandex-maps": ["dist/libs/angular8-yandex-maps"],
+      "docsifier": ["libs/docsifier/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

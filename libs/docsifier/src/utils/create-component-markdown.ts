@@ -1,8 +1,9 @@
 import * as fs from 'fs';
-import table from 'markdown-table';
+import { markdownTable } from 'markdown-table';
+import * as path from 'path';
 import dedent from 'ts-dedent';
 
-import { DOCS_PATH } from '../const/docs-path';
+import { docsPath } from '../const/docs-path';
 import { CompodocComponent } from '../interfaces/compodoc-component';
 import { CompodocDirective } from '../interfaces/compodoc-directive';
 import { CompodocInput } from '../interfaces/compodoc-input';
@@ -51,7 +52,7 @@ const createDecoratorApiReference = (description: string): string => {
  * Creates a decorator table from cols and properties.
  */
 const createDecoratorTable = (cols: string[], properties: (CompodocInput | CompodocOutput)[]) =>
-  table([
+  markdownTable([
     cols,
     ...properties.map(({ name, type, rawdescription = '' }) => [
       name,
@@ -97,6 +98,5 @@ export const createComponentMarkdown = (entity: CompodocComponent | CompodocDire
     ${outputsTable}
   `;
 
-  const path = `${DOCS_PATH}/components/${entityName}.md`;
-  fs.writeFileSync(path, markdown);
+  fs.writeFileSync(path.join(docsPath, 'components', `${entityName}.md`), markdown);
 };

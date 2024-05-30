@@ -1,5 +1,0 @@
-{
-  "watch": ["../../dist/compodoc", "./src"],
-  "ext": "ts,json",
-  "exec": "npx ts-node ./src/index"
-}

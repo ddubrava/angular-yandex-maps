@@ -1,6 +1,7 @@
 import * as fs from 'fs';
+import * as path from 'path';
 
-import { DOCS_PATH } from './const/docs-path';
+import { docsPath } from './const/docs-path';
 import { CompodocComponent } from './interfaces/compodoc-component';
 import { CompodocDirective } from './interfaces/compodoc-directive';
 import { CompodocExportData } from './interfaces/compodoc-export-data';
@@ -20,14 +21,14 @@ import { readCompodocExportData } from './utils/read-compodoc-export-data';
 const exportData: CompodocExportData = readCompodocExportData();
 
 // Clear the dist directory
-fs.rmSync(DOCS_PATH, { recursive: true, force: true });
+fs.rmSync(docsPath, { recursive: true, force: true });
 
 // Create directories with the dist directory
-fs.mkdirSync(DOCS_PATH);
-fs.mkdirSync(`${DOCS_PATH}/components`);
-fs.mkdirSync(`${DOCS_PATH}/services`);
-fs.mkdirSync(`${DOCS_PATH}/interfaces`);
-fs.mkdirSync(`${DOCS_PATH}/variables`);
+fs.mkdirSync(docsPath);
+fs.mkdirSync(path.join(docsPath, 'components'));
+fs.mkdirSync(path.join(docsPath, 'services'));
+fs.mkdirSync(path.join(docsPath, 'interfaces'));
+fs.mkdirSync(path.join(docsPath, 'variables'));
 
 copyAssets();
 

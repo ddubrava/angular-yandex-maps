@@ -1,1 +1,3 @@
-export const DIST_PATH = '../../dist';
+import * as path from 'path';
+
+export const distPath = path.join(process.cwd(), 'dist');
