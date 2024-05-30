@@ -35,7 +35,7 @@ warrant "necroing" a dead thread - raising a new issue means you can fill in the
 help you. Often times if you comment on a closed issue, we will just ask you to open a new issue, so please save
 everyone's time, and **_help us to help you_**.
 
-Please refrain from commenting on `master` commits. Commit comments are not searchable, meaning that nobody else can
+Please refrain from commenting on `main` commits. Commit comments are not searchable, meaning that nobody else can
 discover your comments. Raise an issue and reference the commit instead so that everyone can see your comment, and you
 can fill out the template.
 

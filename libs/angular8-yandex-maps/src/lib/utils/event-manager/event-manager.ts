@@ -1,6 +1,6 @@
 /**
  * Copied from angular/components/google-maps and updated for Yandex.Maps API.
- * {@link https://github.com/angular/components/blob/master/src/google-maps/map-event-manager.ts}
+ * {@link https://github.com/angular/components/blob/main/src/google-maps/map-event-manager.ts}
  */
 
 import { NgZone } from '@angular/core';
