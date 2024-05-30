@@ -3,8 +3,8 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/angular8-yandex-maps/src",
   "prefix": "ya",
-  "tags": [],
   "projectType": "library",
+  "tags": [],
   "targets": {
     "build": {
       "executor": "@nx/angular:package",
@@ -30,14 +30,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": [
-          "libs/angular8-yandex-maps/**/*.ts",
-          "libs/angular8-yandex-maps/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   }
 }
