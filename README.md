@@ -11,7 +11,7 @@
   </a>
 
   <a href="https://codecov.io/gh/ddubrava/angular8-yandex-maps">
-    <img src="https://codecov.io/gh/ddubrava/angular8-yandex-maps/branch/master/graph/badge.svg?token=ZU50NBBBH6" alt="Codecov">
+    <img src="https://codecov.io/gh/ddubrava/angular8-yandex-maps/branch/main/graph/badge.svg?token=ZU50NBBBH6" alt="Codecov">
   </a>
 </p>
 
