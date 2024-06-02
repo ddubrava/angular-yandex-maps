@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [18.0.0](https://github.com/ddubrava/angular8-yandex-maps/compare/v17.1.0...v18.0.0) (2024-06-02)
+
+### Features
+
+- update to Angular 18 ([#237](https://github.com/ddubrava/angular8-yandex-maps/issues/237)) ([e54e95a](https://github.com/ddubrava/angular8-yandex-maps/commit/e54e95acbdc638c798ce894d76f382adb1883872))
+
 ## [17.1.0](https://github.com/ddubrava/angular8-yandex-maps/compare/v17.0.1...v17.1.0) (2023-11-18)
 
 ### Features
