@@ -4,7 +4,7 @@
   "overrides": [
     {
       "files": ["*.ts"],
-      "plugins": ["simple-import-sort"],
+      "extends": ["plugin:@nx/angular", "plugin:@angular-eslint/template/process-inline-templates"],
       "rules": {
         "@angular-eslint/directive-selector": [
           "error",
@@ -21,12 +21,8 @@
             "prefix": "app",
             "style": "kebab-case"
           }
-        ],
-
-        "simple-import-sort/imports": "error",
-        "simple-import-sort/exports": "error"
-      },
-      "extends": ["plugin:@nx/angular", "plugin:@angular-eslint/template/process-inline-templates"]
+        ]
+      }
     },
     {
       "files": ["*.html"],

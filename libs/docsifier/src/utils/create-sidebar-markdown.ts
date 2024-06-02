@@ -1,7 +1,8 @@
 import * as fs from 'fs';
+import * as path from 'path';
 import dedent from 'ts-dedent';
 
-import { DOCS_PATH } from '../const/docs-path';
+import { docsPath } from '../const/docs-path';
 import { CompodocEntity } from '../interfaces/compodoc-entity';
 import { CompodocExportData } from '../interfaces/compodoc-export-data';
 
@@ -36,5 +37,5 @@ export const createSidebarMarkdown = ({
       ${createLinks(miscellaneous.variables, 'variables')}
   `;
 
-  fs.writeFileSync(`${DOCS_PATH}/_sidebar.md`, markdown);
+  fs.writeFileSync(path.join(docsPath, '_sidebar.md'), markdown);
 };

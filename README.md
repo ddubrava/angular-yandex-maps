@@ -31,7 +31,7 @@ npm install angular8-yandex-maps
 
 | Angular version        | Library version |
 | ---------------------- | --------------- |
-| v16, v17               | v17.x           |
+| v16, v17, v18          | v18.x           |
 | v15                    | v15.x           |
 | v14                    | v14.x           |
 | v9, v10, v11, v12, v13 | v13.x           |
@@ -39,9 +39,7 @@ npm install angular8-yandex-maps
 | v7                     | v7.x            |
 | v6                     | v6.x            |
 
-```bash
-npm install angular8-yandex-maps@^8.0.0
-```
+Documentation for older versions can be found using the [branches](https://github.com/ddubrava/angular8-yandex-maps/branches/all).
 
 ## Usage
 

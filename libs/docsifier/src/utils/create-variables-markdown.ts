@@ -1,7 +1,8 @@
 import * as fs from 'fs';
+import * as path from 'path';
 import dedent from 'ts-dedent';
 
-import { DOCS_PATH } from '../const/docs-path';
+import { docsPath } from '../const/docs-path';
 import { CompodocVariable } from '../interfaces/compodoc-variable';
 import { formatDescription } from './format-description';
 
@@ -23,6 +24,5 @@ export const createVariablesMarkdown = (variable: CompodocVariable) => {
     ${formatDescription(descriptionWithoutLeadingSlash)}
   `;
 
-  const path = `${DOCS_PATH}/variables/${name}.md`;
-  fs.writeFileSync(path, markdown);
+  fs.writeFileSync(path.join(docsPath, 'variables', `${name}.md`), markdown);
 };
