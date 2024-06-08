@@ -1,21 +1,23 @@
 {
-  "name": "angular8-yandex-maps",
+  "name": "angular-yandex-maps",
   "private": true,
   "scripts": {
-    "release": "standard-version",
     "prepare": "husky",
     "-------------------------------- Start": "",
-    "start:app": "nx serve angular8-yandex-maps-demo --configuration=development",
-    "start:lib": "nx build angular8-yandex-maps --watch",
-    "start:docs": "npm run build:docs && concurrently \"docsify serve dist/docsify\" \"nx watch --projects=angular8-yandex-maps,docsifier -- npm run build:docs\"",
+    "start:v2": "concurrently 'npm run build:lib:v2 -- --watch' 'wait-on dist/libs/angular-yandex-maps-v2 && nx serve angular-yandex-maps-v2-demo --configuration=development'",
+    "start:v3": "concurrently 'npm run build:lib:v3 -- --watch' 'wait-on dist/libs/angular-yandex-maps-v3 && nx serve angular-yandex-maps-v3-demo --configuration=development'",
+    "start:docs": "npm run build:docs && concurrently 'nx watch --projects=angular-yandex-maps-v2,angular-yandex-maps-v3,docsifier -- npm run build:docs' 'docsify serve dist/docsify'",
     "-------------------------------- Build": "",
-    "build": "nx build angular8-yandex-maps",
-    "build:docs": "compodoc && nx build docsifier",
+    "build:app:v2": "nx build angular-yandex-maps-v2-demo",
+    "build:app:v3": "nx build angular-yandex-maps-v3-demo",
+    "build:lib:v2": "nx build angular-yandex-maps-v2",
+    "build:lib:v3": "nx build angular-yandex-maps-v3",
+    "build:docs": "compodoc --config libs/angular-yandex-maps-v2/.compodocrc.json && compodoc --config libs/angular-yandex-maps-v3/.compodocrc.json && nx build docsifier",
     "-------------------------------- Test": "",
-    "test": "nx test angular8-yandex-maps",
+    "test": "nx run-many -t test",
     "test:coverage": "npm run test -- --codeCoverage",
     "-------------------------------- Lint": "",
-    "lint": "nx lint angular8-yandex-maps"
+    "lint": "nx run-many -t lint"
   },
   "dependencies": {
     "@angular/animations": "18.0.1",
@@ -44,7 +46,7 @@
     "@angular/cli": "18.0.2",
     "@angular/compiler-cli": "18.0.1",
     "@angular/language-service": "18.0.1",
-    "@compodoc/compodoc": "1.1.18",
+    "@compodoc/compodoc": "1.1.25",
     "@nx/cypress": "19.1.1",
     "@nx/eslint": "19.1.1",
     "@nx/eslint-plugin": "19.1.1",
@@ -61,6 +63,7 @@
     "@types/node": "20.13.0",
     "@typescript-eslint/eslint-plugin": "7.11.0",
     "@typescript-eslint/parser": "7.11.0",
+    "@yandex/ymaps3-types": "0.0.27",
     "autoprefixer": "10.4.19",
     "concurrently": "8.2.2",
     "docsify-cli": "4.4.4",
@@ -73,6 +76,7 @@
     "jest-environment-jsdom": "29.7.0",
     "jest-environment-node": "29.7.0",
     "jest-preset-angular": "14.1.0",
+    "jsonc-eslint-parser": "^2.1.0",
     "ng-packagr": "18.0.0",
     "nx": "19.1.1",
     "postcss": "8.4.38",
@@ -80,9 +84,9 @@
     "postcss-preset-env": "9.5.14",
     "postcss-url": "10.1.3",
     "prettier": "3.3.0",
-    "standard-version": "9.5.0",
     "ts-jest": "29.1.4",
     "ts-node": "10.9.2",
-    "typescript": "5.4.5"
+    "typescript": "5.4.5",
+    "wait-on": "7.2.0"
   }
 }

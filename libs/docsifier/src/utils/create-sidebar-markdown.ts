@@ -2,9 +2,8 @@ import * as fs from 'fs';
 import * as path from 'path';
 import dedent from 'ts-dedent';
 
-import { docsPath } from '../const/docs-path';
-import { CompodocEntity } from '../interfaces/compodoc-entity';
-import { CompodocExportData } from '../interfaces/compodoc-export-data';
+import { CompodocEntity } from '../types/compodoc-entity';
+import { CompodocDocumentation } from '../types/compodocDocumentation';
 
 /**
  * Creates a string with Markdown links joined by \n.
@@ -15,26 +14,30 @@ const createLinks = (entities: CompodocEntity[], path: string): string =>
 /**
  * Creates a _sidebar.md file from passed data.
  */
-export const createSidebarMarkdown = ({
-  components,
-  directives,
-  injectables,
-  interfaces,
-  miscellaneous,
-}: CompodocExportData) => {
+export const createSidebarMarkdown = (
+  data: CompodocDocumentation,
+  /**
+   * A root directory path where documentation is stored.
+   */
+  docsPath: string,
+  /**
+   * All links must be absolute; base path is a prefix.
+   */
+  baseUrl: string,
+) => {
   const markdown = dedent`
     - **Getting started**
-      - [Quick start](/)
-      - [Examples](/examples)
-      - [FAQ](/faq)
+      - [Quick start](${baseUrl}/)
+      - [Examples](${baseUrl}/examples)
+      - [FAQ](${baseUrl}/faq)
     - **Components**
-      ${createLinks([...components, ...directives], 'components')}
+      ${createLinks([...data.components, ...data.directives], `${baseUrl}/components`)}
     - **Services**
-      ${createLinks(injectables, 'services')}
+      ${createLinks(data.injectables, `${baseUrl}/services`)}
     - **Interfaces**
-      ${createLinks([...interfaces, ...miscellaneous.typealiases], 'interfaces')}
+      ${createLinks([...data.interfaces, ...data.miscellaneous.typealiases], `${baseUrl}/interfaces`)}
     - **Variables**
-      ${createLinks(miscellaneous.variables, 'variables')}
+      ${createLinks(data.miscellaneous.variables, `${baseUrl}/variables`)}
   `;
 
   fs.writeFileSync(path.join(docsPath, '_sidebar.md'), markdown);

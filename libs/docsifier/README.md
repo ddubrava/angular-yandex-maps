@@ -17,9 +17,5 @@ Run the following commands from the root:
 
 # Why is the cache disabled?
 
-The cache for `nx build docsify` should be invalidated when there are changes to `angular8-yandex-maps`.
+The cache for `nx build docsify` should be invalidated when there are changes in the libraries.
 I couldn't configure this using `implicitDependencies` or `dependsOn`, so for now, it's disabled.
-
-# Compodoc version
-
-It's fixed at v1.1.18 because, in all newer versions, examples are broken. See https://github.com/compodoc/compodoc/issues/1403

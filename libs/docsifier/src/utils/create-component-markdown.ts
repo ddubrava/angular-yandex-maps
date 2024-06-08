@@ -3,11 +3,10 @@ import { markdownTable } from 'markdown-table';
 import * as path from 'path';
 import dedent from 'ts-dedent';
 
-import { docsPath } from '../const/docs-path';
-import { CompodocComponent } from '../interfaces/compodoc-component';
-import { CompodocDirective } from '../interfaces/compodoc-directive';
-import { CompodocInput } from '../interfaces/compodoc-input';
-import { CompodocOutput } from '../interfaces/compodoc-output';
+import { CompodocComponent } from '../types/compodoc-component';
+import { CompodocDirective } from '../types/compodoc-directive';
+import { CompodocInput } from '../types/compodoc-input';
+import { CompodocOutput } from '../types/compodoc-output';
 import { formatDescription } from './format-description';
 
 /**
@@ -17,22 +16,6 @@ import { formatDescription } from './format-description';
  */
 const createDecoratorDescription = (description: string): string =>
   description.replaceAll(/\n/g, ' ').replaceAll(/{@link.+}/g, '');
-
-/**
- * Creates a decorator type from arguments.
- * Replaces all | with a code not to break a table.
- * Creates documentation links for Ya interfaces.
- */
-const createDecoratorType = (type: string): string => {
-  const formatted = type.replaceAll(/\|/g, '&#124;');
-  const match = formatted.match(/Ya.+?(?=<|$)/);
-
-  if (!match) {
-    return type;
-  }
-
-  return `[${match[0]}](interfaces/${match[0]})`;
-};
 
 /**
  * Creates a decorator API reference from arguments.
@@ -57,7 +40,7 @@ const createDecoratorTable = (cols: string[], properties: (CompodocInput | Compo
     ...properties.map(({ name, type, rawdescription = '' }) => [
       name,
       createDecoratorDescription(rawdescription),
-      createDecoratorType(type),
+      type,
       createDecoratorApiReference(rawdescription),
     ]),
   ]);
@@ -65,7 +48,13 @@ const createDecoratorTable = (cols: string[], properties: (CompodocInput | Compo
 /**
  * Creates a component markdown.
  */
-export const createComponentMarkdown = (entity: CompodocComponent | CompodocDirective) => {
+export const createComponentMarkdown = (
+  entity: CompodocComponent | CompodocDirective,
+  /**
+   * A root directory path where documentation is stored.
+   */
+  docsPath: string,
+) => {
   const {
     name: entityName,
     rawdescription = '',
@@ -91,11 +80,23 @@ export const createComponentMarkdown = (entity: CompodocComponent | CompodocDire
         : ''
     }
 
-    ## Inputs
-    ${inputsTable}
+    ${
+      inputsClass.length
+        ? dedent`
+              ## Inputs
+              ${inputsTable}
+            `
+        : ''
+    }
 
-    ## Outputs
-    ${outputsTable}
+    ${
+      outputsClass.length
+        ? dedent`
+              ## Outputs
+              ${outputsTable}
+            `
+        : ''
+    }
   `;
 
   fs.writeFileSync(path.join(docsPath, 'components', `${entityName}.md`), markdown);

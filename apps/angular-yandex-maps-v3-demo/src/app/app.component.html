@@ -1,0 +1,100 @@
+<button (click)="toggleLanguage()">Toggle Language</button>
+
+<h1>Map</h1>
+
+<div class="container">
+  <y-map
+    [props]="{
+      location: {
+        center: [-0.127696, 51.507351],
+        zoom: 10,
+      },
+    }"
+  >
+    <y-map-default-scheme-layer />
+  </y-map>
+</div>
+
+<h1>Marker</h1>
+
+<div class="container">
+  <y-map
+    [props]="{
+      location: {
+        center: [-0.127696, 51.507351],
+        zoom: 10,
+      },
+      theme: 'dark',
+    }"
+  >
+    <y-map-default-scheme-layer />
+    <y-map-default-features-layer />
+
+    <y-map-default-marker
+      [props]="{
+        coordinates: [-0.127696, 51.507351],
+        title: 'Hello World!',
+        subtitle: 'kind and bright',
+        color: 'blue',
+        onClick: onMarkerClick,
+      }"
+    />
+  </y-map>
+</div>
+
+<h1>Feature</h1>
+
+<div class="container">
+  <y-map
+    [props]="{
+      location: {
+        center: [-0.127696, 51.507351],
+        zoom: 9,
+      },
+    }"
+  >
+    <y-map-default-scheme-layer />
+    <y-map-default-features-layer />
+
+    <y-map-feature
+      [props]="{
+        geometry: {
+          type: 'Polygon',
+          coordinates: [
+            [
+              [-0.557696, 51.727351],
+              [0.302304, 51.727351],
+              [0.302304, 51.237351],
+              [-0.557696, 51.237351],
+            ],
+          ],
+        },
+        style: {
+          stroke: [{ color: '#006efc', width: 4, dash: [5, 10] }],
+          fill: 'rgba(56, 56, 219, 0.5)',
+        },
+      }"
+    />
+  </y-map>
+</div>
+
+<h1>Listener</h1>
+
+<div class="container">
+  <y-map
+    [props]="{
+      location: {
+        center: [-0.127696, 51.507351],
+        zoom: 9,
+      },
+    }"
+  >
+    <y-map-default-scheme-layer />
+
+    <y-map-listener
+      [props]="{
+        onClick: onListenerClick,
+      }"
+    />
+  </y-map>
+</div>

@@ -2,14 +2,19 @@ import * as fs from 'fs';
 import * as path from 'path';
 import dedent from 'ts-dedent';
 
-import { docsPath } from '../const/docs-path';
-import { CompodocTypealias } from '../interfaces/compodoc-typealias';
+import { CompodocTypealias } from '../types/compodoc-typealias';
 import { formatDescription } from './format-description';
 
 /**
  * Creates a type alias markdown.
  */
-export const createTypealiasMarkdown = (type: CompodocTypealias) => {
+export const createTypealiasMarkdown = (
+  type: CompodocTypealias,
+  /**
+   * A root directory path where documentation is stored.
+   */
+  docsPath: string,
+) => {
   const { name, description = '', rawtype } = type;
 
   const markdown = dedent`

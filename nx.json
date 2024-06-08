@@ -22,6 +22,16 @@
     "@nx/eslint:lint": {
       "inputs": ["default", "{workspaceRoot}/.eslintrc.json", "{workspaceRoot}/.eslintignore"],
       "cache": true
+    },
+    "@nx/angular:package": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
+    },
+    "@angular-devkit/build-angular:browser": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
     }
   },
   "namedInputs": {
@@ -37,10 +47,10 @@
   },
   "generators": {
     "@nx/angular:application": {
-      "style": "css",
+      "e2eTestRunner": "cypress",
       "linter": "eslint",
-      "unitTestRunner": "jest",
-      "e2eTestRunner": "cypress"
+      "style": "css",
+      "unitTestRunner": "jest"
     },
     "@nx/angular:library": {
       "linter": "eslint",
@@ -50,5 +60,12 @@
       "style": "css"
     }
   },
-  "useInferencePlugins": false
+  "useInferencePlugins": false,
+  "release": {
+    "projects": ["angular-yandex-maps-v2", "angular-yandex-maps-v3"],
+    "projectsRelationship": "independent",
+    "changelog": {
+      "projectChangelogs": true
+    }
+  }
 }

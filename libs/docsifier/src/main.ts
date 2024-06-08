@@ -1,57 +1,75 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-import { docsPath } from './const/docs-path';
-import { CompodocComponent } from './interfaces/compodoc-component';
-import { CompodocDirective } from './interfaces/compodoc-directive';
-import { CompodocExportData } from './interfaces/compodoc-export-data';
-import { CompodocInjectable } from './interfaces/compodoc-injectable';
-import { CompodocInterface } from './interfaces/compodoc-interface';
-import { CompodocTypealias } from './interfaces/compodoc-typealias';
-import { CompodocVariable } from './interfaces/compodoc-variable';
-import { copyAssets } from './utils/copy-assets';
+import { CompodocComponent } from './types/compodoc-component';
+import { CompodocDirective } from './types/compodoc-directive';
+import { CompodocInjectable } from './types/compodoc-injectable';
+import { CompodocInterface } from './types/compodoc-interface';
+import { CompodocTypealias } from './types/compodoc-typealias';
+import { CompodocVariable } from './types/compodoc-variable';
+import { CompodocDocumentation } from './types/compodocDocumentation';
+import { copyFiles } from './utils/copy-files';
 import { createComponentMarkdown } from './utils/create-component-markdown';
 import { createInterfaceMarkdown } from './utils/create-interface-markdown';
 import { createServiceMarkdown } from './utils/create-service-markdown';
 import { createSidebarMarkdown } from './utils/create-sidebar-markdown';
 import { createTypealiasMarkdown } from './utils/create-typealias-markdown';
 import { createVariablesMarkdown } from './utils/create-variables-markdown';
-import { readCompodocExportData } from './utils/read-compodoc-export-data';
+import { parseDocumentation } from './utils/parse-documentation';
 
-const exportData: CompodocExportData = readCompodocExportData();
+const distPath = path.join(process.cwd(), 'dist');
+const outputPath = path.join(distPath, 'docsify');
+const assetsPath = path.join(process.cwd(), 'libs', 'docsifier', 'assets');
 
-// Clear the dist directory
-fs.rmSync(docsPath, { recursive: true, force: true });
+const create = (version: 'v2' | 'v3') => {
+  const documentationPath = path.join(distPath, 'compodoc', version, 'documentation.json');
+  const assetsPathWithVersion = path.join(assetsPath, version);
+  const docsPathWithVersion = path.join(outputPath, version);
+  const libraryPath = path.join(process.cwd(), 'libs', `angular-yandex-maps-${version}`);
 
-// Create directories with the dist directory
-fs.mkdirSync(docsPath);
-fs.mkdirSync(path.join(docsPath, 'components'));
-fs.mkdirSync(path.join(docsPath, 'services'));
-fs.mkdirSync(path.join(docsPath, 'interfaces'));
-fs.mkdirSync(path.join(docsPath, 'variables'));
+  const documentation: CompodocDocumentation = parseDocumentation(documentationPath);
 
-copyAssets();
+  // Create required directories
+  fs.mkdirSync(docsPathWithVersion);
+  fs.mkdirSync(path.join(docsPathWithVersion, 'components'));
+  fs.mkdirSync(path.join(docsPathWithVersion, 'services'));
+  fs.mkdirSync(path.join(docsPathWithVersion, 'interfaces'));
+  fs.mkdirSync(path.join(docsPathWithVersion, 'variables'));
 
-createSidebarMarkdown(exportData);
+  // Copy libs' README, copy assets
+  fs.copyFileSync(path.join(libraryPath, 'README.md'), path.join(docsPathWithVersion, 'README.md'));
+  copyFiles(assetsPathWithVersion, docsPathWithVersion);
 
-[...exportData.components, ...exportData.directives].forEach(
-  (entity: CompodocComponent | CompodocDirective) => {
-    createComponentMarkdown(entity);
-  },
-);
+  createSidebarMarkdown(documentation, docsPathWithVersion, version);
 
-exportData.injectables.forEach((injectable: CompodocInjectable) => {
-  createServiceMarkdown(injectable);
-});
+  [...documentation.components, ...documentation.directives].forEach(
+    (entity: CompodocComponent | CompodocDirective) => {
+      createComponentMarkdown(entity, docsPathWithVersion);
+    },
+  );
 
-exportData.interfaces.forEach((entity: CompodocInterface) => {
-  createInterfaceMarkdown(entity);
-});
+  documentation.injectables.forEach((injectable: CompodocInjectable) => {
+    createServiceMarkdown(injectable, docsPathWithVersion);
+  });
 
-exportData.miscellaneous.variables.forEach((variable: CompodocVariable) => {
-  createVariablesMarkdown(variable);
-});
+  documentation.interfaces.forEach((entity: CompodocInterface) => {
+    createInterfaceMarkdown(entity, docsPathWithVersion);
+  });
 
-exportData.miscellaneous.typealiases.forEach((type: CompodocTypealias) => {
-  createTypealiasMarkdown(type);
-});
+  documentation.miscellaneous.variables.forEach((variable: CompodocVariable) => {
+    createVariablesMarkdown(variable, docsPathWithVersion);
+  });
+
+  documentation.miscellaneous.typealiases.forEach((type: CompodocTypealias) => {
+    createTypealiasMarkdown(type, docsPathWithVersion);
+  });
+};
+
+fs.rmSync(outputPath, { recursive: true, force: true });
+fs.mkdirSync(outputPath);
+
+// Copy index files
+copyFiles(path.join(assetsPath, 'index'), outputPath);
+
+create('v2');
+create('v3');
