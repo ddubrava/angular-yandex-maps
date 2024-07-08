@@ -2,14 +2,19 @@ import * as fs from 'fs';
 import * as path from 'path';
 import dedent from 'ts-dedent';
 
-import { docsPath } from '../const/docs-path';
-import { CompodocVariable } from '../interfaces/compodoc-variable';
+import { CompodocVariable } from '../types/compodoc-variable';
 import { formatDescription } from './format-description';
 
 /**
  * Creates a variable markdown.
  */
-export const createVariablesMarkdown = (variable: CompodocVariable) => {
+export const createVariablesMarkdown = (
+  variable: CompodocVariable,
+  /**
+   * A root directory path where documentation is stored.
+   */
+  docsPath: string,
+) => {
   const { name, rawdescription = '' } = variable;
 
   /**

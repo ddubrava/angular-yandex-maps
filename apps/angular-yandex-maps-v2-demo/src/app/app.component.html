@@ -1,0 +1,98 @@
+<button (click)="toggleLanguage()">Toggle Language</button>
+
+<h1>Map</h1>
+
+<div class="container">
+  <ya-map [center]="[55.751952, 37.600739]" [state]="{ type: 'yandex#satellite' }"></ya-map>
+</div>
+
+<h1>Panorama</h1>
+
+<div class="container">
+  <ya-map>
+    <ya-panorama [point]="[59.938557, 30.316198]" layer="yandex#airPanorama"></ya-panorama>
+  </ya-map>
+</div>
+
+<h1>Placemark</h1>
+
+<div class="container">
+  <ya-map [center]="[55.74, 37.58]" [zoom]="5">
+    <ya-placemark [geometry]="[55.74, 37.58]"></ya-placemark>
+  </ya-map>
+</div>
+
+<h1>Clusterer</h1>
+
+<div class="container">
+  <ya-map [center]="[55.74, 37.58]">
+    <ya-clusterer [options]="{ minClusterSize: 5 }">
+      <ya-placemark [geometry]="[55.74, 37.5]"></ya-placemark>
+      <ya-placemark [geometry]="[55.64, 37.46]"></ya-placemark>
+      <ya-placemark [geometry]="[55.75, 37.38]"></ya-placemark>
+      <ya-geoobject
+        [feature]="{ geometry: { type: 'Point', coordinates: [55.81, 37.4] } }"
+      ></ya-geoobject>
+      <ya-geoobject
+        [feature]="{ geometry: { type: 'Point', coordinates: [55.7, 37.39] } }"
+      ></ya-geoobject>
+    </ya-clusterer>
+  </ya-map>
+</div>
+
+<h1>Clusterer with a lot of placemarks</h1>
+
+<div class="container">
+  <ya-map [center]="[55.74, 37.58]" [zoom]="5">
+    <ya-clusterer>
+      <ya-placemark *ngFor="let coords of coordinates" [geometry]="coords"></ya-placemark>
+    </ya-clusterer>
+  </ya-map>
+</div>
+
+<h1>GeoObject</h1>
+
+<div class="container">
+  <ya-map [center]="[55.751952, 37.600739]">
+    <ya-geoobject
+      [feature]="{
+        geometry: {
+          type: 'Rectangle',
+          coordinates: [
+            [55.665, 37.66],
+            [55.64, 37.53],
+          ],
+        },
+      }"
+    ></ya-geoobject>
+  </ya-map>
+</div>
+
+<h1>Multiroute</h1>
+
+<div class="container">
+  <ya-map [center]="[55.761952, 37.620739]">
+    <ya-multiroute
+      [referencePoints]="[[55.751952, 37.600739], 'Красные ворота, Москва']"
+    ></ya-multiroute>
+  </ya-map>
+</div>
+
+<h1>Controls</h1>
+
+<div class="container">
+  <ya-map [center]="[55.751952, 37.600739]" [state]="{ controls: [] }">
+    <ya-control type="SearchControl"></ya-control>
+  </ya-map>
+</div>
+
+<h1>ObjectManager</h1>
+
+<div class="container">
+  <ya-map [center]="[55.751952, 37.600739]">
+    <ya-object-manager
+      [options]="{ clusterize: true }"
+      (ready)="onObjectManagerReady($event)"
+    ></ya-object-manager>
+  </ya-map>
+</div>

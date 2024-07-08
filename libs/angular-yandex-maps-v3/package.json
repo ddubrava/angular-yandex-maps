@@ -1,0 +1,29 @@
+{
+  "name": "angular-yandex-maps-v3",
+  "version": "18.0.0",
+  "description": "Yandex.Maps Angular components that implement the Yandex.Maps JavaScript API 3.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ddubrava/angular-yandex-maps.git"
+  },
+  "keywords": [
+    "Angular",
+    "Yandex Maps",
+    "Яндекс Карты"
+  ],
+  "author": {
+    "name": "Daniil Dubrava",
+    "email": "dubrava.daniil@gmail.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ddubrava/angular-yandex-maps/issues"
+  },
+  "homepage": "https://github.com/ddubrava/angular-yandex-maps#readme",
+  "sideEffects": false,
+  "peerDependencies": {
+    "@yandex/ymaps3-types": "^0.0.27",
+    "@angular/common": ">=16.0.0 <19.0.0",
+    "@angular/core": ">=16.0.0 <19.0.0"
+  }
+}

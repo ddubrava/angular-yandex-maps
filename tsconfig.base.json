@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "angular8-yandex-maps": ["dist/libs/angular8-yandex-maps"],
+      "angular-yandex-maps-v3": ["dist/libs/angular-yandex-maps-v3"],
+      "angular8-yandex-maps": ["dist/libs/angular-yandex-maps-v2"],
       "docsifier": ["libs/docsifier/src/index.ts"]
     }
   },

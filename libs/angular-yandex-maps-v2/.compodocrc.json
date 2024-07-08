@@ -1,0 +1,11 @@
+{
+  "tsconfig": "libs/angular-yandex-maps-v2/tsconfig.doc.json",
+  "output": "dist/compodoc/v2",
+  "exportFormat": "json",
+  "hideGenerator": true,
+  "disableCoverage": true,
+  "disablePrivate": true,
+  "disableInternal": true,
+  "disableLifeCycleHooks": true,
+  "disableDependencies": true
+}

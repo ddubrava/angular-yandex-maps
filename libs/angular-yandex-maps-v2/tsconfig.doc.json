@@ -1,0 +1,4 @@
+{
+  "include": ["src/lib/**/*.ts"],
+  "exclude": ["src/lib/typings/yandex-maps/index.ts"]
+}

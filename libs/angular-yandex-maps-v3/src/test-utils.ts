@@ -1,0 +1,255 @@
+interface TestingWindow extends Window {
+  ymaps3?: {
+    YMap?: jest.Mock;
+    YMapDefaultFeaturesLayer?: jest.Mock;
+    YMapDefaultSchemeLayer?: jest.Mock;
+    YMapFeature?: jest.Mock;
+    YMapListener?: jest.Mock;
+    YMapMarker?: jest.Mock;
+    ready?: Promise<void>;
+    import?: jest.Mock;
+  };
+  __chunk_yandex_ymaps3?: unknown[];
+}
+
+/**
+ * Mocks ymaps3.ready.
+ */
+export const mockReady = (): Promise<void> => {
+  const readyMock = Promise.resolve();
+
+  const testingWindow: TestingWindow = window;
+
+  if (testingWindow.ymaps3) {
+    testingWindow.ymaps3.ready = readyMock;
+  } else {
+    testingWindow.ymaps3 = {
+      ready: readyMock,
+    };
+  }
+
+  return readyMock;
+};
+
+/**
+ * Mocks ymaps3.import.
+ */
+export const mockImport = (constructorName: string, constructor: unknown): jest.Mock => {
+  const importMock = jest.fn(() => {
+    // The API does this thing; we rely on this logic when updating the configuration.
+    if (!testingWindow.__chunk_yandex_ymaps3) {
+      testingWindow.__chunk_yandex_ymaps3 = [];
+    }
+
+    testingWindow.__chunk_yandex_ymaps3.push([constructorName]);
+
+    return Promise.resolve({ [constructorName]: constructor });
+  });
+
+  const testingWindow: TestingWindow = window;
+
+  if (testingWindow.ymaps3) {
+    testingWindow.ymaps3.import = importMock;
+  } else {
+    testingWindow.ymaps3 = {
+      import: importMock,
+    };
+  }
+
+  return importMock;
+};
+
+/**
+ * Mocks a ymaps3.YMap instance.
+ */
+export const mockYMapInstance = () => ({
+  addChild: jest.fn(),
+  update: jest.fn(),
+  destroy: jest.fn(),
+});
+
+/**
+ * Mocks a ymaps3.YMap class.
+ * @param instance instance that is returned from a constructor.
+ */
+export const mockYMapConstructor = (instance: ReturnType<typeof mockYMapInstance>): jest.Mock => {
+  const constructorMock = jest.fn(() => instance);
+
+  const testingWindow: TestingWindow = window;
+
+  if (testingWindow.ymaps3) {
+    testingWindow.ymaps3.YMap = constructorMock;
+  } else {
+    testingWindow.ymaps3 = {
+      YMap: constructorMock,
+    };
+  }
+
+  return constructorMock;
+};
+
+/**
+ * Mocks a ymaps3.YMapDefaultFeaturesLayerDirective instance.
+ */
+export const mockYMapDefaultFeaturesLayerInstance = () => ({
+  update: jest.fn(),
+});
+
+/**
+ * Mocks a ymaps3.YMapDefaultFeaturesLayerDirective class.
+ * @param instance instance that is returned from a constructor.
+ */
+export const mockYMapDefaultFeaturesLayerConstructor = (
+  instance: ReturnType<typeof mockYMapDefaultFeaturesLayerInstance>,
+): jest.Mock => {
+  const constructorMock = jest.fn(() => instance);
+
+  const testingWindow: TestingWindow = window;
+
+  if (testingWindow.ymaps3) {
+    testingWindow.ymaps3.YMapDefaultFeaturesLayer = constructorMock;
+  } else {
+    testingWindow.ymaps3 = {
+      YMapDefaultFeaturesLayer: constructorMock,
+    };
+  }
+
+  return constructorMock;
+};
+
+/**
+ * Mocks a ymaps3.YMapDefaultMarker instance.
+ */
+export const mockYMapDefaultMarkerInstance = () => ({
+  update: jest.fn(),
+});
+
+/**
+ * Mocks a ymaps3.import('@yandex/ymaps3-markers@X.X.X').YMapDefaultMarker class.
+ * @param instance instance that is returned from a constructor.
+ */
+export const mockYMapDefaultMarkerConstructor = (
+  instance: ReturnType<typeof mockYMapDefaultMarkerInstance>,
+): jest.Mock => {
+  const constructorMock = jest.fn(() => instance);
+
+  mockImport('YMapDefaultMarker', constructorMock);
+
+  return constructorMock;
+};
+
+/**
+ * Mocks a ymaps3.YMapDefaultSchemeLayer instance.
+ */
+export const mockYMapDefaultSchemeLayerInstance = () => ({
+  update: jest.fn(),
+});
+
+/**
+ * Mocks a ymaps3.YMapDefaultSchemeLayer class.
+ * @param instance instance that is returned from a constructor.
+ */
+export const mockYMapDefaultSchemeLayerConstructor = (
+  instance: ReturnType<typeof mockYMapDefaultSchemeLayerInstance>,
+): jest.Mock => {
+  const constructorMock = jest.fn(() => instance);
+
+  const testingWindow: TestingWindow = window;
+
+  if (testingWindow.ymaps3) {
+    testingWindow.ymaps3.YMapDefaultSchemeLayer = constructorMock;
+  } else {
+    testingWindow.ymaps3 = {
+      YMapDefaultSchemeLayer: constructorMock,
+    };
+  }
+
+  return constructorMock;
+};
+
+/**
+ * Mocks a ymaps3.YMapFeature instance.
+ */
+export const mockYMapFeatureInstance = () => ({
+  update: jest.fn(),
+});
+
+/**
+ * Mocks a ymaps3.YMapDefaultSchemeLayer class.
+ * @param instance instance that is returned from a constructor.
+ */
+export const mockYMapFeatureConstructor = (
+  instance: ReturnType<typeof mockYMapFeatureInstance>,
+): jest.Mock => {
+  const constructorMock = jest.fn(() => instance);
+
+  const testingWindow: TestingWindow = window;
+
+  if (testingWindow.ymaps3) {
+    testingWindow.ymaps3.YMapFeature = constructorMock;
+  } else {
+    testingWindow.ymaps3 = {
+      YMapFeature: constructorMock,
+    };
+  }
+
+  return constructorMock;
+};
+
+/**
+ * Mocks a ymaps3.YMapListener instance.
+ */
+export const mockYMapListenerInstance = () => ({
+  update: jest.fn(),
+});
+
+/**
+ * Mocks a ymaps3.YMapListener class.
+ * @param instance instance that is returned from a constructor.
+ */
+export const mockYMapListenerConstructor = (
+  instance: ReturnType<typeof mockYMapListenerInstance>,
+): jest.Mock => {
+  const constructorMock = jest.fn(() => instance);
+
+  const testingWindow: TestingWindow = window;
+
+  if (testingWindow.ymaps3) {
+    testingWindow.ymaps3.YMapListener = constructorMock;
+  } else {
+    testingWindow.ymaps3 = {
+      YMapListener: constructorMock,
+    };
+  }
+
+  return constructorMock;
+};
+
+/**
+ * Mocks a ymaps3.YMapMarker instance.
+ */
+export const mockYMapMarkerInstance = () => ({
+  update: jest.fn(),
+});
+
+/**
+ * Mocks a ymaps3.YMapMarker class.
+ * @param instance instance that is returned from a constructor.
+ */
+export const mockYMapMarkerConstructor = (
+  instance: ReturnType<typeof mockYMapMarkerInstance>,
+): jest.Mock => {
+  const constructorMock = jest.fn(() => instance);
+
+  const testingWindow: TestingWindow = window;
+
+  if (testingWindow.ymaps3) {
+    testingWindow.ymaps3.YMapMarker = constructorMock;
+  } else {
+    testingWindow.ymaps3 = {
+      YMapMarker: constructorMock,
+    };
+  }
+
+  return constructorMock;
+};
