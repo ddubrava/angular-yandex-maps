@@ -1,0 +1,19 @@
+- **Getting started**
+  - [Quick start](v3/)
+  - [Examples](v3/examples)
+  - [FAQ](v3/faq)
+- **Components**
+  - [YMapComponent](v3/components/YMapComponent)
+  - [YMapDefaultFeaturesLayerDirective](v3/components/YMapDefaultFeaturesLayerDirective)
+  - [YMapDefaultMarkerDirective](v3/components/YMapDefaultMarkerDirective)
+  - [YMapDefaultSchemeLayerDirective](v3/components/YMapDefaultSchemeLayerDirective)
+  - [YMapFeatureDirective](v3/components/YMapFeatureDirective)
+  - [YMapListenerDirective](v3/components/YMapListenerDirective)
+  - [YMapMarkerDirective](v3/components/YMapMarkerDirective)
+- **Services**
+  - [YApiLoaderService](v3/services/YApiLoaderService)
+- **Interfaces**
+  - [YConfig](v3/interfaces/YConfig)
+  - [YReadyEvent](v3/interfaces/YReadyEvent)
+- **Variables**
+  - [provideYConfig](v3/variables/provideYConfig)

@@ -45,7 +45,7 @@ from [Map class](https://yandex.ru/dev/maps/jsapi/doc/2.1/ref/reference/Map.html
 ## How can I access to the created object instance and global API object?
 
 The Yandex.Maps components implement `ready` output
-returning [`YaReadyEvent`](../src/interfaces/YaReadyEvent) interface.
+returning [`YaReadyEvent`](v2/interfaces/YaReadyEvent) interface.
 
 ```html
 <ya-map (ready)="onMapReady($event)"></ya-map>
@@ -79,8 +79,8 @@ const instance = new (ymaps as any).UnexistingClass();
 
 ## Is it possible to load the API without using components?
 
-Use [`YaApiLoaderService`](/services/YaApiLoaderService).
+Use [`YaApiLoaderService`](v2/services/YaApiLoaderService).
 
 ## How can I use the geocoder?
 
-Use [`YaGeocoderService`](/services/YaGeocoderService).
+Use [`YaGeocoderService`](v2/services/YaGeocoderService).

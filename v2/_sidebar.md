@@ -1,0 +1,23 @@
+- **Getting started**
+  - [Quick start](v2/)
+  - [Examples](v2/examples)
+  - [FAQ](v2/faq)
+- **Components**
+  - [YaClustererComponent](v2/components/YaClustererComponent)
+  - [YaMapComponent](v2/components/YaMapComponent)
+  - [YaControlDirective](v2/components/YaControlDirective)
+  - [YaGeoObjectDirective](v2/components/YaGeoObjectDirective)
+  - [YaMultirouteDirective](v2/components/YaMultirouteDirective)
+  - [YaObjectManagerDirective](v2/components/YaObjectManagerDirective)
+  - [YaPanoramaDirective](v2/components/YaPanoramaDirective)
+  - [YaPlacemarkDirective](v2/components/YaPlacemarkDirective)
+- **Services**
+  - [YaApiLoaderService](v2/services/YaApiLoaderService)
+  - [YaGeocoderService](v2/services/YaGeocoderService)
+- **Interfaces**
+  - [YaConfig](v2/interfaces/YaConfig)
+  - [YaEvent](v2/interfaces/YaEvent)
+  - [YaReadyEvent](v2/interfaces/YaReadyEvent)
+  - [YaControlType](v2/interfaces/YaControlType)
+- **Variables**
+  - [YA_CONFIG](v2/variables/YA_CONFIG)

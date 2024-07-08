@@ -1,25 +1,38 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Document</title>
+    <title>Angular-Yandex-Maps</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="description" content="Description" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css" />
   </head>
   <body>
+    <nav>
+      <a href="#/v2/">v2</a>
+      <a href="#/v3/">v3</a>
+    </nav>
+
     <div id="app"></div>
+
     <script>
       window.$docsify = {
-        alias: { '/.*/_sidebar.md': '/_sidebar.md' },
+        coverpage: true,
+        /**
+         * Only coverpage is loaded when visiting the home page.
+         * Otherwise, we have 404 since we do not have README.md
+         */
+        onlyCover: true,
+        /**
+         * Scrolls to the top of the screen when the route is changed.
+         */
         auto2top: true,
         loadSidebar: true,
-        name: 'angular8-yandex-maps',
-        repo: 'https://github.com/ddubrava/angular8-yandex-maps',
-        subMaxLevel: 2,
+        repo: 'https://github.com/ddubrava/angular-yandex-maps',
       };
     </script>
+
     <!-- Docsify v4 -->
     <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
     <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-typescript.min.js"></script>
