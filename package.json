@@ -17,7 +17,9 @@
     "test": "nx run-many -t test",
     "test:coverage": "npm run test -- --codeCoverage",
     "-------------------------------- Lint": "",
-    "lint": "nx run-many -t lint"
+    "lint": "nx run-many -t lint",
+    "-------------------------------- Release": "",
+    "release:": "npm run build:lib:v2 && npm run build:lib:v3 && nx release --dry-run"
   },
   "dependencies": {
     "@angular/animations": "18.0.1",

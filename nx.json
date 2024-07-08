@@ -62,10 +62,18 @@
   },
   "useInferencePlugins": false,
   "release": {
-    "projects": ["angular-yandex-maps-v2", "angular-yandex-maps-v3"],
     "projectsRelationship": "independent",
+    "projects": ["angular-yandex-maps-v2", "angular-yandex-maps-v3"],
+    "version": {
+      "conventionalCommits": true
+    },
     "changelog": {
-      "projectChangelogs": true
+      "projectChangelogs": {
+        "createRelease": "github",
+        "renderOptions": {
+          "authors": false
+        }
+      }
     }
   }
 }
