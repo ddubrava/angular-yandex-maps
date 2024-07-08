@@ -1,3 +1,9 @@
+# 18.0.1 (2024-07-08)
+
+### 🩹 Fixes
+
+- update README.md ([63c611c](https://github.com/ddubrava/angular-yandex-maps/commit/63c611c2538457bec12f5243a01333592868cad2))
+
 ## [18.0.0](https://github.com/ddubrava/angular8-yandex-maps/compare/v17.1.0...v18.0.0) (2024-06-02)
 
 ### Features
