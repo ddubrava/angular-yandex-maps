@@ -68,11 +68,11 @@ Documentation for older versions can be found using the [branches](https://githu
 
 ```ts
 import { Component } from '@angular/core';
-import { YaMapComponent, YaPlacemark } from 'angular8-yandex-maps';
+import { AngularYandexMapsModule } from 'angular8-yandex-maps';
 
 @Component({
   standalone: true,
-  imports: [YaMapComponent, YaPlacemark],
+  imports: [AngularYandexMapsModule],
 })
 export class AppComponent {}
 ```
