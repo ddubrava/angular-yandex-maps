@@ -16,7 +16,7 @@
 </p>
 
 <h4 align="center">
-  <a href="https://ddubrava.github.io/angular-yandex-maps/#/v2">📄 Documentation</a> |
+  <a href="https://ddubrava.github.io/angular-yandex-maps/#/v2/">📄 Documentation</a> |
   <a href="https://ddubrava.github.io/angular-yandex-maps/#/v2/examples">🗺️ Examples</a> |
   <a href="https://ddubrava.github.io/angular-yandex-maps/#/v2/faq">❓ FAQ</a>
 </h4>
