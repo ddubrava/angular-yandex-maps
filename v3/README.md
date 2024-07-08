@@ -24,7 +24,8 @@
 ## Installation
 
 ```bash
-npm install angular-yandex-maps-v3 @yandex/ymaps3-types
+npm install angular-yandex-maps-v3
+npm install @yandex/ymaps3-types --save-dev
 ```
 
 #### Version compatibility
