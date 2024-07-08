@@ -16,7 +16,7 @@
 </p>
 
 <h4 align="center">
-  <a href="https://ddubrava.github.io/angular-yandex-maps/#/v3">📄 Documentation</a> |
+  <a href="https://ddubrava.github.io/angular-yandex-maps/#/v3/">📄 Documentation</a> |
   <a href="https://ddubrava.github.io/angular-yandex-maps/#/v3/examples">🗺️ Examples</a> |
   <a href="https://ddubrava.github.io/angular-yandex-maps/#/v3/faq">❓ FAQ</a>
 </h4>
@@ -24,7 +24,8 @@
 ## Installation
 
 ```bash
-npm install angular-yandex-maps-v3 @yandex/ymaps3-types
+npm install angular-yandex-maps-v3
+npm install @yandex/ymaps3-types --save-dev
 ```
 
 #### Version compatibility
