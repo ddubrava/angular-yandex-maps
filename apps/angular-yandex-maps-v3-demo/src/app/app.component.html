@@ -98,3 +98,52 @@
     />
   </y-map>
 </div>
+
+<h1>Controls</h1>
+
+<div class="container">
+  <y-map
+    [props]="{
+      location: {
+        center: [-0.127696, 51.507351],
+        zoom: 9,
+      },
+    }"
+  >
+    <y-map-default-scheme-layer />
+
+    <y-map-controls [props]="{ position: 'top left' }">
+      <y-map-control-button [props]="{ text: 'Hello World' }" />
+    </y-map-controls>
+
+    <y-map-controls [props]="{ position: 'top' }">
+      <y-map-control-common-button [props]="{ text: 'Hello World' }" />
+    </y-map-controls>
+
+    <y-map-controls [props]="{ position: 'top right' }">
+      <y-map-geolocation-control />
+    </y-map-controls>
+
+    <y-map-controls [props]="{ position: 'left' }">
+      <y-map-zoom-control-button />
+    </y-map-controls>
+
+    <y-map-controls [props]="{ position: 'bottom left' }">
+      <y-map-scale-control />
+    </y-map-controls>
+
+    <y-map-controls [props]="{ position: 'bottom right' }">
+      <y-map-open-maps-button />
+    </y-map-controls>
+
+    <y-map-controls [props]="{ position: 'bottom right' }">
+      <y-map-open-maps-button />
+    </y-map-controls>
+
+    <y-map-controls [props]="{ position: 'right' }">
+      <y-map-control>
+        <p>Custom HTML</p>
+      </y-map-control>
+    </y-map-controls>
+  </y-map>
+</div>
