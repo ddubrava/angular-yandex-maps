@@ -2,8 +2,8 @@ name: GitHub Pages
 
 on:
   push:
-    branches:
-      - main
+    tags:
+      - '*'
 
 env:
   PRIMARY_NODE_VERSION: 20
