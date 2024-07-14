@@ -4,12 +4,20 @@
   - [FAQ](v3/faq)
 - **Components**
   - [YMapComponent](v3/components/YMapComponent)
+  - [YMapControlButtonDirective](v3/components/YMapControlButtonDirective)
+  - [YMapControlCommonButtonDirective](v3/components/YMapControlCommonButtonDirective)
+  - [YMapControlDirective](v3/components/YMapControlDirective)
+  - [YMapControlsDirective](v3/components/YMapControlsDirective)
   - [YMapDefaultFeaturesLayerDirective](v3/components/YMapDefaultFeaturesLayerDirective)
   - [YMapDefaultMarkerDirective](v3/components/YMapDefaultMarkerDirective)
   - [YMapDefaultSchemeLayerDirective](v3/components/YMapDefaultSchemeLayerDirective)
   - [YMapFeatureDirective](v3/components/YMapFeatureDirective)
+  - [YMapGeolocationControlDirective](v3/components/YMapGeolocationControlDirective)
   - [YMapListenerDirective](v3/components/YMapListenerDirective)
   - [YMapMarkerDirective](v3/components/YMapMarkerDirective)
+  - [YMapOpenMapsButtonDirective](v3/components/YMapOpenMapsButtonDirective)
+  - [YMapScaleControlDirective](v3/components/YMapScaleControlDirective)
+  - [YMapZoomControlDirective](v3/components/YMapZoomControlDirective)
 - **Services**
   - [YApiLoaderService](v3/services/YApiLoaderService)
 - **Interfaces**

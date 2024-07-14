@@ -2,8 +2,7 @@
 
 
 This component wraps the [ymaps3.YMapMarker](https://yandex.ru/dev/jsapi30/doc/en/ref/#class-ymapmarker) class from the Yandex.Maps API.
-All class constructor arguments are component inputs. `YMapMarker['element']` can only be projected, see the example below.
-The component implements `OnChanges` and supports inputs updates.
+All component inputs are named the same as the API class constructor arguments. `YMapMarker['element']` can only be projected, see the example below.
 
 ```html
 <y-map
@@ -38,11 +37,11 @@ The component implements `OnChanges` and supports inputs updates.
 
 
 ## Inputs
-| Name  | Description                              | Type            | API Reference                                                                 |
-| ----- | ---------------------------------------- | --------------- | ----------------------------------------------------------------------------- |
-| props |   Marker properties. Supports changes.   | YMapMarkerProps | [#YMapMarkerProps](https://yandex.ru/dev/jsapi30/doc/ru/ref/#YMapMarkerProps) |
+| Name  | Description                                                                          | Type            | API Reference                                                                 |
+| ----- | ------------------------------------------------------------------------------------ | --------------- | ----------------------------------------------------------------------------- |
+| props |   See the API entity documentation for detailed information. Supports ngOnChanges.   | YMapMarkerProps | [#YMapMarkerProps](https://yandex.ru/dev/jsapi30/doc/ru/ref/#YMapMarkerProps) |
 
 ## Outputs
-| Name  | Description                                                                   | Type                                  | API Reference |
-| ----- | ----------------------------------------------------------------------------- | ------------------------------------- | ------------- |
-| ready |   The listener instance is created. This event runs outside an Angular zone.  | EventEmitter<YReadyEvent<YMapMarker>> | —             |
+| Name  | Description                                                                 | Type                                  | API Reference |
+| ----- | --------------------------------------------------------------------------- | ------------------------------------- | ------------- |
+| ready |   The entity instance is created. This event runs outside an Angular zone.  | EventEmitter<YReadyEvent<YMapMarker>> | —             |

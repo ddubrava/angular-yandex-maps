@@ -2,9 +2,8 @@
 
 
 This component wraps the [ymaps3.YMapDefaultMarker](https://yandex.ru/dev/jsapi30/doc/ru/ref/packages/markers/#class-ymapdefaultmarker) class from the Yandex.Maps API.
-It's a `@yandex/ymaps3-markers@0.0.1` package that is asynchronously loaded once you use this component.
-All class constructor arguments are component inputs.
-The component implements `OnChanges` and supports inputs updates.
+All component inputs are named the same as the API class constructor arguments.
+This component is from the `@yandex/ymaps3-markers@0.0.1` package, which is asynchronously loaded when you use this component.
 
 ```html
 <y-map
@@ -33,11 +32,11 @@ The component implements `OnChanges` and supports inputs updates.
 
 
 ## Inputs
-| Name  | Description                              | Type                   | API Reference                                                                                                |
-| ----- | ---------------------------------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------ |
-| props |   Marker properties. Supports changes.   | YMapDefaultMarkerProps | [#YMapDefaultMarkerProps](https://yandex.ru/dev/jsapi30/doc/en/ref/packages/markers/#YMapDefaultMarkerProps) |
+| Name  | Description                                                                          | Type                   | API Reference                                                                                                |
+| ----- | ------------------------------------------------------------------------------------ | ---------------------- | ------------------------------------------------------------------------------------------------------------ |
+| props |   See the API entity documentation for detailed information. Supports ngOnChanges.   | YMapDefaultMarkerProps | [#YMapDefaultMarkerProps](https://yandex.ru/dev/jsapi30/doc/en/ref/packages/markers/#YMapDefaultMarkerProps) |
 
 ## Outputs
 | Name  | Description                                                                 | Type                                         | API Reference |
 | ----- | --------------------------------------------------------------------------- | -------------------------------------------- | ------------- |
-| ready |   The marker instance is created. This event runs outside an Angular zone.  | EventEmitter<YReadyEvent<YMapDefaultMarker>> | —             |
+| ready |   The entity instance is created. This event runs outside an Angular zone.  | EventEmitter<YReadyEvent<YMapDefaultMarker>> | —             |

@@ -2,8 +2,7 @@
 
 
 This component wraps the [ymaps3.YMapDefaultFeaturesLayer](https://yandex.ru/dev/jsapi30/doc/ru/ref/#class-ymapdefaultfeatureslayer) class from the Yandex.Maps API.
-All class constructor arguments are component inputs.
-The component implements `OnChanges` and supports inputs updates.
+All component inputs are named the same as the API class constructor arguments.
 
 ```html
 <y-map
@@ -22,13 +21,12 @@ The component implements `OnChanges` and supports inputs updates.
 
 
 ## Inputs
-| Name     | Description                                                | Type                          | API Reference                                                                                             |
-| -------- | ---------------------------------------------------------- | ----------------------------- | --------------------------------------------------------------------------------------------------------- |
-| children |                                                            |                               | —                                                                                                         |
-| options  |                                                            |                               | —                                                                                                         |
-| props    |   YMapDefaultFeaturesLayer properties. Supports updates.   | YMapDefaultFeaturesLayerProps | [#YMapDefaultFeaturesLayerProps](https://yandex.ru/dev/jsapi30/doc/ru/ref/#YMapDefaultFeaturesLayerProps) |
+| Name    | Description                                                                          | Type                          | API Reference                                                                                             |
+| ------- | ------------------------------------------------------------------------------------ | ----------------------------- | --------------------------------------------------------------------------------------------------------- |
+| options |   See the API entity documentation for detailed information.                         | ComplexOptions<YMap>          | —                                                                                                         |
+| props   |   See the API entity documentation for detailed information. Supports ngOnChanges.   | YMapDefaultFeaturesLayerProps | [#YMapDefaultFeaturesLayerProps](https://yandex.ru/dev/jsapi30/doc/ru/ref/#YMapDefaultFeaturesLayerProps) |
 
 ## Outputs
-| Name  | Description                                                                | Type                                                | API Reference |
-| ----- | -------------------------------------------------------------------------- | --------------------------------------------------- | ------------- |
-| ready |   The layer instance is created. This event runs outside an Angular zone.  | EventEmitter<YReadyEvent<YMapDefaultFeaturesLayer>> | —             |
+| Name  | Description                                                                 | Type                                                | API Reference |
+| ----- | --------------------------------------------------------------------------- | --------------------------------------------------- | ------------- |
+| ready |   The entity instance is created. This event runs outside an Angular zone.  | EventEmitter<YReadyEvent<YMapDefaultFeaturesLayer>> | —             |
