@@ -1,5 +1,5 @@
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { Inject, Injectable, NgZone, PLATFORM_ID } from '@angular/core';
 import {
   BehaviorSubject,
   from,
@@ -17,6 +17,7 @@ import { map, switchMap, take } from 'rxjs/operators';
 
 import { YaConfig } from '../../interfaces/ya-config';
 import { YA_CONFIG } from '../../tokens/ya-config';
+import { exitZone } from '../../utils/zone/zone';
 import { YaApiLoaderCache } from './interfaces/ya-api-loader-cache';
 
 /**
@@ -58,6 +59,7 @@ export class YaApiLoaderService {
     @Inject(YA_CONFIG) config: YaConfig | Observable<YaConfig>,
     @Inject(DOCUMENT) private readonly document: Document,
     @Inject(PLATFORM_ID) platformId: object,
+    private readonly ngZone: NgZone,
   ) {
     this.isBrowser = isPlatformBrowser(platformId);
 
@@ -82,6 +84,11 @@ export class YaApiLoaderService {
     }
 
     return this.config$.pipe(
+      // 3rd party libraries shouldn't be run in a zone.
+      // Libraries run tons of different events (requestAnimationFrame, setTimeout, etc.).
+      // We do not need to run change detection for these events from the library.
+      // Exit from a zone here, so all components are also created outside a zone.
+      exitZone(this.ngZone),
       mergeMap((config) => {
         /**
          * We use a script source as a cache key, since there are a lot of parameters that affect the API.

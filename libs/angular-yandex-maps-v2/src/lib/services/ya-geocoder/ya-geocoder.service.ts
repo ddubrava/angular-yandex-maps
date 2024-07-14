@@ -2,6 +2,7 @@ import { Injectable, NgZone } from '@angular/core';
 import { from, Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
+import { enterZone } from '../../utils/zone/zone';
 import { YaApiLoaderService } from '../ya-api-loader/ya-api-loader.service';
 
 /**
@@ -38,15 +39,7 @@ export class YaGeocoderService {
   geocode(request: string | number[], options?: ymaps.IGeocodeOptions): Observable<object> {
     return this.yaApiLoaderService.load().pipe(
       switchMap(() => from(ymaps.geocode(request, options))),
-      switchMap(
-        (result) =>
-          new Observable<object>((observer) => {
-            this.ngZone.run(() => {
-              observer.next(result);
-              observer.complete();
-            });
-          }),
-      ),
+      enterZone(this.ngZone),
     );
   }
 }

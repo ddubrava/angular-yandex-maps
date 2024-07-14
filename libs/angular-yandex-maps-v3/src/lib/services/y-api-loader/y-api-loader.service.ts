@@ -1,5 +1,5 @@
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { Inject, Injectable, NgZone, PLATFORM_ID } from '@angular/core';
 import {
   BehaviorSubject,
   from,
@@ -17,6 +17,7 @@ import { map, switchMap, take } from 'rxjs/operators';
 
 import { Y_CONFIG } from '../../tokens/y-config';
 import { YConfig } from '../../types/y-config';
+import { exitZone } from '../../utils/zone/zone';
 
 /**
  * @internal
@@ -72,6 +73,7 @@ export class YApiLoaderService {
     @Inject(Y_CONFIG) config: YConfig | Observable<YConfig>,
     @Inject(DOCUMENT) private readonly document: Document,
     @Inject(PLATFORM_ID) platformId: object,
+    private readonly ngZone: NgZone,
   ) {
     this.isBrowser = isPlatformBrowser(platformId);
 
@@ -89,6 +91,7 @@ export class YApiLoaderService {
 
   /**
    * Loads the Yandex.Maps API.
+   * Runs outside an Angular zone.
    */
   load(): Observable<typeof ymaps3> {
     if (!this.isBrowser) {
@@ -96,6 +99,11 @@ export class YApiLoaderService {
     }
 
     return this.config$.pipe(
+      // 3rd party libraries shouldn't be run in a zone.
+      // Libraries run tons of different events (requestAnimationFrame, setTimeout, etc.).
+      // We do not need to run change detection for these events from the library.
+      // Exit from a zone here, so all components are also created outside a zone.
+      exitZone(this.ngZone),
       mergeMap((config) => {
         // We use a script source as a cache key, since there are a lot of parameters that affect the API.
         // We can't rely only on one parameter. E.g., a key is changed, we need to reload the API.

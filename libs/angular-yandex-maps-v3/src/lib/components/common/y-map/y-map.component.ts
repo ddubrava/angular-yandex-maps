@@ -77,10 +77,7 @@ export class YMapComponent implements AfterViewInit, OnChanges, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
         const id = generateRandomId();
-
-        // It must be outside a zone because it adds mouse listeners.
-        // As a result, there are tons of application ticks.
-        const map = this.ngZone.runOutsideAngular(() => this.createMap(id));
+        const map = this.createMap(id);
 
         /**
          * Once the configuration is changed, e.g. language,
