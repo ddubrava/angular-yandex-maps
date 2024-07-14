@@ -176,14 +176,8 @@ export class YaClustererComponent implements AfterContentInit, OnChanges, OnDest
 
         const difference = this.getDifference<ymaps.Placemark>(newPlacemarks, currentPlacemarks);
 
-        /**
-         * Clusterer methods under the hood call setTimeout, as a result it triggers unexpected ticks.
-         * @see https://github.com/ddubrava/angular-yandex-maps/issues/194
-         */
-        this.ngZone.runOutsideAngular(() => {
-          clusterer.add(difference.toAdd);
-          clusterer.remove(difference.toRemove);
-        });
+        clusterer.add(difference.toAdd);
+        clusterer.remove(difference.toRemove);
       });
   }
 
@@ -203,14 +197,8 @@ export class YaClustererComponent implements AfterContentInit, OnChanges, OnDest
 
         const difference = this.getDifference<ymaps.GeoObject>(newGeoObjects, currentGeoObjects);
 
-        /**
-         * Clusterer methods under the hood call setTimeout, as a result it triggers unexpected ticks.
-         * @see https://github.com/ddubrava/angular-yandex-maps/issues/194
-         */
-        this.ngZone.runOutsideAngular(() => {
-          clusterer.add(difference.toAdd);
-          clusterer.remove(difference.toRemove);
-        });
+        clusterer.add(difference.toAdd);
+        clusterer.remove(difference.toRemove);
       });
   }
 

@@ -30,7 +30,18 @@ class FakeHTMLScriptElement implements Partial<HTMLScriptElement> {
 
 describe('YaApiLoaderService', () => {
   let script: FakeHTMLScriptElement;
-  let mockDocument: any;
+
+  let documentMock: {
+    createElement: jest.Mock;
+    body: {
+      appendChild: jest.Mock;
+    };
+  };
+
+  let zoneMock: {
+    runOutsideAngular: jest.Mock;
+  };
+
   let service: YaApiLoaderService;
 
   /**
@@ -46,17 +57,21 @@ describe('YaApiLoaderService', () => {
      */
     script = new FakeHTMLScriptElement();
 
-    mockDocument = {
+    documentMock = {
       createElement: jest.fn(),
       body: {
         appendChild: jest.fn(),
       },
     };
 
-    mockDocument.createElement.mockReturnValue(script);
-    mockDocument.body.appendChild.mockReturnValue(script);
+    documentMock.createElement.mockReturnValue(script);
+    documentMock.body.appendChild.mockReturnValue(script);
 
-    service = new YaApiLoaderService(config, mockDocument, platformId);
+    zoneMock = {
+      runOutsideAngular: jest.fn((fn) => fn()),
+    };
+
+    service = new YaApiLoaderService(config, documentMock as any, platformId, zoneMock as any);
   };
 
   /**
@@ -91,17 +106,28 @@ describe('YaApiLoaderService', () => {
     expect(service.load()).toBe(NEVER);
   });
 
+  it('should load API outside an Angular zone', (done) => {
+    mockLoaderService();
+
+    service.load().subscribe(() => {
+      expect(zoneMock.runOutsideAngular).toHaveBeenCalled();
+      done();
+    });
+
+    fireScriptEvents();
+  });
+
   it('should create script with default options if config is not passed', (done) => {
     mockLoaderService();
 
     service.load().subscribe(() => {
-      expect(mockDocument.createElement).toHaveBeenCalled();
+      expect(documentMock.createElement).toHaveBeenCalled();
       expect(script.type).toBe('text/javascript');
       expect(script.async).toEqual(true);
       expect(script.defer).toEqual(true);
       expect(script.src).toBe('https://api-maps.yandex.ru/2.1/?lang=ru_RU');
       expect(script.id).toBe('yandexMapsApiScript');
-      expect(mockDocument.body.appendChild).toHaveBeenCalled();
+      expect(documentMock.body.appendChild).toHaveBeenCalled();
       done();
     });
 
@@ -246,8 +272,8 @@ describe('YaApiLoaderService', () => {
     mockLoaderService();
 
     service.load().subscribe(() => {
-      expect(mockDocument.createElement.mock.calls.length).toBe(1);
-      expect(mockDocument.body.appendChild.mock.calls.length).toBe(1);
+      expect(documentMock.createElement.mock.calls.length).toBe(1);
+      expect(documentMock.body.appendChild.mock.calls.length).toBe(1);
       done();
     });
 
@@ -258,8 +284,8 @@ describe('YaApiLoaderService', () => {
     mockLoaderService();
 
     combineLatest([service.load(), service.load(), service.load()]).subscribe(() => {
-      expect(mockDocument.createElement.mock.calls.length).toBe(1);
-      expect(mockDocument.body.appendChild.mock.calls.length).toBe(1);
+      expect(documentMock.createElement.mock.calls.length).toBe(1);
+      expect(documentMock.body.appendChild.mock.calls.length).toBe(1);
       done();
     });
 
