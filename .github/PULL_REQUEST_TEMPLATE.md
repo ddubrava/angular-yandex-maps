@@ -1,12 +1,15 @@
-## PR Type
-
-What kind of change does this PR introduce?
+## What kind of change does this PR introduce?
 
 - [ ] Bugfix
 - [ ] Feature
 - [ ] Refactoring
 - [ ] Build or CI related changes
 - [ ] Documentation content changes
+
+## Which library does this PR affect?
+
+- [ ] angular-yandex-maps-v2
+- [ ] angular-yandex-maps-v3
 
 ## What is the current behavior?
 

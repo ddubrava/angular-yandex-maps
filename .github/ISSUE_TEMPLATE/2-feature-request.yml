@@ -14,3 +14,11 @@ body:
         Alternatives considered.
     validations:
       required: true
+
+  - type: checkboxes
+    id: library
+    attributes:
+      label: Library name
+      options:
+        - label: angular8-yandex-maps
+        - label: angular-yandex-maps-v3

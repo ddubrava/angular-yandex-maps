@@ -12,3 +12,11 @@ body:
       placeholder: A clear and concise description of the problem
     validations:
       required: true
+
+  - type: checkboxes
+    id: library
+    attributes:
+      label: Library name
+      options:
+        - label: angular8-yandex-maps
+        - label: angular-yandex-maps-v3
