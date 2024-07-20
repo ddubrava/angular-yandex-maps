@@ -8,6 +8,7 @@ interface TestingWindow extends Window {
     YMapDefaultFeaturesLayer?: jest.Mock;
     YMapDefaultSchemeLayer?: jest.Mock;
     YMapFeature?: jest.Mock;
+    YMapFeatureDataSource?: jest.Mock;
     YMapGeolocationControl?: jest.Mock;
     YMapGroupEntity?: jest.Mock;
     YMapLayer?: jest.Mock;
@@ -524,6 +525,35 @@ export const mockYMapGroupEntityConstructor = (
   } else {
     testingWindow.ymaps3 = {
       YMapGroupEntity: constructorMock,
+    };
+  }
+
+  return constructorMock;
+};
+
+/**
+ * Mocks a ymaps3.YMapFeatureDataSource instance.
+ */
+export const mockYMapFeatureDataSourceInstance = () => ({
+  update: jest.fn(),
+});
+
+/**
+ * Mocks a ymaps3.YMapFeatureDataSource class.
+ * @param instance instance that is returned from a constructor.
+ */
+export const mockYMapFeatureDataSourceConstructor = (
+  instance: ReturnType<typeof mockYMapFeatureDataSourceInstance>,
+): jest.Mock => {
+  const constructorMock = jest.fn(() => instance);
+
+  const testingWindow: TestingWindow = window;
+
+  if (testingWindow.ymaps3) {
+    testingWindow.ymaps3.YMapFeatureDataSource = constructorMock;
+  } else {
+    testingWindow.ymaps3 = {
+      YMapFeatureDataSource: constructorMock,
     };
   }
 
