@@ -18,6 +18,7 @@ export * from './lib/components/controls/y-map-scale-control/y-map-scale-control
 export * from './lib/components/controls/y-map-zoom-control/y-map-zoom-control.directive';
 export * from './lib/components/layers/y-map-default-features-layer/y-map-default-features-layer.directive';
 export * from './lib/components/layers/y-map-default-scheme-layer/y-map-default-scheme-layer.directive';
+export * from './lib/components/layers/y-map-layer/y-map-layer.directive';
 
 // Services
 export * from './lib/services/y-api-loader/y-api-loader.service';

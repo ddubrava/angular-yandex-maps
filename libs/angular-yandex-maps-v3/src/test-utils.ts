@@ -10,6 +10,7 @@ interface TestingWindow extends Window {
     YMapFeature?: jest.Mock;
     YMapGeolocationControl?: jest.Mock;
     YMapGroupEntity?: jest.Mock;
+    YMapLayer?: jest.Mock;
     YMapListener?: jest.Mock;
     YMapMarker?: jest.Mock;
     YMapOpenMapsButton?: jest.Mock;
@@ -91,6 +92,35 @@ export const mockYMapConstructor = (instance: ReturnType<typeof mockYMapInstance
   } else {
     testingWindow.ymaps3 = {
       YMap: constructorMock,
+    };
+  }
+
+  return constructorMock;
+};
+
+/**
+ * Mocks a ymaps3.YMapLayer instance.
+ */
+export const mockYMapLayerInstance = () => ({
+  update: jest.fn(),
+});
+
+/**
+ * Mocks a ymaps3.YMapLayer class.
+ * @param instance instance that is returned from a constructor.
+ */
+export const mockYMapLayerConstructor = (
+  instance: ReturnType<typeof mockYMapLayerInstance>,
+): jest.Mock => {
+  const constructorMock = jest.fn(() => instance);
+
+  const testingWindow: TestingWindow = window;
+
+  if (testingWindow.ymaps3) {
+    testingWindow.ymaps3.YMapLayer = constructorMock;
+  } else {
+    testingWindow.ymaps3 = {
+      YMapLayer: constructorMock,
     };
   }
 
