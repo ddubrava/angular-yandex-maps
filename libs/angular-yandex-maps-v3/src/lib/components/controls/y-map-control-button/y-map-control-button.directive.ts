@@ -65,10 +65,10 @@ export class YMapControlButtonDirective implements OnInit, OnChanges, OnDestroy 
     YReadyEvent<YMapControlButton>
   >();
 
-  constructor(private readonly yMapControls: YMapControlsDirective) {}
+  constructor(private readonly yMapControlsDirective: YMapControlsDirective) {}
 
   ngOnInit() {
-    this.yMapControls.controls$
+    this.yMapControlsDirective.controls$
       .pipe(filter(Boolean), takeUntil(this.destroy$))
       .subscribe((controls) => {
         this.control = new ymaps3.YMapControlButton(this.props, this.options);

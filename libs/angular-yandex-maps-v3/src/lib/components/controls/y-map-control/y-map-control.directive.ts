@@ -1,4 +1,14 @@
-import { Directive, ElementRef, EventEmitter, Input, OnChanges,OnDestroy,OnInit,Output, SimpleChanges } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { DomDetach } from '@yandex/ymaps3-types/imperative/DomContext';
 import { YMapControl, YMapControlProps } from '@yandex/ymaps3-types/imperative/YMapControl';
 import { Subject, takeUntil } from 'rxjs';
@@ -55,11 +65,11 @@ export class YMapControlDirective implements OnInit, OnChanges, OnDestroy {
 
   constructor(
     private readonly elementRef: ElementRef<HTMLElement>,
-    private readonly yMapControls: YMapControlsDirective,
+    private readonly yMapControlsDirective: YMapControlsDirective,
   ) {}
 
   ngOnInit() {
-    this.yMapControls.controls$
+    this.yMapControlsDirective.controls$
       .pipe(filter(Boolean), takeUntil(this.destroy$))
       .subscribe((controls) => {
         // ContentChild cannot be used without a selector.
