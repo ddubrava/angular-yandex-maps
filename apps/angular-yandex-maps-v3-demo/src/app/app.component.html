@@ -147,3 +147,43 @@
     </y-map-controls>
   </y-map>
 </div>
+
+<h1>Hint</h1>
+
+<div class="container">
+  <y-map
+    [props]="{
+      location: {
+        center: [-0.127696, 51.507351],
+        zoom: 9,
+      },
+    }"
+  >
+    <y-map-default-scheme-layer />
+    <y-map-default-features-layer />
+
+    <y-map-hint [props]="{ hint: onHint }">
+      <ng-template let-context>
+        <div
+          style="
+            background-color: #fff;
+            border-radius: 6px;
+            padding: 3px 6px 4px;
+            margin-left: 15px;
+          "
+        >
+          {{ context?.hint }}
+        </div>
+      </ng-template>
+    </y-map-hint>
+
+    <y-map-default-marker
+      [props]="{
+        coordinates: [-0.127696, 51.507351],
+        properties: {
+          anyNameKey: 'Central London',
+        },
+      }"
+    />
+  </y-map>
+</div>

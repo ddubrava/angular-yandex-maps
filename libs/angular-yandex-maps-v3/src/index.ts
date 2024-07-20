@@ -6,6 +6,7 @@
 export * from './lib/components/common/y-map/y-map.component';
 export * from './lib/components/common/y-map-default-marker/y-map-default-marker.directive';
 export * from './lib/components/common/y-map-feature/y-map-feature.directive';
+export * from './lib/components/common/y-map-hint/y-map-hint.directive';
 export * from './lib/components/common/y-map-feature-data-source/y-map-feature-data-source.directive';
 export * from './lib/components/common/y-map-listener/y-map-listener.directive';
 export * from './lib/components/common/y-map-marker/y-map-marker.directive';
