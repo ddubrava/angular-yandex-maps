@@ -1,3 +1,9 @@
+## 18.1.1 (2024-07-21)
+
+### 🩹 Fixes
+
+- fix redundant application ticks ([#255](https://github.com/ddubrava/angular-yandex-maps/pull/255))
+
 ## 18.1.0 (2024-07-14)
 
 ### 🚀 Features
