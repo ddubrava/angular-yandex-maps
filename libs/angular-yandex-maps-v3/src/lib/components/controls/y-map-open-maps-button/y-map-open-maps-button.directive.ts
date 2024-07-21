@@ -8,27 +8,13 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { YMap, YMapControlButton } from '@yandex/ymaps3-types';
-import { GenericEntity } from '@yandex/ymaps3-types/imperative/Entities';
-import {
-  YMapControl,
-  YMapControlCommonButton,
-  YMapControlCommonButtonProps,
-  YMapControlProps,
-} from '@yandex/ymaps3-types/imperative/YMapControl';
 import {
   YMapOpenMapsButton,
   YMapOpenMapsButtonProps,
 } from '@yandex/ymaps3-types/modules/controls-extra';
-import {
-  YMapGeolocationControlProps,
-  YMapZoomControl,
-  YMapZoomControlProps,
-} from '@yandex/ymaps3-types/packages/controls';
 import { from, Subject, takeUntil, tap } from 'rxjs';
 import { filter, switchMap } from 'rxjs/operators';
 
-import { ComplexOptions } from '../../../types/complex-options';
 import { YReadyEvent } from '../../../types/y-ready-event';
 import { YMapControlsDirective } from '../y-map-controls/y-map-controls.directive';
 
@@ -76,10 +62,10 @@ export class YMapOpenMapsButtonDirective implements OnInit, OnChanges, OnDestroy
     YReadyEvent<YMapOpenMapsButton>
   >();
 
-  constructor(private readonly yMapControls: YMapControlsDirective) {}
+  constructor(private readonly yMapControlsDirective: YMapControlsDirective) {}
 
   ngOnInit() {
-    this.yMapControls.controls$
+    this.yMapControlsDirective.controls$
       .pipe(
         filter(Boolean),
         switchMap((controls) =>

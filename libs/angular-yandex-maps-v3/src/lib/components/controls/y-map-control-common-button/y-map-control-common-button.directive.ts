@@ -68,10 +68,10 @@ export class YMapControlCommonButtonDirective implements OnInit, OnChanges, OnDe
     YReadyEvent<YMapControlCommonButton>
   >();
 
-  constructor(private readonly yMapControls: YMapControlsDirective) {}
+  constructor(private readonly yMapControlsDirective: YMapControlsDirective) {}
 
   ngOnInit() {
-    this.yMapControls.controls$
+    this.yMapControlsDirective.controls$
       .pipe(filter(Boolean), takeUntil(this.destroy$))
       .subscribe((controls) => {
         this.control = new ymaps3.YMapControlCommonButton(this.props, this.options);

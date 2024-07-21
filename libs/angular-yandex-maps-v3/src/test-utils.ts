@@ -42,19 +42,25 @@ export const mockReady = (): Promise<void> => {
   return readyMock;
 };
 
+// mockImport can be called with different constructors, if a module returns multiple entities.
+// So we need to store all of them and return them as an object.
+const imports: Record<string, unknown> = {};
+
 /**
  * Mocks ymaps3.import.
  */
 export const mockImport = (constructorName: string, constructor: unknown): jest.Mock => {
+  imports[constructorName] = constructor;
+
   const importMock = jest.fn(() => {
     // The API does this thing; we rely on this logic when updating the configuration.
     if (!testingWindow.__chunk_yandex_ymaps3) {
       testingWindow.__chunk_yandex_ymaps3 = [];
     }
 
-    testingWindow.__chunk_yandex_ymaps3.push([constructorName]);
+    testingWindow.__chunk_yandex_ymaps3 = Object.keys(imports);
 
-    return Promise.resolve({ [constructorName]: constructor });
+    return Promise.resolve(imports);
   });
 
   const testingWindow: TestingWindow = window;
@@ -158,7 +164,7 @@ export const mockYMapDefaultFeaturesLayerConstructor = (
 };
 
 /**
- * Mocks a ymaps3.YMapDefaultMarker instance.
+ * Mocks a ymaps3.import('@yandex/ymaps3-markers@X.X.X').YMapDefaultMarker instance.
  */
 export const mockYMapDefaultMarkerInstance = () => ({
   update: jest.fn(),
@@ -413,7 +419,7 @@ export const mockYMapControlsConstructor = (
 };
 
 /**
- * Mocks a ymaps3.YMapGeolocationControl instance.
+ * Mocks a ymaps3.import('@yandex/ymaps3-controls@X.X.X').YMapGeolocationControl instance.
  */
 export const mockYMapGeolocationControlInstance = () => ({
   update: jest.fn(),
@@ -434,7 +440,7 @@ export const mockYMapGeolocationControlConstructor = (
 };
 
 /**
- * Mocks a ymaps3.YMapOpenMapsButton instance.
+ * Mocks a ymaps3.import('@yandex/ymaps3-controls-extra').YMapOpenMapsButton instance.
  */
 export const mockYMapOpenMapsButtonInstance = () => ({
   update: jest.fn(),
@@ -484,7 +490,7 @@ export const mockYMapScaleControlConstructor = (
 };
 
 /**
- * Mocks a ymaps3.YMapZoomControl instance.
+ * Mocks a ymaps3.import('@yandex/ymaps3-controls@X.X.X').YMapZoomControl instance.
  */
 export const mockYMapZoomControlInstance = () => ({
   update: jest.fn(),
@@ -507,7 +513,12 @@ export const mockYMapZoomControlConstructor = (
 /**
  * Mocks a ymaps3.YMapGroupEntity instance.
  */
-export const mockYMapGroupEntityInstance = () => ({});
+export const mockYMapGroupEntityInstance = () => ({
+  _onAttach: jest.fn(),
+  _onDetach: jest.fn(),
+  _watchContext: jest.fn(),
+  _consumeContext: jest.fn(),
+});
 
 /**
  * Mocks a ymaps3.YMapGroupEntity class.
@@ -516,6 +527,10 @@ export const mockYMapGroupEntityInstance = () => ({});
 export const mockYMapGroupEntityConstructor = (
   instance: ReturnType<typeof mockYMapGroupEntityInstance>,
 ): jest.Mock => {
+  // This function is extended by another class, so it doesn't work as expected.
+  // Fields cannot be overwritten when a function is extended, not a class.
+  // But it's very complicated to test such code, so for now it is what it is.
+
   const constructorMock = jest.fn(() => instance);
 
   const testingWindow: TestingWindow = window;
@@ -556,6 +571,47 @@ export const mockYMapFeatureDataSourceConstructor = (
       YMapFeatureDataSource: constructorMock,
     };
   }
+
+  return constructorMock;
+};
+
+/**
+ * Mocks a ymaps3.import('@yandex/ymaps3-hint@X.X.X').YMapHint instance.
+ */
+export const mockYMapHintInstance = () => ({
+  update: jest.fn(),
+  addChild: jest.fn(),
+});
+
+/**
+ * Mocks a ymaps3.import('@yandex/ymaps3-hint@X.X.X').YMapHint class.
+ * @param instance instance that is returned from a constructor.
+ */
+export const mockYMapHintConstructor = (
+  instance: ReturnType<typeof mockYMapHintInstance>,
+): jest.Mock => {
+  const constructorMock = jest.fn(() => instance);
+
+  mockImport('YMapHint', constructorMock);
+
+  return constructorMock;
+};
+
+/**
+ * Mocks a ymaps3.import('@yandex/ymaps3-hint@X.X.X').YMapHintContext instance.
+ */
+export const mockYMapHintContextInstance = () => ({});
+
+/**
+ * Mocks a ymaps3.import('@yandex/ymaps3-hint@X.X.X').YMapHintContext class.
+ * @param instance instance that is returned from a constructor.
+ */
+export const mockYMapHintContextConstructor = (
+  instance: ReturnType<typeof mockYMapHintContextInstance>,
+): jest.Mock => {
+  const constructorMock = jest.fn(() => instance);
+
+  mockImport('YMapHintContext', constructorMock);
 
   return constructorMock;
 };

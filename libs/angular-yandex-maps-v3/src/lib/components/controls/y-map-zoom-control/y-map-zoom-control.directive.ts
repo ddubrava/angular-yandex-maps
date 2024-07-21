@@ -2,26 +2,14 @@ import {
   Directive,
   EventEmitter,
   Input,
-  NgZone,
   OnChanges,
   OnDestroy,
   OnInit,
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { YMap, YMapControlButton, YMapDefaultSchemeLayer } from '@yandex/ymaps3-types';
-import { GenericEntity } from '@yandex/ymaps3-types/imperative/Entities';
-import {
-  YMapControl,
-  YMapControlCommonButton,
-  YMapControlCommonButtonProps,
-  YMapControlProps,
-} from '@yandex/ymaps3-types/imperative/YMapControl';
-import {
-  YMapGeolocationControlProps,
-  YMapZoomControl,
-  YMapZoomControlProps,
-} from '@yandex/ymaps3-types/packages/controls';
+import { YMap } from '@yandex/ymaps3-types';
+import { YMapZoomControl, YMapZoomControlProps } from '@yandex/ymaps3-types/packages/controls';
 import { from, Subject, takeUntil, tap } from 'rxjs';
 import { filter, switchMap } from 'rxjs/operators';
 
@@ -78,13 +66,10 @@ export class YMapZoomControlDirective implements OnInit, OnChanges, OnDestroy {
     YReadyEvent<YMapZoomControl>
   >();
 
-  constructor(
-    private readonly yMapControls: YMapControlsDirective,
-    private readonly ngZone: NgZone,
-  ) {}
+  constructor(private readonly yMapControlsDirective: YMapControlsDirective) {}
 
   ngOnInit() {
-    this.yMapControls.controls$
+    this.yMapControlsDirective.controls$
       .pipe(
         filter(Boolean),
         switchMap((controls) =>

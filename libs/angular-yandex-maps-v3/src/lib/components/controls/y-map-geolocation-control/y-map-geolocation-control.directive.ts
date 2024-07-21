@@ -8,13 +8,6 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { YMapControlButton } from '@yandex/ymaps3-types';
-import {
-  YMapControl,
-  YMapControlCommonButton,
-  YMapControlCommonButtonProps,
-  YMapControlProps,
-} from '@yandex/ymaps3-types/imperative/YMapControl';
 import {
   YMapGeolocationControl,
   YMapGeolocationControlProps,
@@ -69,10 +62,10 @@ export class YMapGeolocationControlDirective implements OnInit, OnChanges, OnDes
     YReadyEvent<YMapGeolocationControl>
   >();
 
-  constructor(private readonly yMapControls: YMapControlsDirective) {}
+  constructor(private readonly yMapControlsDirective: YMapControlsDirective) {}
 
   ngOnInit() {
-    this.yMapControls.controls$
+    this.yMapControlsDirective.controls$
       .pipe(
         filter(Boolean),
         switchMap((controls) =>

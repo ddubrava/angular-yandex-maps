@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, DoCheck } from '@angular/core';
+import type { YMapFeature, YMapHotspot, YMapMarker } from '@yandex/ymaps3-types/imperative';
 import {
   YConfig,
   YMapComponent,
@@ -11,6 +12,7 @@ import {
   YMapDefaultSchemeLayerDirective,
   YMapFeatureDirective,
   YMapGeolocationControlDirective,
+  YMapHintDirective,
   YMapListenerDirective,
   YMapMarkerDirective,
   YMapOpenMapsButtonDirective,
@@ -39,6 +41,7 @@ import { config$ } from './app.config';
     YMapGeolocationControlDirective,
     YMapOpenMapsButtonDirective,
     YMapControlDirective,
+    YMapHintDirective,
   ],
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -59,6 +62,10 @@ export class AppComponent implements DoCheck {
 
   onListenerClick(event: unknown) {
     console.log(event);
+  }
+
+  onHint(object?: YMapFeature | YMapMarker | YMapHotspot) {
+    return object?.properties?.['anyNameKey'];
   }
 
   toggleLanguage() {
