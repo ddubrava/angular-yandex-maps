@@ -39,6 +39,12 @@
         onClick: onMarkerClick,
       }"
     />
+
+    <y-map-marker [props]="{ coordinates: [-0.127696, 51.457351] }">
+      <div style="background-color: #fff; border-radius: 6px; padding: 3px 6px 4px">
+        {{ lang }}
+      </div>
+    </y-map-marker>
   </y-map>
 </div>
 
@@ -142,7 +148,7 @@
 
     <y-map-controls [props]="{ position: 'right' }">
       <y-map-control>
-        <p>Custom HTML</p>
+        <p>{{ lang }}</p>
       </y-map-control>
     </y-map-controls>
   </y-map>

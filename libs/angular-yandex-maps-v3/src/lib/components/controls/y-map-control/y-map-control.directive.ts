@@ -1,11 +1,12 @@
 import {
+  AfterViewInit,
   Directive,
   ElementRef,
   EventEmitter,
   Input,
+  NgZone,
   OnChanges,
   OnDestroy,
-  OnInit,
   Output,
   SimpleChanges,
 } from '@angular/core';
@@ -45,10 +46,12 @@ import { YMapControlsDirective } from '../y-map-controls/y-map-controls.directiv
   selector: 'y-map-control',
   standalone: true,
 })
-export class YMapControlDirective implements OnInit, OnChanges, OnDestroy {
+export class YMapControlDirective implements AfterViewInit, OnChanges, OnDestroy {
   private readonly destroy$ = new Subject<void>();
 
   private control?: YMapControl;
+
+  private element?: HTMLElement;
 
   /**
    * See the API entity documentation for detailed information. Supports ngOnChanges.
@@ -68,7 +71,7 @@ export class YMapControlDirective implements OnInit, OnChanges, OnDestroy {
     private readonly yMapControlsDirective: YMapControlsDirective,
   ) {}
 
-  ngOnInit() {
+  ngAfterViewInit() {
     this.yMapControlsDirective.controls$
       .pipe(filter(Boolean), takeUntil(this.destroy$))
       .subscribe((controls) => {
@@ -76,10 +79,14 @@ export class YMapControlDirective implements OnInit, OnChanges, OnDestroy {
         // We do not have any selectors, and we do not want to force users to use them.
         // All we need is an alternative to React children, just to get everything projected to the component.
         // Using an element reference is probably the easiest solution for this.
-        const element = this.elementRef.nativeElement.firstChild as HTMLElement;
+        if (!this.element) {
+          // It must be saved because the Yandex.Maps API deletes the element from the DOM.
+          // Therefore, after a configuration change, we pass null, since it's deleted.
+          this.element = this.elementRef.nativeElement.firstChild as HTMLElement;
+        }
 
         this.control = new ymaps3.YMapControl(this.props);
-        this.control.addChild(this.createControlContainer(element));
+        this.control.addChild(this.createControlContainer(this.element));
         controls.addChild(this.control);
         this.ready.emit({ ymaps3, entity: this.control });
       });
