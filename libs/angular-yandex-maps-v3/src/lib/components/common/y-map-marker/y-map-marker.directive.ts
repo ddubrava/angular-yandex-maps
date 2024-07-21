@@ -58,6 +58,8 @@ export class YMapMarkerDirective implements AfterViewInit, OnDestroy, OnChanges 
 
   private marker?: YMapMarker;
 
+  private element?: HTMLElement;
+
   /**
    * See the API entity documentation for detailed information. Supports ngOnChanges.
    * {@link https://yandex.ru/dev/jsapi30/doc/ru/ref/#YMapMarkerProps}
@@ -88,9 +90,13 @@ export class YMapMarkerDirective implements AfterViewInit, OnDestroy, OnChanges 
       // We do not have any selectors, and we do not want to force users to use them.
       // All we need is an alternative to React children, just to get everything projected to the component.
       // Using an element reference is probably the easiest solution for this.
-      const element = this.elementRef.nativeElement.firstChild as HTMLElement;
+      if (!this.element) {
+        // It must be saved because the Yandex.Maps API deletes the element from the DOM.
+        // Therefore, after a configuration change, we pass null, since it's deleted.
+        this.element = this.elementRef.nativeElement.firstChild as HTMLElement;
+      }
 
-      this.marker = new ymaps3.YMapMarker(this.props, element);
+      this.marker = new ymaps3.YMapMarker(this.props, this.element);
       map.addChild(this.marker);
       this.ready.emit({ ymaps3, entity: this.marker });
     });
