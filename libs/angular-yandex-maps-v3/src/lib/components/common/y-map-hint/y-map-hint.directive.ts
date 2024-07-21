@@ -143,6 +143,8 @@ export class YMapHintDirective implements AfterContentInit, OnChanges, OnDestroy
     templateRef: TemplateRef<any>,
     _YMapHintContext: typeof YMapHintContext,
   ) {
+    // The main logic is taken from the official documentation.
+    // See https://yandex.ru/dev/jsapi30/doc/ru/ref/packages/hint/#class-ymaphint
     class HintContainer extends ymaps3.YMapGroupEntity<any> {
       _element?: Element;
       _detachDom?: DomDetach;

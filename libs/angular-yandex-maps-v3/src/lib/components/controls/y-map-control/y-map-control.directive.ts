@@ -78,30 +78,8 @@ export class YMapControlDirective implements OnInit, OnChanges, OnDestroy {
         // Using an element reference is probably the easiest solution for this.
         const element = this.elementRef.nativeElement.firstChild as HTMLElement;
 
-        // It's taken from vue yandex maps and a little bit improved.
-        // Actually, I have no idea where the official documentation for this is.
-        // https://github.com/yandex-maps-unofficial/vue-yandex-maps/blob/e14edff54acf2ef375a20138cb17b8560b7d732d/packages/vue-yandex-maps/src/components/controls/YandexMapControl.vue#L49
-        class YMapSomeController extends ymaps3.YMapGroupEntity<any> {
-          _element?: Element;
-          _detachDom?: DomDetach;
-
-          override _onAttach() {
-            this._element = element;
-            this._detachDom = ymaps3.useDomContext(this, this._element, null);
-          }
-
-          override _onDetach() {
-            if (this._detachDom) {
-              this._detachDom();
-            }
-
-            this._detachDom = undefined;
-            this._element = undefined;
-          }
-        }
-
         this.control = new ymaps3.YMapControl(this.props);
-        this.control.addChild(new YMapSomeController({}));
+        this.control.addChild(this.createControlContainer(element));
         controls.addChild(this.control);
         this.ready.emit({ ymaps3, entity: this.control });
       });
@@ -116,5 +94,33 @@ export class YMapControlDirective implements OnInit, OnChanges, OnDestroy {
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  /**
+   * To render a control, a container is required.
+   * This method isolates all the container creation logic and returns the entity.
+   */
+  private createControlContainer(element: HTMLElement) {
+    // This logic is taken from the official documentation.
+    // See https://yandex.ru/dev/jsapi30/doc/ru/ref/packages/hint/#class-ymaphint
+    class ControlContainer extends ymaps3.YMapGroupEntity<any> {
+      _element?: Element;
+      _detachDom?: DomDetach;
+
+      override _onAttach() {
+        this._element = element;
+        this._detachDom = ymaps3.useDomContext(this, this._element, null);
+      }
+
+      override _onDetach() {
+        if (this._detachDom) {
+          this._detachDom();
+        }
+
+        this._detachDom = undefined;
+      }
+    }
+
+    return new ControlContainer({});
   }
 }
