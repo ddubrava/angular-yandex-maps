@@ -270,23 +270,26 @@ export class YaPlacemarkDirective implements OnInit, OnChanges, OnDestroy {
    * @param changes
    */
   ngOnChanges(changes: SimpleChanges): void {
-    const { placemark } = this;
+    // It must be run outside a zone; otherwise, all async events within this call will cause ticks.
+    this.ngZone.runOutsideAngular(() => {
+      const { placemark } = this;
 
-    if (placemark) {
-      const { geometry, properties, options } = changes;
+      if (placemark) {
+        const { geometry, properties, options } = changes;
 
-      if (geometry) {
-        placemark.geometry?.setCoordinates(geometry.currentValue);
+        if (geometry) {
+          placemark.geometry?.setCoordinates(geometry.currentValue);
+        }
+
+        if (properties) {
+          placemark.properties.set(properties.currentValue);
+        }
+
+        if (options) {
+          placemark.options.set(options.currentValue);
+        }
       }
-
-      if (properties) {
-        placemark.properties.set(properties.currentValue);
-      }
-
-      if (options) {
-        placemark.options.set(options.currentValue);
-      }
-    }
+    });
   }
 
   ngOnInit(): void {

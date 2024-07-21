@@ -266,19 +266,22 @@ export class YaGeoObjectDirective implements OnInit, OnChanges, OnDestroy {
    * @param changes
    */
   ngOnChanges(changes: SimpleChanges): void {
-    const { geoObject } = this;
+    // It must be run outside a zone; otherwise, all async events within this call will cause ticks.
+    this.ngZone.runOutsideAngular(() => {
+      const { geoObject } = this;
 
-    if (geoObject) {
-      const { feature, options } = changes;
+      if (geoObject) {
+        const { feature, options } = changes;
 
-      if (feature) {
-        this.setFeature(feature.currentValue, geoObject);
+        if (feature) {
+          this.setFeature(feature.currentValue, geoObject);
+        }
+
+        if (options) {
+          geoObject.options.set(options.currentValue);
+        }
       }
-
-      if (options) {
-        geoObject.options.set(options.currentValue);
-      }
-    }
+    });
   }
 
   ngOnInit(): void {

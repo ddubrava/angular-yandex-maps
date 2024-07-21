@@ -123,15 +123,18 @@ export class YaClustererComponent implements AfterContentInit, OnChanges, OnDest
    * @param changes
    */
   ngOnChanges(changes: SimpleChanges): void {
-    const { clusterer } = this;
+    // It must be run outside a zone; otherwise, all async events within this call will cause ticks.
+    this.ngZone.runOutsideAngular(() => {
+      const { clusterer } = this;
 
-    if (clusterer) {
-      const { options } = changes;
+      if (clusterer) {
+        const { options } = changes;
 
-      if (options) {
-        clusterer.options.set(options.currentValue);
+        if (options) {
+          clusterer.options.set(options.currentValue);
+        }
       }
-    }
+    });
   }
 
   ngAfterContentInit(): void {

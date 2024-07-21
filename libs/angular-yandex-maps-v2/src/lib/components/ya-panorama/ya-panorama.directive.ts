@@ -150,27 +150,30 @@ export class YaPanoramaDirective implements OnInit, OnChanges, OnDestroy {
    * @param changes
    */
   ngOnChanges(changes: SimpleChanges): void {
-    const { player } = this;
+    // It must be run outside a zone; otherwise, all async events within this call will cause ticks.
+    this.ngZone.runOutsideAngular(() => {
+      const { player } = this;
 
-    if (player) {
-      const { point, layer, options } = changes;
+      if (player) {
+        const { point, layer, options } = changes;
 
-      /**
-       * player.moveTo resets values to default if any of them isn't passed.
-       * That's why we use value from currentValue OR previous value from input.
-       * With that logic it's possible to pass only point, layer or options.
-       */
-      if (point || layer) {
-        const combinedPoint: number[] = point?.currentValue || this.point;
-        const combinedLayer: ymaps.panorama.Layer = layer?.currentValue || this.layer;
+        /**
+         * player.moveTo resets values to default if any of them isn't passed.
+         * That's why we use value from currentValue OR previous value from input.
+         * With that logic it's possible to pass only point, layer or options.
+         */
+        if (point || layer) {
+          const combinedPoint: number[] = point?.currentValue || this.point;
+          const combinedLayer: ymaps.panorama.Layer = layer?.currentValue || this.layer;
 
-        player.moveTo(combinedPoint, { layer: combinedLayer });
+          player.moveTo(combinedPoint, { layer: combinedLayer });
+        }
+
+        if (options) {
+          this.setOptions(options.currentValue, player);
+        }
       }
-
-      if (options) {
-        this.setOptions(options.currentValue, player);
-      }
-    }
+    });
   }
 
   ngOnInit(): void {
