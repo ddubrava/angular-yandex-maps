@@ -2,6 +2,7 @@ import {
   Directive,
   EventEmitter,
   Input,
+  NgZone,
   OnChanges,
   OnDestroy,
   OnInit,
@@ -66,7 +67,10 @@ export class YMapZoomControlDirective implements OnInit, OnChanges, OnDestroy {
     YReadyEvent<YMapZoomControl>
   >();
 
-  constructor(private readonly yMapControlsDirective: YMapControlsDirective) {}
+  constructor(
+    private readonly ngZone: NgZone,
+    private readonly yMapControlsDirective: YMapControlsDirective,
+  ) {}
 
   ngOnInit() {
     this.yMapControlsDirective.controls$
@@ -88,9 +92,12 @@ export class YMapZoomControlDirective implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (this.control) {
-      this.control.update(changes['props'].currentValue);
-    }
+    // It must be run outside a zone; otherwise, all async events within this call will cause ticks.
+    this.ngZone.runOutsideAngular(() => {
+      if (this.control) {
+        this.control.update(changes['props'].currentValue);
+      }
+    });
   }
 
   ngOnDestroy() {

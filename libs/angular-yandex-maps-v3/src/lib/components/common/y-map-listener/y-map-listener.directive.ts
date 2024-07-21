@@ -1,8 +1,8 @@
 import {
   Directive,
-  ElementRef,
   EventEmitter,
   Input,
+  NgZone,
   OnChanges,
   OnDestroy,
   OnInit,
@@ -62,7 +62,7 @@ export class YMapListenerDirective implements OnInit, OnChanges, OnDestroy {
   >();
 
   constructor(
-    private readonly elementRef: ElementRef<HTMLElement>,
+    private readonly ngZone: NgZone,
     private readonly yMapComponent: YMapComponent,
   ) {}
 
@@ -75,9 +75,12 @@ export class YMapListenerDirective implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (this.listener) {
-      this.listener.update(changes['props'].currentValue);
-    }
+    // It must be run outside a zone; otherwise, all async events within this call will cause ticks.
+    this.ngZone.runOutsideAngular(() => {
+      if (this.listener) {
+        this.listener.update(changes['props'].currentValue);
+      }
+    });
   }
 
   ngOnDestroy() {

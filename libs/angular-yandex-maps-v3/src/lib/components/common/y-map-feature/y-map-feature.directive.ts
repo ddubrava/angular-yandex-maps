@@ -2,6 +2,7 @@ import {
   Directive,
   EventEmitter,
   Input,
+  NgZone,
   OnChanges,
   OnDestroy,
   OnInit,
@@ -75,7 +76,10 @@ export class YMapFeatureDirective implements OnInit, OnDestroy, OnChanges {
     YReadyEvent<YMapFeature>
   >();
 
-  constructor(private readonly yMapComponent: YMapComponent) {}
+  constructor(
+    private readonly ngZone: NgZone,
+    private readonly yMapComponent: YMapComponent,
+  ) {}
 
   ngOnInit() {
     this.yMapComponent.map$.pipe(filter(Boolean), takeUntil(this.destroy$)).subscribe((map) => {
@@ -86,9 +90,12 @@ export class YMapFeatureDirective implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (this.feature) {
-      this.feature.update(changes['props'].currentValue);
-    }
+    // It must be run outside a zone; otherwise, all async events within this call will cause ticks.
+    this.ngZone.runOutsideAngular(() => {
+      if (this.feature) {
+        this.feature.update(changes['props'].currentValue);
+      }
+    });
   }
 
   ngOnDestroy() {

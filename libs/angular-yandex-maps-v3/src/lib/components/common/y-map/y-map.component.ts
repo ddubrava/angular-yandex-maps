@@ -93,9 +93,12 @@ export class YMapComponent implements AfterViewInit, OnChanges, OnDestroy {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (this.map$.value) {
-      this.map$.value.update(changes['props'].currentValue);
-    }
+    // It must be run outside a zone; otherwise, all async events within this call will cause ticks.
+    this.ngZone.runOutsideAngular(() => {
+      if (this.map$.value) {
+        this.map$.value.update(changes['props'].currentValue);
+      }
+    });
   }
 
   ngOnDestroy() {

@@ -4,6 +4,7 @@ import {
   ElementRef,
   EventEmitter,
   Input,
+  NgZone,
   OnChanges,
   OnDestroy,
   Output,
@@ -74,14 +75,18 @@ export class YMapMarkerDirective implements AfterViewInit, OnDestroy, OnChanges 
   >();
 
   constructor(
+    private readonly ngZone: NgZone,
     private readonly elementRef: ElementRef<HTMLElement>,
     private readonly yMapComponent: YMapComponent,
   ) {}
 
   ngOnChanges(changes: SimpleChanges) {
-    if (this.marker) {
-      this.marker.update(changes['props'].currentValue);
-    }
+    // It must be run outside a zone; otherwise, all async events within this call will cause ticks.
+    this.ngZone.runOutsideAngular(() => {
+      if (this.marker) {
+        this.marker.update(changes['props'].currentValue);
+      }
+    });
   }
 
   ngAfterViewInit() {
