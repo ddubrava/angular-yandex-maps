@@ -259,23 +259,26 @@ export class YaMultirouteDirective implements OnInit, OnChanges, OnDestroy {
    * @param changes
    */
   ngOnChanges(changes: SimpleChanges): void {
-    const { multiroute } = this;
+    // It must be run outside a zone; otherwise, all async events within this call will cause ticks.
+    this.ngZone.runOutsideAngular(() => {
+      const { multiroute } = this;
 
-    if (multiroute) {
-      const { referencePoints, model, options } = changes;
+      if (multiroute) {
+        const { referencePoints, model, options } = changes;
 
-      if (model) {
-        this.setModel(model.currentValue, multiroute);
+        if (model) {
+          this.setModel(model.currentValue, multiroute);
+        }
+
+        if (referencePoints) {
+          multiroute.model.setReferencePoints(referencePoints.currentValue);
+        }
+
+        if (options) {
+          multiroute.options.set(options.currentValue);
+        }
       }
-
-      if (referencePoints) {
-        multiroute.model.setReferencePoints(referencePoints.currentValue);
-      }
-
-      if (options) {
-        multiroute.options.set(options.currentValue);
-      }
-    }
+    });
   }
 
   ngOnInit(): void {

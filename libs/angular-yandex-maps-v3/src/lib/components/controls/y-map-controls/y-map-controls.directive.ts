@@ -2,20 +2,14 @@ import {
   Directive,
   EventEmitter,
   Input,
+  NgZone,
   OnChanges,
   OnDestroy,
   OnInit,
   Output,
   SimpleChanges,
 } from '@angular/core';
-import {
-  YMap,
-  YMapControls,
-  YMapControlsProps,
-  YMapEntity,
-  YMapFeature,
-  YMapFeatureProps,
-} from '@yandex/ymaps3-types';
+import { YMapControls, YMapControlsProps, YMapEntity } from '@yandex/ymaps3-types';
 import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
@@ -70,7 +64,10 @@ export class YMapControlsDirective implements OnInit, OnChanges, OnDestroy {
     YReadyEvent<YMapControls>
   >();
 
-  constructor(private readonly yMapComponent: YMapComponent) {}
+  constructor(
+    private readonly ngZone: NgZone,
+    private readonly yMapComponent: YMapComponent,
+  ) {}
 
   ngOnInit() {
     this.yMapComponent.map$.pipe(filter(Boolean), takeUntil(this.destroy$)).subscribe((map) => {
@@ -83,9 +80,12 @@ export class YMapControlsDirective implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (this.controls$.value) {
-      this.controls$.value.update(changes['props'].currentValue);
-    }
+    // It must be run outside a zone; otherwise, all async events within this call will cause ticks.
+    this.ngZone.runOutsideAngular(() => {
+      if (this.controls$.value) {
+        this.controls$.value.update(changes['props'].currentValue);
+      }
+    });
   }
 
   ngOnDestroy() {

@@ -275,27 +275,30 @@ export class YaMapComponent implements AfterViewInit, OnChanges, OnDestroy {
    * @param changes
    */
   ngOnChanges(changes: SimpleChanges): void {
-    const map = this.map$.value;
+    // It must be run outside a zone; otherwise, all async events within this call will cause ticks.
+    this.ngZone.runOutsideAngular(() => {
+      const map = this.map$.value;
 
-    if (map) {
-      const { center, zoom, state, options } = changes;
+      if (map) {
+        const { center, zoom, state, options } = changes;
 
-      if (state) {
-        this.setState(this.combineState(), map);
+        if (state) {
+          this.setState(this.combineState(), map);
+        }
+
+        if (center) {
+          map.setCenter(center.currentValue);
+        }
+
+        if (zoom) {
+          map.setZoom(zoom.currentValue);
+        }
+
+        if (options) {
+          map.options.set(options.currentValue);
+        }
       }
-
-      if (center) {
-        map.setCenter(center.currentValue);
-      }
-
-      if (zoom) {
-        map.setZoom(zoom.currentValue);
-      }
-
-      if (options) {
-        map.options.set(options.currentValue);
-      }
-    }
+    });
   }
 
   ngAfterViewInit(): void {

@@ -192,15 +192,18 @@ export class YaObjectManagerDirective implements OnInit, OnChanges, OnDestroy {
    * @param changes
    */
   ngOnChanges(changes: SimpleChanges): void {
-    const { objectManager } = this;
+    // It must be run outside a zone; otherwise, all async events within this call will cause ticks.
+    this.ngZone.runOutsideAngular(() => {
+      const { objectManager } = this;
 
-    if (objectManager) {
-      const { options } = changes;
+      if (objectManager) {
+        const { options } = changes;
 
-      if (options) {
-        objectManager.options.set(options.currentValue);
+        if (options) {
+          objectManager.options.set(options.currentValue);
+        }
       }
-    }
+    });
   }
 
   ngOnInit(): void {

@@ -2,6 +2,7 @@ import {
   Directive,
   EventEmitter,
   Input,
+  NgZone,
   OnChanges,
   OnDestroy,
   OnInit,
@@ -65,7 +66,10 @@ export class YMapDefaultMarkerDirective implements OnInit, OnDestroy, OnChanges 
     YReadyEvent<YMapDefaultMarker>
   >();
 
-  constructor(private readonly yMapComponent: YMapComponent) {}
+  constructor(
+    private readonly ngZone: NgZone,
+    private readonly yMapComponent: YMapComponent,
+  ) {}
 
   ngOnInit() {
     this.yMapComponent.map$
@@ -87,9 +91,12 @@ export class YMapDefaultMarkerDirective implements OnInit, OnDestroy, OnChanges 
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (this.marker) {
-      this.marker.update(changes['props'].currentValue);
-    }
+    // It must be run outside a zone; otherwise, all async events within this call will cause ticks.
+    this.ngZone.runOutsideAngular(() => {
+      if (this.marker) {
+        this.marker.update(changes['props'].currentValue);
+      }
+    });
   }
 
   ngOnDestroy() {

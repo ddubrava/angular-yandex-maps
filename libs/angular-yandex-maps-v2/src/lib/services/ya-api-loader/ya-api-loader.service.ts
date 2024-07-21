@@ -109,6 +109,9 @@ export class YaApiLoaderService {
            * we can return of(window.ymaps), but calling ready is safer, I believe.
            */
           return from(apiObject.ready()).pipe(
+            // Each nested operator should run outside the zone.
+            // Refer to the comment above for the reason why we need to exit the zone.
+            exitZone(this.ngZone),
             /**
              * Actually, we need to update it only if they are not equal,
              * it happens if we change the configuration which required new window.ymaps.
@@ -150,7 +153,12 @@ export class YaApiLoaderService {
 
         const error = fromEvent(script, 'error').pipe(switchMap(throwError));
 
-        return merge(load, error).pipe(take(1));
+        return merge(load, error).pipe(
+          // Each nested operator should run outside the zone.
+          // Refer to the comment above for the reason why we need to exit the zone.
+          exitZone(this.ngZone),
+          take(1),
+        );
       }),
     );
   }

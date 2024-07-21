@@ -67,6 +67,7 @@ export class YMapControlDirective implements AfterViewInit, OnChanges, OnDestroy
   >();
 
   constructor(
+    private readonly ngZone: NgZone,
     private readonly elementRef: ElementRef<HTMLElement>,
     private readonly yMapControlsDirective: YMapControlsDirective,
   ) {}
@@ -93,9 +94,12 @@ export class YMapControlDirective implements AfterViewInit, OnChanges, OnDestroy
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (this.control) {
-      this.control.update(changes['props'].currentValue);
-    }
+    // It must be run outside a zone; otherwise, all async events within this call will cause ticks.
+    this.ngZone.runOutsideAngular(() => {
+      if (this.control) {
+        this.control.update(changes['props'].currentValue);
+      }
+    });
   }
 
   ngOnDestroy() {

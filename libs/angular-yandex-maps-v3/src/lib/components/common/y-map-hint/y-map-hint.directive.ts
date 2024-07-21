@@ -4,6 +4,7 @@ import {
   Directive,
   EventEmitter,
   Input,
+  NgZone,
   OnChanges,
   OnDestroy,
   Output,
@@ -96,7 +97,10 @@ export class YMapHintDirective implements AfterContentInit, OnChanges, OnDestroy
    */
   @Output() ready: EventEmitter<YReadyEvent<YMapHint>> = new EventEmitter<YReadyEvent<YMapHint>>();
 
-  constructor(private readonly yMapComponent: YMapComponent) {}
+  constructor(
+    private readonly ngZone: NgZone,
+    private readonly yMapComponent: YMapComponent,
+  ) {}
 
   ngAfterContentInit() {
     this.yMapComponent.map$
@@ -125,9 +129,12 @@ export class YMapHintDirective implements AfterContentInit, OnChanges, OnDestroy
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (this.hint) {
-      this.hint.update(changes['props'].currentValue);
-    }
+    // It must be run outside a zone; otherwise, all async events within this call will cause ticks.
+    this.ngZone.runOutsideAngular(() => {
+      if (this.hint) {
+        this.hint.update(changes['props'].currentValue);
+      }
+    });
   }
 
   ngOnDestroy() {
