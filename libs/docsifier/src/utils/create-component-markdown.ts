@@ -32,6 +32,13 @@ const createDecoratorApiReference = (description: string): string => {
 };
 
 /**
+ * Escapes all special chars that  break markdown tables.
+ */
+const escapeSpecialChars = (str: string) => {
+  return str.replace(/\|/g, '\\|').replace(/</g, '\\<').replace(/>/g, '\\>');
+};
+
+/**
  * Creates a decorator table from cols and properties.
  */
 const createDecoratorTable = (cols: string[], properties: (CompodocInput | CompodocOutput)[]) =>
@@ -40,7 +47,8 @@ const createDecoratorTable = (cols: string[], properties: (CompodocInput | Compo
     ...properties.map(({ name, type, rawdescription = '' }) => [
       name,
       createDecoratorDescription(rawdescription),
-      type,
+      // Types can have < > |, all these chars break the table.
+      escapeSpecialChars(type),
       createDecoratorApiReference(rawdescription),
     ]),
   ]);

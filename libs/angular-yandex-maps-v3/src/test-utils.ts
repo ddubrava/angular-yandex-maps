@@ -615,3 +615,35 @@ export const mockYMapHintContextConstructor = (
 
   return constructorMock;
 };
+
+/**
+ * Mocks a ymaps3.import('@yandex/ymaps3-clusterer@X.X.X').YMapClusterer instance.
+ */
+export const mockYMapClustererInstance = () => ({
+  update: jest.fn(),
+});
+
+/**
+ * Mocks a ymaps3.import('@yandex/ymaps3-clusterer@X.X.X').YMapClusterer class.
+ * @param instance instance that is returned from a constructor.
+ */
+export const mockYMapClustererConstructor = (
+  instance: ReturnType<typeof mockYMapHintContextInstance>,
+): jest.Mock => {
+  const constructorMock = jest.fn(() => instance);
+
+  mockImport('YMapClusterer', constructorMock);
+
+  return constructorMock;
+};
+
+/**
+ * Mocks ymaps3.import('@yandex/ymaps3-clusterer@X.X.X').clusterByGrid.
+ */
+export const mockClusterByGrid = (): jest.Mock => {
+  const mock = jest.fn(() => []);
+
+  mockImport('clusterByGrid', mock);
+
+  return mock;
+};

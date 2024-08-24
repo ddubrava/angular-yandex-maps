@@ -4,6 +4,7 @@
 
 // Components
 export * from './lib/components/common/y-map/y-map.component';
+export * from './lib/components/common/y-map-clusterer/y-map-clusterer.directive';
 export * from './lib/components/common/y-map-default-marker/y-map-default-marker.directive';
 export * from './lib/components/common/y-map-feature/y-map-feature.directive';
 export * from './lib/components/common/y-map-feature-data-source/y-map-feature-data-source.directive';

@@ -11,5 +11,5 @@ export interface YReadyEvent<T = any> {
    * The API global object.
    * It's already in `window.ymaps3`, but you can also access it from this event.
    */
-  ymaps3?: typeof ymaps3;
+  ymaps3: typeof ymaps3;
 }
