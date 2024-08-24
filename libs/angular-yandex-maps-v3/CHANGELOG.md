@@ -1,3 +1,9 @@
+## 18.3.0 (2024-08-24)
+
+### 🚀 Features
+
+- support YMapClusterer ([#260](https://github.com/ddubrava/angular-yandex-maps/pull/260))
+
 ## 18.2.0 (2024-07-21)
 
 ### 🚀 Features
