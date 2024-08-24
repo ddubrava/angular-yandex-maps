@@ -193,3 +193,36 @@
     />
   </y-map>
 </div>
+
+<h1>Clusterer</h1>
+
+<div class="container">
+  <y-map
+    [props]="{
+      location: {
+        center: [-0.127696, 51.507351],
+        zoom: 10,
+      },
+    }"
+  >
+    <y-map-default-scheme-layer />
+    <y-map-default-features-layer />
+
+    <y-map-clusterer [props]="{ features }">
+      <ng-template #marker let-context>
+        <img
+          src="https://yastatic.net/s3/front-maps-static/maps-front-jsapi-3/3.0.14707275/build/static/s3-cases/markers-clusterizer/pin.svg"
+          class="pin"
+        />
+      </ng-template>
+
+      <ng-template #cluster let-context>
+        <div class="circle">
+          <div class="circle-content">
+            <span class="circle-text">{{ context.features.length }}</span>
+          </div>
+        </div>
+      </ng-template>
+    </y-map-clusterer>
+  </y-map>
+</div>

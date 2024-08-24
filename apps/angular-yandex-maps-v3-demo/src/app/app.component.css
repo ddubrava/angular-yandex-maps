@@ -2,3 +2,37 @@
   width: 1000px;
   height: 500px;
 }
+
+.circle {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  color: #7234c3;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.7);
+  transform: translate(-50%, -50%);
+}
+
+.circle-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 70%;
+  height: 70%;
+  border-radius: 50%;
+  background-color: currentColor;
+  transform: translate3d(-50%, -50%, 0);
+}
+
+.circle-text {
+  font-size: 0.9em;
+  color: #fff;
+}
+
+.pin {
+  transform: translate(-50%, -100%);
+}
