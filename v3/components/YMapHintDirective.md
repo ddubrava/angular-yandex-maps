@@ -64,6 +64,6 @@ What you return from `YMapHintProps['hint']` will be available in `<ng-template 
 | props |   See the API entity documentation for detailed information. Supports ngOnChanges.   | YMapHintProps | [#YMapHintProps](https://yandex.ru/dev/jsapi30/doc/ru/ref/packages/hint/#YMapHintProps) |
 
 ## Outputs
-| Name  | Description                                                                 | Type                                | API Reference |
-| ----- | --------------------------------------------------------------------------- | ----------------------------------- | ------------- |
-| ready |   The entity instance is created. This event runs outside an Angular zone.  | EventEmitter<YReadyEvent<YMapHint>> | —             |
+| Name  | Description                                                                 | Type                                    | API Reference |
+| ----- | --------------------------------------------------------------------------- | --------------------------------------- | ------------- |
+| ready |   The entity instance is created. This event runs outside an Angular zone.  | EventEmitter\<YReadyEvent\<YMapHint\>\> | —             |

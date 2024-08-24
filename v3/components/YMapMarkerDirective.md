@@ -42,6 +42,6 @@ All component inputs are named the same as the API class constructor arguments. 
 | props |   See the API entity documentation for detailed information. Supports ngOnChanges.   | YMapMarkerProps | [#YMapMarkerProps](https://yandex.ru/dev/jsapi30/doc/ru/ref/#YMapMarkerProps) |
 
 ## Outputs
-| Name  | Description                                                                 | Type                                  | API Reference |
-| ----- | --------------------------------------------------------------------------- | ------------------------------------- | ------------- |
-| ready |   The entity instance is created. This event runs outside an Angular zone.  | EventEmitter<YReadyEvent<YMapMarker>> | —             |
+| Name  | Description                                                                 | Type                                      | API Reference |
+| ----- | --------------------------------------------------------------------------- | ----------------------------------------- | ------------- |
+| ready |   The entity instance is created. This event runs outside an Angular zone.  | EventEmitter\<YReadyEvent\<YMapMarker\>\> | —             |

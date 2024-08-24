@@ -47,6 +47,6 @@ All component inputs are named the same as the API class constructor arguments.
 | props |   See the API entity documentation for detailed information. Supports ngOnChanges.   | YMapFeatureProps | [#YMapFeatureProps](https://yandex.ru/dev/jsapi30/doc/en/ref/#YMapFeatureProps) |
 
 ## Outputs
-| Name  | Description                                                                 | Type                                   | API Reference |
-| ----- | --------------------------------------------------------------------------- | -------------------------------------- | ------------- |
-| ready |   The entity instance is created. This event runs outside an Angular zone.  | EventEmitter<YReadyEvent<YMapFeature>> | —             |
+| Name  | Description                                                                 | Type                                       | API Reference |
+| ----- | --------------------------------------------------------------------------- | ------------------------------------------ | ------------- |
+| ready |   The entity instance is created. This event runs outside an Angular zone.  | EventEmitter\<YReadyEvent\<YMapFeature\>\> | —             |

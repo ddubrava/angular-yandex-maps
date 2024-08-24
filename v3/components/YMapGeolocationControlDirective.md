@@ -31,6 +31,6 @@ This component is from the `@yandex/ymaps3-controls@0.0.1` package, which is asy
 | props |   See the API entity documentation for detailed information. Supports ngOnChanges.   | YMapGeolocationControlProps | [#YMapGeolocationControlProps](https://yandex.ru/dev/jsapi30/doc/ru/ref/packages/controls/#YMapGeolocationControlProps) |
 
 ## Outputs
-| Name  | Description                                                                 | Type                                              | API Reference |
-| ----- | --------------------------------------------------------------------------- | ------------------------------------------------- | ------------- |
-| ready |   The entity instance is created. This event runs outside an Angular zone.  | EventEmitter<YReadyEvent<YMapGeolocationControl>> | —             |
+| Name  | Description                                                                 | Type                                                  | API Reference |
+| ----- | --------------------------------------------------------------------------- | ----------------------------------------------------- | ------------- |
+| ready |   The entity instance is created. This event runs outside an Angular zone.  | EventEmitter\<YReadyEvent\<YMapGeolocationControl\>\> | —             |

@@ -4,6 +4,7 @@
   - [FAQ](v3/faq)
 - **Components**
   - [YMapComponent](v3/components/YMapComponent)
+  - [YMapClustererDirective](v3/components/YMapClustererDirective)
   - [YMapControlButtonDirective](v3/components/YMapControlButtonDirective)
   - [YMapControlCommonButtonDirective](v3/components/YMapControlCommonButtonDirective)
   - [YMapControlDirective](v3/components/YMapControlDirective)

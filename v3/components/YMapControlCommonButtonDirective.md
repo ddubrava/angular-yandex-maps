@@ -27,10 +27,10 @@ All component inputs are named the same as the API class constructor arguments. 
 ## Inputs
 | Name    | Description                                                   | Type                         | API Reference                                                                                           |
 | ------- | ------------------------------------------------------------- | ---------------------------- | ------------------------------------------------------------------------------------------------------- |
-| options |   See the API entity documentation for detailed information.  | ComplexOptions<YMap>         | —                                                                                                       |
+| options |   See the API entity documentation for detailed information.  | ComplexOptions\<YMap\>       | —                                                                                                       |
 | props   |   Button properties. Supports ngOnChanges.                    | YMapControlCommonButtonProps | [#YMapControlCommonButtonProps](https://yandex.ru/dev/jsapi30/doc/ru/ref/#YMapControlCommonButtonProps) |
 
 ## Outputs
-| Name  | Description                                                                 | Type                                               | API Reference |
-| ----- | --------------------------------------------------------------------------- | -------------------------------------------------- | ------------- |
-| ready |   The entity instance is created. This event runs outside an Angular zone.  | EventEmitter<YReadyEvent<YMapControlCommonButton>> | —             |
+| Name  | Description                                                                 | Type                                                   | API Reference |
+| ----- | --------------------------------------------------------------------------- | ------------------------------------------------------ | ------------- |
+| ready |   The entity instance is created. This event runs outside an Angular zone.  | EventEmitter\<YReadyEvent\<YMapControlCommonButton\>\> | —             |

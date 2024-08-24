@@ -27,6 +27,6 @@ API Events can be bound only manually. You can use `ready` event to get an insta
 | type       |   Control type.        | YaControlType | —             |
 
 ## Outputs
-| Name  | Description                                                                     | Type                            | API Reference |
-| ----- | ------------------------------------------------------------------------------- | ------------------------------- | ------------- |
-| ready |   Control instance is added to a Map. This event runs outside an Angular zone.  | EventEmitter<YaReadyEvent<any>> | —             |
+| Name  | Description                                                                     | Type                                | API Reference |
+| ----- | ------------------------------------------------------------------------------- | ----------------------------------- | ------------- |
+| ready |   Control instance is added to a Map. This event runs outside an Angular zone.  | EventEmitter\<YaReadyEvent\<any\>\> | —             |

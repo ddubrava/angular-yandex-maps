@@ -31,6 +31,6 @@ This component is from the `@yandex/ymaps3-controls-extra` module, which is asyn
 | props |   See the API entity documentation for detailed information. Supports ngOnChanges.   | YMapOpenMapsButtonProps | [#YMapOpenMapsButtonProps](https://yandex.ru/dev/jsapi30/doc/ru/ref/modules/controls-extra/#YMapOpenMapsButtonProps) |
 
 ## Outputs
-| Name  | Description                                                                 | Type                                          | API Reference |
-| ----- | --------------------------------------------------------------------------- | --------------------------------------------- | ------------- |
-| ready |   The entity instance is created. This event runs outside an Angular zone.  | EventEmitter<YReadyEvent<YMapOpenMapsButton>> | —             |
+| Name  | Description                                                                 | Type                                              | API Reference |
+| ----- | --------------------------------------------------------------------------- | ------------------------------------------------- | ------------- |
+| ready |   The entity instance is created. This event runs outside an Angular zone.  | EventEmitter\<YReadyEvent\<YMapOpenMapsButton\>\> | —             |

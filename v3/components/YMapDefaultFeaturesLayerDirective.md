@@ -23,10 +23,10 @@ All component inputs are named the same as the API class constructor arguments.
 ## Inputs
 | Name    | Description                                                                          | Type                          | API Reference                                                                                             |
 | ------- | ------------------------------------------------------------------------------------ | ----------------------------- | --------------------------------------------------------------------------------------------------------- |
-| options |   See the API entity documentation for detailed information.                         | ComplexOptions<YMap>          | —                                                                                                         |
+| options |   See the API entity documentation for detailed information.                         | ComplexOptions\<YMap\>        | —                                                                                                         |
 | props   |   See the API entity documentation for detailed information. Supports ngOnChanges.   | YMapDefaultFeaturesLayerProps | [#YMapDefaultFeaturesLayerProps](https://yandex.ru/dev/jsapi30/doc/ru/ref/#YMapDefaultFeaturesLayerProps) |
 
 ## Outputs
-| Name  | Description                                                                 | Type                                                | API Reference |
-| ----- | --------------------------------------------------------------------------- | --------------------------------------------------- | ------------- |
-| ready |   The entity instance is created. This event runs outside an Angular zone.  | EventEmitter<YReadyEvent<YMapDefaultFeaturesLayer>> | —             |
+| Name  | Description                                                                 | Type                                                    | API Reference |
+| ----- | --------------------------------------------------------------------------- | ------------------------------------------------------- | ------------- |
+| ready |   The entity instance is created. This event runs outside an Angular zone.  | EventEmitter\<YReadyEvent\<YMapDefaultFeaturesLayer\>\> | —             |
