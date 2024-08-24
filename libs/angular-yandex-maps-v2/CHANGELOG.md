@@ -1,3 +1,9 @@
+## 18.2.0 (2024-08-24)
+
+### 🚀 Features
+
+- improve typings ([#259](https://github.com/ddubrava/angular-yandex-maps/pull/259))
+
 ## 18.1.1 (2024-07-21)
 
 ### 🩹 Fixes
