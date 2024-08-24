@@ -4113,6 +4113,28 @@ declare namespace ymaps {
     getMap(): Map;
   }
 
+  class GeocodeResult implements IGeoObject {
+    events: IEventManager;
+    geometry: IGeometry | null;
+    options: IOptionManager;
+    properties: IDataManager;
+    state: IDataManager;
+
+    getAddressLine(): string;
+    getAdministrativeAreas(): ReadonlyArray<string>;
+    getCountry(): string | null;
+    getCountryCode(): string | null;
+    getLocalities(): ReadonlyArray<string>;
+    getMap(): Map;
+    getOverlay(): Promise<IOverlay | null>;
+    getOverlaySync(): IOverlay | null;
+    getParent(): object | null;
+    getPremise(): string | null;
+    getPremiseNumber(): string | null;
+    getThoroughfare(): string | null;
+    setParent(parent: object | null): this;
+  }
+
   interface IGeoObjectFeature {
     geometry?: IGeometry | IGeometryJson;
     properties?: IDataManager | object;
@@ -4632,6 +4654,33 @@ declare namespace ymaps {
     zIndex?: number;
   }
 
+  function suggest(request: string, options?: ISuggestOptions): Promise<ISuggestResult[]>;
+
+  interface ISuggestResult {
+    displayName: string;
+
+    value: string;
+
+    hl: number[][];
+
+    type: string;
+  }
+
+  interface ISuggestProvider {
+    suggest(
+      request: string,
+      options?: Omit<ISuggestOptions, 'provider'>,
+    ): Promise<ISuggestResult[]>;
+  }
+
+  interface ISuggestOptions {
+    boundedBy?: number[][];
+
+    provider?: ISuggestProvider | string;
+
+    results?: number;
+  }
+
   function ready(
     successCallback?: () => any | IReadyObject,
     errorCallback?: () => any,
@@ -4727,6 +4776,10 @@ declare namespace ymaps {
         quality?: number;
       },
     ): vow.Promise;
+  }
+
+  namespace template {
+    const filtersStorage: util.Storage;
   }
 
   namespace templateLayoutFactory {
@@ -5228,7 +5281,7 @@ declare namespace ymaps {
     ): Promise<object>;
   }
 
-  function geocode(request: string | number[], options?: IGeocodeOptions): Promise<object>;
+  function geocode(request: string | number[], options?: IGeocodeOptions): Promise<IGeocodeResult>;
 
   interface IGeocodeOptions {
     boundedBy?: number[][];
@@ -5239,6 +5292,10 @@ declare namespace ymaps {
     searchCoordOrder?: string;
     skip?: number;
     strictBounds?: boolean;
+  }
+
+  interface IGeocodeResult {
+    geoObjects: GeoObjectCollection;
   }
 
   interface IGeometry extends IBaseGeometry, ICustomizable {
@@ -6015,6 +6072,71 @@ declare namespace ymaps {
     clusterize?: boolean | undefined;
     syncOverlayInit?: boolean | undefined;
     viewportMargin?: number[] | number | undefined;
+  }
+
+  class LoadingObjectManager implements ICustomizable, IEventEmitter, IGeoObject, IParentOnMap {
+    constructor(urlTemplate: string, options?: ILoadingObjectManagerOptions);
+
+    clusters: objectManager.ClusterCollection;
+
+    events: IEventManager;
+
+    geometry: IGeometry | null;
+
+    objects: objectManager.ObjectCollection;
+
+    options: IOptionManager;
+
+    properties: IDataManager;
+
+    state: IDataManager;
+
+    getBounds(): number[][] | null;
+
+    getObjectState(id: any): {
+      found: boolean;
+      isShown: boolean;
+      cluster?: object;
+      isClustered: boolean;
+      isFilteredOut: boolean;
+    };
+
+    getPixelBounds(): number[][] | null;
+
+    getTileUrl(parameters: any): string | null;
+
+    getUrlTemplate(): string;
+
+    reloadData(): void;
+
+    setUrlTemplate(urlTemplate: string): void;
+
+    getMap(): Map;
+
+    getOverlay(): Promise<IOverlay | null>;
+
+    getOverlaySync(): IOverlay | null;
+
+    getParent(): IParentOnMap | null;
+
+    setParent(parent: IParentOnMap | null): this;
+  }
+
+  interface ILoadingObjectManagerOptions
+    extends Omit<IClustererOptionsInject, 'hasBalloon' | 'hasHint'>,
+      IClusterPlacemarkOptionsWithClusterPrefix,
+      Omit<IGeoObjectOptionsWithGeoObjectPrefix, 'visible'> {
+    clusterize?: boolean;
+    loadTileSize?: number;
+    paddingParamName?: string;
+    paddingTemplate?: string;
+    splitRequests?: boolean;
+    syncOverlayInit?: boolean;
+    viewportMargin?: number | number[];
+  }
+
+  namespace coordSystem {
+    const geo: ICoordSystem;
   }
 
   namespace objectManager {
