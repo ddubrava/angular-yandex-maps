@@ -3,29 +3,21 @@
   - [Examples](v2/examples)
   - [FAQ](v2/faq)
 - **Components**
-  - **ya-clusterer**
     - [YaClustererComponent](v2/components/YaClustererComponent)
-  - **ya-map**
     - [YaMapComponent](v2/components/YaMapComponent)
-  - **ya-control**
     - [YaControlDirective](v2/components/YaControlDirective)
-  - **ya-geoobject**
     - [YaGeoObjectDirective](v2/components/YaGeoObjectDirective)
-  - **ya-multiroute**
     - [YaMultirouteDirective](v2/components/YaMultirouteDirective)
-  - **ya-object-manager**
     - [YaObjectManagerDirective](v2/components/YaObjectManagerDirective)
-  - **ya-panorama**
     - [YaPanoramaDirective](v2/components/YaPanoramaDirective)
-  - **ya-placemark**
     - [YaPlacemarkDirective](v2/components/YaPlacemarkDirective)
 - **Services**
-  - [YaApiLoaderService](v2/services/YaApiLoaderService)
-  - [YaGeocoderService](v2/services/YaGeocoderService)
+    - [YaApiLoaderService](v2/services/YaApiLoaderService)
+    - [YaGeocoderService](v2/services/YaGeocoderService)
 - **Interfaces**
-  - [YaConfig](v2/interfaces/YaConfig)
-  - [YaEvent](v2/interfaces/YaEvent)
-  - [YaReadyEvent](v2/interfaces/YaReadyEvent)
-  - [YaControlType](v2/interfaces/YaControlType)
+    - [YaConfig](v2/interfaces/YaConfig)
+    - [YaEvent](v2/interfaces/YaEvent)
+    - [YaReadyEvent](v2/interfaces/YaReadyEvent)
+    - [YaControlType](v2/interfaces/YaControlType)
 - **Variables**
-  - [YA_CONFIG](v2/variables/YA_CONFIG)
+    - [YA_CONFIG](v2/variables/YA_CONFIG)

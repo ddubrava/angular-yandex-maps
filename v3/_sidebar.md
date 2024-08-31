@@ -26,9 +26,9 @@
     - [YMapDefaultSchemeLayerDirective](v3/components/YMapDefaultSchemeLayerDirective)
     - [YMapLayerDirective](v3/components/YMapLayerDirective)
 - **Services**
-  - [YApiLoaderService](v3/services/YApiLoaderService)
+    - [YApiLoaderService](v3/services/YApiLoaderService)
 - **Interfaces**
-  - [YConfig](v3/interfaces/YConfig)
-  - [YReadyEvent](v3/interfaces/YReadyEvent)
+    - [YConfig](v3/interfaces/YConfig)
+    - [YReadyEvent](v3/interfaces/YReadyEvent)
 - **Variables**
-  - [provideYConfig](v3/variables/provideYConfig)
+    - [provideYConfig](v3/variables/provideYConfig)
