@@ -3,14 +3,22 @@
   - [Examples](v2/examples)
   - [FAQ](v2/faq)
 - **Components**
-  - [YaClustererComponent](v2/components/YaClustererComponent)
-  - [YaMapComponent](v2/components/YaMapComponent)
-  - [YaControlDirective](v2/components/YaControlDirective)
-  - [YaGeoObjectDirective](v2/components/YaGeoObjectDirective)
-  - [YaMultirouteDirective](v2/components/YaMultirouteDirective)
-  - [YaObjectManagerDirective](v2/components/YaObjectManagerDirective)
-  - [YaPanoramaDirective](v2/components/YaPanoramaDirective)
-  - [YaPlacemarkDirective](v2/components/YaPlacemarkDirective)
+  - **ya-clusterer**
+    - [YaClustererComponent](v2/components/YaClustererComponent)
+  - **ya-map**
+    - [YaMapComponent](v2/components/YaMapComponent)
+  - **ya-control**
+    - [YaControlDirective](v2/components/YaControlDirective)
+  - **ya-geoobject**
+    - [YaGeoObjectDirective](v2/components/YaGeoObjectDirective)
+  - **ya-multiroute**
+    - [YaMultirouteDirective](v2/components/YaMultirouteDirective)
+  - **ya-object-manager**
+    - [YaObjectManagerDirective](v2/components/YaObjectManagerDirective)
+  - **ya-panorama**
+    - [YaPanoramaDirective](v2/components/YaPanoramaDirective)
+  - **ya-placemark**
+    - [YaPlacemarkDirective](v2/components/YaPlacemarkDirective)
 - **Services**
   - [YaApiLoaderService](v2/services/YaApiLoaderService)
   - [YaGeocoderService](v2/services/YaGeocoderService)
