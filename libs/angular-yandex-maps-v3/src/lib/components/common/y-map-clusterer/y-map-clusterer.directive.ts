@@ -33,11 +33,11 @@ import { YMapComponent } from '../y-map/y-map.component';
  * The component encapsulates some logic, making the class easier to use.
  * It remains fully customizable, and you can replicate the entire code from the official example.
  *
- * The Yandex.Maps class accepts `cluster` and `marker` callbacks that should return HTML for the elements
+ * The Yandex.Maps class accepts `cluster` and `marker` callbacks that should return HTML for the elements.
  * You can achieve the same behavior using this component in two ways:
  *
  * 1. Pass cluster and marker to props and write completely custom logic. This is the same process that the library handles internally.
- * 2. Use <ng-template #cluster let-context> and <ng-template #marker let-context>, where the HTML from the templates is passed to YMapMarker.
+ * 2. Use `<ng-template #cluster let-context>` and `<ng-template #marker let-context>`, where the HTML from the templates is passed to `YMapMarker`.
  *
  * When using templates, you can access arguments from the callback through the `$implicit` variable.
  *
