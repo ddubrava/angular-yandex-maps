@@ -38,6 +38,7 @@ type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
  */
 @Directive({
   selector: 'ya-multiroute',
+  standalone: false,
 })
 export class YaMultirouteDirective implements OnInit, OnChanges, OnDestroy {
   private readonly destroy$ = new Subject<void>();

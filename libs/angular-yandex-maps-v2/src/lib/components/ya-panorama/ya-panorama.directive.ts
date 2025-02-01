@@ -30,6 +30,7 @@ import { YaMapComponent } from '../ya-map/ya-map.component';
  */
 @Directive({
   selector: 'ya-panorama',
+  standalone: false,
 })
 export class YaPanoramaDirective implements OnInit, OnChanges, OnDestroy {
   private readonly destroy$ = new Subject<void>();

@@ -35,6 +35,7 @@ import { YaMapComponent } from '../ya-map/ya-map.component';
  */
 @Directive({
   selector: 'ya-object-manager',
+  standalone: false,
 })
 export class YaObjectManagerDirective implements OnInit, OnChanges, OnDestroy {
   private readonly destroy$ = new Subject<void>();
