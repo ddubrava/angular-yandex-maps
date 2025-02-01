@@ -112,6 +112,11 @@ export class YMapComponent implements AfterViewInit, OnChanges, OnDestroy {
     containerElem.setAttribute('id', containerId);
     containerElem.style.cssText = 'width: 100%; height: 100%;';
 
-    return new ymaps3.YMap(containerElem, this.props, this.children);
+    // The API mutates the configuration.
+    // It changes `props.config`, which causes errors on language change.
+    // Since we need to pass a clean state each time, pass a copy.
+    const clonedProps = { ...this.props };
+
+    return new ymaps3.YMap(containerElem, clonedProps, this.children);
   }
 }
