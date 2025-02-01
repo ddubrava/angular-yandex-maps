@@ -30,9 +30,9 @@ npm install @yandex/ymaps3-types --save-dev
 
 #### Version compatibility
 
-| Angular version | Library version |
-| --------------- | --------------- |
-| v16, v17, v18   | v18.x           |
+| Angular version    | Library version |
+| ------------------ | --------------- |
+| v16, v17, v18, v19 | v19.x           |
 
 ## Usage
 
