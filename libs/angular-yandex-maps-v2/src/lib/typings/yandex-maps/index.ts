@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-types */
-/* eslint-disable @typescript-eslint/brace-style */
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
 /* eslint-disable @typescript-eslint/no-namespace */
 /* eslint-disable @typescript-eslint/no-shadow */
@@ -1350,7 +1348,7 @@ declare namespace ymaps {
       getLength(): number;
     }
 
-    class Manager<TargetGeometry = {}> implements IEventManager<TargetGeometry> {
+    class Manager<TargetGeometry = object> implements IEventManager<TargetGeometry> {
       constructor(params?: {
         context?: object | undefined;
         controllers?: IEventWorkflowController[] | undefined;
@@ -3969,7 +3967,7 @@ declare namespace ymaps {
 
   type IClusterPlacemarkOptionsWithClusterPrefix = Prefix<IClusterPlacemarkOptions, 'cluster'>;
 
-  class Collection<T = {}> implements ICollection, collection.Item {
+  class Collection<T = object> implements ICollection, collection.Item {
     constructor(options?: object);
 
     events: IEventManager;
@@ -4005,7 +4003,7 @@ declare namespace ymaps {
     removeAll(): this;
   }
 
-  class Event<OriginalEvent = {}, TargetGeometry = {}>
+  class Event<OriginalEvent = object, TargetGeometry = object>
     implements IEvent<OriginalEvent, TargetGeometry>
   {
     constructor(originalEvent: object, sourceEvent: IEvent);
@@ -4044,7 +4042,7 @@ declare namespace ymaps {
     stopPropagation(): boolean;
   }
 
-  class DomEvent<OriginalEvent = {}, TargetGeometry = {}>
+  class DomEvent<OriginalEvent = object, TargetGeometry = object>
     implements IDomEvent<OriginalEvent, TargetGeometry>
   {
     constructor(originalEvent: DomEvent, type?: object);
@@ -4083,7 +4081,7 @@ declare namespace ymaps {
     stopPropagation(): boolean;
   }
 
-  class GeoObject<T = IGeometry, TargetGeometry = {}> implements IGeoObject<T> {
+  class GeoObject<T = IGeometry, TargetGeometry = object> implements IGeoObject<T> {
     constructor(feature?: IGeoObjectFeature, options?: IGeoObjectOptions);
 
     geometry: T | null;
@@ -4415,7 +4413,7 @@ declare namespace ymaps {
     setZoom(zoom: number, options?: IMapZoomOptions): this;
   }
 
-  class MapEvent<OriginalEvent = {}, TargetGeometry = {}> extends Event<
+  class MapEvent<OriginalEvent = object, TargetGeometry = object> extends Event<
     OriginalEvent,
     TargetGeometry
   > {
@@ -4783,7 +4781,7 @@ declare namespace ymaps {
   }
 
   namespace templateLayoutFactory {
-    function createClass<O extends {} = {}, S extends {} = {}>(
+    function createClass<O extends object = object, S extends object = object>(
       template: string,
       overrides?: O,
       staticMethods?: S,
@@ -5133,7 +5131,7 @@ declare namespace ymaps {
 
   type IDomEventEmitter = IEventEmitter;
 
-  interface IEvent<OriginalEvent = {}, TargetGeometry = {}> {
+  interface IEvent<OriginalEvent = object, TargetGeometry = object> {
     originalEvent: {
       domEvent: {
         originalEvent: OriginalEvent;
@@ -5174,7 +5172,7 @@ declare namespace ymaps {
     stopPropagation(): boolean;
   }
 
-  interface IDomEvent<OriginalEvent = {}, TargetGeometry = {}>
+  interface IDomEvent<OriginalEvent = object, TargetGeometry = object>
     extends IEvent<OriginalEvent, TargetGeometry> {
     getSourceEvent(): IDomEvent<OriginalEvent, TargetGeometry>;
   }
@@ -5214,7 +5212,7 @@ declare namespace ymaps {
     removeAll(): this;
   }
 
-  interface IEventManager<TargetGeometry = {}> extends IEventTrigger {
+  interface IEventManager<TargetGeometry = object> extends IEventTrigger {
     add(
       types: string[][] | string[] | string,
       callback: (event: IEvent) => void,
@@ -5459,7 +5457,7 @@ declare namespace ymaps {
 
     getExtremeObject(key: 'top' | 'right' | 'bottom' | 'left'): IGeoObject;
 
-    getGlobalPixelBounds(map: Map): Number[][] | null;
+    getGlobalPixelBounds(map: Map): number[][] | null;
 
     getGlobalPixelCenter(map: Map): number[];
 
