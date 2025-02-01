@@ -37,6 +37,7 @@ testem.log
 environment.local.ts
 .angular
 .nx/cache
+.nx/workspace-data
 .env
 
 # System Files

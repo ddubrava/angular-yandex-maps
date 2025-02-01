@@ -26,7 +26,6 @@ import { environment } from '../environments/environment';
 import { config$ } from './app.config';
 
 @Component({
-  standalone: true,
   imports: [
     YMapComponent,
     YMapDefaultFeaturesLayerDirective,

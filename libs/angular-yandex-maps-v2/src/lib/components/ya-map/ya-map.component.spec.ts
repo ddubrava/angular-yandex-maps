@@ -20,6 +20,7 @@ import { YaMapComponent } from './ya-map.component';
       (hintopen)="handleHintOpen()"
     ></ya-map>
   `,
+  standalone: false,
 })
 class MockHostComponent {
   @ViewChild(YaMapComponent, { static: true }) map!: YaMapComponent;

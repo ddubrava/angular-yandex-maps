@@ -32,6 +32,7 @@ import { YaMapComponent } from '../ya-map/ya-map.component';
  */
 @Directive({
   selector: 'ya-placemark',
+  standalone: false,
 })
 export class YaPlacemarkDirective implements OnInit, OnChanges, OnDestroy {
   private readonly destroy$ = new Subject<void>();

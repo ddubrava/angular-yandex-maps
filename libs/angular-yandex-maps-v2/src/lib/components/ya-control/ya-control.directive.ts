@@ -49,6 +49,7 @@ export type YaControlType =
  */
 @Directive({
   selector: 'ya-control',
+  standalone: false,
 })
 export class YaControlDirective implements OnInit, OnChanges, OnDestroy {
   private readonly destroy$ = new Subject<void>();

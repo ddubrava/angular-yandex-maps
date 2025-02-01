@@ -38,6 +38,7 @@ import { YaClustererComponent } from './ya-clusterer.component';
       </ng-container>
     </ya-clusterer>
   `,
+  standalone: false,
 })
 class MockHostComponent {
   @ViewChild(YaClustererComponent, { static: true }) clusterer!: YaClustererComponent;

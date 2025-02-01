@@ -38,6 +38,7 @@ import { generateRandomId } from '../../utils/generate-random-id/generate-random
   selector: 'ya-map',
   template: '<div #container></div>',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class YaMapComponent implements AfterViewInit, OnChanges, OnDestroy {
   @ViewChild('container') readonly container!: ElementRef;

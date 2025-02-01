@@ -6,7 +6,6 @@ import { environment } from '../environments/environment';
 import { config$ } from './app.config';
 
 @Component({
-  standalone: true,
   imports: [AngularYandexMapsModule, NgForOf],
   selector: 'app-root',
   templateUrl: './app.component.html',

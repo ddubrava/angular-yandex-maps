@@ -51,6 +51,7 @@ import { YaPlacemarkDirective } from '../ya-placemark/ya-placemark.directive';
   selector: 'ya-clusterer',
   template: '<ng-content></ng-content>',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class YaClustererComponent implements AfterContentInit, OnChanges, OnDestroy {
   @ContentChildren(YaPlacemarkDirective)
