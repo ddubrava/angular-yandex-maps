@@ -1,3 +1,9 @@
+# 19.0.0 (2025-02-02)
+
+### 🚀 Features
+
+- update to Angular 19 ([#266](https://github.com/ddubrava/angular-yandex-maps/pull/266))
+
 ## 18.2.0 (2024-08-24)
 
 ### 🚀 Features

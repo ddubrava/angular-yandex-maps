@@ -1,3 +1,13 @@
+# 19.0.0 (2025-02-02)
+
+### 🚀 Features
+
+- update to Angular 19 ([#266](https://github.com/ddubrava/angular-yandex-maps/pull/266))
+
+### 🩹 Fixes
+
+- fix "ymaps3: missing config" error on language change ([57e1cc6](https://github.com/ddubrava/angular-yandex-maps/commit/57e1cc6))
+
 ## 18.3.0 (2024-08-24)
 
 ### 🚀 Features
