@@ -3,6 +3,7 @@ import {
   ContentChild,
   Directive,
   EventEmitter,
+  inject,
   Input,
   NgZone,
   OnChanges,
@@ -91,6 +92,9 @@ import { YMapComponent } from '../y-map/y-map.component';
   standalone: true,
 })
 export class YMapClustererDirective implements AfterContentInit, OnDestroy, OnChanges {
+  private readonly ngZone = inject(NgZone);
+  private readonly yMapComponent = inject(YMapComponent);
+
   @ContentChild('marker') markerTemplate?: TemplateRef<{
     $implicit: Feature;
   }>;
@@ -118,11 +122,6 @@ export class YMapClustererDirective implements AfterContentInit, OnDestroy, OnCh
   @Output() ready: EventEmitter<YReadyEvent<YMapClusterer>> = new EventEmitter<
     YReadyEvent<YMapClusterer>
   >();
-
-  constructor(
-    private readonly ngZone: NgZone,
-    private readonly yMapComponent: YMapComponent,
-  ) {}
 
   ngAfterContentInit() {
     this.yMapComponent.map$

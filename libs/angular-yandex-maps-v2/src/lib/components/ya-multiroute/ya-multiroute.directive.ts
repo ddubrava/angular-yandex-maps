@@ -1,6 +1,7 @@
 import {
   Directive,
   EventEmitter,
+  inject,
   Input,
   NgZone,
   OnChanges,
@@ -41,6 +42,9 @@ type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
   standalone: false,
 })
 export class YaMultirouteDirective implements OnInit, OnChanges, OnDestroy {
+  private readonly ngZone = inject(NgZone);
+  private readonly yaMapComponent = inject(YaMapComponent);
+
   private readonly destroy$ = new Subject<void>();
 
   private readonly eventManager = new EventManager(this.ngZone);
@@ -249,11 +253,6 @@ export class YaMultirouteDirective implements OnInit, OnChanges, OnDestroy {
    */
   @Output() yawheel: Observable<YaEvent<ymaps.multiRouter.MultiRoute>> =
     this.eventManager.getLazyEmitter('wheel');
-
-  constructor(
-    private readonly ngZone: NgZone,
-    private readonly yaMapComponent: YaMapComponent,
-  ) {}
 
   /**
    * Handles input changes and passes them in API.

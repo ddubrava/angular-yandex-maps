@@ -1,6 +1,7 @@
 import {
   Directive,
   EventEmitter,
+  inject,
   Input,
   NgZone,
   OnChanges,
@@ -47,6 +48,9 @@ import { YMapControlsDirective } from '../y-map-controls/y-map-controls.directiv
   standalone: true,
 })
 export class YMapControlCommonButtonDirective implements OnInit, OnChanges, OnDestroy {
+  private readonly ngZone = inject(NgZone);
+  private readonly yMapControlsDirective = inject(YMapControlsDirective);
+
   private readonly destroy$ = new Subject<void>();
 
   private control?: YMapControlCommonButton;
@@ -68,11 +72,6 @@ export class YMapControlCommonButtonDirective implements OnInit, OnChanges, OnDe
   @Output() ready: EventEmitter<YReadyEvent<YMapControlCommonButton>> = new EventEmitter<
     YReadyEvent<YMapControlCommonButton>
   >();
-
-  constructor(
-    private readonly ngZone: NgZone,
-    private readonly yMapControlsDirective: YMapControlsDirective,
-  ) {}
 
   ngOnInit() {
     this.yMapControlsDirective.controls$

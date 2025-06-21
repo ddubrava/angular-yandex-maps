@@ -1,6 +1,7 @@
 import {
   Directive,
   EventEmitter,
+  inject,
   Input,
   NgZone,
   OnChanges,
@@ -45,6 +46,9 @@ import { YMapControlsDirective } from '../y-map-controls/y-map-controls.directiv
   standalone: true,
 })
 export class YMapZoomControlDirective implements OnInit, OnChanges, OnDestroy {
+  private readonly ngZone = inject(NgZone);
+  private readonly yMapControlsDirective = inject(YMapControlsDirective);
+
   private readonly destroy$ = new Subject<void>();
 
   private control?: YMapZoomControl;
@@ -66,11 +70,6 @@ export class YMapZoomControlDirective implements OnInit, OnChanges, OnDestroy {
   @Output() ready: EventEmitter<YReadyEvent<YMapZoomControl>> = new EventEmitter<
     YReadyEvent<YMapZoomControl>
   >();
-
-  constructor(
-    private readonly ngZone: NgZone,
-    private readonly yMapControlsDirective: YMapControlsDirective,
-  ) {}
 
   ngOnInit() {
     this.yMapControlsDirective.controls$

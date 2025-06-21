@@ -1,6 +1,7 @@
 import {
   Directive,
   EventEmitter,
+  inject,
   Input,
   NgZone,
   OnChanges,
@@ -33,6 +34,9 @@ import { YaMapComponent } from '../ya-map/ya-map.component';
   standalone: false,
 })
 export class YaPanoramaDirective implements OnInit, OnChanges, OnDestroy {
+  private readonly ngZone = inject(NgZone);
+  private readonly yaMapComponent = inject(YaMapComponent);
+
   private readonly destroy$ = new Subject<void>();
 
   private readonly eventManager = new EventManager(this.ngZone);
@@ -140,11 +144,6 @@ export class YaPanoramaDirective implements OnInit, OnChanges, OnDestroy {
    */
   @Output() spanchange: Observable<YaEvent<ymaps.panorama.Player>> =
     this.eventManager.getLazyEmitter('spanchange');
-
-  constructor(
-    private readonly ngZone: NgZone,
-    private readonly yaMapComponent: YaMapComponent,
-  ) {}
 
   /**
    * Handles input changes and passes them in API.

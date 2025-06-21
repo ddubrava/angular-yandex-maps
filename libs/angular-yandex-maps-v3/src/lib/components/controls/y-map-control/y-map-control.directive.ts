@@ -3,6 +3,7 @@ import {
   Directive,
   ElementRef,
   EventEmitter,
+  inject,
   Input,
   NgZone,
   OnChanges,
@@ -47,6 +48,10 @@ import { YMapControlsDirective } from '../y-map-controls/y-map-controls.directiv
   standalone: true,
 })
 export class YMapControlDirective implements AfterViewInit, OnChanges, OnDestroy {
+  private readonly ngZone = inject(NgZone);
+  private readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+  private readonly yMapControlsDirective = inject(YMapControlsDirective);
+
   private readonly destroy$ = new Subject<void>();
 
   private control?: YMapControl;
@@ -65,12 +70,6 @@ export class YMapControlDirective implements AfterViewInit, OnChanges, OnDestroy
   @Output() ready: EventEmitter<YReadyEvent<YMapControl>> = new EventEmitter<
     YReadyEvent<YMapControl>
   >();
-
-  constructor(
-    private readonly ngZone: NgZone,
-    private readonly elementRef: ElementRef<HTMLElement>,
-    private readonly yMapControlsDirective: YMapControlsDirective,
-  ) {}
 
   ngAfterViewInit() {
     this.yMapControlsDirective.controls$

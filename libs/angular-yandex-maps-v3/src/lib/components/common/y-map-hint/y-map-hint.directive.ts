@@ -3,6 +3,7 @@ import {
   ContentChild,
   Directive,
   EventEmitter,
+  inject,
   Input,
   NgZone,
   OnChanges,
@@ -80,6 +81,9 @@ import { YMapComponent } from '../y-map/y-map.component';
   standalone: true,
 })
 export class YMapHintDirective implements AfterContentInit, OnChanges, OnDestroy {
+  private readonly ngZone = inject(NgZone);
+  private readonly yMapComponent = inject(YMapComponent);
+
   @ContentChild(TemplateRef) template?: TemplateRef<any>;
 
   private readonly destroy$ = new Subject<void>();
@@ -96,11 +100,6 @@ export class YMapHintDirective implements AfterContentInit, OnChanges, OnDestroy
    * The entity instance is created. This event runs outside an Angular zone.
    */
   @Output() ready: EventEmitter<YReadyEvent<YMapHint>> = new EventEmitter<YReadyEvent<YMapHint>>();
-
-  constructor(
-    private readonly ngZone: NgZone,
-    private readonly yMapComponent: YMapComponent,
-  ) {}
 
   ngAfterContentInit() {
     this.yMapComponent.map$
