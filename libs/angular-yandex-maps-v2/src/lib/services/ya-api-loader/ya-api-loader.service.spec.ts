@@ -1,7 +1,10 @@
+import { DOCUMENT, NgZone, PLATFORM_ID } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
 import { combineLatest, mergeMap, NEVER, Observable, Subject, tap } from 'rxjs';
 
 import { mockReady } from '../../../test-utils';
 import { YaConfig } from '../../interfaces/ya-config';
+import { YA_CONFIG } from '../../tokens/ya-config';
 import { YaApiLoaderService } from './ya-api-loader.service';
 
 class FakeHTMLScriptElement implements Partial<HTMLScriptElement> {
@@ -29,21 +32,6 @@ class FakeHTMLScriptElement implements Partial<HTMLScriptElement> {
 }
 
 describe('YaApiLoaderService', () => {
-  let script: FakeHTMLScriptElement;
-
-  let documentMock: {
-    createElement: jest.Mock;
-    body: {
-      appendChild: jest.Mock;
-    };
-  };
-
-  let zoneMock: {
-    runOutsideAngular: jest.Mock;
-  };
-
-  let service: YaApiLoaderService;
-
   /**
    * Mocks loader dependencies.
    */
@@ -55,9 +43,9 @@ describe('YaApiLoaderService', () => {
      * The order is important.
      * We create a script, use it as a mock value abd only then create a service with a configuration.
      */
-    script = new FakeHTMLScriptElement();
+    const script = new FakeHTMLScriptElement();
 
-    documentMock = {
+    const documentMock = {
       createElement: jest.fn(),
       body: {
         appendChild: jest.fn(),
@@ -67,18 +55,45 @@ describe('YaApiLoaderService', () => {
     documentMock.createElement.mockReturnValue(script);
     documentMock.body.appendChild.mockReturnValue(script);
 
-    zoneMock = {
+    const zoneMock = {
+      onUnstable: NEVER,
+      onMicrotaskEmpty: NEVER,
+      onStable: NEVER,
+      onError: NEVER,
       runOutsideAngular: jest.fn((fn) => fn()),
     };
 
-    service = new YaApiLoaderService(config, documentMock as any, platformId, zoneMock as any);
+    TestBed.configureTestingModule({
+      providers: [
+        {
+          provide: YA_CONFIG,
+          useValue: config,
+        },
+        {
+          provide: PLATFORM_ID,
+          useValue: platformId,
+        },
+        {
+          provide: DOCUMENT,
+          useValue: documentMock,
+        },
+        {
+          provide: NgZone,
+          useValue: zoneMock,
+        },
+      ],
+    });
+
+    const service = TestBed.inject(YaApiLoaderService);
+
+    return { script, documentMock, zoneMock, service };
   };
 
   /**
    * Fires all onHandlers by a type.
    * For 'load' event reproduces the API logic - defines window.ymaps.
    */
-  const fireScriptEvents = (type = 'load', args?: unknown) => {
+  const fireScriptEvents = (script: FakeHTMLScriptElement, type = 'load', args?: unknown) => {
     const handlers = script.onHandlers[type];
 
     if (!handlers) {
@@ -102,23 +117,23 @@ describe('YaApiLoaderService', () => {
   });
 
   it('should not load API on server-side rendering', () => {
-    mockLoaderService({}, 'server');
+    const { service } = mockLoaderService({}, 'server');
     expect(service.load()).toBe(NEVER);
   });
 
   it('should load API outside an Angular zone', (done) => {
-    mockLoaderService();
+    const { service, zoneMock, script } = mockLoaderService();
 
     service.load().subscribe(() => {
       expect(zoneMock.runOutsideAngular).toHaveBeenCalled();
       done();
     });
 
-    fireScriptEvents();
+    fireScriptEvents(script);
   });
 
   it('should create script with default options if config is not passed', (done) => {
-    mockLoaderService();
+    const { service, documentMock, script } = mockLoaderService();
 
     service.load().subscribe(() => {
       expect(documentMock.createElement).toHaveBeenCalled();
@@ -131,7 +146,7 @@ describe('YaApiLoaderService', () => {
       done();
     });
 
-    fireScriptEvents();
+    fireScriptEvents(script);
   });
 
   it('should use default config options if they are not passed', (done) => {
@@ -139,14 +154,14 @@ describe('YaApiLoaderService', () => {
       apikey: 'X-X-X',
     };
 
-    mockLoaderService(config);
+    const { service, script } = mockLoaderService(config);
 
     service.load().subscribe(() => {
       expect(script.src).toBe('https://api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=X-X-X');
       done();
     });
 
-    fireScriptEvents();
+    fireScriptEvents(script);
   });
 
   it('should create script with provided options if config is passed', (done) => {
@@ -161,7 +176,7 @@ describe('YaApiLoaderService', () => {
       version: '2.0',
     };
 
-    mockLoaderService(config);
+    const { service, script } = mockLoaderService(config);
 
     service.load().subscribe(() => {
       // They are not in the same order as YaConfig, since there is a default config.
@@ -172,7 +187,7 @@ describe('YaApiLoaderService', () => {
       done();
     });
 
-    fireScriptEvents();
+    fireScriptEvents(script);
   });
 
   it('should create enterprise script if enterprise flag is passed', (done) => {
@@ -180,14 +195,14 @@ describe('YaApiLoaderService', () => {
       enterprise: true,
     };
 
-    mockLoaderService(config);
+    const { service, script } = mockLoaderService(config);
 
     service.load().subscribe(() => {
       expect(script.src).toBe('https://enterprise.api-maps.yandex.ru/2.1/?lang=ru_RU');
       done();
     });
 
-    fireScriptEvents();
+    fireScriptEvents(script);
   });
 
   it('should throw error if v3 version is used', (done) => {
@@ -195,7 +210,7 @@ describe('YaApiLoaderService', () => {
       version: 'v3',
     };
 
-    mockLoaderService(config);
+    const { service, script } = mockLoaderService(config);
 
     service.load().subscribe({
       error: (e) => {
@@ -204,11 +219,11 @@ describe('YaApiLoaderService', () => {
       },
     });
 
-    fireScriptEvents();
+    fireScriptEvents(script);
   });
 
   it('should use ymaps from cache if it is defined', (done) => {
-    mockLoaderService();
+    const { service, script } = mockLoaderService();
 
     /**
      * The first call loads the API via a script load event.
@@ -230,13 +245,13 @@ describe('YaApiLoaderService', () => {
         done();
       });
 
-    fireScriptEvents();
+    fireScriptEvents(script);
   });
 
   it('should change window.ymaps on configuration change', () => {
     const config$ = new Subject<YaConfig>();
 
-    mockLoaderService(config$);
+    const { service, script } = mockLoaderService(config$);
 
     // Subscribe to trigger an observable.
     service.load().subscribe();
@@ -245,7 +260,7 @@ describe('YaApiLoaderService', () => {
     const firstConfiguration: YaConfig = { lang: 'ru_RU', enterprise: true, version: '1.31.2' };
 
     config$.next(firstConfiguration);
-    fireScriptEvents();
+    fireScriptEvents(script);
 
     const firstConfigurationYmaps = window.ymaps;
 
@@ -253,7 +268,7 @@ describe('YaApiLoaderService', () => {
     const secondConfiguration: YaConfig = { version: '2.25.1' };
 
     config$.next(secondConfiguration);
-    fireScriptEvents();
+    fireScriptEvents(script);
 
     const secondConfigurationYmaps = window.ymaps;
 
@@ -269,7 +284,7 @@ describe('YaApiLoaderService', () => {
   });
 
   it('should append script if it does not exist in cache', (done) => {
-    mockLoaderService();
+    const { service, documentMock, script } = mockLoaderService();
 
     service.load().subscribe(() => {
       expect(documentMock.createElement.mock.calls.length).toBe(1);
@@ -277,11 +292,11 @@ describe('YaApiLoaderService', () => {
       done();
     });
 
-    fireScriptEvents();
+    fireScriptEvents(script);
   });
 
   it('should not append second script if load called in a sequence', (done) => {
-    mockLoaderService();
+    const { service, documentMock, script } = mockLoaderService();
 
     combineLatest([service.load(), service.load(), service.load()]).subscribe(() => {
       expect(documentMock.createElement.mock.calls.length).toBe(1);
@@ -289,11 +304,11 @@ describe('YaApiLoaderService', () => {
       done();
     });
 
-    fireScriptEvents();
+    fireScriptEvents(script);
   });
 
   it('should delete window.ymaps before loading new configuration', (done) => {
-    mockLoaderService();
+    const { service, script } = mockLoaderService();
 
     // define window.ymaps
     mockReady();
@@ -305,11 +320,11 @@ describe('YaApiLoaderService', () => {
       done();
     });
 
-    fireScriptEvents();
+    fireScriptEvents(script);
   });
 
   it('should throw error on script loading error', (done) => {
-    mockLoaderService();
+    const { service, script } = mockLoaderService();
 
     const error = { code: 401 };
 
@@ -320,6 +335,6 @@ describe('YaApiLoaderService', () => {
       },
     });
 
-    fireScriptEvents('error', error);
+    fireScriptEvents(script, 'error', error);
   });
 });
