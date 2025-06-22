@@ -1,6 +1,7 @@
 import {
   Directive,
   EventEmitter,
+  inject,
   Input,
   NgZone,
   OnChanges,
@@ -49,6 +50,9 @@ import { YMapComponent } from '../y-map/y-map.component';
   standalone: true,
 })
 export class YMapDefaultMarkerDirective implements OnInit, OnDestroy, OnChanges {
+  private readonly ngZone = inject(NgZone);
+  private readonly yMapComponent = inject(YMapComponent);
+
   private readonly destroy$ = new Subject<void>();
 
   private marker?: YMapDefaultMarker;
@@ -65,11 +69,6 @@ export class YMapDefaultMarkerDirective implements OnInit, OnDestroy, OnChanges 
   @Output() ready: EventEmitter<YReadyEvent<YMapDefaultMarker>> = new EventEmitter<
     YReadyEvent<YMapDefaultMarker>
   >();
-
-  constructor(
-    private readonly ngZone: NgZone,
-    private readonly yMapComponent: YMapComponent,
-  ) {}
 
   ngOnInit() {
     this.yMapComponent.map$

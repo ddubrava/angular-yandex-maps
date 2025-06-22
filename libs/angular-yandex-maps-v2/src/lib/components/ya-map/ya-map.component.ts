@@ -4,6 +4,7 @@ import {
   Component,
   ElementRef,
   EventEmitter,
+  inject,
   Input,
   NgZone,
   OnChanges,
@@ -41,6 +42,9 @@ import { generateRandomId } from '../../utils/generate-random-id/generate-random
   standalone: false,
 })
 export class YaMapComponent implements AfterViewInit, OnChanges, OnDestroy {
+  private readonly ngZone = inject(NgZone);
+  private readonly yaApiLoaderService = inject(YaApiLoaderService);
+
   @ViewChild('container') readonly container!: ElementRef;
 
   private readonly destroy$ = new Subject<void>();
@@ -265,11 +269,6 @@ export class YaMapComponent implements AfterViewInit, OnChanges, OnDestroy {
    * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/IDomEventEmitter.html#event_detail__event-wheel}
    */
   @Output() yawheel: Observable<YaEvent<ymaps.Map>> = this.eventManager.getLazyEmitter('wheel');
-
-  constructor(
-    private readonly ngZone: NgZone,
-    private readonly yaApiLoaderService: YaApiLoaderService,
-  ) {}
 
   /**
    * Handles input changes and passes them in API.

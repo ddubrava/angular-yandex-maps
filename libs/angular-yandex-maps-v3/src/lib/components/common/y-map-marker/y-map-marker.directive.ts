@@ -3,6 +3,7 @@ import {
   Directive,
   ElementRef,
   EventEmitter,
+  inject,
   Input,
   NgZone,
   OnChanges,
@@ -55,6 +56,10 @@ import { YMapComponent } from '../y-map/y-map.component';
   standalone: true,
 })
 export class YMapMarkerDirective implements AfterViewInit, OnDestroy, OnChanges {
+  private readonly ngZone = inject(NgZone);
+  private readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+  private readonly yMapComponent = inject(YMapComponent);
+
   private readonly destroy$ = new Subject<void>();
 
   private marker?: YMapMarker;
@@ -73,12 +78,6 @@ export class YMapMarkerDirective implements AfterViewInit, OnDestroy, OnChanges 
   @Output() ready: EventEmitter<YReadyEvent<YMapMarker>> = new EventEmitter<
     YReadyEvent<YMapMarker>
   >();
-
-  constructor(
-    private readonly ngZone: NgZone,
-    private readonly elementRef: ElementRef<HTMLElement>,
-    private readonly yMapComponent: YMapComponent,
-  ) {}
 
   ngOnChanges(changes: SimpleChanges) {
     // It must be run outside a zone; otherwise, all async events within this call will cause ticks.

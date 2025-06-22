@@ -1,4 +1,3 @@
-import { NgForOf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, DoCheck } from '@angular/core';
 import { AngularYandexMapsModule, YaConfig, YaReadyEvent } from 'angular8-yandex-maps';
 
@@ -6,7 +5,7 @@ import { environment } from '../environments/environment';
 import { config$ } from './app.config';
 
 @Component({
-  imports: [AngularYandexMapsModule, NgForOf],
+  imports: [AngularYandexMapsModule],
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',

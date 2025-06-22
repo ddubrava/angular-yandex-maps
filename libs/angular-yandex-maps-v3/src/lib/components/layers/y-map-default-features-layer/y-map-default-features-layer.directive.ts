@@ -1,6 +1,7 @@
 import {
   Directive,
   EventEmitter,
+  inject,
   Input,
   NgZone,
   OnChanges,
@@ -43,6 +44,9 @@ import { YMapComponent } from '../../common/y-map/y-map.component';
   standalone: true,
 })
 export class YMapDefaultFeaturesLayerDirective implements OnInit, OnDestroy, OnChanges {
+  private readonly ngZone = inject(NgZone);
+  private readonly yMapComponent = inject(YMapComponent);
+
   private readonly destroy$ = new Subject<void>();
 
   private layer?: YMapDefaultFeaturesLayer;
@@ -64,11 +68,6 @@ export class YMapDefaultFeaturesLayerDirective implements OnInit, OnDestroy, OnC
   @Output() ready: EventEmitter<YReadyEvent<YMapDefaultFeaturesLayer>> = new EventEmitter<
     YReadyEvent<YMapDefaultFeaturesLayer>
   >();
-
-  constructor(
-    private readonly ngZone: NgZone,
-    private readonly yMapComponent: YMapComponent,
-  ) {}
 
   ngOnInit() {
     this.yMapComponent.map$.pipe(filter(Boolean), takeUntil(this.destroy$)).subscribe((map) => {

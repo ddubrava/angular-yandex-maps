@@ -4,6 +4,7 @@ import {
   Component,
   ElementRef,
   EventEmitter,
+  inject,
   Input,
   NgZone,
   OnChanges,
@@ -44,6 +45,9 @@ import { generateRandomId } from '../../../utils/generate-random-id/generate-ran
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class YMapComponent implements AfterViewInit, OnChanges, OnDestroy {
+  private readonly yaApiLoaderService = inject(YApiLoaderService);
+  private readonly ngZone = inject(NgZone);
+
   @ViewChild('container') readonly container!: ElementRef;
 
   private readonly destroy$ = new Subject<void>();
@@ -65,11 +69,6 @@ export class YMapComponent implements AfterViewInit, OnChanges, OnDestroy {
    * The entity instance is created. This event runs outside an Angular zone.
    */
   @Output() ready: EventEmitter<YReadyEvent<YMap>> = new EventEmitter<YReadyEvent<YMap>>();
-
-  constructor(
-    private readonly yaApiLoaderService: YApiLoaderService,
-    private readonly ngZone: NgZone,
-  ) {}
 
   ngAfterViewInit() {
     this.yaApiLoaderService

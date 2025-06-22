@@ -1,6 +1,7 @@
 import {
   Directive,
   EventEmitter,
+  inject,
   Input,
   NgZone,
   OnChanges,
@@ -37,6 +38,9 @@ import { YaMapComponent } from '../ya-map/ya-map.component';
   standalone: false,
 })
 export class YaGeoObjectDirective implements OnInit, OnChanges, OnDestroy {
+  private readonly ngZone = inject(NgZone);
+  private readonly yaMapComponent = inject(YaMapComponent);
+
   private readonly destroy$ = new Subject<void>();
 
   private readonly eventManager = new EventManager(this.ngZone);
@@ -256,11 +260,6 @@ export class YaGeoObjectDirective implements OnInit, OnChanges, OnDestroy {
    */
   @Output() yawheel: Observable<YaEvent<ymaps.GeoObject>> =
     this.eventManager.getLazyEmitter('wheel');
-
-  constructor(
-    private readonly ngZone: NgZone,
-    private readonly yaMapComponent: YaMapComponent,
-  ) {}
 
   /**
    * Handles input changes and passes them in API.

@@ -32,6 +32,7 @@ npm install @yandex/ymaps3-types --save-dev
 
 | Angular version    | Library version |
 | ------------------ | --------------- |
+| v20                | v20.x           |
 | v16, v17, v18, v19 | v19.x           |
 
 ## Usage
@@ -65,8 +66,19 @@ npm install @yandex/ymaps3-types --save-dev
 
 #### tsconfig.json
 
-Make sure that `skipLibCheck` is set to `true`, because `@yandex/ymaps3-types` uses Vue and React typings.
-If you do not set this option, you will not be able to build the application.
+```json
+{
+  "compilerOptions": {
+    "skipLibCheck": true,
+    "types": ["@yandex/ymaps3-types"]
+  }
+}
+```
+
+`skipLibCheck` must be set to `true` because `@yandex/ymaps3-types` uses both Vue and React typings.
+If you do not enable this option, you will not be able to build the application.
+
+`types` ensure you can access `ymaps3` globally without importing it.
 
 ### Standalone
 

@@ -22,7 +22,7 @@
   "homepage": "https://github.com/ddubrava/angular-yandex-maps#readme",
   "sideEffects": false,
   "peerDependencies": {
-    "@angular/common": ">=16.0.0 <20.0.0",
-    "@angular/core": ">=16.0.0 <20.0.0"
+    "@angular/common": ">=20.0.0 <21.0.0",
+    "@angular/core": ">=20.0.0 <21.0.0"
   }
 }

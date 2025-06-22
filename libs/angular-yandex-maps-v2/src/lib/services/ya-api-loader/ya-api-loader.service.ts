@@ -1,5 +1,5 @@
-import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { Inject, Injectable, NgZone, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { DOCUMENT, inject, Injectable, NgZone, PLATFORM_ID } from '@angular/core';
 import {
   BehaviorSubject,
   from,
@@ -44,7 +44,9 @@ import { YaApiLoaderCache } from './interfaces/ya-api-loader-cache';
   providedIn: 'root',
 })
 export class YaApiLoaderService {
-  private readonly isBrowser: boolean;
+  private readonly document = inject(DOCUMENT);
+  private readonly ngZone = inject(NgZone);
+  private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
   private readonly defaultConfig: YaConfig = {
     lang: 'ru_RU',
@@ -55,13 +57,8 @@ export class YaApiLoaderService {
 
   private readonly cache = new Map<string, YaApiLoaderCache>();
 
-  constructor(
-    @Inject(YA_CONFIG) config: YaConfig | Observable<YaConfig>,
-    @Inject(DOCUMENT) private readonly document: Document,
-    @Inject(PLATFORM_ID) platformId: object,
-    private readonly ngZone: NgZone,
-  ) {
-    this.isBrowser = isPlatformBrowser(platformId);
+  constructor() {
+    let config = inject<YaConfig | Observable<YaConfig>>(YA_CONFIG);
 
     if (!isObservable(config)) {
       config = of(config);

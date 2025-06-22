@@ -1,4 +1,4 @@
-import { Injectable, NgZone } from '@angular/core';
+import { inject, Injectable, NgZone } from '@angular/core';
 import { from, Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
@@ -25,10 +25,8 @@ import { YaApiLoaderService } from '../ya-api-loader/ya-api-loader.service';
   providedIn: 'root',
 })
 export class YaGeocoderService {
-  constructor(
-    private readonly ngZone: NgZone,
-    private readonly yaApiLoaderService: YaApiLoaderService,
-  ) {}
+  private readonly ngZone = inject(NgZone);
+  private readonly yaApiLoaderService = inject(YaApiLoaderService);
 
   /**
    * Processes geocoding requests.

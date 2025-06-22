@@ -4,6 +4,7 @@ import {
   Component,
   ContentChildren,
   EventEmitter,
+  inject,
   Input,
   NgZone,
   OnChanges,
@@ -54,6 +55,9 @@ import { YaPlacemarkDirective } from '../ya-placemark/ya-placemark.directive';
   standalone: false,
 })
 export class YaClustererComponent implements AfterContentInit, OnChanges, OnDestroy {
+  private readonly ngZone = inject(NgZone);
+  private readonly yaMapComponent = inject(YaMapComponent);
+
   @ContentChildren(YaPlacemarkDirective)
   private readonly placemarks: QueryList<YaPlacemarkDirective> = new QueryList();
 
@@ -113,11 +117,6 @@ export class YaClustererComponent implements AfterContentInit, OnChanges, OnDest
    */
   @Output() parentchange: Observable<YaEvent<ymaps.Clusterer>> =
     this.eventManager.getLazyEmitter('parentchange');
-
-  constructor(
-    private readonly ngZone: NgZone,
-    private readonly yaMapComponent: YaMapComponent,
-  ) {}
 
   /**
    * Handles input changes and passes them in API.

@@ -1,6 +1,7 @@
 import {
   Directive,
   EventEmitter,
+  inject,
   Input,
   OnChanges,
   OnDestroy,
@@ -52,6 +53,8 @@ export type YaControlType =
   standalone: false,
 })
 export class YaControlDirective implements OnInit, OnChanges, OnDestroy {
+  private readonly yaMapComponent = inject(YaMapComponent);
+
   private readonly destroy$ = new Subject<void>();
 
   private control?: any;
@@ -70,8 +73,6 @@ export class YaControlDirective implements OnInit, OnChanges, OnDestroy {
    * Control instance is added to a Map. This event runs outside an Angular zone.
    */
   @Output() ready: EventEmitter<YaReadyEvent<any>> = new EventEmitter<YaReadyEvent<any>>();
-
-  constructor(private readonly yaMapComponent: YaMapComponent) {}
 
   ngOnChanges(): void {
     if (this.control) {

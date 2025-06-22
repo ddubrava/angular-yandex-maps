@@ -1,5 +1,5 @@
-import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { Inject, Injectable, NgZone, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { DOCUMENT, inject, Injectable, NgZone, PLATFORM_ID } from '@angular/core';
 import {
   BehaviorSubject,
   from,
@@ -59,7 +59,9 @@ interface ApiLoaderCache {
   providedIn: 'root',
 })
 export class YApiLoaderService {
-  private readonly isBrowser: boolean;
+  private readonly document = inject(DOCUMENT);
+  private readonly ngZone = inject(NgZone);
+  private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
   private readonly defaultConfig: YConfig = {
     lang: 'ru_RU',
@@ -69,13 +71,8 @@ export class YApiLoaderService {
 
   private readonly cache = new Map<string, ApiLoaderCache>();
 
-  constructor(
-    @Inject(Y_CONFIG) config: YConfig | Observable<YConfig>,
-    @Inject(DOCUMENT) private readonly document: Document,
-    @Inject(PLATFORM_ID) platformId: object,
-    private readonly ngZone: NgZone,
-  ) {
-    this.isBrowser = isPlatformBrowser(platformId);
+  constructor() {
+    let config = inject<YConfig | Observable<YConfig>>(Y_CONFIG);
 
     if (!isObservable(config)) {
       config = of(config);

@@ -1,6 +1,7 @@
 import {
   Directive,
   EventEmitter,
+  inject,
   Input,
   NgZone,
   OnChanges,
@@ -38,6 +39,9 @@ import { YMapComponent } from '../y-map/y-map.component';
   standalone: true,
 })
 export class YMapFeatureDataSourceDirective implements OnInit, OnDestroy, OnChanges {
+  private readonly ngZone = inject(NgZone);
+  private readonly yMapComponent = inject(YMapComponent);
+
   private readonly destroy$ = new Subject<void>();
 
   private source?: YMapFeatureDataSource;
@@ -54,11 +58,6 @@ export class YMapFeatureDataSourceDirective implements OnInit, OnDestroy, OnChan
   @Output() ready: EventEmitter<YReadyEvent<YMapFeatureDataSource>> = new EventEmitter<
     YReadyEvent<YMapFeatureDataSource>
   >();
-
-  constructor(
-    private readonly ngZone: NgZone,
-    private readonly yMapComponent: YMapComponent,
-  ) {}
 
   ngOnInit() {
     this.yMapComponent.map$.pipe(filter(Boolean), takeUntil(this.destroy$)).subscribe((map) => {
