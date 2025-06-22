@@ -17,7 +17,7 @@
     "test": "nx run-many -t test",
     "test:coverage": "npm run test -- --codeCoverage",
     "-------------------------------- Lint": "",
-    "lint": "nx run-many -t lint",
+    "lint": "nx run-many -t lint --outputStyle static",
     "-------------------------------- Miscellaneous": "",
     "release": "nx release --skip-publish"
   },

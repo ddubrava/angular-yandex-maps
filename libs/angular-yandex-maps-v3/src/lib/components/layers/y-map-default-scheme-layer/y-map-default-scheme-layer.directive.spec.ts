@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { YMap, YMapDefaultSchemeLayer, YMapDefaultSchemeLayerProps } from '@yandex/ymaps3-types';
+import { YMap, YMapDefaultSchemeLayerProps } from '@yandex/ymaps3-types';
 import { BehaviorSubject } from 'rxjs';
 
 import {

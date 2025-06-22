@@ -6,17 +6,17 @@ import { CompodocInterface } from './compodoc-interface';
 import { CompodocMiscellaneous } from './compodoc-miscellaneous';
 
 export interface CompodocDocumentation {
-  classes: any[];
+  classes: unknown[];
   components: CompodocComponent[];
-  coverage?: any[];
+  coverage?: unknown[];
   directives: CompodocDirective[];
   functions: CompodocFunction[];
-  guards: any[];
+  guards: unknown[];
   injectables: CompodocInjectable[];
-  interceptors: any[];
+  interceptors: unknown[];
   interfaces: CompodocInterface[];
   miscellaneous: CompodocMiscellaneous;
-  modules: any[];
-  pipes: any[];
-  routes: any[];
+  modules: unknown[];
+  pipes: unknown[];
+  routes: unknown[];
 }

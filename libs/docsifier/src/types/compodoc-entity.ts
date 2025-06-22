@@ -3,7 +3,7 @@ export interface CompodocEntity {
   name: string;
   type: string;
   subtype?: string;
-  rawtype?: any;
+  rawtype?: unknown;
   kind?: string;
   label?: string;
   file?: string;

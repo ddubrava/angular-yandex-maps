@@ -1,14 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { YMapControlsProps, YMapEntity, YMapListenerProps } from '@yandex/ymaps3-types';
+import { YMapControlsProps, YMapEntity } from '@yandex/ymaps3-types';
 import { BehaviorSubject } from 'rxjs';
 
 import {
   mockYMapControlsConstructor,
   mockYMapControlsInstance,
   mockYMapInstance,
-  mockYMapListenerConstructor,
-  mockYMapListenerInstance,
 } from '../../../../test-utils';
 import { YReadyEvent } from '../../../types/y-ready-event';
 import { YMapComponent } from '../../common/y-map/y-map.component';

@@ -51,6 +51,7 @@ export default [
       files: ['**/*.ts', '**/*.tsx', '**/*.cts', '**/*.mts'],
       rules: {
         ...config.rules,
+        '@typescript-eslint/no-unused-vars': 'error',
       },
     })),
   ...compat

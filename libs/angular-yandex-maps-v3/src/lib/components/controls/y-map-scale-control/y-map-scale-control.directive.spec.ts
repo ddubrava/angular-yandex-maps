@@ -1,21 +1,15 @@
 import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { YMapListenerProps, YMapScaleControl, YMapScaleControlProps } from '@yandex/ymaps3-types';
-import { YMapControlCommonButtonProps } from '@yandex/ymaps3-types/imperative/YMapControl';
+import { YMapScaleControlProps } from '@yandex/ymaps3-types';
 import { BehaviorSubject } from 'rxjs';
 
 import {
-  mockYMapControlButtonConstructor,
   mockYMapControlButtonInstance,
   mockYMapControlsInstance,
-  mockYMapInstance,
-  mockYMapListenerConstructor,
-  mockYMapListenerInstance,
   mockYMapScaleControlConstructor,
   mockYMapScaleControlInstance,
 } from '../../../../test-utils';
 import { YReadyEvent } from '../../../types/y-ready-event';
-import { YMapComponent } from '../../common/y-map/y-map.component';
 import { YMapControlsDirective } from '../y-map-controls/y-map-controls.directive';
 import { YMapScaleControlDirective } from './y-map-scale-control.directive';
 

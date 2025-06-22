@@ -4,11 +4,11 @@ import { CompodocVariable } from './compodoc-variable';
 
 export interface CompodocMiscellaneous extends CompodocEntity {
   variables: CompodocVariable[];
-  functions: any[];
+  functions: unknown[];
   typealiases: CompodocTypealias[];
-  enumerations: any[];
-  groupedVariables: any[];
-  groupedFunctions: any[];
-  groupedEnumerations: any[];
-  groupedTypeAliases: any[];
+  enumerations: unknown[];
+  groupedVariables: unknown[];
+  groupedFunctions: unknown[];
+  groupedEnumerations: unknown[];
+  groupedTypeAliases: unknown[];
 }
