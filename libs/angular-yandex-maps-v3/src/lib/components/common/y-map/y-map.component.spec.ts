@@ -8,7 +8,6 @@ import { YApiLoaderService } from '../../../services/y-api-loader/y-api-loader.s
 import { YConfig } from '../../../types/y-config';
 import { YReadyEvent } from '../../../types/y-ready-event';
 import * as GenerateRandomIdModule from '../../../utils/generate-random-id/generate-random-id';
-import { generateRandomId } from '../../../utils/generate-random-id/generate-random-id';
 import { YMapComponent } from './y-map.component';
 
 @Component({

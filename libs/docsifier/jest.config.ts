@@ -1,4 +1,3 @@
-/* eslint-disable */
 export default {
   displayName: 'docsifier',
   preset: '../../jest.preset.js',

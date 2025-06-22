@@ -1,4 +1,3 @@
-/* eslint-disable */
 export default {
   displayName: 'angular-yandex-maps-v2-demo',
   preset: '../../jest.preset.js',

@@ -1,31 +1,18 @@
 import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import {
-  YMap,
-  YMapDefaultSchemeLayer,
-  YMapDefaultSchemeLayerProps,
-  YMapListenerProps,
-} from '@yandex/ymaps3-types';
-import { GenericEntity } from '@yandex/ymaps3-types/imperative/Entities';
+import { YMap } from '@yandex/ymaps3-types';
 import { YMapControlCommonButtonProps } from '@yandex/ymaps3-types/imperative/YMapControl';
 import { BehaviorSubject } from 'rxjs';
 
 import {
-  mockYMapControlButtonConstructor,
-  mockYMapControlButtonInstance,
   mockYMapControlCommonButtonConstructor,
   mockYMapControlCommonButtonInstance,
   mockYMapControlsInstance,
-  mockYMapInstance,
-  mockYMapListenerConstructor,
-  mockYMapListenerInstance,
 } from '../../../../test-utils';
 import { ComplexOptions } from '../../../types/complex-options';
 import { YReadyEvent } from '../../../types/y-ready-event';
-import { YMapComponent } from '../../common/y-map/y-map.component';
 import { YMapControlsDirective } from '../y-map-controls/y-map-controls.directive';
 import { YMapControlCommonButtonDirective } from './y-map-control-common-button.directive';
-import mock = jest.mock;
 
 @Component({
   standalone: true,

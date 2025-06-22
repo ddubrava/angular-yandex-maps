@@ -1,9 +1,5 @@
-/* eslint-disable @typescript-eslint/explicit-member-accessibility */
 /* eslint-disable @typescript-eslint/no-namespace */
-/* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-use-before-define */
-/* eslint-disable max-classes-per-file */
 
 type Prefix<Type, P> = {
   [Property in keyof Type as `${string & P}${Capitalize<string & Property>}`]: Type[Property];

@@ -1,4 +1,4 @@
 {
-  "*.{js,ts,json,md,html,css}": "prettier --write",
-  "*.{js,ts}": "eslint --fix"
+  "*.{js,ts}": "nx affected:lint --fix --files",
+  "*": "npx nx format:write --files"
 }

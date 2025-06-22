@@ -1,9 +1,9 @@
 import { CompodocEntity } from './compodoc-entity';
 
 export interface CompodocModule extends CompodocEntity {
-  bootstrap?: any[];
-  declarations?: any[];
-  exports?: any[];
-  imports?: any[];
-  routesTree?: any;
+  bootstrap?: unknown[];
+  declarations?: unknown[];
+  exports?: unknown[];
+  imports?: unknown[];
+  routesTree?: unknown;
 }
