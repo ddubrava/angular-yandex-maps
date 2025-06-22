@@ -63,6 +63,18 @@ Documentation for older versions can be found using the [branches](https://githu
 }
 ```
 
+#### tsconfig.json
+
+```json
+{
+  "compilerOptions": {
+    "types": ["angular8-yandex-maps"]
+  }
+}
+```
+
+`types` ensure you can access `ymaps` globally without importing it.
+
 ### Standalone
 
 #### component.ts
