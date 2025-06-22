@@ -34,7 +34,7 @@ interface TestingWindow extends Window {
  * Mocks ymaps.ready.
  */
 export const mockReady = (): jest.Mock => {
-  const readyMock = jest.fn(() => new Observable((observer) => observer.next()));
+  const readyMock = jest.fn(() => new Observable<void>((observer) => observer.next()));
 
   const testingWindow: TestingWindow = window;
 
