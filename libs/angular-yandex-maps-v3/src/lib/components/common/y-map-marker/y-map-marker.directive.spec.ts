@@ -115,4 +115,11 @@ describe('YMapMarkerDirective', () => {
 
     expect(markerInstance.update).toHaveBeenCalledWith(props);
   });
+
+  it('should remove entity on destroy', async () => {
+    fixture.detectChanges();
+    fixture.destroy();
+
+    expect(mapInstance.removeChild).toHaveBeenCalledWith(markerInstance);
+  });
 });

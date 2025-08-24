@@ -137,6 +137,10 @@ export class YMapHintDirective implements AfterContentInit, OnChanges, OnDestroy
   }
 
   ngOnDestroy() {
+    if (this.hint) {
+      this.yMapComponent.map$.value?.removeChild(this.hint);
+    }
+
     this.destroy$.next();
     this.destroy$.complete();
   }

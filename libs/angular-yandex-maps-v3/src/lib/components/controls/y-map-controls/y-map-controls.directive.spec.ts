@@ -121,4 +121,11 @@ describe('YMapControlsDirective', () => {
 
     expect(controlsInstance.update).toHaveBeenCalledWith(props);
   });
+
+  it('should remove entity on destroy', async () => {
+    fixture.detectChanges();
+    fixture.destroy();
+
+    expect(mapInstance.removeChild).toHaveBeenCalledWith(controlsInstance);
+  });
 });

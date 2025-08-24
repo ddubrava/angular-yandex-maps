@@ -107,6 +107,10 @@ export class YMapMarkerDirective implements AfterViewInit, OnDestroy, OnChanges 
   }
 
   ngOnDestroy() {
+    if (this.marker) {
+      this.yMapComponent.map$.value?.removeChild(this.marker);
+    }
+
     this.destroy$.next();
     this.destroy$.complete();
   }

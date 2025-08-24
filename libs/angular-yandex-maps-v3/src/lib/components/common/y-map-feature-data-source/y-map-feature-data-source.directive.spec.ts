@@ -106,4 +106,11 @@ describe('YMapFeatureDataSourceDirective', () => {
 
     expect(sourceInstance.update).toHaveBeenCalledWith(props);
   });
+
+  it('should remove entity on destroy', async () => {
+    fixture.detectChanges();
+    fixture.destroy();
+
+    expect(mapInstance.removeChild).toHaveBeenCalledWith(sourceInstance);
+  });
 });

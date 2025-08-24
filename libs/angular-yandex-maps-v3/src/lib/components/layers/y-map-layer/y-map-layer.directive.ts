@@ -84,6 +84,10 @@ export class YMapLayerDirective implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnDestroy() {
+    if (this.layer) {
+      this.yMapComponent.map$.value?.removeChild(this.layer);
+    }
+
     this.destroy$.next();
     this.destroy$.complete();
   }

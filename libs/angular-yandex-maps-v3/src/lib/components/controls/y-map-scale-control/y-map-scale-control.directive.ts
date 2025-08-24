@@ -83,6 +83,10 @@ export class YMapScaleControlDirective implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnDestroy() {
+    if (this.control) {
+      this.yMapControlsDirective.controls$.value?.removeChild(this.control);
+    }
+
     this.destroy$.next();
     this.destroy$.complete();
   }

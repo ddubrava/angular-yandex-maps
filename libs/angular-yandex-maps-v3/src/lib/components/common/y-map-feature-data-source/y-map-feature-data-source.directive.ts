@@ -77,6 +77,10 @@ export class YMapFeatureDataSourceDirective implements OnInit, OnDestroy, OnChan
   }
 
   ngOnDestroy() {
+    if (this.source) {
+      this.yMapComponent.map$.value?.removeChild(this.source);
+    }
+
     this.destroy$.next();
     this.destroy$.complete();
   }

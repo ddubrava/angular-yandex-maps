@@ -156,4 +156,15 @@ describe('YMapClustererDirective', () => {
 
     expect(clustererInstance.update).toHaveBeenCalledWith(expect.objectContaining(props));
   });
+
+  it('should remove entity on destroy', async () => {
+    fixture.detectChanges();
+
+    // ymaps3.import is async, wait for it
+    await new Promise(process.nextTick);
+
+    fixture.destroy();
+
+    expect(mapInstance.removeChild).toHaveBeenCalledWith(clustererInstance);
+  });
 });

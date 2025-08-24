@@ -96,6 +96,10 @@ export class YMapGeolocationControlDirective implements OnInit, OnChanges, OnDes
   }
 
   ngOnDestroy() {
+    if (this.control) {
+      this.yMapControlsDirective.controls$.value?.removeChild(this.control);
+    }
+
     this.destroy$.next();
     this.destroy$.complete();
   }

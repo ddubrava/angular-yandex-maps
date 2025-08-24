@@ -98,6 +98,10 @@ export class YMapFeatureDirective implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnDestroy() {
+    if (this.feature) {
+      this.yMapComponent.map$.value?.removeChild(this.feature);
+    }
+
     this.destroy$.next();
     this.destroy$.complete();
   }
