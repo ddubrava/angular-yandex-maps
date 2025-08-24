@@ -145,4 +145,11 @@ describe('YMapComponent', () => {
 
     expect(mapInstance.update).toHaveBeenCalledWith(props);
   });
+
+  it('should destroy entity on destroy', async () => {
+    fixture.detectChanges();
+    fixture.destroy();
+
+    expect(mapInstance.destroy).toHaveBeenCalled();
+  });
 });

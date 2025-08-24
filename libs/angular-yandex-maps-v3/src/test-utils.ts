@@ -81,6 +81,7 @@ export const mockImport = (constructorName: string, constructor: unknown): jest.
  */
 export const mockYMapInstance = () => ({
   addChild: jest.fn(),
+  removeChild: jest.fn(),
   update: jest.fn(),
   destroy: jest.fn(),
 });
@@ -394,6 +395,7 @@ export const mockYMapControlCommonButtonConstructor = (
 export const mockYMapControlsInstance = () => ({
   update: jest.fn(),
   addChild: jest.fn(),
+  removeChild: jest.fn(),
 });
 
 /**

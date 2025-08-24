@@ -87,6 +87,10 @@ export class YMapDefaultFeaturesLayerDirective implements OnInit, OnDestroy, OnC
   }
 
   ngOnDestroy() {
+    if (this.layer) {
+      this.yMapComponent.map$.value?.removeChild(this.layer);
+    }
+
     this.destroy$.next();
     this.destroy$.complete();
   }

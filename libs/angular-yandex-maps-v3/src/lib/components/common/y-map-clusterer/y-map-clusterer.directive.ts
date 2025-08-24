@@ -183,6 +183,10 @@ export class YMapClustererDirective implements AfterContentInit, OnDestroy, OnCh
   }
 
   ngOnDestroy() {
+    if (this.clusterer) {
+      this.yMapComponent.map$.value?.removeChild(this.clusterer);
+    }
+
     this.destroy$.next();
     this.destroy$.complete();
   }

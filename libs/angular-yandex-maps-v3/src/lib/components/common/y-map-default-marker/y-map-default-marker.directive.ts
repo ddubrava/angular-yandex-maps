@@ -99,6 +99,10 @@ export class YMapDefaultMarkerDirective implements OnInit, OnDestroy, OnChanges 
   }
 
   ngOnDestroy() {
+    if (this.marker) {
+      this.yMapComponent.map$.value?.removeChild(this.marker);
+    }
+
     this.destroy$.next();
     this.destroy$.complete();
   }

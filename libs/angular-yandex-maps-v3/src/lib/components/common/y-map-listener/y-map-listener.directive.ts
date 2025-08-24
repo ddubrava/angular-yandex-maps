@@ -83,6 +83,10 @@ export class YMapListenerDirective implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnDestroy() {
+    if (this.listener) {
+      this.yMapComponent.map$.value?.removeChild(this.listener);
+    }
+
     this.destroy$.next();
     this.destroy$.complete();
   }

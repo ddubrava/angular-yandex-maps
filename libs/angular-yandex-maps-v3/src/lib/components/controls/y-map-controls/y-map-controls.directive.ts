@@ -88,6 +88,10 @@ export class YMapControlsDirective implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnDestroy() {
+    if (this.controls$.value) {
+      this.yMapComponent.map$.value?.removeChild(this.controls$.value);
+    }
+
     this.destroy$.next();
     this.destroy$.complete();
   }

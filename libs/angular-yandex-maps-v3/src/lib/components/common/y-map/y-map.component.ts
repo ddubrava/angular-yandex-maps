@@ -101,6 +101,7 @@ export class YMapComponent implements AfterViewInit, OnChanges, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.map$.value?.destroy();
     this.destroy$.next();
     this.destroy$.complete();
   }

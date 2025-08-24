@@ -134,4 +134,15 @@ describe('YMapHintDirective', () => {
 
     expect(hintInstance.update).toHaveBeenCalledWith(props);
   });
+
+  it('should remove entity on destroy', async () => {
+    fixture.detectChanges();
+
+    // ymaps3.import is async, wait for it
+    await new Promise(process.nextTick);
+
+    fixture.destroy();
+
+    expect(mapInstance.removeChild).toHaveBeenCalledWith(hintInstance);
+  });
 });

@@ -113,4 +113,11 @@ describe('YMapControlCommonButtonDirective', () => {
 
     expect(controlInstance.update).toHaveBeenCalledWith(props);
   });
+
+  it('should remove entity on destroy', async () => {
+    fixture.detectChanges();
+    fixture.destroy();
+
+    expect(controlsInstance.removeChild).toHaveBeenCalledWith(controlInstance);
+  });
 });

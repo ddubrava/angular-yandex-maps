@@ -83,6 +83,10 @@ export class YMapDefaultSchemeLayerDirective implements OnInit, OnDestroy, OnCha
   }
 
   ngOnDestroy() {
+    if (this.layer) {
+      this.yMapComponent.map$.value?.removeChild(this.layer);
+    }
+
     this.destroy$.next();
     this.destroy$.complete();
   }
