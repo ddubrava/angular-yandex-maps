@@ -1,3 +1,9 @@
+## 20.1.0 (2025-08-24)
+
+### 🚀 Features
+
+- support removeChild from parent on destroy ([#275](https://github.com/ddubrava/angular-yandex-maps/pull/275))
+
 # 20.0.0 (2025-06-22)
 
 ### 🚀 Features
