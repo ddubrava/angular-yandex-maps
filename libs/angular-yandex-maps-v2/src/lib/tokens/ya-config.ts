@@ -1,37 +1,38 @@
-import { InjectionToken } from '@angular/core';
+import { InjectionToken, makeEnvironmentProviders } from '@angular/core';
+import { Observable } from 'rxjs';
 
-import { YaConfig } from '../interfaces/ya-config';
+import { YaConfig } from '../types/ya-config';
 
 /**
- * An injection token to provide a configuration.
- *
- * Use this token only if you want to implement some special logic.
- * Otherwise, use an `AngularYandexMapsModule.forRoot()` method in a root module.
- *
- * Please note that `YaApiLoaderService` is provided at the root level,
- * so it won't take your configuration unless this token is provided in the root module.
- *
- * If you want to provide the configuration in the module other than the root module, you have to provide `YaApiLoaderService`.
- * But keep in mind that starting from `v16.1.0` `YaApiLoaderService` supports the dynamic configuration,
- * if you provide this service it will lead to unexpected issues such as script duplications.
- *
- * ```ts
- * \@NgModule({
- *   imports: [AngularYandexMapsModule],
- *   providers: [
- *     YaApiLoaderService,
- *     {
- *       provide: YA_CONFIG,
- *       useValue: {
- *         apikey: null,
- *         lang: 'ru_RU',
- *       },
- *     },
- *   ],
- * })
- * export class HomeModule {}
- * ```
+ * @internal
  */
-export const YA_CONFIG = new InjectionToken<YaConfig>('YA_CONFIG', {
+export const YA_CONFIG = new InjectionToken<YaConfig | Observable<YaConfig>>('YaConfig', {
   factory: () => ({}),
 });
+
+// It must be an arrow function, because compodoc cannot parse functions without issues.
+// TODO: convert provideYConfig to a function + create an issue in compodoc about rawdescription.
+
+/**
+ * Provides a YA_CONFIG token with the given configuration.
+ *
+ * ```ts
+ * import { provideYaConfig, YaConfig } from 'angular8-yandex-maps';
+ *
+ * export const config: YaConfig = {
+ *   apikey: 'X-X-X',
+ * };
+ *
+ * export const appConfig: ApplicationConfig = {
+ *   providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideYaConfig(config)],
+ * };
+ * ```
+ */
+export const provideYaConfig = (config: YaConfig | Observable<YaConfig>) => {
+  return makeEnvironmentProviders([
+    {
+      provide: YA_CONFIG,
+      useValue: config,
+    },
+  ]);
+};

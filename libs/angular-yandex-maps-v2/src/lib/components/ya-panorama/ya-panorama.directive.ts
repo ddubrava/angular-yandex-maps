@@ -13,8 +13,8 @@ import {
 import { from, Observable, Subject, takeUntil } from 'rxjs';
 import { filter, map, switchMap } from 'rxjs/operators';
 
-import { YaEvent } from '../../interfaces/ya-event';
-import { YaReadyEvent } from '../../interfaces/ya-ready-event';
+import { YaEvent } from '../../types/ya-event';
+import { YaReadyEvent } from '../../types/ya-ready-event';
 import { EventManager } from '../../utils/event-manager/event-manager';
 import { YaMapComponent } from '../ya-map/ya-map.component';
 
@@ -31,7 +31,6 @@ import { YaMapComponent } from '../ya-map/ya-map.component';
  */
 @Directive({
   selector: 'ya-panorama',
-  standalone: false,
 })
 export class YaPanoramaDirective implements OnInit, OnChanges, OnDestroy {
   private readonly ngZone = inject(NgZone);

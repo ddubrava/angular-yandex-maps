@@ -18,7 +18,6 @@ import { YaMultirouteDirective } from './ya-multiroute.directive';
       (pixelboundschange)="handlePixelBoundsChange()"
     ></ya-multiroute>
   `,
-  standalone: false,
 })
 class MockHostComponent {
   @ViewChild(YaMultirouteDirective, { static: true }) multiroute!: YaMultirouteDirective;

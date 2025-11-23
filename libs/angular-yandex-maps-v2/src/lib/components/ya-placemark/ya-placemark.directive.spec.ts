@@ -22,7 +22,6 @@ import { YaPlacemarkDirective } from './ya-placemark.directive';
       (parentchange)="handleParentChange()"
     ></ya-placemark>
   `,
-  standalone: false,
 })
 class MockHostComponent {
   @ViewChild(YaPlacemarkDirective, { static: true }) placemark!: YaPlacemarkDirective;

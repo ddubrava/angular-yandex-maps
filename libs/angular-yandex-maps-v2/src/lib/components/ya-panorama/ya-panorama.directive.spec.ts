@@ -22,7 +22,6 @@ import { YaPanoramaDirective } from './ya-panorama.directive';
       (fullscreenexit)="handleFullscreenExit()"
     ></ya-panorama>
   `,
-  standalone: false,
 })
 class MockHostComponent {
   @ViewChild(YaPanoramaDirective, { static: true }) panorama!: YaPanoramaDirective;

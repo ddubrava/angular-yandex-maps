@@ -16,7 +16,6 @@ import { YaObjectManagerDirective } from './ya-object-manager.directive';
       (multitouchmove)="handleMultitouchMove()"
     ></ya-object-manager>
   `,
-  standalone: false,
 })
 class MockHostComponent {
   @ViewChild(YaObjectManagerDirective, { static: true }) objectManager!: YaObjectManagerDirective;

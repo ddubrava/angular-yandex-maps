@@ -9,7 +9,6 @@ import { YaControlDirective, YaControlType } from './ya-control.directive';
 
 @Component({
   template: '<ya-control [type]="type" [parameters]="parameters"></ya-control>',
-  standalone: false,
 })
 class MockHostComponent {
   @ViewChild(YaControlDirective, { static: true }) control!: YaControlDirective;

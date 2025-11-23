@@ -15,9 +15,9 @@ import {
 } from '@angular/core';
 import { BehaviorSubject, Observable, Subject, takeUntil } from 'rxjs';
 
-import { YaEvent } from '../../interfaces/ya-event';
-import { YaReadyEvent } from '../../interfaces/ya-ready-event';
 import { YaApiLoaderService } from '../../services/ya-api-loader/ya-api-loader.service';
+import { YaEvent } from '../../types/ya-event';
+import { YaReadyEvent } from '../../types/ya-ready-event';
 import { EventManager } from '../../utils/event-manager/event-manager';
 import { generateRandomId } from '../../utils/generate-random-id/generate-random-id';
 
@@ -39,7 +39,6 @@ import { generateRandomId } from '../../utils/generate-random-id/generate-random
   selector: 'ya-map',
   template: '<div #container></div>',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
 })
 export class YaMapComponent implements AfterViewInit, OnChanges, OnDestroy {
   private readonly ngZone = inject(NgZone);

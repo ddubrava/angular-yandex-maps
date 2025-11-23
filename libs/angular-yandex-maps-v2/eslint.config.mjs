@@ -40,8 +40,6 @@ export default [
           style: 'kebab-case',
         },
       ],
-      // TODO: Migrate everything to standalone components
-      '@angular-eslint/prefer-standalone': 'off',
     },
   },
 ];

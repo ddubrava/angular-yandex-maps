@@ -21,7 +21,6 @@ import { YaGeoObjectDirective } from './ya-geoobject.directive';
       (multitouchstart)="handleMultitouchStart()"
     ></ya-geoobject>
   `,
-  standalone: false,
 })
 class MockHostComponent {
   @ViewChild(YaGeoObjectDirective, { static: true }) geoObject!: YaGeoObjectDirective;

@@ -15,8 +15,8 @@ import {
 } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
 
-import { YaConfig } from '../../interfaces/ya-config';
 import { YA_CONFIG } from '../../tokens/ya-config';
+import { YaConfig } from '../../types/ya-config';
 import { exitZone } from '../../utils/zone/zone';
 import { YaApiLoaderCache } from './interfaces/ya-api-loader-cache';
 
