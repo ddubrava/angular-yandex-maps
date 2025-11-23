@@ -109,7 +109,7 @@ export const appConfig: ApplicationConfig = {
 
 ```ts
 import { NgModule } from '@angular/core';
-import { YaConfig, YaMapComponent, provideYaConfig } from 'angular-yandex-maps-v3';
+import { YaConfig, YaMapComponent, provideYaConfig } from 'angular8-yandex-maps';
 
 const config: YaConfig = {
   apikey: 'API_KEY',
