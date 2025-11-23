@@ -1,81 +1,56 @@
-import { FlatCompat } from '@eslint/eslintrc';
-import { dirname } from 'path';
-import { fileURLToPath } from 'url';
-import js from '@eslint/js';
-import nxEslintPlugin from '@nx/eslint-plugin';
-
-const compat = new FlatCompat({
-  baseDirectory: dirname(fileURLToPath(import.meta.url)),
-  recommendedConfig: js.configs.recommended,
-});
+import nx from '@nx/eslint-plugin';
+import simpleImportSort from 'eslint-plugin-simple-import-sort';
 
 export default [
+  ...nx.configs['flat/base'],
+  ...nx.configs['flat/typescript'],
+  ...nx.configs['flat/javascript'],
   {
     ignores: ['**/dist'],
   },
   {
-    plugins: { '@nx': nxEslintPlugin },
+    files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
+    rules: {
+      '@nx/enforce-module-boundaries': [
+        'error',
+        {
+          enforceBuildableLibDependency: true,
+          allow: ['^.*/eslint(\\.base)?\\.config\\.[cm]?[jt]s$'],
+          depConstraints: [
+            {
+              sourceTag: '*',
+              onlyDependOnLibsWithTags: ['*'],
+            },
+          ],
+        },
+      ],
+    },
   },
-  ...compat
-    .config({
-      plugins: ['simple-import-sort'],
-    })
-    .map((config) => ({
-      ...config,
-      files: ['**/*.ts', '**/*.js'],
-      rules: {
-        ...config.rules,
-        '@nx/enforce-module-boundaries': [
-          'error',
-          {
-            enforceBuildableLibDependency: true,
-            allow: [],
-            depConstraints: [
-              {
-                sourceTag: '*',
-                onlyDependOnLibsWithTags: ['*'],
-              },
-            ],
-          },
-        ],
-        'simple-import-sort/imports': 'error',
-        'simple-import-sort/exports': 'error',
-      },
-    })),
-  ...compat
-    .config({
-      extends: ['plugin:@nx/typescript'],
-    })
-    .map((config) => ({
-      ...config,
-      files: ['**/*.ts', '**/*.tsx', '**/*.cts', '**/*.mts'],
-      rules: {
-        ...config.rules,
-        '@typescript-eslint/no-unused-vars': 'error',
-      },
-    })),
-  ...compat
-    .config({
-      extends: ['plugin:@nx/javascript'],
-    })
-    .map((config) => ({
-      ...config,
-      files: ['**/*.js', '**/*.jsx', '**/*.cjs', '**/*.mjs'],
-      rules: {
-        ...config.rules,
-      },
-    })),
-  ...compat
-    .config({
-      env: {
-        jest: true,
-      },
-    })
-    .map((config) => ({
-      ...config,
-      files: ['**/*.spec.ts', '**/*.spec.js'],
-      rules: {
-        ...config.rules,
-      },
-    })),
+  {
+    plugins: {
+      'simple-import-sort': simpleImportSort,
+    },
+    rules: {
+      'simple-import-sort/imports': 'error',
+      'simple-import-sort/exports': 'error',
+    },
+  },
+  {
+    files: [
+      '**/*.ts',
+      '**/*.tsx',
+      '**/*.cts',
+      '**/*.mts',
+      '**/*.js',
+      '**/*.jsx',
+      '**/*.cjs',
+      '**/*.mjs',
+    ],
+    // Override or add rules here
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-non-null-assertion': 'off',
+      '@typescript-eslint/no-empty-function': 'off',
+    },
+  },
 ];
