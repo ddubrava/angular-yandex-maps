@@ -48,9 +48,7 @@ Documentation for older versions can be found using the [branches](https://githu
 
 ```html
 <div class="container">
-  <ya-map [center]="[55.751952, 37.600739]" [zoom]="12">
-    <ya-placemark [geometry]="[55.751952, 37.600739]"></ya-placemark>
-  </ya-map>
+  <ya-map [center]="[51.507351, -0.127696]" [zoom]="10" />
 </div>
 ```
 

@@ -11,7 +11,7 @@ export const YA_CONFIG = new InjectionToken<YaConfig | Observable<YaConfig>>('Ya
 });
 
 // It must be an arrow function, because compodoc cannot parse functions without issues.
-// TODO: convert provideYConfig to a function + create an issue in compodoc about rawdescription.
+// TODO: convert provideYaConfig to a function + create an issue in compodoc about rawdescription.
 
 /**
  * Provides a YA_CONFIG token with the given configuration.
