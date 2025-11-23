@@ -13,7 +13,6 @@ import { YMapComponent } from '../y-map/y-map.component';
 import { YMapListenerDirective } from './y-map-listener.directive';
 
 @Component({
-  standalone: true,
   imports: [YMapListenerDirective],
   template: '<y-map-listener [props]="props" />',
 })

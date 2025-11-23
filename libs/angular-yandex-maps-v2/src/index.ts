@@ -3,10 +3,7 @@
  */
 
 // Yandex.Maps typings
-import './lib/typings/yandex-maps';
-
-// Module
-export * from './lib/angular-yandex-maps.module';
+import './lib/types/yandex-maps';
 
 // Components
 export * from './lib/components/ya-clusterer/ya-clusterer.component';
@@ -22,10 +19,10 @@ export * from './lib/components/ya-placemark/ya-placemark.directive';
 export * from './lib/services/ya-api-loader/ya-api-loader.service';
 export * from './lib/services/ya-geocoder/ya-geocoder.service';
 
-// Interfaces
-export * from './lib/interfaces/ya-config';
-export * from './lib/interfaces/ya-event';
-export * from './lib/interfaces/ya-ready-event';
+// Types
+export * from './lib/types/ya-config';
+export * from './lib/types/ya-event';
+export * from './lib/types/ya-ready-event';
 
 // Tokens
 export * from './lib/tokens/ya-config';

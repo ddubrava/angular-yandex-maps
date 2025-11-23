@@ -11,7 +11,7 @@ import {
 import { Subject, takeUntil } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
-import { YaReadyEvent } from '../../interfaces/ya-ready-event';
+import { YaReadyEvent } from '../../types/ya-ready-event';
 import { YaMapComponent } from '../ya-map/ya-map.component';
 
 /**
@@ -50,7 +50,6 @@ export type YaControlType =
  */
 @Directive({
   selector: 'ya-control',
-  standalone: false,
 })
 export class YaControlDirective implements OnInit, OnChanges, OnDestroy {
   private readonly yaMapComponent = inject(YaMapComponent);

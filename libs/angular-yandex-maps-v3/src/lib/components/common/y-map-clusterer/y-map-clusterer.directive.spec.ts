@@ -17,7 +17,6 @@ import { YMapClustererDirective } from './y-map-clusterer.directive';
 type OptionalYMapClustererProps = Optional<YMapClustererProps, 'marker' | 'cluster' | 'method'>;
 
 @Component({
-  standalone: true,
   imports: [YMapClustererDirective],
   template: `
     <y-map-clusterer [props]="props">

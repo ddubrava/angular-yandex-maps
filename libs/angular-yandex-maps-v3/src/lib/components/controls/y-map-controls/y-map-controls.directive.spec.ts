@@ -13,7 +13,6 @@ import { YMapComponent } from '../../common/y-map/y-map.component';
 import { YMapControlsDirective } from './y-map-controls.directive';
 
 @Component({
-  standalone: true,
   imports: [YMapControlsDirective],
   template: '<y-map-controls [props]="props" [children]="children" />',
 })

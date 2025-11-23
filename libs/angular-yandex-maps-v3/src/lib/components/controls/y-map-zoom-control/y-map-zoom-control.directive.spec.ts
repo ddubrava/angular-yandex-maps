@@ -15,7 +15,6 @@ import { YMapControlsDirective } from '../y-map-controls/y-map-controls.directiv
 import { YMapZoomControlDirective } from './y-map-zoom-control.directive';
 
 @Component({
-  standalone: true,
   imports: [YMapZoomControlDirective],
   template: '<y-map-zoom-control-button [props]="props" [options]="options" />',
 })

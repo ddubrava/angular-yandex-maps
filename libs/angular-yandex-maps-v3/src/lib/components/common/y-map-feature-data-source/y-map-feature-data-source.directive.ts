@@ -36,7 +36,6 @@ import { YMapComponent } from '../y-map/y-map.component';
  */
 @Directive({
   selector: 'y-map-feature-data-source',
-  standalone: true,
 })
 export class YMapFeatureDataSourceDirective implements OnInit, OnDestroy, OnChanges {
   private readonly ngZone = inject(NgZone);

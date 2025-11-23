@@ -16,8 +16,8 @@ import {
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
-import { YaEvent } from '../../interfaces/ya-event';
-import { YaReadyEvent } from '../../interfaces/ya-ready-event';
+import { YaEvent } from '../../types/ya-event';
+import { YaReadyEvent } from '../../types/ya-ready-event';
 import { EventManager } from '../../utils/event-manager/event-manager';
 import { YaGeoObjectDirective } from '../ya-geoobject/ya-geoobject.directive';
 import { YaMapComponent } from '../ya-map/ya-map.component';
@@ -52,7 +52,6 @@ import { YaPlacemarkDirective } from '../ya-placemark/ya-placemark.directive';
   selector: 'ya-clusterer',
   template: '<ng-content></ng-content>',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
 })
 export class YaClustererComponent implements AfterContentInit, OnChanges, OnDestroy {
   private readonly ngZone = inject(NgZone);

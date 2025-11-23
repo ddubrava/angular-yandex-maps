@@ -3,8 +3,8 @@ import { TestBed } from '@angular/core/testing';
 import { combineLatest, mergeMap, NEVER, Observable, Subject, tap } from 'rxjs';
 
 import { mockReady } from '../../../test-utils';
-import { YaConfig } from '../../interfaces/ya-config';
 import { YA_CONFIG } from '../../tokens/ya-config';
+import { YaConfig } from '../../types/ya-config';
 import { YaApiLoaderService } from './ya-api-loader.service';
 
 class FakeHTMLScriptElement implements Partial<HTMLScriptElement> {

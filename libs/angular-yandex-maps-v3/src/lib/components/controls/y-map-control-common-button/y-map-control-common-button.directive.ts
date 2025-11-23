@@ -45,7 +45,6 @@ import { YMapControlsDirective } from '../y-map-controls/y-map-controls.directiv
  */
 @Directive({
   selector: 'y-map-control-common-button',
-  standalone: true,
 })
 export class YMapControlCommonButtonDirective implements OnInit, OnChanges, OnDestroy {
   private readonly ngZone = inject(NgZone);

@@ -11,34 +11,35 @@ import {
   mockPlacemarkConstructor,
   mockPlacemarkInstance,
 } from '../../../test-utils';
-import { AngularYandexMapsModule } from '../../angular-yandex-maps.module';
-import { YaReadyEvent } from '../../interfaces/ya-ready-event';
+import { YaReadyEvent } from '../../types/ya-ready-event';
+import { YaGeoObjectDirective } from '../ya-geoobject/ya-geoobject.directive';
 import { YaMapComponent } from '../ya-map/ya-map.component';
+import { YaPlacemarkDirective } from '../ya-placemark/ya-placemark.directive';
 import { YaClustererComponent } from './ya-clusterer.component';
 
 @Component({
+  imports: [YaClustererComponent, YaPlacemarkDirective, YaGeoObjectDirective],
   template: `
     <ya-clusterer
       [options]="options"
       (hintclose)="handleHintClose()"
       (optionschange)="handleOptionsChange()"
     >
-      <ng-container *ngIf="case === 'case1'">
-        <ya-placemark></ya-placemark>
-        <ya-placemark></ya-placemark>
-        <ya-geoobject></ya-geoobject>
-        <ya-geoobject></ya-geoobject>
-      </ng-container>
+      @if (case === 'case1') {
+        <ya-placemark />
+        <ya-placemark />
+        <ya-geoobject />
+        <ya-geoobject />
+      }
 
-      <ng-container *ngIf="case === 'case2'">
-        <ya-placemark></ya-placemark>
-        <ya-placemark></ya-placemark>
-        <ya-placemark></ya-placemark>
-        <ya-geoobject></ya-geoobject>
-      </ng-container>
+      @if (case === 'case2') {
+        <ya-placemark />
+        <ya-placemark />
+        <ya-placemark />
+        <ya-geoobject />
+      }
     </ya-clusterer>
   `,
-  standalone: false,
 })
 class MockHostComponent {
   @ViewChild(YaClustererComponent, { static: true }) clusterer!: YaClustererComponent;
@@ -65,8 +66,7 @@ describe('YaClustererComponent', () => {
     mapInstance = mockMapInstance();
 
     await TestBed.configureTestingModule({
-      imports: [AngularYandexMapsModule],
-      declarations: [MockHostComponent, YaClustererComponent],
+      imports: [MockHostComponent],
       providers: [
         {
           provide: YaMapComponent,
@@ -77,9 +77,7 @@ describe('YaClustererComponent', () => {
         },
       ],
     }).compileComponents();
-  });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(MockHostComponent);
     mockComponent = fixture.componentInstance;
     component = mockComponent.clusterer;

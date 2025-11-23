@@ -7,11 +7,12 @@ import {
   mockGeoObjectInstance,
   mockMapInstance,
 } from '../../../test-utils';
-import { YaReadyEvent } from '../../interfaces/ya-ready-event';
+import { YaReadyEvent } from '../../types/ya-ready-event';
 import { YaMapComponent } from '../ya-map/ya-map.component';
 import { YaGeoObjectDirective } from './ya-geoobject.directive';
 
 @Component({
+  imports: [YaGeoObjectDirective],
   template: `
     <ya-geoobject
       [feature]="feature"
@@ -19,9 +20,8 @@ import { YaGeoObjectDirective } from './ya-geoobject.directive';
       (yacontextmenu)="handleContextMenu()"
       (yadrag)="handleDrag()"
       (multitouchstart)="handleMultitouchStart()"
-    ></ya-geoobject>
+    />
   `,
-  standalone: false,
 })
 class MockHostComponent {
   @ViewChild(YaGeoObjectDirective, { static: true }) geoObject!: YaGeoObjectDirective;
@@ -50,7 +50,7 @@ describe('YaGeoObjectDirective', () => {
     mapInstance = mockMapInstance();
 
     await TestBed.configureTestingModule({
-      declarations: [MockHostComponent, YaGeoObjectDirective],
+      imports: [MockHostComponent],
       providers: [
         {
           provide: YaMapComponent,
@@ -61,9 +61,7 @@ describe('YaGeoObjectDirective', () => {
         },
       ],
     }).compileComponents();
-  });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(MockHostComponent);
     mockComponent = fixture.componentInstance;
     component = mockComponent.geoObject;

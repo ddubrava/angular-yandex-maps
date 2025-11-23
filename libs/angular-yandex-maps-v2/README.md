@@ -48,9 +48,7 @@ Documentation for older versions can be found using the [branches](https://githu
 
 ```html
 <div class="container">
-  <ya-map [center]="[55.751952, 37.600739]" [zoom]="12">
-    <ya-placemark [geometry]="[55.751952, 37.600739]"></ya-placemark>
-  </ya-map>
+  <ya-map [center]="[51.507351, -0.127696]" [zoom]="10" />
 </div>
 ```
 
@@ -81,27 +79,26 @@ Documentation for older versions can be found using the [branches](https://githu
 
 ```ts
 import { Component } from '@angular/core';
-import { AngularYandexMapsModule } from 'angular8-yandex-maps';
+import { YaMapComponent } from 'angular8-yandex-maps';
 
 @Component({
-  standalone: true,
-  imports: [AngularYandexMapsModule],
+  imports: [YaMapComponent],
 })
 export class AppComponent {}
 ```
 
 #### app.config.ts
 
-```typescript
-import { ApplicationConfig, importProvidersFrom } from '@angular/core';
-import { YaConfig, AngularYandexMapsModule } from 'angular8-yandex-maps';
+```ts
+import { ApplicationConfig } from '@angular/core';
+import { provideYaConfig, YaConfig } from 'angular8-yandex-maps';
 
 const config: YaConfig = {
   apikey: 'API_KEY',
 };
 
 export const appConfig: ApplicationConfig = {
-  providers: [importProvidersFrom(AngularYandexMapsModule.forRoot(config))],
+  providers: [provideYaConfig(config)],
 };
 ```
 
@@ -109,16 +106,17 @@ export const appConfig: ApplicationConfig = {
 
 #### app.module.ts
 
-```typescript
+```ts
 import { NgModule } from '@angular/core';
-import { AngularYandexMapsModule, YaConfig } from 'angular8-yandex-maps';
+import { YaConfig, YaMapComponent, provideYaConfig } from 'angular8-yandex-maps';
 
 const config: YaConfig = {
   apikey: 'API_KEY',
 };
 
 @NgModule({
-  imports: [AngularYandexMapsModule.forRoot(mapConfig)],
+  imports: [YaMapComponent],
+  providers: [provideYaConfig(config)],
 })
 export class AppModule {}
 ```

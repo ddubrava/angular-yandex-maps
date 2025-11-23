@@ -13,7 +13,6 @@ import { YMapComponent } from '../y-map/y-map.component';
 import { YMapMarkerDirective } from './y-map-marker.directive';
 
 @Component({
-  standalone: true,
   imports: [YMapMarkerDirective],
   template: '<y-map-marker [props]="props"><div #element></div></y-map-marker>',
 })

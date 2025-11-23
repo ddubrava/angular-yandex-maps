@@ -14,7 +14,6 @@ import { YMapControlsDirective } from '../y-map-controls/y-map-controls.directiv
 import { YMapScaleControlDirective } from './y-map-scale-control.directive';
 
 @Component({
-  standalone: true,
   imports: [YMapScaleControlDirective],
   template: '<y-map-scale-control [props]="props" />',
 })

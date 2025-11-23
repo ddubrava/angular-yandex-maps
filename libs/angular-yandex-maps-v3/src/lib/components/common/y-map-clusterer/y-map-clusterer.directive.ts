@@ -89,7 +89,6 @@ import { YMapComponent } from '../y-map/y-map.component';
  */
 @Directive({
   selector: 'y-map-clusterer',
-  standalone: true,
 })
 export class YMapClustererDirective implements AfterContentInit, OnDestroy, OnChanges {
   private readonly ngZone = inject(NgZone);

@@ -1,11 +1,31 @@
 import { ChangeDetectionStrategy, Component, DoCheck } from '@angular/core';
-import { AngularYandexMapsModule, YaConfig, YaReadyEvent } from 'angular8-yandex-maps';
+import {
+  YaClustererComponent,
+  YaConfig,
+  YaControlDirective,
+  YaGeoObjectDirective,
+  YaMapComponent,
+  YaMultirouteDirective,
+  YaObjectManagerDirective,
+  YaPanoramaDirective,
+  YaPlacemarkDirective,
+  YaReadyEvent,
+} from 'angular8-yandex-maps';
 
 import { environment } from '../environments/environment';
 import { config$ } from './app.config';
 
 @Component({
-  imports: [AngularYandexMapsModule],
+  imports: [
+    YaMapComponent,
+    YaPanoramaDirective,
+    YaPlacemarkDirective,
+    YaClustererComponent,
+    YaGeoObjectDirective,
+    YaMultirouteDirective,
+    YaControlDirective,
+    YaObjectManagerDirective,
+  ],
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',

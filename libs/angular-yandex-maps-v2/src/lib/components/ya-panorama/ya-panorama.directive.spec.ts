@@ -8,11 +8,12 @@ import {
   mockPlayer,
   mockPlayerConstructor,
 } from '../../../test-utils';
-import { YaReadyEvent } from '../../interfaces/ya-ready-event';
+import { YaReadyEvent } from '../../types/ya-ready-event';
 import { YaMapComponent } from '../ya-map/ya-map.component';
 import { YaPanoramaDirective } from './ya-panorama.directive';
 
 @Component({
+  imports: [YaPanoramaDirective],
   template: `
     <ya-panorama
       [point]="point"
@@ -20,9 +21,8 @@ import { YaPanoramaDirective } from './ya-panorama.directive';
       [options]="options"
       (destroy)="handleDestroy()"
       (fullscreenexit)="handleFullscreenExit()"
-    ></ya-panorama>
+    />
   `,
-  standalone: false,
 })
 class MockHostComponent {
   @ViewChild(YaPanoramaDirective, { static: true }) panorama!: YaPanoramaDirective;
@@ -55,7 +55,7 @@ describe('YaPanoramaDirective', () => {
     map$ = new BehaviorSubject(mapInstance);
 
     await TestBed.configureTestingModule({
-      declarations: [MockHostComponent, YaPanoramaDirective],
+      imports: [MockHostComponent],
       providers: [
         {
           provide: YaMapComponent,
@@ -67,9 +67,7 @@ describe('YaPanoramaDirective', () => {
         },
       ],
     }).compileComponents();
-  });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(MockHostComponent);
     mockComponent = fixture.componentInstance;
     component = mockComponent.panorama;

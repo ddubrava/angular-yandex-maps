@@ -13,7 +13,6 @@ import { YMapControlsDirective } from '../y-map-controls/y-map-controls.directiv
 import { YMapOpenMapsButtonDirective } from './y-map-open-maps-button.directive';
 
 @Component({
-  standalone: true,
   imports: [YMapOpenMapsButtonDirective],
   template: '<y-map-open-maps-button [props]="props"  />',
 })

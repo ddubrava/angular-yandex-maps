@@ -13,8 +13,8 @@ import {
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
-import { YaEvent } from '../../interfaces/ya-event';
-import { YaReadyEvent } from '../../interfaces/ya-ready-event';
+import { YaEvent } from '../../types/ya-event';
+import { YaReadyEvent } from '../../types/ya-ready-event';
 import { EventManager } from '../../utils/event-manager/event-manager';
 import { YaMapComponent } from '../ya-map/ya-map.component';
 
@@ -39,7 +39,6 @@ type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
  */
 @Directive({
   selector: 'ya-multiroute',
-  standalone: false,
 })
 export class YaMultirouteDirective implements OnInit, OnChanges, OnDestroy {
   private readonly ngZone = inject(NgZone);

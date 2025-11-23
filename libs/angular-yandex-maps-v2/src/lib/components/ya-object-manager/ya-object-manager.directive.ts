@@ -13,8 +13,8 @@ import {
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
-import { YaEvent } from '../../interfaces/ya-event';
-import { YaReadyEvent } from '../../interfaces/ya-ready-event';
+import { YaEvent } from '../../types/ya-event';
+import { YaReadyEvent } from '../../types/ya-ready-event';
 import { EventManager } from '../../utils/event-manager/event-manager';
 import { YaMapComponent } from '../ya-map/ya-map.component';
 
@@ -36,7 +36,6 @@ import { YaMapComponent } from '../ya-map/ya-map.component';
  */
 @Directive({
   selector: 'ya-object-manager',
-  standalone: false,
 })
 export class YaObjectManagerDirective implements OnInit, OnChanges, OnDestroy {
   private readonly ngZone = inject(NgZone);

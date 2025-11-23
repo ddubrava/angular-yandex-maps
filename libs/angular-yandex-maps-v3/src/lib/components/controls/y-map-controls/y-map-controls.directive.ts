@@ -40,7 +40,6 @@ import { YMapComponent } from '../../common/y-map/y-map.component';
  */
 @Directive({
   selector: 'y-map-controls',
-  standalone: true,
 })
 export class YMapControlsDirective implements OnInit, OnChanges, OnDestroy {
   private readonly ngZone = inject(NgZone);

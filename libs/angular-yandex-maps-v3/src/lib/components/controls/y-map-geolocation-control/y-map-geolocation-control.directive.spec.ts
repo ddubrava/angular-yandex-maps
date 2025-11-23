@@ -13,7 +13,6 @@ import { YMapControlsDirective } from '../y-map-controls/y-map-controls.directiv
 import { YMapGeolocationControlDirective } from './y-map-geolocation-control.directive';
 
 @Component({
-  standalone: true,
   imports: [YMapGeolocationControlDirective],
   template: '<y-map-geolocation-control [props]="props" />',
 })
