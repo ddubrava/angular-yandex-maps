@@ -40,7 +40,6 @@ import { generateRandomId } from '../../../utils/generate-random-id/generate-ran
  */
 @Component({
   selector: 'y-map',
-
   template: '<div #container></div>',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
