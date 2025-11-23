@@ -17,7 +17,6 @@ import { YMapComponent } from '../y-map/y-map.component';
 import { YMapHintDirective } from './y-map-hint.directive';
 
 @Component({
-  standalone: true,
   imports: [YMapHintDirective],
   template: `
     <y-map-hint [props]="props">

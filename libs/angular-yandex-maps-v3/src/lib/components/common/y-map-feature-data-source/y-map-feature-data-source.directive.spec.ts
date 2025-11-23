@@ -13,7 +13,6 @@ import { YMapComponent } from '../y-map/y-map.component';
 import { YMapFeatureDataSourceDirective } from './y-map-feature-data-source.directive';
 
 @Component({
-  standalone: true,
   imports: [YMapFeatureDataSourceDirective],
   template: '<y-map-feature-data-source [props]="props" />',
 })

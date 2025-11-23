@@ -53,7 +53,6 @@ import { YMapComponent } from '../y-map/y-map.component';
  */
 @Directive({
   selector: 'y-map-marker',
-  standalone: true,
 })
 export class YMapMarkerDirective implements AfterViewInit, OnDestroy, OnChanges {
   private readonly ngZone = inject(NgZone);

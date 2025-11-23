@@ -41,7 +41,6 @@ import { YMapComponent } from '../../common/y-map/y-map.component';
  */
 @Directive({
   selector: 'y-map-default-features-layer',
-  standalone: true,
 })
 export class YMapDefaultFeaturesLayerDirective implements OnInit, OnDestroy, OnChanges {
   private readonly ngZone = inject(NgZone);

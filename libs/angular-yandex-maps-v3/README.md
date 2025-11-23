@@ -89,7 +89,6 @@ import { Component } from '@angular/core';
 import { YMapComponent, YMapDefaultSchemeLayerDirective } from 'angular-yandex-maps-v3';
 
 @Component({
-  standalone: true,
   imports: [YMapComponent, YMapDefaultSchemeLayerDirective],
 })
 export class AppComponent {}

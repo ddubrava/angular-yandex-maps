@@ -37,7 +37,6 @@ import { YMapComponent } from '../../common/y-map/y-map.component';
  */
 @Directive({
   selector: 'y-map-default-scheme-layer',
-  standalone: true,
 })
 export class YMapDefaultSchemeLayerDirective implements OnInit, OnDestroy, OnChanges {
   private readonly ngZone = inject(NgZone);

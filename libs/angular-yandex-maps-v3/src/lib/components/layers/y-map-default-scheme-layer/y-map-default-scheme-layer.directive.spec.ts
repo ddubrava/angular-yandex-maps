@@ -14,7 +14,6 @@ import { YMapComponent } from '../../common/y-map/y-map.component';
 import { YMapDefaultSchemeLayerDirective } from './y-map-default-scheme-layer.directive';
 
 @Component({
-  standalone: true,
   imports: [YMapDefaultSchemeLayerDirective],
   template: '<y-map-default-scheme-layer [props]="props" [options]="options" />',
 })

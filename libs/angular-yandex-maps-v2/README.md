@@ -82,7 +82,6 @@ import { Component } from '@angular/core';
 import { YaMapComponent } from 'angular8-yandex-maps';
 
 @Component({
-  standalone: true,
   imports: [YaMapComponent],
 })
 export class AppComponent {}

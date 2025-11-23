@@ -3,12 +3,13 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BehaviorSubject } from 'rxjs';
 
 import { mockMapInstance, mockRoutePanel, mockRoutePanelConstructor } from '../../../test-utils';
-import { YaReadyEvent } from '../../interfaces/ya-ready-event';
+import { YaReadyEvent } from '../../types/ya-ready-event';
 import { YaMapComponent } from '../ya-map/ya-map.component';
 import { YaControlDirective, YaControlType } from './ya-control.directive';
 
 @Component({
-  template: '<ya-control [type]="type" [parameters]="parameters"></ya-control>',
+  imports: [YaControlDirective],
+  template: '<ya-control [type]="type" [parameters]="parameters" />',
 })
 class MockHostComponent {
   @ViewChild(YaControlDirective, { static: true }) control!: YaControlDirective;
@@ -31,7 +32,7 @@ describe('YaControlDirective', () => {
     mapInstance = mockMapInstance();
 
     await TestBed.configureTestingModule({
-      declarations: [MockHostComponent, YaControlDirective],
+      imports: [MockHostComponent],
       providers: [
         {
           provide: YaMapComponent,
@@ -42,9 +43,7 @@ describe('YaControlDirective', () => {
         },
       ],
     }).compileComponents();
-  });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(MockHostComponent);
     mockComponent = fixture.componentInstance;
     component = mockComponent.control;

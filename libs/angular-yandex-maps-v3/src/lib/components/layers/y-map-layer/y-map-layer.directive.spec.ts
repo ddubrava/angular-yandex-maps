@@ -13,7 +13,6 @@ import { YMapComponent } from '../../common/y-map/y-map.component';
 import { YMapLayerDirective } from './y-map-layer.directive';
 
 @Component({
-  standalone: true,
   imports: [YMapLayerDirective],
   template: '<y-map-layer [props]="props"  />',
 })

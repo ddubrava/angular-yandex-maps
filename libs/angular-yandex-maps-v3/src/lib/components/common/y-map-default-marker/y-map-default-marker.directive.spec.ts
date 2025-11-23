@@ -14,7 +14,6 @@ import { YMapComponent } from '../y-map/y-map.component';
 import { YMapDefaultMarkerDirective } from './y-map-default-marker.directive';
 
 @Component({
-  standalone: true,
   imports: [YMapDefaultMarkerDirective],
   template: '<y-map-default-marker [props]="props" />',
 })

@@ -45,7 +45,6 @@ import { YMapControlsDirective } from '../y-map-controls/y-map-controls.directiv
  */
 @Directive({
   selector: 'y-map-control',
-  standalone: true,
 })
 export class YMapControlDirective implements AfterViewInit, OnChanges, OnDestroy {
   private readonly ngZone = inject(NgZone);

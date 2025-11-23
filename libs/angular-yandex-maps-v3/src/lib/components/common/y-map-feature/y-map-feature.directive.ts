@@ -57,7 +57,6 @@ import { YMapComponent } from '../y-map/y-map.component';
  */
 @Directive({
   selector: 'y-map-feature',
-  standalone: true,
 })
 export class YMapFeatureDirective implements OnInit, OnDestroy, OnChanges {
   private readonly ngZone = inject(NgZone);

@@ -3,18 +3,19 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BehaviorSubject } from 'rxjs';
 
 import { mockManagerConstructor, mockMapInstance, mockObjectManager } from '../../../test-utils';
-import { YaReadyEvent } from '../../interfaces/ya-ready-event';
+import { YaReadyEvent } from '../../types/ya-ready-event';
 import { YaMapComponent } from '../ya-map/ya-map.component';
 import { YaObjectManagerDirective } from './ya-object-manager.directive';
 
 @Component({
+  imports: [YaObjectManagerDirective],
   template: `
     <ya-object-manager
       [options]="options"
       (yaclick)="handleClick()"
       (geometrychange)="handleGeometryChange()"
       (multitouchmove)="handleMultitouchMove()"
-    ></ya-object-manager>
+    />
   `,
 })
 class MockHostComponent {
@@ -42,7 +43,7 @@ describe('YaObjectManagerDirective', () => {
     mapInstance = mockMapInstance();
 
     await TestBed.configureTestingModule({
-      declarations: [MockHostComponent, YaObjectManagerDirective],
+      imports: [MockHostComponent],
       providers: [
         {
           provide: YaMapComponent,
@@ -53,9 +54,7 @@ describe('YaObjectManagerDirective', () => {
         },
       ],
     }).compileComponents();
-  });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(MockHostComponent);
     mockComponent = fixture.componentInstance;
     component = mockComponent.objectManager;

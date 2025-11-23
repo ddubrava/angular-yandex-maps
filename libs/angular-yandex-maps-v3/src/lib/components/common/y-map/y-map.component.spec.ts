@@ -11,7 +11,6 @@ import * as GenerateRandomIdModule from '../../../utils/generate-random-id/gener
 import { YMapComponent } from './y-map.component';
 
 @Component({
-  standalone: true,
   imports: [YMapComponent],
   template: '<y-map [props]="props" [children]="children" />',
 })

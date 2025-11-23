@@ -43,7 +43,6 @@ import { YMapComponent } from '../../common/y-map/y-map.component';
  */
 @Directive({
   selector: 'y-map-layer',
-  standalone: true,
 })
 export class YMapLayerDirective implements OnInit, OnDestroy, OnChanges {
   private readonly ngZone = inject(NgZone);

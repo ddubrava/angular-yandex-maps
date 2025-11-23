@@ -18,7 +18,7 @@ import { map, switchMap, take } from 'rxjs/operators';
 import { YA_CONFIG } from '../../tokens/ya-config';
 import { YaConfig } from '../../types/ya-config';
 import { exitZone } from '../../utils/zone/zone';
-import { YaApiLoaderCache } from './interfaces/ya-api-loader-cache';
+import { YaApiLoaderCache } from './types/ya-api-loader-cache';
 
 /**
  * The `YaApiLoader` service handles loading of Yandex.Maps API. Use it if you do not need `YaMapComponent`.

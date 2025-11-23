@@ -7,11 +7,12 @@ import {
   mockPlacemarkConstructor,
   mockPlacemarkInstance,
 } from '../../../test-utils';
-import { YaReadyEvent } from '../../interfaces/ya-ready-event';
+import { YaReadyEvent } from '../../types/ya-ready-event';
 import { YaMapComponent } from '../ya-map/ya-map.component';
 import { YaPlacemarkDirective } from './ya-placemark.directive';
 
 @Component({
+  imports: [YaPlacemarkDirective],
   template: `
     <ya-placemark
       [geometry]="geometry"
@@ -20,7 +21,7 @@ import { YaPlacemarkDirective } from './ya-placemark.directive';
       (yaclick)="handleClick()"
       (yadrag)="handleDrag()"
       (parentchange)="handleParentChange()"
-    ></ya-placemark>
+    />
   `,
 })
 class MockHostComponent {
@@ -52,7 +53,7 @@ describe('YaPlacemarkDirective', () => {
     mapInstance = mockMapInstance();
 
     await TestBed.configureTestingModule({
-      declarations: [MockHostComponent, YaPlacemarkDirective],
+      imports: [MockHostComponent],
       providers: [
         {
           provide: YaMapComponent,
@@ -63,9 +64,7 @@ describe('YaPlacemarkDirective', () => {
         },
       ],
     }).compileComponents();
-  });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(MockHostComponent);
     mockComponent = fixture.componentInstance;
     component = mockComponent.placemark;

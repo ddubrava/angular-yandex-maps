@@ -43,7 +43,6 @@ import { YMapControlsDirective } from '../y-map-controls/y-map-controls.directiv
  */
 @Directive({
   selector: 'y-map-zoom-control-button',
-  standalone: true,
 })
 export class YMapZoomControlDirective implements OnInit, OnChanges, OnDestroy {
   private readonly ngZone = inject(NgZone);

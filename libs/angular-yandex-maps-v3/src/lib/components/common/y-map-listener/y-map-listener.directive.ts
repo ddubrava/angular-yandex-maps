@@ -42,7 +42,6 @@ import { YMapComponent } from '../y-map/y-map.component';
  */
 @Directive({
   selector: 'y-map-listener',
-  standalone: true,
 })
 export class YMapListenerDirective implements OnInit, OnChanges, OnDestroy {
   private readonly ngZone = inject(NgZone);

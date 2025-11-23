@@ -15,7 +15,6 @@ import { YMapControlsDirective } from '../y-map-controls/y-map-controls.directiv
 import { YMapControlButtonDirective } from './y-map-control-button.directive';
 
 @Component({
-  standalone: true,
   imports: [YMapControlButtonDirective],
   template: '<y-map-control-button [props]="props" [options]="options" />',
 })

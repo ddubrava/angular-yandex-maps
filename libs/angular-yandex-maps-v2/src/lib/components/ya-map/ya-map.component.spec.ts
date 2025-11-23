@@ -3,13 +3,14 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BehaviorSubject, Subject } from 'rxjs';
 
 import { mockMapConstructor, mockMapInstance } from '../../../test-utils';
-import { YaConfig } from '../../interfaces/ya-config';
-import { YaReadyEvent } from '../../interfaces/ya-ready-event';
 import { YaApiLoaderService } from '../../services/ya-api-loader/ya-api-loader.service';
+import { YaConfig } from '../../types/ya-config';
+import { YaReadyEvent } from '../../types/ya-ready-event';
 import * as GenerateRandomIdModule from '../../utils/generate-random-id/generate-random-id';
 import { YaMapComponent } from './ya-map.component';
 
 @Component({
+  imports: [YaMapComponent],
   template: `
     <ya-map
       [center]="center"
@@ -18,7 +19,7 @@ import { YaMapComponent } from './ya-map.component';
       [options]="options"
       (yaclick)="handleClick()"
       (hintopen)="handleHintOpen()"
-    ></ya-map>
+    />
   `,
 })
 class MockHostComponent {
@@ -51,7 +52,7 @@ describe('YaMapComponent', () => {
     config$ = new BehaviorSubject({});
 
     await TestBed.configureTestingModule({
-      declarations: [MockHostComponent, YaMapComponent],
+      imports: [MockHostComponent],
       providers: [
         {
           provide: YaApiLoaderService,
@@ -61,9 +62,7 @@ describe('YaMapComponent', () => {
         },
       ],
     }).compileComponents();
-  });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(MockHostComponent);
     mockComponent = fixture.componentInstance;
     component = mockComponent.map;

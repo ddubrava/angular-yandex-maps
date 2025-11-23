@@ -14,7 +14,6 @@ import { YMapComponent } from '../../common/y-map/y-map.component';
 import { YMapDefaultFeaturesLayerDirective } from './y-map-default-features-layer.directive';
 
 @Component({
-  standalone: true,
   imports: [YMapDefaultFeaturesLayerDirective],
   template: '<y-map-default-features-layer [props]="props" [options]="options" />',
 })

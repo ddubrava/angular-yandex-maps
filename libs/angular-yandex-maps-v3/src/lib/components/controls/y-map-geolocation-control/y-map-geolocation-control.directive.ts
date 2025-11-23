@@ -44,7 +44,6 @@ import { YMapControlsDirective } from '../y-map-controls/y-map-controls.directiv
  */
 @Directive({
   selector: 'y-map-geolocation-control',
-  standalone: true,
 })
 export class YMapGeolocationControlDirective implements OnInit, OnChanges, OnDestroy {
   private readonly ngZone = inject(NgZone);

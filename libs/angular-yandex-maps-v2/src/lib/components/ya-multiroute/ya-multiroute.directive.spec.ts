@@ -3,11 +3,12 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BehaviorSubject } from 'rxjs';
 
 import { mockMapInstance, mockMultiroute, mockMultirouteConstructor } from '../../../test-utils';
-import { YaReadyEvent } from '../../interfaces/ya-ready-event';
+import { YaReadyEvent } from '../../types/ya-ready-event';
 import { YaMapComponent } from '../ya-map/ya-map.component';
 import { YaMultirouteDirective } from './ya-multiroute.directive';
 
 @Component({
+  imports: [YaMultirouteDirective],
   template: `
     <ya-multiroute
       [referencePoints]="referencePoints"
@@ -16,7 +17,7 @@ import { YaMultirouteDirective } from './ya-multiroute.directive';
       (mapchange)="handleMapChange()"
       (parentchange)="handleParentChange()"
       (pixelboundschange)="handlePixelBoundsChange()"
-    ></ya-multiroute>
+    />
   `,
 })
 class MockHostComponent {
@@ -48,7 +49,7 @@ describe('YaMultirouteDirective', () => {
     mapInstance = mockMapInstance();
 
     await TestBed.configureTestingModule({
-      declarations: [MockHostComponent, YaMultirouteDirective],
+      imports: [MockHostComponent],
       providers: [
         {
           provide: YaMapComponent,
@@ -59,9 +60,7 @@ describe('YaMultirouteDirective', () => {
         },
       ],
     }).compileComponents();
-  });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(MockHostComponent);
     mockComponent = fixture.componentInstance;
     component = mockComponent.multiroute;

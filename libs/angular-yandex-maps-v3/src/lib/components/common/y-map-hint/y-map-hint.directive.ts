@@ -78,7 +78,6 @@ import { YMapComponent } from '../y-map/y-map.component';
  */
 @Directive({
   selector: 'y-map-hint',
-  standalone: true,
 })
 export class YMapHintDirective implements AfterContentInit, OnChanges, OnDestroy {
   private readonly ngZone = inject(NgZone);

@@ -40,7 +40,6 @@ import { YMapControlsDirective } from '../y-map-controls/y-map-controls.directiv
  */
 @Directive({
   selector: 'y-map-scale-control',
-  standalone: true,
 })
 export class YMapScaleControlDirective implements OnInit, OnChanges, OnDestroy {
   private readonly ngZone = inject(NgZone);
