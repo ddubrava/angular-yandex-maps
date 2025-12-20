@@ -20,4 +20,4 @@
     - [YaReadyEvent](v2/interfaces/YaReadyEvent)
     - [YaControlType](v2/interfaces/YaControlType)
 - **Variables**
-    - [YA_CONFIG](v2/variables/YA_CONFIG)
+    - [provideYaConfig](v2/variables/provideYaConfig)

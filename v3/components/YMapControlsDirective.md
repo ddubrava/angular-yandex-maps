@@ -25,10 +25,10 @@ All component inputs are named the same as the API class constructor arguments.
 
 
 ## Inputs
-| Name     | Description                                                   | Type                     | API Reference                                                                     |
-| -------- | ------------------------------------------------------------- | ------------------------ | --------------------------------------------------------------------------------- |
-| children |   See the API entity documentation for detailed information.  | YMapEntity\<, object\>[] | —                                                                                 |
-| props    |   Controls properties. Supports ngOnChanges.                  | YMapControlsProps        | [#YMapControlsProps](https://yandex.ru/dev/jsapi30/doc/ru/ref/#YMapControlsProps) |
+| Name     | Description                                                   | Type                            | API Reference                                                                     |
+| -------- | ------------------------------------------------------------- | ------------------------------- | --------------------------------------------------------------------------------- |
+| children |   See the API entity documentation for detailed information.  | YMapEntity\<unknown, object\>[] | —                                                                                 |
+| props    |   Controls properties. Supports ngOnChanges.                  | YMapControlsProps               | [#YMapControlsProps](https://yandex.ru/dev/jsapi30/doc/ru/ref/#YMapControlsProps) |
 
 ## Outputs
 | Name  | Description                                                                 | Type                                        | API Reference |

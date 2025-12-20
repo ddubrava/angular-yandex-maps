@@ -32,7 +32,7 @@ npm install @yandex/ymaps3-types --save-dev
 
 | Angular version    | Library version |
 | ------------------ | --------------- |
-| v20                | v20.x           |
+| v20, v21           | v21.x           |
 | v16, v17, v18, v19 | v19.x           |
 
 ## Usage
@@ -89,7 +89,6 @@ import { Component } from '@angular/core';
 import { YMapComponent, YMapDefaultSchemeLayerDirective } from 'angular-yandex-maps-v3';
 
 @Component({
-  standalone: true,
   imports: [YMapComponent, YMapDefaultSchemeLayerDirective],
 })
 export class AppComponent {}

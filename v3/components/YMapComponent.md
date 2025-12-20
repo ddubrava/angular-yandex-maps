@@ -22,10 +22,10 @@ All component inputs are named the same as the API class constructor arguments.
 
 
 ## Inputs
-| Name     | Description                                                                      | Type                     | API Reference                                                     |
-| -------- | -------------------------------------------------------------------------------- | ------------------------ | ----------------------------------------------------------------- |
-| children |   See the API entity documentation for detailed information.                     | YMapEntity\<, object\>[] | —                                                                 |
-| props    |   See the API entity documentation for detailed information. Supports updates.   | YMapProps                | [#YMapProps](https://yandex.ru/dev/jsapi30/doc/ru/ref/#YMapProps) |
+| Name     | Description                                                                      | Type                            | API Reference                                                     |
+| -------- | -------------------------------------------------------------------------------- | ------------------------------- | ----------------------------------------------------------------- |
+| children |   See the API entity documentation for detailed information.                     | YMapEntity\<unknown, object\>[] | —                                                                 |
+| props    |   See the API entity documentation for detailed information. Supports updates.   | YMapProps                       | [#YMapProps](https://yandex.ru/dev/jsapi30/doc/ru/ref/#YMapProps) |
 
 ## Outputs
 | Name  | Description                                                                 | Type                                | API Reference |
