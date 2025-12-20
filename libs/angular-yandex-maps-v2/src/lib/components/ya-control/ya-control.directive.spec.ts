@@ -99,7 +99,7 @@ describe('YaControlDirective', () => {
   it('should not call constructor if type is undefined', () => {
     mockComponent.type = undefined;
     fixture.detectChanges();
-    expect(routePanelConstructorMock).not.toBeCalled();
+    expect(routePanelConstructorMock).not.toHaveBeenCalled();
   });
 
   it('should manually set state for RoutePanel', () => {
