@@ -1,12 +1,14 @@
 import { Component, ViewChild } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { YMapEntity, YMapProps } from '@yandex/ymaps3-types';
-import { BehaviorSubject, Subject } from 'rxjs';
+import type { ComponentFixture } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
+import type { YMapEntity, YMapProps } from '@yandex/ymaps3-types';
+import type { Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 import { mockYMapConstructor, mockYMapInstance } from '../../../../test-utils';
 import { YApiLoaderService } from '../../../services/y-api-loader/y-api-loader.service';
-import { YConfig } from '../../../types/y-config';
-import { YReadyEvent } from '../../../types/y-ready-event';
+import type { YConfig } from '../../../types/y-config';
+import type { YReadyEvent } from '../../../types/y-ready-event';
 import * as GenerateRandomIdModule from '../../../utils/generate-random-id/generate-random-id';
 import { YMapComponent } from './y-map.component';
 

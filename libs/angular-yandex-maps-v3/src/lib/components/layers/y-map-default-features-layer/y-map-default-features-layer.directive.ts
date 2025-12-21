@@ -1,16 +1,6 @@
-import {
-  Directive,
-  EventEmitter,
-  inject,
-  Input,
-  NgZone,
-  OnChanges,
-  OnDestroy,
-  OnInit,
-  Output,
-  SimpleChanges,
-} from '@angular/core';
-import {
+import type { OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { Directive, EventEmitter, inject, Input, NgZone, Output } from '@angular/core';
+import type {
   YMap,
   YMapDefaultFeaturesLayer,
   YMapDefaultFeaturesLayerProps,
@@ -18,8 +8,8 @@ import {
 import { Subject, takeUntil } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
-import { ComplexOptions } from '../../../types/complex-options';
-import { YReadyEvent } from '../../../types/y-ready-event';
+import type { ComplexOptions } from '../../../types/complex-options';
+import type { YReadyEvent } from '../../../types/y-ready-event';
 import { YMapComponent } from '../../common/y-map/y-map.component';
 
 /**

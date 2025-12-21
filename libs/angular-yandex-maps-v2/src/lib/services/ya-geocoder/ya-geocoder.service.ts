@@ -1,5 +1,6 @@
 import { inject, Injectable, NgZone } from '@angular/core';
-import { from, Observable } from 'rxjs';
+import type { Observable } from 'rxjs';
+import { from } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 import { enterZone } from '../../utils/zone/zone';

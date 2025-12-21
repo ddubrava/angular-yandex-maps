@@ -1,23 +1,20 @@
+import type { AfterViewInit, ElementRef, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
-  ElementRef,
   EventEmitter,
   inject,
   Input,
   NgZone,
-  OnChanges,
-  OnDestroy,
   Output,
-  SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { BehaviorSubject, Observable, Subject, takeUntil } from 'rxjs';
+import type { Observable } from 'rxjs';
+import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
 
 import { YaApiLoaderService } from '../../services/ya-api-loader/ya-api-loader.service';
-import { YaEvent } from '../../types/ya-event';
-import { YaReadyEvent } from '../../types/ya-ready-event';
+import type { YaEvent } from '../../types/ya-event';
+import type { YaReadyEvent } from '../../types/ya-ready-event';
 import { EventManager } from '../../utils/event-manager/event-manager';
 import { generateRandomId } from '../../utils/generate-random-id/generate-random-id';
 

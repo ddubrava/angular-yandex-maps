@@ -1,5 +1,7 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
-import { provideYConfig, YConfig } from 'angular-yandex-maps-v3';
+import type { ApplicationConfig } from '@angular/core';
+import { provideZoneChangeDetection } from '@angular/core';
+import type { YConfig } from 'angular-yandex-maps-v3';
+import { provideYConfig } from 'angular-yandex-maps-v3';
 import { BehaviorSubject } from 'rxjs';
 
 import { environment } from '../environments/environment';

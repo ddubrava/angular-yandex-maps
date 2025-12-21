@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import dedent from 'ts-dedent';
 
-import { CompodocInjectable } from '../types/compodoc-injectable';
+import type { CompodocInjectable } from '../types/compodoc-injectable';
 import { formatDescription } from './format-description';
 
 /**

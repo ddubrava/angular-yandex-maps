@@ -1,4 +1,4 @@
-import { NgZone } from '@angular/core';
+import type { NgZone } from '@angular/core';
 
 import { EventManager } from './event-manager';
 

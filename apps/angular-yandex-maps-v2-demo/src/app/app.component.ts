@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component, DoCheck } from '@angular/core';
+import type { DoCheck } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import type { YaConfig, YaReadyEvent } from 'angular8-yandex-maps';
 import {
   YaClustererComponent,
-  YaConfig,
   YaControlDirective,
   YaGeoObjectDirective,
   YaMapComponent,
@@ -9,7 +10,6 @@ import {
   YaObjectManagerDirective,
   YaPanoramaDirective,
   YaPlacemarkDirective,
-  YaReadyEvent,
 } from 'angular8-yandex-maps';
 
 import { environment } from '../environments/environment';

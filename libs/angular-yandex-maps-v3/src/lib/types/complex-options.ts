@@ -1,4 +1,4 @@
-import { GenericEntity, GenericRootEntity } from '@yandex/ymaps3-types/imperative/Entities';
+import type { GenericEntity, GenericRootEntity } from '@yandex/ymaps3-types/imperative/Entities';
 
 /**
  * Typings do not export this type, but it's used it in many places.

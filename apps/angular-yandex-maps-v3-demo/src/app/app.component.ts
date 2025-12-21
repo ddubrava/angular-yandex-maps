@@ -1,8 +1,9 @@
-import { ChangeDetectionStrategy, Component, DoCheck } from '@angular/core';
+import type { DoCheck } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import type { YMapFeature, YMapHotspot, YMapMarker } from '@yandex/ymaps3-types/imperative';
-import { Feature } from '@yandex/ymaps3-types/packages/clusterer';
+import type { Feature } from '@yandex/ymaps3-types/packages/clusterer';
+import type { YConfig } from 'angular-yandex-maps-v3';
 import {
-  YConfig,
   YMapClustererDirective,
   YMapComponent,
   YMapControlButtonDirective,

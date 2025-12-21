@@ -1,7 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { YMap } from '@yandex/ymaps3-types';
-import { YMapZoomControlProps } from '@yandex/ymaps3-types/packages/controls';
+import type { ComponentFixture } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
+import type { YMap } from '@yandex/ymaps3-types';
+import type { YMapZoomControlProps } from '@yandex/ymaps3-types/packages/controls';
 import { BehaviorSubject } from 'rxjs';
 
 import {
@@ -9,8 +10,8 @@ import {
   mockYMapZoomControlConstructor,
   mockYMapZoomControlInstance,
 } from '../../../../test-utils';
-import { ComplexOptions } from '../../../types/complex-options';
-import { YReadyEvent } from '../../../types/y-ready-event';
+import type { ComplexOptions } from '../../../types/complex-options';
+import type { YReadyEvent } from '../../../types/y-ready-event';
 import { YMapControlsDirective } from '../y-map-controls/y-map-controls.directive';
 import { YMapZoomControlDirective } from './y-map-zoom-control.directive';
 

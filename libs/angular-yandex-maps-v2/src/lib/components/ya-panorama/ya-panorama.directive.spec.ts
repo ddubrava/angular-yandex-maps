@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import type { ComponentFixture } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { BehaviorSubject } from 'rxjs';
 
 import {
@@ -8,7 +9,7 @@ import {
   mockPlayer,
   mockPlayerConstructor,
 } from '../../../test-utils';
-import { YaReadyEvent } from '../../types/ya-ready-event';
+import type { YaReadyEvent } from '../../types/ya-ready-event';
 import { YaMapComponent } from '../ya-map/ya-map.component';
 import { YaPanoramaDirective } from './ya-panorama.directive';
 

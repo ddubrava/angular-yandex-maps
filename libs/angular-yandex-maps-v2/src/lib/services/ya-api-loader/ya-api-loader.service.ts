@@ -1,5 +1,6 @@
 import { isPlatformBrowser } from '@angular/common';
 import { DOCUMENT, inject, Injectable, NgZone, PLATFORM_ID } from '@angular/core';
+import type { Observable } from 'rxjs';
 import {
   BehaviorSubject,
   from,
@@ -8,7 +9,6 @@ import {
   merge,
   mergeMap,
   NEVER,
-  Observable,
   of,
   tap,
   throwError,
@@ -16,9 +16,9 @@ import {
 import { map, switchMap, take } from 'rxjs/operators';
 
 import { YA_CONFIG } from '../../tokens/ya-config';
-import { YaConfig } from '../../types/ya-config';
+import type { YaConfig } from '../../types/ya-config';
 import { exitZone } from '../../utils/zone/zone';
-import { YaApiLoaderCache } from './types/ya-api-loader-cache';
+import type { YaApiLoaderCache } from './types/ya-api-loader-cache';
 
 /**
  * The `YaApiLoader` service handles loading of Yandex.Maps API. Use it if you do not need `YaMapComponent`.

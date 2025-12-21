@@ -1,23 +1,13 @@
-import {
-  Directive,
-  EventEmitter,
-  inject,
-  Input,
-  NgZone,
-  OnChanges,
-  OnDestroy,
-  OnInit,
-  Output,
-  SimpleChanges,
-} from '@angular/core';
-import {
+import type { OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { Directive, EventEmitter, inject, Input, NgZone, Output } from '@angular/core';
+import type {
   YMapOpenMapsButton,
   YMapOpenMapsButtonProps,
 } from '@yandex/ymaps3-types/modules/controls-extra';
 import { from, Subject, takeUntil, tap } from 'rxjs';
 import { filter, switchMap } from 'rxjs/operators';
 
-import { YReadyEvent } from '../../../types/y-ready-event';
+import type { YReadyEvent } from '../../../types/y-ready-event';
 import { YMapControlsDirective } from '../y-map-controls/y-map-controls.directive';
 
 /**

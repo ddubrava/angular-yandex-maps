@@ -1,23 +1,19 @@
+import type { AfterViewInit, ElementRef, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
-  ElementRef,
   EventEmitter,
   inject,
   Input,
   NgZone,
-  OnChanges,
-  OnDestroy,
   Output,
-  SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { YMap, YMapEntity, YMapProps } from '@yandex/ymaps3-types';
+import type { YMap, YMapEntity, YMapProps } from '@yandex/ymaps3-types';
 import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
 
 import { YApiLoaderService } from '../../../services/y-api-loader/y-api-loader.service';
-import { YReadyEvent } from '../../../types/y-ready-event';
+import type { YReadyEvent } from '../../../types/y-ready-event';
 import { generateRandomId } from '../../../utils/generate-random-id/generate-random-id';
 
 /**

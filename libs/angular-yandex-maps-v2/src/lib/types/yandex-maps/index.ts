@@ -3894,8 +3894,7 @@ declare global {
     }
 
     interface IClustererOptions
-      extends IClustererOptionsInject,
-        IClusterPlacemarkOptionsWithClusterPrefix {
+      extends IClustererOptionsInject, IClusterPlacemarkOptionsWithClusterPrefix {
       hasBalloon?: boolean | undefined;
       hasHint?: boolean | undefined;
 
@@ -4008,9 +4007,10 @@ declare global {
       removeAll(): this;
     }
 
-    class Event<OriginalEvent = object, TargetGeometry = object>
-      implements IEvent<OriginalEvent, TargetGeometry>
-    {
+    class Event<OriginalEvent = object, TargetGeometry = object> implements IEvent<
+      OriginalEvent,
+      TargetGeometry
+    > {
       constructor(originalEvent: object, sourceEvent: IEvent);
 
       originalEvent: {
@@ -4047,9 +4047,10 @@ declare global {
       stopPropagation(): boolean;
     }
 
-    class DomEvent<OriginalEvent = object, TargetGeometry = object>
-      implements IDomEvent<OriginalEvent, TargetGeometry>
-    {
+    class DomEvent<OriginalEvent = object, TargetGeometry = object> implements IDomEvent<
+      OriginalEvent,
+      TargetGeometry
+    > {
       constructor(originalEvent: DomEvent, type?: object);
 
       originalEvent: {
@@ -4144,8 +4145,7 @@ declare global {
     }
 
     interface IGeoObjectOptions
-      extends IBalloonOptionsWithBalloonPrefix,
-        IHintOptionsWithHintPrefix {
+      extends IBalloonOptionsWithBalloonPrefix, IHintOptionsWithHintPrefix {
       circleOverlay?:
         | string
         | ((geometry: IPixelCircleGeometry, data: object, options: object) => Promise<IOverlay>);
@@ -4514,7 +4514,8 @@ declare global {
     }
 
     interface IPlacemarkOptions
-      extends layout.IImageOptionsWithIconPrefix,
+      extends
+        layout.IImageOptionsWithIconPrefix,
         layout.IImageWithContentOptionsWithIconPrefix,
         layout.IPieChartOptionsWithIconPrefix,
         IBalloonOptionsWithBalloonPrefix,
@@ -4710,8 +4711,7 @@ declare global {
     }
 
     interface IRectangleOptions
-      extends IBalloonOptionsWithBalloonPrefix,
-        IHintOptionsWithHintPrefix {
+      extends IBalloonOptionsWithBalloonPrefix, IHintOptionsWithHintPrefix {
       cursor?: string;
       draggable?: boolean;
       fill?: boolean;
@@ -5181,8 +5181,10 @@ declare global {
       stopPropagation(): boolean;
     }
 
-    interface IDomEvent<OriginalEvent = object, TargetGeometry = object>
-      extends IEvent<OriginalEvent, TargetGeometry> {
+    interface IDomEvent<OriginalEvent = object, TargetGeometry = object> extends IEvent<
+      OriginalEvent,
+      TargetGeometry
+    > {
       getSourceEvent(): IDomEvent<OriginalEvent, TargetGeometry>;
     }
 
@@ -5351,10 +5353,7 @@ declare global {
     }
 
     interface IGeoObject<T = IGeometry>
-      extends IChildOnMap,
-        ICustomizable,
-        IDomEventEmitter,
-        IParentOnMap {
+      extends IChildOnMap, ICustomizable, IDomEventEmitter, IParentOnMap {
       geometry: T | null;
 
       properties: IDataManager;
@@ -6078,7 +6077,8 @@ declare global {
     }
 
     interface IObjectManagerOptions
-      extends Omit<IClustererOptionsInject, 'hasBalloon' | 'hasHint'>,
+      extends
+        Omit<IClustererOptionsInject, 'hasBalloon' | 'hasHint'>,
         IClusterPlacemarkOptionsWithClusterPrefix,
         Omit<IGeoObjectOptionsWithGeoObjectPrefix, 'visible'> {
       clusterize?: boolean | undefined;
@@ -6135,7 +6135,8 @@ declare global {
     }
 
     interface ILoadingObjectManagerOptions
-      extends Omit<IClustererOptionsInject, 'hasBalloon' | 'hasHint'>,
+      extends
+        Omit<IClustererOptionsInject, 'hasBalloon' | 'hasHint'>,
         IClusterPlacemarkOptionsWithClusterPrefix,
         Omit<IGeoObjectOptionsWithGeoObjectPrefix, 'visible'> {
       clusterize?: boolean;
@@ -6329,8 +6330,7 @@ declare global {
     }
 
     interface IHotspotLayerOptions
-      extends IBalloonOptionsWithBalloonPrefix,
-        IHintOptionsWithHintPrefix {
+      extends IBalloonOptionsWithBalloonPrefix, IHintOptionsWithHintPrefix {
       cursor?: string;
       dontChangeCursor?: boolean;
       hasBalloon?: boolean;

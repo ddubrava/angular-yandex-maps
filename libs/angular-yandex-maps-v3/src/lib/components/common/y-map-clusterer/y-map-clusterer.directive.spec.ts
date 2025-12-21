@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { YMapClustererProps } from '@yandex/ymaps3-types/packages/clusterer';
+import type { ComponentFixture } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
+import type { YMapClustererProps } from '@yandex/ymaps3-types/packages/clusterer';
 import { BehaviorSubject } from 'rxjs';
 
 import {
@@ -9,8 +10,8 @@ import {
   mockYMapClustererInstance,
   mockYMapInstance,
 } from '../../../../test-utils';
-import { Optional } from '../../../types/utilities/optional';
-import { YReadyEvent } from '../../../types/y-ready-event';
+import type { Optional } from '../../../types/utilities/optional';
+import type { YReadyEvent } from '../../../types/y-ready-event';
 import { YMapComponent } from '../y-map/y-map.component';
 import { YMapClustererDirective } from './y-map-clusterer.directive';
 

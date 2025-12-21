@@ -1,13 +1,13 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-import { CompodocComponent } from './types/compodoc-component';
-import { CompodocDirective } from './types/compodoc-directive';
-import { CompodocInjectable } from './types/compodoc-injectable';
-import { CompodocInterface } from './types/compodoc-interface';
-import { CompodocTypealias } from './types/compodoc-typealias';
-import { CompodocVariable } from './types/compodoc-variable';
-import { CompodocDocumentation } from './types/compodocDocumentation';
+import type { CompodocComponent } from './types/compodoc-component';
+import type { CompodocDirective } from './types/compodoc-directive';
+import type { CompodocInjectable } from './types/compodoc-injectable';
+import type { CompodocInterface } from './types/compodoc-interface';
+import type { CompodocTypealias } from './types/compodoc-typealias';
+import type { CompodocVariable } from './types/compodoc-variable';
+import type { CompodocDocumentation } from './types/compodocDocumentation';
 import { copyFiles } from './utils/copy-files';
 import { createComponentMarkdown } from './utils/create-component-markdown';
 import { createInterfaceMarkdown } from './utils/create-interface-markdown';

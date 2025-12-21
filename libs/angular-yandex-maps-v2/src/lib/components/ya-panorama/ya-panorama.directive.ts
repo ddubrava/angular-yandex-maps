@@ -1,20 +1,11 @@
-import {
-  Directive,
-  EventEmitter,
-  inject,
-  Input,
-  NgZone,
-  OnChanges,
-  OnDestroy,
-  OnInit,
-  Output,
-  SimpleChanges,
-} from '@angular/core';
-import { from, Observable, Subject, takeUntil } from 'rxjs';
+import type { OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { Directive, EventEmitter, inject, Input, NgZone, Output } from '@angular/core';
+import type { Observable } from 'rxjs';
+import { from, Subject, takeUntil } from 'rxjs';
 import { filter, map, switchMap } from 'rxjs/operators';
 
-import { YaEvent } from '../../types/ya-event';
-import { YaReadyEvent } from '../../types/ya-ready-event';
+import type { YaEvent } from '../../types/ya-event';
+import type { YaReadyEvent } from '../../types/ya-ready-event';
 import { EventManager } from '../../utils/event-manager/event-manager';
 import { YaMapComponent } from '../ya-map/ya-map.component';
 

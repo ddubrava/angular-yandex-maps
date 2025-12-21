@@ -1,9 +1,9 @@
-import { CompodocComponent } from './compodoc-component';
-import { CompodocDirective } from './compodoc-directive';
-import { CompodocFunction } from './compodoc-function';
-import { CompodocInjectable } from './compodoc-injectable';
-import { CompodocInterface } from './compodoc-interface';
-import { CompodocMiscellaneous } from './compodoc-miscellaneous';
+import type { CompodocComponent } from './compodoc-component';
+import type { CompodocDirective } from './compodoc-directive';
+import type { CompodocFunction } from './compodoc-function';
+import type { CompodocInjectable } from './compodoc-injectable';
+import type { CompodocInterface } from './compodoc-interface';
+import type { CompodocMiscellaneous } from './compodoc-miscellaneous';
 
 export interface CompodocDocumentation {
   classes: unknown[];
