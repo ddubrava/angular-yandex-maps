@@ -1,3 +1,10 @@
+# 21.0.0 (2025-12-21)
+
+### 🚀 Features
+
+- support Angular 21 ([#281](https://github.com/ddubrava/angular-yandex-maps/pull/281))
+- migrate components to standalone ([#279](https://github.com/ddubrava/angular-yandex-maps/pull/279))
+
 # 20.0.0 (2025-06-22)
 
 ### 🚀 Features
