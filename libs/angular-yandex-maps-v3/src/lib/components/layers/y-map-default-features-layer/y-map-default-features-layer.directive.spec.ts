@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { YMap, YMapDefaultFeaturesLayerProps } from '@yandex/ymaps3-types';
+import type { ComponentFixture } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
+import type { YMap, YMapDefaultFeaturesLayerProps } from '@yandex/ymaps3-types';
 import { BehaviorSubject } from 'rxjs';
 
 import {
@@ -8,8 +9,8 @@ import {
   mockYMapDefaultFeaturesLayerInstance,
   mockYMapInstance,
 } from '../../../../test-utils';
-import { ComplexOptions } from '../../../types/complex-options';
-import { YReadyEvent } from '../../../types/y-ready-event';
+import type { ComplexOptions } from '../../../types/complex-options';
+import type { YReadyEvent } from '../../../types/y-ready-event';
 import { YMapComponent } from '../../common/y-map/y-map.component';
 import { YMapDefaultFeaturesLayerDirective } from './y-map-default-features-layer.directive';
 

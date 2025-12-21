@@ -1,11 +1,13 @@
 import { Component, ViewChild } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { BehaviorSubject, Subject } from 'rxjs';
+import type { ComponentFixture } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
+import type { Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 import { mockMapConstructor, mockMapInstance } from '../../../test-utils';
 import { YaApiLoaderService } from '../../services/ya-api-loader/ya-api-loader.service';
-import { YaConfig } from '../../types/ya-config';
-import { YaReadyEvent } from '../../types/ya-ready-event';
+import type { YaConfig } from '../../types/ya-config';
+import type { YaReadyEvent } from '../../types/ya-ready-event';
 import * as GenerateRandomIdModule from '../../utils/generate-random-id/generate-random-id';
 import { YaMapComponent } from './ya-map.component';
 

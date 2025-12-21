@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { YMapOpenMapsButtonProps } from '@yandex/ymaps3-types/modules/controls-extra';
+import type { ComponentFixture } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
+import type { YMapOpenMapsButtonProps } from '@yandex/ymaps3-types/modules/controls-extra';
 import { BehaviorSubject } from 'rxjs';
 
 import {
@@ -8,7 +9,7 @@ import {
   mockYMapOpenMapsButtonConstructor,
   mockYMapOpenMapsButtonInstance,
 } from '../../../../test-utils';
-import { YReadyEvent } from '../../../types/y-ready-event';
+import type { YReadyEvent } from '../../../types/y-ready-event';
 import { YMapControlsDirective } from '../y-map-controls/y-map-controls.directive';
 import { YMapOpenMapsButtonDirective } from './y-map-open-maps-button.directive';
 

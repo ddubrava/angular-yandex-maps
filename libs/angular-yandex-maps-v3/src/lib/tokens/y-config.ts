@@ -1,7 +1,7 @@
 import { InjectionToken, makeEnvironmentProviders } from '@angular/core';
-import { Observable } from 'rxjs';
+import type { Observable } from 'rxjs';
 
-import { YConfig } from '../types/y-config';
+import type { YConfig } from '../types/y-config';
 
 /**
  * @internal

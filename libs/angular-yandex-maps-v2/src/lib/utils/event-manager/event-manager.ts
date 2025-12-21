@@ -3,11 +3,12 @@
  * {@link https://github.com/angular/components/blob/main/src/google-maps/map-event-manager.ts}
  */
 
-import { NgZone } from '@angular/core';
-import { BehaviorSubject, Observable, Subscriber } from 'rxjs';
+import type { NgZone } from '@angular/core';
+import type { Subscriber } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { YaEvent } from '../../types/ya-event';
+import type { YaEvent } from '../../types/ya-event';
 
 /**
  * @internal

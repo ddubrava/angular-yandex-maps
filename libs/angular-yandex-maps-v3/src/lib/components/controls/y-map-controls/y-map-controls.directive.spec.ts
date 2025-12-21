@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { YMapControlsProps, YMapEntity } from '@yandex/ymaps3-types';
+import type { ComponentFixture } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
+import type { YMapControlsProps, YMapEntity } from '@yandex/ymaps3-types';
 import { BehaviorSubject } from 'rxjs';
 
 import {
@@ -8,7 +9,7 @@ import {
   mockYMapControlsInstance,
   mockYMapInstance,
 } from '../../../../test-utils';
-import { YReadyEvent } from '../../../types/y-ready-event';
+import type { YReadyEvent } from '../../../types/y-ready-event';
 import { YMapComponent } from '../../common/y-map/y-map.component';
 import { YMapControlsDirective } from './y-map-controls.directive';
 

@@ -1,6 +1,8 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { YMapMarkerProps } from '@yandex/ymaps3-types';
+import type { ElementRef } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import type { ComponentFixture } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
+import type { YMapMarkerProps } from '@yandex/ymaps3-types';
 import { BehaviorSubject } from 'rxjs';
 
 import {
@@ -8,7 +10,7 @@ import {
   mockYMapMarkerConstructor,
   mockYMapMarkerInstance,
 } from '../../../../test-utils';
-import { YReadyEvent } from '../../../types/y-ready-event';
+import type { YReadyEvent } from '../../../types/y-ready-event';
 import { YMapComponent } from '../y-map/y-map.component';
 import { YMapMarkerDirective } from './y-map-marker.directive';
 

@@ -3,10 +3,10 @@ import { markdownTable } from 'markdown-table';
 import * as path from 'path';
 import dedent from 'ts-dedent';
 
-import { CompodocComponent } from '../types/compodoc-component';
-import { CompodocDirective } from '../types/compodoc-directive';
-import { CompodocInput } from '../types/compodoc-input';
-import { CompodocOutput } from '../types/compodoc-output';
+import type { CompodocComponent } from '../types/compodoc-component';
+import type { CompodocDirective } from '../types/compodoc-directive';
+import type { CompodocInput } from '../types/compodoc-input';
+import type { CompodocOutput } from '../types/compodoc-output';
 import { formatDescription } from './format-description';
 
 /**

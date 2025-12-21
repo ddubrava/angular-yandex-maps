@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { YMapGeolocationControlProps } from '@yandex/ymaps3-types/packages/controls';
+import type { ComponentFixture } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
+import type { YMapGeolocationControlProps } from '@yandex/ymaps3-types/packages/controls';
 import { BehaviorSubject } from 'rxjs';
 
 import {
@@ -8,7 +9,7 @@ import {
   mockYMapGeolocationControlConstructor,
   mockYMapGeolocationControlInstance,
 } from '../../../../test-utils';
-import { YReadyEvent } from '../../../types/y-ready-event';
+import type { YReadyEvent } from '../../../types/y-ready-event';
 import { YMapControlsDirective } from '../y-map-controls/y-map-controls.directive';
 import { YMapGeolocationControlDirective } from './y-map-geolocation-control.directive';
 

@@ -2,8 +2,8 @@ import * as fs from 'fs';
 import * as path from 'path';
 import dedent from 'ts-dedent';
 
-import { CompodocEntity } from '../types/compodoc-entity';
-import { CompodocDocumentation } from '../types/compodocDocumentation';
+import type { CompodocEntity } from '../types/compodoc-entity';
+import type { CompodocDocumentation } from '../types/compodocDocumentation';
 
 const sourceCodeDirectory = 'lib';
 

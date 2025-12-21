@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 
-import { CompodocDocumentation } from '../types/compodocDocumentation';
+import type { CompodocDocumentation } from '../types/compodocDocumentation';
 
 /**
  * Parses a JSON compodoc documentation.

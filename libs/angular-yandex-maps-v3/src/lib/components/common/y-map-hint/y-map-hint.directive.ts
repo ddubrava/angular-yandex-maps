@@ -1,24 +1,21 @@
+import type { AfterContentInit, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
 import {
-  AfterContentInit,
   ContentChild,
   Directive,
   EventEmitter,
   inject,
   Input,
   NgZone,
-  OnChanges,
-  OnDestroy,
   Output,
-  SimpleChanges,
   TemplateRef,
 } from '@angular/core';
-import { DomDetach } from '@yandex/ymaps3-types/imperative/DomContext';
-import { YMapHint, YMapHintContext } from '@yandex/ymaps3-types/packages/hint';
+import type { DomDetach } from '@yandex/ymaps3-types/imperative/DomContext';
+import type { YMapHint, YMapHintContext } from '@yandex/ymaps3-types/packages/hint';
 import { from, Subject, takeUntil, tap } from 'rxjs';
 import { filter, switchMap } from 'rxjs/operators';
 
-import { YMapHintProps } from '../../../types/y-map-hint-props';
-import { YReadyEvent } from '../../../types/y-ready-event';
+import type { YMapHintProps } from '../../../types/y-map-hint-props';
+import type { YReadyEvent } from '../../../types/y-ready-event';
 import { YMapComponent } from '../y-map/y-map.component';
 
 /**

@@ -1,17 +1,9 @@
-import {
-  Directive,
-  EventEmitter,
-  inject,
-  Input,
-  OnChanges,
-  OnDestroy,
-  OnInit,
-  Output,
-} from '@angular/core';
+import type { OnChanges, OnDestroy, OnInit } from '@angular/core';
+import { Directive, EventEmitter, inject, Input, Output } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
-import { YaReadyEvent } from '../../types/ya-ready-event';
+import type { YaReadyEvent } from '../../types/ya-ready-event';
 import { YaMapComponent } from '../ya-map/ya-map.component';
 
 /**

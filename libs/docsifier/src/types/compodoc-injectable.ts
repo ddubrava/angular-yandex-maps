@@ -1,4 +1,4 @@
-import { CompodocEntity } from './compodoc-entity';
+import type { CompodocEntity } from './compodoc-entity';
 
 export interface CompodocInjectable extends CompodocEntity {
   properties: [];

@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import dedent from 'ts-dedent';
 
-import { CompodocInterface } from '../types/compodoc-interface';
+import type { CompodocInterface } from '../types/compodoc-interface';
 import { formatDescription } from './format-description';
 
 /**

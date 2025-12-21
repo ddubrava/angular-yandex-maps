@@ -1,6 +1,6 @@
-import { CompodocEntity } from './compodoc-entity';
-import { CompodocInput } from './compodoc-input';
-import { CompodocOutput } from './compodoc-output';
+import type { CompodocEntity } from './compodoc-entity';
+import type { CompodocInput } from './compodoc-input';
+import type { CompodocOutput } from './compodoc-output';
 
 export interface CompodocDirective extends CompodocEntity {
   animations?: string[];

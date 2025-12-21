@@ -1,22 +1,11 @@
-import {
-  AfterViewInit,
-  Directive,
-  ElementRef,
-  EventEmitter,
-  inject,
-  Input,
-  NgZone,
-  OnChanges,
-  OnDestroy,
-  Output,
-  SimpleChanges,
-} from '@angular/core';
-import { DomDetach } from '@yandex/ymaps3-types/imperative/DomContext';
-import { YMapControl, YMapControlProps } from '@yandex/ymaps3-types/imperative/YMapControl';
+import type { AfterViewInit, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, inject, Input, NgZone, Output } from '@angular/core';
+import type { DomDetach } from '@yandex/ymaps3-types/imperative/DomContext';
+import type { YMapControl, YMapControlProps } from '@yandex/ymaps3-types/imperative/YMapControl';
 import { Subject, takeUntil } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
-import { YReadyEvent } from '../../../types/y-ready-event';
+import type { YReadyEvent } from '../../../types/y-ready-event';
 import { YMapControlsDirective } from '../y-map-controls/y-map-controls.directive';
 
 /**

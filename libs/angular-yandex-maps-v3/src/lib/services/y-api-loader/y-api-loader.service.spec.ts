@@ -1,10 +1,11 @@
 import { DOCUMENT, NgZone, PLATFORM_ID } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { combineLatest, mergeMap, NEVER, Observable, Subject, tap } from 'rxjs';
+import type { Observable } from 'rxjs';
+import { combineLatest, mergeMap, NEVER, Subject, tap } from 'rxjs';
 
 import { mockImport, mockReady } from '../../../test-utils';
 import { Y_CONFIG } from '../../tokens/y-config';
-import { YConfig } from '../../types/y-config';
+import type { YConfig } from '../../types/y-config';
 import { YApiLoaderService } from './y-api-loader.service';
 
 class FakeHTMLScriptElement implements Partial<HTMLScriptElement> {

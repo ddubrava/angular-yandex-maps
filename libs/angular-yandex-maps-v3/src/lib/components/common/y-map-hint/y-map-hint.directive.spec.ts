@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import type { ComponentFixture } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { BehaviorSubject } from 'rxjs';
 
 import {
@@ -11,8 +12,8 @@ import {
   mockYMapHintInstance,
   mockYMapInstance,
 } from '../../../../test-utils';
-import { YMapHintProps } from '../../../types/y-map-hint-props';
-import { YReadyEvent } from '../../../types/y-ready-event';
+import type { YMapHintProps } from '../../../types/y-map-hint-props';
+import type { YReadyEvent } from '../../../types/y-ready-event';
 import { YMapComponent } from '../y-map/y-map.component';
 import { YMapHintDirective } from './y-map-hint.directive';
 

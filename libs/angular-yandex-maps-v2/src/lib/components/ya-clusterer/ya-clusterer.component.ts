@@ -1,5 +1,5 @@
+import type { AfterContentInit, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
 import {
-  AfterContentInit,
   ChangeDetectionStrategy,
   Component,
   ContentChildren,
@@ -7,17 +7,15 @@ import {
   inject,
   Input,
   NgZone,
-  OnChanges,
-  OnDestroy,
   Output,
   QueryList,
-  SimpleChanges,
 } from '@angular/core';
-import { Observable, Subject, takeUntil } from 'rxjs';
+import type { Observable } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
-import { YaEvent } from '../../types/ya-event';
-import { YaReadyEvent } from '../../types/ya-ready-event';
+import type { YaEvent } from '../../types/ya-event';
+import type { YaReadyEvent } from '../../types/ya-ready-event';
 import { EventManager } from '../../utils/event-manager/event-manager';
 import { YaGeoObjectDirective } from '../ya-geoobject/ya-geoobject.directive';
 import { YaMapComponent } from '../ya-map/ya-map.component';

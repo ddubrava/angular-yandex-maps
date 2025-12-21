@@ -1,5 +1,6 @@
 import { isPlatformBrowser } from '@angular/common';
 import { DOCUMENT, inject, Injectable, NgZone, PLATFORM_ID } from '@angular/core';
+import type { Observable } from 'rxjs';
 import {
   BehaviorSubject,
   from,
@@ -8,7 +9,6 @@ import {
   merge,
   mergeMap,
   NEVER,
-  Observable,
   of,
   tap,
   throwError,
@@ -16,7 +16,7 @@ import {
 import { map, switchMap, take } from 'rxjs/operators';
 
 import { Y_CONFIG } from '../../tokens/y-config';
-import { YConfig } from '../../types/y-config';
+import type { YConfig } from '../../types/y-config';
 import { exitZone } from '../../utils/zone/zone';
 
 /**

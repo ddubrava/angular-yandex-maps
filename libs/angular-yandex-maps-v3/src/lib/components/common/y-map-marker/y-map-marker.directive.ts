@@ -1,21 +1,10 @@
-import {
-  AfterViewInit,
-  Directive,
-  ElementRef,
-  EventEmitter,
-  inject,
-  Input,
-  NgZone,
-  OnChanges,
-  OnDestroy,
-  Output,
-  SimpleChanges,
-} from '@angular/core';
-import { YMapMarker, YMapMarkerProps } from '@yandex/ymaps3-types';
+import type { AfterViewInit, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, inject, Input, NgZone, Output } from '@angular/core';
+import type { YMapMarker, YMapMarkerProps } from '@yandex/ymaps3-types';
 import { Subject, takeUntil } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
-import { YReadyEvent } from '../../../types/y-ready-event';
+import type { YReadyEvent } from '../../../types/y-ready-event';
 import { YMapComponent } from '../y-map/y-map.component';
 
 /**

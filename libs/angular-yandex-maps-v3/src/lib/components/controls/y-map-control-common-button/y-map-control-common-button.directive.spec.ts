@@ -1,7 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { YMap } from '@yandex/ymaps3-types';
-import { YMapControlCommonButtonProps } from '@yandex/ymaps3-types/imperative/YMapControl';
+import type { ComponentFixture } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
+import type { YMap } from '@yandex/ymaps3-types';
+import type { YMapControlCommonButtonProps } from '@yandex/ymaps3-types/imperative/YMapControl';
 import { BehaviorSubject } from 'rxjs';
 
 import {
@@ -9,8 +10,8 @@ import {
   mockYMapControlCommonButtonInstance,
   mockYMapControlsInstance,
 } from '../../../../test-utils';
-import { ComplexOptions } from '../../../types/complex-options';
-import { YReadyEvent } from '../../../types/y-ready-event';
+import type { ComplexOptions } from '../../../types/complex-options';
+import type { YReadyEvent } from '../../../types/y-ready-event';
 import { YMapControlsDirective } from '../y-map-controls/y-map-controls.directive';
 import { YMapControlCommonButtonDirective } from './y-map-control-common-button.directive';
 

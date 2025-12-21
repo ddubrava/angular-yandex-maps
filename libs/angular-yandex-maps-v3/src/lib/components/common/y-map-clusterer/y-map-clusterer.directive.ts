@@ -1,19 +1,21 @@
-import {
+import type {
   AfterContentInit,
+  OnChanges,
+  OnDestroy,
+  SimpleChanges,
+  TemplateRef,
+} from '@angular/core';
+import {
   ContentChild,
   Directive,
   EventEmitter,
   inject,
   Input,
   NgZone,
-  OnChanges,
-  OnDestroy,
   Output,
-  SimpleChanges,
-  TemplateRef,
 } from '@angular/core';
 import type { LngLat } from '@yandex/ymaps3-types/common/types';
-import {
+import type {
   Feature,
   YMapClusterer,
   YMapClustererProps,
@@ -21,8 +23,8 @@ import {
 import { from, Subject, takeUntil, tap } from 'rxjs';
 import { filter, switchMap } from 'rxjs/operators';
 
-import { Optional } from '../../../types/utilities/optional';
-import { YReadyEvent } from '../../../types/y-ready-event';
+import type { Optional } from '../../../types/utilities/optional';
+import type { YReadyEvent } from '../../../types/y-ready-event';
 import { YMapComponent } from '../y-map/y-map.component';
 
 /**
