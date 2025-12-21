@@ -110,7 +110,7 @@ describe('YaObjectManagerDirective', () => {
   it('should not call constructor if options are undefined', () => {
     mockComponent.options = undefined;
     fixture.detectChanges();
-    expect(objectManagerConstructorMock).not.toBeCalled();
+    expect(objectManagerConstructorMock).not.toHaveBeenCalled();
   });
 
   it('should set options after init', () => {
