@@ -13,7 +13,7 @@ import type { YReadyEvent } from '../../../types/y-ready-event';
 import { YMapComponent } from '../../common/y-map/y-map.component';
 
 /**
- * This component wraps the [ymaps3.YMapDefaultFeaturesLayer](https://yandex.ru/dev/jsapi30/doc/ru/ref/#class-ymapdefaultfeatureslayer) class from the Yandex.Maps API.
+ * This component wraps the [ymaps3.YMapDefaultFeaturesLayer](https://yandex.com/maps-api/docs/js-api/object/layers/YMapDefaultFeaturesLayer.html) class from the Yandex.Maps API.
  * All component inputs are named the same as the API class constructor arguments.
  *
  * ```html
@@ -42,7 +42,7 @@ export class YMapDefaultFeaturesLayerDirective implements OnInit, OnDestroy, OnC
 
   /**
    * See the API entity documentation for detailed information. Supports ngOnChanges.
-   * {@link https://yandex.ru/dev/jsapi30/doc/ru/ref/#YMapDefaultFeaturesLayerProps}
+   * {@link https://yandex.com/maps-api/docs/js-api/object/layers/YMapDefaultFeaturesLayer.html#props}
    */
   @Input() props: YMapDefaultFeaturesLayerProps = {};
 

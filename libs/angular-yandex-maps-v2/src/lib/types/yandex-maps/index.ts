@@ -10,7 +10,7 @@ type Prefix<Type, P> = {
  * Due to inactivity the typings were copied and improved from the DefinitelyTyped repository.
  * Definitions by: Delagen <https://github.com/Delagen> / gastwork13 <https://github.com/gastwork13>.
  * @link https://www.npmjs.com/package/@types/yandex-maps
- * @link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/concepts/About.html
+ * @link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/concepts/About.html
  */
 declare global {
   namespace ymaps {

@@ -9,7 +9,7 @@ import type { YReadyEvent } from '../../../types/y-ready-event';
 import { YMapControlsDirective } from '../y-map-controls/y-map-controls.directive';
 
 /**
- * This component wraps the [ymaps3.YMapControl](https://yandex.ru/dev/jsapi30/doc/ru/ref/#class-ymapcontrol) class from the Yandex.Maps API.
+ * This component wraps the [ymaps3.YMapControl](https://yandex.com/maps-api/docs/js-api/object/controls/YMapControl.html) class from the Yandex.Maps API.
  * All component inputs are named the same as the API class constructor arguments. This component must be used inside a `y-map-controls` component.
  * Custom HTML can only be projected, see the example below.
  *
@@ -48,7 +48,7 @@ export class YMapControlDirective implements AfterViewInit, OnChanges, OnDestroy
 
   /**
    * See the API entity documentation for detailed information. Supports ngOnChanges.
-   * {@link https://yandex.ru/dev/jsapi30/doc/ru/ref/#YMapControlProps}
+   * {@link https://yandex.com/maps-api/docs/js-api/object/controls/YMapControl.html#props}
    */
   @Input() props: YMapControlProps = {};
 
@@ -104,7 +104,7 @@ export class YMapControlDirective implements AfterViewInit, OnChanges, OnDestroy
    */
   private createControlContainer(element: HTMLElement) {
     // This logic is taken from the official documentation.
-    // See https://yandex.ru/dev/jsapi30/doc/ru/ref/packages/hint/#class-ymaphint
+    // See https://yandex.com/maps-api/docs/js-api/object/geo-objects/YMapHint.html
     class ControlContainer extends ymaps3.YMapGroupEntity<any> {
       _element?: Element;
       _detachDom?: DomDetach;

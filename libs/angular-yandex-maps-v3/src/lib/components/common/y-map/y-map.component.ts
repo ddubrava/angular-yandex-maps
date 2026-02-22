@@ -17,8 +17,10 @@ import type { YReadyEvent } from '../../../types/y-ready-event';
 import { generateRandomId } from '../../../utils/generate-random-id/generate-random-id';
 
 /**
- * This component wraps the [ymaps3.YMap](https://yandex.ru/dev/jsapi30/doc/ru/ref/#class-ymap) class from the Yandex.Maps API.
+ * This component wraps the [ymaps3.YMap](https://yandex.com/maps-api/docs/js-api/map/YMap.html) class from the Yandex.Maps API.
  * All component inputs are named the same as the API class constructor arguments.
+ *
+ * <example-url>https://stackblitz.com/edit/create-a-map-v3?embed=1&view=preview</example-url>
  *
  * ```html
  * <y-map
@@ -51,7 +53,7 @@ export class YMapComponent implements AfterViewInit, OnChanges, OnDestroy {
 
   /**
    * See the API entity documentation for detailed information. Supports updates.
-   * {@link https://yandex.ru/dev/jsapi30/doc/ru/ref/#YMapProps}
+   * {@link https://yandex.com/maps-api/docs/js-api/map/YMap.html#props}
    */
   @Input({ required: true }) props!: YMapProps;
 

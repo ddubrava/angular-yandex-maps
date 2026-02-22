@@ -20,7 +20,7 @@ The solution is complicated since we need to store scripts in a cache and change
 ## Components configuration
 
 The Yandex.Maps components implement all the arguments for their respective classes from the Yandex.Maps JavaScript API through inputs.
-For example, the [YMap](https://yandex.ru/dev/jsapi30/doc/ru/ref/#class-ymap) class accepts properties.
+For example, the [YMap](https://yandex.com/maps-api/docs/js-api/map/YMap.html) class accepts properties.
 
 ```html
 <y-map

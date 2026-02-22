@@ -13,7 +13,7 @@ import type { YReadyEvent } from '../../../types/y-ready-event';
 import { YMapControlsDirective } from '../y-map-controls/y-map-controls.directive';
 
 /**
- * This component wraps the [ymaps3.YMapControlCommonButton](https://yandex.ru/dev/jsapi30/doc/ru/ref/#class-ymapcontrolcommonbutton) class from the Yandex.Maps API.
+ * This component wraps the [ymaps3.YMapControlCommonButton](https://yandex.com/maps-api/docs/js-api/ref/index.html#class-ymapcontrolcommonbutton) class from the Yandex.Maps API.
  * All component inputs are named the same as the API class constructor arguments. This component must be used inside a `y-map-controls` component.
  *
  * ```html
@@ -46,7 +46,7 @@ export class YMapControlCommonButtonDirective implements OnInit, OnChanges, OnDe
 
   /**
    * Button properties. Supports ngOnChanges.
-   * {@link https://yandex.ru/dev/jsapi30/doc/ru/ref/#YMapControlCommonButtonProps}
+   * {@link https://yandex.com/maps-api/docs/js-api/ref/index.html#YMapControlCommonButtonProps}
    */
   @Input({ required: true }) props!: YMapControlCommonButtonProps;
 

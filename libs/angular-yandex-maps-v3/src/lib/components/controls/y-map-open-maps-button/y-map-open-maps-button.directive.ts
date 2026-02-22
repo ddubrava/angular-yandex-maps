@@ -11,7 +11,7 @@ import type { YReadyEvent } from '../../../types/y-ready-event';
 import { YMapControlsDirective } from '../y-map-controls/y-map-controls.directive';
 
 /**
- * This component wraps the [ymaps3.YMapOpenMapsButton](https://yandex.ru/dev/jsapi30/doc/ru/ref/modules/controls-extra/#class-ymapopenmapsbutton) class from the Yandex.Maps API.
+ * This component wraps the [ymaps3.YMapOpenMapsButton](https://yandex.com/maps-api/docs/js-api/object/controls/YMapOpenMapsButton.html) class from the Yandex.Maps API.
  * All component inputs are named the same as the API class constructor arguments. This component must be used inside a `y-map-controls` component.
  * This component is from the `@yandex/ymaps3-controls-extra` module, which is asynchronously loaded when you use this component.
  *
@@ -45,7 +45,7 @@ export class YMapOpenMapsButtonDirective implements OnInit, OnChanges, OnDestroy
 
   /**
    * See the API entity documentation for detailed information. Supports ngOnChanges.
-   * {@link https://yandex.ru/dev/jsapi30/doc/ru/ref/modules/controls-extra/#YMapOpenMapsButtonProps}
+   * {@link https://yandex.com/maps-api/docs/js-api/object/controls/YMapOpenMapsButton.html#props}
    */
   @Input() props: YMapOpenMapsButtonProps = {};
 

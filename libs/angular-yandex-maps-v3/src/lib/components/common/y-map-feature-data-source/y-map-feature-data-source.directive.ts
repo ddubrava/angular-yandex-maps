@@ -8,7 +8,7 @@ import type { YReadyEvent } from '../../../types/y-ready-event';
 import { YMapComponent } from '../y-map/y-map.component';
 
 /**
- * This component wraps the [ymaps3.YMapFeatureDataSource](https://yandex.ru/dev/jsapi30/doc/ru/ref/#class-ymapfeaturedatasource) class from the Yandex.Maps API.
+ * This component wraps the [ymaps3.YMapFeatureDataSource](https://yandex.com/maps-api/docs/js-api/object/data-source/YMapFeatureDataSource.html) class from the Yandex.Maps API.
  * All component inputs are named the same as the API class constructor arguments.
  *
  * ```html
@@ -37,7 +37,7 @@ export class YMapFeatureDataSourceDirective implements OnInit, OnDestroy, OnChan
 
   /**
    * See the API entity documentation for detailed information. Supports ngOnChanges.
-   * {@link https://yandex.ru/dev/jsapi30/doc/ru/ref/#YMapFeatureDataSourceProps}
+   * {@link https://yandex.com/maps-api/docs/js-api/object/data-source/YMapFeatureDataSource.html#props}
    */
   @Input({ required: true }) props!: YMapFeatureDataSourceProps;
 

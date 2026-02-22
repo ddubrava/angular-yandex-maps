@@ -52,26 +52,26 @@ export class YaMapComponent implements AfterViewInit, OnChanges, OnDestroy {
   /**
    * Geo coordinates of the map center. Default is `[0, 0]`.
    * Shorthand for `[state]="{ center: [0, 0] }"`.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/Map.html#Map__param-state.center}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/Map.html#Map__param-state.center}
    */
   @Input() center: number[] = [0, 0];
 
   /**
    * Map zoom level. Default level is `10`.
    * Shorthand for `[state]="{ zoom: 10 }"`.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/Map.html#Map__param-state.zoom}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/Map.html#Map__param-state.zoom}
    */
   @Input() zoom = 10;
 
   /**
    * Map parameters.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/Map.html#Map__param-state}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/Map.html#Map__param-state}
    */
   @Input() state?: ymaps.IMapState;
 
   /**
    * Map options. The map options can be used to make settings for the map itself, as well as for objects that are added to it.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/Map.html#Map__param-options}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/Map.html#Map__param-options}
    */
   @Input() options?: ymaps.IMapOptions;
 
@@ -84,185 +84,185 @@ export class YaMapComponent implements AfterViewInit, OnChanges, OnDestroy {
 
   /**
    * The start of a new smooth map movement.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/Map.html#event_detail__event-actionbegin}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/Map.html#event_detail__event-actionbegin}
    */
   @Output() actionbegin: Observable<YaEvent<ymaps.Map>> =
     this.eventManager.getLazyEmitter('actionbegin');
 
   /**
    * Event that occurs when an action step was prematurely stopped.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/Map.html#event_detail__event-actionbreak}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/Map.html#event_detail__event-actionbreak}
    */
   @Output() actionbreak: Observable<YaEvent<ymaps.Map>> =
     this.eventManager.getLazyEmitter('actionbreak');
 
   /**
    * The end of smooth map movement.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/Map.html#event_detail__event-actionend}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/Map.html#event_detail__event-actionend}
    */
   @Output() actionend: Observable<YaEvent<ymaps.Map>> =
     this.eventManager.getLazyEmitter('actionend');
 
   /**
    * The start of a new step of smooth movement.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/Map.html#event_detail__event-actiontick}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/Map.html#event_detail__event-actiontick}
    */
   @Output() actiontick: Observable<YaEvent<ymaps.Map>> =
     this.eventManager.getLazyEmitter('actiontick');
 
   /**
    * The end of performing a step of smooth movement.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/Map.html#event_detail__event-actiontickcomplete}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/Map.html#event_detail__event-actiontickcomplete}
    */
   @Output() actiontickcomplete: Observable<YaEvent<ymaps.Map>> =
     this.eventManager.getLazyEmitter('actiontickcomplete');
 
   /**
    * Closing the balloon.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/Map.html#event_detail__event-balloonclose}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/Map.html#event_detail__event-balloonclose}
    */
   @Output() balloonclose: Observable<YaEvent<ymaps.Map>> =
     this.eventManager.getLazyEmitter('balloonclose');
 
   /**
    * Opening a balloon on a map.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/Map.html#event_detail__event-balloonopen}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/Map.html#event_detail__event-balloonopen}
    */
   @Output() balloonopen: Observable<YaEvent<ymaps.Map>> =
     this.eventManager.getLazyEmitter('balloonopen');
 
   /**
    * Event for a change to the map viewport.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/Map.html#event_detail__event-boundschange}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/Map.html#event_detail__event-boundschange}
    */
   @Output() boundschange: Observable<YaEvent<ymaps.Map>> =
     this.eventManager.getLazyEmitter('boundschange');
 
   /**
    * Single left-click on the object.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/IDomEventEmitter.html#event_detail__event-click}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/IDomEventEmitter.html#event_detail__event-click}
    */
   @Output() yaclick: Observable<YaEvent<ymaps.Map>> = this.eventManager.getLazyEmitter('click');
 
   /**
    * Calls the element's context menu.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/IDomEventEmitter.html#event_detail__event-contextmenu}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/IDomEventEmitter.html#event_detail__event-contextmenu}
    */
   @Output() yacontextmenu: Observable<YaEvent<ymaps.Map>> =
     this.eventManager.getLazyEmitter('contextmenu');
 
   /**
    * Double left-click on the object.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/IDomEventEmitter.html#event_detail__event-dblclick}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/IDomEventEmitter.html#event_detail__event-dblclick}
    */
   @Output() yadblclick: Observable<YaEvent<ymaps.Map>> =
     this.eventManager.getLazyEmitter('dblclick');
 
   /**
    * The map was destroyed.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/Map.html#event_detail__event-destroy}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/Map.html#event_detail__event-destroy}
    */
   @Output() destroy: Observable<YaEvent<ymaps.Map>> = this.eventManager.getLazyEmitter('destroy');
 
   /**
    * Closing the hint.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/Map.html#event_detail__event-hintclose}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/Map.html#event_detail__event-hintclose}
    */
   @Output() hintclose: Observable<YaEvent<ymaps.Map>> =
     this.eventManager.getLazyEmitter('hintclose');
 
   /**
    * Opening a hint on a map.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/Map.html#event_detail__event-hintopen}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/Map.html#event_detail__event-hintopen}
    */
   @Output() hintopen: Observable<YaEvent<ymaps.Map>> = this.eventManager.getLazyEmitter('hintopen');
 
   /**
    * Map margins changed.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/Map.html#event_detail__event-marginchange}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/Map.html#event_detail__event-marginchange}
    */
   @Output() marginchange: Observable<YaEvent<ymaps.Map>> =
     this.eventManager.getLazyEmitter('marginchange');
 
   /**
    * Pressing the mouse button over the object.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/IDomEventEmitter.html#event_detail__event-mousedown}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/IDomEventEmitter.html#event_detail__event-mousedown}
    */
   @Output() yamousedown: Observable<YaEvent<ymaps.Map>> =
     this.eventManager.getLazyEmitter('mousedown');
 
   /**
    * Pointing the cursor at the object.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/IDomEventEmitter.html#event_detail__event-mouseenter}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/IDomEventEmitter.html#event_detail__event-mouseenter}
    */
   @Output() yamouseenter: Observable<YaEvent<ymaps.Map>> =
     this.eventManager.getLazyEmitter('mouseenter');
 
   /**
    * Moving the cursor off of the object.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/IDomEventEmitter.html#event_detail__event-mouseleave}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/IDomEventEmitter.html#event_detail__event-mouseleave}
    */
   @Output() yamouseleave: Observable<YaEvent<ymaps.Map>> =
     this.eventManager.getLazyEmitter('mouseleave');
 
   /**
    * Moving the cursor over the object.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/IDomEventEmitter.html#event_detail__event-mousemove}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/IDomEventEmitter.html#event_detail__event-mousemove}
    */
   @Output() yamousemove: Observable<YaEvent<ymaps.Map>> =
     this.eventManager.getLazyEmitter('mousemove');
 
   /**
    * Letting go of the mouse button over an object.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/IDomEventEmitter.html#event_detail__event-mouseup}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/IDomEventEmitter.html#event_detail__event-mouseup}
    */
   @Output() yamouseup: Observable<YaEvent<ymaps.Map>> = this.eventManager.getLazyEmitter('mouseup');
 
   /**
    * End of multitouch.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/IDomEventEmitter.html#event_detail__event-multitouchend}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/IDomEventEmitter.html#event_detail__event-multitouchend}
    */
   @Output() multitouchend: Observable<YaEvent<ymaps.Map>> =
     this.eventManager.getLazyEmitter('multitouchend');
 
   /**
    * Repeating event during multitouch.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/IDomEventEmitter.html#event_detail__event-multitouchmove}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/IDomEventEmitter.html#event_detail__event-multitouchmove}
    */
   @Output() multitouchmove: Observable<YaEvent<ymaps.Map>> =
     this.eventManager.getLazyEmitter('multitouchmove');
 
   /**
    * Start of multitouch.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/IDomEventEmitter.html#event_detail__event-multitouchstart}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/IDomEventEmitter.html#event_detail__event-multitouchstart}
    */
   @Output() multitouchstart: Observable<YaEvent<ymaps.Map>> =
     this.eventManager.getLazyEmitter('multitouchstart');
 
   /**
    * Map options changed.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/Map.html#event_detail__event-optionschange}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/Map.html#event_detail__event-optionschange}
    */
   @Output() optionschange: Observable<YaEvent<ymaps.Map>> =
     this.eventManager.getLazyEmitter('optionschange');
 
   /**
    * Map size changed.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/Map.html#event_detail__event-sizechange}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/Map.html#event_detail__event-sizechange}
    */
   @Output() sizechange: Observable<YaEvent<ymaps.Map>> =
     this.eventManager.getLazyEmitter('sizechange');
 
   /**
    * The map type changed.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/Map.html#event_detail__event-typechange}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/Map.html#event_detail__event-typechange}
    */
   @Output() typechange: Observable<YaEvent<ymaps.Map>> =
     this.eventManager.getLazyEmitter('typechange');
 
   /**
    * Mouse wheel scrolling.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/IDomEventEmitter.html#event_detail__event-wheel}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/IDomEventEmitter.html#event_detail__event-wheel}
    */
   @Output() yawheel: Observable<YaEvent<ymaps.Map>> = this.eventManager.getLazyEmitter('wheel');
 

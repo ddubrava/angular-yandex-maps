@@ -37,19 +37,19 @@ export class YaPlacemarkDirective implements OnInit, OnChanges, OnDestroy {
 
   /**
    * Coordinates of the placemark, or a hash describing the geometry, or a reference to the point geometry object.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/Placemark.html#Placemark__param-geometry}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/Placemark.html#Placemark__param-geometry}
    */
   @Input() geometry: number[] | object | ymaps.IPointGeometry = [];
 
   /**
    * Placemark properties.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/Placemark.html#Placemark__param-properties}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/Placemark.html#Placemark__param-properties}
    */
   @Input() properties?: ymaps.IPlacemarkProperties | ymaps.IDataManager;
 
   /**
    * Placemark options.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/Placemark.html#Placemark__param-options}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/Placemark.html#Placemark__param-options}
    */
   @Input() options?: ymaps.IPlacemarkOptions;
 
@@ -62,195 +62,195 @@ export class YaPlacemarkDirective implements OnInit, OnChanges, OnDestroy {
 
   /**
    * Closing the balloon.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/GeoObject.html#event_detail__event-balloonclose}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/GeoObject.html#event_detail__event-balloonclose}
    */
   @Output() balloonclose: Observable<YaEvent<ymaps.Placemark>> =
     this.eventManager.getLazyEmitter('balloonclose');
 
   /**
    * Opening a balloon on a geo object.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/GeoObject.html#event_detail__event-balloonopen}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/GeoObject.html#event_detail__event-balloonopen}
    */
   @Output() balloonopen: Observable<YaEvent<ymaps.Placemark>> =
     this.eventManager.getLazyEmitter('balloonopen');
 
   /**
    * Event preceding the "drag" event.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/GeoObject.html#event_detail__event-beforedrag}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/GeoObject.html#event_detail__event-beforedrag}
    */
   @Output() beforedrag: Observable<YaEvent<ymaps.Placemark>> =
     this.eventManager.getLazyEmitter('beforedrag');
 
   /**
    * Event preceding the "dragstart" event.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/GeoObject.html#event_detail__event-beforedragstart}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/GeoObject.html#event_detail__event-beforedragstart}
    */
   @Output() beforedragstart: Observable<YaEvent<ymaps.Placemark>> =
     this.eventManager.getLazyEmitter('beforedragstart');
 
   /**
    * Single left-click on the object.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/IDomEventEmitter.html#event_detail__event-click}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/IDomEventEmitter.html#event_detail__event-click}
    */
   @Output() yaclick: Observable<YaEvent<ymaps.Placemark>> =
     this.eventManager.getLazyEmitter('click');
 
   /**
    * Calls the element's context menu.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/IDomEventEmitter.html#event_detail__event-contextmenu}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/IDomEventEmitter.html#event_detail__event-contextmenu}
    */
   @Output() yacontextmenu: Observable<YaEvent<ymaps.Placemark>> =
     this.eventManager.getLazyEmitter('contextmenu');
 
   /**
    * Double left-click on the object.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/IDomEventEmitter.html#event_detail__event-dblclick}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/IDomEventEmitter.html#event_detail__event-dblclick}
    */
   @Output() yadblclick: Observable<YaEvent<ymaps.Placemark>> =
     this.eventManager.getLazyEmitter('dblclick');
 
   /**
    * Dragging a geo object.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/GeoObject.html#event_detail__event-drag}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/GeoObject.html#event_detail__event-drag}
    */
   @Output() yadrag: Observable<YaEvent<ymaps.Placemark>> = this.eventManager.getLazyEmitter('drag');
 
   /**
    * End of geo object dragging.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/GeoObject.html#event_detail__event-dragend}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/GeoObject.html#event_detail__event-dragend}
    */
   @Output() yadragend: Observable<YaEvent<ymaps.Placemark>> =
     this.eventManager.getLazyEmitter('dragend');
 
   /**
    * Start of geo object dragging.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/GeoObject.html#event_detail__event-dragstart}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/GeoObject.html#event_detail__event-dragstart}
    */
   @Output() yadragstart: Observable<YaEvent<ymaps.Placemark>> =
     this.eventManager.getLazyEmitter('dragstart');
 
   /**
    * Change in the state of the editor for the geo object's geometry.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/GeoObject.html#event_detail__event-editorstatechange}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/GeoObject.html#event_detail__event-editorstatechange}
    */
   @Output() editorstatechange: Observable<YaEvent<ymaps.Placemark>> =
     this.eventManager.getLazyEmitter('editorstatechange');
 
   /**
    * Change to the geo object geometry.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/IGeoObject.html#event_detail__event-geometrychange}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/IGeoObject.html#event_detail__event-geometrychange}
    */
   @Output() geometrychange: Observable<YaEvent<ymaps.Placemark>> =
     this.eventManager.getLazyEmitter('geometrychange');
 
   /**
    * Closing the hint.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/GeoObject.html#event_detail__event-hintclose}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/GeoObject.html#event_detail__event-hintclose}
    */
   @Output() hintclose: Observable<YaEvent<ymaps.Placemark>> =
     this.eventManager.getLazyEmitter('hintclose');
 
   /**
    * Opening a hint on a geo object.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/GeoObject.html#event_detail__event-hintopen}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/GeoObject.html#event_detail__event-hintopen}
    */
   @Output() hintopen: Observable<YaEvent<ymaps.Placemark>> =
     this.eventManager.getLazyEmitter('hintopen');
 
   /**
    * Map reference changed.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/IParentOnMap.html#event_detail__event-mapchange}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/IParentOnMap.html#event_detail__event-mapchange}
    */
   @Output() mapchange: Observable<YaEvent<ymaps.Placemark>> =
     this.eventManager.getLazyEmitter('mapchange');
 
   /**
    * Pressing the mouse button over the object.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/IDomEventEmitter.html#event_detail__event-mousedown}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/IDomEventEmitter.html#event_detail__event-mousedown}
    */
   @Output() yamousedown: Observable<YaEvent<ymaps.Placemark>> =
     this.eventManager.getLazyEmitter('mousedown');
 
   /**
    * Pointing the cursor at the object.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/IDomEventEmitter.html#event_detail__event-mouseenter}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/IDomEventEmitter.html#event_detail__event-mouseenter}
    */
   @Output() yamouseenter: Observable<YaEvent<ymaps.Placemark>> =
     this.eventManager.getLazyEmitter('mouseenter');
 
   /**
    * Moving the cursor off of the object.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/IDomEventEmitter.html#event_detail__event-mouseleave}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/IDomEventEmitter.html#event_detail__event-mouseleave}
    */
   @Output() yamouseleave: Observable<YaEvent<ymaps.Placemark>> =
     this.eventManager.getLazyEmitter('mouseleave');
 
   /**
    * Moving the cursor over the object.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/IDomEventEmitter.html#event_detail__event-mousemove}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/IDomEventEmitter.html#event_detail__event-mousemove}
    */
   @Output() yamousemove: Observable<YaEvent<ymaps.Placemark>> =
     this.eventManager.getLazyEmitter('mousemove');
 
   /**
    * Letting go of the mouse button over an object.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/IDomEventEmitter.html#event_detail__event-mouseup}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/IDomEventEmitter.html#event_detail__event-mouseup}
    */
   @Output() yamouseup: Observable<YaEvent<ymaps.Placemark>> =
     this.eventManager.getLazyEmitter('mouseup');
 
   /**
    * End of multitouch.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/IDomEventEmitter.html#event_detail__event-multitouchend}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/IDomEventEmitter.html#event_detail__event-multitouchend}
    */
   @Output() multitouchend: Observable<YaEvent<ymaps.Placemark>> =
     this.eventManager.getLazyEmitter('multitouchend');
 
   /**
    * Repeating event during multitouch.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/IDomEventEmitter.html#event_detail__event-multitouchmove}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/IDomEventEmitter.html#event_detail__event-multitouchmove}
    */
   @Output() multitouchmove: Observable<YaEvent<ymaps.Placemark>> =
     this.eventManager.getLazyEmitter('multitouchmove');
 
   /**
    * Start of multitouch.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/IDomEventEmitter.html#event_detail__event-multitouchstart}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/IDomEventEmitter.html#event_detail__event-multitouchstart}
    */
   @Output() multitouchstart: Observable<YaEvent<ymaps.Placemark>> =
     this.eventManager.getLazyEmitter('multitouchstart');
 
   /**
    * Change to the object options.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/ICustomizable.html#event_detail__event-optionschange}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/ICustomizable.html#event_detail__event-optionschange}
    */
   @Output() optionschange: Observable<YaEvent<ymaps.Placemark>> =
     this.eventManager.getLazyEmitter('optionschange');
 
   /**
    * Change to the geo object overlay.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/IGeoObject.html#event_detail__event-overlaychange}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/IGeoObject.html#event_detail__event-overlaychange}
    */
   @Output() overlaychange: Observable<YaEvent<ymaps.Placemark>> =
     this.eventManager.getLazyEmitter('overlaychange');
 
   /**
    * The parent object reference changed.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/IChild.html#event_detail__event-parentchange}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/IChild.html#event_detail__event-parentchange}
    */
   @Output() parentchange: Observable<YaEvent<ymaps.Placemark>> =
     this.eventManager.getLazyEmitter('parentchange');
 
   /**
    * Change to the geo object data.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/IGeoObject.html#event_detail__event-propertieschange}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/IGeoObject.html#event_detail__event-propertieschange}
    */
   @Output() propertieschange: Observable<YaEvent<ymaps.Placemark>> =
     this.eventManager.getLazyEmitter('propertieschange');
 
   /**
    * Mouse wheel scrolling.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/IDomEventEmitter.html#event_detail__event-wheel}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/IDomEventEmitter.html#event_detail__event-wheel}
    */
   @Output() yawheel: Observable<YaEvent<ymaps.Placemark>> =
     this.eventManager.getLazyEmitter('wheel');

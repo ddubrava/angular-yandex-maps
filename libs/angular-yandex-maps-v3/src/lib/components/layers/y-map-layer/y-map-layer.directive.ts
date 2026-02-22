@@ -8,7 +8,7 @@ import type { YReadyEvent } from '../../../types/y-ready-event';
 import { YMapComponent } from '../../common/y-map/y-map.component';
 
 /**
- * This component wraps the [ymaps3.YMapLayer](https://yandex.ru/dev/jsapi30/doc/ru/ref/#class-ymaplayer) class from the Yandex.Maps API.
+ * This component wraps the [ymaps3.YMapLayer](https://yandex.com/maps-api/docs/js-api/object/layers/YMapLayer.html) class from the Yandex.Maps API.
  * All component inputs are named the same as the API class constructor arguments.
  *
  * ```html
@@ -44,7 +44,7 @@ export class YMapLayerDirective implements OnInit, OnDestroy, OnChanges {
 
   /**
    * See the API entity documentation for detailed information. Supports ngOnChanges.
-   * {@link https://yandex.ru/dev/jsapi30/doc/ru/ref/#YMapLayerProps}
+   * {@link https://yandex.com/maps-api/docs/js-api/object/layers/YMapLayer.html#props}
    */
   @Input({ required: true }) props!: YMapLayerProps;
 
