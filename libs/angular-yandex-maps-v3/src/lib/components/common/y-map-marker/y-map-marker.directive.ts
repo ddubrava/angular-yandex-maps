@@ -8,7 +8,7 @@ import type { YReadyEvent } from '../../../types/y-ready-event';
 import { YMapComponent } from '../y-map/y-map.component';
 
 /**
- * This component wraps the [ymaps3.YMapMarker](https://yandex.ru/dev/jsapi30/doc/en/ref/#class-ymapmarker) class from the Yandex.Maps API.
+ * This component wraps the [ymaps3.YMapMarker](https://yandex.com/maps-api/docs/js-api/object/markers/YMapMarker.html) class from the Yandex.Maps API.
  * All component inputs are named the same as the API class constructor arguments. `YMapMarker['element']` can only be projected, see the example below.
  *
  * ```html
@@ -56,7 +56,7 @@ export class YMapMarkerDirective implements AfterViewInit, OnDestroy, OnChanges 
 
   /**
    * See the API entity documentation for detailed information. Supports ngOnChanges.
-   * {@link https://yandex.ru/dev/jsapi30/doc/ru/ref/#YMapMarkerProps}
+   * {@link https://yandex.com/maps-api/docs/js-api/object/markers/YMapMarker.html#props}
    */
   @Input({ required: true }) props!: YMapMarkerProps;
 

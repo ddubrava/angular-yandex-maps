@@ -28,7 +28,7 @@ import type { YReadyEvent } from '../../../types/y-ready-event';
 import { YMapComponent } from '../y-map/y-map.component';
 
 /**
- * This component wraps the [ymaps3.YMapClusterer](https://yandex.ru/dev/jsapi30/doc/ru/ref/packages/clusterer/#class-ymapclusterer) class from the Yandex.Maps API.
+ * This component wraps the [ymaps3.YMapClusterer](https://yandex.com/maps-api/docs/js-api/object/markers/YMapClusterer.html) class from the Yandex.Maps API.
  * All component inputs are named the same as the API class constructor arguments.
  * This component is from the `@yandex/ymaps3-clusterer@0.0.1` package, which is asynchronously loaded when you use this component.
  *
@@ -113,7 +113,7 @@ export class YMapClustererDirective implements AfterContentInit, OnDestroy, OnCh
 
   /**
    * Read the component description and see the API entity documentation for detailed information. Supports ngOnChanges.
-   * {@link https://yandex.ru/dev/jsapi30/doc/ru/ref/packages/clusterer/#YMapClustererProps}
+   * {@link https://yandex.com/maps-api/docs/js-api/object/markers/YMapClusterer.html#props}
    */
   @Input({ required: true }) props!: Optional<YMapClustererProps, 'marker' | 'cluster' | 'method'>;
 

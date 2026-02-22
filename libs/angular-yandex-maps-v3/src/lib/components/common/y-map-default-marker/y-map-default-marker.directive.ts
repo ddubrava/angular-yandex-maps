@@ -11,7 +11,7 @@ import type { YReadyEvent } from '../../../types/y-ready-event';
 import { YMapComponent } from '../y-map/y-map.component';
 
 /**
- * This component wraps the [ymaps3.YMapDefaultMarker](https://yandex.ru/dev/jsapi30/doc/ru/ref/packages/markers/#class-ymapdefaultmarker) class from the Yandex.Maps API.
+ * This component wraps the [ymaps3.YMapDefaultMarker](https://yandex.com/maps-api/docs/js-api/object/markers/YMapDefaultMarker.html) class from the Yandex.Maps API.
  * All component inputs are named the same as the API class constructor arguments.
  * This component is from the `@yandex/ymaps3-markers@0.0.1` package, which is asynchronously loaded when you use this component.
  *
@@ -51,7 +51,7 @@ export class YMapDefaultMarkerDirective implements OnInit, OnDestroy, OnChanges 
 
   /**
    * See the API entity documentation for detailed information. Supports ngOnChanges.
-   * {@link https://yandex.ru/dev/jsapi30/doc/en/ref/packages/markers/#YMapDefaultMarkerProps}
+   * {@link https://yandex.com/maps-api/docs/js-api/object/markers/YMapDefaultMarker.html#props}
    */
   @Input({ required: true }) props!: YMapDefaultMarkerProps;
 

@@ -10,7 +10,7 @@ import type { YReadyEvent } from '../../../types/y-ready-event';
 import { YMapControlsDirective } from '../y-map-controls/y-map-controls.directive';
 
 /**
- * This component wraps the [ymaps3.YMapZoomControl](https://yandex.ru/dev/jsapi30/doc/ru/ref/packages/controls/#class-ymapzoomcontrol) class from the Yandex.Maps API.
+ * This component wraps the [ymaps3.YMapZoomControl](https://yandex.com/maps-api/docs/js-api/object/controls/YMapZoomControl.html) class from the Yandex.Maps API.
  * All component inputs are named the same as the API class constructor arguments. This component must be used inside a `y-map-controls` component.
  * This component is from the `@yandex/ymaps3-controls@0.0.1` package, which is asynchronously loaded when you use this component.
  *
@@ -44,7 +44,7 @@ export class YMapZoomControlDirective implements OnInit, OnChanges, OnDestroy {
 
   /**
    * See the API entity documentation for detailed information. Supports ngOnChanges.
-   * {@link https://yandex.ru/dev/jsapi30/doc/ru/ref/packages/controls/#YMapZoomControlProps}
+   * {@link https://yandex.com/maps-api/docs/js-api/object/controls/YMapZoomControl.html#props}
    */
   @Input() props: YMapZoomControlProps = {};
 

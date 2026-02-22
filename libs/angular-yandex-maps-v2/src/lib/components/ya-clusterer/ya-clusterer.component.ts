@@ -69,7 +69,7 @@ export class YaClustererComponent implements AfterContentInit, OnChanges, OnDest
 
   /**
    * Clusterer options. Options for child cluster objects are set with the "cluster" prefix.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/Clusterer.html#Clusterer__param-options}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/Clusterer.html#Clusterer__param-options}
    */
   @Input() options?: ymaps.IClustererOptions;
 
@@ -82,35 +82,35 @@ export class YaClustererComponent implements AfterContentInit, OnChanges, OnDest
 
   /**
    * Closing the hint.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/Clusterer.html#event_detail__event-hintclose}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/Clusterer.html#event_detail__event-hintclose}
    */
   @Output() hintclose: Observable<YaEvent<ymaps.Clusterer>> =
     this.eventManager.getLazyEmitter('hintclose');
 
   /**
    * Opening a hint on a map.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/Clusterer.html#event_detail__event-hintopen}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/Clusterer.html#event_detail__event-hintopen}
    */
   @Output() hintopen: Observable<YaEvent<ymaps.Clusterer>> =
     this.eventManager.getLazyEmitter('hintopen');
 
   /**
    * Map reference changed.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/IParentOnMap.html#event_detail__event-mapchange}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/IParentOnMap.html#event_detail__event-mapchange}
    */
   @Output() mapchange: Observable<YaEvent<ymaps.Clusterer>> =
     this.eventManager.getLazyEmitter('mapchange');
 
   /**
    * Change to the object options.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/ICustomizable.html#event_detail__event-optionschange}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/ICustomizable.html#event_detail__event-optionschange}
    */
   @Output() optionschange: Observable<YaEvent<ymaps.Clusterer>> =
     this.eventManager.getLazyEmitter('optionschange');
 
   /**
    * The parent object reference changed.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/IChild.html#event_detail__event-parentchange}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/IChild.html#event_detail__event-parentchange}
    */
   @Output() parentchange: Observable<YaEvent<ymaps.Clusterer>> =
     this.eventManager.getLazyEmitter('parentchange');

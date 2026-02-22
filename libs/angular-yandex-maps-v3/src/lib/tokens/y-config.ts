@@ -14,7 +14,7 @@ export const Y_CONFIG = new InjectionToken<YConfig | Observable<YConfig>>('Y_CON
 // TODO: convert provideYConfig to a function + create an issue in compodoc about rawdescription.
 
 /**
- * Provides a Y_CONFIG token with the given configuration.
+ * Provides a `Y_CONFIG` token with the given configuration.
  *
  * ```ts
  * import { provideYConfig, YConfig } from 'angular-yandex-maps-v3';

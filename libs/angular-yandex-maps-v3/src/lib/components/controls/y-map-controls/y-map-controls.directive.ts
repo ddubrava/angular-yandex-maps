@@ -8,7 +8,7 @@ import type { YReadyEvent } from '../../../types/y-ready-event';
 import { YMapComponent } from '../../common/y-map/y-map.component';
 
 /**
- * This component wraps the [ymaps3.YMapControls](https://yandex.ru/dev/jsapi30/doc/ru/ref/#class-ymapcontrols) class from the Yandex.Maps API.
+ * This component wraps the [ymaps3.YMapControls](https://yandex.com/maps-api/docs/js-api/object/controls/YMapControls.html) class from the Yandex.Maps API.
  * All component inputs are named the same as the API class constructor arguments.
  *
  * ```html
@@ -41,7 +41,7 @@ export class YMapControlsDirective implements OnInit, OnChanges, OnDestroy {
 
   /**
    * Controls properties. Supports ngOnChanges.
-   * {@link https://yandex.ru/dev/jsapi30/doc/ru/ref/#YMapControlsProps}
+   * {@link https://yandex.com/maps-api/docs/js-api/object/controls/YMapControls.html#props}
    */
   @Input({ required: true }) props!: YMapControlsProps;
 

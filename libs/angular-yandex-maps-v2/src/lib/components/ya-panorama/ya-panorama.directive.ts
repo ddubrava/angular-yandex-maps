@@ -35,19 +35,19 @@ export class YaPanoramaDirective implements OnInit, OnChanges, OnDestroy {
 
   /**
    * The point for searching for nearby panoramas.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/panorama.locate.html#panorama.locate__param-point}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/panorama.locate.html#panorama.locate__param-point}
    */
   @Input() point: number[] = [];
 
   /**
    * The layer to search for panoramas.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/panorama.locate.html#panorama.locate__param-options.layer}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/panorama.locate.html#panorama.locate__param-options.layer}
    */
   @Input() layer?: ymaps.panorama.Layer;
 
   /**
    * Player options.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/panorama.Player.html#panorama.Player__param-options}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/panorama.Player.html#panorama.Player__param-options}
    */
   @Input() options?: ymaps.panorama.IPlayerOptions;
 
@@ -60,77 +60,77 @@ export class YaPanoramaDirective implements OnInit, OnChanges, OnDestroy {
 
   /**
    * The player was closed by the user or destroyed using the panorama.Player.destroy method.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/panorama.Player.html#event_detail__event-destroy}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/panorama.Player.html#event_detail__event-destroy}
    */
   @Output() destroy: Observable<YaEvent<ymaps.panorama.Player>> =
     this.eventManager.getLazyEmitter('destroy');
 
   /**
    * The view direction changed.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/panorama.Player.html#event_detail__event-directionchange}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/panorama.Player.html#event_detail__event-directionchange}
    */
   @Output() directionchange: Observable<YaEvent<ymaps.panorama.Player>> =
     this.eventManager.getLazyEmitter('directionchange');
 
   /**
    * An error occurred during operation of the player. The user will be shown the appropriate screen.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/panorama.Player.html#event_detail__event-error}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/panorama.Player.html#event_detail__event-error}
    */
   @Output() yaerror: Observable<YaEvent<ymaps.panorama.Player>> =
     this.eventManager.getLazyEmitter('error');
 
   /**
    * The panorama player switched to full-screen mode.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/panorama.Player.html#event_detail__event-fullscreenenter}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/panorama.Player.html#event_detail__event-fullscreenenter}
    */
   @Output() fullscreenenter: Observable<YaEvent<ymaps.panorama.Player>> =
     this.eventManager.getLazyEmitter('fullscreenenter');
 
   /**
    * The panorama player exited full-screen mode.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/panorama.Player.html#event_detail__event-fullscreenexit}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/panorama.Player.html#event_detail__event-fullscreenexit}
    */
   @Output() fullscreenexit: Observable<YaEvent<ymaps.panorama.Player>> =
     this.eventManager.getLazyEmitter('fullscreenexit');
 
   /**
    * The user clicked on an expanded marker.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/panorama.Player.html#event_detail__event-markercollapse}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/panorama.Player.html#event_detail__event-markercollapse}
    */
   @Output() markercollapse: Observable<YaEvent<ymaps.panorama.Player>> =
     this.eventManager.getLazyEmitter('markercollapse');
 
   /**
    * The user clicked on a collapsed marker.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/panorama.Player.html#event_detail__event-markerexpand}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/panorama.Player.html#event_detail__event-markerexpand}
    */
   @Output() markerexpand: Observable<YaEvent<ymaps.panorama.Player>> =
     this.eventManager.getLazyEmitter('markerexpand');
 
   /**
    * The user's cursor hovered over a marker.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/panorama.Player.html#event_detail__event-markermouseenter}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/panorama.Player.html#event_detail__event-markermouseenter}
    */
   @Output() markermouseenter: Observable<YaEvent<ymaps.panorama.Player>> =
     this.eventManager.getLazyEmitter('markermouseenter');
 
   /**
    * The user's cursor left a marker.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/panorama.Player.html#event_detail__event-markermouseleave}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/panorama.Player.html#event_detail__event-markermouseleave}
    */
   @Output() markermouseleave: Observable<YaEvent<ymaps.panorama.Player>> =
     this.eventManager.getLazyEmitter('markermouseleave');
 
   /**
    * The open panorama changed.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/panorama.Player.html#event_detail__event-panoramachange}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/panorama.Player.html#event_detail__event-panoramachange}
    */
   @Output() panoramachange: Observable<YaEvent<ymaps.panorama.Player>> =
     this.eventManager.getLazyEmitter('panoramachange');
 
   /**
    * The size of the viewport has been changed.
-   * {@link https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/panorama.Player.html#event_detail__event-spanchange}
+   * {@link https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/panorama.Player.html#event_detail__event-spanchange}
    */
   @Output() spanchange: Observable<YaEvent<ymaps.panorama.Player>> =
     this.eventManager.getLazyEmitter('spanchange');
