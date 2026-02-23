@@ -1,7 +1,7 @@
 # YMapDefaultFeaturesLayerDirective
 
 
-This component wraps the [ymaps3.YMapDefaultFeaturesLayer](https://yandex.ru/dev/jsapi30/doc/ru/ref/#class-ymapdefaultfeatureslayer) class from the Yandex.Maps API.
+This component wraps the [ymaps3.YMapDefaultFeaturesLayer](https://yandex.com/maps-api/docs/js-api/object/layers/YMapDefaultFeaturesLayer.html) class from the Yandex.Maps API.
 All component inputs are named the same as the API class constructor arguments.
 
 ```html
@@ -21,10 +21,10 @@ All component inputs are named the same as the API class constructor arguments.
 
 
 ## Inputs
-| Name    | Description                                                                          | Type                          | API Reference                                                                                             |
-| ------- | ------------------------------------------------------------------------------------ | ----------------------------- | --------------------------------------------------------------------------------------------------------- |
-| options |   See the API entity documentation for detailed information.                         | ComplexOptions\<YMap\>        | —                                                                                                         |
-| props   |   See the API entity documentation for detailed information. Supports ngOnChanges.   | YMapDefaultFeaturesLayerProps | [#YMapDefaultFeaturesLayerProps](https://yandex.ru/dev/jsapi30/doc/ru/ref/#YMapDefaultFeaturesLayerProps) |
+| Name    | Description                                                                          | Type                          | API Reference                                                                                                                    |
+| ------- | ------------------------------------------------------------------------------------ | ----------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| options |   See the API entity documentation for detailed information.                         | ComplexOptions\<YMap\>        | —                                                                                                                                |
+| props   |   See the API entity documentation for detailed information. Supports ngOnChanges.   | YMapDefaultFeaturesLayerProps | [YMapDefaultFeaturesLayer.html#props](https://yandex.com/maps-api/docs/js-api/object/layers/YMapDefaultFeaturesLayer.html#props) |
 
 ## Outputs
 | Name  | Description                                                                 | Type                                                    | API Reference |

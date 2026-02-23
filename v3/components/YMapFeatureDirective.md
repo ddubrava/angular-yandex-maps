@@ -1,7 +1,7 @@
 # YMapFeatureDirective
 
 
-This component wraps the [ymaps3.YMapFeature](https://yandex.ru/dev/jsapi30/doc/en/ref/#class-ymapfeature) class from the Yandex.Maps API.
+This component wraps the [ymaps3.YMapFeature](https://yandex.com/maps-api/docs/js-api/object/geo-objects/YMapFeature.html) class from the Yandex.Maps API.
 All component inputs are named the same as the API class constructor arguments.
 
 ```html
@@ -42,9 +42,9 @@ All component inputs are named the same as the API class constructor arguments.
 
 
 ## Inputs
-| Name  | Description                                                                          | Type             | API Reference                                                                   |
-| ----- | ------------------------------------------------------------------------------------ | ---------------- | ------------------------------------------------------------------------------- |
-| props |   See the API entity documentation for detailed information. Supports ngOnChanges.   | YMapFeatureProps | [#YMapFeatureProps](https://yandex.ru/dev/jsapi30/doc/en/ref/#YMapFeatureProps) |
+| Name  | Description                                                                          | Type             | API Reference                                                                                               |
+| ----- | ------------------------------------------------------------------------------------ | ---------------- | ----------------------------------------------------------------------------------------------------------- |
+| props |   See the API entity documentation for detailed information. Supports ngOnChanges.   | YMapFeatureProps | [YMapFeature.html#props](https://yandex.com/maps-api/docs/js-api/object/geo-objects/YMapFeature.html#props) |
 
 ## Outputs
 | Name  | Description                                                                 | Type                                       | API Reference |

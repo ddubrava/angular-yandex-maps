@@ -1,7 +1,7 @@
 # YMapFeatureDataSourceDirective
 
 
-This component wraps the [ymaps3.YMapFeatureDataSource](https://yandex.ru/dev/jsapi30/doc/ru/ref/#class-ymapfeaturedatasource) class from the Yandex.Maps API.
+This component wraps the [ymaps3.YMapFeatureDataSource](https://yandex.com/maps-api/docs/js-api/object/data-source/YMapFeatureDataSource.html) class from the Yandex.Maps API.
 All component inputs are named the same as the API class constructor arguments.
 
 ```html
@@ -21,9 +21,9 @@ All component inputs are named the same as the API class constructor arguments.
 
 
 ## Inputs
-| Name  | Description                                                                          | Type                       | API Reference                                                                                       |
-| ----- | ------------------------------------------------------------------------------------ | -------------------------- | --------------------------------------------------------------------------------------------------- |
-| props |   See the API entity documentation for detailed information. Supports ngOnChanges.   | YMapFeatureDataSourceProps | [#YMapFeatureDataSourceProps](https://yandex.ru/dev/jsapi30/doc/ru/ref/#YMapFeatureDataSourceProps) |
+| Name  | Description                                                                          | Type                       | API Reference                                                                                                                   |
+| ----- | ------------------------------------------------------------------------------------ | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| props |   See the API entity documentation for detailed information. Supports ngOnChanges.   | YMapFeatureDataSourceProps | [YMapFeatureDataSource.html#props](https://yandex.com/maps-api/docs/js-api/object/data-source/YMapFeatureDataSource.html#props) |
 
 ## Outputs
 | Name  | Description                                                                 | Type                                                 | API Reference |

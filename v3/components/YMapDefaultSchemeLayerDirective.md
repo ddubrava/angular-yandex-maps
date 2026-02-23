@@ -1,7 +1,7 @@
 # YMapDefaultSchemeLayerDirective
 
 
-This component wraps the [ymaps3.YMapDefaultSchemeLayer](https://yandex.ru/dev/jsapi30/doc/ru/ref/#class-ymapdefaultschemelayer) class from the Yandex.Maps API.
+This component wraps the [ymaps3.YMapDefaultSchemeLayer](https://yandex.com/maps-api/docs/js-api/object/layers/YMapDefaultSchemeLayer.html) class from the Yandex.Maps API.
 All component inputs are named the same as the API class constructor arguments.
 
 ```html
@@ -21,10 +21,10 @@ All component inputs are named the same as the API class constructor arguments.
 
 
 ## Inputs
-| Name    | Description                                                                          | Type                        | API Reference                                                                                         |
-| ------- | ------------------------------------------------------------------------------------ | --------------------------- | ----------------------------------------------------------------------------------------------------- |
-| options |   See the API entity documentation for detailed information.                         | ComplexOptions\<YMap\>      | —                                                                                                     |
-| props   |   See the API entity documentation for detailed information. Supports ngOnChanges.   | YMapDefaultSchemeLayerProps | [#YMapDefaultSchemeLayerProps](https://yandex.ru/dev/jsapi30/doc/ru/ref/#YMapDefaultSchemeLayerProps) |
+| Name    | Description                                                                          | Type                        | API Reference                                                                                                                |
+| ------- | ------------------------------------------------------------------------------------ | --------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| options |   See the API entity documentation for detailed information.                         | ComplexOptions\<YMap\>      | —                                                                                                                            |
+| props   |   See the API entity documentation for detailed information. Supports ngOnChanges.   | YMapDefaultSchemeLayerProps | [YMapDefaultSchemeLayer.html#props](https://yandex.com/maps-api/docs/js-api/object/layers/YMapDefaultSchemeLayer.html#props) |
 
 ## Outputs
 | Name  | Description                                                                 | Type                                                  | API Reference |

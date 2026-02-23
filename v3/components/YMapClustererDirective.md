@@ -1,7 +1,7 @@
 # YMapClustererDirective
 
 
-This component wraps the [ymaps3.YMapClusterer](https://yandex.ru/dev/jsapi30/doc/ru/ref/packages/clusterer/#class-ymapclusterer) class from the Yandex.Maps API.
+This component wraps the [ymaps3.YMapClusterer](https://yandex.com/maps-api/docs/js-api/object/markers/YMapClusterer.html) class from the Yandex.Maps API.
 All component inputs are named the same as the API class constructor arguments.
 This component is from the `@yandex/ymaps3-clusterer@0.0.1` package, which is asynchronously loaded when you use this component.
 
@@ -66,9 +66,9 @@ The clustering method is `clusterByGrid({ gridSize: 64 })` by default, but you c
 
 
 ## Inputs
-| Name  | Description                                                                                                             | Type                                                                | API Reference                                                                                          |
-| ----- | ----------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| props |   Read the component description and see the API entity documentation for detailed information. Supports ngOnChanges.   | Optional\<YMapClustererProps \| "marker" \| "cluster" \| "method"\> | [#YMapClustererProps](https://yandex.ru/dev/jsapi30/doc/ru/ref/packages/clusterer/#YMapClustererProps) |
+| Name  | Description                                                                                                             | Type                                                                | API Reference                                                                                               |
+| ----- | ----------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| props |   Read the component description and see the API entity documentation for detailed information. Supports ngOnChanges.   | Optional\<YMapClustererProps \| "marker" \| "cluster" \| "method"\> | [YMapClusterer.html#props](https://yandex.com/maps-api/docs/js-api/object/markers/YMapClusterer.html#props) |
 
 ## Outputs
 | Name  | Description                                                                 | Type                                         | API Reference |

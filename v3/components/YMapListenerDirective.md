@@ -1,7 +1,7 @@
 # YMapListenerDirective
 
 
-This component wraps the [ymaps3.YMapListener](https://yandex.ru/dev/jsapi30/doc/en/ref/#class-ymaplistener) class from the Yandex.Maps API.
+This component wraps the [ymaps3.YMapListener](https://yandex.com/maps-api/docs/js-api/object/events/YMapListener.html) class from the Yandex.Maps API.
 All component inputs are named the same as the API class constructor arguments.
 
 ```html
@@ -27,9 +27,9 @@ All component inputs are named the same as the API class constructor arguments.
 
 
 ## Inputs
-| Name  | Description                                                                          | Type              | API Reference                                                                     |
-| ----- | ------------------------------------------------------------------------------------ | ----------------- | --------------------------------------------------------------------------------- |
-| props |   See the API entity documentation for detailed information. Supports ngOnChanges.   | YMapListenerProps | [#YMapListenerProps](https://yandex.ru/dev/jsapi30/doc/en/ref/#YMapListenerProps) |
+| Name  | Description                                                                          | Type              | API Reference                                                                                            |
+| ----- | ------------------------------------------------------------------------------------ | ----------------- | -------------------------------------------------------------------------------------------------------- |
+| props |   See the API entity documentation for detailed information. Supports ngOnChanges.   | YMapListenerProps | [YMapListener.html#props](https://yandex.com/maps-api/docs/js-api/object/events/YMapListener.html#props) |
 
 ## Outputs
 | Name  | Description                                                                 | Type                                        | API Reference |

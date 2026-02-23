@@ -1,5 +1,5 @@
 # provideYConfig
-Provides a Y_CONFIG token with the given configuration.
+Provides a `Y_CONFIG` token with the given configuration.
 
 ```ts
 import { provideYConfig, YConfig } from 'angular-yandex-maps-v3';

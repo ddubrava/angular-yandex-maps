@@ -4,7 +4,7 @@
 
 The Yandex.Maps components implement all the arguments for their respective classes from the Yandex.Maps JavaScript API
 through inputs, but they also have specific inputs for some of the most common options. For example,
-the [Map class](https://yandex.com/dev/maps/jsapi/doc/2.1/ref/reference/Map.html) has state and options.
+the [Map class](https://yandex.com/dev/jsapi-v2-1/doc/en/v2-1/ref/reference/Map.html) has state and options.
 
 ```html
 <ya-map [state]="state" [options]="options"></ya-map>
@@ -36,7 +36,7 @@ should be set in the options input.
 
 The Yandex.Maps components implement all the events for their respective classes from the Yandex.Maps JavaScript API
 through outputs. All these events run in an Angular zone. For example, to add the listener on the `balloonclose` event
-from [Map class](https://yandex.ru/dev/maps/jsapi/doc/2.1/ref/reference/Map.html#Map__events-summary).
+from [Map class](https://yandex.com/dev/jsapi-v2-1/doc/ru/v2-1/ref/reference/Map#Map__events-summary).
 
 ```html
 <ya-map (balloonclose)="onBalloonClose($event)"></ya-map>

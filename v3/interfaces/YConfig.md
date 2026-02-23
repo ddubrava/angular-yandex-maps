@@ -2,7 +2,7 @@
 
 
 API loading parameters.
-See https://yandex.ru/dev/jsapi30/doc/en/dg/concepts/load#params
+See https://yandex.com/maps-api/docs/js-api/dg/concepts/load.html#params
 
 
 ```ts

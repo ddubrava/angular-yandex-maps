@@ -1,7 +1,7 @@
 # YMapScaleControlDirective
 
 
-This component wraps the [ymaps3.YMapScaleControl](https://yandex.ru/dev/jsapi30/doc/ru/ref/#class-ymapscalecontrol) class from the Yandex.Maps API.
+This component wraps the [ymaps3.YMapScaleControl](https://yandex.com/maps-api/docs/js-api/object/controls/YMapScaleControl.html) class from the Yandex.Maps API.
 All component inputs are named the same as the API class constructor arguments. This component must be used inside a `y-map-controls` component.
 
 ```html
@@ -25,9 +25,9 @@ All component inputs are named the same as the API class constructor arguments. 
 
 
 ## Inputs
-| Name  | Description                                                                          | Type                  | API Reference                                                                             |
-| ----- | ------------------------------------------------------------------------------------ | --------------------- | ----------------------------------------------------------------------------------------- |
-| props |   See the API entity documentation for detailed information. Supports ngOnChanges.   | YMapScaleControlProps | [#YMapScaleControlProps](https://yandex.ru/dev/jsapi30/doc/ru/ref/#YMapScaleControlProps) |
+| Name  | Description                                                                          | Type                  | API Reference                                                                                                      |
+| ----- | ------------------------------------------------------------------------------------ | --------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| props |   See the API entity documentation for detailed information. Supports ngOnChanges.   | YMapScaleControlProps | [YMapScaleControl.html#props](https://yandex.com/maps-api/docs/js-api/object/controls/YMapScaleControl.html#props) |
 
 ## Outputs
 | Name  | Description                                                                 | Type                                            | API Reference |

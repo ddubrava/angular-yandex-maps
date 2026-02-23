@@ -1,7 +1,7 @@
 # YMapLayerDirective
 
 
-This component wraps the [ymaps3.YMapLayer](https://yandex.ru/dev/jsapi30/doc/ru/ref/#class-ymaplayer) class from the Yandex.Maps API.
+This component wraps the [ymaps3.YMapLayer](https://yandex.com/maps-api/docs/js-api/object/layers/YMapLayer.html) class from the Yandex.Maps API.
 All component inputs are named the same as the API class constructor arguments.
 
 ```html
@@ -28,9 +28,9 @@ All component inputs are named the same as the API class constructor arguments.
 
 
 ## Inputs
-| Name  | Description                                                                          | Type           | API Reference                                                               |
-| ----- | ------------------------------------------------------------------------------------ | -------------- | --------------------------------------------------------------------------- |
-| props |   See the API entity documentation for detailed information. Supports ngOnChanges.   | YMapLayerProps | [#YMapLayerProps](https://yandex.ru/dev/jsapi30/doc/ru/ref/#YMapLayerProps) |
+| Name  | Description                                                                          | Type           | API Reference                                                                                      |
+| ----- | ------------------------------------------------------------------------------------ | -------------- | -------------------------------------------------------------------------------------------------- |
+| props |   See the API entity documentation for detailed information. Supports ngOnChanges.   | YMapLayerProps | [YMapLayer.html#props](https://yandex.com/maps-api/docs/js-api/object/layers/YMapLayer.html#props) |
 
 ## Outputs
 | Name  | Description                                                                 | Type                                     | API Reference |

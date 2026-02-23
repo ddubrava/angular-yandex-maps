@@ -1,7 +1,7 @@
 # YMapControlCommonButtonDirective
 
 
-This component wraps the [ymaps3.YMapControlCommonButton](https://yandex.ru/dev/jsapi30/doc/ru/ref/#class-ymapcontrolcommonbutton) class from the Yandex.Maps API.
+This component wraps the [ymaps3.YMapControlCommonButton](https://yandex.com/maps-api/docs/js-api/ref/index.html#class-ymapcontrolcommonbutton) class from the Yandex.Maps API.
 All component inputs are named the same as the API class constructor arguments. This component must be used inside a `y-map-controls` component.
 
 ```html
@@ -25,10 +25,10 @@ All component inputs are named the same as the API class constructor arguments. 
 
 
 ## Inputs
-| Name    | Description                                                   | Type                         | API Reference                                                                                           |
-| ------- | ------------------------------------------------------------- | ---------------------------- | ------------------------------------------------------------------------------------------------------- |
-| options |   See the API entity documentation for detailed information.  | ComplexOptions\<YMap\>       | —                                                                                                       |
-| props   |   Button properties. Supports ngOnChanges.                    | YMapControlCommonButtonProps | [#YMapControlCommonButtonProps](https://yandex.ru/dev/jsapi30/doc/ru/ref/#YMapControlCommonButtonProps) |
+| Name    | Description                                                   | Type                         | API Reference                                                                                                                  |
+| ------- | ------------------------------------------------------------- | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| options |   See the API entity documentation for detailed information.  | ComplexOptions\<YMap\>       | —                                                                                                                              |
+| props   |   Button properties. Supports ngOnChanges.                    | YMapControlCommonButtonProps | [index.html#YMapControlCommonButtonProps](https://yandex.com/maps-api/docs/js-api/ref/index.html#YMapControlCommonButtonProps) |
 
 ## Outputs
 | Name  | Description                                                                 | Type                                                   | API Reference |

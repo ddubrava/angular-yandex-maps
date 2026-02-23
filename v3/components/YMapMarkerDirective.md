@@ -1,7 +1,7 @@
 # YMapMarkerDirective
 
 
-This component wraps the [ymaps3.YMapMarker](https://yandex.ru/dev/jsapi30/doc/en/ref/#class-ymapmarker) class from the Yandex.Maps API.
+This component wraps the [ymaps3.YMapMarker](https://yandex.com/maps-api/docs/js-api/object/markers/YMapMarker.html) class from the Yandex.Maps API.
 All component inputs are named the same as the API class constructor arguments. `YMapMarker['element']` can only be projected, see the example below.
 
 ```html
@@ -37,9 +37,9 @@ All component inputs are named the same as the API class constructor arguments. 
 
 
 ## Inputs
-| Name  | Description                                                                          | Type            | API Reference                                                                 |
-| ----- | ------------------------------------------------------------------------------------ | --------------- | ----------------------------------------------------------------------------- |
-| props |   See the API entity documentation for detailed information. Supports ngOnChanges.   | YMapMarkerProps | [#YMapMarkerProps](https://yandex.ru/dev/jsapi30/doc/ru/ref/#YMapMarkerProps) |
+| Name  | Description                                                                          | Type            | API Reference                                                                                         |
+| ----- | ------------------------------------------------------------------------------------ | --------------- | ----------------------------------------------------------------------------------------------------- |
+| props |   See the API entity documentation for detailed information. Supports ngOnChanges.   | YMapMarkerProps | [YMapMarker.html#props](https://yandex.com/maps-api/docs/js-api/object/markers/YMapMarker.html#props) |
 
 ## Outputs
 | Name  | Description                                                                 | Type                                      | API Reference |

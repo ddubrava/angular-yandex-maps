@@ -1,7 +1,7 @@
 # YMapGeolocationControlDirective
 
 
-This component wraps the [ymaps3.YMapGeolocationControl](https://yandex.ru/dev/jsapi30/doc/ru/ref/packages/controls/#class-ymapgeolocationcontrol) class from the Yandex.Maps API.
+This component wraps the [ymaps3.YMapGeolocationControl](https://yandex.com/maps-api/docs/js-api/object/controls/YMapGeolocationControl.html) class from the Yandex.Maps API.
 All component inputs are named the same as the API class constructor arguments. This component must be used inside a `y-map-controls` component.
 This component is from the `@yandex/ymaps3-controls@0.0.1` package, which is asynchronously loaded when you use this component.
 
@@ -26,9 +26,9 @@ This component is from the `@yandex/ymaps3-controls@0.0.1` package, which is asy
 
 
 ## Inputs
-| Name  | Description                                                                          | Type                        | API Reference                                                                                                           |
-| ----- | ------------------------------------------------------------------------------------ | --------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| props |   See the API entity documentation for detailed information. Supports ngOnChanges.   | YMapGeolocationControlProps | [#YMapGeolocationControlProps](https://yandex.ru/dev/jsapi30/doc/ru/ref/packages/controls/#YMapGeolocationControlProps) |
+| Name  | Description                                                                          | Type                        | API Reference                                                                                                                  |
+| ----- | ------------------------------------------------------------------------------------ | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| props |   See the API entity documentation for detailed information. Supports ngOnChanges.   | YMapGeolocationControlProps | [YMapGeolocationControl.html#props](https://yandex.com/maps-api/docs/js-api/object/controls/YMapGeolocationControl.html#props) |
 
 ## Outputs
 | Name  | Description                                                                 | Type                                                  | API Reference |

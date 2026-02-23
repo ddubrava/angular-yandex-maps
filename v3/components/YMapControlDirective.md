@@ -1,7 +1,7 @@
 # YMapControlDirective
 
 
-This component wraps the [ymaps3.YMapControl](https://yandex.ru/dev/jsapi30/doc/ru/ref/#class-ymapcontrol) class from the Yandex.Maps API.
+This component wraps the [ymaps3.YMapControl](https://yandex.com/maps-api/docs/js-api/object/controls/YMapControl.html) class from the Yandex.Maps API.
 All component inputs are named the same as the API class constructor arguments. This component must be used inside a `y-map-controls` component.
 Custom HTML can only be projected, see the example below.
 
@@ -28,9 +28,9 @@ Custom HTML can only be projected, see the example below.
 
 
 ## Inputs
-| Name  | Description                                                                          | Type             | API Reference                                                                   |
-| ----- | ------------------------------------------------------------------------------------ | ---------------- | ------------------------------------------------------------------------------- |
-| props |   See the API entity documentation for detailed information. Supports ngOnChanges.   | YMapControlProps | [#YMapControlProps](https://yandex.ru/dev/jsapi30/doc/ru/ref/#YMapControlProps) |
+| Name  | Description                                                                          | Type             | API Reference                                                                                            |
+| ----- | ------------------------------------------------------------------------------------ | ---------------- | -------------------------------------------------------------------------------------------------------- |
+| props |   See the API entity documentation for detailed information. Supports ngOnChanges.   | YMapControlProps | [YMapControl.html#props](https://yandex.com/maps-api/docs/js-api/object/controls/YMapControl.html#props) |
 
 ## Outputs
 | Name  | Description                                                                 | Type                                       | API Reference |

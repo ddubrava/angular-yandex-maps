@@ -1,12 +1,12 @@
 # YMapHintDirective
 
 
-This component wraps the [ymaps3.YMapHint](https://yandex.ru/dev/jsapi30/doc/ru/ref/packages/hint/#class-ymaphint) class from the Yandex.Maps API.
+This component wraps the [ymaps3.YMapHint](https://yandex.com/maps-api/docs/js-api/object/geo-objects/YMapHint.html) class from the Yandex.Maps API.
 All component inputs are named the same as the API class constructor arguments.
 This component is from the `@yandex/ymaps3-hint@0.0.1` package, which is asynchronously loaded when you use this component.
 
 The API of this component is complicated, but it's very close to what the official React wrapper suggests.
-We strongly recommend reading and understanding the [official React example](https://yandex.ru/dev/jsapi30/doc/ru/examples/cases/hints) for this component.
+We strongly recommend reading and understanding the [official React example](https://yandex.com/maps-api/docs/js-api/examples/cases/hints.html) for this component.
 
 In a nutshell, each entity (YMapFeature, YMapMarker, YMapHotspot) has a `properties` property, which is `Record<string, unknown>`.
 When you define these components, you can pass any metadata to this property, which you can later access using `YMapHintProps['hint']`.
@@ -59,9 +59,9 @@ What you return from `YMapHintProps['hint']` will be available in `<ng-template 
 
 
 ## Inputs
-| Name  | Description                                                                          | Type          | API Reference                                                                           |
-| ----- | ------------------------------------------------------------------------------------ | ------------- | --------------------------------------------------------------------------------------- |
-| props |   See the API entity documentation for detailed information. Supports ngOnChanges.   | YMapHintProps | [#YMapHintProps](https://yandex.ru/dev/jsapi30/doc/ru/ref/packages/hint/#YMapHintProps) |
+| Name  | Description                                                                          | Type          | API Reference                                                                                         |
+| ----- | ------------------------------------------------------------------------------------ | ------------- | ----------------------------------------------------------------------------------------------------- |
+| props |   See the API entity documentation for detailed information. Supports ngOnChanges.   | YMapHintProps | [YMapHint.html#props](https://yandex.com/maps-api/docs/js-api/object/geo-objects/YMapHint.html#props) |
 
 ## Outputs
 | Name  | Description                                                                 | Type                                    | API Reference |
