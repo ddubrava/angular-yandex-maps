@@ -12,6 +12,7 @@
     - [YMapHintDirective](v3/components/YMapHintDirective)
     - [YMapListenerDirective](v3/components/YMapListenerDirective)
     - [YMapMarkerDirective](v3/components/YMapMarkerDirective)
+    - [YMapTileDataSourceDirective](v3/components/YMapTileDataSourceDirective)
   - **controls**
     - [YMapControlButtonDirective](v3/components/YMapControlButtonDirective)
     - [YMapControlCommonButtonDirective](v3/components/YMapControlCommonButtonDirective)
