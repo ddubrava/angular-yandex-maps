@@ -11,6 +11,7 @@ export * from './lib/components/common/y-map-feature-data-source/y-map-feature-d
 export * from './lib/components/common/y-map-hint/y-map-hint.directive';
 export * from './lib/components/common/y-map-listener/y-map-listener.directive';
 export * from './lib/components/common/y-map-marker/y-map-marker.directive';
+export * from './lib/components/common/y-map-tile-data-source/y-map-tile-data-source.directive';
 export * from './lib/components/controls/y-map-control/y-map-control.directive';
 export * from './lib/components/controls/y-map-control-button/y-map-control-button.directive';
 export * from './lib/components/controls/y-map-control-common-button/y-map-control-common-button.directive';
