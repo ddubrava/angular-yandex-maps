@@ -25,7 +25,7 @@ import { YMapComponent } from '../y-map/y-map.component';
  *       id: 'urlSource',
  *       raster: {
  *         type: 'tiles',
- *         fetchTile: 'https://sitename.com/?x=x&y=y&z=z&scale=scale',
+ *         fetchTile: 'https://sitename.com/?x={{x}}&y={{y}}&z={{z}}&scale={{scale}}',
  *       },
  *     }"
  *   />
