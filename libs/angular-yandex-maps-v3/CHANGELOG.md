@@ -1,3 +1,9 @@
+## 21.1.0 (2026-05-25)
+
+### 🚀 Features
+
+- support YMapTileDataSource ([#286](https://github.com/ddubrava/angular-yandex-maps/pull/286))
+
 # 21.0.0 (2025-12-21)
 
 ### 🚀 Features
