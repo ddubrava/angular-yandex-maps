@@ -23,7 +23,7 @@
   "sideEffects": false,
   "peerDependencies": {
     "@yandex/ymaps3-types": "*",
-    "@angular/common": ">=20.0.0 <22.0.0",
-    "@angular/core": ">=20.0.0 <22.0.0"
+    "@angular/common": ">=21.0.0 <23.0.0",
+    "@angular/core": ">=21.0.0 <23.0.0"
   }
 }
