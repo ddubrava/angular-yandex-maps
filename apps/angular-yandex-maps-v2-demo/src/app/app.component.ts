@@ -30,7 +30,8 @@ import { config$ } from './app.config';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
   // Do not enable OnPush, otherwise, we can't catch performance issues.
-  changeDetection: ChangeDetectionStrategy.Default,
+  // eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
+  changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class AppComponent implements DoCheck {
   coordinates = new Array(3000).fill(null).map(() => {
