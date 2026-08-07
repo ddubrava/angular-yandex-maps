@@ -1,3 +1,9 @@
+# 22.0.0 (2026-08-07)
+
+### 🚀 Features
+
+- update to Angular 22 ([#291](https://github.com/ddubrava/angular-yandex-maps/pull/291))
+
 ## 21.1.0 (2026-05-25)
 
 ### 🚀 Features
