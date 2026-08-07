@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import type { ComponentFixture } from '@angular/core/testing';
 import { TestBed } from '@angular/core/testing';
 import { BehaviorSubject } from 'rxjs';
@@ -10,6 +10,7 @@ import { YaObjectManagerDirective } from './ya-object-manager.directive';
 
 @Component({
   imports: [YaObjectManagerDirective],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <ya-object-manager
       [options]="options"

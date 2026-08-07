@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import type { ComponentFixture } from '@angular/core/testing';
 import { TestBed } from '@angular/core/testing';
 import { BehaviorSubject } from 'rxjs';
@@ -19,6 +19,7 @@ import { YMapHintDirective } from './y-map-hint.directive';
 
 @Component({
   imports: [YMapHintDirective],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <y-map-hint [props]="props">
       <ng-template>Hello World</ng-template>

@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import type { ComponentFixture } from '@angular/core/testing';
 import { TestBed } from '@angular/core/testing';
 import type { YMapOpenMapsButtonProps } from '@yandex/ymaps3-types/modules/controls-extra';
@@ -15,6 +15,7 @@ import { YMapOpenMapsButtonDirective } from './y-map-open-maps-button.directive'
 
 @Component({
   imports: [YMapOpenMapsButtonDirective],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: '<y-map-open-maps-button [props]="props"  />',
 })
 class MockHostComponent {

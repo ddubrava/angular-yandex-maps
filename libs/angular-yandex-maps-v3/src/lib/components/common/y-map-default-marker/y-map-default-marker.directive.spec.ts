@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import type { ComponentFixture } from '@angular/core/testing';
 import { TestBed } from '@angular/core/testing';
 import type { YMapDefaultMarkerProps } from '@yandex/ymaps3-types/packages/markers';
@@ -16,6 +16,7 @@ import { YMapDefaultMarkerDirective } from './y-map-default-marker.directive';
 
 @Component({
   imports: [YMapDefaultMarkerDirective],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: '<y-map-default-marker [props]="props" />',
 })
 class MockHostComponent {

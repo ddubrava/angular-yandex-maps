@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import type { ComponentFixture } from '@angular/core/testing';
 import { TestBed } from '@angular/core/testing';
 import type { YMapClustererProps } from '@yandex/ymaps3-types/packages/clusterer';
@@ -19,6 +19,7 @@ type OptionalYMapClustererProps = Optional<YMapClustererProps, 'marker' | 'clust
 
 @Component({
   imports: [YMapClustererDirective],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <y-map-clusterer [props]="props">
       <ng-template #marker />

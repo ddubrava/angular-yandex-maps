@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import type { ComponentFixture } from '@angular/core/testing';
 import { TestBed } from '@angular/core/testing';
 import type { YMap } from '@yandex/ymaps3-types';
@@ -17,6 +17,7 @@ import { YMapZoomControlDirective } from './y-map-zoom-control.directive';
 
 @Component({
   imports: [YMapZoomControlDirective],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: '<y-map-zoom-control-button [props]="props" [options]="options" />',
 })
 class MockHostComponent {

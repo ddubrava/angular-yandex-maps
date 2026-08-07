@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import type { ComponentFixture } from '@angular/core/testing';
 import { TestBed } from '@angular/core/testing';
 import { BehaviorSubject } from 'rxjs';
@@ -11,6 +11,7 @@ import { YaControlDirective } from './ya-control.directive';
 
 @Component({
   imports: [YaControlDirective],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: '<ya-control [type]="type" [parameters]="parameters" />',
 })
 class MockHostComponent {

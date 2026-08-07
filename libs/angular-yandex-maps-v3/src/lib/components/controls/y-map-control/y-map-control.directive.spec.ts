@@ -1,5 +1,5 @@
 import type { ElementRef } from '@angular/core';
-import { Component, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import type { ComponentFixture } from '@angular/core/testing';
 import { TestBed } from '@angular/core/testing';
 import type { YMapControlProps } from '@yandex/ymaps3-types/imperative/YMapControl';
@@ -18,6 +18,7 @@ import { YMapControlDirective } from './y-map-control.directive';
 
 @Component({
   imports: [YMapControlDirective],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: '<y-map-control [props]="props"><div #element></div></y-map-control>',
 })
 class MockHostComponent {

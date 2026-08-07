@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import type { ComponentFixture } from '@angular/core/testing';
 import { TestBed } from '@angular/core/testing';
 import type { YMapTileDataSourceProps } from '@yandex/ymaps3-types';
@@ -15,6 +15,7 @@ import { YMapTileDataSourceDirective } from './y-map-tile-data-source.directive'
 
 @Component({
   imports: [YMapTileDataSourceDirective],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: '<y-map-tile-data-source [props]="props" />',
 })
 class MockHostComponent {
