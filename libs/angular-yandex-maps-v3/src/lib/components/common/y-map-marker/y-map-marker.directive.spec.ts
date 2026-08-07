@@ -1,5 +1,5 @@
 import type { ElementRef } from '@angular/core';
-import { Component, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import type { ComponentFixture } from '@angular/core/testing';
 import { TestBed } from '@angular/core/testing';
 import type { YMapMarkerProps } from '@yandex/ymaps3-types';
@@ -16,6 +16,7 @@ import { YMapMarkerDirective } from './y-map-marker.directive';
 
 @Component({
   imports: [YMapMarkerDirective],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: '<y-map-marker [props]="props"><div #element></div></y-map-marker>',
 })
 class MockHostComponent {

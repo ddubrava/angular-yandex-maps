@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import type { ComponentFixture } from '@angular/core/testing';
 import { TestBed } from '@angular/core/testing';
 import type { YMapGeolocationControlProps } from '@yandex/ymaps3-types/packages/controls';
@@ -15,6 +15,7 @@ import { YMapGeolocationControlDirective } from './y-map-geolocation-control.dir
 
 @Component({
   imports: [YMapGeolocationControlDirective],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: '<y-map-geolocation-control [props]="props" />',
 })
 class MockHostComponent {

@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import type { ComponentFixture } from '@angular/core/testing';
 import { TestBed } from '@angular/core/testing';
 import type { YMapControlsProps, YMapEntity } from '@yandex/ymaps3-types';
@@ -15,6 +15,7 @@ import { YMapControlsDirective } from './y-map-controls.directive';
 
 @Component({
   imports: [YMapControlsDirective],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: '<y-map-controls [props]="props" [children]="children" />',
 })
 class MockHostComponent {

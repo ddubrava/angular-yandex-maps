@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import type { ComponentFixture } from '@angular/core/testing';
 import { TestBed } from '@angular/core/testing';
 import type { YMapScaleControlProps } from '@yandex/ymaps3-types';
@@ -16,6 +16,7 @@ import { YMapScaleControlDirective } from './y-map-scale-control.directive';
 
 @Component({
   imports: [YMapScaleControlDirective],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: '<y-map-scale-control [props]="props" />',
 })
 class MockHostComponent {

@@ -1,4 +1,11 @@
 {
   "include": ["src/lib/**/*.ts"],
-  "exclude": ["src/lib/types/yandex-maps/index.ts"]
+  "exclude": ["src/lib/types/yandex-maps/index.ts"],
+  "compilerOptions": {
+    "strict": false,
+    "noUncheckedSideEffectImports": false,
+    "types": ["*"],
+    "esModuleInterop": false,
+    "ignoreDeprecations": "6.0"
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import type { ComponentFixture } from '@angular/core/testing';
 import { TestBed } from '@angular/core/testing';
 import type { YMapLayerProps } from '@yandex/ymaps3-types';
@@ -15,6 +15,7 @@ import { YMapLayerDirective } from './y-map-layer.directive';
 
 @Component({
   imports: [YMapLayerDirective],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: '<y-map-layer [props]="props"  />',
 })
 class MockHostComponent {

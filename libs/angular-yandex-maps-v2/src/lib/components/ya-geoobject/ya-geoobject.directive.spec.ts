@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import type { ComponentFixture } from '@angular/core/testing';
 import { TestBed } from '@angular/core/testing';
 import { BehaviorSubject } from 'rxjs';
@@ -14,6 +14,7 @@ import { YaGeoObjectDirective } from './ya-geoobject.directive';
 
 @Component({
   imports: [YaGeoObjectDirective],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <ya-geoobject
       [feature]="feature"

@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import type { ComponentFixture } from '@angular/core/testing';
 import { TestBed } from '@angular/core/testing';
 import { BehaviorSubject } from 'rxjs';
@@ -10,6 +10,7 @@ import { YaMultirouteDirective } from './ya-multiroute.directive';
 
 @Component({
   imports: [YaMultirouteDirective],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <ya-multiroute
       [referencePoints]="referencePoints"

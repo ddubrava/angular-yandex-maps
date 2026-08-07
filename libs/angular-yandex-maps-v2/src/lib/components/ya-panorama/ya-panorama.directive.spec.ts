@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import type { ComponentFixture } from '@angular/core/testing';
 import { TestBed } from '@angular/core/testing';
 import { BehaviorSubject } from 'rxjs';
@@ -15,6 +15,7 @@ import { YaPanoramaDirective } from './ya-panorama.directive';
 
 @Component({
   imports: [YaPanoramaDirective],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <ya-panorama
       [point]="point"

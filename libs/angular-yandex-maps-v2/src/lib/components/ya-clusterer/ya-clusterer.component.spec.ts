@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import type { ComponentFixture } from '@angular/core/testing';
 import { TestBed } from '@angular/core/testing';
 import { BehaviorSubject } from 'rxjs';
@@ -20,6 +20,7 @@ import { YaClustererComponent } from './ya-clusterer.component';
 
 @Component({
   imports: [YaClustererComponent, YaPlacemarkDirective, YaGeoObjectDirective],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <ya-clusterer
       [options]="options"
